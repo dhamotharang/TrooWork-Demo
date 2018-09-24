@@ -22,6 +22,8 @@ import { ResetPassWordComponent } from './control-and-view/people/reset-pass-wor
 import { ZoneViewComponent } from './control-and-view/inventory/zone-view/zone-view.component';
 import { ZoneEditComponent } from './control-and-view/inventory/zone-edit/zone-edit.component';
 import { ZoneCreateComponent } from './control-and-view/inventory/zone-create/zone-create.component';
+import { InspectionCreateComponent } from './control-and-view/inspection/inspection-create/inspection-create.component';
+
 
 
 const routes: Routes = [
@@ -82,7 +84,10 @@ const routes: Routes = [
     path: 'Createzone',
     component: ZoneCreateComponent
   }
-
+,{
+  path: 'InspectionCreate',
+  component: InspectionCreateComponent
+}
 ];
 
 
