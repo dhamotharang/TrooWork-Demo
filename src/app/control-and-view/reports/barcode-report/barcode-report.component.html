@@ -1,0 +1,106 @@
+<app-manager-dash-board></app-manager-dash-board>
+<br><br>
+
+<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <!-- <div class="container"> -->
+    <div class="row bg-info col-md-12">
+      <h1 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Reports 
+        on Barcode</h1>
+       
+        
+
+        <div class="col-md-6">
+          
+          <!-- <form class="" method="post" action="https://formspree.io/"> -->
+          <div class="form-group">
+            <label>Building*</label><br>
+           
+          
+            <!-- <select name="building" style="width: 80%; background-color: #d4f4ff;">
+              <option value="">--Select--</option>
+              <option value="">A1</option>
+              <option value="">A2</option>
+            </select> -->
+
+            <select  name="building" style="width: 80%; background-color: #d4f4ff;" [(ngModel)]="FacilityKey">
+                <option >--Select--</option>
+                
+                <option *ngFor="let f of facilitylist" [value]="f.FacilityKey">
+                    {{f.FacilityText}}
+                  </option>
+            </select>
+          
+         
+          </div>
+          
+
+
+        
+            <div class="form-group">
+              <label>Floor*</label><br>
+              <select [(ngModel)]="FacilityKey" name="Floor" style="width: 80%; background-color: #d4f4ff;"  (change)="getFloorDisp($event.target.value)" >
+                <option value="">--Select--</option>
+                <option *ngFor="let f of floor" [value]="f.FacilityKey">
+                  {{f.FloorName}}
+                </option>
+              </select>
+            </div>
+
+         
+              <div class="form-group">
+                <label>Zone</label><br>
+                <select name="zone" style="width: 80%; background-color: #d4f4ff;" disabled>
+                  <option value="">--Select--</option>
+                  <option value="">Z1</option>
+                  <option value="">z2</option>
+                </select>
+              </div>
+              
+
+              
+                <div class="form-group">
+                  <label>Room Type</label><br>
+                  <select name="rtype" style="width: 80%; background-color: #d4f4ff;" disabled>
+                    <option value="">--Select--</option>
+                    <option value="">r1</option>
+                    <option value="">r2</option>
+                  </select>
+                </div>
+ </div>      
+ 
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <label>Equipment Type</label><br>
+                <!-- <select name="etype" style="width: 80%; background-color: #d4f4ff;">
+                  <option value="">--Select--</option>
+                  <option value="">e1</option>
+                  <option value="">e2</option>
+                </select> -->
+
+                <select  name="etype" style="width: 80%; background-color: #d4f4ff;"  [(ngModel)]="EquipmentTypeKey">
+                    <option >--Select--</option>
+                    
+                    <option *ngFor="let f of equipmenttypelist" [value]="f.EquipmentTypeKey">
+                        {{f.EquipmentTypeText}}
+                    </option>
+                </select>
+              
+
+              </div>
+
+              <div class="form-group">
+                  <label>Equpiment</label><br>
+                   <select  name="equipment" style="width: 80%; background-color: #d4f4ff;"  [(ngModel)]="EquipmentKey">
+                      <option >--Select--</option>
+                       <option *ngFor="let f of equipment" [value]="f.EquipmentTypeKey">
+                          {{f.EquipmentName}}
+                      </option>
+                  </select>
+                
+  
+                </div>
+        </div>
+</div>
+</div>
+        

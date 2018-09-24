@@ -32,6 +32,8 @@ import { ZoneCreateComponent } from './control-and-view/inventory/zone-create/zo
 
 import { CreatebuildingService } from './service/createbuilding.service';
 
+import { BarcodeReportComponent } from './control-and-view/reports/barcode-report/barcode-report.component';
+
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { CreatebuildingService } from './service/createbuilding.service';
     ResetPassWordComponent,
     ZoneViewComponent,
     ZoneEditComponent,
-    ZoneCreateComponent
+    ZoneCreateComponent,
+
+    BarcodeReportComponent
   ],
   imports: [
     BrowserModule,
