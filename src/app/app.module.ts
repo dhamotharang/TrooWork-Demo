@@ -31,7 +31,8 @@ import { ZoneEditComponent } from './control-and-view/inventory/zone-edit/zone-e
 import { ZoneCreateComponent } from './control-and-view/inventory/zone-create/zone-create.component';
 
 import { CreatebuildingService } from './service/createbuilding.service';
-
+import { InspectionReportComponent } from './control-and-view/reports/inspection-report/inspection-report.component';
+import { IgxDatePickerModule } from 'igniteui-angular'; 
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { CreatebuildingService } from './service/createbuilding.service';
     ResetPassWordComponent,
     ZoneViewComponent,
     ZoneEditComponent,
-    ZoneCreateComponent
+    ZoneCreateComponent,
+    InspectionReportComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,9 @@ import { CreatebuildingService } from './service/createbuilding.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    IgxDatePickerModule 
+   
   ],
   providers: [CreatebuildingComponent, CreatebuildingService],
   bootstrap: [AppComponent],
