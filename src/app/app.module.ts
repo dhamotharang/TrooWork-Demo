@@ -25,15 +25,22 @@ import { FloorEditComponent } from './control-and-view/inventory/floor-edit/floo
 
 import { ManageLoginCredentialsComponent } from './control-and-view/people/manage-login-credentials/manage-login-credentials.component';
 import { ResetPassWordComponent } from './control-and-view/people/reset-pass-word/reset-pass-word.component';
-
+import { InspectiontemplateCreateComponent } from './control-and-view/inspection/inspectiontemplate-create/inspectiontemplate-create.component';
 import { ZoneViewComponent } from './control-and-view/inventory/zone-view/zone-view.component';
 import { ZoneEditComponent } from './control-and-view/inventory/zone-edit/zone-edit.component';
 import { ZoneCreateComponent } from './control-and-view/inventory/zone-create/zone-create.component';
-
+import { InspectionCreateComponent } from './control-and-view/inspection/inspection-create/inspection-create.component';
 import { CreatebuildingService } from './service/createbuilding.service';
 
+// import { InspectionReportComponent } from './control-and-view/reports/inspection-report/inspection-report.component';
+// import { IgxDatePickerModule } from 'igniteui-angular'; 
+import {CalendarModule} from 'primeng/calendar';
+import { Time } from '@angular/common';
+import { IgxDatePickerModule } from 'igniteui-angular';
+
 import { InspectionReportComponent } from './control-and-view/reports/inspection-report/inspection-report.component';
-import { IgxDatePickerModule } from 'igniteui-angular'; 
+
+
 
 import { BarcodeReportComponent } from './control-and-view/reports/barcode-report/barcode-report.component';
 
@@ -45,7 +52,7 @@ import { BarcodeReportComponent } from './control-and-view/reports/barcode-repor
     WelcomepageComponent,
     BuildingViewComponent,
     ManagerDashBoardComponent,
-    CreatebuildingComponent,
+    // CreatebuildingComponent,
     BuildingEditComponent,
     CreateEmployeeComponent,
     FloorViewComponent,
@@ -56,6 +63,8 @@ import { BarcodeReportComponent } from './control-and-view/reports/barcode-repor
     ZoneViewComponent,
     ZoneEditComponent,
     ZoneCreateComponent,
+    InspectionCreateComponent,
+    InspectiontemplateCreateComponent,
     InspectionReportComponent,
     BarcodeReportComponent
   ],
@@ -67,6 +76,7 @@ import { BarcodeReportComponent } from './control-and-view/reports/barcode-repor
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
+    CalendarModule,
     IgxDatePickerModule 
    
   ],
@@ -74,4 +84,6 @@ import { BarcodeReportComponent } from './control-and-view/reports/barcode-repor
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })
-export class AppModule { }
+export class AppModule {   
+  time:Time ; //for timepicker
+}

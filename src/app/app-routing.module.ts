@@ -18,11 +18,15 @@ import { FloorEditComponent } from './control-and-view/inventory/floor-edit/floo
 
 import { ManageLoginCredentialsComponent } from './control-and-view/people/manage-login-credentials/manage-login-credentials.component';
 import { ResetPassWordComponent } from './control-and-view/people/reset-pass-word/reset-pass-word.component';
-
+import { InspectiontemplateCreateComponent } from './control-and-view/inspection/inspectiontemplate-create/inspectiontemplate-create.component';
 import { ZoneViewComponent } from './control-and-view/inventory/zone-view/zone-view.component';
 import { ZoneEditComponent } from './control-and-view/inventory/zone-edit/zone-edit.component';
 import { ZoneCreateComponent } from './control-and-view/inventory/zone-create/zone-create.component';
+
+import { InspectionCreateComponent } from './control-and-view/inspection/inspection-create/inspection-create.component';
+
 import { InspectionReportComponent } from './control-and-view/reports/inspection-report/inspection-report.component';
+
 import { BarcodeReportComponent } from './control-and-view/reports/barcode-report/barcode-report.component';
 
 
@@ -61,7 +65,7 @@ const routes: Routes = [
     component: FloorCreateComponent
   },
   {
-    path: 'Flooredit/:Floor_Key',
+    path: 'Flooredit/:Floor_Key/:Facility_Key',
     component: FloorEditComponent
   },
   {
@@ -77,7 +81,7 @@ const routes: Routes = [
     component: ZoneViewComponent
   },
   {
-    path: 'Zonedit',
+    path: 'Zonedit/:Floor_Key/:Facility_Key/Zone_Key',
     component: ZoneEditComponent
   },
   {
@@ -92,8 +96,16 @@ const routes: Routes = [
   {
     path:'BarcodeReport',
     component: BarcodeReportComponent
-  }
 
+  },
+{
+  path: 'InspectionCreate',
+  component: InspectionCreateComponent
+},
+{
+  path: 'CreateInspectionTemplate',
+  component: InspectiontemplateCreateComponent
+}
 ];
 
 

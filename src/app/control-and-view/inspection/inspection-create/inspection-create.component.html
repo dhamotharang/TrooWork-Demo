@@ -1,0 +1,99 @@
+<app-manager-dash-board></app-manager-dash-board>
+<br><br>
+
+<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <div class="row col-md-12 ">
+    <h3 style="margin-left: 30rem;">CREATE NEW INSPECTION</h3>
+  </div><br><br>
+   <div class="row bg-info col-md-12"> 
+    <div class="col-md-6 bg-info">
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Template Name*</label>     
+          <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="TemplateName">
+            <option >--Select--</option>
+            <option *ngFor="let t of templateName" [value]="t.TemplateName">
+                {{t.TemplateName}}
+            </option>
+        </select>          
+         </div>
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Date</label>
+        <igx-datePicker item-width="25%" [value]="date" [formatter]="formatter"></igx-datePicker>
+        </div>
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Auditor*</label>
+        <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="Auditor">
+          <option >--Select--</option>
+          <option *ngFor="let a of auditor" [value]="f.FloorKey">
+              {{f.FloorName}}
+          </option>
+      </select>   
+         </div>
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Building*</label>
+        <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="Auditor">
+          <option >--Select--</option>
+          <option *ngFor="let a of auditor" [value]="f.FloorKey">
+              {{f.FloorName}}
+          </option>
+      </select>   
+         </div>
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Floor*</label>
+        <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="Auditor">
+          <option >--Select--</option>
+          <option *ngFor="let a of auditor" [value]="f.FloorKey">
+              {{f.FloorName}}
+          </option>
+      </select>   
+        </div>
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Zone</label>
+        <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="Auditor">
+          <option >--Select--</option>
+          <option *ngFor="let a of auditor" [value]="f.FloorKey">
+              {{f.FloorName}}
+          </option>
+      </select>   
+        </div>
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Room*</label>
+        <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="Auditor">
+          <option >--Select--</option>
+          <option *ngFor="let a of auditor" [value]="f.FloorKey">
+              {{f.FloorName}}
+          </option>
+      </select>   
+        </div>
+    </div>
+      <div class="col-md-6">    
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Recurring Yes:</label>
+        <input type="checkbox" [(ngModel)]="theCheckbox" data-md-icheck (change)="toggleVisibility($event)"/>
+       </div>
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Time</label>
+        <p-calendar [(ngModel)]="time" [timeOnly]="true" hourFormat="12"></p-calendar>
+      </div>
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Employee</label>
+        <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="Auditor">
+          <option >--Select--</option>
+          <option *ngFor="let a of auditor" [value]="f.FloorKey">
+              {{f.FloorName}}
+          </option>
+      </select>   
+      </div>
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Room Type</label>
+        <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="Auditor">
+          <option >--Select--</option>
+          <option *ngFor="let a of auditor" [value]="f.FloorKey">
+              {{f.FloorName}}
+          </option>
+      </select>   
+      </div>
+    </div>
+  </div> 
+  </div>
+  
