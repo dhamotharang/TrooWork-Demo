@@ -114,8 +114,38 @@ export class InventoryService {
   EditZoneAutoGenerate(zoneKey) {
     return this
       .http
-      .get('http://localhost:3000/api/getZoneById?zoneKey=' +zoneKey+'&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/getZoneById?zoneKey=' + zoneKey + '&OrganizationID=' + 21);
   }
 
+
+  checkForZone(FacilityKey, FloorKey, ZoneName) {
+    return this
+      .http
+      .get('http://localhost:3000/api/checkForNewZone?FacilityKey=' + FacilityKey + '&FloorKey=' + FloorKey +
+        '&ZoneName=' + ZoneName + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
+  }
+
+  updateZone(facilityKey, facilityName, floorName, floorKey, zoneKey, zoneName) {
+    const uri = "http://localhost:3000/api/updateZone";
+    const obj = {
+      FacilityKey: facilityKey,
+      FloorKey: floorKey,
+      FacilityName: facilityName,
+      FloorName: floorName,
+      ZoneKey: zoneKey,
+      ZoneName: zoneName,
+      employeekey: 2861,
+      OrganizationID: 21,
+    };
+    return this.http.post(uri, obj);
+  }
+
+
+  DeleteZone(FacilityKey, FloorKey, ZoneKey) {
+    return this
+      .http
+      .get('http://localhost:3000/api/deleteZoneById?facility=' + FacilityKey + '&floorkey=' + FloorKey+ '&zoneKey=' + ZoneKey + '&employeekey=' + 2861 + '&OrganizationID=' + 21)
+
+  }
   // @rodney ends....
 }

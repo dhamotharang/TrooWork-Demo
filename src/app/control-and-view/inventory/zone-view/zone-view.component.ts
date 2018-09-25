@@ -10,6 +10,11 @@ import { Inventory } from '../../../model-class/Inventory';
 export class ZoneViewComponent implements OnInit {
   zone: Inventory[];
   searchform: FormGroup;
+
+  delete_faciKey: number;
+  delete_floorKey: number;
+  delete_zoneKey: number;
+
   //validation starts ..... @rodney
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
@@ -49,13 +54,30 @@ export class ZoneViewComponent implements OnInit {
     }
   };
 
+  deleteZoneValuePass(FacilityKey, FloorKey, ZoneKey) {
+    this.delete_faciKey = FacilityKey;
+    this.delete_floorKey = FloorKey;
+    this.delete_zoneKey = ZoneKey;
+  }
+
+  deleteZone() {
+    this.inventoryService
+      .DeleteZone(this.delete_faciKey, this.delete_floorKey, this.delete_zoneKey).subscribe(res =>{
+        this.inventoryService
+      .getZones()
+      .subscribe((data: Inventory[]) => {
+        this.zone = data;
+      });
+
+      });
+
+  }
   ngOnInit() {
     // debugger;
     this.inventoryService
       .getZones()
       .subscribe((data: Inventory[]) => {
         this.zone = data;
-        debugger;
       });
 
     this.searchform = this.formBuilder.group({

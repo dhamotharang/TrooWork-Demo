@@ -30,7 +30,7 @@
           <td>{{ x.FloorName }}</td>
           <td>{{ x.ZoneName }}</td>
           <td><a routerLink="/Zonedit/{{ x.FloorKey}}/{{x.FacilityKey}}/{{x.ZoneKey}}" class="btn btn-primary">Edit</a>
-            <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteFloorPass(x.FacilityKey,x.FloorKey); "
+            <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteZoneValuePass(x.FacilityKey,x.FloorKey,x.ZoneKey); "
               mdbWavesEffect>Delete</a></td>
         </tr>
         <tr *ngIf="zone?.length == 0">
@@ -50,7 +50,7 @@
                 Are you sure you want to delete this?
               </div>
               <div class="modal-footer">
-                <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide(); deleteFloor()"
+                <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide(); deleteZone()"
                   mdbWavesEffect>Yes</button>
                 <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.hide()"
                   mdbWavesEffect>No</button>
