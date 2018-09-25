@@ -8,6 +8,8 @@ import { Inspection } from '../../../model-class/Inspection';
   styleUrls: ['./inspection-create.component.scss']
 })
 export class InspectionCreateComponent implements OnInit {
+  templateName: Inspection[];
+
 // adding properties and methods that will be used by the igxDatePicker
 public date: Date = new Date(Date.now());
 
@@ -18,9 +20,16 @@ public formatter = (_: Date) => {
     return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
 }
 
-  constructor() { }
+  constructor(private inspectionService: InspectionService) { }
 
   ngOnInit() {
+
+    this.inspectionService
+    .getTemplateName()
+    .subscribe((data: Inspection[]) => {
+      // debugger;
+      this.templateName = data;
+    });
   }
 
 }
