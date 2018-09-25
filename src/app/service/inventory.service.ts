@@ -8,6 +8,7 @@ import { StaticSymbolResolver } from '@angular/compiler';
 export class InventoryService {
 
   constructor(private http: HttpClient) { }
+ 
   //http: HttpClient
   getBuildings() {
     return this

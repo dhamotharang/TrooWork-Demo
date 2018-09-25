@@ -7,12 +7,26 @@ import { HttpClient } from '@angular/common/http';
 export class ReportServiceService {
 
   constructor(private http: HttpClient) { }
+   // code by sudina starts
   getallsupervisor() {
     return this
       .http
       .get('http://localhost:3000/api/supervisorname?employeekey='+2861+'&OrganizationID='+21);
   }
+  getinspectionreport(fromdate,todate,SupervisorKey)
+  {
 
+    return this
+      .http
+      .get('http://localhost:3000/api/viewinspection_Filter?key='+SupervisorKey+'&searchDT='+fromdate+'&searchDT2='+todate+'&OrganizationID='+21);
+  }
+  getinspectionreport_bydate(fromdate,todate)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/viewinspectionReport_FilterByDates?employeekey='+2861+'&searchDT='+fromdate+'&searchDT2='+todate+'&OrganizationID='+21);
+  }
+   // code by sudina ends
    // code by Anju starts
    getBarcodeReport()
    {
