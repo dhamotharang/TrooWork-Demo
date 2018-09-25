@@ -1,9 +1,25 @@
-<<<<<<< HEAD
+import { Time } from "@angular/common";
+
 export interface Reports {
     SupervisorKey: number;
     SupervisorText: String;
+
+    EmployeeKey:number;
+    InspectionOrderKey:number;
+    TemplateId:number;
+    TemplateName:string;
+    InspectionDate:Date;
+    InspectionTime:Time;
+    FacilityName:string;
+    RoomId:string;
+    RoomType:string;
+    LastName:string;
+    FirstName:string;
+    EmployeeName:string;
+    InspectionCompletedBy:number;
+    id:number;
+    totalItems:10;
 }
-=======
 export interface Reports
 {
     EquipmentKey:number;
@@ -15,4 +31,3 @@ export interface Reports
     FacilityText:string;
 
 }
->>>>>>> fdcf5bf3b2c1011dccd6d93cdd80f7530c79a2d6

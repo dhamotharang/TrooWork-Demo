@@ -1,23 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-<<<<<<< HEAD
-=======
-
->>>>>>> fdcf5bf3b2c1011dccd6d93cdd80f7530c79a2d6
 @Injectable({
   providedIn: 'root'
 })
 export class ReportServiceService {
 
   constructor(private http: HttpClient) { }
-<<<<<<< HEAD
+   // code by sudina starts
   getallsupervisor() {
     return this
       .http
       .get('http://localhost:3000/api/supervisorname?employeekey='+2861+'&OrganizationID='+21);
   }
+  getinspectionreport(fromdate,todate,SupervisorKey)
+  {
 
-=======
+    return this
+      .http
+      .get('http://localhost:3000/api/viewinspection_Filter?key='+SupervisorKey+'&searchDT='+fromdate+'&searchDT2='+todate+'&OrganizationID='+21);
+  }
+  getinspectionreport_bydate(fromdate,todate)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/viewinspectionReport_FilterByDates?employeekey='+2861+'&searchDT='+fromdate+'&searchDT2='+todate+'&OrganizationID='+21);
+  }
+   // code by sudina ends
    // code by Anju starts
    getBarcodeReport()
    {
@@ -48,5 +56,4 @@ export class ReportServiceService {
    }
 
    //code by Anju Ends
->>>>>>> fdcf5bf3b2c1011dccd6d93cdd80f7530c79a2d6
 }
