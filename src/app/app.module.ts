@@ -31,9 +31,17 @@ import { ZoneEditComponent } from './control-and-view/inventory/zone-edit/zone-e
 import { ZoneCreateComponent } from './control-and-view/inventory/zone-create/zone-create.component';
 import { InspectionCreateComponent } from './control-and-view/inspection/inspection-create/inspection-create.component';
 import { CreatebuildingService } from './service/createbuilding.service';
+
 import {CalendarModule} from 'primeng/calendar';
 import { Time } from '@angular/common';
 import { IgxDatePickerModule } from 'igniteui-angular';
+
+import { InspectionReportComponent } from './control-and-view/reports/inspection-report/inspection-report.component';
+
+
+
+import { BarcodeReportComponent } from './control-and-view/reports/barcode-report/barcode-report.component';
+
 
 @NgModule({
   declarations: [
@@ -54,7 +62,9 @@ import { IgxDatePickerModule } from 'igniteui-angular';
     ZoneEditComponent,
     ZoneCreateComponent,
     InspectionCreateComponent,
-    InspectiontemplateCreateComponent
+    InspectiontemplateCreateComponent,
+    InspectionReportComponent,
+    BarcodeReportComponent
   ],
   imports: [
     BrowserModule,
@@ -66,6 +76,7 @@ import { IgxDatePickerModule } from 'igniteui-angular';
     AppRoutingModule,
     CalendarModule,
     IgxDatePickerModule 
+   
   ],
   providers: [CreatebuildingComponent, CreatebuildingService],
   bootstrap: [AppComponent],
