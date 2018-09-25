@@ -18,7 +18,7 @@ import { FloorEditComponent } from './control-and-view/inventory/floor-edit/floo
 
 import { ManageLoginCredentialsComponent } from './control-and-view/people/manage-login-credentials/manage-login-credentials.component';
 import { ResetPassWordComponent } from './control-and-view/people/reset-pass-word/reset-pass-word.component';
-
+import { InspectiontemplateCreateComponent } from './control-and-view/inspection/inspectiontemplate-create/inspectiontemplate-create.component';
 import { ZoneViewComponent } from './control-and-view/inventory/zone-view/zone-view.component';
 import { ZoneEditComponent } from './control-and-view/inventory/zone-edit/zone-edit.component';
 import { ZoneCreateComponent } from './control-and-view/inventory/zone-create/zone-create.component';
@@ -87,6 +87,10 @@ const routes: Routes = [
 ,{
   path: 'InspectionCreate',
   component: InspectionCreateComponent
+},
+{
+  path: 'CreateInspectionTemplate',
+  component: InspectiontemplateCreateComponent
 }
 ];
 
