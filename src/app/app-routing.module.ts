@@ -59,7 +59,7 @@ const routes: Routes = [
     component: FloorCreateComponent
   },
   {
-    path: 'Flooredit/:Floor_Key',
+    path: 'Flooredit/:Floor_Key/:Facility_Key',
     component: FloorEditComponent
   },
   {
@@ -75,7 +75,7 @@ const routes: Routes = [
     component: ZoneViewComponent
   },
   {
-    path: 'Zonedit',
+    path: 'Zonedit/:Floor_Key/:Facility_Key/Zone_Key',
     component: ZoneEditComponent
   },
   {

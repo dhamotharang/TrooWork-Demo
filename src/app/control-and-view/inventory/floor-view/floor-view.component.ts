@@ -13,7 +13,8 @@ export class FloorViewComponent implements OnInit {
   delete_faciKey: number;
   delete_floorKey: number;
   searchform: FormGroup;
-  regexStr = '^[a-zA-Z0-9_]*$';
+  //validation starts ..... @pooja
+  regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
   constructor(private formBuilder: FormBuilder, private inventoryService: InventoryService, private el: ElementRef) { }
   @HostListener('keypress', ['$event']) onKeyPress(event) {
@@ -32,6 +33,9 @@ export class FloorViewComponent implements OnInit {
 
     }, 100)
   }
+
+  //validation ends ..... @pooja
+
   deleteFloor() {
     this.inventoryService
       .DeleteFloor(this.delete_faciKey, this.delete_floorKey).subscribe(res => this.ngOnInit());
@@ -57,10 +61,6 @@ export class FloorViewComponent implements OnInit {
           this.floor = data;
         });
     }
-
-
-
-
   };
 
   ngOnInit() {
