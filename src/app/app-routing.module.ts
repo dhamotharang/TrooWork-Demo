@@ -22,7 +22,13 @@ import { ResetPassWordComponent } from './control-and-view/people/reset-pass-wor
 import { ZoneViewComponent } from './control-and-view/inventory/zone-view/zone-view.component';
 import { ZoneEditComponent } from './control-and-view/inventory/zone-edit/zone-edit.component';
 import { ZoneCreateComponent } from './control-and-view/inventory/zone-create/zone-create.component';
+<<<<<<< HEAD
+import { InspectionReportComponent } from './control-and-view/reports/inspection-report/inspection-report.component';
+=======
 
+import { BarcodeReportComponent } from './control-and-view/reports/barcode-report/barcode-report.component';
+
+>>>>>>> fdcf5bf3b2c1011dccd6d93cdd80f7530c79a2d6
 
 const routes: Routes = [
   {
@@ -81,6 +87,17 @@ const routes: Routes = [
   {
     path: 'Createzone',
     component: ZoneCreateComponent
+  },
+<<<<<<< HEAD
+  {
+    path: 'Inspection-Report',
+    component: InspectionReportComponent
+=======
+
+  {
+    path:'BarcodeReport',
+    component: BarcodeReportComponent
+>>>>>>> fdcf5bf3b2c1011dccd6d93cdd80f7530c79a2d6
   }
 
 ];
