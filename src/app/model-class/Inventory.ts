@@ -1,14 +1,15 @@
 export interface Inventory {
   FacilityName: String;
-  FacilityKey: number;
+  FacilityText: String;
+  FacilityKey: Number;
   tenantID: String;
   createbuilding: string;
   FloorName: String;
-  FloorKey: number;
+  FloorKey: Number;
   FloorDescription: String;
   createfloor: string;
   buildingname: string;
   floordescription: string;
   ZoneName: String;
-  ZoneKey: number;
+  ZoneKey: Number;
 }

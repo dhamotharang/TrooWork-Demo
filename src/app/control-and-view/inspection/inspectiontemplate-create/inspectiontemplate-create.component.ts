@@ -21,7 +21,7 @@ export class InspectiontemplateCreateComponent implements OnInit {
       this.fieldArray.splice(index, 1);
   }
   valuesSave(ScoreTypeKey,InspTempName) {
-      debugger;
+       debugger;
       var arr = [];
       var t1;
       for(var i in this.fieldArray)
@@ -41,16 +41,11 @@ export class InspectiontemplateCreateComponent implements OnInit {
         // QustArry=TempQustArry;
         this.inspectionService.createInspectionTemplate(ScoreTypeKey,InspTempName,QustArry);
    }
-  
-
- 
-
-
   ngOnInit() {
        this.inspectionService
       .getScoreTypeList()
       .subscribe((data: Inspection[]) => {
-        debugger;
+        // debugger;
         this.scores = data;
       });
   }

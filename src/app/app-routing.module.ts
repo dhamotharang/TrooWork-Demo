@@ -81,31 +81,30 @@ const routes: Routes = [
     component: ZoneViewComponent
   },
   {
-    path: 'Zonedit/:Floor_Key/:Facility_Key/Zone_Key',
+    path: 'Zonedit/:Floor_Key/:Facility_Key/:Zone_Key',
     component: ZoneEditComponent
   },
   {
     path: 'Createzone',
     component: ZoneCreateComponent
   },
-
   {
     path: 'Inspection-Report',
     component: InspectionReportComponent
   },
   {
-    path:'BarcodeReport',
+    path: 'BarcodeReport',
     component: BarcodeReportComponent
 
   },
-{
-  path: 'InspectionCreate',
-  component: InspectionCreateComponent
-},
-{
-  path: 'CreateInspectionTemplate',
-  component: InspectiontemplateCreateComponent
-}
+  {
+    path: 'InspectionCreate',
+    component: InspectionCreateComponent
+  },
+  {
+    path: 'CreateInspectionTemplate',
+    component: InspectiontemplateCreateComponent
+  }
 ];
 
 

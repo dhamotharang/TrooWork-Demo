@@ -22,6 +22,7 @@ export class FloorEditComponent implements OnInit {
 
   updateFloor(FacilityKey,
     FloorKey,FloorName,FloorDescription) {
+      debugger;
     this.inventoryService.UpdateFloor(FacilityKey,FloorKey,FloorName,FloorDescription);
   }
   ngOnInit() {
