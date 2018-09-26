@@ -33,7 +33,7 @@ export class InspectiontemplateCreateComponent implements OnInit {
       arr;
       this.fieldArray;
       var TempQustArry=[];
-      var QustArry=[];
+      var QustArry;
       for (var j = 0; j < arr.length; j++) {
         TempQustArry.push(arr[j].question);
         }
