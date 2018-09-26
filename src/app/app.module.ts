@@ -31,7 +31,7 @@ import { ZoneEditComponent } from './control-and-view/inventory/zone-edit/zone-e
 import { ZoneCreateComponent } from './control-and-view/inventory/zone-create/zone-create.component';
 import { InspectionCreateComponent } from './control-and-view/inspection/inspection-create/inspection-create.component';
 import { CreatebuildingService } from './service/createbuilding.service';
-// import {CalendarModule} from 'primeng/calendar';
+import {CalendarModule} from 'primeng/calendar';
 import { Time } from '@angular/common';
 import { IgxDatePickerModule } from 'igniteui-angular';
 
@@ -49,7 +49,7 @@ import { BarcodeReportComponent } from './control-and-view/reports/barcode-repor
     WelcomepageComponent,
     BuildingViewComponent,
     ManagerDashBoardComponent,
-    // CreatebuildingComponent,
+    CreatebuildingComponent,
     BuildingEditComponent,
     CreateEmployeeComponent,
     FloorViewComponent,
@@ -73,7 +73,7 @@ import { BarcodeReportComponent } from './control-and-view/reports/barcode-repor
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    // CalendarModule,
+    CalendarModule,
     IgxDatePickerModule 
    
   ],
