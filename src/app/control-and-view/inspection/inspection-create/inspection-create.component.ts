@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { InspectionService } from '../../../service/inspection.service';
+import { InspectionService } from '../../../service/Inspection.service';
 import { Inspection } from '../../../model-class/Inspection';
 
 @Component({

@@ -12,12 +12,15 @@ import { FloorEditComponent } from './floor-edit/floor-edit.component';
 import { ZoneViewComponent } from './zone-view/zone-view.component';
 import { ZoneEditComponent } from './zone-edit/zone-edit.component';
 import { ZoneCreateComponent } from './zone-create/zone-create.component';
+import { DepartmentCreateComponent } from './department-create/department-create.component';
+import { DepartmentViewComponent } from './department-view/department-view.component';
+import { DepartmentEditComponent } from './department-edit/department-edit.component';
 
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: []
+  declarations: [DepartmentCreateComponent, DepartmentViewComponent, DepartmentEditComponent]
 })
 export class InventoryModule { }

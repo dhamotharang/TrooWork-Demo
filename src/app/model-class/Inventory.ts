@@ -12,4 +12,7 @@ export interface Inventory {
   floordescription: string;
   ZoneName: String;
   ZoneKey: Number;
+  DepartmentName: String;
+  DepartmentKey: Number;
+  totalItems: Number;
 }
