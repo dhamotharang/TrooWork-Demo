@@ -9,26 +9,32 @@ import { ExcelserviceService } from '../../../service/excelservice.service';
   styleUrls: ['./inspection-report.component.scss']
 })
 export class InspectionReportComponent implements OnInit {
+  empList: Array<{TemplateName: string, empoloyeeID: number}> = [];
   public convert_DT(str) {
     var date = new Date(str),
             mnth = ("0" + (date.getMonth() + 1)).slice(-2),
             day = ("0" + date.getDate()).slice(-2);
     return [date.getFullYear(), mnth, day].join("-");
 
-  }
+  } 
 
    // adding properties and methods that will be used by the igxDatePicker
    public date: Date = new Date(Date.now());
    private dayFormatter = new Intl.DateTimeFormat('en', { weekday: 'long'});
    private monthFormatter = new Intl.DateTimeFormat('en', { month: 'long'});
- 
    public formatter = (_: Date) => {
        return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
 
    }
-   supervisoroptions: Reports[];  
+    supervisoroptions: Reports[];  
     inspectionreport: FormGroup;
     viewinspectionReport: Reports[];
+    newarray: Reports[];
+    public reportarray:Array<any> = [{
+      Template:'',Date:'',Location:'',Auditor:'',Employee:'',Status:''
+    }
+    ]; 
+    template :any;
     constructor(private fb: FormBuilder,private ReportServiceService: ReportServiceService,private excelService:ExcelserviceService)
     {
     this. inspectionreport = fb.group({
@@ -36,8 +42,30 @@ export class InspectionReportComponent implements OnInit {
       SupervisorText: ['', Validators.required]
       });
    }
-   exportToExcel():void {
-    this.excelService.exportAsExcelFile(this.viewinspectionReport, 'sample');
+    //export to excel 
+      exportToExcel():void{
+      debugger;
+        for(var i=0;i<this.viewinspectionReport.length;i++)
+        {
+          this.reportarray.splice(i, 1);
+          var temp_name=(this.viewinspectionReport[i].TemplateName);
+          var ins_date=(this.viewinspectionReport[i].InspectionDate);
+          var locationname=this.viewinspectionReport[i].FacilityName.concat('-',this.viewinspectionReport[i].RoomId);
+          var auditorname=this.viewinspectionReport[i].LastName.concat(',',this.viewinspectionReport[i].FirstName);
+          var employeename=(this.viewinspectionReport[i].EmployeeName);
+          if(this.viewinspectionReport[i].InspectionCompletedBy!== null)
+          {
+            var cur_status1='Inspection Completed';
+            this.reportarray.push({ template:temp_name,Date:ins_date,Location:locationname,Auditor:auditorname,Employee:employeename,Status:cur_status1})
+          }
+          else
+          {
+            var cur_status2='Inspection not Completed';
+            this.reportarray.push({ template:temp_name,Date:ins_date,Location:locationname,Auditor:auditorname,Employee:employeename,Status:cur_status2})
+          }
+         }
+  
+    this.excelService.exportAsExcelFile(this.reportarray, 'sample');
   }
 
   ngOnInit() 
