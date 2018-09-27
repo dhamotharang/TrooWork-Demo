@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { InventoryService } from '../../../service/Inventory.service';
-import { Inventory } from '../../../model-class/Inventory';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-department-edit',
@@ -12,10 +9,11 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 })
 export class DepartmentEditComponent implements OnInit {
   deptKey$: Object;
-  dept: Inventory[]=[];
+  //dept: Inventory[];
+  dept: Array<any>;
 
 
-  constructor(private route: ActivatedRoute, private inventoryService: InventoryService) {
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
     this.route.params.subscribe(params => this.deptKey$ = params.DeptKey);
   }
 
@@ -24,13 +22,13 @@ export class DepartmentEditComponent implements OnInit {
     if (!DepartmentName) {
       alert("Please provide a Department Name");
     } else {
-      this.inventoryService.checkForNewDepartment(DepartmentName).subscribe((data: Inventory[]) => {
-        this.dept = data;
-        if (this.dept.length > 0) {
+      this.inventoryService.checkForNewDepartment(DepartmentName).subscribe((data: Array<any>) => {
+        // this.dept = data;
+        if (data.length > 0) {
           alert("Department already present");
         }
-        else if (data.length == 0) {
-          this.inventoryService.UpdateDepartment(DepartmentName, this.deptKey$).subscribe(res => { console.log("Dept updated.....") });
+        else {
+          this.inventoryService.UpdateDepartment(DepartmentName, this.deptKey$).subscribe(res => this.router.navigateByUrl('/DepartmentView'));
         }
       });
     }
@@ -38,9 +36,9 @@ export class DepartmentEditComponent implements OnInit {
 
   ngOnInit() {
 
-    this.inventoryService.EditDepartment(this.deptKey$).subscribe((data: Inventory[]) => {
+    this.inventoryService.EditDepartment(this.deptKey$).subscribe((data: Array<any>) => {
       debugger;
-      this.dept = data;
+      this.dept = data[0];
     });
   }
 }

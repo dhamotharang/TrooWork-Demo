@@ -32,7 +32,7 @@ import { ZoneCreateComponent } from './control-and-view/inventory/zone-create/zo
 
 import { InspectionCreateComponent } from './control-and-view/inspection/inspection-create/inspection-create.component';
 import { CreatebuildingService } from './service/createbuilding.service';
-import {CalendarModule} from 'primeng/calendar';
+import { CalendarModule } from 'primeng/calendar';
 import { Time } from '@angular/common';
 import { IgxDatePickerModule } from 'igniteui-angular';
 import { InspectionReportComponent } from './control-and-view/reports/inspection-report/inspection-report.component';
@@ -42,6 +42,22 @@ import { BarcodeReportComponent } from './control-and-view/reports/barcode-repor
 import { DepartmentCreateComponent } from './control-and-view/inventory/department-create/department-create.component';
 import { DepartmentEditComponent } from './control-and-view/inventory/department-edit/department-edit.component';
 import { DepartmentViewComponent } from './control-and-view/inventory/department-view/department-view.component';
+
+import { EquipmentCreateComponent } from './control-and-view/inventory/equipment-create/equipment-create.component';
+import { EquipmentEditComponent } from './control-and-view/inventory/equipment-edit/equipment-edit.component';
+import { EquipmentViewComponent } from './control-and-view/inventory/equipment-view/equipment-view.component';
+import { EquipmentTypeCreateComponent } from './control-and-view/inventory/equipment-type-create/equipment-type-create.component';
+import { EquipmentTypeEditComponent } from './control-and-view/inventory/equipment-type-edit/equipment-type-edit.component';
+import { EquipmentTypeViewComponent } from './control-and-view/inventory/equipment-type-view/equipment-type-view.component';
+
+import { RoomViewComponent } from './control-and-view/inventory/room-view/room-view.component';
+import { RoomTypeViewComponent } from './control-and-view/inventory/room-type-view/room-type-view.component';
+import { RoomTypeCreateComponent } from './control-and-view/inventory/room-type-create/room-type-create.component';
+import { RoomTypeUpdateComponent } from './control-and-view/inventory/room-type-update/room-type-update.component';
+
+import { FloorTypeViewComponent } from './control-and-view/inventory/floor-type-view/floor-type-view.component';
+import { FloorTypeCreateComponent } from './control-and-view/inventory/floor-type-create/floor-type-create.component';
+import { FloorTypeEDitComponent } from './control-and-view/inventory/floor-type-edit/floor-type-edit.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +83,20 @@ import { DepartmentViewComponent } from './control-and-view/inventory/department
     BarcodeReportComponent,
     DepartmentCreateComponent,
     DepartmentEditComponent,
-    DepartmentViewComponent
+    DepartmentViewComponent,
+    EquipmentCreateComponent,
+    EquipmentEditComponent,
+    EquipmentViewComponent,
+    EquipmentTypeCreateComponent,
+    EquipmentTypeEditComponent,
+    EquipmentTypeViewComponent,
+    RoomViewComponent,
+    RoomTypeViewComponent,
+    RoomTypeCreateComponent,
+    RoomTypeUpdateComponent,
+    FloorTypeViewComponent,
+    FloorTypeCreateComponent,
+    FloorTypeEDitComponent
   ],
   imports: [
     BrowserModule,
@@ -78,8 +107,8 @@ import { DepartmentViewComponent } from './control-and-view/inventory/department
     HttpClientModule,
     AppRoutingModule,
     CalendarModule,
-    IgxDatePickerModule 
-   
+    IgxDatePickerModule
+
   ],
   providers: [CreatebuildingComponent, CreatebuildingService],
   bootstrap: [AppComponent],

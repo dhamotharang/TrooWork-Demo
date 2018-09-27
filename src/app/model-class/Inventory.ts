@@ -15,4 +15,15 @@ export interface Inventory {
   DepartmentName: String;
   DepartmentKey: Number;
   totalItems: Number;
+  count: Number;
+
+  EquipmentDescription: String;
+  EquipmentKey: Number;
+  EquipmentName: String;
+  EquipmentType: String;
+  EquipmentTypeKey: Number;
+  EquipmentTypeName: String;
+  EquipmentTypeDescription: String;
+  RoomType: String;
+  RoomTypeKey: String;
 }
