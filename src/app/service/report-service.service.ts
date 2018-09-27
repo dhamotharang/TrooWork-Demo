@@ -26,6 +26,40 @@ export class ReportServiceService {
     .http
     .get('http://localhost:3000/api/viewinspectionReport_FilterByDates?employeekey='+2861+'&searchDT='+fromdate+'&searchDT2='+todate+'&OrganizationID='+21);
   }
+  getallemployee()
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/allemployees?employeekey='+2861+'&OrganizationID='+21);
+  }
+  getallworkordertype()
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/allWorkordertype?employeekey='+2861+'&OrganizationID='+21);
+  }
+  getdashboardreport(currentdate,currentdate1,em_Key,Workorder_TypeKey)
+  {
+    const url='http://localhost:3000/api/getEmployeeForPie';
+    const obj = {
+      date: currentdate,
+      date1:currentdate1,
+      empkey:em_Key,
+      WorkorderTypeKey:Workorder_TypeKey,
+      managerKey: 2861,
+      OrganizationID:21
+
+//       Date: "2018-09-16"
+// Date1: "2018-09-16"
+// EmployeeKey: null
+// OrganizationID: 21
+// WorkorderTypeKey: null
+// managerKey: "2861"
+     };
+    return this
+      .http
+      .post (url,obj);
+  }
    // code by sudina ends
    // code by Anju starts
    getBarcodeReport()

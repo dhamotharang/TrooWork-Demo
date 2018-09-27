@@ -26,5 +26,10 @@ export interface Reports {
     EquipmentTypeDescription: string;
     FacilityKey: number;
     FacilityText: string;
-
+    //dashboard report
+    EmployeeText:string;
+    JobTitle:string;
+    PrimaryPhone:string;
+    WorkorderTypeKey: number;
+    WorkorderTypeText: string;
 }

@@ -1,0 +1,68 @@
+<app-manager-dash-board></app-manager-dash-board>
+<br><br>
+
+<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <!-- <div class="container"> -->
+  <div class="row col-md-12 ">
+    <h3 style="margin-left: 25rem;">DASHBOARD REPORT</h3>
+  </div>
+  <br><br>
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
+    <div class="col-md-6">
+      <h1 style="text-align: right"></h1>
+      <!-- <form class="" method="post" action="https://formspree.io/"> -->
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Employee</label>
+        <select [(ngModel)]="EmployeeKey" style="width: 80%; background-color: #d4f4ff;" class="form-control">
+          <option value="" selected>--Select--</option>
+          <option *ngFor="let e of employeeoption" [value]="e.EmployeeKey">
+            {{e.EmployeeText}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group" style="width: 25rem;">
+        <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">From Date</label>
+        <igx-datePicker [value]="date" [(ngModel)]="fromdate"></igx-datePicker>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Workorder Type</label>
+        <select [(ngModel)]="WorkorderTypeKey" style="width: 80%; background-color: #d4f4ff;" class="form-control">
+          <option value="" selected>--Select--</option>
+          <option *ngFor="let w of workordertypeoption" [value]="w.WorkorderTypeKey">
+            {{w.WorkorderTypeText}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group" style="width: 25rem;">
+        <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">To Date</label>
+        <igx-datePicker [value]="date" [(ngModel)]="todate"></igx-datePicker>
+      </div>
+    </div>
+  </div>
+  <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
+  <table *ngIf='reporttable' class="table table-hover table-responsive table-bordered table">
+    <thead class="tableHead">
+      <!-- <tr> -->
+      <th> Employee Name </th>
+      <th> Percentage Completed </th>
+      <th> WorkOrder Type</th>
+      <th>Total WorkOrder</th>
+      <th> Quantity Left</th>
+      <!-- </tr> -->
+    </thead>
+    <tbody>
+      <tr *ngFor="let x of reporttable">
+        <td>{{x.EmployeeName}} </td>
+        <td>{{(x.CompletedCount/x.totalCount)*100 |number:0}}% </td>
+        <td>{{x.WorkorderTypeName}}</td>
+        <td>{{x.totalCount}} </td>
+        <td>{{x.totalCount-x.CompletedCount}}</td>
+      </tr>
+      <tr *ngIf="reporttable?.length == 0">
+        <td colspan="5" class="no-data-available">No records found</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

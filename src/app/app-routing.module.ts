@@ -28,7 +28,7 @@ import { InspectionCreateComponent } from './control-and-view/inspection/inspect
 import { InspectionReportComponent } from './control-and-view/reports/inspection-report/inspection-report.component';
 
 import { BarcodeReportComponent } from './control-and-view/reports/barcode-report/barcode-report.component';
-
+import { DashboardReportComponent } from './control-and-view/reports/dashboard-report/dashboard-report.component';
 
 const routes: Routes = [
   {
@@ -104,6 +104,10 @@ const routes: Routes = [
   {
     path: 'CreateInspectionTemplate',
     component: InspectiontemplateCreateComponent
+  },
+  {
+    path: 'Dashboard-Report',
+    component: DashboardReportComponent
   }
 ];
 

@@ -35,10 +35,11 @@ import { Time } from '@angular/common';
 import { IgxDatePickerModule } from 'igniteui-angular';
 
 import { InspectionReportComponent } from './control-and-view/reports/inspection-report/inspection-report.component';
-
+import { DashboardReportComponent } from './control-and-view/reports/dashboard-report/dashboard-report.component';
 
 
 import { BarcodeReportComponent } from './control-and-view/reports/barcode-report/barcode-report.component';
+
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { BarcodeReportComponent } from './control-and-view/reports/barcode-repor
     InspectionCreateComponent,
     InspectiontemplateCreateComponent,
     InspectionReportComponent,
-    BarcodeReportComponent
+    BarcodeReportComponent,
+    DashboardReportComponent
   ],
   imports: [
     BrowserModule,

@@ -6,69 +6,73 @@
   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">REPORTS ON INSPECTION</h3>
   </div>
-<div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
-  <div class="col-md-6">
-    <h1 style="text-align: right"></h1>
-    <!-- <form class="" method="post" action="https://formspree.io/"> -->
-    <div class="form-group" style="width: 25rem;">
-      <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">From Date</label>
-
-      <igx-datePicker [value]="date" [(ngModel)]="fromdate"></igx-datePicker>
-    </div>
-    <div class="form-group">
-      <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Supervisor</label>
-      <select [(ngModel)]="SupervisorKey" style="width: 50%; background-color: #d4f4ff;">
-        <option value="">--Select--</option>
-        <option *ngFor="let s of supervisoroptions" [value]="s.SupervisorKey">
-            {{s.SupervisorText}}
-        </option>
-      </select>
-    <!-- </form> -->
-    </div>
-  </div>
-  <div class="col-md-6">
+  <br><br>
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
+    <div class="col-md-6">
+      <h1 style="text-align: right"></h1>
       <!-- <form class="" method="post" action="https://formspree.io/"> -->
-    <div class="form-group" style="width: 25rem;">
-      <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">To Date</label>
-      <igx-datePicker [value]="date" [(ngModel)]="todate"></igx-datePicker>
+      <div class="form-group" style="width: 25rem;">
+        <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">From Date</label>
+
+        <igx-datePicker [value]="date" [(ngModel)]="fromdate"></igx-datePicker>
+      </div>
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Supervisor</label>
+        <select [(ngModel)]="SupervisorKey" style="width: 80%; background-color: #d4f4ff;" class="form-control">
+          <option value="">--Select--</option>
+          <option *ngFor="let s of supervisoroptions" [value]="s.SupervisorKey">
+            {{s.SupervisorText}}
+          </option>
+        </select>
+        <!-- </form> -->
+      </div>
     </div>
+    <div class="col-md-6">
+      <!-- <form class="" method="post" action="https://formspree.io/"> -->
+      <div class="form-group" style="width: 25rem;">
+        <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">To Date</label>
+        <igx-datePicker [value]="date" [(ngModel)]="todate"></igx-datePicker>
+      </div>
+    </div>
+    <div class="row col-md-12">
+      <div class="col-md-6"></div>
+      <div style="text-align:center">
+        <button type="button" class="btn btn-primary" (click)=generateInspectionReport(fromdate,todate,SupervisorKey)>Generate</button>
+        <br><br>
+      </div>
+    </div>
+    <br>
   </div>
-  <div class="row col-md-12">
-    <div class="col-md-6"></div>
-     <div style="text-align:center">
-  <button type="button"  class="btn btn-primary" (click)=generateInspectionReport(fromdate,todate,SupervisorKey)>Generate</button>
-  </div>
-    
-  </div>
+  <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
+  <table *ngIf='viewinspectionReport' id="reportexport" class="table table-hover table-responsive table-bordered table">
+    <thead class="tableHead">
+      <!-- <tr> -->
+      <th> Template </th>
+      <th> Date </th>
+      <th> Location</th>
+      <th>Auditor</th>
+      <th> Employee</th>
+      <th>Status</th>
+      <!-- </tr> -->
+    </thead>
+    <tbody>
+      <tr *ngFor="let x of viewinspectionReport" [value]="x.InspectionOrderKey">
+        <td>{{x.TemplateName}}</td>
+        <td>{{x.InspectionDate}}</td>
+        <td id="tooltip">{{x.FacilityName}} - {{x.RoomId}}<span id="tooltip-span" style="color:white;">{{x.RoomType}}</span></td>
+        <td>{{x.LastName}},{{x.FirstName}}</td>
+        <td>{{x.EmployeeName}}</td>
+        <td *ngIf="x.InspectionCompletedBy !== null">Inspection Completed</td>
+        <td *ngIf="x.InspectionCompletedBy === null "> Inspection Not Completed</td>
+      </tr>
+      <tr *ngIf="viewinspectionReport?.length == 0">
+        <td colspan="6" class="no-data-available">No records found</td>
+      </tr>
+    </tbody>
+  </table>
   <br>
-</div>
-<div style="margin-left: 1.5rem;margin-right: 1.5rem;    margin-top: 40px;"></div>
-<table *ngIf='viewinspectionReport' id="reportexport" class="table table-hover table-responsive table-bordered table">
-  <thead class="tableHead">
-    <!-- <tr> -->
-    <th> Template </th>
-    <th> Date </th>
-    <th> Location</th>
-    <th>Auditor</th>
-    <th> Employee</th>
-    <th>Status</th>
-    <!-- </tr> -->
-  </thead>
-  <tbody>
-    <tr *ngFor="let x of viewinspectionReport" [value]="x.InspectionOrderKey">
-      <td>{{x.TemplateName}}</td>
-      <td>{{x.InspectionDate}}</td>
-      <td id="tooltip">{{x.FacilityName}} - {{x.RoomId}}<span id="tooltip-span" style="color:white;">{{x.RoomType}}</span></td>
-      <td>{{x.LastName}},{{x.FirstName}}</td>
-      <td>{{x.EmployeeName}}</td>
-      <td *ngIf="x.InspectionCompletedBy !== null">Inspection Completed</td>
-      <td *ngIf="x.InspectionCompletedBy === null "> Inspection Not Completed</td>
-    </tr>
-  </tbody>
-</table>
-<br>
-<br>
-<div style="text-align:center">
-  <button type="button" *ngIf='viewinspectionReport'  class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
+  <br>
+  <div style="text-align:center" *ngIf="viewinspectionReport?.length> 0">
+    <button type="button" class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
   </div>
 </div>
