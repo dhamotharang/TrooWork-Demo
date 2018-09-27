@@ -83,12 +83,59 @@ export class ReportServiceService {
     .get('http://localhost:3000/api/getallEquipments?employeekey='+2861+'&OrganizationID='+21);
    }
 
-   getFloor(FacilityKey)
+   getFloor(key)
    {
     return this
     .http
-    .get('http://localhost:3000/api/domainvaluesByKey?domain=facilityOnly&key='+FacilityKey+'&OrganizationID='+21);
+    .get('http://localhost:3000/api/domainvaluesByKey?domain=facilityOnly&key='+key+'&OrganizationID='+21);
+   }
+   getZone(fkey,floorkey)
+   {
+    return this
+    .http
+    .get('http://localhost:3000/api/zoneByFacility_Floor?fkey='+fkey+'&floorkey='+floorkey+'&OrganizationID='+21);
    }
 
+   getRoom(fkey,floorkey)
+   {
+    return this
+    .http
+    .get('http://localhost:3000/api/roomtypeByFacility_Floor?fkey='+fkey+'&floorkey='+floorkey+'&OrganizationID='+21);
+     }
+
+
+     generateBarcodeReportService(FacilityKey,FloorKey,RoomTypeKey,ZoneKey)
+    {
+    const url='http://localhost:3000/api/barcodeReportByallFilters';
+    const obj = {
+      OrganizationID:21,
+      manager: 2861,
+      facilitykey:FacilityKey,
+      floorKey:FloorKey,
+      roomTypeKey:RoomTypeKey,
+      zoneKey:ZoneKey
+
+    
+     };
+    return this
+      .http
+      .post (url,obj);
+
+     }
+     generateBarcodeByEqupiment(EquipmentKey,EquipmentTypeKey)
+     {
+      const url='http://localhost:3000/api/barcodeReportByEquipment';
+      const obj = {
+        OrganizationID:21,
+        employeekey: 2861,
+        EquipmentTypeKey:EquipmentTypeKey,
+        EquipmentKey:EquipmentKey
+  
+      
+       };
+      return this
+        .http
+        .post (url,obj);    
+       }
    //code by Anju Ends
 }

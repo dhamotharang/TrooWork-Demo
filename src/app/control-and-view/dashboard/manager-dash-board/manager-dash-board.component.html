@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse" id="navbarText" style="margin-left: 15%;">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <img class="imagesize nav-link" src="assets/icons/homepage.png">
+          <img class="imagesize nav-link" src="assets/icons/homepage.png" routerLink="/welcomePage">
         </li>
         <li class="nav-item">
           <img class="imagesize nav-link" src="assets/icons/work order.png">
@@ -39,9 +39,9 @@
         <li class="nav-item dropdown">
           <img class="imagesize nav-link" src="assets/icons/inspection.png">
           <div class="dropdown-content" style="margin-left:1rem;">
-          <a class="dropdown-item" routerLink="/InspectionCreate">Inspection Create</a>
-          <a class="dropdown-item" routerLink="/CreateInspectionTemplate">Create Inspection Template</a>
-        </div>
+            <a class="dropdown-item" routerLink="/InspectionCreate">Inspection Create</a>
+            <a class="dropdown-item" routerLink="/CreateInspectionTemplate">Create Inspection Template</a>
+          </div>
         </li>
         <li class="nav-item dropdown">
           <img class="imagesize nav-link" data-toggle="dropdown" src="assets/icons/inventory.png">
@@ -49,10 +49,14 @@
             <a class="dropdown-item" routerLink="/Buildview">Building</a>
             <a class="dropdown-item" routerLink="/Floorview">Floor</a>
             <a class="dropdown-item" routerLink="/Zoneview">Zone</a>
+            <a class="dropdown-item" routerLink="/DepartmentView">Department</a>
           </div>
         </li>
-        <li class="nav-item">
+        <li class="nav-item dropdown">
           <img class="imagesize nav-link" src="assets/icons/welcome.png">
+          <div class="dropdown-content" style="margin-left:1rem;">
+            <a class="dropdown-item" routerLink="">Log Out</a>
+          </div>
         </li>
       </ul>
       <!--  <span class="navbar-text white-text">

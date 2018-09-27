@@ -25,22 +25,25 @@ import { FloorEditComponent } from './control-and-view/inventory/floor-edit/floo
 import { ManageLoginCredentialsComponent } from './control-and-view/people/manage-login-credentials/manage-login-credentials.component';
 import { ResetPassWordComponent } from './control-and-view/people/reset-pass-word/reset-pass-word.component';
 import { InspectiontemplateCreateComponent } from './control-and-view/inspection/inspectiontemplate-create/inspectiontemplate-create.component';
+
 import { ZoneViewComponent } from './control-and-view/inventory/zone-view/zone-view.component';
 import { ZoneEditComponent } from './control-and-view/inventory/zone-edit/zone-edit.component';
 import { ZoneCreateComponent } from './control-and-view/inventory/zone-create/zone-create.component';
+
 import { InspectionCreateComponent } from './control-and-view/inspection/inspection-create/inspection-create.component';
 import { CreatebuildingService } from './service/createbuilding.service';
 import {CalendarModule} from 'primeng/calendar';
 import { Time } from '@angular/common';
 import { IgxDatePickerModule } from 'igniteui-angular';
-
 import { InspectionReportComponent } from './control-and-view/reports/inspection-report/inspection-report.component';
 import { DashboardReportComponent } from './control-and-view/reports/dashboard-report/dashboard-report.component';
 
 
 import { BarcodeReportComponent } from './control-and-view/reports/barcode-report/barcode-report.component';
 
-
+import { DepartmentCreateComponent } from './control-and-view/inventory/department-create/department-create.component';
+import { DepartmentEditComponent } from './control-and-view/inventory/department-edit/department-edit.component';
+import { DepartmentViewComponent } from './control-and-view/inventory/department-view/department-view.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +67,10 @@ import { BarcodeReportComponent } from './control-and-view/reports/barcode-repor
     InspectiontemplateCreateComponent,
     InspectionReportComponent,
     BarcodeReportComponent,
-    DashboardReportComponent
+    DashboardReportComponent,
+    DepartmentCreateComponent,
+    DepartmentEditComponent,
+    DepartmentViewComponent
   ],
   imports: [
     BrowserModule,
@@ -82,6 +88,6 @@ import { BarcodeReportComponent } from './control-and-view/reports/barcode-repor
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })
-export class AppModule {   
-  time:Time ; //for timepicker
+export class AppModule {
+  time: Time; //for timepicker
 }

@@ -8,7 +8,7 @@ import { StaticSymbolResolver } from '@angular/compiler';
 export class InventoryService {
 
   constructor(private http: HttpClient) { }
- 
+
   //http: HttpClient
   getBuildings() {
     return this
@@ -200,17 +200,76 @@ export class InventoryService {
       ZoneKey: zoneKey,
       ZoneName: zoneName,
       employeekey: 2861,
-      OrganizationID: 21,
+      OrganizationID: 21
     };
     return this.http.post(uri, obj);
   }
 
 
   DeleteZone(FacilityKey, FloorKey, ZoneKey) {
+    const uri = "http://localhost:3000/api/deleteZoneById";
+    const obj = {
+      facility: FacilityKey,
+      floorkey: FloorKey,
+      zoneKey: ZoneKey,
+      employeekey: 2861,
+      OrganizationID: 21
+    };
+    return this.http.post(uri, obj);
+  }
+
+  checkForNewDepartment(DeptName) {
     return this
       .http
-      .get('http://localhost:3000/api/deleteZoneById?facility=' + FacilityKey + '&floorkey=' + FloorKey+ '&zoneKey=' + ZoneKey + '&employeekey=' + 2861 + '&OrganizationID=' + 21)
+      .get('http://localhost:3000/api/checkForNewInventory?checkValue=' + DeptName + '&type=department' + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
+  }
+  addDepartment(DeptName) {
+    const uri = "http://localhost:3000/api/addNewDepartment";
+    const obj = {
+      DepartmentName: DeptName,
+      empkey: 2861,
+      OrganizationID: 21
+    };
+    return this.http.post(uri, obj);
+  }
 
+
+  getDepartmentList() {
+    return this
+      .http
+      .get('http://localhost:3000/api/viewDepartmentpage?pageno=' + 1 + '&itemsPerPage=' + 1000 + '&empkey=' + 2861 + '&OrganizationID=' + 21);
+  }
+
+  SearchDepartment(DeptName) {
+    return this
+      .http
+      .get('http://localhost:3000/api/searchDepartmentType?OrganizationID=' + 21 + '&searchDepartment=' + DeptName)
+  }
+
+  DeleteDepartment(deptKey) {
+    const uri = "http://localhost:3000/api/deleteDepartment";
+    const obj = {
+      DepartmentKey: deptKey,
+      OrganizationID: 21
+    };
+    return this.http.post(uri, obj);
+  }
+
+  EditDepartment(deptKey) {
+    return this
+      .http
+      .get('http://localhost:3000/api/editviewDepartment?DepartmentKey=' + deptKey + '&OrganizationID=' + 21);
+
+  }
+  UpdateDepartment(DepartmentName, DepartmentKey) {
+    const uri = "http://localhost:3000/api/editSelectedDepartment";
+    const obj = {
+      DepartmentKey: DepartmentKey,
+      DepartmentName: DepartmentName,
+      empkey: 2861,
+      OrganizationID: 21
+    };
+    return this.http.post(uri, obj);
   }
   // @rodney ends....
 }
