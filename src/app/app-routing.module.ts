@@ -27,6 +27,7 @@ import { ZoneCreateComponent } from './control-and-view/inventory/zone-create/zo
 import { InspectionCreateComponent } from './control-and-view/inspection/inspection-create/inspection-create.component';
 import { InspectionReportComponent } from './control-and-view/reports/inspection-report/inspection-report.component';
 import { BarcodeReportComponent } from './control-and-view/reports/barcode-report/barcode-report.component';
+import { DashboardReportComponent } from './control-and-view/reports/dashboard-report/dashboard-report.component';
 
 import { DepartmentCreateComponent } from './control-and-view/inventory/department-create/department-create.component';
 import { DepartmentEditComponent } from './control-and-view/inventory/department-edit/department-edit.component';
@@ -122,6 +123,10 @@ const routes: Routes = [
   {
     path: 'CreateInspectionTemplate',
     component: InspectiontemplateCreateComponent
+  },
+  {
+    path: 'Dashboard-Report',
+    component: DashboardReportComponent
   },
   {
     path: 'createDepartment',

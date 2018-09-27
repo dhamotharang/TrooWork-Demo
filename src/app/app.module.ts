@@ -36,8 +36,10 @@ import { CalendarModule } from 'primeng/calendar';
 import { Time } from '@angular/common';
 import { IgxDatePickerModule } from 'igniteui-angular';
 import { InspectionReportComponent } from './control-and-view/reports/inspection-report/inspection-report.component';
-import { BarcodeReportComponent } from './control-and-view/reports/barcode-report/barcode-report.component';
+import { DashboardReportComponent } from './control-and-view/reports/dashboard-report/dashboard-report.component';
 
+
+import { BarcodeReportComponent } from './control-and-view/reports/barcode-report/barcode-report.component';
 
 import { DepartmentCreateComponent } from './control-and-view/inventory/department-create/department-create.component';
 import { DepartmentEditComponent } from './control-and-view/inventory/department-edit/department-edit.component';
@@ -81,6 +83,7 @@ import { FloorTypeEDitComponent } from './control-and-view/inventory/floor-type-
     InspectiontemplateCreateComponent,
     InspectionReportComponent,
     BarcodeReportComponent,
+    DashboardReportComponent,
     DepartmentCreateComponent,
     DepartmentEditComponent,
     DepartmentViewComponent,
