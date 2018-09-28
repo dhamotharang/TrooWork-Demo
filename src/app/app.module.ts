@@ -37,8 +37,9 @@ import { Time } from '@angular/common';
 import { IgxDatePickerModule } from 'igniteui-angular';
 import { InspectionReportComponent } from './control-and-view/reports/inspection-report/inspection-report.component';
 import { DashboardReportComponent } from './control-and-view/reports/dashboard-report/dashboard-report.component';
-
-
+import { GooglePieChartService } from './extra-files/piechart-file/Services/google-pie-chart.service';
+import { PieChartComponent } from './extra-files/piechart-file/Dashboard/Charts/piechart.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { BarcodeReportComponent } from './control-and-view/reports/barcode-report/barcode-report.component';
 
 import { DepartmentCreateComponent } from './control-and-view/inventory/department-create/department-create.component';
@@ -68,6 +69,7 @@ import { DepartmentViewComponent } from './control-and-view/inventory/department
     InspectionReportComponent,
     BarcodeReportComponent,
     DashboardReportComponent,
+    PieChartComponent,
     DepartmentCreateComponent,
     DepartmentEditComponent,
     DepartmentViewComponent
@@ -81,10 +83,11 @@ import { DepartmentViewComponent } from './control-and-view/inventory/department
     HttpClientModule,
     AppRoutingModule,
     CalendarModule,
-    IgxDatePickerModule 
+    IgxDatePickerModule,
+    NgMultiSelectDropDownModule.forRoot()
    
   ],
-  providers: [CreatebuildingComponent, CreatebuildingService],
+  providers: [CreatebuildingComponent, CreatebuildingService,GooglePieChartService],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

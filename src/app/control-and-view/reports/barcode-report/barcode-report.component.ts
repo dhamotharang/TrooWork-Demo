@@ -54,7 +54,7 @@ export class BarcodeReportComponent implements OnInit
          {
        // debugger;
        var newArray = data.slice(0); //clone the array, or you'll end up with a new "None" option added to your "values" array on every digest cycle.
-                newArray.unshift({EquipmentTypeText: "Select All", EquipmentTypeKey: "-99"});
+                // newArray.unshift({EquipmentTypeText: "Select All", EquipmentTypeKey: "-99"});
         // this.equipmenttypelist = data;
         this.equipmenttypelist = newArray;
 

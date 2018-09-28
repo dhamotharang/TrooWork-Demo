@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {Reports} from '../../../model-class/reports';
 import {ReportServiceService} from '../../../service/report-service.service';
+import { PieChartConfig } from '../../../extra-files/piechart-file/Models/PieChartConfig';
 @Component({
   selector: 'app-dashboard-report',
   templateUrl: './dashboard-report.component.html',
@@ -25,6 +26,11 @@ export class DashboardReportComponent implements OnInit {
     dashboardreport: FormGroup;
     workordertypeoption: Reports[];
     reporttable: Reports[];
+    pievalues: Reports[];
+    data1: any[];
+    config1: PieChartConfig;
+    elementId1: String;
+    dropdownSettings = {};
   constructor(private fb: FormBuilder,private ReportServiceService: ReportServiceService)
    {
     this. dashboardreport = fb.group({
@@ -46,6 +52,15 @@ export class DashboardReportComponent implements OnInit {
     .subscribe((data: Reports[]) => {
       this.workordertypeoption = data;
     });
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'WorkorderTypeKey',
+      textField: 'WorkorderTypeText',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
     var em_Key=null;
     var Workorder_TypeKey=null;
     this.ReportServiceService
@@ -53,6 +68,27 @@ export class DashboardReportComponent implements OnInit {
     .subscribe((data: Reports[]) => {
       this.reporttable = data;
     });
+    debugger;
+    this.ReportServiceService
+    .getpievalues(currentdate)
+    .subscribe((data: Reports[]) => {
+      this.pievalues = data;
+    });
+    this.data1=[['Task', 'Hours per Day'],
+    ['Eat',      3],
+    ['Commute',  2],
+    ['Watch TV', 5],
+    ['Video games', 4],
+    ['Sleep',    10]];
+    this.config1 = new PieChartConfig('piechart', 0.4);
+    this.elementId1 = 'myPieChart1';
   }
+  onItemSelect (item:any) {
+    console.log(item);
+  }
+  onSelectAll (items: any) {
+    console.log(items);
+  }
+
 
 }

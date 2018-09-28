@@ -37,6 +37,9 @@ export interface Reports {
     PrimaryPhone:string;
     WorkorderTypeKey: number;
     WorkorderTypeText: string;
+    WorkorderStatus:string,
+    WorkorderStatusKey: number,
+    statusKey: number,
 
     FloorKey:number;
     FloorName:string;

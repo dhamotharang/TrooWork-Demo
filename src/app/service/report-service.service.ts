@@ -38,6 +38,12 @@ export class ReportServiceService {
     .http
     .get('http://localhost:3000/api/allWorkordertype?employeekey='+2861+'&OrganizationID='+21);
   }
+  getpievalues(currentdate)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/allWorkordertype?date='+currentdate+'&empkey='+2861+'&userkey='+2861+'&OrganizationID='+21);
+  }
   getdashboardreport(currentdate,currentdate1,em_Key,Workorder_TypeKey)
   {
     const url='http://localhost:3000/api/getEmployeeForPie';

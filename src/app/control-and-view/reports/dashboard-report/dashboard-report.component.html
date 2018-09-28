@@ -13,7 +13,7 @@
       <!-- <form class="" method="post" action="https://formspree.io/"> -->
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Employee</label>
-        <select [(ngModel)]="EmployeeKey" style="width: 80%; background-color: #d4f4ff;" class="form-control">
+        <select [(ngModel)]="EmployeeKey" style="width: 80%; background-color: #d4f4ff;" class="form-control" (change)="dashboardreport($event.target.value)">
           <option value="" selected>--Select--</option>
           <option *ngFor="let e of employeeoption" [value]="e.EmployeeKey">
             {{e.EmployeeText}}
@@ -28,12 +28,22 @@
     <div class="col-md-6">
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Workorder Type</label>
-        <select [(ngModel)]="WorkorderTypeKey" style="width: 80%; background-color: #d4f4ff;" class="form-control">
+        <ng-multiselect-dropdown
+        [placeholder]="Selectworkorder"
+        [data]="workordertypeoption"
+        [(ngModel)]="WorkorderTypeKey" 
+        [textField]="'WorkorderTypeText'"
+        [valueField]="'WorkorderTypeKey'"
+        [settings]="dropdownSettings"
+        (onSelect)="onItemSelect($event)"
+        (onSelectAll)="onSelectAll($event)">
+      </ng-multiselect-dropdown> 
+        <!-- <select [(ngModel)]="WorkorderTypeKey" style="width: 80%; background-color: #d4f4ff;" class="form-control">
           <option value="" selected>--Select--</option>
           <option *ngFor="let w of workordertypeoption" [value]="w.WorkorderTypeKey">
             {{w.WorkorderTypeText}}
           </option>
-        </select>
+        </select> -->
       </div>
       <div class="form-group" style="width: 25rem;">
         <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">To Date</label>
@@ -41,28 +51,44 @@
       </div>
     </div>
   </div>
-  <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
-  <table *ngIf='reporttable' class="table table-hover table-responsive table-bordered table">
-    <thead class="tableHead">
-      <!-- <tr> -->
-      <th> Employee Name </th>
-      <th> Percentage Completed </th>
-      <th> WorkOrder Type</th>
-      <th>Total WorkOrder</th>
-      <th> Quantity Left</th>
-      <!-- </tr> -->
-    </thead>
-    <tbody>
-      <tr *ngFor="let x of reporttable">
-        <td>{{x.EmployeeName}} </td>
-        <td>{{(x.CompletedCount/x.totalCount)*100 |number:0}}% </td>
-        <td>{{x.WorkorderTypeName}}</td>
-        <td>{{x.totalCount}} </td>
-        <td>{{x.totalCount-x.CompletedCount}}</td>
-      </tr>
-      <tr *ngIf="reporttable?.length == 0">
-        <td colspan="5" class="no-data-available">No records found</td>
-      </tr>
-    </tbody>
-  </table>
+  </div>
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12">
+  <div class="col-md-6" style="border: 0px !important">
+    <div class="divTable" id="contentToConvert">
+      <div class="divTableBody" >
+        <div class="divTableRow">
+          <div class="divTableCell">
+            <pie-chart [data]="data1" [config]="config1" [elementId]="elementId1"></pie-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+      <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
+      <table *ngIf='reporttable' class="table table-hover table-responsive table-bordered table">
+        <thead class="tableHead">
+          <!-- <tr> -->
+          <th> Employee Name </th>
+          <th> Percentage Completed </th>
+          <th> WorkOrder Type</th>
+          <th>Total WorkOrder</th>
+          <th> Quantity Left</th>
+          <!-- </tr> -->
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of reporttable">
+            <td>{{x.EmployeeName}} </td>
+            <td>{{(x.CompletedCount/x.totalCount)*100 |number:0}}% </td>
+            <td>{{x.WorkorderTypeName}}</td>
+            <td>{{x.totalCount}} </td>
+            <td>{{x.totalCount-x.CompletedCount}}</td>
+          </tr>
+          <tr *ngIf="reporttable?.length == 0">
+            <td colspan="5" class="no-data-available">No records found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 </div>
+<!-- </div> -->
