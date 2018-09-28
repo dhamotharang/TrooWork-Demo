@@ -44,13 +44,14 @@ import { RoomViewComponent } from './control-and-view/inventory/room-view/room-v
 import { RoomTypeViewComponent } from './control-and-view/inventory/room-type-view/room-type-view.component';
 import { RoomTypeCreateComponent } from './control-and-view/inventory/room-type-create/room-type-create.component';
 import { RoomTypeUpdateComponent } from './control-and-view/inventory/room-type-update/room-type-update.component';
-
+import { InspectiontemplateEditComponent } from './control-and-view/inspection/inspectiontemplate-edit/inspectiontemplate-edit.component';
 import { FloorTypeViewComponent } from './control-and-view/inventory/floor-type-view/floor-type-view.component';
 import { FloorTypeCreateComponent } from './control-and-view/inventory/floor-type-create/floor-type-create.component';
 import { FloorTypeEDitComponent } from './control-and-view/inventory/floor-type-edit/floor-type-edit.component';
 
 import { RoomCreateComponent } from './control-and-view/inventory/room-create/room-create.component';
 
+import {InspectiontemplateandquestionsViewComponent} from './control-and-view/inspection/inspectiontemplateandquestions-view/inspectiontemplateandquestions-view.component';
 const routes: Routes = [
   {
     path: '',
@@ -197,6 +198,14 @@ const routes: Routes = [
   {
     path: 'roomCreate',
     component: RoomCreateComponent
+  },
+  {
+    path: 'InspectiontemplateandquestionsView',
+    component: InspectiontemplateandquestionsViewComponent
+  },
+  {
+    path: 'InspectiontemplateEdit',
+    component: InspectiontemplateEditComponent
   }
 ];
 

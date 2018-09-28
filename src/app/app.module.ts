@@ -37,8 +37,9 @@ import { Time } from '@angular/common';
 import { IgxDatePickerModule } from 'igniteui-angular';
 import { InspectionReportComponent } from './control-and-view/reports/inspection-report/inspection-report.component';
 import { DashboardReportComponent } from './control-and-view/reports/dashboard-report/dashboard-report.component';
-
-
+import { GooglePieChartService } from './extra-files/piechart-file/Services/google-pie-chart.service';
+import { PieChartComponent } from './extra-files/piechart-file/Dashboard/Charts/piechart.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { BarcodeReportComponent } from './control-and-view/reports/barcode-report/barcode-report.component';
 
 import { DepartmentCreateComponent } from './control-and-view/inventory/department-create/department-create.component';
@@ -56,13 +57,14 @@ import { RoomViewComponent } from './control-and-view/inventory/room-view/room-v
 import { RoomTypeViewComponent } from './control-and-view/inventory/room-type-view/room-type-view.component';
 import { RoomTypeCreateComponent } from './control-and-view/inventory/room-type-create/room-type-create.component';
 import { RoomTypeUpdateComponent } from './control-and-view/inventory/room-type-update/room-type-update.component';
-
+import {InspectiontemplateEditComponent} from './control-and-view/inspection/inspectiontemplate-edit/inspectiontemplate-edit.component';
 import { FloorTypeViewComponent } from './control-and-view/inventory/floor-type-view/floor-type-view.component';
 import { FloorTypeCreateComponent } from './control-and-view/inventory/floor-type-create/floor-type-create.component';
 import { FloorTypeEDitComponent } from './control-and-view/inventory/floor-type-edit/floor-type-edit.component';
 
 import { RoomCreateComponent } from './control-and-view/inventory/room-create/room-create.component';
 
+import {InspectiontemplateandquestionsViewComponent} from './control-and-view/inspection/inspectiontemplateandquestions-view/inspectiontemplateandquestions-view.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,6 +88,7 @@ import { RoomCreateComponent } from './control-and-view/inventory/room-create/ro
     InspectionReportComponent,
     BarcodeReportComponent,
     DashboardReportComponent,
+    PieChartComponent,
     DepartmentCreateComponent,
     DepartmentEditComponent,
     DepartmentViewComponent,
@@ -102,7 +105,9 @@ import { RoomCreateComponent } from './control-and-view/inventory/room-create/ro
     FloorTypeViewComponent,
     FloorTypeCreateComponent,
     FloorTypeEDitComponent,
-    RoomCreateComponent
+    RoomCreateComponent,
+    InspectiontemplateandquestionsViewComponent,
+    InspectiontemplateEditComponent
   ],
   imports: [
     BrowserModule,
@@ -113,10 +118,11 @@ import { RoomCreateComponent } from './control-and-view/inventory/room-create/ro
     HttpClientModule,
     AppRoutingModule,
     CalendarModule,
-    IgxDatePickerModule
-
+    IgxDatePickerModule,
+    NgMultiSelectDropDownModule.forRoot()
+   
   ],
-  providers: [CreatebuildingComponent, CreatebuildingService],
+  providers: [CreatebuildingComponent, CreatebuildingService,GooglePieChartService],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })
