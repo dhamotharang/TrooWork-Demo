@@ -53,12 +53,12 @@ export class RoomViewComponent implements OnInit {
   }
 
   deleteRoomPass(RoomKey) {
-    this.delete_RoomKey = RoomKey;
+    this.delete_roomKey = RoomKey;
   }
 
   deleteRoom() {
     this.inventoryService
-      .DeleteRoom(this.delete_RoomKey).subscribe(() => {
+      .DeleteRoom(this.delete_roomKey).subscribe(() => {
         this.inventoryService
           .getRoomList()
           .subscribe((data: Inventory[]) => {
