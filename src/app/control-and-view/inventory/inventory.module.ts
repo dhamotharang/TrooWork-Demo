@@ -15,12 +15,25 @@ import { ZoneCreateComponent } from './zone-create/zone-create.component';
 import { DepartmentCreateComponent } from './department-create/department-create.component';
 import { DepartmentViewComponent } from './department-view/department-view.component';
 import { DepartmentEditComponent } from './department-edit/department-edit.component';
+import { EquipmentCreateComponent } from './equipment-create/equipment-create.component';
+import { EquipmentEditComponent } from './equipment-edit/equipment-edit.component';
+import { EquipmentViewComponent } from './equipment-view/equipment-view.component';
+import { EquipmentTypeCreateComponent } from './equipment-type-create/equipment-type-create.component';
+import { EquipmentTypeEditComponent } from './equipment-type-edit/equipment-type-edit.component';
+import { EquipmentTypeViewComponent } from './equipment-type-view/equipment-type-view.component';
+import { RoomViewComponent } from './room-view/room-view.component';
+import { RoomTypeViewComponent } from './room-type-view/room-type-view.component';
+import { RoomTypeCreateComponent } from './room-type-create/room-type-create.component';
+import { RoomTypeUpdateComponent } from './room-type-update/room-type-update.component';
+import { FloorTypeViewComponent } from './floor-type-view/floor-type-view.component';
+import { FloorTypeCreateComponent } from './floor-type-create/floor-type-create.component';
+import { FloorTypeEDitComponent } from './floor-type-edit/floor-type-edit.component';
 
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [DepartmentCreateComponent, DepartmentViewComponent, DepartmentEditComponent]
+  declarations: [DepartmentCreateComponent, DepartmentViewComponent, DepartmentEditComponent, EquipmentCreateComponent, EquipmentEditComponent, EquipmentViewComponent, EquipmentTypeCreateComponent, EquipmentTypeEditComponent, EquipmentTypeViewComponent, RoomViewComponent, RoomTypeViewComponent, RoomTypeCreateComponent, RoomTypeUpdateComponent, FloorTypeViewComponent, FloorTypeCreateComponent, FloorTypeEDitComponent]
 })
 export class InventoryModule { }

@@ -33,7 +33,22 @@ import { DepartmentCreateComponent } from './control-and-view/inventory/departme
 import { DepartmentEditComponent } from './control-and-view/inventory/department-edit/department-edit.component';
 import { DepartmentViewComponent } from './control-and-view/inventory/department-view/department-view.component';
 
+import { EquipmentCreateComponent } from './control-and-view/inventory/equipment-create/equipment-create.component';
+import { EquipmentEditComponent } from './control-and-view/inventory/equipment-edit/equipment-edit.component';
+import { EquipmentViewComponent } from './control-and-view/inventory/equipment-view/equipment-view.component';
+import { EquipmentTypeCreateComponent } from './control-and-view/inventory/equipment-type-create/equipment-type-create.component';
+import { EquipmentTypeEditComponent } from './control-and-view/inventory/equipment-type-edit/equipment-type-edit.component';
+import { EquipmentTypeViewComponent } from './control-and-view/inventory/equipment-type-view/equipment-type-view.component';
 
+import { RoomViewComponent } from './control-and-view/inventory/room-view/room-view.component';
+import { RoomTypeViewComponent } from './control-and-view/inventory/room-type-view/room-type-view.component';
+import { RoomTypeCreateComponent } from './control-and-view/inventory/room-type-create/room-type-create.component';
+import { RoomTypeUpdateComponent } from './control-and-view/inventory/room-type-update/room-type-update.component';
+import {InspectiontemplateEditComponent} from './control-and-view/inspection/inspectiontemplate-edit/inspectiontemplate-edit.component';
+import { FloorTypeViewComponent } from './control-and-view/inventory/floor-type-view/floor-type-view.component';
+import { FloorTypeCreateComponent } from './control-and-view/inventory/floor-type-create/floor-type-create.component';
+import { FloorTypeEDitComponent } from './control-and-view/inventory/floor-type-edit/floor-type-edit.component';
+import {InspectiontemplateandquestionsViewComponent} from './control-and-view/inspection/inspectiontemplateandquestions-view/inspectiontemplateandquestions-view.component';
 const routes: Routes = [
   {
     path: '',
@@ -124,6 +139,66 @@ const routes: Routes = [
   {
     path: 'DepartmentView',
     component: DepartmentViewComponent
+  },
+  {
+    path: 'EquipmentView',
+    component: EquipmentViewComponent
+  },
+  {
+    path: 'EquipmentCreate',
+    component: EquipmentCreateComponent
+  },
+  {
+    path: 'EquipmentEdit',
+    component: EquipmentEditComponent
+  },
+  {
+    path: 'EquipmentTypeCreate',
+    component: EquipmentTypeCreateComponent
+  },
+  {
+    path: 'EquipmentTypeView',
+    component: EquipmentTypeViewComponent
+  },
+  {
+    path: 'EquipmentTypeEdit/:EquipTypeKey',
+    component: EquipmentTypeEditComponent
+  },
+  {
+    path: 'roomView',
+    component: RoomViewComponent
+  },
+  {
+    path: 'roomTypeView',
+    component: RoomTypeViewComponent
+  },
+  {
+    path: 'roomTypeCreate',
+    component: RoomTypeCreateComponent
+  },
+  {
+    path: 'roomTypeEdit/:RoomTypeKey',
+    component: RoomTypeUpdateComponent
+  },
+  {
+    path: 'FloorTypeView',
+    component: FloorTypeViewComponent
+  },
+  {
+    path: 'FloorTypeCreate',
+    component: FloorTypeCreateComponent
+  },
+  {
+    path: 'FloorTypeEdit/:FloorTypeKey',
+    component: FloorTypeEDitComponent
+  },
+  {
+    path: 'InspectiontemplateandquestionsView',
+    component:InspectiontemplateandquestionsViewComponent
+  },
+  {
+    path: 'InspectiontemplateEdit',
+    component:InspectiontemplateEditComponent
   }
 ];
 
