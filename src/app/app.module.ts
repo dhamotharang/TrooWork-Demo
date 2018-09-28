@@ -61,6 +61,8 @@ import { FloorTypeViewComponent } from './control-and-view/inventory/floor-type-
 import { FloorTypeCreateComponent } from './control-and-view/inventory/floor-type-create/floor-type-create.component';
 import { FloorTypeEDitComponent } from './control-and-view/inventory/floor-type-edit/floor-type-edit.component';
 
+import { RoomCreateComponent } from './control-and-view/inventory/room-create/room-create.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -99,7 +101,8 @@ import { FloorTypeEDitComponent } from './control-and-view/inventory/floor-type-
     RoomTypeUpdateComponent,
     FloorTypeViewComponent,
     FloorTypeCreateComponent,
-    FloorTypeEDitComponent
+    FloorTypeEDitComponent,
+    RoomCreateComponent
   ],
   imports: [
     BrowserModule,

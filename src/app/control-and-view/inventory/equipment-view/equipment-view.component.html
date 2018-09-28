@@ -32,7 +32,7 @@
             <td>{{ x.EquipmentName }}</td>
             <td>{{ x.EquipmentDescription }}</td>
             <td>
-              <a routerLink="/equipmentsEdit/{{ x.EquipmentsKey}}" class="btn btn-primary">Edit</a>
+              <a routerLink="/EquipmentEdit/{{ x.EquipmentKey}}" class="btn btn-primary">Edit</a>
               <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteEquipPass(x.EquipmentKey); "
                 mdbWavesEffect>Delete</a>
             </td>

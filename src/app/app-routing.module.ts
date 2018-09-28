@@ -49,6 +49,8 @@ import { FloorTypeViewComponent } from './control-and-view/inventory/floor-type-
 import { FloorTypeCreateComponent } from './control-and-view/inventory/floor-type-create/floor-type-create.component';
 import { FloorTypeEDitComponent } from './control-and-view/inventory/floor-type-edit/floor-type-edit.component';
 
+import { RoomCreateComponent } from './control-and-view/inventory/room-create/room-create.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -149,7 +151,7 @@ const routes: Routes = [
     component: EquipmentCreateComponent
   },
   {
-    path: 'EquipmentEdit',
+    path: 'EquipmentEdit/:EquipKey',
     component: EquipmentEditComponent
   },
   {
@@ -191,6 +193,10 @@ const routes: Routes = [
   {
     path: 'FloorTypeEdit/:FloorTypeKey',
     component: FloorTypeEDitComponent
+  },
+  {
+    path: 'roomCreate',
+    component: RoomCreateComponent
   }
 ];
 

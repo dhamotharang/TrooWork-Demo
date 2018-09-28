@@ -30,7 +30,7 @@
     </div>
     <label for="EquipmentBarcode">Equipment Barcode*</label>
     <div>
-      <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneName">
+      <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="barcode.barcode">
     </div>
 
     <br><br><br>
@@ -39,7 +39,7 @@
       <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey"
         (change)="selectFloorfromBuildings($event.target.value)">
         <option>--Select--</option>
-        <option *ngFor="let b of building" [value]="b.FacilityKey">
+        <option *ngFor="let b of buildings" [value]="b.FacilityKey">
           {{b.FacilityText}}
         </option>
       </select>
@@ -47,23 +47,24 @@
 
     <label for="EquipmentBarcode">Floor*</label>
     <div>
-      <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey"
-        (change)="selectFloorfromBuildings($event.target.value)">
-        <option>--Select--</option>
-        <option *ngFor="let b of building" [value]="b.FacilityKey">
-          {{b.FacilityText}}
-        </option>
+      <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey" (change)="floorValueSet($event.target.value)">
+        <!-- <span *ngIf="floors"> -->
+          <option>--Select--</option>
+          <option *ngFor="let b of floors" [value]="b.FloorKey">
+            {{b.FloorName}}
+          </option>
+        <!-- </span> -->
       </select>
     </div>
     <!-- </div> -->
     <div class="row col-md-12">
       <div class="col col-md-3"></div>
       <div style="text-align:right">
-        <a style="color:white !important" class="btn btn-success" (click)="addDepartment(DepartmentName)"><b>Create
-            Department</b>
+        <a style="color:white !important" class="btn btn-success" (click)="addEquipment(EquipmentName,EquipmentDescription,barcode.barcode,EquipmentTypeKey)"><b>Create
+            Equipment</b>
         </a></div>
       <div style="text-align:left">
-        <a routerLink="/DepartmentView" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Go
+        <a routerLink="/EquipmentView" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Go
             Back
           </b>
         </a></div>
