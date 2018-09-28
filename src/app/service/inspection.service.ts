@@ -29,4 +29,27 @@ export class InspectionService {
        .http
        .post (url,obj).subscribe(res => console.log('Done'));
   }
+  getTemplateNameList(){
+    return this
+    .http
+    .get('http://localhost:3000/api/getTempDetailsForDropdown?employeekey='+2861+'&OrganizationID='+21);
+  }
+  getInspectionTemplateTable(key){
+    return this
+    .http
+    .get('http://localhost:3000/api/getTemplateFilterByTemplateID?key='+key+'&OrganizationID='+21);
+  }
+  DeleteInspectionTemplate(TemplateID,templateQuestionID){
+    const url='http://localhost:3000/api/deleteInspectionTemplateQuestions';
+    const obj = {
+      templateID : TemplateID,
+      templateQuestionID : templateQuestionID,
+      updatedBy :2861,
+      OrganizationID: 21
+     
+      };
+     return this
+       .http
+       .post (url,obj);
+  }
 }
