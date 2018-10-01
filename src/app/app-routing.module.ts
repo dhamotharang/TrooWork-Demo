@@ -51,7 +51,7 @@ import { FloorTypeCreateComponent } from './control-and-view/inventory/floor-typ
 import { FloorTypeEDitComponent } from './control-and-view/inventory/floor-type-edit/floor-type-edit.component';
 
 import { RoomCreateComponent } from './control-and-view/inventory/room-create/room-create.component';
-
+import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
 import {InspectiontemplateandquestionsViewComponent} from './control-and-view/inspection/inspectiontemplateandquestions-view/inspectiontemplateandquestions-view.component';
 const routes: Routes = [
   {
@@ -211,6 +211,10 @@ const routes: Routes = [
   {
     path: 'InspectiontemplateEdit',
     component: InspectiontemplateEditComponent
+  },
+  {
+    path: 'InspectiontemplatedetailEdit/:TemplateID',
+    component:  InspectiontemplatedetailEditComponent
   }
 ];
 

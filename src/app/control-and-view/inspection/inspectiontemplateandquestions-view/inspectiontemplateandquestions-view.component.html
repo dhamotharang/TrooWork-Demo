@@ -23,7 +23,16 @@
   </div>
 </div>
   <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
+  
   <table *ngIf='viewinspectionTemplate' id="inspectemplate" class="table table-hover table-responsive table-bordered table">
+    <!-- <form [formGroup]="searchform">
+      <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
+        <input class="form-control" name="searchbuildingview" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
+          placeholder="Search Template Name" aria-label="Search" [(ngmodel)]="SearchFacility" formControlName="SearchFacility"
+          (input)="searchFacility($event.target.value);" style="width: 100%;">
+        <div *ngIf="searchform.controls.SearchFacility.errors?.minlength">Minimum 3 characters required.</div>
+      </div>
+    </form> -->
     <thead class="tableHead">
       <th> Template Name </th>
       <th> Template Question </th>
@@ -31,11 +40,11 @@
       <th>Action</th>   
     </thead>
     <tbody>
-        <tr *ngFor="let v of viewinspectionTemplate" [value]="v.TemplateID">
+        <tr *ngFor="let v of viewinspectionTemplate" >
           <td>{{v.TemplateName}}</td>
           <td>{{v.Question}}</td>
           <td>{{v.ScoreName}}</td>
-          <td> <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteInspTemplatePass(TemplateID,TemplateQuestionID);"
+          <td> <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteInspTemplatePass(v.TemplateID,v.TemplateQuestionID);"
             mdbWavesEffect>Delete</a></td>
         </tr>
         <div mdbModal #basicModal="mdbModal" class="modal fade" role="dialog" aria-labelledby="myBasicModalLabel"
