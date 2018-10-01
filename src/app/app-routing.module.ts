@@ -50,8 +50,17 @@ import { FloorTypeCreateComponent } from './control-and-view/inventory/floor-typ
 import { FloorTypeEDitComponent } from './control-and-view/inventory/floor-type-edit/floor-type-edit.component';
 
 import { RoomCreateComponent } from './control-and-view/inventory/room-create/room-create.component';
+import { RoomEditComponent } from './control-and-view/inventory/room-edit/room-edit.component';
 
-import {InspectiontemplateandquestionsViewComponent} from './control-and-view/inspection/inspectiontemplateandquestions-view/inspectiontemplateandquestions-view.component';
+import { InspectiontemplateandquestionsViewComponent } from './control-and-view/inspection/inspectiontemplateandquestions-view/inspectiontemplateandquestions-view.component';
+import { MeetingTrainingCreateComponent } from './control-and-view/people/meeting-training-create/meeting-training-create.component';
+import { MeetingTrainingEditComponent } from './control-and-view/people/meeting-training-edit/meeting-training-edit.component';
+import { MeetingTrainingViewComponent } from './control-and-view/people/meeting-training-view/meeting-training-view.component';
+
+import { EventCreateComponent } from './control-and-view/people/event-create/event-create.component';
+import { EventEditComponent } from './control-and-view/people/event-edit/event-edit.component';
+import { EventViewComponent } from './control-and-view/people/event-view/event-view.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -206,6 +215,34 @@ const routes: Routes = [
   {
     path: 'InspectiontemplateEdit',
     component: InspectiontemplateEditComponent
+  },
+  {
+    path: 'RoomEdit/:RoomKey',
+    component: RoomEditComponent
+  },
+  {
+    path: 'MeetingTrainingCreate',
+    component: MeetingTrainingCreateComponent
+  },
+  {
+    path: 'MeetingTrainingEdit',
+    component: MeetingTrainingEditComponent
+  },
+  {
+    path: 'MeetingTrainingView',
+    component: MeetingTrainingViewComponent
+  },
+  {
+    path: 'EventCreate',
+    component: EventCreateComponent
+  },
+  {
+    path: 'EventEdit',
+    component: EventEditComponent
+  },
+  {
+    path: 'EventView',
+    component: EventViewComponent
   }
 ];
 

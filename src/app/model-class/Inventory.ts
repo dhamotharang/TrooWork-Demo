@@ -31,4 +31,6 @@ export interface Inventory {
   MetricTypeKey: Number;
   RoomTypeKey: String;
   barcode: Number;
+  Barcode: Number;
+  Area: Number;
 }
