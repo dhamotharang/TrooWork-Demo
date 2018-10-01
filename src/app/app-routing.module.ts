@@ -28,6 +28,7 @@ import { InspectionCreateComponent } from './control-and-view/inspection/inspect
 import { InspectionReportComponent } from './control-and-view/reports/inspection-report/inspection-report.component';
 import { BarcodeReportComponent } from './control-and-view/reports/barcode-report/barcode-report.component';
 import { DashboardReportComponent } from './control-and-view/reports/dashboard-report/dashboard-report.component';
+import { WorkorderReportComponent } from './control-and-view/reports/workorder-report/workorder-report.component';
 
 import { DepartmentCreateComponent } from './control-and-view/inventory/department-create/department-create.component';
 import { DepartmentEditComponent } from './control-and-view/inventory/department-edit/department-edit.component';
@@ -118,6 +119,10 @@ const routes: Routes = [
     path: 'BarcodeReport',
     component: BarcodeReportComponent
 
+  },
+  {
+    path:'WorkorderReport',
+    component:WorkorderReportComponent
   },
   {
     path: 'InspectionCreate',
