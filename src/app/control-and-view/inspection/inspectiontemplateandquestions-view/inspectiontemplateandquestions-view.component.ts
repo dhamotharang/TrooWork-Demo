@@ -11,7 +11,7 @@ export class InspectiontemplateandquestionsViewComponent implements OnInit {
   viewinspectionTemplate: Inspection[];
   delete_tempId:number;
   templateQuestionID :number;
-
+  key :number;
   constructor(private inspectionService: InspectionService) { }
   
   showInspectionTemplateTable(tempKey){
@@ -25,20 +25,20 @@ export class InspectiontemplateandquestionsViewComponent implements OnInit {
   deleteInspTemplate() {
     debugger;
     this.inspectionService
-      .DeleteInspectionTemplate(this.delete_tempId, this.templateQuestionID).subscribe(()=>{
-        // this.inspectionService
-        // . getInspectionTemplateTable()
-        // .subscribe((data: Inspection[]) => {
-        //   this.viewinspectionTemplate = data;
-        // });
+      .DeleteInspectionTemplate(this.delete_tempId,this.templateQuestionID).subscribe(()=>{
+        this.inspectionService
+        . getInspectionTemplateTable(this.key)
+        .subscribe((data: Inspection[]) => {
+          this.viewinspectionTemplate = data;
+        });
 
       });
 
    
   }
-  deleteInspTemplatePass(TemplateID,TemplateQuestionID) {
-    this.delete_tempId = TemplateID;
-    this.templateQuestionID=TemplateQuestionID;
+  deleteInspTemplatePass(templateID,templateQuestionID) {
+    this.delete_tempId = templateID;
+    this.templateQuestionID=templateQuestionID;
     debugger;
   }
   ngOnInit() {

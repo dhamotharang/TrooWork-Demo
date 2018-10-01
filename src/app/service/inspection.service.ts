@@ -39,17 +39,39 @@ export class InspectionService {
     .http
     .get('http://localhost:3000/api/getTemplateFilterByTemplateID?key='+key+'&OrganizationID='+21);
   }
-  DeleteInspectionTemplate(TemplateID,templateQuestionID){
+  DeleteInspectionTemplate(templateID,templateQuestionID){
     const url='http://localhost:3000/api/deleteInspectionTemplateQuestions';
     const obj = {
-      templateID : TemplateID,
+      templateID : templateID,
       templateQuestionID : templateQuestionID,
       updatedBy :2861,
-      OrganizationID: 21
-     
+      OrganizationID: 21     
       };
      return this
        .http
        .post (url,obj);
   }
-}
+  getInspectionTemplateDetails(){
+    return this
+    .http
+    .get('http://localhost:3000/api/getTemplateDetails?pageno='+1+'&itemsPerPage='+25+'&empkey='+2861+'&OrganizationID='+21);
+
+  }
+  DeleteTemplate(templateID){
+    const url='http://localhost:3000/api/deleteInspectionTemplate';
+    const obj = {
+      templateID : templateID,
+      updatedBy :2861,
+      OrganizationID: 21     
+      };
+     return this
+       .http
+       .post (url,obj);
+  }
+  SearchTemplate(searchMytemp){
+    return this
+      .http
+      .get('http://localhost:3000/api/searchMytemplate?OrganizationID='+21+'&searchMytemp='+searchMytemp)
+  }
+  }
+

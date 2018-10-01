@@ -1,18 +1,5 @@
-.refer {
-    text-align: center !important;
-    
-  }
-  
-  /*!
-  * Based on Bootstrap v4.0.0 (https://getbootstrap.com) 
-  */
-  /*!
-   * Bootstrap v4.0.0 (https://getbootstrap.com)
-   * Copyright 2011-2018 The Bootstrap Authors
-   * Copyright 2011-2018 Twitter, Inc.
-   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-   */
-   :root {
+
+ :root {
     --blue: #007bff;
     --indigo: #6610f2;
     --purple: #6f42c1;
@@ -1820,7 +1807,7 @@
   }
   
   .table-responsive {
-    display: table;
+    display: block;
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -5806,7 +5793,7 @@
   
   .bg-dark {
     background-color: #EBFAFF !important;
-    width:100%;
+    width:98.2%;
     height:100%;
   }
   

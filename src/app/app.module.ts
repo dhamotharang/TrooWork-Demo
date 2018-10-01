@@ -63,8 +63,9 @@ import { FloorTypeCreateComponent } from './control-and-view/inventory/floor-typ
 import { FloorTypeEDitComponent } from './control-and-view/inventory/floor-type-edit/floor-type-edit.component';
 
 import { RoomCreateComponent } from './control-and-view/inventory/room-create/room-create.component';
-
+import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
 import {InspectiontemplateandquestionsViewComponent} from './control-and-view/inspection/inspectiontemplateandquestions-view/inspectiontemplateandquestions-view.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -107,7 +108,9 @@ import {InspectiontemplateandquestionsViewComponent} from './control-and-view/in
     FloorTypeEDitComponent,
     RoomCreateComponent,
     InspectiontemplateandquestionsViewComponent,
-    InspectiontemplateEditComponent
+    InspectiontemplateEditComponent,
+    InspectiontemplatedetailEditComponent
+   
   ],
   imports: [
     BrowserModule,
