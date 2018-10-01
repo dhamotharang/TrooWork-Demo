@@ -12,7 +12,8 @@ import { ExcelserviceService } from '../../../service/excelservice.service';
 })
 export class BarcodeReportComponent implements OnInit
  {
-
+  Roomflag:any;
+  Equipmentflag:any;
   facilitylist:Reports[];
   equipmenttypelist:Reports[];
   equipment:Reports[];
@@ -24,6 +25,11 @@ export class BarcodeReportComponent implements OnInit
 
   public reportarray:Array<any> = [{
     RoomName:'',Barcode:'',Building:'',Floor:'',Zone:'',Roomtype:''
+  }
+  ]; 
+
+  public reportarray1:Array<any> = [{
+    EquipmentName:'',Barcode:'',EquipmentType:''
   }
   ]; 
   barcode: FormGroup;
@@ -54,8 +60,8 @@ export class BarcodeReportComponent implements OnInit
          {
        // debugger;
        var newArray = data.slice(0); //clone the array, or you'll end up with a new "None" option added to your "values" array on every digest cycle.
-                // newArray.unshift({EquipmentTypeText: "Select All", EquipmentTypeKey: "-99"});
-        // this.equipmenttypelist = data;
+        //         newArray.unshift({EquipmentTypeText: "Select All", EquipmentTypeKey: "-99"});
+        // // this.equipmenttypelist = data;
         this.equipmenttypelist = newArray;
 
         });
@@ -116,7 +122,8 @@ export class BarcodeReportComponent implements OnInit
   .generateBarcodeReportService(FacilityKey,FloorKey,RoomTypeKey,ZoneKey)
      .subscribe((data: Reports[]) =>
         {
-      
+          this.Roomflag=true;
+          this.Equipmentflag=false;
        this.viewBarcodeReport= data;
        });
 
@@ -128,7 +135,8 @@ export class BarcodeReportComponent implements OnInit
     .generateBarcodeByEqupiment(EquipmentKey,EquipmentTypeKey)
      .subscribe((data: Reports[]) =>
         {
-      
+          this.Roomflag=false;
+          this.Equipmentflag=true;
        this.viewBarcodeEquipment= data;
        });
   }
@@ -137,32 +145,73 @@ export class BarcodeReportComponent implements OnInit
   }
 
    //export to excel 
-   exportToExcel():void{
-    debugger;
+   exportToExcel():void
+   {
+    // debugger;
+    //export room table to excel
     if(this.viewBarcodeReport)
     {
-      for(var i=0;i<this.viewBarcodeReport.length;i++)
-      {
-        this.reportarray.splice(i, 1);
-        var room_id=(this.viewBarcodeReport[i].RoomId);
-        var barcode=(this.viewBarcodeReport[i].Barcode1);
-        var facname=(this.viewBarcodeReport[i].FacilityName);
-        var flrname=(this.viewBarcodeReport[i].FloorName);
-        var zname=(this.viewBarcodeReport[i].ZoneName);
-        var rtype=(this.viewBarcodeReport[i].RoomType);
-        
-       
-        
-        if(this.viewBarcodeReport[i])
+      // this. Roomflag=true;
+      // this.Equipmentflag=false;
+       for(var i=0;i<this.viewBarcodeReport.length;i++)
         {
-          // var cur_status1='Inspection Completed';
-          this.reportarray.push({RoomName:room_id,Barcode:barcode,Building:facname,Floor:flrname,Zone:zname,Roomtype:rtype})
-        }
+          this.reportarray.splice(i, 1);
+           var room_id=(this.viewBarcodeReport[i].RoomId);
+          var barcode=(this.viewBarcodeReport[i].Barcode1);
+          var facname=(this.viewBarcodeReport[i].FacilityName);
+          var flrname=(this.viewBarcodeReport[i].FloorName);
+          var zname=(this.viewBarcodeReport[i].ZoneName);
+          var rtype=(this.viewBarcodeReport[i].RoomType);
+        
        
-       }
+        
+         if(this.viewBarcodeReport[i])
+          {
+          // var cur_status1='Inspection Completed';
+             this.reportarray.push({RoomName:room_id,Barcode:barcode,Building:facname,Floor:flrname,Zone:zname,Roomtype:rtype})
+          }
+       
+         }
+         debugger;
+         if(this.Roomflag){
+        this.excelService.exportAsExcelFile(this.reportarray, 'samplereport');
+         }
+    }
 
-  this.excelService.exportAsExcelFile(this.reportarray, 'samplereport');
-}
+  
+
+
+
+
+
+  
+    //export equipment table to excel
+    if(this.viewBarcodeEquipment)
+    {
+      // this. Roomflag=false;
+      // this.Equipmentflag=true;
+      //debugger;
+       for(var i=0;i<this.viewBarcodeEquipment.length;i++)
+        {
+          this.reportarray.splice(i, 1);
+           var eq_name=(this.viewBarcodeEquipment[i].EquipmentName);
+          var barcode=(this.viewBarcodeEquipment[i].Barcode1);
+          var eq_type=(this.viewBarcodeEquipment[i].EquipmentType);
+          
+        
+       
+        
+         if(this.viewBarcodeEquipment[i])
+          {
+          // var cur_status1='Inspection Completed';
+             this.reportarray1.push({EquipmentName:eq_name,Barcode:barcode,EquipmentType:eq_type})
+          }
+       
+         }
+ if(this.Equipmentflag){
+        this.excelService.exportAsExcelFile(this.reportarray1, 'reportsample');
+    }
+    }
 
     }
      

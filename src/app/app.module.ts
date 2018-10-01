@@ -40,7 +40,9 @@ import { DashboardReportComponent } from './control-and-view/reports/dashboard-r
 import { GooglePieChartService } from './extra-files/piechart-file/Services/google-pie-chart.service';
 import { PieChartComponent } from './extra-files/piechart-file/Dashboard/Charts/piechart.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
 import { BarcodeReportComponent } from './control-and-view/reports/barcode-report/barcode-report.component';
+import { WorkorderReportComponent } from './control-and-view/reports/workorder-report/workorder-report.component';
 
 import { DepartmentCreateComponent } from './control-and-view/inventory/department-create/department-create.component';
 import { DepartmentEditComponent } from './control-and-view/inventory/department-edit/department-edit.component';
@@ -74,6 +76,8 @@ import { MeetingTrainingViewComponent } from './control-and-view/people/meeting-
 import { EventCreateComponent } from './control-and-view/people/event-create/event-create.component';
 import { EventEditComponent } from './control-and-view/people/event-edit/event-edit.component';
 import { EventViewComponent } from './control-and-view/people/event-view/event-view.component';
+import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
+import {InspectiontemplateandquestionsViewComponent} from './control-and-view/inspection/inspectiontemplateandquestions-view/inspectiontemplateandquestions-view.component';
 
 @NgModule({
   declarations: [
@@ -125,6 +129,9 @@ import { EventViewComponent } from './control-and-view/people/event-view/event-v
     EventCreateComponent,
     EventEditComponent,
     EventViewComponent
+    WorkorderReportComponent,
+    InspectiontemplatedetailEditComponent
+   
   ],
   imports: [
     BrowserModule,

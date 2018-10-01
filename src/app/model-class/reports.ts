@@ -4,7 +4,7 @@ export interface Reports {
     SupervisorKey: number;
     SupervisorText: String;
 
-    EmployeeKey: number;
+   
     InspectionOrderKey: number;
     TemplateId: number;
     TemplateName: string;
@@ -14,10 +14,12 @@ export interface Reports {
 
     RoomId: string;
     RoomType: string;
-
+    
+    EmployeeKey: number;
     LastName: string;
     FirstName: string;
     EmployeeName: string;
+
     InspectionCompletedBy: number;
     id: number;
     totalItems: 10;
@@ -37,10 +39,11 @@ export interface Reports {
     PrimaryPhone:string;
     WorkorderTypeKey: number;
     WorkorderTypeText: string;
-    WorkorderStatus:string,
-    WorkorderStatusKey: number,
-    statusKey: number,
-
+    WorkorderStatus:string;
+    WorkorderStatusKey: number;
+    statusKey: number;
+    empname: string;
+    
     FloorKey:number;
     FloorName:string;
 
@@ -51,5 +54,10 @@ export interface Reports {
     RoomTypeName:string;
 
     Barcode1:number;
+
+    RoomKey:number;
+    RoomName:string;
+
+   
 
 }
