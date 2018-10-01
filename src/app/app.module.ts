@@ -40,7 +40,9 @@ import { DashboardReportComponent } from './control-and-view/reports/dashboard-r
 import { GooglePieChartService } from './extra-files/piechart-file/Services/google-pie-chart.service';
 import { PieChartComponent } from './extra-files/piechart-file/Dashboard/Charts/piechart.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
 import { BarcodeReportComponent } from './control-and-view/reports/barcode-report/barcode-report.component';
+import { WorkorderReportComponent } from './control-and-view/reports/workorder-report/workorder-report.component';
 
 import { DepartmentCreateComponent } from './control-and-view/inventory/department-create/department-create.component';
 import { DepartmentEditComponent } from './control-and-view/inventory/department-edit/department-edit.component';
@@ -61,7 +63,11 @@ import {InspectiontemplateEditComponent} from './control-and-view/inspection/ins
 import { FloorTypeViewComponent } from './control-and-view/inventory/floor-type-view/floor-type-view.component';
 import { FloorTypeCreateComponent } from './control-and-view/inventory/floor-type-create/floor-type-create.component';
 import { FloorTypeEDitComponent } from './control-and-view/inventory/floor-type-edit/floor-type-edit.component';
+
+import { RoomCreateComponent } from './control-and-view/inventory/room-create/room-create.component';
+import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
 import {InspectiontemplateandquestionsViewComponent} from './control-and-view/inspection/inspectiontemplateandquestions-view/inspectiontemplateandquestions-view.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -102,8 +108,12 @@ import {InspectiontemplateandquestionsViewComponent} from './control-and-view/in
     FloorTypeViewComponent,
     FloorTypeCreateComponent,
     FloorTypeEDitComponent,
+    RoomCreateComponent,
     InspectiontemplateandquestionsViewComponent,
-    InspectiontemplateEditComponent
+    InspectiontemplateEditComponent,
+    WorkorderReportComponent,
+    InspectiontemplatedetailEditComponent
+   
   ],
   imports: [
     BrowserModule,

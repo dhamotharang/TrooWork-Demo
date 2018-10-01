@@ -14,11 +14,7 @@
           <!-- <form class="" method="post" action="https://formspree.io/"> -->
           <div class="form-group">
             <label>Building*</label><br>
-           
-          
-           
-
-            <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey" (change)="getFloorDisp($event.target.value)" (change)='EquipmentKey=null;EquipmentTypeKey=null;'>
+              <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey" (change)="getFloorDisp($event.target.value)" (change)='EquipmentKey=null;EquipmentTypeKey=null;'>
               <option >--Select--</option>
               <option *ngFor="let b of facilitylist" [value]="b.FacilityKey">
                   {{b.FacilityText}}
@@ -124,7 +120,7 @@
 <!-- <div style="margin-left: 1.5rem;margin-right: 1.5rem;    margin-top: 40px;"></div> -->
 
 <!-- Table for generating barcode for rooms -->
-<table *ngIf='viewBarcodeReport' id="reportexport" class="table table-hover table-responsive table-bordered table">
+<table *ngIf='Roomflag' id="reportexport" class="table table-hover table-responsive table-bordered table">
   <thead class="tableHead">
     <!-- <tr> -->
     <th> Room Name </th>
@@ -154,11 +150,11 @@
 </div>
 
 <div style="text-align:center">
-  <button type="button" *ngIf='viewBarcodeReport'  class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
+  <button type="button" *ngIf='Roomflag'  class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
   </div>
 
 <!-- Table for generating barcode for Equipments -->
-<table *ngIf='viewBarcodeEquipment' id="reportexport" class="table table-hover table-responsive table-bordered table">
+<table *ngIf='Equipmentflag' id="reportexport" class="table table-hover table-responsive table-bordered table">
   <thead class="tableHead">
     <!-- <tr> -->
     <th> Equpiment Name </th>
@@ -185,7 +181,7 @@
 
 
 <div style="text-align:center">
-  <button type="button" *ngIf='viewBarcodeEquipment'  class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
+  <button type="button" *ngIf='Equipmentflag'  class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
   </div>
 
 

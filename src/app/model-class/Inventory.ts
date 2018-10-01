@@ -25,5 +25,10 @@ export interface Inventory {
   EquipmentTypeName: String;
   EquipmentTypeDescription: String;
   RoomType: String;
+  RoomTypeName: String;
+  MetricType: String;
+  MetricTypeValue: String;
+  MetricTypeKey: Number;
   RoomTypeKey: String;
+  barcode: Number;
 }

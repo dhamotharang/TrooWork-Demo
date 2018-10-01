@@ -423,9 +423,6 @@ export class InventoryService {
     return this.http.post(uri, obj);
   }
 
-
-
-
   getRoomList() {
     return this
       .http
@@ -441,6 +438,73 @@ export class InventoryService {
     const uri = "http://localhost:3000/api/deleteRoomById?roomkey=" + RoomKey + "&employeekey=" + 2861 + "&OrganizationID=" + 21;
     const obj = {};
     return this.http.post(uri, obj);
+  }
+
+  EditRoomtTypeAutoGenerate(roomTypeKey) {
+    return this
+      .http
+      .get('http://localhost:3000/api/getRoomTypeById?roomTypeKey=' + roomTypeKey + '&OrganizationID=' + 21);
+  }
+
+
+  updateRoomType(roomTypeKey, metricTypeKey, metricType, roomTypeName, MetricTypeValue) {
+    const uri = "http://localhost:3000/api/updateRoomType";
+    const obj = {
+      RoomTypeKey: roomTypeKey,
+      RoomTypeName: roomTypeName,
+      metric: metricTypeKey,
+      MetricType: metricType,
+      TypeValue: MetricTypeValue,
+      employeekey: 2861,
+      OrganizationID: 21
+    };
+    return this.http.post(uri, obj);
+  }
+  getBarcodeForEquipment() {
+    return this
+      .http
+      .get('http://localhost:3000/api/getBarcodeForEquipment?employeekey=' + 2861 + '&OrganizationID=' + 21);
+  }
+  getAllEquipmentType() {
+    return this
+      .http
+      .get('http://localhost:3000/api/allequiptype?employeekey=' + 2861 + '&OrganizationID=' + 21);
+  }
+
+  checkForNewEquipment(EquipmentTypeKey, EquipmentName) {
+    return this
+      .http
+      .get('http://localhost:3000/api/checkForNewEquipment?EquipmentTypeKey=' + EquipmentTypeKey + '&EquipmentName=' + EquipmentName + ' & employeekey=' + 2861 + ' & OrganizationID=' + 21);
+  }
+  checkForNewEquipmentbarcode(barcode) {
+    return this
+      .http
+      .get('http://localhost:3000/api/checkForBarcodeInventory?Barcode=' + barcode + '&type=equipment' + '&OrganizationID=' + 21);
+  }
+
+
+  addEquipment(EquipmentName, EquipmentDescription, Barcode, EquipmentTypeKey, FacKey, FloorKey) {
+    const uri = "http://localhost:3000/api/addnewEquipment";
+    const obj = {
+
+      EquipmentTypeKey: EquipmentTypeKey,
+      EquipmentName: EquipmentName,
+      EquipmentDescription: EquipmentDescription,
+      EquipmentBarcode: Barcode,
+      FacilityKey: FacKey,
+      FloorKey: FloorKey,
+      BarcodeINT: Barcode,
+      employeekey: 2861,
+      OrganizationID: 21
+    };
+    return this.http.post(uri, obj);
+  }
+
+
+  EditEquipmentAutoGenerate(equipKey) {
+    return this
+      .http
+      .get('http://localhost:3000/api/getEquipmentKeyById?equipmentKey=' + equipKey + '&OrganizationID=' + 21);
   }
   // @rodney ends....
 }
