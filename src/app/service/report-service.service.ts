@@ -44,27 +44,38 @@ export class ReportServiceService {
     .http
     .get('http://localhost:3000/api/allWorkordertype?date='+currentdate+'&empkey='+2861+'&userkey='+2861+'&OrganizationID='+21);
   }
-  getdashboardreport(currentdate,currentdate1,em_Key,Workorder_TypeKey)
+  getdashboardreport(date1,date2,em_Key,Workorder_TypeKey)
   {
+    debugger;
     const url='http://localhost:3000/api/getEmployeeForPie';
     const obj = {
-      date: currentdate,
-      date1:currentdate1,
+      date: date1,
+      date1:date2,
       empkey:em_Key,
       WorkorderTypeKey:Workorder_TypeKey,
       managerKey: 2861,
       OrganizationID:21
-
-//       Date: "2018-09-16"
-// Date1: "2018-09-16"
-// EmployeeKey: null
-// OrganizationID: 21
-// WorkorderTypeKey: null
-// managerKey: "2861"
      };
     return this
       .http
       .post (url,obj);
+  }
+  getvaluesfilterbypie(date1,date2,em_Key,Workorder_TypeKey,org_id,Manager)
+  {
+    debugger;
+    const url='http://localhost:3000/api/workorderByfilterPie';
+    const obj = {
+      manager :Manager,
+      workorderDate:date1,
+      workorderDate2 :date2,
+      employeekey :em_Key,      
+      workorderTypeKey : Workorder_TypeKey,      
+       OrganizationID : org_id
+    };
+    return this
+      .http
+      .post (url,obj);
+
   }
    // code by sudina ends
    // code by Anju starts
