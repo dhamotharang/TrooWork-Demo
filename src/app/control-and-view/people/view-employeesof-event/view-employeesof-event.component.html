@@ -9,13 +9,9 @@
         Meeting/Training/Event</a>
     </div>
     <br>
-    <div>
+    <!-- <div>
       <div>
         <label for="building">Job Title </label>
-
-        <!-- <ng-multiselect-dropdown [placeholder]="Selectjobtitle" [data]="jobTitle" [(ngModel)]="JobTitleKey" [textField]="'JobTitleText'"
-          [valueField]="'JobTitleKey'" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-        </ng-multiselect-dropdown> -->
 
         <ng-multiselect-dropdown [placeholder]="'Selectjobtitle'" [data]="jobTitle" [(ngModel)]="JobTitleKey"
           [textField]="'JobTitleText'" [valueField]="'JobTitleKey'" [settings]="dropdownSettings" (onSelect)="filterMtngTrainingList()"
@@ -25,11 +21,6 @@
         <br>
 
         <label for="building">Employee </label>
-
-        <!-- <ng-multiselect-dropdown [placeholder]="Selectemployee" [data]="empList" [(ngModel)]="EmployeeKey" [textField]="'EmployeeText'"
-          [valueField]="'EmployeeKey'" [settings]="dropdownSettings1" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-        </ng-multiselect-dropdown> -->
-
 
         <ng-multiselect-dropdown [placeholder]="'Selectemployee'" [data]="empList" [(ngModel)]="EmployeeKey"
           [textField]="'EmployeeText'" [valueField]="'EmployeeKey'" [settings]="dropdownSettings1" (onSelect)="filterMtngTrainingList()"
@@ -54,34 +45,71 @@
           (input)="searchMeetingTraining($event.target.value);" style="width: 100%;">
         <div *ngIf="searchform.controls.SearchMeetingTraining.errors?.minlength">Minimum 3 characters required.</div>
       </div>
-    </form>
+    </form> -->
 
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
       <table class="table table-responsive table-hover table-bordered table">
         <thead class="tableHead">
-          <th> Action Name </th>
-          <th> Event Venue </th>
-          <th> Event Host </th>
-          <th> Date </th>
-          <th> Time </th>
-          <th> Status </th>
-          <th> Notes </th>
+          <td>Action Name</td>
+          <td>Event Venue</td>
+          <td>Event Host</td>
+          <td>Employee Name</td>
+          <td>Date</td>
+          <td>Time</td>
+          <td>Status</td>
+          <td>Notes</td>
+          <td>Action</td>
         </thead>
         <tbody>
-          <tr *ngFor="let x of meetingTraining" class="r2" routerLink="/viewEventEmployees/{{ x.EventKey}}">
+          <tr *ngFor="let x of eventEmps" class="r2">
             <td>{{x.ActionType}} - {{x.Action}}</td>
             <td>{{x.EventVenue}}</td>
             <td>{{x.EventHost}}</td>
+            <td>{{x.EmployeeName}}</td>
             <td>{{x.EventDate}}</td>
             <td>{{x.EventStartTime}} - {{x.EventEndTime}}</td>
             <td *ngIf="x.HasAttended == 0">Not Attended</td>
             <td *ngIf="x.HasAttended == 1">Attended</td>
             <td>{{ x.MeetingNotes }}</td>
+            <td>
+              <a routerLink="/departmentEdit/{{ x.DepartmentKey}}" *ngIf="x.HasAttended == 0" class="btn btn-primary">Edit</a>
+
+              <a button type="button" mdbBtn color="primary" *ngIf="x.HasAttended == 0" class="relative waves-light"
+                (click)="basicModal.show();deleteMeetingPass(x.EventKey); " mdbWavesEffect>Delete</a>
+
+              <button (click)="markAttended(x.EmployeeKey, x.HasAttended, x.EventKey)" *ngIf="x.HasAttended == 0" class="btn btn-primary">Mark
+                as Attended</button>
+              <button (click)="markUnAttended(x.EmployeeKey, x.HasAttended, x.EventKey)" *ngIf="x.HasAttended == 1"
+                class="btn btn-primary">Mark
+                as UnAttended</button>
+
+            </td>
           </tr>
-          <tr *ngIf="meetingTraining?.length == 0">
+          <tr *ngIf="eventEmps?.length == 0">
             <td colspan="7" class="no-data-available">No records found</td>
           </tr>
-
+          <div mdbModal #basicModal="mdbModal" class="modal fade" role="dialog" aria-labelledby="myBasicModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                  <h4 class="modal-title w-100" id="myModalLabel"></h4>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to delete this?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide(); deleteMeeting()"
+                    mdbWavesEffect>Yes</button>
+                  <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.hide()"
+                    mdbWavesEffect>No</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </tbody>
       </table>
     </div>

@@ -63,6 +63,7 @@ import { EventEditComponent } from './control-and-view/people/event-edit/event-e
 import { EventViewComponent } from './control-and-view/people/event-view/event-view.component';
 
 import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
+import { ViewEmployeesofEventComponent } from './control-and-view/people/view-employeesof-event/view-employeesof-event.component';
 const routes: Routes = [
   {
     path: '',
@@ -253,6 +254,10 @@ const routes: Routes = [
   {
     path: 'InspectiontemplatedetailEdit/:TemplateID',
     component: InspectiontemplatedetailEditComponent
+  },
+  {
+    path: 'viewEventEmployees/:EventKey',
+    component: ViewEmployeesofEventComponent
   }
 ];
 
