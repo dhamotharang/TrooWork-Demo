@@ -53,6 +53,7 @@ import { FloorTypeEDitComponent } from './control-and-view/inventory/floor-type-
 import { RoomCreateComponent } from './control-and-view/inventory/room-create/room-create.component';
 import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
 import {InspectiontemplateandquestionsViewComponent} from './control-and-view/inspection/inspectiontemplateandquestions-view/inspectiontemplateandquestions-view.component';
+import { BatchWorkOrderReportComponent } from './control-and-view/reports/batch-work-order-report/batch-work-order-report.component';
 const routes: Routes = [
   {
     path: '',
@@ -215,6 +216,10 @@ const routes: Routes = [
   {
     path: 'InspectiontemplatedetailEdit/:TemplateID',
     component:  InspectiontemplatedetailEditComponent
+  },
+  {
+    path: 'Batch-work-order-Report',
+    component: BatchWorkOrderReportComponent
   }
 ];
 

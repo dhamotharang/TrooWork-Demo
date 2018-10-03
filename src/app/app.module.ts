@@ -67,7 +67,7 @@ import { FloorTypeEDitComponent } from './control-and-view/inventory/floor-type-
 import { RoomCreateComponent } from './control-and-view/inventory/room-create/room-create.component';
 import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
 import {InspectiontemplateandquestionsViewComponent} from './control-and-view/inspection/inspectiontemplateandquestions-view/inspectiontemplateandquestions-view.component';
-
+import { BatchWorkOrderReportComponent } from './control-and-view/reports/batch-work-order-report/batch-work-order-report.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -112,7 +112,8 @@ import {InspectiontemplateandquestionsViewComponent} from './control-and-view/in
     InspectiontemplateandquestionsViewComponent,
     InspectiontemplateEditComponent,
     WorkorderReportComponent,
-    InspectiontemplatedetailEditComponent
+    InspectiontemplatedetailEditComponent,
+    BatchWorkOrderReportComponent
    
   ],
   imports: [
