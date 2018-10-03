@@ -121,7 +121,7 @@ export class WorkorderReportComponent implements OnInit {
 
   generateWorkOrderReport(from_date,to_date,FacilityKey,FloorKey,RoomTypeKey,ZoneKey,RoomKey,EmployeeKey,WorkorderStatusKey)
   {
-   debugger;
+   //debugger;
   var fromdate = this.convert_DT(from_date);
     var todate = this.convert_DT(to_date);
     if (todate && fromdate > todate) {
@@ -136,7 +136,7 @@ export class WorkorderReportComponent implements OnInit {
         {
           // this.Roomflag=true;
           // this.Equipmentflag=false;
-          debugger;
+          //debugger;
        this.viewWorkorderReport= data;
        });
 

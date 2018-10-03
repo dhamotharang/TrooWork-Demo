@@ -32,7 +32,7 @@
         <div class="form-group">
           <label>Floor*</label><br>
 
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey" (change)="getZoneRoom($event.target.value,FacilityKey)">
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey" (change)="getZoneRoom($event.target.value,FacilityKey)" [disabled]="!FacilityKey">
           <option >--Select--</option>
           <option *ngFor="let f of floor" [value]="f.FloorKey">
               {{f.FloorName}}
@@ -48,7 +48,7 @@
           <option value="">Z1</option>
           <option value="">z2</option>
         </select> -->
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey" (change)="getRoomsName($event.target.value,FacilityKey,FloorKey)" >
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey" (change)="getRoomsName($event.target.value,FacilityKey,FloorKey)" [disabled]="!FloorKey">
           <option >--Select--</option>
           <option *ngFor="let z of zoneroom" [value]="z.ZoneKey">
               {{z.ZoneName}}
@@ -64,7 +64,7 @@
           <option value="">r2</option>
         </select> -->
 
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey" >
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey" [disabled]="!FloorKey">
           <option >--Select--</option>
           <option *ngFor="let r of room" [value]="r.RoomTypeKey">
               {{r.RoomTypeName}}
@@ -80,7 +80,7 @@
           <option value="">r2</option>
         </select> -->
 
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomKey" >
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomKey" [disabled]="!FloorKey">
           <option >--Select--</option>
           <option *ngFor="let r of rooms" [value]="r.RoomKey">
               {{r.RoomName}}
