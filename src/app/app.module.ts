@@ -72,7 +72,7 @@ import { InspectiontemplateandquestionsViewComponent } from './control-and-view/
 import { MeetingTrainingCreateComponent } from './control-and-view/people/meeting-training-create/meeting-training-create.component';
 import { MeetingTrainingEditComponent } from './control-and-view/people/meeting-training-edit/meeting-training-edit.component';
 import { MeetingTrainingViewComponent } from './control-and-view/people/meeting-training-view/meeting-training-view.component';
-
+import { InspectionViewComponent } from './control-and-view/inspection/inspection-view/inspection-view.component';
 import { EventCreateComponent } from './control-and-view/people/event-create/event-create.component';
 import { EventEditComponent } from './control-and-view/people/event-edit/event-edit.component';
 import { EventViewComponent } from './control-and-view/people/event-view/event-view.component';
@@ -129,7 +129,8 @@ import { InspectiontemplatedetailEditComponent } from './control-and-view/inspec
     EventEditComponent,
     EventViewComponent,
     WorkorderReportComponent,
-    InspectiontemplatedetailEditComponent
+    InspectiontemplatedetailEditComponent,
+    InspectionViewComponent
    
   ],
   imports: [

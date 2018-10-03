@@ -9,7 +9,14 @@ import { Inspection } from '../../../model-class/Inspection';
 })
 export class InspectionCreateComponent implements OnInit {
   templateName: Inspection[];
-
+  auditor: Inspection[];
+  employee: Inspection[];
+  building:Inspection[];
+  floors:Inspection[];
+  zone:Inspection[];
+  room:Inspection[];
+  roomtype:Inspection[];
+  facikey: Number;
 // adding properties and methods that will be used by the igxDatePicker
 public date: Date = new Date(Date.now());
 
@@ -21,7 +28,35 @@ public formatter = (_: Date) => {
 }
 
   constructor(private inspectionService: InspectionService) { }
-
+  selectFloorfromBuildings(facKey){
+    this.facikey=facKey;
+    this.inspectionService
+    .getallFloorNames(facKey)
+    .subscribe((data: Inspection[]) => {
+      // debugger;
+      this.floors = data;
+    });
+  }
+  selectZoneRoomRoomtypefromFloor(flkey){
+    this.inspectionService
+    .getallZones(this.facikey,flkey)
+    .subscribe((data: Inspection[]) => {
+      // debugger;
+      this.zone = data;
+    });
+    this.inspectionService
+    .getallRooms(this.facikey,flkey)
+    .subscribe((data: Inspection[]) => {
+      // debugger;
+      this.room = data;
+    });
+    this.inspectionService
+    .getallRoomType(this.facikey,flkey)
+    .subscribe((data: Inspection[]) => {
+      // debugger;
+      this.roomtype = data;
+    });
+  }
   ngOnInit() {
 
     this.inspectionService
@@ -29,6 +64,24 @@ public formatter = (_: Date) => {
     .subscribe((data: Inspection[]) => {
       // debugger;
       this.templateName = data;
+    });
+    this.inspectionService
+    .getAuditorName()
+    .subscribe((data: Inspection[]) => {
+      // debugger;
+      this.auditor = data;
+    });
+    this.inspectionService
+    .getEmployeeName()
+    .subscribe((data: Inspection[]) => {
+      // debugger;
+      this.employee = data;
+    });
+    this.inspectionService
+    .getBuildingName()
+    .subscribe((data: Inspection[]) => {
+      // debugger;
+      this.building = data;
     });
   }
 

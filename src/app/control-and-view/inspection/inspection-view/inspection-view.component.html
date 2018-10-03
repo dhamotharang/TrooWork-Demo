@@ -1,0 +1,52 @@
+<app-manager-dash-board></app-manager-dash-board>
+<br><br>
+
+<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <!-- <div class="container"> -->
+  <div class="row col-md-12 ">
+    <h3 style="margin-left: 25rem;">VIEW INSPECTION ORDER</h3>
+  </div>
+  <br><br>
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
+      <h1 style="text-align: right"></h1>
+      <!-- <form class="" method="post" action="https://formspree.io/"> -->
+      <div class="form-group" style="width: 25rem;">
+        <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">From Date</label>
+
+        <igx-datePicker [value]="date" [(ngModel)]="fromdate"></igx-datePicker>
+      </div>
+      <div class="col-md-6">
+        <!-- <form class="" method="post" action="https://formspree.io/"> -->
+        <div class="form-group" style="width: 25rem;">
+          <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">To Date</label>
+          <igx-datePicker [value]="date" [(ngModel)]="todate"></igx-datePicker>
+        </div>
+      </div>
+      <br>
+      <div class="col-md-12">
+        <form [formGroup]="searchform"> 
+          <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
+             <input class="form-control" name="searchtl" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
+               placeholder="Search Template,Location" aria-label="Search" [(ngmodel)]="SearchTL" formControlName="SearchTL"
+               (input)="searchTL($event.target.value);" style="width: 100%;">
+             <div *ngIf="searchform.controls.SearchTL.errors?.minlength">Minimum 3 characters required.</div>
+           </div> 
+          </form> 
+         <!-- </div> -->
+         <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
+          <table class="table table-responsive table-hover table-bordered table">
+            <thead class="tableHead">
+              <th> Template </th>
+              <th>Location</th>
+              <th>Inspection Date & Time</th>
+              <th>Auditor</th>
+              <th>Employee</th>
+              <th>Status</th>
+            </thead>
+            <tbody></tbody>
+            </table>
+    </div>
+  </div>
+</div>
+    
+    

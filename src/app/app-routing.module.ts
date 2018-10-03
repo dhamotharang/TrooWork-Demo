@@ -61,7 +61,7 @@ import { MeetingTrainingViewComponent } from './control-and-view/people/meeting-
 import { EventCreateComponent } from './control-and-view/people/event-create/event-create.component';
 import { EventEditComponent } from './control-and-view/people/event-edit/event-edit.component';
 import { EventViewComponent } from './control-and-view/people/event-view/event-view.component';
-
+import { InspectionViewComponent } from './control-and-view/inspection/inspection-view/inspection-view.component';
 import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
 const routes: Routes = [
   {
@@ -253,6 +253,10 @@ const routes: Routes = [
   {
     path: 'InspectiontemplatedetailEdit/:TemplateID',
     component: InspectiontemplatedetailEditComponent
+  },
+  {
+    path: 'InspectionView',
+    component: InspectionViewComponent
   }
 ];
 
