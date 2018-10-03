@@ -63,7 +63,6 @@ import { EventEditComponent } from './control-and-view/people/event-edit/event-e
 import { EventViewComponent } from './control-and-view/people/event-view/event-view.component';
 
 import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
-import {InspectiontemplateandquestionsViewComponent} from './control-and-view/inspection/inspectiontemplateandquestions-view/inspectiontemplateandquestions-view.component';
 const routes: Routes = [
   {
     path: '',
@@ -132,8 +131,8 @@ const routes: Routes = [
 
   },
   {
-    path:'WorkorderReport',
-    component:WorkorderReportComponent
+    path: 'WorkorderReport',
+    component: WorkorderReportComponent
   },
   {
     path: 'InspectionCreate',
@@ -250,8 +249,10 @@ const routes: Routes = [
   {
     path: 'EventView',
     component: EventViewComponent
+  },
+  {
     path: 'InspectiontemplatedetailEdit/:TemplateID',
-    component:  InspectiontemplatedetailEditComponent
+    component: InspectiontemplatedetailEditComponent
   }
 ];
 

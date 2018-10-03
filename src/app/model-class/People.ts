@@ -1,3 +1,5 @@
+import { Time } from "@angular/common";
+
 export interface People {
     JobTitle: String;
     JobTitleDescription: String;
@@ -23,7 +25,6 @@ export interface People {
     EmployeeKey: Number;
 
 
-    JobTitleKey: Number;
     JobTitleText: String;
     EmployeeText: String;
     FirstName: String;

@@ -24,6 +24,8 @@ export class MeetingTrainingViewComponent implements OnInit {
   jobTitle: People[];
   empList: People[];
 
+  dropdownSettings = {};
+  dropdownSettings1 = {};
 
   //validation starts ..... @rodney
   regexStr = '^[a-zA-Z0-9_ ]*$';
@@ -52,7 +54,13 @@ export class MeetingTrainingViewComponent implements OnInit {
     alert("i am in " + key);
   }
 
-
+  onItemSelect(item: any) {
+    console.log(item);
+  }
+  onSelectAll(items: any) {
+    console.log(items);
+  }
+  
   ngOnInit() {
     this.searchform = this.formBuilder.group({
       SearchMeetingTraining: ['', Validators.required]
@@ -97,13 +105,6 @@ export class MeetingTrainingViewComponent implements OnInit {
       itemsShowLimit: 5,
       allowSearchFilter: true
     };
-
-    onItemSelect(item: any) {
-      console.log(item);
-    }
-    onSelectAll(items: any) {
-      console.log(items);
-    }
     // multi select ends....
   }
 

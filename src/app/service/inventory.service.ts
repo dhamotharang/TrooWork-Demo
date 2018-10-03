@@ -587,5 +587,40 @@ export class InventoryService {
       .get('http://localhost:3000/api/getRoomById?roomKey=' + RoomKey + '&OrganizationID=' + 21);
 
   }
+
+  checkForNewFloorType(FloorTypeName) {
+    return this
+      .http
+      .get('http://localhost:3000/api/checkForNewInventory?checkValue=' + FloorTypeName + '&type=floortype' + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
+  }
+
+  addNewFloorType(floorTypeName) {
+    const uri = "http://localhost:3000/api/addnewfloortype";
+    const obj = {
+      FloorTypeName: floorTypeName,
+      employeekey: 2861,
+      OrganizationID: 21
+    };
+    return this.http.post(uri, obj);
+  }
+
+  EditFloorType(FloorTypeKey) {
+    return this
+      .http
+      .get('http://localhost:3000/api/getFloorTypeById?floortypeKey=' + FloorTypeKey + '&OrganizationID=' + 21);
+
+  }
+
+  UpdateFloorType(floorTypeName,FlrTypeKey) {
+    const uri = "http://localhost:3000/api/updateFloorType";
+    const obj = {
+      FloorTypeKey: FlrTypeKey,
+      FloorTypeName: floorTypeName,
+      employeekey: 2861,
+      OrganizationID: 21
+    };
+    return this.http.post(uri, obj);
+  }
+
   // @rodney ends....
 }

@@ -77,7 +77,6 @@ import { EventCreateComponent } from './control-and-view/people/event-create/eve
 import { EventEditComponent } from './control-and-view/people/event-edit/event-edit.component';
 import { EventViewComponent } from './control-and-view/people/event-view/event-view.component';
 import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
-import {InspectiontemplateandquestionsViewComponent} from './control-and-view/inspection/inspectiontemplateandquestions-view/inspectiontemplateandquestions-view.component';
 
 @NgModule({
   declarations: [
@@ -128,7 +127,7 @@ import {InspectiontemplateandquestionsViewComponent} from './control-and-view/in
     MeetingTrainingViewComponent,
     EventCreateComponent,
     EventEditComponent,
-    EventViewComponent
+    EventViewComponent,
     WorkorderReportComponent,
     InspectiontemplatedetailEditComponent
    
