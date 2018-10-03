@@ -8,4 +8,9 @@ export interface Inspection {
     searchMytemp:string;
     tempEditid:number;
     templatename:string;
+    employeekey: number;
+    domain:string;
+    key: number;
+    fkey:number;
+    floorkey:number;
 }

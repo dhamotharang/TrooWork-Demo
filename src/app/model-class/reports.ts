@@ -41,6 +41,17 @@ export interface Reports {
     WorkorderTypeText: string;
     WorkorderStatus:string;
     WorkorderStatusKey: number;
+    WorkorderTypeName:string;
+    WorkorderTime:string;
+    WorkorderDate:string;
+
+    checkin:string;
+    checkout:string;
+    duration:string;
+    DelayTime:Time;
+    WorkorderNotes:string;
+
+
     statusKey: number;
     empname: string;
     
@@ -58,6 +69,27 @@ export interface Reports {
     RoomKey:number;
     RoomName:string;
 
-   
-
+    BatchScheduleNameKey:number;
+    ScheduleName:string;
+    Area: number;
+    BatchSchduleName:string;
+    FloorTypeName: string;
+    MetricType: string;
+    MetricValue: string;
+    OccurrenceInterval: string;
+    fri: number;
+    mon: number;
+    sat: number;
+    sun: number;
+    thu: number;
+    tue: number;
+    wed: number;
+    dailyFrequency:number;
+    check_mon :boolean;
+    check_tue :boolean;
+    check_wed :boolean;
+    check_thu :boolean;
+    check_fri :boolean;
+    check_sat :boolean;
+    check_sun :boolean;
 }

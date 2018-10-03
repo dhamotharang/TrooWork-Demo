@@ -42,16 +42,15 @@ export class ReportServiceService {
   {
     return this
     .http
-    .get('http://localhost:3000/api/allWorkordertype?date='+currentdate+'&empkey='+2861+'&userkey='+2861+'&OrganizationID='+21);
+    .get('http://localhost:3000/api/valuesForPie?date='+currentdate+'&empkey='+2861+'&userkey='+2861+'&OrganizationID='+21);
   }
-  getdashboardreport(date1,date2,em_Key,Workorder_TypeKey)
+  getdashboardreport(dateTemp_1,dateTemp_2,em_Key,Workorder_TypeKey)
   {
-    debugger;
     const url='http://localhost:3000/api/getEmployeeForPie';
     const obj = {
-      date: date1,
-      date1:date2,
-      empkey:em_Key,
+      Date: dateTemp_1,
+      Date1:dateTemp_2,
+      EmployeeKey:em_Key,
       WorkorderTypeKey:Workorder_TypeKey,
       managerKey: 2861,
       OrganizationID:21
@@ -60,14 +59,14 @@ export class ReportServiceService {
       .http
       .post (url,obj);
   }
-  getvaluesfilterbypie(date1,date2,em_Key,Workorder_TypeKey,org_id,Manager)
+  getvaluesfilterbypie(dateTemp_1,dateTemp_2,em_Key,Workorder_TypeKey,org_id,Manager)
   {
     debugger;
     const url='http://localhost:3000/api/workorderByfilterPie';
     const obj = {
       manager :Manager,
-      workorderDate:date1,
-      workorderDate2 :date2,
+      workorderDate:dateTemp_1,
+      workorderDate2 :dateTemp_2,
       employeekey :em_Key,      
       workorderTypeKey : Workorder_TypeKey,      
        OrganizationID : org_id
@@ -76,6 +75,18 @@ export class ReportServiceService {
       .http
       .post (url,obj);
 
+  }
+  getallbatchschedules()
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/getBatchScheduleName?empkey='+2861+'&OrganizationID='+21);
+  }
+  getbatchschedulereport(Workorder_ScheduleKey)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/BatchSchedule_Report?WorkorderScheduleKey='+Workorder_ScheduleKey+'&OrganizationID='+21);
   }
    // code by sudina ends
 
@@ -180,11 +191,12 @@ export class ReportServiceService {
      .get('http://localhost:3000/api/roomByFacility_Floor_zone?fkey='+fkey+'&floorkey='+floorkey+'&zonekey='+zonekey+'&OrganizationID='+21 );
    }
 
-   generateWorkOrderReportService(FacilityKey,FloorKey,RoomTypeKey,ZoneKey,fromdate,todate,RoomKey,Employeekey,workorderStatusKey)
+   generateWorkOrderReportService(FacilityKey,FloorKey,RoomTypeKey,ZoneKey,fromdate,todate,RoomKey,EmployeeKey,WorkorderStatusKey)
    {
+    // debugger;
    const url='http://localhost:3000/api/workorderReportByallFilters';
    const obj = {
-     OrganizationID:21,
+    OrganizationID:21,
      manager: 2861,
      workorderDate:fromdate,
      workorderDate2:todate,
@@ -193,11 +205,12 @@ export class ReportServiceService {
      roomTypeKey:RoomTypeKey,
      zoneKey:ZoneKey,
      roomKey:RoomKey,
-     employeekey:Employeekey,
-     workorderStatusKey:workorderStatusKey
+     employeeKey:EmployeeKey,
+     workorderStatusKey:WorkorderStatusKey
 
-   
+  
     };
+   // debugger;
    return this
      .http
      .post (url,obj);

@@ -61,9 +61,10 @@ import { MeetingTrainingViewComponent } from './control-and-view/people/meeting-
 import { EventCreateComponent } from './control-and-view/people/event-create/event-create.component';
 import { EventEditComponent } from './control-and-view/people/event-edit/event-edit.component';
 import { EventViewComponent } from './control-and-view/people/event-view/event-view.component';
-
+import { InspectionViewComponent } from './control-and-view/inspection/inspection-view/inspection-view.component';
 import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
 import { ViewEmployeesofEventComponent } from './control-and-view/people/view-employeesof-event/view-employeesof-event.component';
+import { BatchWorkOrderReportComponent } from './control-and-view/reports/batch-work-order-report/batch-work-order-report.component';
 const routes: Routes = [
   {
     path: '',
@@ -258,6 +259,14 @@ const routes: Routes = [
   {
     path: 'viewEventEmployees/:EventKey',
     component: ViewEmployeesofEventComponent
+  },
+  {
+    path: 'Batch-work-order-Report',
+    component: BatchWorkOrderReportComponent
+  },
+  {
+    path: 'InspectionView',
+    component: InspectionViewComponent
   }
 ];
 

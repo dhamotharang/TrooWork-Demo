@@ -11,6 +11,42 @@ export class InspectionService {
       .http
       .get('http://localhost:3000/api/getTemplates?employeekey='+2861+'&OrganizationID='+21);
   }
+  getAuditorName(){
+    return this
+      .http
+      .get('http://localhost:3000/api/supervisorname?employeekey='+2861+'&OrganizationID='+21);
+  }
+  getEmployeeName(){
+    return this
+      .http
+      .get('http://localhost:3000/api/allemployees?empkey='+2861+'&OrganizationID='+21);
+  }
+  getBuildingName(){
+    return this
+    .http
+    .get('http://localhost:3000/api/allfacility?empkey='+2861+'&OrganizationID='+21);
+  }
+  getallFloorNames(key){
+    return this
+    .http
+    .get('http://localhost:3000/api/domainvaluesByKey?domain=facilityOnly'+'&key='+key+'&OrganizationID='+21);
+  }
+  getallZones(fkey,flkey){
+    // debugger;
+    return this
+    .http
+    .get('http://localhost:3000/api/zoneByFacility_Floor?fkey='+fkey+'&floorkey='+flkey+'&OrganizationID='+21);
+  }
+  getallRooms(fkey,flkey){
+    return this
+    .http
+    .get('http://localhost:3000/api/roomByFacility_Floor?fkey='+fkey+'&floorkey='+flkey+'&OrganizationID='+21);
+  }
+  getallRoomType(fkey,flkey){
+    return this
+    .http
+    .get('http://localhost:3000/api/roomtypeByFacility_Floor?fkey='+fkey+'&floorkey='+flkey+'&OrganizationID='+21);
+  }
   getScoreTypeList(){
     return this
     .http

@@ -5,11 +5,12 @@ import { InspectiontemplateCreateComponent } from './inspectiontemplate-create/i
 import { InspectiontemplateandquestionsViewComponent } from './inspectiontemplateandquestions-view/inspectiontemplateandquestions-view.component';
 import { InspectiontemplateEditComponent } from './inspectiontemplate-edit/inspectiontemplate-edit.component';
 import { InspectiontemplatedetailEditComponent } from './inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
+import { InspectionViewComponent } from './inspection-view/inspection-view.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [InspectionCreateComponent, InspectiontemplateCreateComponent, InspectiontemplateandquestionsViewComponent, InspectiontemplateEditComponent, InspectiontemplatedetailEditComponent]
+  declarations: [InspectionCreateComponent, InspectiontemplateCreateComponent, InspectiontemplateandquestionsViewComponent, InspectiontemplateEditComponent, InspectiontemplatedetailEditComponent, InspectionViewComponent]
 })
 export class InspectionModule { }

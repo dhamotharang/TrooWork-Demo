@@ -77,7 +77,7 @@
           <!-- </tr> -->
         </thead>
         <tbody>
-          <tr *ngFor="let x of reporttable">
+          <tr *ngFor="let x of reporttable" >
             <td>{{x.EmployeeName}} </td>
             <td>{{(x.CompletedCount/x.totalCount)*100 |number:0}}% </td>
             <td>{{x.WorkorderTypeName}}</td>

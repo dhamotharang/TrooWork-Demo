@@ -32,7 +32,7 @@
         <div class="form-group">
           <label>Floor*</label><br>
 
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey" (change)="getZoneRoom($event.target.value,FacilityKey)">
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey" (change)="getZoneRoom($event.target.value,FacilityKey)" [disabled]="!FacilityKey">
           <option >--Select--</option>
           <option *ngFor="let f of floor" [value]="f.FloorKey">
               {{f.FloorName}}
@@ -48,7 +48,7 @@
           <option value="">Z1</option>
           <option value="">z2</option>
         </select> -->
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey" (change)="getRoomsName($event.target.value,FacilityKey,FloorKey)">
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey" (change)="getRoomsName($event.target.value,FacilityKey,FloorKey)" [disabled]="!FloorKey">
           <option >--Select--</option>
           <option *ngFor="let z of zoneroom" [value]="z.ZoneKey">
               {{z.ZoneName}}
@@ -64,7 +64,7 @@
           <option value="">r2</option>
         </select> -->
 
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey" >
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey" [disabled]="!FloorKey">
           <option >--Select--</option>
           <option *ngFor="let r of room" [value]="r.RoomTypeKey">
               {{r.RoomTypeName}}
@@ -80,7 +80,7 @@
           <option value="">r2</option>
         </select> -->
 
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomKey" >
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomKey" [disabled]="!FloorKey">
           <option >--Select--</option>
           <option *ngFor="let r of rooms" [value]="r.RoomKey">
               {{r.RoomName}}
@@ -103,9 +103,9 @@
 
     <div class="form-group">
       <label>Employee</label><br>
-    <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="Employeekey" >
+    <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EmployeeKey" >
       <option >--Select--</option>
-      <option *ngFor="let e of emp" [value]="e.Employeekey">
+      <option *ngFor="let e of emp" [value]="e.EmployeeKey">
           {{e.EmployeeText}}
       </option>
   </select> 
@@ -125,14 +125,14 @@
     <div class="row col-md-12">
       <div class="col-md-6"></div>
       <div style="text-align:center">
-        <button type="button" class="btn btn-primary" (click)=generateWorkOrderReport(fromdate,todate,FacilityKey,FloorKey,RoomTypeKey,ZoneKey,RoomKey,Employeekey,WorkorderStatusKey)>Generate</button>
+        <button type="button" class="btn btn-primary" (click)=generateWorkOrderReport(fromdate,todate,FacilityKey,FloorKey,RoomTypeKey,ZoneKey,RoomKey,EmployeeKey,WorkorderStatusKey)>Generate</button>
         <br><br>
       </div>
     </div>
     <br>
   </div>
   <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
-  <table *ngIf='viewWorkOrderReport' id="reportexport" class="table table-hover table-responsive table-bordered table">
+  <table *ngIf='viewWorkorderReport' id="reportexport" class="table table-hover table-responsive table-bordered table">
     <thead class="tableHead">
       <!-- <tr> -->
       <th> Work-Order Type Name </th>
@@ -149,23 +149,33 @@
       <!-- </tr> -->
     </thead>
     <tbody>
-      <tr *ngFor="let x of viewWorkOrderReport" [value]="x.InspectionOrderKey">
-        <td>{{x.TemplateName}}</td>
-        <td>{{x.InspectionDate}}</td>
-        <td id="tooltip">{{x.FacilityName}} - {{x.RoomId}}<span id="tooltip-span" style="color:white;">{{x.RoomType}}</span></td>
-        <td>{{x.LastName}},{{x.FirstName}}</td>
-        <td>{{x.EmployeeName}}</td>
-        <td *ngIf="x.InspectionCompletedBy !== null">Inspection Completed</td>
-        <td *ngIf="x.InspectionCompletedBy === null "> Inspection Not Completed</td>
-      </tr>
-      <tr *ngIf="viewinspectionReport?.length == 0">
-        <td colspan="6" class="no-data-available">No records found</td>
+      <tr *ngFor="let x of viewWorkorderReport" >
+
+        
+          <td >{{x.WorkorderTypeName}} </td>
+          <td>{{x.WorkorderDate}} {{x.WorkorderTime}}</td>
+          <td >{{x.WorkorderStatus}}</td>
+          <td >{{x.LastName}},{{x.FirstName}}</td>
+          <td >{{x.RoomId}}</td>
+          <td id="tooltip">{{x.EquipmentName}}<span id="tooltip-span" style="position:absolute;color: white;">{{x.EquipmentType}}</span> </td>
+           <td>{{x.checkin}}</td>
+           <td>{{x.checkout}}</td>
+           <td>{{x.duration}}</td>
+           <td>{{x.DelayTime}}</td>
+          <td>{{x.WorkorderNotes}}</td> 
+                      
+
+
+
+              </tr>
+      <tr *ngIf="viewWorkorderReport?.length == 0">
+        <td colspan="12" class="no-data-available">No records found</td>
       </tr>
     </tbody>
   </table>
   <br>
   <br>
-  <div style="text-align:center" *ngIf="viewinspectionReport?.length> 0">
+  <div style="text-align:center" *ngIf="viewWorkorderReport?.length> 0">
     <button type="button" class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
   </div>
 </div>
