@@ -40,7 +40,7 @@
             <td>{{ x.RoomTypeText }}</td>
             <td>{{ x.RoomName }}</td>
             <td>
-              <a routerLink="/equipmentsEdit/{{ x.RoomKey}}" class="btn btn-primary">Edit</a>
+              <a routerLink="/RoomEdit/{{ x.RoomKey}}" class="btn btn-primary">Edit</a>
               <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteRoomPass(x.RoomKey); "
                 mdbWavesEffect>Delete</a>
             </td>

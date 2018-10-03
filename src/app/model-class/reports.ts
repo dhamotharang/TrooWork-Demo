@@ -41,6 +41,17 @@ export interface Reports {
     WorkorderTypeText: string;
     WorkorderStatus:string;
     WorkorderStatusKey: number;
+    WorkorderTypeName:string;
+    WorkorderTime:string;
+    WorkorderDate:string;
+
+    checkin:string;
+    checkout:string;
+    duration:string;
+    DelayTime:Time;
+    WorkorderNotes:string;
+
+
     statusKey: number;
     empname: string;
     

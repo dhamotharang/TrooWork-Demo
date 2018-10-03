@@ -29,12 +29,13 @@ import { FloorTypeViewComponent } from './floor-type-view/floor-type-view.compon
 import { FloorTypeCreateComponent } from './floor-type-create/floor-type-create.component';
 import { FloorTypeEDitComponent } from './floor-type-edit/floor-type-edit.component';
 import { RoomCreateComponent } from './room-create/room-create.component';
+import { RoomEditComponent } from './room-edit/room-edit.component';
 
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [DepartmentCreateComponent, DepartmentViewComponent, DepartmentEditComponent, EquipmentCreateComponent, EquipmentEditComponent, EquipmentViewComponent, EquipmentTypeCreateComponent, EquipmentTypeEditComponent, EquipmentTypeViewComponent, RoomViewComponent, RoomTypeViewComponent, RoomTypeCreateComponent, RoomTypeUpdateComponent, FloorTypeViewComponent, FloorTypeCreateComponent, FloorTypeEDitComponent, RoomCreateComponent]
+  declarations: [DepartmentCreateComponent, DepartmentViewComponent, DepartmentEditComponent, EquipmentCreateComponent, EquipmentEditComponent, EquipmentViewComponent, EquipmentTypeCreateComponent, EquipmentTypeEditComponent, EquipmentTypeViewComponent, RoomViewComponent, RoomTypeViewComponent, RoomTypeCreateComponent, RoomTypeUpdateComponent, FloorTypeViewComponent, FloorTypeCreateComponent, FloorTypeEDitComponent, RoomCreateComponent, RoomEditComponent]
 })
 export class InventoryModule { }

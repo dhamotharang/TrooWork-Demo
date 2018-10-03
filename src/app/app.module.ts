@@ -59,15 +59,27 @@ import { RoomViewComponent } from './control-and-view/inventory/room-view/room-v
 import { RoomTypeViewComponent } from './control-and-view/inventory/room-type-view/room-type-view.component';
 import { RoomTypeCreateComponent } from './control-and-view/inventory/room-type-create/room-type-create.component';
 import { RoomTypeUpdateComponent } from './control-and-view/inventory/room-type-update/room-type-update.component';
-import {InspectiontemplateEditComponent} from './control-and-view/inspection/inspectiontemplate-edit/inspectiontemplate-edit.component';
+import { InspectiontemplateEditComponent } from './control-and-view/inspection/inspectiontemplate-edit/inspectiontemplate-edit.component';
 import { FloorTypeViewComponent } from './control-and-view/inventory/floor-type-view/floor-type-view.component';
 import { FloorTypeCreateComponent } from './control-and-view/inventory/floor-type-create/floor-type-create.component';
 import { FloorTypeEDitComponent } from './control-and-view/inventory/floor-type-edit/floor-type-edit.component';
 
 import { RoomCreateComponent } from './control-and-view/inventory/room-create/room-create.component';
+import { RoomEditComponent } from './control-and-view/inventory/room-edit/room-edit.component';
+
+import { InspectiontemplateandquestionsViewComponent } from './control-and-view/inspection/inspectiontemplateandquestions-view/inspectiontemplateandquestions-view.component';
+
+import { MeetingTrainingCreateComponent } from './control-and-view/people/meeting-training-create/meeting-training-create.component';
+import { MeetingTrainingEditComponent } from './control-and-view/people/meeting-training-edit/meeting-training-edit.component';
+import { MeetingTrainingViewComponent } from './control-and-view/people/meeting-training-view/meeting-training-view.component';
+import { InspectionViewComponent } from './control-and-view/inspection/inspection-view/inspection-view.component';
+import { EventCreateComponent } from './control-and-view/people/event-create/event-create.component';
+import { EventEditComponent } from './control-and-view/people/event-edit/event-edit.component';
+import { EventViewComponent } from './control-and-view/people/event-view/event-view.component';
 import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
 import {InspectiontemplateandquestionsViewComponent} from './control-and-view/inspection/inspectiontemplateandquestions-view/inspectiontemplateandquestions-view.component';
 import { BatchWorkOrderReportComponent } from './control-and-view/reports/batch-work-order-report/batch-work-order-report.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -111,9 +123,17 @@ import { BatchWorkOrderReportComponent } from './control-and-view/reports/batch-
     RoomCreateComponent,
     InspectiontemplateandquestionsViewComponent,
     InspectiontemplateEditComponent,
+    RoomEditComponent,
+    MeetingTrainingCreateComponent,
+    MeetingTrainingEditComponent,
+    MeetingTrainingViewComponent,
+    EventCreateComponent,
+    EventEditComponent,
+    EventViewComponent,
     WorkorderReportComponent,
     InspectiontemplatedetailEditComponent,
-    BatchWorkOrderReportComponent
+    BatchWorkOrderReportComponent,
+    InspectionViewComponent
    
   ],
   imports: [
@@ -127,9 +147,9 @@ import { BatchWorkOrderReportComponent } from './control-and-view/reports/batch-
     CalendarModule,
     IgxDatePickerModule,
     NgMultiSelectDropDownModule.forRoot()
-   
+
   ],
-  providers: [CreatebuildingComponent, CreatebuildingService,GooglePieChartService],
+  providers: [CreatebuildingComponent, CreatebuildingService, GooglePieChartService],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

@@ -40,4 +40,27 @@ export class PeopleServiceService {
       .get('http://localhost:3000/api/getUserEmail?username=' + username + '&empkey=' + 2861 + '&OrganizationID=' + 21);
 
   }
+
+
+  getJobTitleList() {
+    return this
+      .http
+      .get('http://localhost:3000/api/selectJobtitle?empkey=' + 6421 + '&OrganizationID=' + 135);
+
+  }
+
+  getallEmployeesList() {
+    return this
+      .http
+      .get('http://localhost:3000/api/allemployees?empkey=' + 6421 + '&OrganizationID=' + 135);
+
+  }
+
+  gettodaysMeeting(today) {
+    debugger;
+    return this
+      .http
+      .get('http://localhost:3000/api/gettodaysMeeting?ondate=' + today + '&employeekey=' + 6421+ '&pageno=' + 1 + '&itemsPerPage=' + 1000  + '&OrganizationID=' + 135);
+
+  }
 }

@@ -41,7 +41,12 @@ export class WorkorderReportComponent implements OnInit {
   workstatus:Reports[];
   viewWorkorderReport:Reports[];
 
-  constructor(private fb: FormBuilder,private ReportServiceService:ReportServiceService) { }
+  public workexcel:Array<any> = [{
+    WorkorderTypeName:'',DateandTime:'',Status:'',Employee:'',Room:'',Equipment:'',CheckinTime:'',CheckoutTime:'',Duration:'',DelayTime:'',Notes:''
+  }
+  ]; 
+
+  constructor(private fb: FormBuilder,private ReportServiceService:ReportServiceService,private excelService:ExcelserviceService) { }
 
   ngOnInit()
    {
@@ -103,28 +108,35 @@ export class WorkorderReportComponent implements OnInit {
 
   getRoomsName(zonekey,fkey,floorkey)
   {
-    debugger;
+   // debugger;
     this.ReportServiceService
    .getRooms(fkey,floorkey,zonekey)
    .subscribe((data: Reports[]) =>
    {
-  debugger;
+  //debugger;
   this.rooms= data;
   });
 
   }
 
-  generateWorkOrderReport(fromdate,todate,FacilityKey,FloorKey,RoomTypeKey,ZoneKey,RoomKey,Employeekey,WorkorderStatusKey)
+  generateWorkOrderReport(from_date,to_date,FacilityKey,FloorKey,RoomTypeKey,ZoneKey,RoomKey,EmployeeKey,WorkorderStatusKey)
   {
-   debugger;
-  
+   //debugger;
+  var fromdate = this.convert_DT(from_date);
+    var todate = this.convert_DT(to_date);
+    if (todate && fromdate > todate) {
+      todate = null;
+      alert("Please check your Start Date!");
+      return;
+    }
     
   this.ReportServiceService
-  .generateWorkOrderReportService(FacilityKey,FloorKey,RoomTypeKey,ZoneKey,fromdate,todate,RoomKey,Employeekey,WorkorderStatusKey)
+  .generateWorkOrderReportService(FacilityKey,FloorKey,RoomTypeKey,ZoneKey,fromdate,todate,RoomKey,EmployeeKey,WorkorderStatusKey)
      .subscribe((data: Reports[]) =>
         {
           // this.Roomflag=true;
           // this.Equipmentflag=false;
+          //debugger;
        this.viewWorkorderReport= data;
        });
 
@@ -134,4 +146,49 @@ export class WorkorderReportComponent implements OnInit {
   
 
   }
+
+  //export to excel 
+  exportToExcel():void
+  {
+   
+     // this. Roomflag=true;
+     // this.Equipmentflag=false;
+      for(var i=0;i<this.viewWorkorderReport.length;i++)
+       {
+         this.workexcel.splice(i, 1);
+          var Work_Type_Name=(this.viewWorkorderReport[i].WorkorderTypeName);
+         
+         var date_time = this.viewWorkorderReport[i].WorkorderDate.concat( this.viewWorkorderReport[i].WorkorderTime);
+        
+         var Work_status=(this.viewWorkorderReport[i].WorkorderStatus);
+         var employee = this.viewWorkorderReport[i].LastName.concat( this.viewWorkorderReport[i].FirstName);
+         var room_id=(this.viewWorkorderReport[i].RoomId);
+         var eq_name=(this.viewWorkorderReport[i].EquipmentName);
+         var check_in=(this.viewWorkorderReport[i].checkin);
+         var check_out=(this.viewWorkorderReport[i].checkout);
+         var duration=(this.viewWorkorderReport[i].duration); 
+         var delay_time=(this.viewWorkorderReport[i].DelayTime);
+         var work_notes=(this.viewWorkorderReport[i].WorkorderNotes);
+       
+      
+       
+        if(this.viewWorkorderReport[i])
+         {
+         // var cur_status1='Inspection Completed';
+        //  var delay_time=(this.viewWorkorderReport[i].DelayTime);
+         this.workexcel.push({WorkorderTypeName:Work_Type_Name,DateandTime:date_time,Status:Work_status,Employee:employee,Room:room_id,Equipment:eq_name,CheckinTime:check_in,CheckoutTime:check_out,Duration:duration,DelayTime:delay_time,Notes:work_notes
+            
+              })
+         }
+        }
+        
+        
+       this.excelService.exportAsExcelFile(this.workexcel, 'samplereport');
+        
+        
+  }
+
+ 
+
+
 }

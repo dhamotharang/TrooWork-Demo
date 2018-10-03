@@ -506,5 +506,121 @@ export class InventoryService {
       .http
       .get('http://localhost:3000/api/getEquipmentKeyById?equipmentKey=' + equipKey + '&OrganizationID=' + 21);
   }
+
+  getallFloorTypeList() {
+    return this
+      .http
+      .get('http://localhost:3000/api/getFloorTypeListForRoomEdit?empkey=' + 2861 + '&OrganizationID=' + 21);
+  }
+  getallRoomTypeList() {
+    return this
+      .http
+      .get('http://localhost:3000/api/getRoomTypeListForRoomEdit?empkey=' + 2861 + '&OrganizationID=' + 21);
+  }
+  getBarcodeForRoom() {
+    return this
+      .http
+      .get('http://localhost:3000/api/getBarcodeForRoom?employeekey=' + 2861 + '&OrganizationID=' + 21);
+  }
+  getallZoneList(facKey, flrKey) {
+    return this
+      .http
+      .get('http://localhost:3000/api/getZoneListForRoomEdit?FacilityKey=' + facKey + '&FloorKey=' + flrKey + '&OrganizationID=' + 21);
+  }
+
+
+  checkNewRoom(facilityKey, floorKey, floorTypeKey, zoneKey, roomTypeKey, roomName) {
+    const uri = "http://localhost:3000/api/checkForNewRoom";
+    const obj = {
+
+      FacilityKey: facilityKey,
+      FloorKey: floorKey,
+      FloorTypeKey: floorTypeKey,
+      ZoneKey: zoneKey,
+      RoomTypeKey: roomTypeKey,
+      RoomName: roomName,
+      employeekey: 2861,
+      OrganizationID: 21
+    };
+    return this.http.post(uri, obj);
+  }
+  checkRoomBarcode(Barcode) {
+
+    return this
+      .http
+      .get('http://localhost:3000/api/checkUniqueBarcode_Updation?roomkey=' + -1 + '&barcode=' + Barcode + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
+  }
+  checkRoomName(RoomName) {
+
+    return this
+      .http
+      .get('http://localhost:3000/api/checkNewRoomName?RoomName=' + RoomName + '&OrganizationID=' + 21);
+
+  }
+
+
+  addRoom(facilityKey, floorKey, floorTypeKey, zoneKey, roomTypeKey, roomName, SquareFoot, barcode) {
+    const uri = "http://localhost:3000/api/addnewRoom";
+    const obj = {
+
+      FacilityKey: facilityKey,
+      FloorKey: floorKey,
+      FloorTypeKey: floorTypeKey,
+      ZoneKey: zoneKey,
+      RoomTypeKey: roomTypeKey,
+      roomkey: -99,
+      Area: SquareFoot,
+      RoomName: roomName,
+      employeekey: 2861,
+      Barcode: barcode,
+      OrganizationID: 21
+    };
+    return this.http.post(uri, obj);
+  }
+
+
+
+  getRoomDetailsList(RoomKey) {
+
+    return this
+      .http
+      .get('http://localhost:3000/api/getRoomById?roomKey=' + RoomKey + '&OrganizationID=' + 21);
+
+  }
+
+  checkForNewFloorType(FloorTypeName) {
+    return this
+      .http
+      .get('http://localhost:3000/api/checkForNewInventory?checkValue=' + FloorTypeName + '&type=floortype' + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
+  }
+
+  addNewFloorType(floorTypeName) {
+    const uri = "http://localhost:3000/api/addnewfloortype";
+    const obj = {
+      FloorTypeName: floorTypeName,
+      employeekey: 2861,
+      OrganizationID: 21
+    };
+    return this.http.post(uri, obj);
+  }
+
+  EditFloorType(FloorTypeKey) {
+    return this
+      .http
+      .get('http://localhost:3000/api/getFloorTypeById?floortypeKey=' + FloorTypeKey + '&OrganizationID=' + 21);
+
+  }
+
+  UpdateFloorType(floorTypeName,FlrTypeKey) {
+    const uri = "http://localhost:3000/api/updateFloorType";
+    const obj = {
+      FloorTypeKey: FlrTypeKey,
+      FloorTypeName: floorTypeName,
+      employeekey: 2861,
+      OrganizationID: 21
+    };
+    return this.http.post(uri, obj);
+  }
+
   // @rodney ends....
 }
