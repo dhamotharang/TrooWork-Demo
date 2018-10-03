@@ -180,11 +180,12 @@ export class ReportServiceService {
      .get('http://localhost:3000/api/roomByFacility_Floor_zone?fkey='+fkey+'&floorkey='+floorkey+'&zonekey='+zonekey+'&OrganizationID='+21 );
    }
 
-   generateWorkOrderReportService(FacilityKey,FloorKey,RoomTypeKey,ZoneKey,fromdate,todate,RoomKey,Employeekey,workorderStatusKey)
+   generateWorkOrderReportService(FacilityKey,FloorKey,RoomTypeKey,ZoneKey,fromdate,todate,RoomKey,EmployeeKey,WorkorderStatusKey)
    {
+    // debugger;
    const url='http://localhost:3000/api/workorderReportByallFilters';
    const obj = {
-     OrganizationID:21,
+    OrganizationID:21,
      manager: 2861,
      workorderDate:fromdate,
      workorderDate2:todate,
@@ -193,11 +194,12 @@ export class ReportServiceService {
      roomTypeKey:RoomTypeKey,
      zoneKey:ZoneKey,
      roomKey:RoomKey,
-     employeekey:Employeekey,
-     workorderStatusKey:workorderStatusKey
+     employeeKey:EmployeeKey,
+     workorderStatusKey:WorkorderStatusKey
 
-   
+  
     };
+   // debugger;
    return this
      .http
      .post (url,obj);

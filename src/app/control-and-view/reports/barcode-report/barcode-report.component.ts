@@ -115,7 +115,7 @@ export class BarcodeReportComponent implements OnInit
 
   generateBarcodeReport(FacilityKey,FloorKey,RoomTypeKey,ZoneKey,EquipmentTypeKey,EquipmentKey)
   {
-   debugger;
+  // debugger;
   if(FacilityKey){
     
   this.ReportServiceService
@@ -130,7 +130,7 @@ export class BarcodeReportComponent implements OnInit
   }
   if(EquipmentTypeKey)
   {
-    debugger;
+   // debugger;
     this.ReportServiceService
     .generateBarcodeByEqupiment(EquipmentKey,EquipmentTypeKey)
      .subscribe((data: Reports[]) =>
@@ -172,7 +172,7 @@ export class BarcodeReportComponent implements OnInit
           }
        
          }
-         debugger;
+         //debugger;
          if(this.Roomflag){
         this.excelService.exportAsExcelFile(this.reportarray, 'samplereport');
          }
