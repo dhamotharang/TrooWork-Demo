@@ -12,7 +12,7 @@
             <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="mtngTrainingEvent">Meeting/Training/Event*
                 </label></h5>
             <div class="md-form col-md-3" style="text-align:left">
-                <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ActionKey">
+                <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EventType">
                     <option>--Select--</option>
                     <option *ngFor="let b of event" [value]="b.ActionKey">
                         {{b.ActionType}} - {{b.Action}}
@@ -41,7 +41,7 @@
 
         <div>
             <label for="building">Date* </label>
-            <igx-datePicker [value]="date1" [(ngModel)]="fromdate"></igx-datePicker>
+            <igx-datePicker [value]="date1" [(ngModel)]="mtngDate"></igx-datePicker>
             <br>
         </div>
 
@@ -56,7 +56,7 @@
 
         <div class="form-group">
             <label>Notes</label>
-            <textarea class="form-control rounded-0" id="Notes" rows="5" style="resize: none;"></textarea>
+            <textarea class="form-control rounded-0" [(ngModel)]="Notes" rows="5" style="resize: none;"></textarea>
         </div>
 
 
@@ -66,8 +66,8 @@
         <div class="row col-md-12">
             <h5 style="text-align:right" class="col-md-4"><label for="floorname">Job Title </label></h5>
             <div class="md-form col-md-3" style="text-align:left">
-                <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="JobTitleKey">
-                    <option>--Select--</option>
+                <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="JobTitle" (change)="selectEmpOfJobTitle($event.target.value)">
+                    <option value="0">--Select--</option>
                     <option *ngFor="let f of jobTitle" [value]="f.JobTitleKey">
                         {{f.JobTitleText}}
                     </option>
@@ -78,8 +78,9 @@
         <div class="row col-md-12">
             <h5 style="text-align:right" class="col-md-4"><label for="floorname">Supervisor </label></h5>
             <div class="md-form col-md-3" style="text-align:left">
-                <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="SupervisorKey">
-                    <option>--Select--</option>
+                <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="Supervisor"
+                    (change)="selectEmpOfSupervisor($event.target.value)">
+                    <option value="0">--Select--</option>
                     <option *ngFor="let f of supervisor" [value]="f.SupervisorKey">
                         {{f.SupervisorText}}
                     </option>
@@ -90,8 +91,8 @@
         <div class="row col-md-12">
             <h5 style="text-align:right" class="col-md-4"><label for="Employee">Employee* </label></h5>
             <div class="md-form col-md-3" style="text-align:left">
-                <ng-multiselect-dropdown [placeholder]="'Selectemployee'" [data]="empList" [(ngModel)]="EmployeeKey"
-                    [textField]="'EmployeeText'" [valueField]="'EmployeeKey'" [settings]="dropdownSettings1" (onSelect)="filterMtngTrainingList()">
+                <ng-multiselect-dropdown [placeholder]="'Selectemployee'" [data]="empList" [(ngModel)]="Employee"
+                    [textField]="'EmployeeText'" [valueField]="'EmployeeKey'" [settings]="dropdownSettings1">
                 </ng-multiselect-dropdown>
             </div>
             <div class="col col-md-5"></div>
@@ -99,8 +100,8 @@
 
         <div class="row col-md-12">
             <div class="col col-md-3"></div>
-            <div style="text-align:right" class="col-md-3"><a style="color:white !important" routerLink="/MeetingTrainingView"
-                    class="btn btn-success" routerLinkActive="active" (click)="addMeetingTrainingEvent()"><b>Save</b>
+            <div style="text-align:right" class="col-md-3">
+                <a style="color:white !important" class="btn btn-success" (click)="addMeetingTrainingEvent()"><b>Save</b>
                 </a></div>
             <div class="col col-md-3"></div>
         </div>

@@ -137,5 +137,42 @@ export class PeopleServiceService {
       .get('http://localhost:3000/api/meetingTraining?empKey=' + 2861 + '&OrganizationID=' + 21);
 
   }
+  getSupervisorEmployeesList(supervisorKey) {
+    return this
+      .http
+      .get('http://localhost:3000/api/empGetBySupervisor?SupervisorKey=' + supervisorKey + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
 
+  }
+
+  getJobtitleEmployeesList(jobTleKey) {
+    return this
+      .http
+      .get('http://localhost:3000/api/empKey_byJobtitle?jobTitle=' + jobTleKey + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
+
+  }
+
+  getSupervisorJobtitleEmployeesList(jobTleKey, superVsrKey) {
+    return this
+      .http
+      .get('http://localhost:3000/api/empGetBySupervisorjobTitle?SupervisorKey=' + superVsrKey + '&JobTitleKey=' + jobTleKey + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
+
+  }
+
+  addMeetingTraining(EventType, eventHost, Venue, time1, time2, Notes, EmployeeKeyString, date1) {
+
+    const uri = "http://localhost:3000/api/addMeetingTraining";
+    const obj = {
+      actionKey: EventType,
+      eventhost: eventHost,
+      venue: Venue,
+      MeetingNotes: Notes,
+      meetingDate: date1,
+      startTime: time1,
+      endTime: time2,
+      empKey: EmployeeKeyString,
+      employeekey: 2861,
+      OrganizationID: 21
+    };
+    return this.http.post(uri, obj);
+  }
 }
