@@ -75,7 +75,7 @@ export interface Reports {
     BatchSchduleName:string;
     FloorTypeName: string;
     MetricType: string;
-    MetricValue: string;
+    MetricValue: number;
     OccurrenceInterval: string;
     fri: number;
     mon: number;
@@ -85,11 +85,4 @@ export interface Reports {
     tue: number;
     wed: number;
     dailyFrequency:number;
-    check_mon :boolean;
-    check_tue :boolean;
-    check_wed :boolean;
-    check_thu :boolean;
-    check_fri :boolean;
-    check_sat :boolean;
-    check_sun :boolean;
 }

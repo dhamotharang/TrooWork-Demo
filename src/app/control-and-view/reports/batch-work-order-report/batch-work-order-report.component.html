@@ -90,6 +90,13 @@
         <td>{{totalSatTime}}</td>
         <td>{{totalSunTime}}</td>
       </tr>
+      <tr *ngIf="reportarray?.length == 0">
+        <td colspan="15" class="no-data-available">No records found</td>
+      </tr>
     </tbody>
   </table>
+  <br>
+  <div style="text-align:center" *ngIf="reportarray?.length> 0">
+    <button type="button" class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
+  </div>
 </div>

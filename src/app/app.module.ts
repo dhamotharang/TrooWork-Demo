@@ -77,9 +77,8 @@ import { EventCreateComponent } from './control-and-view/people/event-create/eve
 import { EventEditComponent } from './control-and-view/people/event-edit/event-edit.component';
 import { EventViewComponent } from './control-and-view/people/event-view/event-view.component';
 import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
-import {InspectiontemplateandquestionsViewComponent} from './control-and-view/inspection/inspectiontemplateandquestions-view/inspectiontemplateandquestions-view.component';
 import { BatchWorkOrderReportComponent } from './control-and-view/reports/batch-work-order-report/batch-work-order-report.component';
-
+import {DataTableModule} from 'angular5-data-table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -138,6 +137,7 @@ import { BatchWorkOrderReportComponent } from './control-and-view/reports/batch-
   ],
   imports: [
     BrowserModule,
+    DataTableModule,
     BrowserAnimationsModule,
     MDBBootstrapModule.forRoot(),
     FormsModule,
