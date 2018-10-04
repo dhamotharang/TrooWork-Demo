@@ -9,7 +9,7 @@
     <div class="row col-md-12">
         <div class="col-md-6 ">
       <div class="md-form col-md-3" style="text-align:left">
-          <select style="background-color: #D4F4FF !important;width: 29rem" class="form-control" [(ngModel)]="TemplateName" (change)="showInspectionTemplateTable($event.target.value)">
+          <select style="background-color: #D4F4FF !important;width: 29rem" class="form-control" [(ngModel)]="TemplateID" (change)="showInspectionTemplateTable($event.target.value)">
               <option >--Choose a Template--</option>             
               <option *ngFor="let t of template" [value]="t.TemplateID">
                   {{t.TemplateName}}
@@ -23,16 +23,18 @@
   </div>
 </div>
   <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
-  
+ <div *ngIf='searchFlag'>
+  <form [formGroup]="searchform" >
+    <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
+      <input class="form-control" name="searchtemplatenameandquestion" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
+        placeholder="Search Template Name,Template Question" aria-label="Search" [(ngmodel)]="searchTemplateNameAndQuestion" formControlName="searchTemplateNameAndQuestion"
+        (input)="searchTNandTQ($event.target.value,TemplateID);" style="width: 100%;">
+      <div *ngIf="searchform.controls.searchTemplateNameAndQuestion.errors?.minlength">Minimum 3 characters required.</div>
+    </div>
+  </form>
+</div>
   <table *ngIf='viewinspectionTemplate' id="inspectemplate" class="table table-hover table-responsive table-bordered table">
-    <!-- <form [formGroup]="searchform">
-      <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
-        <input class="form-control" name="searchbuildingview" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
-          placeholder="Search Template Name" aria-label="Search" [(ngmodel)]="SearchFacility" formControlName="SearchFacility"
-          (input)="searchFacility($event.target.value);" style="width: 100%;">
-        <div *ngIf="searchform.controls.SearchFacility.errors?.minlength">Minimum 3 characters required.</div>
-      </div>
-    </form> -->
+    
     <thead class="tableHead">
       <th> Template Name </th>
       <th> Template Question </th>
