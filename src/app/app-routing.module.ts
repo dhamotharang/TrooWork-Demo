@@ -65,6 +65,11 @@ import { InspectionViewComponent } from './control-and-view/inspection/inspectio
 import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
 import { ViewEmployeesofEventComponent } from './control-and-view/people/view-employeesof-event/view-employeesof-event.component';
 import { BatchWorkOrderReportComponent } from './control-and-view/reports/batch-work-order-report/batch-work-order-report.component';
+import { CreateBatchWorkComponent } from './control-and-view/scheduling/create-batch-work/create-batch-work.component';
+import { SchedulingViewComponent } from './control-and-view/scheduling/scheduling-view/scheduling-view.component';
+import { EditBatchWorkComponent } from './control-and-view/scheduling/edit-batch-work/edit-batch-work.component';
+import { CreateBatchScheduleComponent } from './control-and-view/scheduling/create-batch-schedule/create-batch-schedule.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -267,6 +272,22 @@ const routes: Routes = [
   {
     path: 'InspectionView',
     component: InspectionViewComponent
+  },
+  {
+    path: 'CreateBatchWork',
+    component: CreateBatchWorkComponent
+  },
+  {
+    path: 'SchedulingView',
+    component: SchedulingViewComponent
+  },
+  {
+    path: 'EditBatchWork',
+    component: EditBatchWorkComponent
+  },
+  {
+    path: 'CreateBatchSchedule',
+    component: CreateBatchScheduleComponent
   }
 ];
 
