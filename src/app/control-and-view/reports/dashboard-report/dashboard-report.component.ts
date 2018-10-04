@@ -134,6 +134,12 @@ export class DashboardReportComponent implements OnInit {
     // ['Video games', 4],
     // ['Sleep',    10]];
     
+    this.data1 = this.pievalues;
+    this.config1 = new PieChartConfig('piechart', 0.4);
+    this.elementId1 = 'myPieChart1';
+    // this.data1 = this.pievalues;
+    // this.config1 = new PieChartConfig('piechart', 0.4);
+    // this.elementId1 = 'myPieChart1';
   }
   onItemSelect(item: any) {
     console.log(item);
@@ -141,7 +147,6 @@ export class DashboardReportComponent implements OnInit {
 
   }
   onSelectAll(items: any) {
-
     console.log(items);
 
   }
@@ -187,6 +192,22 @@ export class DashboardReportComponent implements OnInit {
       }
     }
 
+    this.ReportServiceService
+      .getdashboardreport(date1, date2, this.em_Key, workordertypeString)
+      .subscribe((data: Reports[]) => {
+        this.reporttable = data;
+      });
+    console.log(this.date2 + " ... before calling service");
+
+    // this.ReportServiceService
+    // .getvaluesfilterbypie(this.date1,this.date2,this.em_Key,workordertypeString,this.org_id, this.manager)
+    // .subscribe((data: Reports[]) => {
+    //   this.filterbypie = data;
+    // });
+    // console.log(this.date2+" ... after calling service");
+    // this.data1=this.filterbypie;
+    // this.config1 = new PieChartConfig('piechart', 0.4);
+    // this.elementId1 = 'myPieChart1';
     this.ReportServiceService
       .getdashboardreport(date1, date2, this.em_Key, workordertypeString)
       .subscribe((data: Reports[]) => {

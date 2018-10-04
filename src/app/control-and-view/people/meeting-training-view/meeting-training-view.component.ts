@@ -26,6 +26,12 @@ export class MeetingTrainingViewComponent implements OnInit {
 
   dropdownSettings = {};
   dropdownSettings1 = {};
+  JobTitleKey = [];
+  EmployeeKey = [];
+
+  fromdate: Date;
+  todate: Date;
+  // filterList: People[];
 
   //validation starts ..... @rodney
   regexStr = '^[a-zA-Z0-9_ ]*$';
@@ -50,17 +56,129 @@ export class MeetingTrainingViewComponent implements OnInit {
 
   //validation ends ..... @rodney
 
-  hi(key) {
-    alert("i am in " + key);
+  filterMtngTrainingList() {
+    debugger;
+
+    var JobTitleString;
+    if (this.JobTitleKey.length == 0) {
+      JobTitleString = null;
+    }
+    else {
+      var jobtitleList = [];
+      var jobtitleListObj = this.JobTitleKey;
+      if (jobtitleListObj.length > 0) {
+        if (jobtitleListObj) {
+          for (var j = 0; j < jobtitleListObj.length; j++) {
+            jobtitleList.push(jobtitleListObj[j].JobTitleKey);
+          }
+        }
+        JobTitleString = jobtitleList.join(',');
+      }
+    }
+
+    var EmployeeKeyString;
+    if (this.EmployeeKey.length == 0) {
+      EmployeeKeyString = null;
+    }
+    else {
+      var employeeKeList = [];
+      var employeeKeListObj = this.EmployeeKey;
+      if (employeeKeListObj.length > 0) {
+        if (employeeKeListObj) {
+          for (var j = 0; j < employeeKeListObj.length; j++) {
+            employeeKeList.push(employeeKeListObj[j].EmployeeKey);
+          }
+        }
+        EmployeeKeyString = employeeKeList.join(',');
+      }
+    }
+
+    if (!this.fromdate) {
+      var dateFrom = this.convert_DT(new Date());
+    }
+    else {
+      dateFrom = this.convert_DT(this.fromdate);
+    }
+    if (!this.todate) {
+      var date2 = dateFrom;
+    }
+    else {
+      date2 = this.convert_DT(this.todate);
+    }
+
+    this.peopleServ
+      .viewMtngTrainingbyFilter(dateFrom, date2, JobTitleString, EmployeeKeyString)
+      .subscribe((data: People[]) => {
+        this.meetingTraining = data;
+      });
+
   }
 
-  onItemSelect(item: any) {
-    console.log(item);
+  searchMeetingTraining(SearchValue) {
+    if (!this.fromdate) {
+      var dateFrom = this.todayDt;
+    }
+    else {
+      dateFrom = this.convert_DT(this.fromdate);
+    }
+    if (!this.todate) {
+      var date2 = dateFrom;
+    }
+    else {
+      date2 = this.convert_DT(this.todate);
+    }
+
+    var JobTitleString;
+    if (this.JobTitleKey.length == 0) {
+      JobTitleString = null;
+    }
+    else {
+      var jobtitleList = [];
+      var jobtitleListObj = this.JobTitleKey;
+      if (jobtitleListObj.length > 0) {
+        if (jobtitleListObj) {
+          for (var j = 0; j < jobtitleListObj.length; j++) {
+            jobtitleList.push(jobtitleListObj[j].JobTitleKey);
+          }
+        }
+        JobTitleString = jobtitleList.join(',');
+      }
+    }
+
+    var EmployeeKeyString;
+    if (this.EmployeeKey.length == 0) {
+      EmployeeKeyString = null;
+    }
+    else {
+      var employeeKeList = [];
+      var employeeKeListObj = this.EmployeeKey;
+      if (employeeKeListObj.length > 0) {
+        if (employeeKeListObj) {
+          for (var j = 0; j < employeeKeListObj.length; j++) {
+            employeeKeList.push(employeeKeListObj[j].EmployeeKey);
+          }
+        }
+        EmployeeKeyString = employeeKeList.join(',');
+      }
+    }
+
+    if (SearchValue.length >= 3) {
+
+      this.peopleServ
+        .SearchmeetingTraining(dateFrom, date2, JobTitleString, EmployeeKeyString, SearchValue).subscribe((data: People[]) => {
+          this.meetingTraining = data;
+        });
+    } else if (SearchValue.length == 0) {
+
+      this.peopleServ
+        .viewMtngTrainingbyFilter(dateFrom, date2, JobTitleString, EmployeeKeyString)
+        .subscribe((data: People[]) => {
+          this.meetingTraining = data;
+        });
+    }
   }
-  onSelectAll(items: any) {
-    console.log(items);
-  }
-  
+
+
   ngOnInit() {
     this.searchform = this.formBuilder.group({
       SearchMeetingTraining: ['', Validators.required]
@@ -92,10 +210,9 @@ export class MeetingTrainingViewComponent implements OnInit {
       textField: 'JobTitleText',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 5,
+      itemsShowLimit: 3,
       allowSearchFilter: true
     };
-
     this.dropdownSettings1 = {
       singleSelection: false,
       idField: 'EmployeeKey',

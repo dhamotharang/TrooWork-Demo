@@ -1,0 +1,109 @@
+<app-manager-dash-board></app-manager-dash-board>
+<br><br>
+<div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
+    <br><br>
+    <div style="text-align:center">
+        <h3 style="color: #174a5e;"><strong>ASSIGN MEETING/TRAINING/EVENT</strong></h3>
+    </div>
+
+    <br>
+    <div class="col-md-12">
+        <div class="row col-md-12">
+            <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="mtngTrainingEvent">Meeting/Training/Event*
+                </label></h5>
+            <div class="md-form col-md-3" style="text-align:left">
+                <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ActionKey">
+                    <option>--Select--</option>
+                    <option *ngFor="let b of event" [value]="b.ActionKey">
+                        {{b.ActionType}} - {{b.Action}}
+                    </option>
+                </select>
+            </div>
+            <div class="col col-md-5"></div>
+        </div>
+
+        <div class="row col-md-12">
+            <h5 style="text-align:right" class="col-md-4"><label for="eventHost">Event Host* </label></h5>
+            <div class="md-form col-md-3" style="text-align:left">
+                <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
+                    [(ngModel)]="eventHost">
+            </div>
+            <div class="col col-md-5"></div>
+        </div>
+        <div class="row col-md-12">
+            <h5 style="text-align:right" class="col-md-4"><label for="Venue">Venue* </label></h5>
+            <div class="md-form col-md-3" style="text-align:left">
+                <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
+                    [(ngModel)]="Venue">
+            </div>
+            <div class="col col-md-5"></div>
+        </div>
+
+        <div>
+            <label for="building">Date* </label>
+            <igx-datePicker [value]="date1" [(ngModel)]="fromdate"></igx-datePicker>
+            <br>
+        </div>
+
+        <div class="form-group">
+            <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Start Time*</label>
+            <p-calendar [(ngModel)]="time1" [timeOnly]="true" hourFormat="12"></p-calendar>
+        </div>
+        <div class="form-group">
+            <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">End Time*</label>
+            <p-calendar [(ngModel)]="time2" [timeOnly]="true" hourFormat="12"></p-calendar>
+        </div>
+
+        <div class="form-group">
+            <label>Notes</label>
+            <textarea class="form-control rounded-0" id="Notes" rows="5" style="resize: none;"></textarea>
+        </div>
+
+
+
+        <label>SELECT EMPLOYEES</label>
+
+        <div class="row col-md-12">
+            <h5 style="text-align:right" class="col-md-4"><label for="floorname">Job Title </label></h5>
+            <div class="md-form col-md-3" style="text-align:left">
+                <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="JobTitleKey">
+                    <option>--Select--</option>
+                    <option *ngFor="let f of jobTitle" [value]="f.JobTitleKey">
+                        {{f.JobTitleText}}
+                    </option>
+                </select>
+            </div>
+            <div class="col col-md-5"></div>
+        </div>
+        <div class="row col-md-12">
+            <h5 style="text-align:right" class="col-md-4"><label for="floorname">Supervisor </label></h5>
+            <div class="md-form col-md-3" style="text-align:left">
+                <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="SupervisorKey">
+                    <option>--Select--</option>
+                    <option *ngFor="let f of supervisor" [value]="f.SupervisorKey">
+                        {{f.SupervisorText}}
+                    </option>
+                </select>
+            </div>
+            <div class="col col-md-5"></div>
+        </div>
+        <div class="row col-md-12">
+            <h5 style="text-align:right" class="col-md-4"><label for="Employee">Employee* </label></h5>
+            <div class="md-form col-md-3" style="text-align:left">
+                <ng-multiselect-dropdown [placeholder]="'Selectemployee'" [data]="empList" [(ngModel)]="EmployeeKey"
+                    [textField]="'EmployeeText'" [valueField]="'EmployeeKey'" [settings]="dropdownSettings1" (onSelect)="filterMtngTrainingList()">
+                </ng-multiselect-dropdown>
+            </div>
+            <div class="col col-md-5"></div>
+        </div>
+
+        <div class="row col-md-12">
+            <div class="col col-md-3"></div>
+            <div style="text-align:right" class="col-md-3"><a style="color:white !important" routerLink="/MeetingTrainingView"
+                    class="btn btn-success" routerLinkActive="active" (click)="addMeetingTrainingEvent()"><b>Save</b>
+                </a></div>
+            <div class="col col-md-3"></div>
+        </div>
+    </div>
+    <br><br>
+</div>

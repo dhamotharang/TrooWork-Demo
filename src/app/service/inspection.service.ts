@@ -65,6 +65,22 @@ export class InspectionService {
        .http
        .post (url,obj).subscribe(res => console.log('Done'));
   }
+  createInspections(TemplateID,SupervisorKey,fromdate,todate,theCheckbox,time,RoomKey){
+    const url='http://localhost:3000/api/addInspectionOrderwithRecurring';
+    const obj = {
+      templateID : TemplateID,
+      supervisorKey : SupervisorKey,
+      inspectionFromDate : fromdate,
+      inspectionToDate : todate ,
+      isRecurring : theCheckbox,
+      inspectiontime : time,
+      roomKey:RoomKey,
+      OrganizationID : 21
+     };
+    return this
+      .http
+      .post (url,obj).subscribe(res => console.log('Done'));
+  }
   getTemplateNameList(){
     return this
     .http
@@ -108,6 +124,11 @@ export class InspectionService {
     return this
       .http
       .get('http://localhost:3000/api/searchMytemplate?OrganizationID='+21+'&searchMytemp='+searchMytemp)
+  }
+  SearchTempNameandQuestion(searchMytemp,TemplateID){
+    return this
+      .http
+      .get('http://localhost:3000/api/searchtemplateQun?OrganizationID='+21+'&searchMytemp='+searchMytemp+'&TemplateID='+TemplateID)
   }
   }
 

@@ -10,11 +10,22 @@ import { MeetingTrainingViewComponent } from './meeting-training-view/meeting-tr
 import { EventCreateComponent } from './event-create/event-create.component';
 import { EventEditComponent } from './event-edit/event-edit.component';
 import { EventViewComponent } from './event-view/event-view.component';
+import { ViewEmployeesofEventComponent } from './view-employeesof-event/view-employeesof-event.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [CreateEmployeeComponent, JobTitleViewComponent, ManageLoginCredentialsComponent, ResetPassWordComponent, MeetingTrainingCreateComponent, MeetingTrainingEditComponent, MeetingTrainingViewComponent, EventCreateComponent, EventEditComponent, EventViewComponent]
+  declarations: [CreateEmployeeComponent, 
+    JobTitleViewComponent, 
+    ManageLoginCredentialsComponent, 
+    ResetPassWordComponent, 
+    MeetingTrainingCreateComponent, 
+    MeetingTrainingEditComponent, 
+    MeetingTrainingViewComponent, 
+    EventCreateComponent, 
+    EventEditComponent, 
+    EventViewComponent, 
+    ViewEmployeesofEventComponent]
 })
 export class PeopleModule { }

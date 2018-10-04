@@ -79,6 +79,15 @@ import { EventViewComponent } from './control-and-view/people/event-view/event-v
 import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
 import { BatchWorkOrderReportComponent } from './control-and-view/reports/batch-work-order-report/batch-work-order-report.component';
 import {DataTableModule} from 'angular5-data-table';
+import { ViewEmployeesofEventComponent } from './control-and-view/people/view-employeesof-event/view-employeesof-event.component';
+
+import { CreateBatchWorkComponent } from './control-and-view/scheduling/create-batch-work/create-batch-work.component';
+import { SchedulingViewComponent } from './control-and-view/scheduling/scheduling-view/scheduling-view.component';
+import { EditBatchWorkComponent } from './control-and-view/scheduling/edit-batch-work/edit-batch-work.component';
+import { CreateBatchScheduleComponent } from './control-and-view/scheduling/create-batch-schedule/create-batch-schedule.component';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -131,8 +140,13 @@ import {DataTableModule} from 'angular5-data-table';
     EventViewComponent,
     WorkorderReportComponent,
     InspectiontemplatedetailEditComponent,
+    ViewEmployeesofEventComponent,
     BatchWorkOrderReportComponent,
-    InspectionViewComponent
+    InspectionViewComponent,
+    CreateBatchWorkComponent,
+    SchedulingViewComponent,
+    EditBatchWorkComponent,
+    CreateBatchScheduleComponent
    
   ],
   imports: [
