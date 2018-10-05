@@ -78,6 +78,7 @@ import { EventEditComponent } from './control-and-view/people/event-edit/event-e
 import { EventViewComponent } from './control-and-view/people/event-view/event-view.component';
 import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
 import { BatchWorkOrderReportComponent } from './control-and-view/reports/batch-work-order-report/batch-work-order-report.component';
+import { BatchScheduleAssignmentReportComponent } from './control-and-view/reports/batch-schedule-assignment-report/batch-schedule-assignment-report.component';
 import {DataTableModule} from 'angular5-data-table';
 import { ViewEmployeesofEventComponent } from './control-and-view/people/view-employeesof-event/view-employeesof-event.component';
 
@@ -146,7 +147,8 @@ import { CreateBatchScheduleComponent } from './control-and-view/scheduling/crea
     CreateBatchWorkComponent,
     SchedulingViewComponent,
     EditBatchWorkComponent,
-    CreateBatchScheduleComponent
+    CreateBatchScheduleComponent,
+    BatchScheduleAssignmentReportComponent
    
   ],
   imports: [

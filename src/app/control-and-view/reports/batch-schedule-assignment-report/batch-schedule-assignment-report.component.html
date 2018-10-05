@@ -1,0 +1,109 @@
+<app-manager-dash-board></app-manager-dash-board>
+<br><br>
+
+<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <!-- <div class="container"> -->
+  <div class="row col-md-12 ">
+    <h3 style="margin-left: 25rem;">BATCH SCHEDULE ASSIGNMENT REPORT</h3>
+  </div>
+  <br><br>
+
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
+    <h1 style="text-align: right"></h1>
+    <div class="form-group">
+
+      <div class="row col-md-12">
+        <h5 style="text-align:right" class="col-md-4"><label for="building">Schedule Name </label></h5>
+        <div class="md-form col-md-10" style="text-align:left">
+          <select [(ngModel)]="BatchScheduleNameKey" style="width: 31.5rem; background-color: #d4f4ff;" class="form-control"
+            (change)="getBatchSchedule($event.target.value)">
+            <option value="" selected>--Select--</option>
+            <option *ngFor="let s of bacthschedules" [value]="s.BatchScheduleNameKey">
+              {{s.ScheduleName}}
+            </option>
+          </select>
+        </div>
+        <div class="row col-md-12">
+          <h5 style="text-align:right" class="col-md-4"><label for="building">WorkOrder Notes </label></h5>
+          <div class="form-group" style="text-align:left">
+            <textarea class="form-control rounded-0" [(ngModel)]="workorderNotes" rows="5" style="resize: none;"></textarea>
+          </div>
+          <div class="col col-md-5"></div>
+        </div>
+        <div class="col col-md-5"></div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
+  <table *ngIf='reportarray' class="table table-hover table-responsive table-bordered table">
+    <thead class="tableHead">
+      <th>Building</th>
+      <th>Floor</th>
+      <th>Zone</th>
+      <th>Room Number</th>
+      <th>Floor Type</th>
+      <th>Room Type</th>
+      <th>Minutes</th>
+      <th>Frequency</th>
+      <th>Monday</th>
+      <th>Tuesday</th>
+      <th>Wednesday</th>
+      <th>Thursday</th>
+      <th>Friday</th>
+      <th>Saturday</th>
+      <th>Sunday</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let x of reportarray">
+        <td>{{x.FacilityName}} </td>
+        <td>{{x.FloorName}}</td>
+        <td>{{x.ZoneName}}</td>
+        <td>{{x.RoomId}}</td>
+        <td>{{x.FloorTypeName}}</td>
+        <td>{{x.RoomType}}</td>
+        <td *ngIf="x.MetricType === 'Minutes Per'">{{x.MetricValue}}</td>
+        <td *ngIf="x.MetricType != 'Minutes Per'">{{x.MetricValue * x.Area}}</td>
+
+        <!--<span id="tooltip-span" style="position:absolute;margin-bottom:-166">{{x.EquipmentType}}</span> </td>-->
+        <td>{{x.dailyFrequency}}</td>
+        <td *ngIf="x.mon=='true'">x</td>
+        <td *ngIf="x.mon !='true'"></td>
+        <td *ngIf="x.tue=='true'">x</td>
+        <td *ngIf="x.tue!='true'"></td>
+        <td *ngIf="x.wed=='true'">x</td>
+        <td *ngIf="x.wed!='true'"></td>
+        <td *ngIf="x.thu=='true'">x</td>
+        <td *ngIf="x.thu!='true'"></td>
+        <td *ngIf="x.fri=='true'">x</td>
+        <td *ngIf="x.fri!='true'"></td>
+        <td *ngIf="x.sat=='true'">x</td>
+        <td *ngIf="x.sat!='true'"></td>
+        <td *ngIf="x.sun=='true'">x</td>
+        <td *ngIf="x.sun!='true'"></td>
+        <!--                            <td >{{x.SwipIn}}</td>
+              <td >{{x.SwipOut}}</td>-->
+      </tr>
+      <tr>
+        <td colspan="8">Total Assigned daily minutes</td>
+        <!--                            <td></td>-->
+        <td>{{totalMonTime }}</td>
+        <td>{{totalTuesTime}}</td>
+        <td>{{totalWedTime}}</td>
+        <td>{{totalThuTime}}</td>
+        <td>{{totalFriTime}}</td>
+        <td>{{totalSatTime}}</td>
+        <td>{{totalSunTime}}</td>
+      </tr>
+      <tr *ngIf="reportarray?.length == 0">
+        <td colspan="15" class="no-data-available">No records found</td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <div style="text-align:center" *ngIf="reportarray?.length> 0">
+    <button type="button" class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
+  </div>
+</div>

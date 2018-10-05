@@ -5,11 +5,12 @@ import { BarcodeReportComponent } from './barcode-report/barcode-report.componen
 import { DashboardReportComponent } from './dashboard-report/dashboard-report.component';
 import { WorkorderReportComponent } from './workorder-report/workorder-report.component';
 import { BatchWorkOrderReportComponent } from './batch-work-order-report/batch-work-order-report.component';
+import { BatchScheduleAssignmentReportComponent } from './batch-schedule-assignment-report/batch-schedule-assignment-report.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [InspectionReportComponent,BarcodeReportComponent, DashboardReportComponent, WorkorderReportComponent, BatchWorkOrderReportComponent]
+  declarations: [InspectionReportComponent,BarcodeReportComponent, DashboardReportComponent, WorkorderReportComponent, BatchWorkOrderReportComponent, BatchScheduleAssignmentReportComponent]
 })
 export class ReportsModule { }

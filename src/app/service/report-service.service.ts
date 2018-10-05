@@ -88,6 +88,12 @@ export class ReportServiceService {
     .http
     .get('http://localhost:3000/api/BatchSchedule_Report?WorkorderScheduleKey='+Workorder_ScheduleKey+'&OrganizationID='+21);
   }
+  getScheduleAssignReport(Workorder_ScheduleKey)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/viewScheduleReport?BatchScheduleNameKey='+Workorder_ScheduleKey+'&employeekey='+2861+'&OrganizationID='+21);
+  }
    // code by sudina ends
 
 

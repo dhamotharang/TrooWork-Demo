@@ -5,7 +5,7 @@ import { ReportServiceService } from '../../../service/report-service.service';
 import { PieChartConfig } from '../../../extra-files/piechart-file/Models/PieChartConfig';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
-import {DataTableModule} from 'angular5-data-table';
+import { DataTableModule } from 'angular5-data-table';
 declare var google: any;
 @Component({
   selector: 'app-dashboard-report',
@@ -14,7 +14,7 @@ declare var google: any;
 })
 export class DashboardReportComponent implements OnInit {
   title = 'Reusable charts sample';
-  public arr: Array<any> = [{}];
+   public arr: Array<any> = [{}];
   public convert_DT(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
@@ -52,7 +52,8 @@ export class DashboardReportComponent implements OnInit {
   pievalues: Reports[];
   filterbypie: Reports[];
   data1: any[];
-  
+ // arr: any[];
+  finalStringForPie: String;
   config1: PieChartConfig;
   elementId1: String;
   dropdownSettings = {};
@@ -108,36 +109,59 @@ export class DashboardReportComponent implements OnInit {
       .subscribe((data: Reports[]) => {
         this.pievalues = data;
         debugger;
-        var piedata = new google.visualization.DataTable();
-        piedata.addColumn('string', 'workordertype');
-        piedata.addColumn('number', 'count');
-                for (var i = 0; i < this.pievalues.length; i++) {
-                  piedata.addRow([this.pievalues[i].WorkorderStatus, this.pievalues[i].totalItems]);
-                }
-        this.data1=piedata;
-        
-        // for (var i = 0; i < this.pievalues.length; i++) {
-        //   var status=this.pievalues[i].WorkorderStatus;
-        //   var num=this.pievalues[i].totalItems;
-          
-        //   this.arr.push({workordertype:status,count:num});
-        // }
-        // this.data1=this.arr;
+        var testString = '';
+        for (var i = 0; i < this.pievalues.length; i++) {
+          var status = this.pievalues[i].WorkorderStatus;
+          var num = this.pievalues[i].totalItems;
+          if (i < (this.pievalues.length - 1)) {
+            // var string1 = '['.concat(status, ' , ') + num + "],";
+            var string1 = "[\'" + status + "\' ," + num + "],";
+            testString = testString + string1;
+          }
+          else {
+            var string1 = "[\'" + status + "\' ," + num + "]";
+            testString = testString + string1;
+          }
+
+          // this.arr.push({workordertype:status,count:num});
+        }
+        this.finalStringForPie = '[[workordertype , count],' + testString + ']';
+        // console.log(finalStringForPie);
+        //this.data1 = this.finalStringForPie;
+
+        // this.config1 = new PieChartConfig('piechart', 0.4);
+        // this.elementId1 = 'myPieChart1';
+        for (var i = 0; i < this.pievalues.length; i++) {
+          var status = this.pievalues[i].WorkorderStatus;
+          var num = this.pievalues[i].totalItems;
+          this.arr.push({ workordertype: status, count: num });
+
+        }
+        this.data1 = this.arr;
         this.config1 = new PieChartConfig('piechart', 0.4);
         this.elementId1 = 'myPieChart1';
       });
-      
+
     // this.data1=[['Task', 'Hours per Day'],
     // ['Eat',      3],
     // ['Commute',  2],
     // ['Watch TV', 5],
     // ['Video games', 4],
     // ['Sleep',    10]];
-    
-    this.data1 = this.pievalues;
-    this.config1 = new PieChartConfig('piechart', 0.4);
-    this.elementId1 = 'myPieChart1';
+
     // this.data1 = this.pievalues;
+    // this.config1 = new PieChartConfig('piechart', 0.4);
+    // this.elementId1 = 'myPieChart1';
+    // this.data1 = this.pievalues;
+    // this.config1 = new PieChartConfig('piechart', 0.4);
+    // this.elementId1 = 'myPieChart1';
+    //  for (var i = 0; i < this.pievalues.length; i++) {
+    //   var status = this.pievalues[i].WorkorderStatus;
+    //   var num = this.pievalues[i].totalItems;
+    //   this.arr.push({workordertype:status,count:num});
+
+    //   }
+    //   this.data1=this.arr;
     // this.config1 = new PieChartConfig('piechart', 0.4);
     // this.elementId1 = 'myPieChart1';
   }
@@ -208,19 +232,19 @@ export class DashboardReportComponent implements OnInit {
     // this.data1=this.filterbypie;
     // this.config1 = new PieChartConfig('piechart', 0.4);
     // this.elementId1 = 'myPieChart1';
-    this.ReportServiceService
-      .getdashboardreport(date1, date2, this.em_Key, workordertypeString)
-      .subscribe((data: Reports[]) => {
-        this.reporttable = data;
-      });
-    console.log(this.date2 + " ... before calling service");
+    // this.ReportServiceService
+    //   .getdashboardreport(date1, date2, this.em_Key, workordertypeString)
+    //   .subscribe((data: Reports[]) => {
+    //     this.reporttable = data;
+    //   });
+    // console.log(this.date2 + " ... before calling service");
 
     this.ReportServiceService
-    .getvaluesfilterbypie(date1,date2,this.em_Key,workordertypeString,this.org_id, this.manager)
-    .subscribe((data: Reports[]) => {
-      this.filterbypie = data;
-    });
-    console.log(date2+" ... after calling service");
+      .getvaluesfilterbypie(date1, date2, this.em_Key, workordertypeString, this.org_id, this.manager)
+      .subscribe((data: Reports[]) => {
+        this.filterbypie = data;
+      });
+    console.log(date2 + " ... after calling service");
 
     // var piedata = new google.visualization.DataTable();
     // piedata.addColumn('string', 'workordertype');
@@ -238,6 +262,6 @@ export class DashboardReportComponent implements OnInit {
     // ['Sleep',    10]];
     // this.config1 = new PieChartConfig('piechart', 0.4);
     // this.elementId1 = 'myPieChart1';
-    
+
   }
 }
