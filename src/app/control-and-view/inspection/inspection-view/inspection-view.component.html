@@ -13,13 +13,13 @@
       <div class="form-group" style="width: 25rem;">
         <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">From Date</label>
 
-        <igx-datePicker [value]="date" [(ngModel)]="fromdate"></igx-datePicker>
+        <igx-datePicker [value]="date1" [(ngModel)]="fromdate"(onSelection)="filteringInspectionManagerByDate()"></igx-datePicker>
       </div>
       <div class="col-md-6">
         <!-- <form class="" method="post" action="https://formspree.io/"> -->
         <div class="form-group" style="width: 25rem;">
           <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">To Date</label>
-          <igx-datePicker [value]="date" [(ngModel)]="todate"></igx-datePicker>
+          <igx-datePicker [value]="date1" [(ngModel)]="todate"(onSelection)="filteringInspectionManagerByDate()"></igx-datePicker>
         </div>
       </div>
       <br>
@@ -43,7 +43,18 @@
               <th>Employee</th>
               <th>Status</th>
             </thead>
-            <tbody></tbody>
+            <tbody>
+              <tr *ngFor="let i of inspectionordertable" >
+                <td>{{i.TemplateName}} </td>
+                <td>{{i.FacilityName}}-{{i.RoomId}} </td>
+                <td>{{i.Inspectiondate}}</td>
+                <td>{{i.LastName}},{{i.FirstName}} </td>
+                <td>{{i.EmployeeName}}</td>
+                <td *ngIf="i.InspectionCompletedBy !== null"> <button type="button" class="btn btn-default" (click)="viewInspectionDetails(i.InspectionOrderKey)">Inspection Completed </button></td>
+                <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey === toServeremployeekey)"> <button type="button" class="btn btn-default" (click)="managerInspection(i.InspectionOrderKey, i.TemplateId, i.TemplateName)">Inspect</button></td>
+                <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey !== toServeremployeekey)">Scheduled</td>
+              </tr>
+            </tbody>
             </table>
     </div>
   </div>

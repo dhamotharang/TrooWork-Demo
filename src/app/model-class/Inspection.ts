@@ -13,4 +13,7 @@ export interface Inspection {
     key: number;
     fkey:number;
     floorkey:number;
+    search_DT: Date;
+    search_DT2: Date;
+    inspectionDate:Date;
 }

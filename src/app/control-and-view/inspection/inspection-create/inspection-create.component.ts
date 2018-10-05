@@ -23,7 +23,7 @@ export class InspectionCreateComponent implements OnInit {
   fromdate:Date;
   todate:Date;
   theCheckbox:any;
-  time:any;
+  time1:any;
   RoomKey:Number;
 // adding properties and methods that will be used by the igxDatePicker
 public date: Date = new Date(Date.now());
@@ -72,26 +72,28 @@ public formatter = (_: Date) => {
     });
   }
   
-  createInspection(TemplateID,SupervisorKey,fromdate,todate,theCheckbox,time,RoomKey) {
+  createInspection() {
     debugger;
-    var t=new Date();
-    var t=new Date();
-    var y=t.getFullYear();
-    var m=t.getMonth();
-    var d=t.getDate();
-    var h=t.getHours();
-    var mi=t.getMinutes();
-    var s=t.getSeconds();
-    
-         var today_DT = this.convert_DT(new Date());
-                    
-    //var x=new Date(t.getFullYear(),t.getMonth(),t.getDate()).join(-);
-    //console.log(x);
-    //console.log(y+"-"+m+"-"+d+" "+h+":"+mi+":"+s);
-    var p="";
-    p=today_DT+" "+h+":"+mi+":"+s;
+    console.log(this.fromdate);
+    console.log(this.todate);
+    if (!this.fromdate) {
+      var dateFrom = this.convert_DT(new Date());
+    }
+    else {
+      dateFrom = this.convert_DT(this.fromdate);
+    }
+    if (!this.todate) {
+      var date2 = dateFrom;
+    }
+    else {
+      date2 = this.convert_DT(this.todate);
+    }
  
-    this.inspectionService.createInspections(this.TemplateID,this.SupervisorKey,this.fromdate,this.todate,this.theCheckbox,this.time,this.RoomKey);
+    var q = this.time1.getHours();
+    var q1 = this.time1.getMinutes();
+    var newTime = q + ":" + q1;
+
+    this.inspectionService.createInspections(this.TemplateID,this.SupervisorKey,dateFrom,date2,this.theCheckbox,newTime,this.RoomKey);
     
 }
   ngOnInit() {
