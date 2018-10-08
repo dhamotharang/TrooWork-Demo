@@ -1,6 +1,6 @@
 import { Component, OnInit, Directive, HostListener, ElementRef, Input } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import { InventoryService } from '../../../service/Inventory.service';
+import { InventoryService } from '../../../service/inventory.service';
 import { Inventory } from '../../../model-class/Inventory';
 @Component({
   selector: 'app-zone-view',

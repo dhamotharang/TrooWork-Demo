@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { People } from '../../../Model-Class/People';
+
+import { Component, OnInit, OnChanges, Directive, HostListener, ElementRef, Input } from '@angular/core';
+import { People } from '../../../model-class/People';
 import { PeopleServiceService } from '../../../service/people-service.service';
 import { Router } from "@angular/router";
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { InventoryService } from '../../../service/Inventory.service';
+import { InventoryService } from '../../../service/inventory.service';
 import { Inventory } from '../../../model-class/Inventory';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
@@ -61,12 +61,6 @@ export class RoomTypeUpdateComponent implements OnInit {
       .subscribe((data: Array<any>) => {
         this.roomTypeList = data[0];
         this.metricType = data[0].MetricType;
-      });
-
-    this.inventoryService
-      .getMetricValues()
-      .subscribe((data: Inventory[]) => {
-        this.metricTypeList = data;
       });
   }
 

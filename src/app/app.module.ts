@@ -79,6 +79,8 @@ import { EventViewComponent } from './control-and-view/people/event-view/event-v
 import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
 import { BatchWorkOrderReportComponent } from './control-and-view/reports/batch-work-order-report/batch-work-order-report.component';
 
+import { BatchScheduleAssignmentReportComponent } from './control-and-view/reports/batch-schedule-assignment-report/batch-schedule-assignment-report.component';
+
 import { ViewEmployeesofEventComponent } from './control-and-view/people/view-employeesof-event/view-employeesof-event.component';
 
 import { CreateBatchWorkComponent } from './control-and-view/scheduling/create-batch-work/create-batch-work.component';
@@ -94,6 +96,13 @@ import { SuperadminWelcomeComponent } from './control-and-view/dashboard/superad
 import { AdminWelcomeComponent } from './control-and-view/dashboard/admin-welcome/admin-welcome.component';
 import { SupervisorWelcomeComponent } from './control-and-view/dashboard/supervisor-welcome/supervisor-welcome.component';
 import { EmployeeWelcomeComponent } from './control-and-view/dashboard/employee-welcome/employee-welcome.component';
+
+import { CreateQuickOrderComponent } from './control-and-view/work-order/create-quick-order/create-quick-order.component';
+import { ViewEmployeeComponent } from './control-and-view/people/view-employee/view-employee.component';
+import { EditEmployeedetailsComponent } from './control-and-view/people/edit-employeedetails/edit-employeedetails.component';
+import { DocumentfolderViewComponent } from './control-and-view/documents/documentfolder-view/documentfolder-view.component';
+import { NewdocumentfolderCreateComponent } from './control-and-view/documents/newdocumentfolder-create/newdocumentfolder-create.component';
+import { DocumentfolderEditComponent } from './control-and-view/documents/documentfolder-edit/documentfolder-edit.component';
 
 @NgModule({
   declarations: [
@@ -154,19 +163,25 @@ import { EmployeeWelcomeComponent } from './control-and-view/dashboard/employee-
     SchedulingViewComponent,
     EditBatchWorkComponent,
     CreateBatchScheduleComponent,
-    EmployeeDashboardComponent, 
-    SupervisorDashboardComponent, 
-    AdminDashboardComponent, 
+    EmployeeDashboardComponent,
+    SupervisorDashboardComponent,
+    AdminDashboardComponent,
     SuperadminDashboardComponent,
-    SuperadminWelcomeComponent, 
-    AdminWelcomeComponent, 
-    SupervisorWelcomeComponent, 
-    EmployeeWelcomeComponent
-   
+    SuperadminWelcomeComponent,
+    AdminWelcomeComponent,
+    SupervisorWelcomeComponent,
+    EmployeeWelcomeComponent,
+    BatchScheduleAssignmentReportComponent,
+    CreateQuickOrderComponent,
+    ViewEmployeeComponent,
+    EditEmployeedetailsComponent,
+    DocumentfolderViewComponent,
+    NewdocumentfolderCreateComponent,
+    DocumentfolderEditComponent
+
   ],
   imports: [
     BrowserModule,
-    // DataTableModule,
     BrowserAnimationsModule,
     MDBBootstrapModule.forRoot(),
     FormsModule,

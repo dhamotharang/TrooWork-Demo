@@ -75,7 +75,10 @@ export class InspectionService {
       isRecurring : theCheckbox,
       inspectiontime : time,
       roomKey:RoomKey,
-      OrganizationID : 21
+      OrganizationID : 21,
+      empkey:2861,
+      metaUpdatedBy:2861,
+      fulltime:fromdate+" "+time
      };
     return this
       .http
@@ -109,6 +112,21 @@ export class InspectionService {
     .get('http://localhost:3000/api/getTemplateDetails?pageno='+1+'&itemsPerPage='+25+'&empkey='+2861+'&OrganizationID='+21);
 
   }
+  getInspectionOrderTablewithFromCurrentDateFilter(curr_date){
+    return this
+    .http
+    .get('http://localhost:3000/api/viewInspection?pageno='+1+'&itemsPerPage='+25+'&inspectionDate='+curr_date+'&employeekey='+2861+'&OrganizationID='+21);
+  }
+  getInspectionOrderTablewithFromDateandToDateFilter(date1,date2){
+    return this
+    .http
+    .get('http://localhost:3000/api/viewAllInspectionByDates?search_DT='+date1+'&search_DT2='+date2+'&employeekey='+2861+'&OrganizationID='+21);
+  }
+  getInspectionOrderTablewithFromDateOnly(date1){
+    return this
+    .http
+    .get('http://localhost:3000/api/viewInspection?pageno='+1+'&itemsPerPage='+25+'&inspectionDate='+date1+'&employeekey='+2861+'&OrganizationID='+21);
+  }
   DeleteTemplate(templateID){
     const url='http://localhost:3000/api/deleteInspectionTemplate';
     const obj = {
@@ -129,6 +147,11 @@ export class InspectionService {
     return this
       .http
       .get('http://localhost:3000/api/searchtemplateQun?OrganizationID='+21+'&searchMytemp='+searchMytemp+'&TemplateID='+TemplateID)
+  }
+  SearchTemplateandLocation(SearchValue,search_DT,search_DT2){
+    return this
+    .http
+    .get('http://localhost:3000/api/searchInspectionOrder?OrganizationID='+21+'&searchLocation='+SearchValue+'&search_DT='+search_DT+'&search_DT2='+search_DT2)
   }
   }
 

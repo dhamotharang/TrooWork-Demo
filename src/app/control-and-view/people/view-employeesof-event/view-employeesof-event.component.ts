@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { PeopleServiceService } from '../../../service/people-service.service';
-import { People } from '../../../Model-Class/People';
+import { People } from '../../../model-class/People';
 
 @Component({
   selector: 'app-view-employeesof-event',
