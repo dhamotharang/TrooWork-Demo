@@ -1,8 +1,7 @@
-import { Component, OnInit, OnChanges, Directive, HostListener, ElementRef, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { People } from '../../../Model-Class/People';
 import { PeopleServiceService } from '../../../service/people-service.service';
-import { ActivatedRoute, Router } from "@angular/router";
-import { Alert } from 'selenium-webdriver';
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -144,9 +143,6 @@ export class MeetingTrainingCreateComponent implements OnInit {
     else if (this.Employee.length == 0) {
       alert("Employee is not selected");
     }
-    // else if (!this.mtngDate) {
-    //   alert(" Date is not provided...");
-    // }
     else {
 
       if (!this.mtngDate) {

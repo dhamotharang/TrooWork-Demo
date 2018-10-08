@@ -175,4 +175,66 @@ export class PeopleServiceService {
     };
     return this.http.post(uri, obj);
   }
+
+
+  getMeetingTrainingDetails(eventKey, actionKey) {
+    return this
+      .http
+      .get('http://localhost:3000/api/getEditViewTrainingMeetingDetails?EventKey=' + eventKey + '&ActionKey=' + actionKey + '&EmployeeKey=' + 2861 + '&OrganizationID=' + 21);
+
+  }
+
+  getallEmpsSelected(eventKey, actionKey) {
+    return this
+      .http
+      .get('http://localhost:3000/api/getselectedEmployeeByEventKey?EventKey=' + eventKey + '&ActionKey=' + actionKey + '&EmployeeKey=' + 2861 + '&OrganizationID=' + 21);
+
+  }
+
+  updateMeetingTraining(EventType, eventHost, Venue, time1, time2, Notes, EmployeeKeyString, date1, EventKey) {
+
+    const uri = "http://localhost:3000/api/updateEditMeetingDetails";
+    const obj = {
+      actionKey: EventType,
+      eventhost: eventHost,
+      venue: Venue,
+      MeetingNotes: Notes,
+      meetingDate: date1,
+      startTime: time1,
+      endTime: time2,
+      empKey: EmployeeKeyString,
+      employeekey: 2861,
+      OrganizationID: 21,
+      // actionTypeKey: EventType,
+      eventKey: EventKey
+
+    };
+    return this.http.post(uri, obj);
+  }
+
+  getEventTypeList() {
+    return this
+      .http
+      .get('http://localhost:3000/api/getAllDefaultEvents?pageno=' + 1 + '&itemsPerPage=' + 1000 + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
+  }
+
+  DeleteEventType(actionKey, actionTypeKey) {
+    const uri = "http://localhost:3000/api/deleteDefaultEventDetails?ActionKey" + actionKey + "&ActionTypeKey=" + actionTypeKey + "&OrganizationID=" + 21;
+    const obj = {};
+    return this.http.post(uri, obj);
+
+  }
+
+  getEventTypeDetails(actionKey, actionTypeKey) {
+    return this
+      .http
+      .get('http://localhost:3000/api/getDefaultEventDetailsForEdit?actionKey=' + actionKey + '&actiontypeKey=' + actionTypeKey + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
+  }
+
+  UpdateEventType(type, name, desc, actionKey, actionTypeKey) {
+    const uri = "http://localhost:3000/api/submitDefaultEventDetails?ActionType=" + type + "&Action=" + name + "&Description=" + desc + "&ActionKey=" + actionKey + "&ActionTypeKey=" + actionTypeKey + "&employeekey=" + 2861 + "&OrganizationID=" + 21;
+    const obj = {};
+    return this.http.post(uri, obj);
+
+  }
 }

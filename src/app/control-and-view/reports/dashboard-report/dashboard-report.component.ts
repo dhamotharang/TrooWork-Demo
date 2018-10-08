@@ -5,7 +5,7 @@ import { ReportServiceService } from '../../../service/report-service.service';
 import { PieChartConfig } from '../../../extra-files/piechart-file/Models/PieChartConfig';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
-import {DataTableModule} from 'angular5-data-table';
+// import {DataTableModule} from 'angular5-data-table';
 declare var google: any;
 @Component({
   selector: 'app-dashboard-report',

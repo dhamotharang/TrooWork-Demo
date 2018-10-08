@@ -72,7 +72,7 @@
             <td *ngIf="x.HasAttended == 1">Attended</td>
             <td>{{ x.MeetingNotes }}</td>
             <td>
-              <a routerLink="/departmentEdit/{{ x.DepartmentKey}}" *ngIf="x.HasAttended == 0" class="btn btn-primary">Edit</a>
+              <a routerLink="/MeetingTrainingEdit/{{ x.EventKey}}/{{x.ActionKey}}" *ngIf="x.HasAttended == 0" class="btn btn-primary">Edit</a>
 
               <a button type="button" mdbBtn color="primary" *ngIf="x.HasAttended == 0" class="relative waves-light"
                 (click)="basicModal.show();deleteMeetingPass(x.EventKey); " mdbWavesEffect>Delete</a>

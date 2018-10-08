@@ -3,14 +3,15 @@
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
   <br><br>
   <div style="text-align:center">
-    <h3 style="color: #174a5e;"><strong>CREATE NEW EQUIPMENT</strong></h3>
+    <h3 style="color: #174a5e;"><strong>EDIT EQUIPMENT</strong></h3>
   </div>
 
   <br>
   <div class="col-md-12">
     <div class=" col-md-6">
       <label for="Equipmentname">Equipment Type name*</label>
-      <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="equipEditList.EquipmentTypeKey">
+      <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="equipEditList[0].EquipmentTypeKey"
+        (change)="setEquipmentTypeKey($event.target.value)">
         <option>--Select--</option>
         <option *ngFor="let b of equipmentType" [value]="b.EquipmentTypeKey">
           {{b.EquipmentTypeText}}
@@ -19,24 +20,24 @@
     </div>
     <div class=" col-md-6">
       <label for="equipmentname">Equipment name*</label>
-      <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="equipEditList.EquipmentName">
+      <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="equipEditList[0].EquipmentName">
     </div>
     <!-- </div> -->
     <br><br><br>
     <!-- <div class=" col-lg-12 col-md-12 col-sm-12 "> -->
     <label for="EquipmentDescription">Equipment Description</label>
     <div>
-      <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="equipEditList.EquipmentDescription">
+      <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="equipEditList[0].EquipmentDescription">
     </div>
     <label for="EquipmentBarcode">Equipment Barcode*</label>
     <div>
-      <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="equipEditList.EquipmentBarcode">
+      <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="equipEditList[0].EquipmentBarcode">
     </div>
 
     <br><br><br>
     <label for="EquipmentDescription">Building*</label>
     <div>
-      <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="equipEditList.FacilityKey"
+      <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="equipEditList[0].FacilityKey"
         (change)="selectFloorfromBuildings($event.target.value)">
         <option>--Select--</option>
         <option *ngFor="let b of buildings" [value]="b.FacilityKey">
@@ -47,12 +48,13 @@
 
     <label for="EquipmentBarcode">Floor*</label>
     <div>
-      <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="equipEditList.FloorKey" (change)="floorValueSet($event.target.value)">
+      <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="equipEditList[0].FloorKey"
+        (change)="floorValueSet($event.target.value)">
         <!-- <span *ngIf="floors"> -->
-          <option>--Select--</option>
-          <option *ngFor="let b of floors" [value]="b.FloorKey">
-            {{b.FloorName}}
-          </option>
+        <option>--Select--</option>
+        <option *ngFor="let b of floors" [value]="b.FloorKey">
+          {{b.FloorName}}
+        </option>
         <!-- </span> -->
       </select>
     </div>
@@ -60,7 +62,7 @@
     <div class="row col-md-12">
       <div class="col col-md-3"></div>
       <div style="text-align:right">
-        <a style="color:white !important" class="btn btn-success" (click)="addEquipment(EquipmentName,EquipmentDescription,barcode.barcode,EquipmentTypeKey)"><b>Create
+        <a style="color:white !important" class="btn btn-success" (click)="updateEquipment(equipEditList[0].EquipmentName,equipEditList[0].EquipmentDescription,equipEditList[0].EquipmentBarcode)"><b>Save
             Equipment</b>
         </a></div>
       <div style="text-align:left">

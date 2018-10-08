@@ -78,7 +78,7 @@ import { EventEditComponent } from './control-and-view/people/event-edit/event-e
 import { EventViewComponent } from './control-and-view/people/event-view/event-view.component';
 import { InspectiontemplatedetailEditComponent } from './control-and-view/inspection/inspectiontemplatedetail-edit/inspectiontemplatedetail-edit.component';
 import { BatchWorkOrderReportComponent } from './control-and-view/reports/batch-work-order-report/batch-work-order-report.component';
-import {DataTableModule} from 'angular5-data-table';
+
 import { ViewEmployeesofEventComponent } from './control-and-view/people/view-employeesof-event/view-employeesof-event.component';
 
 import { CreateBatchWorkComponent } from './control-and-view/scheduling/create-batch-work/create-batch-work.component';
@@ -86,7 +86,14 @@ import { SchedulingViewComponent } from './control-and-view/scheduling/schedulin
 import { EditBatchWorkComponent } from './control-and-view/scheduling/edit-batch-work/edit-batch-work.component';
 import { CreateBatchScheduleComponent } from './control-and-view/scheduling/create-batch-schedule/create-batch-schedule.component';
 
-
+import { EmployeeDashboardComponent } from './control-and-view/dashboard/employee-dashboard/employee-dashboard.component';
+import { SupervisorDashboardComponent } from './control-and-view/dashboard/supervisor-dashboard/supervisor-dashboard.component';
+import { AdminDashboardComponent } from './control-and-view/dashboard/admin-dashboard/admin-dashboard.component';
+import { SuperadminDashboardComponent } from './control-and-view/dashboard/superadmin-dashboard/superadmin-dashboard.component';
+import { SuperadminWelcomeComponent } from './control-and-view/dashboard/superadmin-welcome/superadmin-welcome.component';
+import { AdminWelcomeComponent } from './control-and-view/dashboard/admin-welcome/admin-welcome.component';
+import { SupervisorWelcomeComponent } from './control-and-view/dashboard/supervisor-welcome/supervisor-welcome.component';
+import { EmployeeWelcomeComponent } from './control-and-view/dashboard/employee-welcome/employee-welcome.component';
 
 @NgModule({
   declarations: [
@@ -146,12 +153,20 @@ import { CreateBatchScheduleComponent } from './control-and-view/scheduling/crea
     CreateBatchWorkComponent,
     SchedulingViewComponent,
     EditBatchWorkComponent,
-    CreateBatchScheduleComponent
+    CreateBatchScheduleComponent,
+    EmployeeDashboardComponent, 
+    SupervisorDashboardComponent, 
+    AdminDashboardComponent, 
+    SuperadminDashboardComponent,
+    SuperadminWelcomeComponent, 
+    AdminWelcomeComponent, 
+    SupervisorWelcomeComponent, 
+    EmployeeWelcomeComponent
    
   ],
   imports: [
     BrowserModule,
-    DataTableModule,
+    // DataTableModule,
     BrowserAnimationsModule,
     MDBBootstrapModule.forRoot(),
     FormsModule,

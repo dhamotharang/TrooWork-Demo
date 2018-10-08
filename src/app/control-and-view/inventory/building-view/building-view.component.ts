@@ -38,17 +38,17 @@ export class BuildingViewComponent implements OnInit {
   deleteFacility() {
     debugger;
     this.inventoryService
-      .DeleteBuilding(this.delete_faciKey).subscribe(()=>{
+      .DeleteBuilding(this.delete_faciKey).subscribe(() => {
 
         this.inventoryService
-        .getBuildings()
-        .subscribe((data: Inventory[]) => {
-          this.build = data;
-        });
+          .getBuildings()
+          .subscribe((data: Inventory[]) => {
+            this.build = data;
+          });
 
       });
 
-   
+
   }
 
   searchFacility(SearchValue) {
@@ -66,7 +66,7 @@ export class BuildingViewComponent implements OnInit {
     debugger;
   }
   ngOnInit() {
-
+    var token = localStorage.getItem('token');
     this.inventoryService
       .getBuildings()
       .subscribe((data: Inventory[]) => {

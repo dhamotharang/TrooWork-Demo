@@ -17,6 +17,9 @@ export class EquipmentEditComponent implements OnInit {
   equipmentType: Inventory[];
   buildings: Inventory[];
   floors: Inventory[];
+  equipTypeKey: Number;
+  dept: Inventory[];
+
   constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
     this.route.params.subscribe(params => this.equipKey$ = params.EquipKey);
   }
@@ -29,48 +32,51 @@ export class EquipmentEditComponent implements OnInit {
         this.floors = data;
       });
   }
-
-  // updateRoomType(RoomTypeName, MetricTypeValue) {
-  //   debugger;
-  //   if (!this.metricType) {
-  //     this.metricType = null;
-  //     alert("Select a metric type !");
-  //   }
-  //   else if (!RoomTypeName) {
-  //     RoomTypeName = null;
-  //     alert("RoomTypeName is not provided !");
-  //   }
-  //   else if (!MetricTypeValue) {
-  //     MetricTypeValue = null;
-  //     alert("MetricTypeValue is not provided !");
-  //   }
-  //   else {
-  //     this.inventoryService
-  //       .getMetricValues()
-  //       .subscribe((data: Inventory[]) => {
-  //         this.metricTypeList = data;
-  //         for (let i of this.metricTypeList) {
-  //           if (i.MetricType === this.metricType) {
-  //             this.metricTypeKey = i.MetricTypeKey;
-  //           }
-  //         }
-  //         // for (var i = 0; i < data.length; i++) {
-  //         //   if (data[i].MetricType == this.metricType) {
-  //         //     this.metricTypeKey = data[i].MetricTypeKey;
-  //         //   }
-  //         // }
-  //       });
-
-  //     this.inventoryService.updateRoomType(this.rTypeKey$, this.metricTypeKey, this.metricType, RoomTypeName, MetricTypeValue)
-  //       .subscribe(res => this.router.navigateByUrl('/roomTypeView'));
-  //   }
-  // }
+  setEquipmentTypeKey(equipmentTypeKey) {
+    this.equipTypeKey = equipmentTypeKey;
+  }
+  floorValueSet(floorKey) {
+    this.FloorKey = floorKey;
+  }
+  updateEquipment(EquipmentName, EquipmentDescription, EquipmentBarcode, ) {
+    if (!this.equipTypeKey) {
+      alert("Equipment Type is not provided");
+    } else if (!EquipmentName) {
+      alert("Equipment Name is not provided");
+    } else if (!EquipmentBarcode) {
+      alert("Equipment Barcode is not provided");
+    } else if (!this.FacKey) {
+      alert("Building is not provided");
+    } else if (!this.FloorKey) {
+      alert("Floor is not provided");
+    } else {
+      this.inventoryService.checkForNewEquipment(this.equipTypeKey, EquipmentName).subscribe((data: Inventory[]) => {
+        this.dept = data;
+        if (this.dept[0].count > 0) {
+          alert("Equipment already present");
+        }
+        else if (this.dept[0].count == 0) {
+          this.inventoryService.updateEquipment(EquipmentName, EquipmentDescription, EquipmentBarcode, this.equipTypeKey, this.FacKey, this.FloorKey,this.equipKey$)
+            .subscribe(res => this.router.navigateByUrl('/EquipmentView'));
+        }
+      });
+    }
+  }
   ngOnInit() {
+    // debugger;
     this.inventoryService
       .EditEquipmentAutoGenerate(this.equipKey$)
-      .subscribe((data: Array<any>) => {
-        this.equipEditList = data[0];
-        // this.FloorKey = this.equipEditList.FacilityKey;
+      .subscribe((data: Inventory[]) => {
+        this.equipEditList = data;
+        this.FacKey = data[0].FacilityKey;
+        this.equipTypeKey=data[0].EquipmentTypeKey;
+        console.log("...  facKey:" + this.FacKey);
+        this.inventoryService
+          .getallFloorList(data[0].FacilityKey)
+          .subscribe((data: Inventory[]) => {
+            this.floors = data;
+            this.FloorKey = data[0].FloorKey;
+          });
       });
     this.inventoryService
       .getAllEquipmentType()
@@ -83,12 +89,8 @@ export class EquipmentEditComponent implements OnInit {
       .subscribe((data: Inventory[]) => {
         this.buildings = data;
       });
+    // debugger;
 
-    this.inventoryService
-      .getallFloorList(this.FloorKey)
-      .subscribe((data: Inventory[]) => {
-        this.floors = data;
-      });
   }
 
 }

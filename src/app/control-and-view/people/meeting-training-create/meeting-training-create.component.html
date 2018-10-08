@@ -66,7 +66,8 @@
         <div class="row col-md-12">
             <h5 style="text-align:right" class="col-md-4"><label for="floorname">Job Title </label></h5>
             <div class="md-form col-md-3" style="text-align:left">
-                <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="JobTitle" (change)="selectEmpOfJobTitle($event.target.value)">
+                <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="JobTitle"
+                    (change)="selectEmpOfJobTitle($event.target.value)">
                     <option value="0">--Select--</option>
                     <option *ngFor="let f of jobTitle" [value]="f.JobTitleKey">
                         {{f.JobTitleText}}

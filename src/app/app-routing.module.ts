@@ -70,6 +70,12 @@ import { SchedulingViewComponent } from './control-and-view/scheduling/schedulin
 import { EditBatchWorkComponent } from './control-and-view/scheduling/edit-batch-work/edit-batch-work.component';
 import { CreateBatchScheduleComponent } from './control-and-view/scheduling/create-batch-schedule/create-batch-schedule.component';
 
+import { SuperadminWelcomeComponent } from './control-and-view/dashboard/superadmin-welcome/superadmin-welcome.component';
+import { AdminWelcomeComponent } from './control-and-view/dashboard/admin-welcome/admin-welcome.component';
+import { SupervisorWelcomeComponent } from './control-and-view/dashboard/supervisor-welcome/supervisor-welcome.component';
+import { EmployeeWelcomeComponent } from './control-and-view/dashboard/employee-welcome/employee-welcome.component';
+
+
 const routes: Routes = [
   {
     path: '',
@@ -238,7 +244,7 @@ const routes: Routes = [
     component: MeetingTrainingCreateComponent
   },
   {
-    path: 'MeetingTrainingEdit',
+    path: 'MeetingTrainingEdit/:EventKey/:ActionKey',
     component: MeetingTrainingEditComponent
   },
   {
@@ -250,7 +256,7 @@ const routes: Routes = [
     component: EventCreateComponent
   },
   {
-    path: 'EventEdit',
+    path: 'EventEdit/:ActionKey/:ActionTypeKey',
     component: EventEditComponent
   },
   {
@@ -288,6 +294,22 @@ const routes: Routes = [
   {
     path: 'CreateBatchSchedule',
     component: CreateBatchScheduleComponent
+  },
+  {
+    path: 'welcomeEmployee',
+    component: EmployeeWelcomeComponent
+  },
+  {
+    path: 'welcomeAdmin',
+    component: AdminWelcomeComponent
+  },
+  {
+    path: 'welcomeSuperAdmin',
+    component: SuperadminWelcomeComponent
+  },
+  {
+    path: 'welcomeSupervisor',
+    component: SupervisorWelcomeComponent
   }
 ];
 

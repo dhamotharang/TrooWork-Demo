@@ -29,4 +29,12 @@ export interface People {
     EmployeeText: String;
     FirstName: String;
     LastName: String;
+
+
+    Venue: String;
+    StartTime: Time;
+    EndTime: Time;
+    MeetingDate: String;
+    
+
 }

@@ -145,6 +145,7 @@ export class InventoryService {
       .http
       .get('http://localhost:3000/api/allfacility?empkey=' + 2861 + '&OrganizationID=' + 21);
   }
+
   getallFloorList(facKey) {
     return this
       .http
@@ -611,7 +612,7 @@ export class InventoryService {
 
   }
 
-  UpdateFloorType(floorTypeName,FlrTypeKey) {
+  UpdateFloorType(floorTypeName, FlrTypeKey) {
     const uri = "http://localhost:3000/api/updateFloorType";
     const obj = {
       FloorTypeKey: FlrTypeKey,
@@ -621,6 +622,29 @@ export class InventoryService {
     };
     return this.http.post(uri, obj);
   }
+  updateEquipment(equipmentName, equipmentDescription, equipmentBarcode, equipTypeKey, FacKey, floorKey, equipKey) {
+    const uri = "http://localhost:3000/api/updateEquipment";
+    const obj = {
+      EquipmentKey: equipKey,
+      EquipmentTypeKey: equipTypeKey,
+      EquipmentType: 2861,
+      EquipmentName: equipmentName,
+      EquipmentDescription: equipmentDescription,
+      employeekey: 2861,
+      EquipmentBarcode: equipmentBarcode,
+      OrganizationID: 21,
+      FacilityKey: FacKey,
+      FloorKey: floorKey,
+      BarcodeINT: equipmentBarcode
+    };
+    return this.http.post(uri, obj);
+  }
 
+  checkEditedRoomName(facKey,roomName,RoomKey) {
+    return this
+      .http
+      .get('http://localhost:3000/api/checkForEditedRoomName?roomKey=' + RoomKey + '&RoomName=' + roomName+ '&FacilityKey=' + facKey+ '&employeekey=' + 2861+ '&OrganizationID=' + 21);
+
+  }
   // @rodney ends....
 }

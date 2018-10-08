@@ -15,8 +15,7 @@ export class LoginService {
       tid:tenantID
     };
 //    debugger;
-   return this.http.post(uri, obj)
-        .subscribe(res => console.log('Done'));
+   return this.http.post(uri, obj);
   }
   getmessage() {
              return this
