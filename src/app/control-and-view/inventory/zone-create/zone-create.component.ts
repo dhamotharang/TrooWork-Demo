@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { InventoryService } from '../../../service/Inventory.service';
+import { InventoryService } from '../../../service/inventory.service';
 import { Inventory } from '../../../model-class/Inventory';
 @Component({
   selector: 'app-zone-create',

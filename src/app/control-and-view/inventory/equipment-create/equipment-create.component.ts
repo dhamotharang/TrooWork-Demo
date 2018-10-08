@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Inventory } from '../../../model-class/Inventory';
-import { InventoryService } from '../../../service/Inventory.service';
+import { InventoryService } from '../../../service/inventory.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
 
