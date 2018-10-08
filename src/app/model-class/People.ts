@@ -29,4 +29,12 @@ export interface People {
     EmployeeText: String;
     FirstName: String;
     LastName: String;
+    
+    // ****@Pooja's code starts****
+    OrganizationID :Number;
+    empkey:Number;
+    jobtitleString:any;
+    searchEmployee:any;
+    SearchKey:Number;
+    // ****@Pooja's code Ends****
 }

@@ -11,6 +11,9 @@ import { EventCreateComponent } from './event-create/event-create.component';
 import { EventEditComponent } from './event-edit/event-edit.component';
 import { EventViewComponent } from './event-view/event-view.component';
 import { ViewEmployeesofEventComponent } from './view-employeesof-event/view-employeesof-event.component';
+import { ViewEmployeeComponent } from './view-employee/view-employee.component';
+import { EditEmployeedetailsComponent } from './edit-employeedetails/edit-employeedetails.component';
+import { DeleteEmployeeComponent } from './delete-employee/delete-employee.component';
 
 @NgModule({
   imports: [
@@ -26,6 +29,6 @@ import { ViewEmployeesofEventComponent } from './view-employeesof-event/view-emp
     EventCreateComponent, 
     EventEditComponent, 
     EventViewComponent, 
-    ViewEmployeesofEventComponent]
+    ViewEmployeesofEventComponent, ViewEmployeeComponent, EditEmployeedetailsComponent, DeleteEmployeeComponent]
 })
 export class PeopleModule { }

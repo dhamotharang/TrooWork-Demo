@@ -62,12 +62,6 @@ export class RoomTypeUpdateComponent implements OnInit {
         this.roomTypeList = data[0];
         this.metricType = data[0].MetricType;
       });
-
-    this.inventoryService
-      .getMetricValues()
-      .subscribe((data: Inventory[]) => {
-        this.metricTypeList = data;
-      });
   }
 
 }

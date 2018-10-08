@@ -51,21 +51,22 @@ export class InspectionViewComponent implements OnInit {
       date2 = this.convert_DT(this.todate);
     }
     this.inspectionService
+    .getInspectionOrderTablewithFromDateOnly(date1)
+    .subscribe((data: Inspection[]) => {
+      // debugger;
+      this.inspectionordertable = data;
+    });
+    this.inspectionService
       .getInspectionOrderTablewithFromDateandToDateFilter(date1, date2)
       .subscribe((data: Inspection[]) => {
         // debugger;
         this.inspectionordertable = data;
       });
-    this.inspectionService
-      .getInspectionOrderTablewithFromDateOnly(date1)
-      .subscribe((data: Inspection[]) => {
-        // debugger;
-        this.inspectionordertable = data;
-      });
+   
   }
   searchTL(SearchValue) {
     // var curr_date;
-    debugger;
+    // debugger;
     if (!this.fromdate) {
       var date1 = this.convert_DT(new Date());
     }

@@ -86,9 +86,11 @@ import { CreateBatchWorkComponent } from './control-and-view/scheduling/create-b
 import { SchedulingViewComponent } from './control-and-view/scheduling/scheduling-view/scheduling-view.component';
 import { EditBatchWorkComponent } from './control-and-view/scheduling/edit-batch-work/edit-batch-work.component';
 import { CreateBatchScheduleComponent } from './control-and-view/scheduling/create-batch-schedule/create-batch-schedule.component';
-
-
-
+import { ViewEmployeeComponent } from './control-and-view/people/view-employee/view-employee.component';
+import { EditEmployeedetailsComponent } from './control-and-view/people/edit-employeedetails/edit-employeedetails.component';
+import { DocumentfolderViewComponent } from './control-and-view/documents/documentfolder-view/documentfolder-view.component';
+import { NewdocumentfolderCreateComponent } from './control-and-view/documents/newdocumentfolder-create/newdocumentfolder-create.component';
+import { DocumentfolderEditComponent } from './control-and-view/documents/documentfolder-edit/documentfolder-edit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -148,7 +150,12 @@ import { CreateBatchScheduleComponent } from './control-and-view/scheduling/crea
     SchedulingViewComponent,
     EditBatchWorkComponent,
     CreateBatchScheduleComponent,
-    BatchScheduleAssignmentReportComponent
+    BatchScheduleAssignmentReportComponent,
+    ViewEmployeeComponent,
+    EditEmployeedetailsComponent,
+    DocumentfolderViewComponent,
+    NewdocumentfolderCreateComponent,
+    DocumentfolderEditComponent
    
   ],
   imports: [
