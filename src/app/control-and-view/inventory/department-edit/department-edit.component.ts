@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { InventoryService } from '../../../service/Inventory.service';
+import { InventoryService } from '../../../service/inventory.service';
 
 @Component({
   selector: 'app-department-edit',

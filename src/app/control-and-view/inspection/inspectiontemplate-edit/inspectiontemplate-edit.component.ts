@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, Directive, HostListener, ElementRef, Input } from '@angular/core';
-import { InspectionService } from '../../../service/Inspection.service';
+import { InspectionService } from '../../../service/inspection.service';
 import { Inspection } from '../../../model-class/Inspection';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 @Component({

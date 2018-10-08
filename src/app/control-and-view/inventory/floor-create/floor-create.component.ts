@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Inventory } from '../../../model-class/Inventory';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { InventoryService } from '../../../service/Inventory.service';
+import { InventoryService } from '../../../service/inventory.service';
 @Component({
   selector: 'app-floor-create',
   templateUrl: './floor-create.component.html',

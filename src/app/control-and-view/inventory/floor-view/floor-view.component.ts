@@ -1,5 +1,5 @@
 import { Component, OnInit, Directive, HostListener, ElementRef, Input } from '@angular/core';
-import { InventoryService } from '../../../service/Inventory.service';
+import { InventoryService } from '../../../service/inventory.service';
 import { Inventory } from '../../../model-class/Inventory';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 

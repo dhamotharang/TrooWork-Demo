@@ -3,7 +3,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { InspectionService } from '../../../service/Inspection.service';
+import { InspectionService } from '../../../service/inspection.service';
 import { Inspection } from '../../../model-class/Inspection';
 @Component({
   selector: 'app-inspectiontemplatedetail-edit',
