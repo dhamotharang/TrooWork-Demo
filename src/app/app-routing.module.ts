@@ -70,6 +70,8 @@ import { SchedulingViewComponent } from './control-and-view/scheduling/schedulin
 import { EditBatchWorkComponent } from './control-and-view/scheduling/edit-batch-work/edit-batch-work.component';
 import { CreateBatchScheduleComponent } from './control-and-view/scheduling/create-batch-schedule/create-batch-schedule.component';
 import { BatchScheduleAssignmentReportComponent } from './control-and-view/reports/batch-schedule-assignment-report/batch-schedule-assignment-report.component';
+import { CreateQuickOrderComponent } from './control-and-view/work-order/create-quick-order/create-quick-order.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -292,8 +294,11 @@ const routes: Routes = [
   {
     path: 'BatchScheduleAssignment',
     component: BatchScheduleAssignmentReportComponent
-  }
-  
+  },
+  {
+    path: 'createQuickOrder',
+    component: CreateQuickOrderComponent
+  },
 ];
 
 

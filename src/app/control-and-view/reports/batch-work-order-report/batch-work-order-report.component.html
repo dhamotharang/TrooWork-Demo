@@ -2,34 +2,31 @@
 <br><br>
 
 <div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
-  <!-- <div class="container"> -->
-  <div class="row col-md-12 ">
+   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">BATCH WORK-ORDER REPORT</h3>
   </div>
-  <br><br>
-
+  <br>
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
-    <h1 style="text-align: right"></h1>
+    <div style="text-align:center">
+      <h1 style="color: #174a5e;"></h1>
+    </div>
+    <div class="col-md-12">
     <div class="form-group">
-      <div class="col-md-12">
-        <div class="row col-md-12">
-          <h5 style="margin-top: 2rem;text-align:right"><label for="building">Schedule Name: </label></h5>
-          <div class="md-form col-md-10" style="text-align:left">
-            <select [(ngModel)]="BatchScheduleNameKey" style="width: 31.5rem; background-color: #d4f4ff;" class="form-control"
-              (change)="getBatchSchedule($event.target.value)">
-              <option value="" selected>--Select--</option>
-              <option *ngFor="let s of bacthschedules" [value]="s.BatchScheduleNameKey">
-                {{s.ScheduleName}}
-              </option>
-            </select>
-          </div>
-          <div class="col col-md-5"></div>
+      <div class="row col-md-12">
+        <h5 style="text-align:right" class="col-md-4"><label for="building">Schedule Name </label></h5>
+        <div class="md-form col-md-3" style="text-align:left">
+          <select [(ngModel)]="BatchScheduleNameKey" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
+            (change)="getBatchSchedule($event.target.value)">
+            <option value="" selected>--Select--</option>
+            <option *ngFor="let s of bacthschedules" [value]="s.BatchScheduleNameKey">
+              {{s.ScheduleName}}
+            </option>
+          </select>
         </div>
       </div>
     </div>
   </div>
-
-
+  </div>
   <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
   <table *ngIf='reportarray' class="table table-hover table-responsive table-bordered table">
     <thead class="tableHead">
@@ -79,7 +76,7 @@
         <!--                            <td >{{x.SwipIn}}</td>
               <td >{{x.SwipOut}}</td>-->
       </tr>
-      <tr>
+      <tr *ngIf="reportarray?.length> 0">
         <td colspan="8">Total Assigned daily minutes</td>
         <!--                            <td></td>-->
         <td>{{totalMonTime }}</td>
@@ -99,4 +96,3 @@
   <div style="text-align:center" *ngIf="reportarray?.length> 0">
     <button type="button" class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
   </div>
-</div>

@@ -85,4 +85,15 @@ export interface Reports {
     tue: number;
     wed: number;
     dailyFrequency:number;
+    Frequency:number;
+    Mon:string;
+    Tue:string;
+    Wed:string;
+    Thu:string;
+    Fri:string;
+    Sat:string;
+    Sun:string;
+    IsPhotoRequired:number;
+    IsBarcodeRequired:number;
+
 }

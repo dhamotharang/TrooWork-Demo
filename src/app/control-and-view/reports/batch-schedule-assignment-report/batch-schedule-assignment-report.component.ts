@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Reports } from '../../../model-class/reports';
 import { ReportServiceService } from '../../../service/report-service.service';
 import { ExcelserviceService } from '../../../service/excelservice.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-batch-schedule-assignment-report',
@@ -21,7 +22,7 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
   totalFriTime:number;
   totalSatTime:number;
   totalSunTime:number;
-  
+  workorderNotes:string;
   public excelarray: Array<any> = [{
     // Building:'',	Floor:'',	Zone:'',	Room:'',	FloorType:'',	RoomType:'',	Minutes:'',	Frequency:'',	Monday:'',	Tuesday:'',	Wednesday:'',	Thursday:'',	Friday:'',	Saturday:'',	Sunday:''
   }
@@ -40,7 +41,6 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
       });
     }
       getBatchSchedule(Workorder_ScheduleKey) {
-        debugger;
         this.ReportServiceService
           .getScheduleAssignReport(Workorder_ScheduleKey)
           .subscribe((data: Reports[]) => {
@@ -52,176 +52,181 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
             this.totalFriTime=0;
             this.totalSatTime=0;
             this.totalSunTime=0;
+            if(this.reportarray)
+                 {
+                 this.workorderNotes=this.reportarray[0].WorkorderNotes;
+                  }
+                  
             for (var i = 0; i < this.reportarray.length; i++) {
               var count = [];
               
                debugger;
-               if (this.reportarray[i].mon ==1)
+               if (this.reportarray[i].Mon =='true')
                         {
                             if (this.reportarray[i].MetricType === 'Minutes Per')
                             {
-                                this.totalMonTime = this.totalMonTime + ((this.reportarray[i].MetricValue) * this.reportarray[i].dailyFrequency);
+                                this.totalMonTime = this.totalMonTime + ((this.reportarray[i].MetricValue) * this.reportarray[i].Frequency);
                             }
                             else
                             {
-                                this.totalMonTime = this.totalMonTime + ((this.reportarray[i].MetricValue) * this.reportarray[i].Area) * this.reportarray[i].dailyFrequency;
+                                this.totalMonTime = this.totalMonTime + ((this.reportarray[i].MetricValue) * this.reportarray[i].Area) * this.reportarray[i].Frequency;
                             }
                         }
-                        if (this.reportarray[i].tue ==1)
+                        if (this.reportarray[i].Tue =='true')
                         {
                             if (this.reportarray[i].MetricType === 'Minutes Per')
                             {
-                              this.totalTuesTime = this.totalTuesTime + ((this.reportarray[i].MetricValue) *this.reportarray[i].dailyFrequency);
+                              this.totalTuesTime = this.totalTuesTime + ((this.reportarray[i].MetricValue) *this.reportarray[i].Frequency);
                             }
                             else
                             {
-                              this.totalTuesTime = this.totalTuesTime + ((this.reportarray[i].MetricValue) * this.reportarray[i].Area) * this.reportarray[i].dailyFrequency;
+                              this.totalTuesTime = this.totalTuesTime + ((this.reportarray[i].MetricValue) * this.reportarray[i].Area) * this.reportarray[i].Frequency;
                             }
                         }
-                        if (this.reportarray[i].wed ==1)
+                        if (this.reportarray[i].Wed =='true')
                         {
                             if (this.reportarray[i].MetricType === 'Minutes Per')
                             {
-                              this.totalWedTime = this.totalWedTime + ((this.reportarray[i].MetricValue) * this.reportarray[i].dailyFrequency);
+                              this.totalWedTime = this.totalWedTime + ((this.reportarray[i].MetricValue) * this.reportarray[i].Frequency);
                             }
                             else
                             {
-                              this.totalWedTime = this.totalWedTime + ((this.reportarray[i].MetricValue) * this.reportarray[i].Area) *this.reportarray[i].dailyFrequency;
+                              this.totalWedTime = this.totalWedTime + ((this.reportarray[i].MetricValue) * this.reportarray[i].Area) *this.reportarray[i].Frequency;
                             }
                         }
-                        if (this.reportarray[i].thu == 1)
+                        if (this.reportarray[i].Thu == 'true')
                         {
                             if (this.reportarray[i].MetricType === 'Minutes Per')
                             {
-                                this.totalThuTime = this.totalThuTime +((this.reportarray[i].MetricValue) * this.reportarray[i].dailyFrequency);
+                                this.totalThuTime = this.totalThuTime +((this.reportarray[i].MetricValue) * this.reportarray[i].Frequency);
                             }
                             else
                             {
-                                this.totalThuTime = this.totalThuTime +((this.reportarray[i].MetricValue) * this.reportarray[i].Area) * this.reportarray[i].dailyFrequency;
+                                this.totalThuTime = this.totalThuTime +((this.reportarray[i].MetricValue) * this.reportarray[i].Area) * this.reportarray[i].Frequency;
                             }
                         }
-                        if (this.reportarray[i].fri==1)
+                        if (this.reportarray[i].Fri=='true')
                         {
                             if (this.reportarray[i].MetricType === 'Minutes Per')
                             {
-                              this.totalFriTime = this.totalFriTime +((this.reportarray[i].MetricValue) * this.reportarray[i].dailyFrequency);
+                              this.totalFriTime = this.totalFriTime +((this.reportarray[i].MetricValue) * this.reportarray[i].Frequency);
                             }
                             else
                             {
-                              this.totalFriTime = this.totalFriTime +((this.reportarray[i].MetricValue) * this.reportarray[i].Area) * this.reportarray[i].dailyFrequency;
+                              this.totalFriTime = this.totalFriTime +((this.reportarray[i].MetricValue) * this.reportarray[i].Area) * this.reportarray[i].Frequency;
                             }
                         }
-                        if (this.reportarray[i].sat==1)
+                        if (this.reportarray[i].Sat=='true')
                         {
                             if (this.reportarray[i].MetricType === 'Minutes Per')
                             {
-                              this.totalSatTime = this.totalSatTime +((this.reportarray[i].MetricValue) * this.reportarray[i].dailyFrequency);
+                              this.totalSatTime = this.totalSatTime +((this.reportarray[i].MetricValue) * this.reportarray[i].Frequency);
                             }
                             else
                             {
-                                this.totalSatTime = this.totalSatTime +((this.reportarray[i].MetricValue) * this.reportarray[i].Area) * this.reportarray[i].dailyFrequency;
+                                this.totalSatTime = this.totalSatTime +((this.reportarray[i].MetricValue) * this.reportarray[i].Area) * this.reportarray[i].Frequency;
                             }
                         }
-                        if (this.reportarray[i].sun==1)
+                        if (this.reportarray[i].Sun=='true')
                         {
                             if (this.reportarray[i].MetricType === 'Minutes Per')
                             {
-                              this.totalSunTime = this.totalSunTime +((this.reportarray[i].MetricValue) * this.reportarray[i].dailyFrequency);
+                              this.totalSunTime = this.totalSunTime +((this.reportarray[i].MetricValue) * this.reportarray[i].Frequency);
                             }
                             else
                             {
-                              this.totalSunTime = this.totalSunTime +((this.reportarray[i].MetricValue) * this.reportarray[i].Area) * this.reportarray[i].dailyFrequency;
+                              this.totalSunTime = this.totalSunTime +((this.reportarray[i].MetricValue) * this.reportarray[i].Area) * this.reportarray[i].Frequency;
                             }
                         }
                         
     
-            //   if(this.reportarray[i].mon==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].dailyFrequency ===1){
+            //   if(this.reportarray[i].mon==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].Frequency ===1){
             //     this.totalMonTime=this.totalMonTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area);
             // } 
-            //  if(this.reportarray[i].mon==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].dailyFrequency ===1){
+            //  if(this.reportarray[i].mon==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].Frequency ===1){
             //     this.totalMonTime=this.totalMonTime+(this.reportarray[i].MetricValue);
             // }
-            //  if(this.reportarray[i].mon==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].dailyFrequency>1 ){
-            //     this.totalMonTime=this.totalMonTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area)*this.reportarray[i].dailyFrequency;
+            //  if(this.reportarray[i].mon==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].Frequency>1 ){
+            //     this.totalMonTime=this.totalMonTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area)*this.reportarray[i].Frequency;
             // }
-            //  if (this.reportarray[i].mon==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].dailyFrequency>1){
-            //     this.totalMonTime=this.totalMonTime+((this.reportarray[i].MetricValue)*this.reportarray[i].dailyFrequency); 
+            //  if (this.reportarray[i].mon==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].Frequency>1){
+            //     this.totalMonTime=this.totalMonTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Frequency); 
             // }
             
             
-            // if(this.reportarray[i].tue==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].dailyFrequency ===1){
+            // if(this.reportarray[i].tue==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].Frequency ===1){
             //      this.totalTuesTime= this.totalTuesTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area);
             // }
-            //  if(this.reportarray[i].tue==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].dailyFrequency ===1){
+            //  if(this.reportarray[i].tue==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].Frequency ===1){
             //      this.totalTuesTime= this.totalTuesTime+(this.reportarray[i].MetricValue);
             // }
-            //  if(this.reportarray[i].tue==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].dailyFrequency>1 ){
-            //     this.totalTuesTime=this.totalTuesTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area)*this.reportarray[i].dailyFrequency;
+            //  if(this.reportarray[i].tue==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].Frequency>1 ){
+            //     this.totalTuesTime=this.totalTuesTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area)*this.reportarray[i].Frequency;
             // }
-            //  if (this.reportarray[i].tue==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].dailyFrequency>1){
-            //     this.totalTuesTime=this.totalTuesTime+((this.reportarray[i].MetricValue)*this.reportarray[i].dailyFrequency); 
+            //  if (this.reportarray[i].tue==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].Frequency>1){
+            //     this.totalTuesTime=this.totalTuesTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Frequency); 
             // }
-            // if(this.reportarray[i].wed==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].dailyFrequency ===1){
+            // if(this.reportarray[i].wed==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].Frequency ===1){
             //       this.totalWedTime=  this.totalWedTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area);
             // }
-            //  if(this.reportarray[i].wed==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].dailyFrequency ===1){
+            //  if(this.reportarray[i].wed==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].Frequency ===1){
             //      this.totalWedTime=  this.totalWedTime+(this.reportarray[i].MetricValue);
             // }
-            //  if(this.reportarray[i].wed==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].dailyFrequency>1 ){
-            //     this.totalWedTime=this.totalWedTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area)*this.reportarray[i].dailyFrequency;
+            //  if(this.reportarray[i].wed==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].Frequency>1 ){
+            //     this.totalWedTime=this.totalWedTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area)*this.reportarray[i].Frequency;
             // }
-            //  if (this.reportarray[i].wed==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].dailyFrequency>1){
-            //     this.totalWedTime=this.totalWedTime+((this.reportarray[i].MetricValue)*this.reportarray[i].dailyFrequency); 
+            //  if (this.reportarray[i].wed==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].Frequency>1){
+            //     this.totalWedTime=this.totalWedTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Frequency); 
             // }
-            // if(this.reportarray[i].thu==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].dailyFrequency ===1){
+            // if(this.reportarray[i].thu==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].Frequency ===1){
             //       this.totalThuTime=  this.totalThuTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area);
             // }
-            // if(this.reportarray[i].thu==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].dailyFrequency ===1){
+            // if(this.reportarray[i].thu==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].Frequency ===1){
             //      this.totalThuTime=  this.totalThuTime+(this.reportarray[i].MetricValue);
             // }
-            //   if(this.reportarray[i].thu==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].dailyFrequency>1 ){
-            //     this.totalThuTime=this.totalThuTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area)*this.reportarray[i].dailyFrequency;
+            //   if(this.reportarray[i].thu==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].Frequency>1 ){
+            //     this.totalThuTime=this.totalThuTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area)*this.reportarray[i].Frequency;
             // }
-            //  if (this.reportarray[i].thu==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].dailyFrequency>1){
-            //     this.totalThuTime=this.totalThuTime+((this.reportarray[i].MetricValue)*this.reportarray[i].dailyFrequency); 
+            //  if (this.reportarray[i].thu==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].Frequency>1){
+            //     this.totalThuTime=this.totalThuTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Frequency); 
             // }
             
-            // if(this.reportarray[i].fri==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].dailyFrequency ===1){
+            // if(this.reportarray[i].fri==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].Frequency ===1){
             //       this.totalFriTime=  this.totalFriTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area);
             // }
-            // if(this.reportarray[i].fri==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].dailyFrequency ===1){
+            // if(this.reportarray[i].fri==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].Frequency ===1){
             //      this.totalFriTime=  this.totalFriTime+(this.reportarray[i].MetricValue);
             // }
-            //  if(this.reportarray[i].fri==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].dailyFrequency>1 ){
-            //     this.totalFriTime=this.totalFriTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area)*this.reportarray[i].dailyFrequency;
+            //  if(this.reportarray[i].fri==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].Frequency>1 ){
+            //     this.totalFriTime=this.totalFriTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area)*this.reportarray[i].Frequency;
             // }
-            //  if (this.reportarray[i].fri==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].dailyFrequency>1){
-            //     this.totalFriTime=this.totalFriTime+((this.reportarray[i].MetricValue)*this.reportarray[i].dailyFrequency); 
+            //  if (this.reportarray[i].fri==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].Frequency>1){
+            //     this.totalFriTime=this.totalFriTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Frequency); 
             // }
             
-            // if(this.reportarray[i].sat==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].dailyFrequency ===1){
+            // if(this.reportarray[i].sat==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].Frequency ===1){
             //       this.totalSatTime=   this.totalSatTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area);
             // }
-            // if(this.reportarray[i].sat==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].dailyFrequency ===1){
+            // if(this.reportarray[i].sat==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].Frequency ===1){
             //       this.totalSatTime=   this.totalSatTime+(this.reportarray[i].MetricValue);
             // }
-            //   if(this.reportarray[i].sat==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].dailyFrequency>1 ){
-            //     this.totalSatTime=this.totalSatTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area)*this.reportarray[i].dailyFrequency;
+            //   if(this.reportarray[i].sat==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].Frequency>1 ){
+            //     this.totalSatTime=this.totalSatTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area)*this.reportarray[i].Frequency;
             // }
-            //  if (this.reportarray[i].sat==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].dailyFrequency>1){
-            //     this.totalSatTime=this.totalSatTime+((this.reportarray[i].MetricValue)*this.reportarray[i].dailyFrequency); 
+            //  if (this.reportarray[i].sat==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].Frequency>1){
+            //     this.totalSatTime=this.totalSatTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Frequency); 
             // }
-            //  if(this.reportarray[i].sun==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].dailyFrequency ===1){
+            //  if(this.reportarray[i].sun==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].Frequency ===1){
             //       this.totalSunTime=  this.totalSunTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area);
             // }
-            // if(this.reportarray[i].sun==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].dailyFrequency ===1){
+            // if(this.reportarray[i].sun==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].Frequency ===1){
             //       this.totalSunTime=   this.totalSunTime+(this.reportarray[i].MetricValue);
             // }
-            //   if(this.reportarray[i].sun==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].dailyFrequency>1 ){
-            //     this.totalSunTime=this.totalSunTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area)*this.reportarray[i].dailyFrequency;
+            //   if(this.reportarray[i].sun==1 && this.reportarray[i].MetricType!='Minutes Per' && this.reportarray[i].Frequency>1 ){
+            //     this.totalSunTime=this.totalSunTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Area)*this.reportarray[i].Frequency;
             // }
-            //  if (this.reportarray[i].sun==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].dailyFrequency>1){
-            //     this.totalSunTime=this.totalSunTime+((this.reportarray[i].MetricValue)*this.reportarray[i].dailyFrequency); 
+            //  if (this.reportarray[i].sun==1 && this.reportarray[i].MetricType=='Minutes Per' && this.reportarray[i].Frequency>1){
+            //     this.totalSunTime=this.totalSunTime+((this.reportarray[i].MetricValue)*this.reportarray[i].Frequency); 
             // }
             }
           });
@@ -244,8 +249,8 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
           {
              minute=((this.reportarray[i].MetricValue)*(this.reportarray[i].Area));
           }
-          var freq=this.reportarray[i].dailyFrequency;
-          if(this.reportarray[i].mon==1)
+          var freq=this.reportarray[i].Frequency;
+          if(this.reportarray[i].Mon=='true')
           {
             var mondayvalue='X';
           }
@@ -253,7 +258,7 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
           {
             mondayvalue=''
           }
-          if(this.reportarray[i].tue==1)
+          if(this.reportarray[i].Tue=='true')
           {
             var tuesdayvalue='X';
           }
@@ -261,7 +266,7 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
           {
             tuesdayvalue=''
           }
-          if(this.reportarray[i].wed==1)
+          if(this.reportarray[i].Wed=='true')
           {
             var wednesdayvalue='X';
           }
@@ -269,7 +274,7 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
           {
             wednesdayvalue=''
           }
-          if(this.reportarray[i].thu==1)
+          if(this.reportarray[i].Thu=='true')
           {
             var thursdayvalue='X';
           }
@@ -277,7 +282,7 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
           {
             thursdayvalue=''
           }
-          if(this.reportarray[i].fri==1)
+          if(this.reportarray[i].Fri=='true')
           {
             var fridayvalue='X';
           }
@@ -285,7 +290,7 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
           {
             fridayvalue=''
           }
-          if(this.reportarray[i].sat==1)
+          if(this.reportarray[i].Sat=='true')
           {
             var saturdayvalue='X';
           }
@@ -293,7 +298,7 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
           {
             saturdayvalue=''
           }
-          if(this.reportarray[i].sat==1)
+          if(this.reportarray[i].Sun=='true')
           {
             var sundayvalue='X';
           }
@@ -301,10 +306,27 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
           {
             sundayvalue=''
           }
+          if(this.reportarray[i].IsPhotoRequired==1)
+          {
+            var photovalue='X';
+          }
+          else
+          {
+            photovalue=''
+          }
+          if(this.reportarray[i].IsBarcodeRequired==1)
+          {
+            var barcodevalue='X';
+          }
+          else
+          {
+            barcodevalue=''
+          }
           debugger;
-          this.excelarray.push({Building:buildingname,Floor:floorname,Zone:zon_name,Room:roomnum,FloorType:floor_type,	RoomType:room_type,	Minutes:minute,	Frequency:freq,	Monday:mondayvalue,	Tuesday:tuesdayvalue,	Wednesday:wednesdayvalue,	Thursday:thursdayvalue,	Friday:fridayvalue,	Saturday:saturdayvalue,	Sunday:sundayvalue})
+          this.excelarray.push({Building:buildingname,Floor:floorname,Zone:zon_name,Room:roomnum,FloorType:floor_type,	RoomType:room_type,	Minutes:minute,	Frequency:freq,	Monday:mondayvalue,	Tuesday:tuesdayvalue,	Wednesday:wednesdayvalue,	Thursday:thursdayvalue,	Friday:fridayvalue,	Saturday:saturdayvalue,	Sunday:sundayvalue,IsPhotoRequired:photovalue,IsBarcodeRequired:barcodevalue})
           
         }
+        this.excelarray.push('');
         this.excelarray.push({Building:'Total Assigned daily minutes',Monday:this.totalMonTime,Tuesday:this.totalTuesTime,Wednesday:this.totalWedTime,Thursday:this.totalThuTime,Friday:this.totalFriTime,Saturday:this.totalSatTime,Sunday:this.totalSunTime})
         
         this.excelService.exportAsExcelFile(this.excelarray, 'sample');

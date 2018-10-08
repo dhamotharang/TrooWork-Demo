@@ -296,7 +296,7 @@ export class BatchWorkOrderReportComponent implements OnInit {
       {
         saturdayvalue=''
       }
-      if(this.reportarray[i].sat==1)
+      if(this.reportarray[i].sun==1)
       {
         var sundayvalue='X';
       }
@@ -308,6 +308,7 @@ export class BatchWorkOrderReportComponent implements OnInit {
       this.excelarray.push({Building:buildingname,Floor:floorname,Zone:zon_name,Room:roomnum,FloorType:floor_type,	RoomType:room_type,	Minutes:minute,	Frequency:freq,	Monday:mondayvalue,	Tuesday:tuesdayvalue,	Wednesday:wednesdayvalue,	Thursday:thursdayvalue,	Friday:fridayvalue,	Saturday:saturdayvalue,	Sunday:sundayvalue})
       
     }
+    this.excelarray.push('');
     this.excelarray.push({Building:'Total Assigned daily minutes',Monday:this.totalMonTime,Tuesday:this.totalTuesTime,Wednesday:this.totalWedTime,Thursday:this.totalThuTime,Friday:this.totalFriTime,Saturday:this.totalSatTime,Sunday:this.totalSunTime})
     
     this.excelService.exportAsExcelFile(this.excelarray, 'sample');

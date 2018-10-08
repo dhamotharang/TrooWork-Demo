@@ -29,7 +29,7 @@ export class InspectionReportComponent implements OnInit {
   inspectionreport: FormGroup;
   viewinspectionReport: Reports[];
   public reportarray: Array<any> = [{
-    Template: '', Date: '', Location: '', Auditor: '', Employee: '', Status: ''
+    // Template: '', Date: '', Location: '', Auditor: '', Employee: '', Status: ''
   }
   ];
   constructor(private fb: FormBuilder, private ReportServiceService: ReportServiceService, private excelService: ExcelserviceService) {
@@ -42,7 +42,6 @@ export class InspectionReportComponent implements OnInit {
   exportToExcel(): void {
     // debugger;
     for (var i = 0; i < this.viewinspectionReport.length; i++) {
-      this.reportarray.splice(i, 1);
       var temp_name = (this.viewinspectionReport[i].TemplateName);
       var ins_date = (this.viewinspectionReport[i].InspectionDate);
       var locationname = this.viewinspectionReport[i].FacilityName.concat('-', this.viewinspectionReport[i].RoomId);

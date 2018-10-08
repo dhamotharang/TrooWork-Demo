@@ -86,6 +86,7 @@ import { CreateBatchWorkComponent } from './control-and-view/scheduling/create-b
 import { SchedulingViewComponent } from './control-and-view/scheduling/scheduling-view/scheduling-view.component';
 import { EditBatchWorkComponent } from './control-and-view/scheduling/edit-batch-work/edit-batch-work.component';
 import { CreateBatchScheduleComponent } from './control-and-view/scheduling/create-batch-schedule/create-batch-schedule.component';
+import { CreateQuickOrderComponent } from './control-and-view/work-order/create-quick-order/create-quick-order.component';
 
 
 
@@ -148,7 +149,8 @@ import { CreateBatchScheduleComponent } from './control-and-view/scheduling/crea
     SchedulingViewComponent,
     EditBatchWorkComponent,
     CreateBatchScheduleComponent,
-    BatchScheduleAssignmentReportComponent
+    BatchScheduleAssignmentReportComponent,
+    CreateQuickOrderComponent
    
   ],
   imports: [
