@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { InspectionService } from '../../../service/Inspection.service';
+import { InspectionService } from '../../../service/inspection.service';
 import { Inspection } from '../../../model-class/Inspection';
 
 @Component({
@@ -73,7 +73,7 @@ public formatter = (_: Date) => {
   }
   
   createInspection() {
-    debugger;
+    // debugger;
     console.log(this.fromdate);
     console.log(this.todate);
     if (!this.fromdate) {

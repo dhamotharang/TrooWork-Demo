@@ -71,7 +71,11 @@ import { EditBatchWorkComponent } from './control-and-view/scheduling/edit-batch
 import { CreateBatchScheduleComponent } from './control-and-view/scheduling/create-batch-schedule/create-batch-schedule.component';
 import { BatchScheduleAssignmentReportComponent } from './control-and-view/reports/batch-schedule-assignment-report/batch-schedule-assignment-report.component';
 import { CreateQuickOrderComponent } from './control-and-view/work-order/create-quick-order/create-quick-order.component';
-
+import { ViewEmployeeComponent } from './control-and-view/people/view-employee/view-employee.component';
+import { EditEmployeedetailsComponent } from './control-and-view/people/edit-employeedetails/edit-employeedetails.component';
+import { DocumentfolderViewComponent } from './control-and-view/documents/documentfolder-view/documentfolder-view.component';
+import { NewdocumentfolderCreateComponent } from './control-and-view/documents/newdocumentfolder-create/newdocumentfolder-create.component';
+import { DocumentfolderEditComponent } from './control-and-view/documents/documentfolder-edit/documentfolder-edit.component';
 const routes: Routes = [
   {
     path: '',
@@ -299,6 +303,26 @@ const routes: Routes = [
     path: 'createQuickOrder',
     component: CreateQuickOrderComponent
   },
+  {
+    path: 'ViewEmployee',
+    component: ViewEmployeeComponent
+  },
+  {
+    path: 'EditEmployeedetails/:EmployeeKey',
+    component: EditEmployeedetailsComponent
+  },
+  {
+  path: 'DocumentfolderView',
+  component:DocumentfolderViewComponent
+  },
+  {
+    path: 'NewdocumentfolderCreate',
+    component:NewdocumentfolderCreateComponent
+  },
+  {
+    path: 'DocumentfolderEdit/:FormtypeId',
+    component:DocumentfolderEditComponent
+  }
 ];
 
 
