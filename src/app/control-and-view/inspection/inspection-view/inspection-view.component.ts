@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, Directive, HostListener, ElementRef, Input } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import { InspectionService } from '../../../service/Inspection.service';
+import { InspectionService } from '../../../service/inspection.service';
 import { Inspection } from '../../../model-class/Inspection';
 @Component({
   selector: 'app-inspection-view',
