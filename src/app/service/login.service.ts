@@ -7,19 +7,27 @@ import { HttpClient } from '@angular/common/http';
 export class LoginService {
 
   constructor(private http: HttpClient) { }
-     login(userName,passWord,tenantID) {
+
+  login(userName, passWord, tenantID) {
     const uri = 'http://localhost:3000/authenticate';
     const obj = {
-     uname: userName,
+      uname: userName,
       pwd: passWord,
-      tid:tenantID
+      tid: tenantID
     };
-//    debugger;
-   return this.http.post(uri, obj);
+    //    debugger;
+    return this.http.post(uri, obj);
   }
+
   getmessage() {
-             return this
-                    .http
-                    .get(`http://localhost:3000/api/welcomeUpdateMessage?empKey=`+2861+'&OrganizationID='+21);
-    	}
+    return this
+      .http
+      .get(`http://localhost:3000/api/welcomeUpdateMessage?empKey=` + 2861 + '&OrganizationID=' + 21);
+  }
+
+  getUserProfileDetails(empKey, orgID) {
+    return this
+      .http
+      .get(`http://localhost:3000/api/empDetails?SearchKey=` + empKey + '&OrganizationID=' + orgID);
+  }
 }

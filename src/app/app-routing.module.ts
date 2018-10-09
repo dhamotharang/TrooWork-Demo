@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './control-and-view/dashboard/login/login.component';
-import { WelcomepageComponent } from './control-and-view/dashboard/welcomepage/welcomepage.component';
-import { ManagerDashBoardComponent } from './control-and-view/dashboard/manager-dash-board/manager-dash-board.component';
+import { WelcomepageComponent } from './control-and-view/dashboard/user-welcome-pages/welcomepage/welcomepage.component';
+import { ManagerDashBoardComponent } from './control-and-view/dashboard/user-dashboards/manager-dash-board/manager-dash-board.component';
 
 import { BuildingViewComponent } from './control-and-view/inventory/building-view/building-view.component';
 import { CreatebuildingComponent } from './control-and-view/inventory/createbuilding/createbuilding.component';
@@ -70,10 +70,10 @@ import { SchedulingViewComponent } from './control-and-view/scheduling/schedulin
 import { EditBatchWorkComponent } from './control-and-view/scheduling/edit-batch-work/edit-batch-work.component';
 import { CreateBatchScheduleComponent } from './control-and-view/scheduling/create-batch-schedule/create-batch-schedule.component';
 
-import { SuperadminWelcomeComponent } from './control-and-view/dashboard/superadmin-welcome/superadmin-welcome.component';
-import { AdminWelcomeComponent } from './control-and-view/dashboard/admin-welcome/admin-welcome.component';
-import { SupervisorWelcomeComponent } from './control-and-view/dashboard/supervisor-welcome/supervisor-welcome.component';
-import { EmployeeWelcomeComponent } from './control-and-view/dashboard/employee-welcome/employee-welcome.component';
+import { SuperadminWelcomeComponent } from './control-and-view/dashboard/user-welcome-pages/superadmin-welcome/superadmin-welcome.component';
+import { AdminWelcomeComponent } from './control-and-view/dashboard/user-welcome-pages/admin-welcome/admin-welcome.component';
+import { SupervisorWelcomeComponent } from './control-and-view/dashboard/user-welcome-pages/supervisor-welcome/supervisor-welcome.component';
+import { EmployeeWelcomeComponent } from './control-and-view/dashboard/user-welcome-pages/employee-welcome/employee-welcome.component';
 
 
 import { BatchScheduleAssignmentReportComponent } from './control-and-view/reports/batch-schedule-assignment-report/batch-schedule-assignment-report.component';
@@ -83,6 +83,7 @@ import { EditEmployeedetailsComponent } from './control-and-view/people/edit-emp
 import { DocumentfolderViewComponent } from './control-and-view/documents/documentfolder-view/documentfolder-view.component';
 import { NewdocumentfolderCreateComponent } from './control-and-view/documents/newdocumentfolder-create/newdocumentfolder-create.component';
 import { DocumentfolderEditComponent } from './control-and-view/documents/documentfolder-edit/documentfolder-edit.component';
+import { ManagerMyprofileComponent } from './control-and-view/dashboard/user-profiles/manager-myprofile/manager-myprofile.component';
 const routes: Routes = [
   {
     path: '',
@@ -345,6 +346,10 @@ const routes: Routes = [
   {
     path: 'DocumentfolderEdit/:FormtypeId',
     component: DocumentfolderEditComponent
+  },
+  {
+    path: 'managerMyProfile',
+    component: ManagerMyprofileComponent
   }
 ];
 
