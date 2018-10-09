@@ -74,7 +74,7 @@ import { SuperadminWelcomeComponent } from './control-and-view/dashboard/superad
 import { AdminWelcomeComponent } from './control-and-view/dashboard/admin-welcome/admin-welcome.component';
 import { SupervisorWelcomeComponent } from './control-and-view/dashboard/supervisor-welcome/supervisor-welcome.component';
 import { EmployeeWelcomeComponent } from './control-and-view/dashboard/employee-welcome/employee-welcome.component';
-
+import { ViewWorkOrdersComponent } from './control-and-view/work-order/view-work-orders/view-work-orders.component';
 
 import { BatchScheduleAssignmentReportComponent } from './control-and-view/reports/batch-schedule-assignment-report/batch-schedule-assignment-report.component';
 import { CreateQuickOrderComponent } from './control-and-view/work-order/create-quick-order/create-quick-order.component';
@@ -342,9 +342,10 @@ const routes: Routes = [
     path: 'NewdocumentfolderCreate',
     component: NewdocumentfolderCreateComponent
   },
+  
   {
-    path: 'DocumentfolderEdit/:FormtypeId',
-    component: DocumentfolderEditComponent
+    path: 'ViewWorkOrder',
+    component: ViewWorkOrdersComponent
   }
 ];
 
