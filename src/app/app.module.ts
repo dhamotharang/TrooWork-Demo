@@ -98,12 +98,16 @@ import { SupervisorWelcomeComponent } from './control-and-view/dashboard/user-we
 import { EmployeeWelcomeComponent } from './control-and-view/dashboard/user-welcome-pages/employee-welcome/employee-welcome.component';
 
 import { CreateQuickOrderComponent } from './control-and-view/work-order/create-quick-order/create-quick-order.component';
+import { ViewWorkOrdersComponent } from './control-and-view/work-order/view-work-orders/view-work-orders.component';
 import { ViewEmployeeComponent } from './control-and-view/people/view-employee/view-employee.component';
 import { EditEmployeedetailsComponent } from './control-and-view/people/edit-employeedetails/edit-employeedetails.component';
 import { DocumentfolderViewComponent } from './control-and-view/documents/documentfolder-view/documentfolder-view.component';
 import { NewdocumentfolderCreateComponent } from './control-and-view/documents/newdocumentfolder-create/newdocumentfolder-create.component';
 import { DocumentfolderEditComponent } from './control-and-view/documents/documentfolder-edit/documentfolder-edit.component';
 import { ManagerMyprofileComponent } from './control-and-view/dashboard/user-profiles/manager-myprofile/manager-myprofile.component';
+import { DocumentsUploadComponent } from './control-and-view/documents/documents-upload/documents-upload.component';
+import { ViewDocumentsComponent } from './control-and-view/documents/view-documents/view-documents.component';
+import { FileSelectDirective } from 'ng2-file-upload';
 @NgModule({
   declarations: [
     AppComponent,
@@ -178,7 +182,11 @@ import { ManagerMyprofileComponent } from './control-and-view/dashboard/user-pro
     DocumentfolderViewComponent,
     NewdocumentfolderCreateComponent,
     DocumentfolderEditComponent,
-    ManagerMyprofileComponent
+    ManagerMyprofileComponent,
+    ViewWorkOrdersComponent,
+    DocumentsUploadComponent,
+    ViewDocumentsComponent,
+    FileSelectDirective
 
   ],
   imports: [

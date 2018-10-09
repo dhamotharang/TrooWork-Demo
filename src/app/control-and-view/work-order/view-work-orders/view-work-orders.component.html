@@ -1,0 +1,124 @@
+<app-manager-dash-board></app-manager-dash-board>
+<br><br>
+
+<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <!-- <div class="container"> -->
+  <div class="row col-md-12 ">
+    <h3 style="margin-left: 25rem;">SEARCH WORK ORDER BY</h3>
+  </div>
+  <br><br>
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
+    <div class="col-md-6">
+      <h1 style="text-align: right"></h1>
+      <div class="form-group">
+        <label>Building*</label><br>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey" (change)="getFloorDisp($event.target.value)"
+          required>
+          <option>--Select--</option>
+          <option *ngFor="let b of facilitylist" [value]="b.FacilityKey">
+            {{b.FacilityText}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Floor*</label><br>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey" [disabled]="!FacilityKey" (change)="getZoneRoomTypeRoom($event.target.value,FacilityKey)"
+          required>
+          <option>--Select--</option>
+          <option *ngFor="let b of FloorList" [value]="b.FloorKey">
+            {{b.FloorName}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Zone</label><br>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey" [disabled]="!FloorKey" (change)="getRoomTypeRoom($event.target.value,FacilityKey,FloorKey)"
+          required>
+          <option>--Select--</option>
+          <option *ngFor="let b of zonelist" [value]="b.ZoneKey">
+            {{b.ZoneName}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Room Type</label><br>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey" [disabled]="!FloorKey" (change)="getRoom($event.target.value,ZoneKey,FacilityKey,FloorKey)"
+          required>
+          <option>--Select--</option>
+          <option *ngFor="let b of RoomTypeList" [value]="b.RoomTypeKey">
+            {{b.RoomTypeName}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Room</label><br>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomKey" [disabled]="!FloorKey"
+          required>
+          <option>--Select--</option>
+          <option *ngFor="let b of RoomList" [value]="b.RoomKey">
+            {{b.RoomName}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Schedule Name</label><br>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="BatchScheduleNameKey"
+          required>
+          <option>--Select--</option>
+          <option *ngFor="let b of scheduleList" [value]="b.BatchScheduleNameKey">
+            {{b.ScheduleName}}
+          </option>
+        </select>
+      </div>
+  </div>
+  <div class="col-md-6">
+      <div class="form-group">
+          <label>On Date</label><br>
+          <igx-datePicker [value]="date" [(ngModel)]="ondate"></igx-datePicker>
+      </div>
+      <div class="form-group">
+          <label>To Date</label><br>
+          <igx-datePicker [value]="date" [(ngModel)]="todate"></igx-datePicker>
+      </div>
+      <div class="form-group">
+          <label>Work Status</label><br>
+          <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WorkorderStatusKey"
+            required>
+            <option>--Select--</option>
+            <option *ngFor="let e of workStatusList" [value]="e.WorkorderStatusKey">
+              {{e.WorkorderStatus}}
+            </option>
+          </select>
+        </div> 
+      <div class="form-group">
+        <label>Employee*</label><br>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EmployeeKey"
+          required>
+          <option>--Select--</option>
+          <option *ngFor="let e of EmployeeOption" [value]="e.EmployeeKey">
+            {{e.EmployeeText}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+          <label>Workorder Type</label><br>
+          <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WorkorderTypeKey"
+            required>
+            <option>--Select--</option>
+            <option *ngFor="let e of workorderTypeList" [value]="e.WorkorderTypeKey">
+              {{e.WorkorderTypeText}}
+            </option>
+          </select>
+        </div>
+    </div>
+  </div>
+ <div><br><br></div>
+  <!-- <form [formGroup]="searchform">
+      <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
+        <input class="form-control" name="searchfilter" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
+          placeholder="Search WorkOrder Type,Employee,Room" aria-label="Search" [(ngmodel)]="SearchworkType_emp_room" formControlName="SearchFilter"
+          (input)="searchworkType_emp_room($event.target.value);" style="width: 100%;">
+        <div *ngIf="searchform.controls.SearchFacility.errors?.minlength">Minimum 3 characters required.</div>
+      </div>
+    </form> -->
+</div>

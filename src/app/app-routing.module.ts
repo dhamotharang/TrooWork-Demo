@@ -74,7 +74,7 @@ import { SuperadminWelcomeComponent } from './control-and-view/dashboard/user-we
 import { AdminWelcomeComponent } from './control-and-view/dashboard/user-welcome-pages/admin-welcome/admin-welcome.component';
 import { SupervisorWelcomeComponent } from './control-and-view/dashboard/user-welcome-pages/supervisor-welcome/supervisor-welcome.component';
 import { EmployeeWelcomeComponent } from './control-and-view/dashboard/user-welcome-pages/employee-welcome/employee-welcome.component';
-
+import { ViewWorkOrdersComponent } from './control-and-view/work-order/view-work-orders/view-work-orders.component';
 
 import { BatchScheduleAssignmentReportComponent } from './control-and-view/reports/batch-schedule-assignment-report/batch-schedule-assignment-report.component';
 import { CreateQuickOrderComponent } from './control-and-view/work-order/create-quick-order/create-quick-order.component';
@@ -84,6 +84,8 @@ import { DocumentfolderViewComponent } from './control-and-view/documents/docume
 import { NewdocumentfolderCreateComponent } from './control-and-view/documents/newdocumentfolder-create/newdocumentfolder-create.component';
 import { DocumentfolderEditComponent } from './control-and-view/documents/documentfolder-edit/documentfolder-edit.component';
 import { ManagerMyprofileComponent } from './control-and-view/dashboard/user-profiles/manager-myprofile/manager-myprofile.component';
+import { DocumentsUploadComponent } from './control-and-view/documents/documents-upload/documents-upload.component';
+import { ViewDocumentsComponent } from './control-and-view/documents/view-documents/view-documents.component';
 const routes: Routes = [
   {
     path: '',
@@ -343,6 +345,11 @@ const routes: Routes = [
     path: 'NewdocumentfolderCreate',
     component: NewdocumentfolderCreateComponent
   },
+
+  {
+    path: 'ViewWorkOrder',
+    component: ViewWorkOrdersComponent
+  },
   {
     path: 'DocumentfolderEdit/:FormtypeId',
     component: DocumentfolderEditComponent
@@ -350,6 +357,14 @@ const routes: Routes = [
   {
     path: 'managerMyProfile',
     component: ManagerMyprofileComponent
+  },
+  {
+    path: 'DocumentsUpload',
+    component: DocumentsUploadComponent
+  },
+  {
+    path: 'ViewDocuments',
+    component: ViewDocumentsComponent
   }
 ];
 
