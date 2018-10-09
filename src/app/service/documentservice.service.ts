@@ -33,7 +33,7 @@ export class DocumentserviceService {
     // .get('http://localhost:3000/api/addNewForms?newform='+DocFolderName+'&serverEmpKey='+servempkey+'&OrganizationID='+orgid);
   }
   EditDocFolderName(Docfoldername,orgid){
-    debugger;
+    // debugger;
     return this
     .http
     .get('http://localhost:3000/api/getEditFormDetails?FormtypeId='+Docfoldername+'&OrganizationID='+orgid);
@@ -49,5 +49,21 @@ export class DocumentserviceService {
     return this
       .http
       .post(url, obj);
+  }    
+  DeleteDocFolder(deldfkey,orgID){
+    const url = 'http://localhost:3000/api/deleteForm';
+    const obj = {
+      FormtypeId: deldfkey,
+      OrganizationID: orgID
+    };
+    return this
+      .http
+      .post(url, obj);
+  }
+  getDocumentFolderNamesfordropdown(empkey,orgID)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/allFormtype?empkey='+empkey+'&OrganizationID='+orgID);
   }
 }
