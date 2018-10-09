@@ -83,6 +83,8 @@ import { EditEmployeedetailsComponent } from './control-and-view/people/edit-emp
 import { DocumentfolderViewComponent } from './control-and-view/documents/documentfolder-view/documentfolder-view.component';
 import { NewdocumentfolderCreateComponent } from './control-and-view/documents/newdocumentfolder-create/newdocumentfolder-create.component';
 import { DocumentfolderEditComponent } from './control-and-view/documents/documentfolder-edit/documentfolder-edit.component';
+import { DocumentsUploadComponent } from './control-and-view/documents/documents-upload/documents-upload.component';
+import { ViewDocumentsComponent } from './control-and-view/documents/view-documents/view-documents.component';
 const routes: Routes = [
   {
     path: '',
@@ -346,6 +348,18 @@ const routes: Routes = [
   {
     path: 'ViewWorkOrder',
     component: ViewWorkOrdersComponent
+  },
+  {
+    path: 'DocumentfolderEdit/:FormtypeId',
+    component: DocumentfolderEditComponent
+  },
+  {
+    path: 'DocumentsUpload',
+    component:DocumentsUploadComponent
+  },
+  {
+    path:'ViewDocuments',
+    component:ViewDocumentsComponent
   }
 ];
 

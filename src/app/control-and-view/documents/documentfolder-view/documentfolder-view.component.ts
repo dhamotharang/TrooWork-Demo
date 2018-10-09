@@ -13,7 +13,7 @@ export class DocumentfolderViewComponent implements OnInit {
   documents:Documents[];
   orgID:number;
   empkey:number;
-
+  delete_foldKey: number;
   //validation starts ..... @Pooja
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
@@ -46,7 +46,24 @@ export class DocumentfolderViewComponent implements OnInit {
       });
 
   };
+  deleteFolder() {
+    debugger;
+    this.orgID=21;
+    this.documentService
+      .DeleteDocFolder(this.delete_foldKey,this.orgID).subscribe(()=>{
 
+        this.documentService
+        .getDocumentFoldersDataTable(this.empkey,this.orgID)
+        .subscribe((data: Documents[]) => {
+          this.documents = data;
+        });
+
+      });
+  }
+  deleteFolderPass(FormtypeId) {
+    this.delete_foldKey = FormtypeId;
+    debugger;
+  }
   ngOnInit() {
    this.orgID=21;
    this.empkey=2861;

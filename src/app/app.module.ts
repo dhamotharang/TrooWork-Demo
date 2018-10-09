@@ -104,7 +104,9 @@ import { EditEmployeedetailsComponent } from './control-and-view/people/edit-emp
 import { DocumentfolderViewComponent } from './control-and-view/documents/documentfolder-view/documentfolder-view.component';
 import { NewdocumentfolderCreateComponent } from './control-and-view/documents/newdocumentfolder-create/newdocumentfolder-create.component';
 import { DocumentfolderEditComponent } from './control-and-view/documents/documentfolder-edit/documentfolder-edit.component';
-
+import { DocumentsUploadComponent } from './control-and-view/documents/documents-upload/documents-upload.component';
+import { ViewDocumentsComponent } from './control-and-view/documents/view-documents/view-documents.component';
+import { FileSelectDirective } from 'ng2-file-upload';
 @NgModule({
   declarations: [
     AppComponent,
@@ -179,7 +181,10 @@ import { DocumentfolderEditComponent } from './control-and-view/documents/docume
     DocumentfolderViewComponent,
     NewdocumentfolderCreateComponent,
     DocumentfolderEditComponent,
-    ViewWorkOrdersComponent
+    ViewWorkOrdersComponent,
+    DocumentsUploadComponent,
+    ViewDocumentsComponent,
+    FileSelectDirective
 
   ],
   imports: [
