@@ -15,8 +15,8 @@ declare var google: any;
 })
 export class DashboardReportComponent implements OnInit {
   title = 'Reusable charts sample';
-   public arr: Array<any> = [{}];
-   public samplearr: Array<any> = [{}];
+  public arr: Array<any> = [{}];
+  public samplearr: Array<any> = [{}];
   public convert_DT(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
@@ -72,8 +72,8 @@ export class DashboardReportComponent implements OnInit {
   fromdate: Date;
   todate: Date;
   WorkorderTypeKey = [];
-  showElement:boolean;
-  constructor(private fb: FormBuilder, private ReportServiceService: ReportServiceService,private _pieChartService: GooglePieChartService) {
+  showElement: boolean;
+  constructor(private fb: FormBuilder, private ReportServiceService: ReportServiceService, private _pieChartService: GooglePieChartService) {
     this.dashboardreport = fb.group({
       EmployeeKey: ['', Validators.required],
       EmployeeText: ['', Validators.required]
@@ -104,39 +104,41 @@ export class DashboardReportComponent implements OnInit {
     };
     this.em_Key = null;
     this.Workorder_TypeKey = null;
-debugger;
+    debugger;
     this.ReportServiceService
       .getdashboardreport(dateTemp_1, dateTemp_2, this.em_Key, this.Workorder_TypeKey)
       .subscribe((data: Reports[]) => {
         this.reporttable = data;
       });
-      
+
     this.ReportServiceService
       .getpievalues(dateTemp_1)
       .subscribe((data: Reports[]) => {
         this.pievalues = data;
-      });    
-    
-    this.showElement = true;
-      setTimeout(() => {
-        console.log('hide');
-        this.showElement = false;
-      this.sampledata1 = [['WorkorderStatus','count']];
+      });
 
-      for (var i = 0; i < this.pievalues.length; i++)
+    this.showElement = true;
+    setTimeout(() => {
+      if(this.pievalues)
       {
+      console.log('hide');
+      this.showElement = false;
+      this.sampledata1 = [['WorkorderStatus', 'count']];
+
+      for (var i = 0; i < this.pievalues.length; i++) {
         debugger;
-         var status = this.pievalues[i].WorkorderStatus;
-         var num = this.pievalues[i].totalItems;
-         this.data2 = ([status, num]);                     
-         this.sampledata1.push( this.data2);
- 
+        var status = this.pievalues[i].WorkorderStatus;
+        var num = this.pievalues[i].totalItems;
+        this.data2 = ([status, num]);
+        this.sampledata1.push(this.data2);
+
       }
-        this.data1=this.sampledata1;
-        this.config1 = new PieChartConfig('pie chart', 0.4);
-        this.elementId1 = 'piechart';
-        this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
-      }, 2000);
+      this.data1 = this.sampledata1;
+      this.config1 = new PieChartConfig('pie chart', 0.4);
+      this.elementId1 = 'piechart';
+      this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
+    }
+    }, 2000);
   }
   onItemSelect(item: any) {
     console.log(item);
@@ -198,30 +200,32 @@ debugger;
     console.log(this.date2 + " ... before calling service");
 
     this.ReportServiceService
-    .getvaluesfilterbypie(this.date1,this.date2,this.em_Key,workordertypeString,this.org_id, this.manager)
-    .subscribe((data: Reports[]) => {
-      this.filterbypie = data;
-  
-    });
+      .getvaluesfilterbypie(this.date1, this.date2, this.em_Key, workordertypeString, this.org_id, this.manager)
+      .subscribe((data: Reports[]) => {
+        this.filterbypie = data;
+
+      });
     this.showElement = true;
     setTimeout(() => {
       console.log('hide');
       this.showElement = false;
-    this.sampledata2 = [['WorkorderStatus','count']];
+      if (this.filterbypie) {
 
-    for (var i = 0; i < this.filterbypie.length; i++)
-    {
-      debugger;
-       var status = this.filterbypie[i].WorkorderStatus;
-       var num = this.filterbypie[i].totalItems;
-       this.data3 = ([status, num]);                     
-       this.sampledata2.push( this.data2);
+        this.sampledata2 = [['WorkorderStatus', 'count']];
 
-    }
-      this.data1=this.sampledata2;
-      this.config1 = new PieChartConfig('pie chart', 0.4);
-      this.elementId1 = 'piechart';
-      this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
+        for (var i = 0; i < this.filterbypie.length; i++) {
+          debugger;
+          var status = this.filterbypie[i].WorkorderStatus;
+          var num = this.filterbypie[i].totalItems;
+          this.data3 = ([status, num]);
+          this.sampledata2.push(this.data3);
+
+        }
+        this.data1 = this.sampledata2;
+        this.config1 = new PieChartConfig('pie chart', 0.4);
+        this.elementId1 = 'piechart';
+        this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
+      }
     }, 2000);
   }
 }

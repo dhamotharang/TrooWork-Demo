@@ -33,14 +33,14 @@
       <div class="form-group">
         <label>Photo Required</label>
         <div class="md-form col-md-3">
-          <input type="checkbox" [(ngModel)]="theCheckbox" data-md-icheck (change)="toggleVisibility($event)" />
+          <input type="checkbox" [(ngModel)]="isPhotoRequired" data-md-icheck (change)="toggleVisibility($event)" />
         </div>
       </div>
       </div>
       <div class="col-md-6">
       <div class="form-group">
         <label>Workorder Notes*</label>
-        <textarea class="form-control rounded-0" [(ngModel)]="workorderNotes" rows="6" style="resize: none;"></textarea>
+        <textarea class="form-control rounded-0" [(ngModel)]="WorkorderNotes" rows="6" style="resize: none;"></textarea>
       </div>
       <div class="form-group">
         <label>Priority Level</label><br>
@@ -57,7 +57,7 @@
     <div class="row col-md-12">
       <div class="col-md-6"></div>
       <div style="text-align:center">
-        <button type="button" class="btn btn-primary" (click)=saveWorkOrder()>save</button>
+        <button type="button" class="btn btn-primary" (click)=saveQuickWorkOrder()>save</button>
         <br><br>
       </div>
     </div>

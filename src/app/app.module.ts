@@ -98,6 +98,7 @@ import { SupervisorWelcomeComponent } from './control-and-view/dashboard/supervi
 import { EmployeeWelcomeComponent } from './control-and-view/dashboard/employee-welcome/employee-welcome.component';
 
 import { CreateQuickOrderComponent } from './control-and-view/work-order/create-quick-order/create-quick-order.component';
+import { ViewWorkOrdersComponent } from './control-and-view/work-order/view-work-orders/view-work-orders.component';
 import { ViewEmployeeComponent } from './control-and-view/people/view-employee/view-employee.component';
 import { EditEmployeedetailsComponent } from './control-and-view/people/edit-employeedetails/edit-employeedetails.component';
 import { DocumentfolderViewComponent } from './control-and-view/documents/documentfolder-view/documentfolder-view.component';
@@ -181,6 +182,7 @@ import { CreateOrganizationComponent } from './control-and-view/superadmin/organ
     DocumentfolderViewComponent,
     NewdocumentfolderCreateComponent,
     DocumentfolderEditComponent,
+    ViewWorkOrdersComponent,
     DocumentsUploadComponent,
     ViewDocumentsComponent,
     FileSelectDirective,
