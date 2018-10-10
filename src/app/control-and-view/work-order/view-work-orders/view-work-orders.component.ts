@@ -36,6 +36,20 @@ export class ViewWorkOrdersComponent implements OnInit {
   emp_key:number;
   org_id:number;
   domain_name:string;
+  workorderList:workorder[];
+  checkValue=[];
+  FacilityKey:number;
+  FloorKey:number;
+  ZoneKey:number;
+  RoomTypeKey:number;
+  RoomKey:number;
+  BatchScheduleNameKey:number;
+  WorkorderStatusKey:number;
+  EmployeeKey:number;
+  WorkorderTypeKey:number;
+  ondate:Date;
+  todate:Date;
+  viewWorkOrder;
   //validation starts
   // searchform: FormGroup;
   // regexStr = '^[a-zA-Z0-9_ ]*$';
@@ -61,6 +75,9 @@ export class ViewWorkOrdersComponent implements OnInit {
     this.emp_key=2861;
     this.org_id=21;
     this.domain_name='workstatus';
+    var on_date=this.convert_DT(new Date());
+    var page_no=1;
+    var iems_perpage=25;
     this.WorkOrderServiceService
     .getallFacility(this.emp_key, this.org_id)
     .subscribe((data: any[]) => {
@@ -86,6 +103,13 @@ export class ViewWorkOrdersComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.workorderTypeList = data;
       });
+      this.WorkOrderServiceService
+      .getworkorder(on_date,this.emp_key,page_no,iems_perpage, this.org_id)
+      .subscribe((data: any[]) => {
+        this.workorderList = data;
+      });
+      debugger;
+
       // this.searchform = this.formBuilder.group({
       //   SearchworkType_emp_room: ['', Validators.required]
       // }); 
@@ -140,5 +164,122 @@ export class ViewWorkOrdersComponent implements OnInit {
       this.RoomList = data;
     });
   }
+  viewWO_Filter()
+  {
+    if(!this.FacilityKey)
+    {
+     var fac_key =null;
+
+    }
+    else{
+       fac_key= this.FacilityKey
+    }
+    if(!this.FloorKey)
+    {
+     var floor_key =null;
+
+    }
+    else{
+      floor_key= this.FloorKey
+    }
+    if(!this.ZoneKey)
+    {
+     var zone_key =null;
+
+    }
+    else{
+      zone_key= this.ZoneKey
+    }
+    if(!this.RoomTypeKey)
+    {
+     var roomtype_key =null;
+
+    }
+    else{
+      roomtype_key= this.RoomTypeKey
+    }
+    if(!this.RoomKey)
+    {
+     var room_key =null;
+
+    }
+    else{
+      room_key= this.RoomKey
+    }
+    if(!this.BatchScheduleNameKey)
+    {
+     var batch_key =null;
+
+    }
+    else{
+      batch_key= this.BatchScheduleNameKey
+    }
+    if(!this.WorkorderStatusKey)
+    {
+     var WOS_key =null;
+
+    }
+    else{
+      WOS_key= this.WorkorderStatusKey
+    }
+    if(!this.EmployeeKey)
+    {
+     var em_key =null;
+
+    }
+    else{
+      em_key= this.EmployeeKey;
+    }
+    if(!this.WorkorderTypeKey)
+    {
+     var wot_key =null;
+
+    }
+    else{
+      wot_key= this.WorkorderTypeKey;
+    }
+    if(!this.ondate)
+    {
+     var from_date =this.convert_DT(new Date());
+
+    }
+    else{
+      from_date= this.convert_DT(this.ondate);
+    }
+    if(!this.todate)
+    {
+     var to_date =this.convert_DT(new Date());
+
+    }
+    else{
+      to_date= this.convert_DT(this.todate);
+    }
+    this.viewWorkOrder={
+      manager:2861,
+      workorderStatusKey:WOS_key,
+      workorderDate:from_date,
+      workorderDate2:to_date,
+      facilitykey:fac_key,
+      roomTypeKey:roomtype_key,
+      roomKey:room_key,
+      zoneKey:zone_key,
+      employeekey:em_key,
+      workorderTypeKey:wot_key,
+      BatchScheduleNameKey:batch_key,
+      OrganizationID:this.org_id,
+      floorKey:floor_key
+    };
+    this.WorkOrderServiceService
+    .getWoFilter(this.viewWorkOrder)
+    .subscribe((data: any[]) => {
+      this.workorderList = data;
+    });
+    debugger;
+  }
+  checkBoxValueForDelete=function(index,CheckValue,WorkorderKey){
+          
+      this.checkValue[index]=CheckValue;
+      this.workorderKey[index]=WorkorderKey;     
+      };
 
 }

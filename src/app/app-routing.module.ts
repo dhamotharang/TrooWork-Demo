@@ -85,6 +85,7 @@ import { NewdocumentfolderCreateComponent } from './control-and-view/documents/n
 import { DocumentfolderEditComponent } from './control-and-view/documents/documentfolder-edit/documentfolder-edit.component';
 import { DocumentsUploadComponent } from './control-and-view/documents/documents-upload/documents-upload.component';
 import { ViewDocumentsComponent } from './control-and-view/documents/view-documents/view-documents.component';
+import { CreateWorkorderComponent } from './control-and-view/work-order/create-workorder/create-workorder.component';
 const routes: Routes = [
   {
     path: '',
@@ -360,7 +361,12 @@ const routes: Routes = [
   {
     path:'ViewDocuments',
     component:ViewDocumentsComponent
-  }
+  },
+  {
+    path:'CreateWorkOrder',
+    component:CreateWorkorderComponent
+  },
+  
 ];
 
 
