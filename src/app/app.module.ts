@@ -106,6 +106,7 @@ import { DocumentfolderEditComponent } from './control-and-view/documents/docume
 import { DocumentsUploadComponent } from './control-and-view/documents/documents-upload/documents-upload.component';
 import { ViewDocumentsComponent } from './control-and-view/documents/view-documents/view-documents.component';
 import { FileSelectDirective } from 'ng2-file-upload';
+import { CreateOrganizationComponent } from './control-and-view/superadmin/organization/create-organization/create-organization.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -182,7 +183,8 @@ import { FileSelectDirective } from 'ng2-file-upload';
     DocumentfolderEditComponent,
     DocumentsUploadComponent,
     ViewDocumentsComponent,
-    FileSelectDirective
+    FileSelectDirective,
+    CreateOrganizationComponent
 
   ],
   imports: [

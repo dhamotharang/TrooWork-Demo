@@ -85,6 +85,8 @@ import { NewdocumentfolderCreateComponent } from './control-and-view/documents/n
 import { DocumentfolderEditComponent } from './control-and-view/documents/documentfolder-edit/documentfolder-edit.component';
 import { DocumentsUploadComponent } from './control-and-view/documents/documents-upload/documents-upload.component';
 import { ViewDocumentsComponent } from './control-and-view/documents/view-documents/view-documents.component';
+import { CreateOrganizationComponent } from './control-and-view/superadmin/organization/create-organization/create-organization.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -355,6 +357,10 @@ const routes: Routes = [
   {
     path:'ViewDocuments',
     component:ViewDocumentsComponent
+  },
+  {
+    path:'CreateOrganization',
+    component:CreateOrganizationComponent
   }
 ];
 
