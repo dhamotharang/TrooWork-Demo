@@ -52,9 +52,9 @@
     </div>
   </div>
   </div>
-  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12">
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12" id="contentToConvert">
   <div class="col-md-6" style="border: 0px !important">
-    <div class="divTable" id="contentToConvert">
+    <div class="divTable">
       <div class="divTableBody" >
         <div class="divTableRow">
           <div class="divTableCell">
@@ -93,11 +93,11 @@
     </div>
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12">
     <div style="text-align:center" id="content" #content>   
-      <div class="alert alert-info">  
+      <!-- <div class="alert alert-info">  
           <strong>Convert to Pdf</strong>  
-      </div>  
+      </div>   -->
       <div style="text-align:center" *ngIf="reporttable?.length> 0">  
-        <input type="button" class="btn btn-primary"  value="CAPTURE" (click)="captureScreen()"/>  
+        <input type="button" class="btn btn-primary"  value="CONVERT TO PDF" (click)="captureScreen()"/>  
       </div>  
   </div> 
   </div>

@@ -97,5 +97,23 @@ export class WorkOrderServiceService {
       .http
       .get('http://localhost:3000/api/allWorkordertype?empkey='+emp_key+'&OrganizationID='+org_id);
     }
-   
+    getworkorder(on_date,emp_key,page_no,iems_perpage,org_id)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/viewworkorder?viewdate='+on_date+'&employeekey='+emp_key+'&pageno='+page_no+'&itemsPerPage='+iems_perpage+'&OrganizationID='+org_id);
+    }
+    getWoFilter(viewWorkOrder)
+    {
+      const url = 'http://localhost:3000/api/workorderByallFilters';
+      return this
+        .http
+        .post (url, viewWorkOrder);
+    }
+    getallEquipment(floor_key,facility_key,org_id)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/getEquipmentBuildFloor?FacilityKey='+facility_key+'&FloorKey='+floor_key+'&OrganizationID='+org_id);
+    }
 }
