@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Directive, HostListener, ElementRef, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../../../service/login.service';
 import { Login } from '../../../../model-class/login';
 // model-class/Inventory';
@@ -36,6 +36,8 @@ export class ManagerMyprofileComponent implements OnInit {
   }
   constructor(private loginService: LoginService) { }
   // private formBuilder: FormBuilder,, private el: ElementRef
+
+
   ngOnInit() {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];

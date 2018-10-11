@@ -36,8 +36,6 @@ export interface People {
     EndTime: Time;
     MeetingDate: String;
     
-
-    
     // ****@Pooja's code starts****
     OrganizationID :Number;
     empkey:Number;

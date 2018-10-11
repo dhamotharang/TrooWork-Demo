@@ -2,9 +2,10 @@ export interface Login {
     Message: String;
     passWord: String;
     tenantID: String;
-
+    Password: String;
+    UserLoginId: Number;
     token;
-
+    ManagerName: String;
     //For profile view...
     EmployeeKey: Number;
     EmployeeNumber: String;

@@ -108,6 +108,21 @@ import { ManagerMyprofileComponent } from './control-and-view/dashboard/user-pro
 import { DocumentsUploadComponent } from './control-and-view/documents/documents-upload/documents-upload.component';
 import { ViewDocumentsComponent } from './control-and-view/documents/view-documents/view-documents.component';
 import { FileSelectDirective } from 'ng2-file-upload';
+import { ManagerChangePassWordComponent } from './control-and-view/dashboard/user-password-changes/manager-change-pass-word/manager-change-pass-word.component';
+import { SuperadminProfileComponent } from './control-and-view/dashboard/user-profiles/superadmin-profile/superadmin-profile.component';
+import { SupeadminChangePasswordComponent } from './control-and-view/dashboard/user-password-changes/supeadmin-change-password/supeadmin-change-password.component';
+import { AdminProfileComponent } from './control-and-view/dashboard/user-profiles/admin-profile/admin-profile.component';
+import { SupervisorProfileComponent } from './control-and-view/dashboard/user-profiles/supervisor-profile/supervisor-profile.component';
+import { EmployeeProfileComponent } from './control-and-view/dashboard/user-profiles/employee-profile/employee-profile.component';
+import { AdminChangePasswordComponent } from './control-and-view/dashboard/user-password-changes/admin-change-password/admin-change-password.component';
+import { EmployeeChangePasswordComponent } from './control-and-view/dashboard/user-password-changes/employee-change-password/employee-change-password.component';
+import { SupervisorChangePasswordComponent } from './control-and-view/dashboard/user-password-changes/supervisor-change-password/supervisor-change-password.component';
+import { JobTitleViewComponent } from './control-and-view/people/job-title-view/job-title-view.component';
+import { JobTitleAddComponent } from './control-and-view/people/job-title-add/job-title-add.component';
+import { JobTitleEditComponent } from './control-and-view/people/job-title-edit/job-title-edit.component';
+import { JobTitleViewAdminComponent } from './control-and-view/people/admin/job-title-view-admin/job-title-view-admin.component';
+import { JobTitleAddAdminComponent } from './control-and-view/people/admin/job-title-add-admin/job-title-add-admin.component';
+import { JobTitleEditAdminComponent } from './control-and-view/people/admin/job-title-edit-admin/job-title-edit-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -186,8 +201,22 @@ import { FileSelectDirective } from 'ng2-file-upload';
     ViewWorkOrdersComponent,
     DocumentsUploadComponent,
     ViewDocumentsComponent,
-    FileSelectDirective
-
+    FileSelectDirective,
+    ManagerChangePassWordComponent,
+    SuperadminProfileComponent,
+    SupeadminChangePasswordComponent,
+    AdminProfileComponent,
+    SupervisorProfileComponent,
+    EmployeeProfileComponent,
+    AdminChangePasswordComponent,
+    EmployeeChangePasswordComponent,
+    SupervisorChangePasswordComponent,
+    JobTitleViewComponent,
+    JobTitleAddComponent,
+    JobTitleEditComponent,
+    JobTitleViewAdminComponent,
+    JobTitleAddAdminComponent,
+    JobTitleEditAdminComponent
   ],
   imports: [
     BrowserModule,
