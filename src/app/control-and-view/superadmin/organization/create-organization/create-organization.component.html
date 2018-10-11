@@ -1,0 +1,54 @@
+<app-superadmin-dashboard></app-superadmin-dashboard>
+<br><br>
+
+<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <div class="row col-md-12 ">
+      
+    <h3 style="margin-left: 30rem;">CREATE NEW ORGANIZATION</h3>
+  </div><br><br>
+   <div class="row bg-info col-md-12"> 
+    <div class="col-md-6 bg-info">
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Organization Name*</label>     
+        <input type="text" [(ngModel)]="OrgName">        
+         </div>
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Organization Description</label>
+        <textarea class="form-control rounded-0" [(ngModel)]="OrgDesc" id="OrganizationDesc" rows="5"></textarea>
+        </div>
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">State</label>
+        <input type="text" [(ngModel)]="State">
+         </div>
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Tenant ID</label>
+        <input type="text" [(ngModel)]="tenID">   
+         </div>
+    </div>
+      <div class="col-md-6">    
+   
+        <label class="form-check-label" for="materialInline1">Location</label>
+        <input type="text" [(ngModel)]="Location">
+       
+       <div class="form-group" >
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Country</label>
+        <input type="text" [(ngModel)]="Country">   
+        </div>
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Tenant Name</label>
+        <input type="text" [(ngModel)]="TenName">   
+      </div>
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Organization Email</label>
+        <input type="text" [(ngModel)]="OrgEmail">    
+      </div>
+    </div>
+    <div class="row col-md-12">
+    <div class="col-md-6"></div>
+    <div style="text-align:center">
+    <button type="button"style="text-align:center"class="btn btn-primary"(click)="createOrg()">Create Organization</button></div>
+  </div> 
+  </div> 
+  </div>
+  
+

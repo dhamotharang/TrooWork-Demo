@@ -102,6 +102,10 @@ import { JobTitleViewAdminComponent } from './control-and-view/people/admin/job-
 import { JobTitleAddAdminComponent } from './control-and-view/people/admin/job-title-add-admin/job-title-add-admin.component';
 import { JobTitleEditAdminComponent } from './control-and-view/people/admin/job-title-edit-admin/job-title-edit-admin.component';
 
+import { CreateWorkorderComponent } from './control-and-view/work-order/create-workorder/create-workorder.component';
+import { CreateOrganizationComponent } from './control-and-view/superadmin/organization/create-organization/create-organization.component';
+import { ViewOrganizationComponent } from './control-and-view/superadmin/organization/view-organization/view-organization.component';
+import {  EditOrganizationComponent } from './control-and-view/superadmin/organization/edit-organization/edit-organization.component';
 const routes: Routes = [
   {
     path: '',
@@ -443,7 +447,27 @@ const routes: Routes = [
   {
     path: 'JobTitleEditAdmin/:JobTitle_Key',
     component: JobTitleEditAdminComponent
-  }
+  },
+  {
+    path:'ViewDocuments',
+    component:ViewDocumentsComponent
+  },
+  {
+    path:'CreateWorkOrder',
+    component:CreateWorkorderComponent
+  },
+  {
+    path:'CreateOrganization',
+    component:CreateOrganizationComponent
+  },
+  {
+    path:'ViewOrganization',
+    component:ViewOrganizationComponent
+  },
+   {
+     path:'Orgedit/:OrganizationID',
+     component:EditOrganizationComponent
+   }
 ];
 
 

@@ -432,4 +432,37 @@ export class PeopleServiceService {
     };
     return this.http.post(uri, obj);
   }
+  // createEmployeebyManager(EmployeeNumber,UserRoleTypeKey,FirstName,LastName,MiddleName,BD,Gender,AddressLine1,City,AddressLine2,State,Country,PrimaryPhone,ZipCode,AlternatePhone,EmailID,HD,theCheckbox,JobTitleKey,SupervisorKey,DepartmentKey)
+  // {
+  //   debugger;
+  //   const url = "http://localhost:3000/api/addemp";
+  //   const obj = {
+  //     employeenumber:EmployeeNumber,
+  //     managerkey:UserRoleTypeKey,
+  //     firstname:FirstName,
+  //     lastname:LastName,
+  //     middlename:MiddleName,
+  //     birthDate:BD,
+  //     gender:Gender,
+  //     addressline1:AddressLine1,
+  //     city:City,
+  //     addressline2:AddressLine2,
+  //     state:State,
+  //     country:Country,
+  //     primaryphone:PrimaryPhone,
+  //     zipcode:ZipCode,
+  //     alternatephone:AlternatePhone,
+  //     email:EmailID,
+  //     hireDate:HD,
+  //     isSupervisor:theCheckbox,
+  //     jobTitleKey:JobTitleKey,
+  //     supervisorKey:SupervisorKey,
+  //     departmentKey:DepartmentKey,
+  //     metaupdatedBy:2861,
+  //     OrganizationID:21
+  //   };
+  //   return this
+  //   .http.post(url, obj);
+  // }
+   // ****@Pooja's Code Ends here****
 }

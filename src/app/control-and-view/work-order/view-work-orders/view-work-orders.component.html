@@ -12,7 +12,7 @@
       <h1 style="text-align: right"></h1>
       <div class="form-group">
         <label>Building*</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey" (change)="getFloorDisp($event.target.value)"
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey" (change)="getFloorDisp($event.target.value);viewWO_Filter();"
           required>
           <option>--Select--</option>
           <option *ngFor="let b of facilitylist" [value]="b.FacilityKey">
@@ -22,7 +22,7 @@
       </div>
       <div class="form-group">
         <label>Floor*</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey" [disabled]="!FacilityKey" (change)="getZoneRoomTypeRoom($event.target.value,FacilityKey)"
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey" [disabled]="!FacilityKey" (change)="getZoneRoomTypeRoom($event.target.value,FacilityKey);viewWO_Filter();"
           required>
           <option>--Select--</option>
           <option *ngFor="let b of FloorList" [value]="b.FloorKey">
@@ -32,7 +32,7 @@
       </div>
       <div class="form-group">
         <label>Zone</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey" [disabled]="!FloorKey" (change)="getRoomTypeRoom($event.target.value,FacilityKey,FloorKey)"
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey" [disabled]="!FloorKey" (change)="getRoomTypeRoom($event.target.value,FacilityKey,FloorKey);viewWO_Filter();"
           required>
           <option>--Select--</option>
           <option *ngFor="let b of zonelist" [value]="b.ZoneKey">
@@ -42,7 +42,7 @@
       </div>
       <div class="form-group">
         <label>Room Type</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey" [disabled]="!FloorKey" (change)="getRoom($event.target.value,ZoneKey,FacilityKey,FloorKey)"
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey" [disabled]="!FloorKey" (change)="getRoom($event.target.value,ZoneKey,FacilityKey,FloorKey);viewWO_Filter();"
           required>
           <option>--Select--</option>
           <option *ngFor="let b of RoomTypeList" [value]="b.RoomTypeKey">
@@ -52,7 +52,7 @@
       </div>
       <div class="form-group">
         <label>Room</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomKey" [disabled]="!FloorKey"
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomKey" [disabled]="!FloorKey" (change)="viewWO_Filter();"
           required>
           <option>--Select--</option>
           <option *ngFor="let b of RoomList" [value]="b.RoomKey">
@@ -62,7 +62,7 @@
       </div>
       <div class="form-group">
         <label>Schedule Name</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="BatchScheduleNameKey"
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="BatchScheduleNameKey" (change)="viewWO_Filter();"
           required>
           <option>--Select--</option>
           <option *ngFor="let b of scheduleList" [value]="b.BatchScheduleNameKey">
@@ -74,15 +74,15 @@
   <div class="col-md-6">
       <div class="form-group">
           <label>On Date</label><br>
-          <igx-datePicker [value]="date" [(ngModel)]="ondate"></igx-datePicker>
+          <igx-datePicker [value]="date" [(ngModel)]="ondate" (onSelection)="viewWO_Filter();"></igx-datePicker>
       </div>
       <div class="form-group">
           <label>To Date</label><br>
-          <igx-datePicker [value]="date" [(ngModel)]="todate"></igx-datePicker>
+          <igx-datePicker [value]="date" [(ngModel)]="todate" (onSelection)="viewWO_Filter();"></igx-datePicker>
       </div>
       <div class="form-group">
           <label>Work Status</label><br>
-          <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WorkorderStatusKey"
+          <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WorkorderStatusKey" (change)="viewWO_Filter();"
             required>
             <option>--Select--</option>
             <option *ngFor="let e of workStatusList" [value]="e.WorkorderStatusKey">
@@ -92,7 +92,7 @@
         </div> 
       <div class="form-group">
         <label>Employee*</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EmployeeKey"
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EmployeeKey" (change)="viewWO_Filter();"
           required>
           <option>--Select--</option>
           <option *ngFor="let e of EmployeeOption" [value]="e.EmployeeKey">
@@ -102,7 +102,7 @@
       </div>
       <div class="form-group">
           <label>Workorder Type</label><br>
-          <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WorkorderTypeKey"
+          <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WorkorderTypeKey" (change)="viewWO_Filter();"
             required>
             <option>--Select--</option>
             <option *ngFor="let e of workorderTypeList" [value]="e.WorkorderTypeKey">
@@ -113,12 +113,66 @@
     </div>
   </div>
  <div><br><br></div>
-  <!-- <form [formGroup]="searchform">
       <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
-        <input class="form-control" name="searchfilter" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
-          placeholder="Search WorkOrder Type,Employee,Room" aria-label="Search" [(ngmodel)]="SearchworkType_emp_room" formControlName="SearchFilter"
+        <input class="form-control" name="searchWO" maxlength="20" type="text"
+          placeholder="Search WorkOrder Type,Employee,Room" aria-label="Search" [(ngmodel)]="searchWO"
           (input)="searchworkType_emp_room($event.target.value);" style="width: 100%;">
-        <div *ngIf="searchform.controls.SearchFacility.errors?.minlength">Minimum 3 characters required.</div>
+        <!-- <div *ngIf="searchform.controls.SearchFacility.errors?.minlength">Minimum 3 characters required.</div> -->
       </div>
-    </form> -->
+    
+    <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
+    <table *ngIf='workorderList' class="table table-hover table-responsive table-bordered table">
+      <thead class="tableHead">
+        <th>Workorder Type Name</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Employee</th>
+        <th>Room</th>
+        <th>Equipment</th>
+        <th>Recurring</th>
+        <th>Check-In Time</th>
+        <th>Check-Out Time</th>
+        <th>Duration (Minutes)</th>
+        <th>Delay Time (Minutes)</th>
+        <th>Notes</th>
+        <th>View</th>
+        <th *ngIf="checkValue.length <= 0">Delete</th>
+        <th *ngIf="checkValue.length > 0"> <button  sweetalert sweet-options="{{sweet.option}}" sweet-confirm-option="{{sweet.confirm}}" class = "btn btn-danger button_style" sweet-cancel-option="{{sweet.cancel}}"     type="button"  sweet-on-cancel="checkCancel()" sweet-on-confirm="deleteWorkOrdersPage()"  tabindex="4"> <span class="glyphicon glyphicon-trash"></span>  Delete</button></th>
+      </thead>
+      <tbody>
+          <tr *ngFor="let x of workorderList">
+              <td (click)="viewWorkForEdit(x.WorkorderKey)">{{x.WorkorderTypeName}} </td>
+              <td style="width:7%;overflow: auto" (click)="viewWorkForEdit(x.WorkorderKey)"> {{x.WorkorderTime}}</td> 
+              <td (click)="viewWorkForEdit(x.WorkorderKey)">{{x.WorkorderStatus}}</td>
+              <td (click)="viewWorkForEdit(x.WorkorderKey)"> {{x.LastName}},{{x.FirstName}}</td>
+              <td id="tooltip" (click)="viewWorkForEdit(x.WorkorderKey)">{{x.RoomId}}</td>
+              <td (click)="viewWorkForEdit(x.WorkorderKey)" id="tooltip" >{{x.EquipmentName}}
+                  <span id="tooltip-span" style="position:absolute;color: white;">{{x.EquipmentType}}</span> </td>
+              <td (click)="viewWorkForEdit(x.WorkorderKey)" *ngIf="x.IsReccurring === 1 && x.IsSchedule === 0">YES</td>
+              <td (click)="viewWorkForEdit(x.WorkorderKey)" *ngIf="x.IsReccurring === 1 && x.IsSchedule === 1">YES , {{x.ScheduleName}}</td>
+              <td (click)="viewWorkForEdit(x.WorkorderKey)" *ngIf="x.IsReccurring === 0 && x.IsSchedule === 1">NO , {{x.ScheduleName}}</td>
+              <td (click)="viewWorkForEdit(x.WorkorderKey)" *ngIf="x.IsReccurring === 0 && x.IsSchedule === 0">NO</td>
+              <td (click)="viewWorkForEdit(x.WorkorderKey)">{{x.checkin}}</td>
+              <td (click)="viewWorkForEdit(x.WorkorderKey)">{{x.checkout}}</td>
+              <td (click)="viewWorkForEdit(x.WorkorderKey)">{{x.duration}}</td>
+              <td (click)="viewWorkForEdit(x.WorkorderKey)">{{x.DelayTime}}</td>
+              <td style="width:15%;word-break: break-all;" (click)="viewWorkForEdit(x.WorkorderKey)">{{x.WorkorderNotes}}</td> 
+              <!--                                            http://localhost:3000/pho1/
+                                          http://demotroowork.azurewebsites.net/pho1/1499936421536.jpg-- working
+                                                          http://demotroowork.azurewebsites.net/-->
+              <td> <a href="pho1/{{x.ImageName}}"  target="_self"  
+                onclick="window.open(this.href, 'popup', 'width=600,height=600,scrollbars=no,resizable=no');
+                              return false;">
+                      <button type="button" class="btn btn-default btn-xs" *ngIf="x.IsPhotoRequired === 1 && x.WorkorderStatus === 'Completed'" >View Image</button>
+                  </a> </td> 
+              <td *ngIf="x.WorkorderStatus !== 'Scheduled'"></td>
+              <td *ngIf="x.WorkorderStatus === 'Scheduled'"> <input type="checkbox" [(ngModel)]="workorderCheckValue" (click)="checkBoxValueForDelete($index, workorderCheckValue, x.WorkorderKey)"> </td>
+
+          </tr>
+          <tr *ngIf="workorderList?.length == 0">
+              <td colspan="14" class="no-data-available">No records found</td>
+            </tr>
+
+       </tbody>
+       </table>
 </div>

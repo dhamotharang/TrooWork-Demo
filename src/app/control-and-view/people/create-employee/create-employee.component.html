@@ -82,7 +82,7 @@
       </div>
       <div class="form-group">
         <label>City</label>
-        <input type="text" name="password" class="form-control" placeholder="City"> </div>
+       
       <input type="text" name="City" [(ngModel)]="City" class="form-control" placeholder="City">
     </div>
     <!-- </form> -->
@@ -94,7 +94,7 @@
     </div>
     <div class="form-group">
       <label>State</label>
-      <input type="text" name="password" class="form-control" placeholder="State"> </div>
+      
     <input type="text" name="State" [(ngModel)]="State" class="form-control" placeholder="State">
   </div>
   <!-- </form> -->
@@ -133,8 +133,6 @@
   <div class="col-md-6">
     <div class="form-group">
       <label>Hire Date*</label>
-      <input placeholder="Selected date" type="text" id="date-picker-example" class="form-control datepicker">
-
       <igx-datePicker item-width="25%" [value]="hiredate" [(ngModel)]="HireDate" [formatter]="formatter"></igx-datePicker>
       <!-- <mdb-date-picker name="mydate" [options]="myDatePickerOptions" [placeholder]="'Selected date'" [(ngModel)]="model" required></mdb-date-picker> -->
     </div>
@@ -179,5 +177,6 @@
 <div class="row col-md-12">
   <div class="col-md-6"></div>
   <div style="text-align:center">
-    <button type="button" style="text-align:center" class="btn btn-primary" (click)="createEmployee()">Create Employee</button>
+    <button type="button" style="text-align:center" class="btn btn-primary" (click)="createEmployee();">Create Employee</button>
   </div>
+  <!-- createEmployee(); -->

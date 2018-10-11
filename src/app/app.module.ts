@@ -98,6 +98,7 @@ import { SupervisorWelcomeComponent } from './control-and-view/dashboard/user-we
 import { EmployeeWelcomeComponent } from './control-and-view/dashboard/user-welcome-pages/employee-welcome/employee-welcome.component';
 
 import { CreateQuickOrderComponent } from './control-and-view/work-order/create-quick-order/create-quick-order.component';
+import { CreateWorkorderComponent } from './control-and-view/work-order/create-workorder/create-workorder.component';
 import { ViewWorkOrdersComponent } from './control-and-view/work-order/view-work-orders/view-work-orders.component';
 import { ViewEmployeeComponent } from './control-and-view/people/view-employee/view-employee.component';
 import { EditEmployeedetailsComponent } from './control-and-view/people/edit-employeedetails/edit-employeedetails.component';
@@ -123,6 +124,9 @@ import { JobTitleEditComponent } from './control-and-view/people/job-title-edit/
 import { JobTitleViewAdminComponent } from './control-and-view/people/admin/job-title-view-admin/job-title-view-admin.component';
 import { JobTitleAddAdminComponent } from './control-and-view/people/admin/job-title-add-admin/job-title-add-admin.component';
 import { JobTitleEditAdminComponent } from './control-and-view/people/admin/job-title-edit-admin/job-title-edit-admin.component';
+import { CreateOrganizationComponent } from './control-and-view/superadmin/organization/create-organization/create-organization.component';
+import { ViewOrganizationComponent } from './control-and-view/superadmin/organization/view-organization/view-organization.component';
+import {  EditOrganizationComponent } from './control-and-view/superadmin/organization/edit-organization/edit-organization.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -216,7 +220,13 @@ import { JobTitleEditAdminComponent } from './control-and-view/people/admin/job-
     JobTitleEditComponent,
     JobTitleViewAdminComponent,
     JobTitleAddAdminComponent,
-    JobTitleEditAdminComponent
+    JobTitleEditAdminComponent,
+    CreateOrganizationComponent,
+    ViewOrganizationComponent,
+    EditOrganizationComponent,
+    CreateWorkorderComponent,
+    CreateOrganizationComponent
+
   ],
   imports: [
     BrowserModule,

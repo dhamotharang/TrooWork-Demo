@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { RequestOptions } from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 @Injectable({
   providedIn: 'root'
 })
@@ -66,4 +68,26 @@ export class DocumentserviceService {
     .http
     .get('http://localhost:3000/api/allFormtype?empkey='+empkey+'&OrganizationID='+orgID);
   }
+  getRecentUploads(empkey,orgID)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/view_uploads?pageno='+1+'&itemsPerPage='+25+'&empkey='+empkey+'&OrganizationID='+orgID);
+  }
+  SearchFileNameandDescName(orgID,SearchValue){
+    return this
+    .http
+    .get('http://localhost:3000/api/searchViewFormList?OrganizationID='+orgID+'&searchForm='+SearchValue);
+  }
+  getFileDetailsTablewithDropdown(formtype,empkey,orgID){
+    return this
+    .http
+    .get('http://localhost:3000/api/uploadsByFormType?formType='+formtype+'&empkey='+empkey+'&OrganizationID='+orgID);
+  }
+//   downloadFile(id): Observable<Blob> {
+//     let options = new RequestOptions({responseType: ResponseContentType.Blob });
+//     return this.http.get(this._baseUrl + '/' + id, options)
+//         .map(res => res.blob())
+//         .catch(this.handleError)
+// }
 }
