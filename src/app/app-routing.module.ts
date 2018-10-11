@@ -86,7 +86,8 @@ import { DocumentfolderEditComponent } from './control-and-view/documents/docume
 import { DocumentsUploadComponent } from './control-and-view/documents/documents-upload/documents-upload.component';
 import { ViewDocumentsComponent } from './control-and-view/documents/view-documents/view-documents.component';
 import { CreateOrganizationComponent } from './control-and-view/superadmin/organization/create-organization/create-organization.component';
-
+import { ViewOrganizationComponent } from './control-and-view/superadmin/organization/view-organization/view-organization.component';
+import {  EditOrganizationComponent } from './control-and-view/superadmin/organization/edit-organization/edit-organization.component';
 const routes: Routes = [
   {
     path: '',
@@ -366,7 +367,15 @@ const routes: Routes = [
   {
     path:'CreateOrganization',
     component:CreateOrganizationComponent
-  }
+  },
+  {
+    path:'ViewOrganization',
+    component:ViewOrganizationComponent
+  },
+   {
+     path:'Orgedit/:OrganizationID',
+     component:EditOrganizationComponent
+   }
 ];
 
 

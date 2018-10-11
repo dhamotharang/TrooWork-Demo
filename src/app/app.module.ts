@@ -108,6 +108,8 @@ import { DocumentsUploadComponent } from './control-and-view/documents/documents
 import { ViewDocumentsComponent } from './control-and-view/documents/view-documents/view-documents.component';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { CreateOrganizationComponent } from './control-and-view/superadmin/organization/create-organization/create-organization.component';
+import { ViewOrganizationComponent } from './control-and-view/superadmin/organization/view-organization/view-organization.component';
+import {  EditOrganizationComponent } from './control-and-view/superadmin/organization/edit-organization/edit-organization.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -186,7 +188,9 @@ import { CreateOrganizationComponent } from './control-and-view/superadmin/organ
     DocumentsUploadComponent,
     ViewDocumentsComponent,
     FileSelectDirective,
-    CreateOrganizationComponent
+    CreateOrganizationComponent,
+    ViewOrganizationComponent,
+    EditOrganizationComponent
 
   ],
   imports: [

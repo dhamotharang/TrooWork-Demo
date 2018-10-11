@@ -36,7 +36,7 @@ export class BuildingViewComponent implements OnInit {
 
   //validation ends ..... @rodney
   deleteFacility() {
-    debugger;
+    //debugger;
     this.inventoryService
       .DeleteBuilding(this.delete_faciKey).subscribe(() => {
 
@@ -63,7 +63,7 @@ export class BuildingViewComponent implements OnInit {
 
   deleteFacPass(FacilityKey) {
     this.delete_faciKey = FacilityKey;
-    debugger;
+    //debugger;
   }
   ngOnInit() {
     var token = localStorage.getItem('token');

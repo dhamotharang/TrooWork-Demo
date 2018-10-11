@@ -4,51 +4,58 @@
 <div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
       
-    <h3 style="margin-left: 30rem;">CREATE NEW ORGANIZATION</h3>
+    <h3 style="margin-left: 30rem;">EDIT ORGANIZATION</h3>
   </div><br><br>
    <div class="row bg-info col-md-12"> 
     <div class="col-md-6 bg-info">
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Organization Name*</label>     
-        <input type="text" [(ngModel)]="OrgName">        
+        <input *ngIf="OrgDetail" type="text" [(ngModel)]="OrgDetail.OrganizationName">        
          </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Organization Description</label>
-        <textarea class="form-control rounded-0" [(ngModel)]="OrgDesc" id="OrganizationDesc" rows="5"></textarea>
+        <textarea *ngIf="OrgDetail"class="form-control rounded-0" [(ngModel)]="OrgDetail.OrganizationDescription" id="OrganizationDesc" rows="5"></textarea>
         </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">State</label>
-        <input type="text" [(ngModel)]="State">
+        <input *ngIf="OrgDetail" type="text" [(ngModel)]="OrgDetail.State">
          </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Tenant ID</label>
-        <input type="text" [(ngModel)]="tenID">   
+        <input *ngIf="OrgDetail"type="text" [(ngModel)]="OrgDetail.TenantID">   
          </div>
     </div>
       <div class="col-md-6">    
    
         <label class="form-check-label" for="materialInline1">Location</label>
-        <input type="text" [(ngModel)]="Location">
+        <input *ngIf="OrgDetail" type="text" [(ngModel)]="OrgDetail.Location">
        
        <div class="form-group" >
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Country</label>
-        <input type="text" [(ngModel)]="Country">   
+        <input *ngIf="OrgDetail" type="text" [(ngModel)]="OrgDetail.Country">   
         </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Tenant Name</label>
-        <input type="text" [(ngModel)]="TenName">   
+        <input *ngIf="OrgDetail" type="text" [(ngModel)]="OrgDetail.TenantName">   
       </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Organization Email</label>
-        <input type="text" [(ngModel)]="OrgEmail">    
+        <input *ngIf="OrgDetail" type="text" [(ngModel)]="OrgDetail.OrganizationEmail">    
       </div>
     </div>
     <div class="row col-md-12">
     <div class="col-md-6"></div>
     <div style="text-align:center">
-    <button type="button"style="text-align:center"class="btn btn-primary"(click)="createOrg()">Create Organization</button></div>
+    <button type="button"style="text-align:center"class="btn btn-primary"(click)="updateOrg(OrgDetail.OrganizationName,OrgDetail.OrganizationDescription,OrgDetail.State,OrgDetail.TenantID,OrgDetail.Location,OrgDetail.Country,OrgDetail.TenantName,OrgDetail.OrganizationEmail)">Update Organization</button></div>
+    <!-- <button type="button"style="text-align:center"class="btn btn-primary">Go Back</button> -->
+    <div style="text-align:left" class="col-md-3">
+      <a routerLink="/ViewOrganization" class="btn btn-primary" style="color:white !important" routerLinkActive="active"><b>Go
+          Back
+        </b>
+      </a></div>
   </div> 
   </div> 
   </div>
   
+
 
