@@ -1,4 +1,4 @@
-import {  Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { workorder } from '../../../model-class/work-order';
 import { WorkOrderServiceService } from '../../../service/work-order-service.service';
@@ -10,17 +10,17 @@ import { WorkOrderServiceService } from '../../../service/work-order-service.ser
 })
 export class CreateWorkorderComponent implements OnInit {
   EmployeeOption: workorder[];
-  workorderTypeList:workorder[];
+  workorderTypeList: workorder[];
   facilitylist: workorder[];
-  FloorList:workorder[];
-  zonelist:workorder[];
-  RoomTypeList:workorder[];
-  RoomList:workorder[];
-  priorityList:workorder[];
-  EquipmentList:workorder[];
-  EquipmentTypeList:workorder[];
-  emp_key:number;
-  org_id:number;
+  FloorList: workorder[];
+  zonelist: workorder[];
+  RoomTypeList: workorder[];
+  RoomList: workorder[];
+  priorityList: workorder[];
+  EquipmentList: workorder[];
+  EquipmentTypeList: workorder[];
+  emp_key: number;
+  org_id: number;
   marked = false;
   FacilityKey: number;
   FloorKey: number;
@@ -38,33 +38,41 @@ export class CreateWorkorderComponent implements OnInit {
   WorkorderTypeKey;
   workorderNotes;
   showEqTypes;
-   // temp-variables
-   wot;
-   notes;
-   facilityString;
-   zone;
-   eqp_key;
-   shift;
-   priority;
-   isrecurring; // for setting bit value 1 or 0
-   startDT;
-   endDT;
-   workTime;
-   dailyRecc_gap; // dailyreccuringGap
-   is_PhotoRequired;
-   is_BarcodeRequired;
-   occurenceinstance;
- 
-   intervaltype;
-   repeatinterval;
-   occursonday;
- 
-   workorderCreation;
-   isRecurring=false;
- 
-   //
-   //recurr variables
-   monthlyDays = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
+  // temp-variables
+  wot;
+  notes;
+  facilityString;
+  zone;
+  eqp_key;
+  shift;
+  priority;
+  isrecurring; // for setting bit value 1 or 0
+  startDT;
+  endDT;
+  workTime;
+  dailyRecc_gap; // dailyreccuringGap
+  is_PhotoRequired;
+  is_BarcodeRequired;
+  occurenceinstance;
+
+  intervaltype;
+  repeatinterval;
+  occursonday;
+  weeklyrecurring;
+  monthlyrecurring
+  dailyrecurring;
+
+  workorderCreation;
+  isRecurring = false;
+  monthlyreccradio1;
+  monthlyreccradio2;
+
+  //
+  //recurr variables
+  monthlyDays = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
+  recurringFrequency = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+  timetable = { times: [] };
+  dailyFrequency: number;
   public convert_DT(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
@@ -97,24 +105,27 @@ export class CreateWorkorderComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private WorkOrderServiceService: WorkOrderServiceService) { }
 
   ngOnInit() {
-    this.emp_key=2861;
-    this.org_id=21;
+    this.weeklyrecurring = false;
+    this.monthlyrecurring = false;
+    this.dailyrecurring = false;
+    this.emp_key = 2861;
+    this.org_id = 21;
     this.WorkOrderServiceService
-    .getallFacility(this.emp_key, this.org_id)
-    .subscribe((data: any[]) => {
-      this.facilitylist = data;
-    });
+      .getallFacility(this.emp_key, this.org_id)
+      .subscribe((data: any[]) => {
+        this.facilitylist = data;
+      });
     this.WorkOrderServiceService
       .getallworkorderType(this.emp_key, this.org_id)
       .subscribe((data: any[]) => {
         this.workorderTypeList = data;
       });
-      this.WorkOrderServiceService
+    this.WorkOrderServiceService
       .getallPriority(this.org_id)
       .subscribe((data: any[]) => {
         this.priorityList = data;
       });
-      this.WorkOrderServiceService
+    this.WorkOrderServiceService
       .getallEmployee(this.emp_key, this.org_id)
       .subscribe((data: any[]) => {
         this.EmployeeOption = data;
@@ -123,99 +134,125 @@ export class CreateWorkorderComponent implements OnInit {
   }
   toggleVisibility_Equipment(e) {
     if (e.target.checked) {
-      this.marked= true;
+      this.marked = true;
     } else {
-      this.marked= false;
+      this.marked = false;
     }
   }
   toggleVisibility_Barcode(e) {
     if (e.target.checked) {
-      this.marked= true;
+      this.marked = true;
     } else {
-      this.marked= false;
+      this.marked = false;
     }
   }
   toggleVisibility_Recur(e) {
     if (e.target.checked) {
-      this.marked= true;
+      this.marked = true;
     } else {
-      this.marked= false;
+      this.marked = false;
     }
   }
   toggleVisibility_Photo(e) {
     if (e.target.checked) {
-      this.marked= true;
+      this.marked = true;
     } else {
-      this.marked= false;
+      this.marked = false;
     }
   }
-  getEquiment(floor_key,facility_key)
-  {
-    this.WorkOrderServiceService
-    .getallEquipment(floor_key,facility_key, this.org_id)
-    .subscribe((data: any[]) => {
-      this.EquipmentTypeList= data;
-      this.EquipmentList= data;
-    });
+  toggleVisibility(e) {
+    if (e.target.checked) {
+      this.marked = true;
+    } else {
+      this.marked = false;
+    }
   }
-  getFloorDisp(facilityName)
+  
+  dailyrecurringChange() {
+    this.weeklyrecurring = false;
+    this.monthlyrecurring = false;
+    this.dailyrecurring = true;
+  }
+  weeklyrecurringChange() {
+    this.weeklyrecurring = true;
+    this.monthlyrecurring = false;
+    this.dailyrecurring = false;
+  }
+  monthlyrecurringChange() {
+    this.weeklyrecurring = false;
+    this.monthlyrecurring = true;
+    this.dailyrecurring = false;
+  }
+  monthlyreccradio1_change()
   {
+    this.monthlyreccradio1=true;
+    this.monthlyreccradio2=false;
+  }
+  monthlyreccradio2_change()
+  {
+    this.monthlyreccradio1=false;
+    this.monthlyreccradio2=true;
+  }
+  getEquiment(floor_key, facility_key) {
+    this.WorkOrderServiceService
+      .getallEquipment(floor_key, facility_key, this.org_id)
+      .subscribe((data: any[]) => {
+        this.EquipmentTypeList = data;
+        this.EquipmentList = data;
+      });
+  }
+  getFloorDisp(facilityName) {
     debugger;
     this.WorkOrderServiceService
-      .getallFloor(facilityName,this.org_id)
+      .getallFloor(facilityName, this.org_id)
       .subscribe((data: any[]) => {
         this.FloorList = data;
       });
   }
-  getZoneRoomTypeRoom(floor,facility)
-  {
+  getZoneRoomTypeRoom(floor, facility) {
     this.WorkOrderServiceService
-    .getzone_facilityfloor(floor,facility,this.org_id)
-    .subscribe((data: any[]) => {
-      this.zonelist = data;
-    });
+      .getzone_facilityfloor(floor, facility, this.org_id)
+      .subscribe((data: any[]) => {
+        this.zonelist = data;
+      });
     this.WorkOrderServiceService
-    .getroomType_facilityfloor(floor,facility,this.org_id)
-    .subscribe((data: any[]) => {
-      this.RoomTypeList = data;
-    });
+      .getroomType_facilityfloor(floor, facility, this.org_id)
+      .subscribe((data: any[]) => {
+        this.RoomTypeList = data;
+      });
     this.WorkOrderServiceService
-    .getRoom_facilityfloor(floor,facility,this.org_id)
-    .subscribe((data: any[]) => {
-      this.RoomList = data;
-    });
+      .getRoom_facilityfloor(floor, facility, this.org_id)
+      .subscribe((data: any[]) => {
+        this.RoomList = data;
+      });
   }
-  getRoomTypeRoom(zone,facility,floor)
-  {
+  getRoomTypeRoom(zone, facility, floor) {
     this.WorkOrderServiceService
-    .getRoomtype_zone_facilityfloor(zone,floor,facility,this.org_id)
-    .subscribe((data: any[]) => {
-      this.RoomTypeList = data;
-    });
+      .getRoomtype_zone_facilityfloor(zone, floor, facility, this.org_id)
+      .subscribe((data: any[]) => {
+        this.RoomTypeList = data;
+      });
     this.WorkOrderServiceService
-    .getRoom_zone_facilityfloor(zone,floor,facility,this.org_id)
-    .subscribe((data: any[]) => {
-      this.RoomList = data;
-    });
+      .getRoom_zone_facilityfloor(zone, floor, facility, this.org_id)
+      .subscribe((data: any[]) => {
+        this.RoomList = data;
+      });
   }
-  getRoom(roomtype,zone,facility,floor)
-  {
+  getRoom(roomtype, zone, facility, floor) {
     this.WorkOrderServiceService
-    .getRoom_Roomtype_zone_facilityfloor(roomtype,zone,floor,facility,this.org_id)
-    .subscribe((data: any[]) => {
-      this.RoomList = data;
-    });
+      .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.org_id)
+      .subscribe((data: any[]) => {
+        this.RoomList = data;
+      });
   }
-  showEquipment_typechange(equip_type,facility,floor)
-  {
+  showEquipment_typechange(equip_type, facility, floor) {
     this.WorkOrderServiceService
-    .getEquipment_typechange(equip_type,facility,floor,this.org_id)
-    .subscribe((data: any[]) => {
-      this.EquipmentList= data;
-    });
+      .getEquipment_typechange(equip_type, facility, floor, this.org_id)
+      .subscribe((data: any[]) => {
+        this.EquipmentList = data;
+      });
   }
-  createWorkOrder()
-  {
+  createWorkOrder() {
     if (this.showEqTypes === false) {
       this.createWorkorder1();
       console.log('Equipment***Not');
@@ -355,21 +392,21 @@ export class CreateWorkorderComponent implements OnInit {
     } else {
       this.is_BarcodeRequired = 0;
     }
-    this. isRecurring=false;
+    this.isRecurring = false;
     this.isrecurring = 0;
 
     if (this.dateValue) {
       this.startDT = this.convert_DT(this.dateValue);
     }
-     else {
+    else {
       this.startDT = this.convert_DT(new Date());
     }
     this.endDT = this.startDT;
     if (this.timeValue) {
       this.workTime = this.timeValue.getHours() + ':' + this.timeValue.getMinutes();
-    } 
+    }
     else {
-      this.workTime  = new Date().getHours() + ':' + new Date().getMinutes();
+      this.workTime = new Date().getHours() + ':' + new Date().getMinutes();
     }
     this.workorderCreation = {
       occursontime: this.workTime,
@@ -394,7 +431,7 @@ export class CreateWorkorderComponent implements OnInit {
       repeatinterval: 1,
       occursonday: null
     };
-    this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe((data: any[]) => {});
+    this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe((data: any[]) => { });
   }
   createWorkorder2() {
 
@@ -534,7 +571,7 @@ export class CreateWorkorderComponent implements OnInit {
     } else {
       this.is_BarcodeRequired = 0;
     }
-    this. isRecurring=false;
+    this.isRecurring = false;
     this.isrecurring = 0;
 
     if (this.dateValue) {
@@ -546,7 +583,7 @@ export class CreateWorkorderComponent implements OnInit {
     if (this.timeValue) {
       this.workTime = this.timeValue.getHours() + ':' + this.timeValue.getMinutes();
     } else {
-      this.workTime  = new Date().getHours() + ':' + new Date().getMinutes();
+      this.workTime = new Date().getHours() + ':' + new Date().getMinutes();
     }
     this.workorderCreation = {
       occursontime: this.workTime,
@@ -575,6 +612,13 @@ export class CreateWorkorderComponent implements OnInit {
 
     });
 
+  }
+  addFormField() {
+    debugger;
+    this.timetable.times = [];
+    for (var i = 0; i < this.dailyFrequency; i++) {
+      this.timetable.times.push('');
+    }
   }
 
 }
