@@ -50,6 +50,7 @@ export class ViewWorkOrdersComponent implements OnInit {
   ondate:Date;
   todate:Date;
   viewWorkOrder;
+  isRecurring=false;
   //validation starts
   // searchform: FormGroup;
   // regexStr = '^[a-zA-Z0-9_ ]*$';

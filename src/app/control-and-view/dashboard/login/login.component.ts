@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
     }
     return window.atob(output); //polifyll https://github.com/davidchambers/Base64.js
   }
+  
   loginForm: FormGroup; constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {
 
     this.loginForm = fb.group({

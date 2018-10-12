@@ -44,7 +44,8 @@
       <div class="form-group">
         <label>Zone</label><br>
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey"
-          [disabled]="!FloorKey" (change)="getRoomTypeRoom($event.target.value,FacilityKey,FloorKey);" required>
+          [disabled]="!FloorKey||showEqTypes" (change)="getRoomTypeRoom($event.target.value,FacilityKey,FloorKey);"
+          required>
           <option>--Select--</option>
           <option *ngFor="let b of zonelist" [value]="b.ZoneKey">
             {{b.ZoneName}}
@@ -54,7 +55,8 @@
       <div class="form-group">
         <label>Room Type</label><br>
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey"
-          [disabled]="!FloorKey" (change)="getRoom($event.target.value,ZoneKey,FacilityKey,FloorKey);" required>
+          [disabled]="!FloorKey||showEqTypes" (change)="getRoom($event.target.value,ZoneKey,FacilityKey,FloorKey);"
+          required>
           <option>--Select--</option>
           <option *ngFor="let b of RoomTypeList" [value]="b.RoomTypeKey">
             {{b.RoomTypeName}}
@@ -64,7 +66,7 @@
       <div class="form-group">
         <label>Room</label><br>
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomKey"
-          [disabled]="!FloorKey" required>
+          [disabled]="!FloorKey||showEqTypes" required>
           <option>--Select--</option>
           <option *ngFor="let b of RoomList" [value]="b.RoomKey">
             {{b.RoomName}}
@@ -82,42 +84,79 @@
         </select>
       </div>
       <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Recurring Yes</label>
+        <input type="checkbox" [(ngModel)]="isRecurring" data-md-icheck (change)="toggleVisibility_Recur($event)" />
+      </div>
+      <div class="form-group" *ngIf="isRecurring==true">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">From When</label>
+        <igx-datePicker [value]="date" [(ngModel)]="WorkorderStartDate" class="col-sm-3 col-md-3 col-lg-3 "></igx-datePicker>
+      </div>
+      <div class="form-group" *ngIf="isRecurring==true">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Daily</label>
+        <input type="radio" name="recurringevent" class="col-sm-3 col-md-3 col-lg-3" [(ngModel)]="dailyrecurring"
+          [value]="true" (click)="weeklyrecurring = false;
+        monthlyrecurring = false;">
+      </div>
+      <div class="form-group" *ngIf="isRecurring==true">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Weekly</label>
+        <input type="radio" name="recurringevent" class="col-sm-3 col-md-3 col-lg-3" [(ngModel)]="weeklyrecurring"
+          [value]="true" (click)="dailyrecurring = false;
+      monthlyrecurring = false;">
+      </div>
+      <div class="form-group" *ngIf="dailyrecurring==true">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">On Gap Of</label>
+        <select [(ngModel)]="DailyrecurringGap" class="form-control">
+            <option>--Select--</option>
+          <option  *ngFor=" let b of monthlyDays; let i = index" [value]="i + 2">
+            {{i + 1}}
+          </option>
+      </select>
+      
+      </div>
+      <div class="form-group" *ngIf="isRecurring==true">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Monthly</label>
+        <input type="radio" name="recurringevent" class="col-sm-3 col-md-3 col-lg-3" [(ngModel)]="monthlyrecurring"
+          [value]="true" (click)="weeklyrecurring = false;
+    dailyrecurring = false;">
+      </div>
+      <div class="form-group" *ngIf="dailyrecurring==true||weeklyrecurring==true||monthlyrecurring==true">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">End Date*</label>
+        <igx-datePicker [value]="date" [(ngModel)]="WorkorderEndDate" class="col-sm-3 col-md-3 col-lg-3 "></igx-datePicker>
+      </div>
+      <div class="form-group" *ngIf="isRecurring==false">
         <label>WorkDate</label><br>
-        <igx-datePicker [value]="date" [(ngModel)]="WorkDate"></igx-datePicker>
+        <igx-datePicker [value]="date" [(ngModel)]="dateValue"></igx-datePicker>
       </div>
       <div class="form-group">
-        <label>Photo Required</label>
-        <div class="md-form col-md-3">
-          <input type="checkbox" [(ngModel)]="isPhotoRequired" data-md-icheck (change)="toggleVisibility($event)" />
-        </div>
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Photo Required</label>
+        <input type="checkbox" [(ngModel)]="isPhotoRequired" data-md-icheck (change)="toggleVisibility_Photo($event)" />
       </div>
     </div>
     <div class="col-md-6">
       <h1 style="text-align: right"></h1>
       <div class="form-group">
         <label>Workorder Notes*</label>
-        <textarea class="form-control rounded-0" [(ngModel)]="WorkorderNotes" rows="6" style="resize: none;"></textarea>
+        <textarea class="form-control rounded-0" [(ngModel)]="workorderNotes" rows="6" style="resize: none;"></textarea>
       </div>
       <div class="form-group">
-        <label>Is Equipment</label>
-        <div class="md-form col-md-3">
-          <input type="checkbox" [(ngModel)]="isEquipment" data-md-icheck (change)="toggleVisibility($event)" />
-        </div>
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Is Equipment</label>
+        <input type="checkbox" [(ngModel)]="showEqTypes" data-md-icheck (change)="toggleVisibility_Equipment($event)" />
       </div>
       <div class="form-group">
         <label>Equipment Type</label><br>
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EquipmentTypeKey"
+          [disabled]="!showEqTypes" (change)="showEquipment_typechange($event.target.value,FacilityKey,FloorKey)"
           required>
           <option>--Select--</option>
-          <option *ngFor="let e of EquipmentList" [value]="e.EquipmentTypeKey">
+          <option *ngFor="let e of EquipmentTypeList" [value]="e.EquipmentTypeKey">
             {{e.EquipmentTypeText}}
           </option>
         </select>
       </div>
       <div class="form-group">
         <label>Equipment Name</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EquipmentTypeKey"
-          required>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EquipmentKey"
+          [disabled]="!showEqTypes" required>
           <option>--Select--</option>
           <option *ngFor="let e of EquipmentList" [value]="e.EquipmentTypeKey">
             {{e.EquipmentName}}
@@ -135,19 +174,20 @@
         </select>
       </div>
       <div class="form-group">
-        <label>Barcode Required</label>
-        <div class="md-form col-md-3">
-          <input type="checkbox" [(ngModel)]="isBarcodeRequired" data-md-icheck (change)="toggleVisibility($event)" />
-        </div>
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Time*</label>
+        <p-calendar [(ngModel)]="timeValue" [timeOnly]="true" hourFormat="12" required></p-calendar>
+      </div>
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Barcode Required</label>
+        <input type="checkbox" [(ngModel)]="isBarcodeRequired" data-md-icheck (change)="toggleVisibility_Barcode($event)" />
       </div>
     </div>
     <div class="row col-md-12">
       <div class="col-md-6"></div>
       <div style="text-align:center">
-        <button type="button" class="btn btn-primary" (click)=saveWorkOrder()>save</button>
+        <button type="button" class="btn btn-primary" (click)=createWorkOrder()>save</button>
         <br><br>
       </div>
     </div>
-
   </div>
 </div>

@@ -66,7 +66,6 @@ export class BuildingViewComponent implements OnInit {
     //debugger;
   }
   ngOnInit() {
-    var token = localStorage.getItem('token');
     this.inventoryService
       .getBuildings()
       .subscribe((data: Inventory[]) => {

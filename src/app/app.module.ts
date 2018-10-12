@@ -10,8 +10,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AppRoutingModule } from './/app-routing.module';
 
 import { LoginComponent } from './control-and-view/dashboard/login/login.component';
-import { WelcomepageComponent } from './control-and-view/dashboard/welcomepage/welcomepage.component';
-import { ManagerDashBoardComponent } from './control-and-view/dashboard/manager-dash-board/manager-dash-board.component';
+import { WelcomepageComponent } from './control-and-view/dashboard/user-welcome-pages/welcomepage/welcomepage.component';
+import { ManagerDashBoardComponent } from './control-and-view/dashboard/user-dashboards/manager-dash-board/manager-dash-board.component';
 
 import { BuildingViewComponent } from './control-and-view/inventory/building-view/building-view.component';
 import { CreatebuildingComponent } from './control-and-view/inventory/createbuilding/createbuilding.component';
@@ -88,14 +88,14 @@ import { SchedulingViewComponent } from './control-and-view/scheduling/schedulin
 import { EditBatchWorkComponent } from './control-and-view/scheduling/edit-batch-work/edit-batch-work.component';
 import { CreateBatchScheduleComponent } from './control-and-view/scheduling/create-batch-schedule/create-batch-schedule.component';
 
-import { EmployeeDashboardComponent } from './control-and-view/dashboard/employee-dashboard/employee-dashboard.component';
-import { SupervisorDashboardComponent } from './control-and-view/dashboard/supervisor-dashboard/supervisor-dashboard.component';
-import { AdminDashboardComponent } from './control-and-view/dashboard/admin-dashboard/admin-dashboard.component';
-import { SuperadminDashboardComponent } from './control-and-view/dashboard/superadmin-dashboard/superadmin-dashboard.component';
-import { SuperadminWelcomeComponent } from './control-and-view/dashboard/superadmin-welcome/superadmin-welcome.component';
-import { AdminWelcomeComponent } from './control-and-view/dashboard/admin-welcome/admin-welcome.component';
-import { SupervisorWelcomeComponent } from './control-and-view/dashboard/supervisor-welcome/supervisor-welcome.component';
-import { EmployeeWelcomeComponent } from './control-and-view/dashboard/employee-welcome/employee-welcome.component';
+import { EmployeeDashboardComponent } from './control-and-view/dashboard/user-dashboards/employee-dashboard/employee-dashboard.component';
+import { SupervisorDashboardComponent } from './control-and-view/dashboard/user-dashboards/supervisor-dashboard/supervisor-dashboard.component';
+import { AdminDashboardComponent } from './control-and-view/dashboard/user-dashboards/admin-dashboard/admin-dashboard.component';
+import { SuperadminDashboardComponent } from './control-and-view/dashboard/user-dashboards/superadmin-dashboard/superadmin-dashboard.component';
+import { SuperadminWelcomeComponent } from './control-and-view/dashboard/user-welcome-pages/superadmin-welcome/superadmin-welcome.component';
+import { AdminWelcomeComponent } from './control-and-view/dashboard/user-welcome-pages/admin-welcome/admin-welcome.component';
+import { SupervisorWelcomeComponent } from './control-and-view/dashboard/user-welcome-pages/supervisor-welcome/supervisor-welcome.component';
+import { EmployeeWelcomeComponent } from './control-and-view/dashboard/user-welcome-pages/employee-welcome/employee-welcome.component';
 
 import { CreateQuickOrderComponent } from './control-and-view/work-order/create-quick-order/create-quick-order.component';
 import { CreateWorkorderComponent } from './control-and-view/work-order/create-workorder/create-workorder.component';
@@ -105,9 +105,25 @@ import { EditEmployeedetailsComponent } from './control-and-view/people/edit-emp
 import { DocumentfolderViewComponent } from './control-and-view/documents/documentfolder-view/documentfolder-view.component';
 import { NewdocumentfolderCreateComponent } from './control-and-view/documents/newdocumentfolder-create/newdocumentfolder-create.component';
 import { DocumentfolderEditComponent } from './control-and-view/documents/documentfolder-edit/documentfolder-edit.component';
+import { ManagerMyprofileComponent } from './control-and-view/dashboard/user-profiles/manager-myprofile/manager-myprofile.component';
 import { DocumentsUploadComponent } from './control-and-view/documents/documents-upload/documents-upload.component';
 import { ViewDocumentsComponent } from './control-and-view/documents/view-documents/view-documents.component';
 import { FileSelectDirective } from 'ng2-file-upload';
+import { ManagerChangePassWordComponent } from './control-and-view/dashboard/user-password-changes/manager-change-pass-word/manager-change-pass-word.component';
+import { SuperadminProfileComponent } from './control-and-view/dashboard/user-profiles/superadmin-profile/superadmin-profile.component';
+import { SupeadminChangePasswordComponent } from './control-and-view/dashboard/user-password-changes/supeadmin-change-password/supeadmin-change-password.component';
+import { AdminProfileComponent } from './control-and-view/dashboard/user-profiles/admin-profile/admin-profile.component';
+import { SupervisorProfileComponent } from './control-and-view/dashboard/user-profiles/supervisor-profile/supervisor-profile.component';
+import { EmployeeProfileComponent } from './control-and-view/dashboard/user-profiles/employee-profile/employee-profile.component';
+import { AdminChangePasswordComponent } from './control-and-view/dashboard/user-password-changes/admin-change-password/admin-change-password.component';
+import { EmployeeChangePasswordComponent } from './control-and-view/dashboard/user-password-changes/employee-change-password/employee-change-password.component';
+import { SupervisorChangePasswordComponent } from './control-and-view/dashboard/user-password-changes/supervisor-change-password/supervisor-change-password.component';
+import { JobTitleViewComponent } from './control-and-view/people/job-title-view/job-title-view.component';
+import { JobTitleAddComponent } from './control-and-view/people/job-title-add/job-title-add.component';
+import { JobTitleEditComponent } from './control-and-view/people/job-title-edit/job-title-edit.component';
+import { JobTitleViewAdminComponent } from './control-and-view/people/admin/job-title-view-admin/job-title-view-admin.component';
+import { JobTitleAddAdminComponent } from './control-and-view/people/admin/job-title-add-admin/job-title-add-admin.component';
+import { JobTitleEditAdminComponent } from './control-and-view/people/admin/job-title-edit-admin/job-title-edit-admin.component';
 import { CreateOrganizationComponent } from './control-and-view/superadmin/organization/create-organization/create-organization.component';
 import { ViewOrganizationComponent } from './control-and-view/superadmin/organization/view-organization/view-organization.component';
 import { EditOrganizationComponent } from './control-and-view/superadmin/organization/edit-organization/edit-organization.component';
@@ -189,10 +205,26 @@ import { EditemployeeComponent } from './control-and-view/superadmin/people/edit
     DocumentfolderViewComponent,
     NewdocumentfolderCreateComponent,
     DocumentfolderEditComponent,
+    ManagerMyprofileComponent,
     ViewWorkOrdersComponent,
     DocumentsUploadComponent,
     ViewDocumentsComponent,
     FileSelectDirective,
+    ManagerChangePassWordComponent,
+    SuperadminProfileComponent,
+    SupeadminChangePasswordComponent,
+    AdminProfileComponent,
+    SupervisorProfileComponent,
+    EmployeeProfileComponent,
+    AdminChangePasswordComponent,
+    EmployeeChangePasswordComponent,
+    SupervisorChangePasswordComponent,
+    JobTitleViewComponent,
+    JobTitleAddComponent,
+    JobTitleEditComponent,
+    JobTitleViewAdminComponent,
+    JobTitleAddAdminComponent,
+    JobTitleEditAdminComponent,
     CreateOrganizationComponent,
     ViewOrganizationComponent,
     EditOrganizationComponent,

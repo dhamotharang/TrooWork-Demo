@@ -116,4 +116,22 @@ export class WorkOrderServiceService {
       .http
       .get('http://localhost:3000/api/getEquipmentBuildFloor?FacilityKey='+facility_key+'&FloorKey='+floor_key+'&OrganizationID='+org_id);
     }
+    getEquipment_typechange(equip_type,facility,floor,org_id)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/getEquipmentEquTypeChange?FacilityKey='+facility+'&FloorKey='+floor+'&EquipmentTypeKey='+equip_type+'&OrganizationID='+org_id);
+    }
+    addWorkOrderWithOutEqup(obj) {
+      const url = 'http://localhost:3000/api/addNewWorkorder';
+      return this
+        .http
+        .post (url, obj);
+    }
+    addWorkOrderEqup(obj) {
+      const url = 'http://localhost:3000/api/addworkorderwithEquipment';
+      return this
+        .http
+        .post (url, obj);
+    }
 }
