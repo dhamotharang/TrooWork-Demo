@@ -267,6 +267,11 @@ export class PeopleServiceService {
     .http
     .get('http://localhost:3000/api/getAllEmployees?pagenumber='+1+'&itemsPerPage='+25+'&empkey='+2861+'&OrganizationID='+21);
   }
+  getAllEmployeeDetailsSuper(empkey,org){
+    return this
+    .http
+    .get('http://localhost:3000/api/getAllEmployees?pagenumber='+1+'&itemsPerPage='+25+'&empkey='+empkey+'&OrganizationID='+org);
+  }
   getAllEmployeeDetailswithjobtitledropdown(seljobtitlevalue){
     return this
     .http
@@ -364,7 +369,7 @@ export class PeopleServiceService {
   }
   createEmployeebyManager(EmployeeNumber,UserRoleTypeKey,FirstName,LastName,MiddleName,BD,Gender,AddressLine1,City,AddressLine2,State,Country,PrimaryPhone,ZipCode,AlternatePhone,EmailID,HD,theCheckbox,JobTitleKey,SupervisorKey,DepartmentKey)
   {
-    debugger;
+    //debugger;
     const url = "http://localhost:3000/api/addemp";
     const obj = {
       employeenumber:EmployeeNumber,
@@ -393,6 +398,63 @@ export class PeopleServiceService {
     };
     return this
     .http.post(url, obj);
+  }
+  createEmployeebySuperAdmin(OrgID,EmployeeNumber,UserRoleTypeKey,FirstName,LastName,MiddleName,BD,Gender,AddressLine1,City,AddressLine2,State,Country,PrimaryPhone,ZipCode,AlternatePhone,EmailID,HD,theCheckbox,JobTitleKey,DepartmentKey){
+    const url = "http://localhost:3000/api/addemp";
+    const obj = {
+      employeenumber:EmployeeNumber,
+      managerkey:UserRoleTypeKey,
+      firstname:FirstName,
+      lastname:LastName,
+      middlename:MiddleName,
+      birthDate:BD,
+      gender:Gender,
+      addressline1:AddressLine1,
+      city:City,
+      addressline2:AddressLine2,
+      state:State,
+      country:Country,
+      primaryphone:PrimaryPhone,
+      zipcode:ZipCode,
+      alternatephone:AlternatePhone,
+      email:EmailID,
+      hireDate:HD,
+      isSupervisor:theCheckbox,
+      jobTitleKey:JobTitleKey,
+      departmentKey:DepartmentKey,
+      metaupdatedBy:2861,
+      OrganizationID:OrgID     
+    };
+    return this
+    .http.post(url, obj);
+  }
+  getOrganization(OrgID){
+    return this
+    .http
+    .get('http://localhost:3000/api/getAllOrganization?OrganizationID='+OrgID);
+  }
+  getUserRoleTypesa(OrgID){
+    return this
+    .http
+    .get('http://localhost:3000/api/getAllUserRoleType_SuperAdmin?OrganizationID='+OrgID);
+  }
+  getAllEmployeeDetailswithjobtitledropdownsa(orgid,empkey,jobtikey,mankey){
+    const url = "http://localhost:3000/api/employeeByAllFilter";
+    const obj = {
+      JobTitleKey:jobtikey,
+      ManagerKey:mankey,
+      employeekey:empkey,
+      OrganizationID:orgid,
+      pagenumber:1,
+      itemsPerPage:25
+    };
+    return this
+    .http.post(url, obj);
+  }
+  getvaluesForManagerDropdowninSA(empkey,orgid){
+    return this
+    .http
+    .get('http://localhost:3000/api/getManagerForEmployee?employeekey='+empkey+'&OrganizationID='+orgid);
   }
    // ****@Pooja's Code Ends here****
 }

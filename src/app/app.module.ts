@@ -110,7 +110,11 @@ import { ViewDocumentsComponent } from './control-and-view/documents/view-docume
 import { FileSelectDirective } from 'ng2-file-upload';
 import { CreateOrganizationComponent } from './control-and-view/superadmin/organization/create-organization/create-organization.component';
 import { ViewOrganizationComponent } from './control-and-view/superadmin/organization/view-organization/view-organization.component';
-import {  EditOrganizationComponent } from './control-and-view/superadmin/organization/edit-organization/edit-organization.component';
+import { EditOrganizationComponent } from './control-and-view/superadmin/organization/edit-organization/edit-organization.component';
+import { CreateemployeeComponent } from './control-and-view/superadmin/people/createemployee/createemployee.component';
+import { ViewemployeeComponent } from './control-and-view/superadmin/people/viewemployee/viewemployee.component';
+import { ManagelogincredentialsComponent } from './control-and-view/superadmin/people/managelogincredentials/managelogincredentials.component';
+import { EditemployeeComponent } from './control-and-view/superadmin/people/editemployee/editemployee.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -193,7 +197,11 @@ import {  EditOrganizationComponent } from './control-and-view/superadmin/organi
     ViewOrganizationComponent,
     EditOrganizationComponent,
     CreateWorkorderComponent,
-    CreateOrganizationComponent
+    CreateOrganizationComponent,
+    CreateemployeeComponent,
+    ViewemployeeComponent,
+    ManagelogincredentialsComponent,
+    EditemployeeComponent
 
   ],
   imports: [

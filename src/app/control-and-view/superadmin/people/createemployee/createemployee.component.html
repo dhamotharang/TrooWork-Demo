@@ -1,4 +1,4 @@
-<app-manager-dash-board></app-manager-dash-board>
+<app-superadmin-dashboard></app-superadmin-dashboard>
 <br><br>
 
 <div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
@@ -7,8 +7,17 @@
     <h1 style="margin-left: 30rem;">Employee Form</h1>
   </div><br><br>
 
-
-  <div class="form-row col-md-12">
+  <!-- form-row col-md-12 -->
+  <div class="col-md-6">
+      <div class="form-group">
+          <label>Organization</label><br>
+          <select name="org" style="width: 77%; background-color: #d4f4ff;" class="form-control" [(ngModel)]="OrganizationID">
+            <option value="">--Select--</option>
+            <option *ngFor="let o of organization" [value]="o.OrganizationID">
+              {{o.OrganizationName}}
+            </option>
+          </select>
+        </div>
     <div class="col-md-6 bg-dark">
       <div class="form-group bg-dark">
         <label>Employee Number</label>
@@ -22,7 +31,7 @@
         <label>User Role Type</label><br>
         <select name="userroletype" style="width: 77%; background-color: #d4f4ff;" class="form-control" [(ngModel)]="UserRoleTypeKey">
           <option value="" placeholder>--Select--</option>
-          <option *ngFor="let u of useroletype" [value]="u.UserRoleTypeKey">
+          <option *ngFor="let u of useroletypesa" [value]="u.UserRoleTypeKey">
             {{u.UserRoleName}}
           </option>
         </select>
@@ -151,16 +160,6 @@
         </option>
       </select>
     </div>
-    <div class="form-group" *ngIf="marked">
-      <label>SuperVisor</label><br>
-      <select name="supervisor" style="width: 80%; background-color: #d4f4ff;" [(ngModel)]="SupervisorKey">
-        <option value="">--Select--</option>
-        <option *ngFor="let s of supervisor" [value]="s.SupervisorKey">
-          {{s.SupervisorText}}
-        </option>
-      </select>
-    </div>
-
   </div>
   <div class="col-md-6">
     <div class="form-group">
@@ -179,4 +178,4 @@
   <div style="text-align:center">
     <button type="button" style="text-align:center" class="btn btn-primary" (click)="createEmployee();">Create Employee</button>
   </div>
-  <!-- createEmployee(); -->
+ 
