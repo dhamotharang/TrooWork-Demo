@@ -5,49 +5,50 @@
   <!-- <div class="container"> -->
   <div class="row col-md-12 ">
     <h1 style="margin-left: 30rem;">EDIT EMPLOYEE INFORMATION</h1>
-  </div><br><br>    
+  </div><br><br>
   <div class="row bg-info col-md-12">
     <!-- <h1 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Personal
       Information</h1> -->
-      <div class="form-row col-md-12">
-         <div class="col-md-6 bg-dark">
-          <!-- <div class="form-group bg-dark"> --> 
-            <label>Employee Number</label>
-            <!-- <div class="col-md-6 mb-2"> -->
-            <input *ngIf="empNum" type="text" name="EmployeeNumber" class="form-control" placeholder="Employee Number"[(ngModel)]="empNum.EmployeeNumber">
-            <!-- </div> -->
-          <!-- </div> -->
-        </div> 
-        <div class="col-md-6">
-          <div class="form-group ">
-            <label>User Role Type</label><br>
-            <select name="userroletype" style="width: 77%; background-color: #d4f4ff;" class="form-control" [(ngModel)]="UserRoleTypeKey">
-              <option value="" placeholder>--Select--</option>
-              <option *ngFor="let u of useroletype" [value]="u.UserRoleTypeKey">
-                {{u.UserRoleName}}
+    <div class="form-row col-md-12">
+      <div class="col-md-6 bg-dark">
+        <!-- <div class="form-group bg-dark"> -->
+        <label>Employee Number</label>
+        <!-- <div class="col-md-6 mb-2"> -->
+        <input *ngIf="editempdtails" type="text" name="EmployeeNumber" class="form-control" placeholder="Employee Number" [(ngModel)]="editempdtails.EmployeeNumber">
+        <!-- </div> -->
+        <!-- </div> -->
+      </div>
+      <div class="col-md-6">
+        <div class="form-group ">
+          <label>User Role Type</label><br>
+          <!-- <select *ngIf="editempdtails" name="userroletype" style="width: 77%; background-color: #d4f4ff;" class="form-control" [(ngModel)]="editempdtails.UserRoleName">
+            <option value="" placeholder>--Select--</option>
+            <option *ngFor="let u of useroletype" [value]="u.UserRoleTypeKey">
+              {{u.UserRoleName}}
             </option>
-            </select>
-          </div>
+          </select> -->
+          <input *ngIf="editempdtails" type="text" name="UserRoleName" readonly class="form-control" [(ngModel)]="editempdtails.UserRoleName">
         </div>
       </div>
+    </div>
     <div class="col-md-6">
       <!-- <form class="" method="post" action="https://formspree.io/"> -->
       <div class="form-group">
         <label>First Name*</label>
-        <input *ngIf="firstName" type="text" name="FirstName" class="form-control" placeholder="First Name" [(ngModel)]="firstName.FirstName"> </div>
+        <input *ngIf="editempdtails" type="text" name="FirstName" class="form-control" placeholder="First Name" [(ngModel)]="editempdtails.FirstName">        </div>
       <div class="form-group">
         <label>Last Name*</label>
-        <input *ngIf="lastName"type="text" name="LastName" class="form-control" placeholder="Last Name" [(ngModel)]="lastName.LastName"> </div>
+        <input *ngIf="editempdtails" type="text" name="LastName" class="form-control" placeholder="Last Name" [(ngModel)]="editempdtails.LastName">        </div>
       <!-- </form> -->
     </div>
     <div class="col-md-6">
       <!-- <form class="" method="post" action="https://formspree.io/"> -->
       <div class="form-group">
         <label>Middle Name</label>
-        <input *ngIf="MiddleName"type="text" name="MiddleName" class="form-control" placeholder="Middle Name" [(ngModel)]="MiddleName.MiddleName"> </div>
+        <input *ngIf="editempdtails" type="text" name="MiddleName" class="form-control" placeholder="Middle Name" [(ngModel)]="editempdtails.MiddleName">        </div>
       <div class="form-group">
         <label>Birth Date</label>
-        <igx-datePicker item-width="25%" [value]="date" [(ngModel)]="BirthDate"[formatter]="formatter"></igx-datePicker>
+        <igx-datePicker item-width="25%" [(ngModel)]="BirthDate" [formatter]="formatter"></igx-datePicker>
         <!-- <input type="text" name="password" class="form-control" placeholder="Birth Date"> -->
       </div>
 
@@ -57,7 +58,7 @@
       <div class="col-md-6">
         <div class="form-group" style="margin-left:-1rem;">
           <label>Gender*</label><br>
-          <select *ngIf="gen"name="Gender" [(ngModel)]="gen.Gender" [value]="value" style="width: 80%; background-color: #d4f4ff;">
+          <select *ngIf="editempdtails" name="Gender" [(ngModel)]="editempdtails.Gender" style="width: 80%; background-color: #d4f4ff;">
             <option value="">--Select--</option>
             <option value="1">MALE</option>
             <option value="2">FEMALE</option>
@@ -73,132 +74,140 @@
       </div>
     </div>
     <!-- <div class="row bg-info col-md-12"> -->
-      <!-- <h1 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Contact
+    <!-- <h1 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Contact
         Information</h1> -->
-      <div class="col-md-6">
-        <!-- <form class="" method="post" action="https://formspree.io/"> -->
-        <div class="form-group">
-          <label>Address Line 1</label>
-          <textarea *ngIf="addline1"class="form-control rounded-0" [(ngModel)]="addline1.AddressLine1" id="exampleFormControlTextarea1" rows="5"></textarea>
-        </div>
-        <div class="form-group">
-          <label>City</label>
-          <input type="text" name="City" [(ngModel)]="City" class="form-control" placeholder="City"> </div>
-        <!-- </form> -->
+    <div class="col-md-6">
+      <!-- <form class="" method="post" action="https://formspree.io/"> -->
+      <div class="form-group">
+        <label>Address Line 1</label>
+        <textarea *ngIf="editempdtails" class="form-control rounded-0" [(ngModel)]="editempdtails.AddressLine1" id="exampleFormControlTextarea1"
+          rows="5"></textarea>
       </div>
-      <div class="col-md-6">
-        <!-- <form class="" method="post" action="https://formspree.io/"> -->
-        <div class="form-group">
-          <label>Address Line 2</label>
-          <textarea class="form-control rounded-0" [(ngModel)]="AddressLine2" id="exampleFormControlTextarea1" rows="5"></textarea>
-        </div>
-        <div class="form-group">
-          <label>State</label>
-          <input type="text" name="State"[(ngModel)]="State" class="form-control" placeholder="State"> </div>
-        <!-- </form> -->
+      <div class="form-group">
+        <label>City</label>
+        <input *ngIf="editempdtails" type="text" name="City" [(ngModel)]="editempdtails.City" class="form-control" placeholder="City">        </div>
+      <!-- </form> -->
+    </div>
+    <div class="col-md-6">
+      <!-- <form class="" method="post" action="https://formspree.io/"> -->
+      <div class="form-group">
+        <label>Address Line 2</label>
+        <textarea *ngIf="editempdtails" class="form-control rounded-0" [(ngModel)]="editempdtails.AddressLine2" id="exampleFormControlTextarea1"
+          rows="5"></textarea>
       </div>
-  
-      <div class="col-md-6">
-        <!-- <form class="" method="post" action="https://formspree.io/"> -->
-        <div class="form-group">
-          <label>Country</label>
-          <input type="text" name="Country" [(ngModel)]="Country" class="form-control" placeholder="Country"> </div>
-        <div class="form-group">
-          <label>Primary Phone Number*</label>
-          <input *ngIf="PPhonenum" type="text" name="PrimaryPhone" [(ngModel)]="PPhonenum.PrimaryPhone"class="form-control" placeholder="Primary Phone Number"> </div>
-        <!-- </form> -->
+      <div class="form-group">
+        <label>State</label>
+        <input *ngIf="editempdtails" type="text" name="State" [(ngModel)]="editempdtails.State" class="form-control" placeholder="State">        </div>
+      <!-- </form> -->
+    </div>
+
+    <div class="col-md-6">
+      <!-- <form class="" method="post" action="https://formspree.io/"> -->
+      <div class="form-group">
+        <label>Country</label>
+        <input *ngIf="editempdtails" type="text" name="Country" [(ngModel)]="editempdtails.Country" class="form-control" placeholder="Country">        </div>
+      <div class="form-group">
+        <label>Primary Phone Number*</label>
+        <input *ngIf="editempdtails" type="text" name="PrimaryPhone" [(ngModel)]="editempdtails.PrimaryPhone" class="form-control"
+          placeholder="Primary Phone Number"> </div>
+      <!-- </form> -->
+    </div>
+    <div class="col-md-6">
+      <!-- <form class="" method="post" action="https://formspree.io/"> -->
+      <div class="form-group">
+        <label>Zip Code</label>
+        <input *ngIf="editempdtails" type="text" name="ZipCode" [(ngModel)]="editempdtails.ZipCode" class="form-control" placeholder="Zip Code">        </div>
+      <div class="form-group">
+        <label>Alternative Phone Number</label>
+        <input *ngIf="editempdtails" type="text" name="AlternatePhone" [(ngModel)]="editempdtails.AlternatePhone" class="form-control"
+          placeholder="Alternative Phone Number"> </div>
+
+      <!-- </form> -->
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Email</label><br>
+        <input *ngIf="editempdtails" type="text" name="EmailID" [(ngModel)]="editempdtails.EmailID" class="form-control" placeholder="Email">
       </div>
-      <div class="col-md-6">
-        <!-- <form class="" method="post" action="https://formspree.io/"> -->
-        <div class="form-group">
-          <label>Zip Code</label>
-          <input type="text" name="ZipCode"[(ngModel)]="ZipCode" class="form-control" placeholder="Zip Code"> </div>
-        <div class="form-group">
-          <label>Alternative Phone Number</label>
-          <input type="text" name="AlternatePhone" [(ngModel)]="AlternatePhone" class="form-control" placeholder="Alternative Phone Number"> </div>
-  
-        <!-- </form> -->
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Email</label><br>
-          <input *ngIf="email" type="text" name="EmailID"[(ngModel)]="email.EmailID" class="form-control" placeholder="Email">
-        </div>
-      </div>
-      <div class="col-md-6">
-        <label>Employee Status*</label><br>
-        <select *ngIf="empstatus" name="empstatus" style="width: 80%; background-color: #d4f4ff;" [(ngModel)]="empstatus.EmployeeStatusKey">
-          <option value="" placeholder>--Select--</option>
-          <option *ngFor="let s of employeestatus" [value]="s.EmployeeStatusKey">
-            {{s.EmployeeStatus}}
+    </div>
+    <div class="col-md-6">
+      <label>Employee Status*</label><br>
+      <select *ngIf="editempdtails" name="empstatus" style="width: 80%; background-color: #d4f4ff;" [(ngModel)]="editempdtails.EmployeeStatusKey">
+        <option value="" placeholder>--Select--</option>
+        <option *ngFor="let s of employeestatus" [value]="s.EmployeeStatusKey">
+          {{s.EmployeeStatus}}
         </option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <!-- <form class="" method="post" action="https://formspree.io/"> -->
+      <div class="form-group">
+        <label>Hire Date*</label>
+        <!-- *ngIf="hireDate" -->
+        <igx-datePicker *ngIf="editempdtails" item-width="25%" [(ngModel)]="HireDate"[formatter]="formatter"></igx-datePicker>
+        <!-- <mdb-date-picker name="mydate" [options]="myDatePickerOptions" [placeholder]="'Selected date'" [(ngModel)]="model" required></mdb-date-picker> -->
+      </div>
+      <div class="form-check form-check-inline">
+        <label class="form-check-label" for="materialInline1">Is SuperVisor</label>
+        <input *ngIf="editempdtails" type="checkbox" [(ngModel)]="editempdtails.IsSupervisor" data-md-icheck (change)="toggleVisibility($event)"
+        />
+      </div>
+      <!-- </form> -->
+      <div class="form-group" *ngIf="marked">
+        <label>SuperVisor</label><br>
+        <!-- <div > -->
+        <select *ngIf="editempdtails" name="supervisor" style="width: 80%; background-color: #d4f4ff;" [(ngModel)]="editempdtails.SupervisorKey">
+          <option value="">--Select--</option>
+          <option *ngFor="let s of supervisor" [value]="s.SupervisorKey">
+            {{s.SupervisorText}}
+          </option>
+        </select>
+        <!-- </div> -->
+      </div>
+    </div>
+    <div class="col-md-6">
+      <!-- <form class="" method="post" action="https://formspree.io/"> -->
+      <div class="form-group">
+        <label>Job Title*</label><br>
+        <select *ngIf="editempdtails" name="jobtitle" style="width: 80%; background-color: #d4f4ff;" [(ngModel)]="editempdtails.JobTitleKey">
+          <option value="" placeholder>--Select--</option>
+          <option *ngFor="let j of jobtitle" [value]="j.JobTitleKey">
+            {{j.JobTitleText}}
+          </option>
         </select>
       </div>
-      <div class="col-md-6">
-        <!-- <form class="" method="post" action="https://formspree.io/"> -->
-        <div class="form-group">
-          <label>Hire Date*</label>
-          <!-- *ngIf="hireDate" -->
-          <igx-datePicker item-width="25%" [value]="hiredate" [(ngModel)]="HireDate"[formatter]="formatter"></igx-datePicker>
-          <!-- <mdb-date-picker name="mydate" [options]="myDatePickerOptions" [placeholder]="'Selected date'" [(ngModel)]="model" required></mdb-date-picker> -->
-        </div>
-        <div class="form-check form-check-inline">
-          <label class="form-check-label" for="materialInline1">Is SuperVisor</label>
-          <input type="checkbox" [(ngModel)]="theCheckbox" data-md-icheck (change)="toggleVisibility($event)" />
-        </div>
-        <!-- </form> -->
-        <div class="form-group" *ngIf="marked">
-          <label>SuperVisor</label><br>
-          <!-- <div > -->
-          <select *ngIf="sup" name="supervisor" style="width: 80%; background-color: #d4f4ff;"[(ngModel)]="sup.SupervisorKey">
-            <option value="">--Select--</option>
-            <option *ngFor="let s of supervisor" [value]="s.SupervisorKey">
-              {{s.SupervisorText}}
+
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Department</label><br>
+        <select *ngIf="editempdtails" name="department" style="width: 80%; background-color: #d4f4ff;" [(ngModel)]="editempdtails.DepartmentKey">
+          <option value="">--Select--</option>
+          <option *ngFor="let d of department" [value]="d.DepartmentKey">
+            {{d.DepartmentName}}
           </option>
-          </select>
-          <!-- </div> -->
-        </div>
+        </select>
       </div>
-      <div class="col-md-6">
-        <!-- <form class="" method="post" action="https://formspree.io/"> -->
-        <div class="form-group">
-          <label>Job Title*</label><br>
-          <select *ngIf="jobt"name="jobtitle" style="width: 80%; background-color: #d4f4ff;" [(ngModel)]="jobt.JobTitleKey">
-            <option value="" placeholder>--Select--</option>
-            <option *ngFor="let j of jobtitle" [value]="j.JobTitleKey">
-              {{j.JobTitleText}}
-          </option>
-          </select>
-        </div>
-       
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Department</label><br>
-          <select *ngIf="dept" name="department" style="width: 80%; background-color: #d4f4ff;"[(ngModel)]="dept.DepartmentKey">
-            <option value="">--Select--</option>
-            <option *ngFor="let d of department" [value]="d.DepartmentKey">
-              {{d.DepartmentName}}
-          </option>
-          </select>
-        </div>
-      </div>
+    </div>
     <!-- </div> -->
   </div>
   <!-- </div> -->
 
   <br><br>
-  
+
   <br><br>
   <!-- <div class="row bg-info col-md-12"> -->
-    <!-- <h1 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Other
+  <!-- <h1 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Other
       Information</h1> -->
-    
+
   <!-- </div> -->
-    <div class="row col-md-12">
-      <div class="col-md-6"></div>
-      <!-- <div style="text-align:center"> -->
-    <button type="button"style="text-align:center"class="btn btn-primary"(click)="editEmployee()">Update</button>
-    <button type="button"style="text-align:center"class="btn btn-primary"(click)="createEmployee()">Delete</button>
-    <button type="button"style="text-align:center"class="btn btn-primary"(click)="createEmployee()">Go Back</button>
-  </div> 
+  <div class="row col-md-12">
+    <div class="col-md-6"></div>
+    <!-- <div style="text-align:center"> -->
+   <button type="button" style="text-align:center" class="btn btn-primary" (click)="editEmployee(editempdtails.EmployeeNumber,editempdtails.UserRoleTypeKey,editempdtails.FirstName,editempdtails.LastName,editempdtails.MiddleName,BirthDate,editempdtails.Gender,editempdtails.AddressLine1,editempdtails.City,editempdtails.AddressLine2,editempdtails.State,editempdtails.Country,editempdtails.PrimaryPhone,editempdtails.ZipCode,editempdtails.AlternatePhone,editempdtails.EmailID,editempdtails.EmployeeStatusKey,HireDate,editempdtails.IsSupervisor,editempdtails.SupervisorKey,editempdtails.JobTitleKey,editempdtails.DepartmentKey)">Update</button> 
+    <button type="button" style="text-align:center" class="btn btn-primary" (click)="createEmployee()">Delete</button>
+    <a routerLink="/ViewEmployee" class="btn btn-primary" style="color:white !important" routerLinkActive="active"><b>Go
+      Back
+    </b>
+  </a>
+  </div>

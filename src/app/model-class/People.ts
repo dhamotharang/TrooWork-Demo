@@ -42,5 +42,7 @@ export interface People {
     jobtitleString:any;
     searchEmployee:any;
     SearchKey:Number;
+    BirthDate: Date;
+    HireDate: Date;
     // ****@Pooja's code Ends****
 }
