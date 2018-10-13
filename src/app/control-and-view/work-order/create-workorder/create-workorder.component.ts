@@ -71,8 +71,32 @@ export class CreateWorkorderComponent implements OnInit {
   //recurr variables
   monthlyDays = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
   recurringFrequency = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+  weekDay = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  weekPosition = [{ id: 'First', value: '1' }, { id: 'Second', value: '2' }, { id: 'Third', value: '3' }, { id: 'Fourth', value: '4' }, { id: 'Fifth', value: '5' }, { id: 'Last', value: '-1' }];
   timetable = { times: [] };
   dailyFrequency: number;
+  WorkorderStartDate;
+  WorkorderEndDate;
+  occurenceat;
+  DailyrecurringGap;
+  rep_interval = 1;
+  occurs_on = null;
+  weektable_one;
+  weektable_two;
+  weektable_three;
+  weektable_four;
+  weektable_five;
+  weektable_six;
+  weektable_seven;
+  Time_weekly;
+  Time_monthly;
+  day1;
+  month1;
+  day2;
+  month2;
+  occurs_type;
+  pos2;
+
   public convert_DT(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
@@ -108,6 +132,8 @@ export class CreateWorkorderComponent implements OnInit {
     this.weeklyrecurring = false;
     this.monthlyrecurring = false;
     this.dailyrecurring = false;
+    this.monthlyreccradio1 = false;
+    this.monthlyreccradio2 = false;
     this.emp_key = 2861;
     this.org_id = 21;
     this.WorkOrderServiceService
@@ -167,7 +193,7 @@ export class CreateWorkorderComponent implements OnInit {
       this.marked = false;
     }
   }
-  
+
   dailyrecurringChange() {
     this.weeklyrecurring = false;
     this.monthlyrecurring = false;
@@ -183,15 +209,13 @@ export class CreateWorkorderComponent implements OnInit {
     this.monthlyrecurring = true;
     this.dailyrecurring = false;
   }
-  monthlyreccradio1_change()
-  {
-    this.monthlyreccradio1=true;
-    this.monthlyreccradio2=false;
+  monthlyreccradio1_change() {
+    this.monthlyreccradio1 = true;
+    this.monthlyreccradio2 = false;
   }
-  monthlyreccradio2_change()
-  {
-    this.monthlyreccradio1=false;
-    this.monthlyreccradio2=true;
+  monthlyreccradio2_change() {
+    this.monthlyreccradio1 = false;
+    this.monthlyreccradio2 = true;
   }
   getEquiment(floor_key, facility_key) {
     this.WorkOrderServiceService
@@ -263,7 +287,6 @@ export class CreateWorkorderComponent implements OnInit {
     }
   }
   createWorkorder1() {
-    debugger;
     var roomlistObj = [];
     var roomtypelistObj = [];
     var zonelistObj = [];
@@ -392,21 +415,110 @@ export class CreateWorkorderComponent implements OnInit {
     } else {
       this.is_BarcodeRequired = 0;
     }
-    this.isRecurring = false;
-    this.isrecurring = 0;
+    if (this.isRecurring == false) {
+      this.isrecurring = 0;
+    }
+    else if (this.isRecurring == true && this.dailyrecurring == true) {
+      this.intervaltype = 'd';
+      this.isrecurring = 1;
+    } else if (this.isRecurring == true && this.weeklyrecurring == true) {
+      this.intervaltype = 'w';
+      this.isrecurring = 1;
+      var selectedWeekdays = [];
+      if (this.weektable_one === true)
+        selectedWeekdays.push('su');
+      if (this.weektable_two === true)
+        selectedWeekdays.push('mo');
+      if (this.weektable_three === true)
+        selectedWeekdays.push('tu');
+      if (this.weektable_four === true)
+        selectedWeekdays.push('we');
+      if (this.weektable_five === true)
+        selectedWeekdays.push('th');
+      if (this.weektable_six === true)
+        selectedWeekdays.push('fr');
+      if (this.weektable_seven === true)
+        selectedWeekdays.push('sa');
+      this.occurs_on = selectedWeekdays.join(',');
+    } else if (this.isRecurring == true && this.monthlyrecurring == true) {
+      this.intervaltype = 'm';
+      this.isrecurring = 1;
+    }
+    if (this.isRecurring == false) {
+      if (this.dateValue) {
+        this.startDT = this.convert_DT(this.dateValue);
+      } else {
+        this.startDT = this.convert_DT(new Date());
+      }
+      this.endDT = this.startDT;
+    }
+    else {
+      if (this.WorkorderStartDate) {
+        this.startDT = this.convert_DT(this.WorkorderStartDate);
+      } else {
+        this.startDT = this.convert_DT(new Date());
+      }
+      if (this.WorkorderEndDate) {
+        this.endDT = this.convert_DT(this.WorkorderEndDate);
+      } else {
+        this.endDT = this.convert_DT(new Date());
+      }
+    }
+    debugger;
+    if (this.isRecurring == false) {
+      if (this.timeValue) {
+        this.workTime = this.timeValue.getHours() + ':' + this.timeValue.getMinutes();
+      } else {
+        this.workTime = new Date().getHours() + ':' + new Date().getMinutes();
+      }
+    } else if (this.isRecurring == true && this.dailyrecurring == true) {
+      var timeset = [];
+      var timeset_corr = [];
+      timeset = this.timetable.times;
+      for (var i = 0; i < timeset.length; i++) {
+        timeset_corr.push(timeset[i].getHours() + ':' + timeset[i].getMinutes());
+      }
 
-    if (this.dateValue) {
-      this.startDT = this.convert_DT(this.dateValue);
+      this.workTime = timeset_corr.join(',');
+      this.rep_interval = this.DailyrecurringGap;
     }
-    else {
-      this.startDT = this.convert_DT(new Date());
-    }
-    this.endDT = this.startDT;
-    if (this.timeValue) {
-      this.workTime = this.timeValue.getHours() + ':' + this.timeValue.getMinutes();
-    }
-    else {
-      this.workTime = new Date().getHours() + ':' + new Date().getMinutes();
+    else if (this.isRecurring == true && this.weeklyrecurring == true) {
+      this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();
+    }  else if (this.isRecurring == true && this.monthlyrecurring == true) {
+      this.workTime = this.Time_monthly.getHours() + ':' + this.Time_monthly.getMinutes();
+      if (this.monthlyreccradio1 == true) {
+        this.occurs_on = this.day1;
+        this.rep_interval = (this.month1) ? this.month1 : 1;
+      }
+      else if (this.monthlyreccradio2 == true) {
+      
+        this.occurs_on = this.day2;
+        this.rep_interval = (this.month2) ? this.month2 : 1;
+        this.occurs_type = this.pos2;
+        switch (this.occurs_on) {
+          case '0':
+            this.occurs_on = 'su';
+            break;
+          case '1':
+            this.occurs_on = "mo";
+            break;
+          case '2':
+            this.occurs_on = "tu";
+            break;
+          case '3':
+            this.occurs_on = "we";
+            break;
+          case '4':
+            this.occurs_on = "th";
+            break;
+          case '5':
+            this.occurs_on = "fr";
+            break;
+          case '6':
+            this.occurs_on = "sa";
+            break;
+        }
+      }
     }
     this.workorderCreation = {
       occursontime: this.workTime,
@@ -427,9 +539,10 @@ export class CreateWorkorderComponent implements OnInit {
       isphoto: this.is_PhotoRequired,
       metaupdatedby: 2861,
       OrganizationID: 21,
-      intervaltype: '0', // char(1),/*d for day, w for week, m for month*/
-      repeatinterval: 1,
-      occursonday: null
+      intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
+      repeatinterval: this.rep_interval,
+      occursonday: this.occurs_on,
+      occurstype: this.occurs_type
     };
     this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe((data: any[]) => { });
   }
@@ -571,19 +684,104 @@ export class CreateWorkorderComponent implements OnInit {
     } else {
       this.is_BarcodeRequired = 0;
     }
-    this.isRecurring = false;
-    this.isrecurring = 0;
-
-    if (this.dateValue) {
-      this.startDT = this.convert_DT(this.dateValue);
-    } else {
-      this.startDT = this.convert_DT(new Date());
+    if (this.isRecurring == false) {
+      this.isrecurring = 0;
     }
-    this.endDT = this.startDT;
-    if (this.timeValue) {
-      this.workTime = this.timeValue.getHours() + ':' + this.timeValue.getMinutes();
-    } else {
-      this.workTime = new Date().getHours() + ':' + new Date().getMinutes();
+    else if (this.isRecurring == true && this.dailyrecurring == true) {
+      this.intervaltype = 'd';
+      this.isrecurring = 1;
+    } else if (this.isRecurring == true && this.weeklyrecurring == true) {
+      this.intervaltype = 'w';
+      this.isrecurring = 1;
+      var selectedWeekdays = [];
+      if (this.weektable_one === true)
+        selectedWeekdays.push('su');
+      if (this.weektable_two === true)
+        selectedWeekdays.push('mo');
+      if (this.weektable_three === true)
+        selectedWeekdays.push('tu');
+      if (this.weektable_four === true)
+        selectedWeekdays.push('we');
+      if (this.weektable_five === true)
+        selectedWeekdays.push('th');
+      if (this.weektable_six === true)
+        selectedWeekdays.push('fr');
+      if (this.weektable_seven === true)
+        selectedWeekdays.push('sa');
+      this.occurs_on = selectedWeekdays.join(',');
+    }
+    if (this.isRecurring == false) {
+      if (this.dateValue) {
+        this.startDT = this.convert_DT(this.dateValue);
+      } else {
+        this.startDT = this.convert_DT(new Date());
+      }
+      this.endDT = this.startDT;
+    }
+    else {
+      if (this.WorkorderStartDate) {
+        this.startDT = this.convert_DT(this.WorkorderStartDate);
+      } else {
+        this.startDT = this.convert_DT(new Date());
+      }
+      if (this.WorkorderEndDate) {
+        this.endDT = this.convert_DT(this.WorkorderEndDate);
+      } else {
+        this.endDT = this.convert_DT(new Date());
+      }
+    }
+    if (this.isRecurring == false) {
+      if (this.timeValue) {
+        this.workTime = this.timeValue.getHours() + ':' + this.timeValue.getMinutes();
+      } else {
+        this.workTime = new Date().getHours() + ':' + new Date().getMinutes();
+      }
+    } else if (this.isRecurring == true && this.dailyrecurring == true) {
+      var timeset = [];
+      var timeset_corr = [];
+      timeset = this.timetable.times;
+      for (var i = 0; i < timeset.length; i++) {
+        timeset_corr.push(timeset[i].getHours() + ':' + timeset[i].getMinutes());
+      }
+
+      this.workTime = timeset_corr.join(',');
+      this.rep_interval = this.DailyrecurringGap;
+    } else if (this.isRecurring == true && this.weeklyrecurring == true) {
+      this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();
+    } else if (this.isRecurring == true && this.monthlyrecurring == true) {
+      this.workTime = this.Time_monthly.getHours() + ':' + this.Time_monthly.getMinutes();
+      if (this.monthlyreccradio1 == true) {
+        this.occurs_on = this.day1;
+        this.rep_interval = (this.month1) ? this.month1 : 1;
+      }
+      else if (this.monthlyreccradio2 == true) {
+        this.occurs_on = this.day2;
+        this.rep_interval = (this.month2) ? this.month2 : 1;
+        this.occurs_type = this.pos2;
+        switch (this.occurs_on) {
+          case '0':
+            this.occurs_on = 'su';
+            break;
+          case '1':
+            this.occurs_on = "mo";
+            break;
+          case '2':
+            this.occurs_on = "tu";
+            break;
+          case '3':
+            this.occurs_on = "we";
+            break;
+          case '4':
+            this.occurs_on = "th";
+            break;
+          case '5':
+            this.occurs_on = "fr";
+            break;
+          case '6':
+            this.occurs_on = "sa";
+            break;
+        }
+      }
     }
     this.workorderCreation = {
       occursontime: this.workTime,
@@ -604,9 +802,10 @@ export class CreateWorkorderComponent implements OnInit {
       isphoto: this.is_PhotoRequired,
       metaupdatedby: 2861,
       OrganizationID: 21,
-      intervaltype: '0', // char(1),/*d for day, w for week, m for month*/
-      repeatinterval: 1,
-      occursonday: null
+      intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
+      repeatinterval: this.rep_interval,
+      occursonday: this.occurs_on,
+      occurstype: this.occurs_type
     };
     this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe((data: any[]) => {
 
