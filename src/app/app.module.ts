@@ -131,6 +131,11 @@ import { CreateemployeeComponent } from './control-and-view/superadmin/people/cr
 import { ViewemployeeComponent } from './control-and-view/superadmin/people/viewemployee/viewemployee.component';
 import { ManagelogincredentialsComponent } from './control-and-view/superadmin/people/managelogincredentials/managelogincredentials.component';
 import { EditemployeeComponent } from './control-and-view/superadmin/people/editemployee/editemployee.component';
+import { ViewmeetingortrainingeventComponent } from './control-and-view/employee/viewmeetingortrainingevent/viewmeetingortrainingevent.component';
+import { ResetpasswordforsamoduleComponent } from './control-and-view/superadmin/people/resetpasswordforsamodule/resetpasswordforsamodule.component';
+import { SettingusernameandpswrdaftremplcreatebymanComponent } from './control-and-view/people/settingusernameandpswrdaftremplcreatebyman/settingusernameandpswrdaftremplcreatebyman.component';
+import { ViewworkordersforemployeeComponent } from './control-and-view/employee/viewworkordersforemployee/viewworkordersforemployee.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -233,7 +238,11 @@ import { EditemployeeComponent } from './control-and-view/superadmin/people/edit
     CreateemployeeComponent,
     ViewemployeeComponent,
     ManagelogincredentialsComponent,
-    EditemployeeComponent
+    EditemployeeComponent,
+    ViewmeetingortrainingeventComponent,
+    ResetpasswordforsamoduleComponent,
+    SettingusernameandpswrdaftremplcreatebymanComponent,
+    ViewworkordersforemployeeComponent
 
   ],
   imports: [

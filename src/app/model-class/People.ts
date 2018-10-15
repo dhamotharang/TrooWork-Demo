@@ -44,5 +44,7 @@ export interface People {
     SearchKey:Number;
     BirthDate: Date;
     HireDate: Date;
+    ondate:Date;
+    employeekey:Number;
     // ****@Pooja's code Ends****
 }

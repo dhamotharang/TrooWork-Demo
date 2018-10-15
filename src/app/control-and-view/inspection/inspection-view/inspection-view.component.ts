@@ -12,10 +12,11 @@ export class InspectionViewComponent implements OnInit {
   searchform: FormGroup;
   fromdate: Date;
   todate: Date;
-
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
+  
   constructor(private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef) { }
+  
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     return new RegExp(this.regexStr).test(event.key);
   }

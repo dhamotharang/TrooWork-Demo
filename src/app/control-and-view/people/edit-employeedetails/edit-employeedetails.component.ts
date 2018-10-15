@@ -9,44 +9,23 @@ import { PeopleServiceService } from '../../../service/people-service.service';
 })
 export class EditEmployeedetailsComponent implements OnInit {
   marked = true;
-  empNum: Array<any>;
-  empNumKey$: Object;
   firstName: Array<any>;
-  firstName$: Object;
   lastName: Array<any>;
-  lastName$: Object;
   MiddleName: Array<any>;
-  midName$: Object;
-  addline1: Array<any>;
-  addline1$: Object;
-  PPhonenum: Array<any>;
-  PPhonenum$: Object;
-  email: Array<any>;
-  email$: Object;
-  empstatus: Array<People>;
-  empstatus$: Object;
-  // hireDate:Array<any>;
-  // hireDate$: Object;
-  // HireDate:Date;
   employeestatus: People[];
-  jobt: Array<People>;
-  jobt$: Object;
   jobtitle: People[];
-  dept: Array<any>;
-  dept$: Object;
   department: People[];
-  sup: Array<People>;
   supervisor: People[];
-  sup$: Object;
-  gen: Array<People>;
-  gen$: Object;
-  updatedby: Number;
+  updatedby: Number=2861;
   editempdtails;
   empk$: Object;
   orgid: number = 21;
+  orgID: number = 21;
   BirthDate: Date;
   HireDate: Date;
   managerKey: Number = 2861;
+  delete_EmpKey:Number;
+  employeedetailstable:People[];
 
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
@@ -74,6 +53,26 @@ export class EditEmployeedetailsComponent implements OnInit {
 
     this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.managerKey, this.empk$, this.orgid, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey).subscribe(res => this.router.navigateByUrl('/ViewEmployee'));
 
+  }
+
+  deleteEmployee() {
+    debugger;
+    
+    this.PeopleServiceService
+      .DeleteEmployeeDetailsbyManager(this.delete_EmpKey,this.orgID,this.updatedby).subscribe(()=>{
+
+        this.PeopleServiceService
+        .getAllEmployeeDetails()
+        .subscribe((data: People[]) => {
+          // debugger;
+          this.employeedetailstable = data;
+        });
+
+      });
+  }
+  deleteEmpPass(empk$) {
+    this.delete_EmpKey = empk$;
+    debugger;
   }
   ngOnInit() {
 
