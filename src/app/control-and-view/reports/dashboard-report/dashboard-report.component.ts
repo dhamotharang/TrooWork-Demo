@@ -217,7 +217,7 @@ export class DashboardReportComponent implements OnInit {
       .getvaluesfilterbypie(date1, date2, this.em_Key, workordertypeString, this.org_id, this.manager)
       .subscribe((data: Reports[]) => {
         this.filterbypie = data;
-        if (this.filterbypie.length > 0) {
+        
               this.sampledata2 = [['WorkorderStatus', 'count']];
       
               for (var i = 0; i < this.filterbypie.length; i++) {
@@ -231,6 +231,7 @@ export class DashboardReportComponent implements OnInit {
               this.data1 = this.sampledata2;
               this.config1 = new PieChartConfig('pie chart', 0.4);
               this.elementId1 = 'piechart';
+              if (this.data1.length > 0) {
               this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
             }
       });

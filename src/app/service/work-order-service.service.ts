@@ -134,4 +134,17 @@ export class WorkOrderServiceService {
         .http
         .post (url, obj);
     }
+    search_WO(obj)
+    {
+      const url = 'http://localhost:3000/api/searchWorkorderByallFilters';
+      return this
+        .http
+        .post (url, obj);
+    }
+    delete_WO(obj)
+    {const url = 'http://localhost:3000/api/deleteWorkOrders';
+    return this
+      .http
+      .post (url, obj);
+    }
 }

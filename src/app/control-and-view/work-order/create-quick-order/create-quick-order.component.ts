@@ -43,33 +43,16 @@ export class CreateQuickOrderComponent implements OnInit {
   occursonday;
 
   workorderCreation;
-  constructor(private fb: FormBuilder,private route: ActivatedRoute, private router: Router, private WorkOrderServiceService: WorkOrderServiceService) { }
-  convert_DT(str) {// reduce one day for display
+  constructor(private route: ActivatedRoute,private fb: FormBuilder, private router: Router, private WorkOrderServiceService: WorkOrderServiceService) { }
+  convert_DT(str) {
     var date = new Date(str),
       mnth = ('0' + (date.getMonth() + 1)).slice(-2),
       day = ('0' + date.getDate()).slice(-2);
     return [date.getFullYear(), mnth, day].join('-');
   }
-  ngOnInit() {
-    this.emp_key = 2861;
-    this.org_id = 21;
 
-    this.WorkOrderServiceService
-      .getallEmployee(this.emp_key, this.org_id)
-      .subscribe((data: any[]) => {
-        this.EmployeeOption = data;
-      });
-    this.WorkOrderServiceService
-      .getallFacility(this.emp_key, this.org_id)
-      .subscribe((data: any[]) => {
-        this.facilitylist = data;
-      });
-    this.WorkOrderServiceService
-      .getallPriority(this.org_id)
-      .subscribe((data: any[]) => {
-        this.prioritylist = data;
-      });
-  }
+
+
   toggleVisibility(e) {
     if (e.target.checked) {
       this.marked = true;
@@ -142,10 +125,33 @@ export class CreateQuickOrderComponent implements OnInit {
       OrganizationID: 21
 
     };
+    debugger;
     this.WorkOrderServiceService
       .addQuickWorkOrder(this.createworkorder)
       .subscribe(res => this.router.navigateByUrl('/ViewWorkOrder'));
-      debugger;
+      
+    debugger;
   }
 
+
+  ngOnInit() {
+    this.emp_key = 2861;
+    this.org_id = 21;
+
+    this.WorkOrderServiceService
+      .getallEmployee(this.emp_key, this.org_id)
+      .subscribe((data: any[]) => {
+        this.EmployeeOption = data;
+      });
+    this.WorkOrderServiceService
+      .getallFacility(this.emp_key, this.org_id)
+      .subscribe((data: any[]) => {
+        this.facilitylist = data;
+      });
+    this.WorkOrderServiceService
+      .getallPriority(this.org_id)
+      .subscribe((data: any[]) => {
+        this.prioritylist = data;
+      });
+  }
 }

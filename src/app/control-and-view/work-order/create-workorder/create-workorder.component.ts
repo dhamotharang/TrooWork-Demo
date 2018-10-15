@@ -78,7 +78,7 @@ export class CreateWorkorderComponent implements OnInit {
   WorkorderStartDate;
   WorkorderEndDate;
   occurenceat;
-  DailyrecurringGap;
+  DailyrecurringGap=0;
   rep_interval = 1;
   occurs_on = null;
   weektable_one;
@@ -104,18 +104,6 @@ export class CreateWorkorderComponent implements OnInit {
     return [date.getFullYear(), mnth, day].join("-");
 
   }
-  // to24Hour(str) {
-  //   var tokens = /([10]?\d):([0-5]\d) ([ap]m)/i.exec(str);
-  //   if (tokens === null) {
-  //     return null;
-  //   }
-  //   if (tokens[3].toLowerCase() === 'pm' && tokens[1] !== '12') {
-  //     tokens[1] = '' + (12 + (+tokens[1]));
-  //   } else if (tokens[3].toLowerCase() === 'am' && tokens[1] === '12') {
-  //     tokens[1] = '00';
-  //   }
-  //   return tokens[1] + ':' + tokens[2];
-  // }
 
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
@@ -483,9 +471,23 @@ export class CreateWorkorderComponent implements OnInit {
       this.rep_interval = this.DailyrecurringGap;
     }
     else if (this.isRecurring == true && this.weeklyrecurring == true) {
+      if(this.Time_weekly)
+      {
       this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();
+      }
+      else
+      {
+        alert("Please Enter Time!");
+      }
     }  else if (this.isRecurring == true && this.monthlyrecurring == true) {
+      if(this.Time_monthly)
+      {
       this.workTime = this.Time_monthly.getHours() + ':' + this.Time_monthly.getMinutes();
+      }
+      else
+      {
+        alert("Please Enter Time!");
+      }
       if (this.monthlyreccradio1 == true) {
         this.occurs_on = this.day1;
         this.rep_interval = (this.month1) ? this.month1 : 1;
