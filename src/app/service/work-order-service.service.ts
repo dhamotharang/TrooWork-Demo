@@ -134,4 +134,34 @@ export class WorkOrderServiceService {
         .http
         .post (url, obj);
     }
+
+// ****Pooja's code starts here****
+
+    getallBuildingsForEmployee(empk,orgid){
+      return this
+      .http
+      .get('http://localhost:3000/api/allfacility?empkey='+empk+'&OrganizationID='+orgid);
+    }
+    getallFloorNames(key,orgid){
+      return this
+      .http
+      .get('http://localhost:3000/api/domainvaluesByKey?domain=facilityOnly'+'&key='+key+'&OrganizationID='+orgid);
+    }
+    getallZones(facikey,flkey,orgid){
+      return this
+      .http
+      .get('http://localhost:3000/api/zoneByFacility_Floor?fkey='+facikey+'&floorkey='+flkey+'&OrganizationID='+orgid);
+
+    }
+    getallRoomType(facikey,flkey,orgid){
+      return this
+      .http
+      .get('http://localhost:3000/api/roomtypeByFacility_Floor?fkey='+facikey+'&floorkey='+flkey+'&OrganizationID='+orgid); 
+    }
+    getWOdetailsForEmployee(curr_date,empk,orgid){
+      return this
+      .http
+      .get('http://localhost:3000/api/viewworkorder?viewdate='+curr_date+'&employeekey='+empk+'&pageno='+1+'&itemsPerPage='+25+'&OrganizationID='+orgid);
+    }
+    // ****Pooja's code ends here****
 }

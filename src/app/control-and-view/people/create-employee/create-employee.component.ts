@@ -33,6 +33,7 @@ export class CreateEmployeeComponent implements OnInit {
   JobTitleKey: Number;
   SupervisorKey: Number;
   DepartmentKey: Number;
+  // EmpKey:Number=2861;
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
 
@@ -50,7 +51,7 @@ export class CreateEmployeeComponent implements OnInit {
   };
 
   constructor(private PeopleServiceService: PeopleServiceService) { }
-  createEmployee(){
+  createEmployee(EmpKey){
     debugger;
     var BD = this.convert_DT(this.BirthDate);
     var HD = this.convert_DT(this.HireDate);

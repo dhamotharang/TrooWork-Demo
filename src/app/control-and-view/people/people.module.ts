@@ -13,7 +13,8 @@ import { EventViewComponent } from './event-view/event-view.component';
 import { ViewEmployeesofEventComponent } from './view-employeesof-event/view-employeesof-event.component';
 import { ViewEmployeeComponent } from './view-employee/view-employee.component';
 import { EditEmployeedetailsComponent } from './edit-employeedetails/edit-employeedetails.component';
-import { DeleteEmployeeComponent } from './delete-employee/delete-employee.component';
+import { SettingusernameandpswrdaftremplcreatebymanComponent } from './settingusernameandpswrdaftremplcreatebyman/settingusernameandpswrdaftremplcreatebyman.component';
+
 
 @NgModule({
   imports: [
@@ -29,6 +30,6 @@ import { DeleteEmployeeComponent } from './delete-employee/delete-employee.compo
     EventCreateComponent, 
     EventEditComponent, 
     EventViewComponent, 
-    ViewEmployeesofEventComponent, ViewEmployeeComponent, EditEmployeedetailsComponent, DeleteEmployeeComponent]
+    ViewEmployeesofEventComponent, ViewEmployeeComponent, EditEmployeedetailsComponent, SettingusernameandpswrdaftremplcreatebymanComponent]
 })
 export class PeopleModule { }
