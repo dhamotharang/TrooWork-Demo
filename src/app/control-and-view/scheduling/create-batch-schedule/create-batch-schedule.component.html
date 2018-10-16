@@ -1,142 +1,223 @@
 <app-manager-dash-board></app-manager-dash-board>
 <br><br>
 
-<div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
+<div style="background-color: #FFFFFF;margin-left: 5rem;margin-right: 5rem;">
   <br><br>
   <div style="text-align:center">
-    <h3 style="color: #174a5e;"><strong>REPORTS ON  BATCH SCHEDULES</strong></h3>
+    <h3 style="color: #174a5e;"><strong>REPORTS ON BATCH SCHEDULES</strong></h3>
   </div>
 
   <br>
-  <!-- <div class="col-md-6">
-    <div class="form-group">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scheduling" >Schedule Name: </label></h5>
+
+  <div class="col-md-12">
+
+    <div class="row col-md-12">
+      <h5 style="margin-top: 2rem;" class="col-md-2"><label for="scheduling">Schedule Name: </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control"  >
-          <option >--Select--</option>
-         
-      </select> 
+        <select style="background-color: #D4F4FF !important;width: 20rem" class="form-control" [(ngModel)]="BatchScheduleNameKey"
+          (change)="getScheduleDetails($event.target.value)">
+          <option>--Select--</option>
+          <option *ngFor="let f of scheduleNameList" [value]="f.BatchScheduleNameKey">
+            {{f.ScheduleName}}
+          </option>
+        </select>
       </div>
-      </div> -->
-
-      <!-- <div class="col-md-6">
-          
-          <!-- <form class="" method="post" action="https://formspree.io/"> -->
-          <!-- <div class="form-group">
-            <label >Schedule Name:</label>
-              <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control">
-              <option >--Select--</option>
-               </select>         
-               </div> -->
-
-              
-
-
-      <!-- <div class="form-group">
-        <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scheduling" >Workorder Notes: </label></h5>
-        <div class = "col-sm-3 col-md-3 col-lg-3">
-          <textarea ng-model="batch.WorkorderNotes" cols="45" rows="4" class="form-control" maxlength="200"></textarea>
+      <div class="col-md-1"></div>
+      <h5 style="margin-top: 2rem;" class="col-md-2"><label for="scheduling">Employee: </label></h5>
+      <div class="md-form col-md-3">
+        <input type="text" readonly [(ngModel)]="empName" style="background-color: #D4F4FF !important;width: 20rem"
+          class="form-control">
       </div>
-  </div> -->
+    </div>
 
-  <!-- <div class="form-group">
-      <label>Workorder Notes:</label>
-      <textarea cols="45" rows="4" class="form-control" maxlength="200"></textarea>
-            
-         </div>
-  
+
+    <div class="col-md-12">
+      <div class="row col-md-12">
+        <h5 style="margin-top: 2rem;" class="col-md-2"><label for="scheduling" style=" margin-left: -1rem;">WorkOrder
+            Notes: </label></h5>
+        <div class=" col-md-3 ">
+          <textarea cols="45" rows="4" [(ngModel)]="WorkorderNotes" class="form-control" maxlength="200" style=" margin-left: -0.6rem;"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="row col-md-12">
+      <h5 style="margin-top: 2rem;" class="col-md-2"><label for="scheduling">Start Date: </label></h5>
+      <div class="md-form col-md-3" style="text-align:left">
+        <igx-datePicker [(ngModel)]="workScheduleStartDate" label="" cancelButtonLabel="cancel" todayButtonLabel="today">
+          <!-- <ng-template igxCalendarHeader let-format>
+            {{ format.month.combined }}{{format.day.combined }}{{ format.weekday.combined }}
+          </ng-template>
+          <ng-template igxCalendarSubheader let-format>
+            <span class="date__el" (click)="format.yearView()">{{ format.year.combined }}</span>
+            <span class="date__el" (click)="format.monthView()">{{ format.month.combined }}</span>
+          </ng-template> -->
+        </igx-datePicker>
+      </div>
+      <div class="col-md-1"></div>
+      <h5 style="margin-top: 2rem;" class="col-md-2"><label for="scheduling">End Date: </label></h5>
+      <div class="md-form col-md-3">
+        <igx-datePicker item-width="25%" label="" cancelButtonLabel="cancel" todayButtonLabel="today" [(ngModel)]="workScheduleEndDate"
+          [formatter]="formatter"></igx-datePicker>
+      </div>
+    </div>
   </div>
 
-  <div class="col-md-6">
-      <div class="form-group">
-          <label>Employee:</label>
-              
-        <input type="text"  class="form-control">
-    
+  <!-- Table for generating barcode for BatchSchedule -->
+  <div *ngIf="roomList?.length > 0||roomTempList?.length > 0">
+    <table class="table table-hover table-responsive table-bordered table" style="margin-top: 2rem;">
+      <thead class="tableHead">
+        <th> Building </th>
+        <th>Room Number</th>
+        <th>Minutes</th>
+        <th> Frequency</th>
+        <td (click)="selectAllMon()">Monday</td>
+        <td (click)="selectAllTue()">Tuesday</td>
+        <td (click)="selectAllWed()">Wednesday</td>
+        <td (click)="selectAllThu()">Thursday</td>
+        <td (click)="selectAllFri()">Friday</td>
+        <td (click)="selectAllSat()">Saturday</td>
+        <td (click)="selectAllSun()">Sunday</td>
+        <td (click)="selectAllPhoto()">Photo Required</td>
+        <td (click)="selectAllBarcode()">Barcode Required</td>
+        <td>Room Type</td>
+        <td>Work Order Type *</td>
+      </thead>
+      <tr *ngFor="let x of roomList">
+        <td>
+          <span style="color: red">{{x.FacilityName}}</span> - <span style="color: blue">{{x.FloorName}}</span> - <span
+            style="color: black">{{x.ZoneName}}</span>
+        </td>
+        <td>
+          {{x.RoomId}}
+
+        </td>
+        <td>
+          <span *ngIf="x.MetricType == 'Minutes Per'">{{x.MetricValue}}</span>
+          <span *ngIf="x.MetricType != 'Minutes Per'">{{x.MetricValue * x.Area}}</span>
+        </td>
+        <td>
+          <select style="background-color: #D4F4FF !important" class="form-control" [(ngModel)]="x.dailyFrequency">
+            <option *ngFor="let f of recurringFrequency">
+              {{f}}
+            </option>
+          </select>
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="x.check_mon" (change)="metricCal()">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="x.check_tue" (change)="metricCal()">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="x.check_wed" (change)="metricCal()">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="x.check_thu" (change)="metricCal()">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="x.check_fri" (change)="metricCal()">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="x.check_sat" (change)="metricCal()">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="x.check_sun" (change)="metricCal()">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="x.photoReq">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="x.barcodeReq">
+        </td>
+        <td>
+          {{x.RoomType}}
+        </td>
+        <td>
+          <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="x.WorkorderTypeKey">
+            <option value="select">--Select--</option>
+            <option *ngFor="let b of woList" [value]="b.WorkorderTypeKey">
+              {{b.WorkorderTypeText}}
+            </option>
+          </select>
+        </td>
+      </tr>
 
 
-      </div>
 
 
-      </div> -->
+      <tr *ngFor="let z of roomTempList">
+        <td>
+          <span style="color: red">{{z.FacilityName}}</span> - <span style="color: blue">{{z.FloorName}}</span> - <span
+            style="color: black">{{z.ZoneName}}</span>
+        </td>
+        <td>
+          {{z.RoomId}}
 
-      <div class="col-md-12">
-          <div class="row col-md-12">
-            <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scheduling" >Schedule Name: </label></h5>
-            <div class="md-form col-md-3" style="text-align:left">
-                <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control"  >
-                  <option >--Select--</option>
-                 
-              </select> 
-              </div>
-          </div>
-          
-      
-          <div class="col-md-12">
-            <div class="row col-md-12">
-              <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scheduling" >WorkOrder Notes: </label></h5>
-              <div class = "col-sm-3 col-md-3 col-lg-3">
-                  <textarea  cols="45" rows="4" class="form-control" maxlength="200"></textarea>
-              </div>
-      </div>
-    
-        <div class="col-md-12">
-              <div class="row col-md-12">
-                <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scheduling" >Employee: </label></h5>
-                <div class="md-form col-md-3" style="text-align:left">
-                    <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control">
-                  </div>
-          
-          </div>
-          </div>
-          </div>
-          </div>
-          </div>
-            
-          
-  
-      
-        
-      
-
-
-
-
-<!-- Table for generating barcode for BatchSchedule -->
-<table class="table table-hover table-responsive table-bordered table">
-    <thead class="tableHead">
-      <!-- <tr> -->
-      <th> Building </th>
-      <th> Floor </th>
-      <th> Zone</th>
-      <th>Room Numbe</th>
-      <th> Floor Type</th>
-      <th>Room Types</th>
-      <th>Minutes</th>
-      <th> Frequency</th>
-      
-      <th>Monday</th>
-      <th>Tuesday</th>
-      <th>Wednesday</th>
-      <th>Thursday</th>
-      <th>Friday</th>
-      <th>Saturday</th>
-      <th>Sunday</th>
-
-      <th>Photo Required</th>
-      <th>Barcode Required</th>
-      
-      
-      
-      <!-- </tr> -->
-    </thead>
-    <tbody>
-      
-    </tbody>
-  </table>
-
-    
-
-  
-    
-    
+        </td>
+        <td>
+          <span *ngIf="z.MetricType == 'Minutes Per'">{{z.MetricValue}}</span>
+          <span *ngIf="z.MetricType != 'Minutes Per'">{{z.MetricValue * z.Area}}</span>
+        </td>
+        <td>
+          <select style="background-color: #D4F4FF !important" class="form-control" [(ngModel)]="z.dailyFrequency"
+            (change)="metricCal()">
+            <option *ngFor="let f of recurringFrequency">
+              {{f}}
+            </option>
+          </select>
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="z.check_mon" (change)="metricCal()">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="z.check_tue" (change)="metricCal()">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="z.check_wed" (change)="metricCal()">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="z.check_thu" (change)="metricCal()">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="z.check_fri" (change)="metricCal()">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="z.check_sat" (change)="metricCal()">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="z.check_sun" (change)="metricCal()">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="z.photoReq">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="z.barcodeReq">
+        </td>
+        <td>
+          {{z.RoomType}}
+        </td>
+        <td>
+          <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="z.WorkorderTypeKey">
+            <option value="select">--Select--</option>
+            <option *ngFor="let w of woList" [value]="w.WorkorderTypeKey">
+              {{w.WorkorderTypeText}}
+            </option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4">Total Assigned daily minutes</td>
+        <td>{{totalMonTime}}</td>
+        <td>{{totalTuesTime}}</td>
+        <td>{{totalWedTime}}</td>
+        <td>{{totalThuTime}}</td>
+        <td>{{totalFriTime}}</td>
+        <td>{{totalSatTime}}</td>
+        <td>{{totalSunTime}}</td>
+        <td colspan="4"></td>
+      </tr>
+    </table>
+    <button (click)="createBatchReport()" class="btn btn-success" style="margin-left: 40rem;">Save</button>
+  </div>
+</div>
