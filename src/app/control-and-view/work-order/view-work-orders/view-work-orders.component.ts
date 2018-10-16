@@ -56,6 +56,7 @@ export class ViewWorkOrdersComponent implements OnInit {
   DeleteWOList: workorder[];
   deleteWO;
   searchWorkorder;
+  workorderCheckValue=false;
   //validation min3_alphanumeric
   searchform: FormGroup;
   regexStr = '^[a-zA-Z0-9_ ]*$';
@@ -403,6 +404,9 @@ export class ViewWorkOrdersComponent implements OnInit {
       .delete_WO(this.deleteWO)
       .subscribe((data: any[]) => {
         // this.DeleteWOList = data; 
+        this.workorderCheckValue=false;
+        this.checkValue=[];
+        this.workorderKey=[];
         this.viewWO_Filter();
       });
   }

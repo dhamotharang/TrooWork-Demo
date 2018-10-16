@@ -99,6 +99,7 @@ import { EmployeeWelcomeComponent } from './control-and-view/dashboard/user-welc
 
 import { CreateQuickOrderComponent } from './control-and-view/work-order/create-quick-order/create-quick-order.component';
 import { CreateWorkorderComponent } from './control-and-view/work-order/create-workorder/create-workorder.component';
+import { EditWorkOrderComponent } from './control-and-view/work-order/edit-work-order/edit-work-order.component';
 import { ViewWorkOrdersComponent } from './control-and-view/work-order/view-work-orders/view-work-orders.component';
 import { ViewEmployeeComponent } from './control-and-view/people/view-employee/view-employee.component';
 import { EditEmployeedetailsComponent } from './control-and-view/people/edit-employeedetails/edit-employeedetails.component';
@@ -242,7 +243,8 @@ import { ViewworkordersforemployeeComponent } from './control-and-view/employee/
     ViewmeetingortrainingeventComponent,
     ResetpasswordforsamoduleComponent,
     SettingusernameandpswrdaftremplcreatebymanComponent,
-    ViewworkordersforemployeeComponent
+    ViewworkordersforemployeeComponent,
+    EditWorkOrderComponent
 
   ],
   imports: [

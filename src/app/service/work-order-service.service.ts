@@ -147,6 +147,12 @@ export class WorkOrderServiceService {
       .http
       .post (url, obj);
     }
+    getWO_edit(WO_Key,org_id)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/workorderDetails?SearchKey='+WO_Key+'&OrganizationID='+org_id);
+    }
 
 // ****Pooja's code starts here****
 
