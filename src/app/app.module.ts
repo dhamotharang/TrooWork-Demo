@@ -135,7 +135,7 @@ import { ViewmeetingortrainingeventComponent } from './control-and-view/employee
 import { ResetpasswordforsamoduleComponent } from './control-and-view/superadmin/people/resetpasswordforsamodule/resetpasswordforsamodule.component';
 import { SettingusernameandpswrdaftremplcreatebymanComponent } from './control-and-view/people/settingusernameandpswrdaftremplcreatebyman/settingusernameandpswrdaftremplcreatebyman.component';
 import { ViewworkordersforemployeeComponent } from './control-and-view/employee/viewworkordersforemployee/viewworkordersforemployee.component';
-
+import { ViewinspectionmanagerComponent } from './control-and-view/inspection/viewinspectionmanager/viewinspectionmanager.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -242,7 +242,8 @@ import { ViewworkordersforemployeeComponent } from './control-and-view/employee/
     ViewmeetingortrainingeventComponent,
     ResetpasswordforsamoduleComponent,
     SettingusernameandpswrdaftremplcreatebymanComponent,
-    ViewworkordersforemployeeComponent
+    ViewworkordersforemployeeComponent,
+    ViewinspectionmanagerComponent
 
   ],
   imports: [

@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges, Directive, HostListener, ElementRef, Inpu
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { InspectionService } from '../../../service/inspection.service';
 import { Inspection } from '../../../model-class/Inspection';
+import { ActivatedRoute, Router } from "@angular/router";
 @Component({
   selector: 'app-inspection-view',
   templateUrl: './inspection-view.component.html',
@@ -14,8 +15,9 @@ export class InspectionViewComponent implements OnInit {
   todate: Date;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
+  ins_Key:Number;
   
-  constructor(private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef) { }
+  constructor(private router: Router,private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef) { }
   
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     return new RegExp(this.regexStr).test(event.key);
@@ -38,6 +40,8 @@ export class InspectionViewComponent implements OnInit {
 
     }, 100)
   }
+
+
   filteringInspectionManagerByDate() {
     if (!this.fromdate) {
       var date1 = this.convert_DT(new Date());

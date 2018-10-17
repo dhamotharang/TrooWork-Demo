@@ -153,5 +153,10 @@ export class InspectionService {
     .http
     .get('http://localhost:3000/api/searchInspectionOrder?OrganizationID='+21+'&searchLocation='+SearchValue+'&search_DT='+search_DT+'&search_DT2='+search_DT2)
   }
+  getViewInspectionManager(ioKey,OrgId){
+    return this
+    .http
+    .get('http://localhost:3000/api/getinspectionDetails?inspectionorder='+ioKey+'&OrganizationID='+OrgId)
+  }
   }
 

@@ -16,4 +16,5 @@ export interface Inspection {
     search_DT: Date;
     search_DT2: Date;
     inspectionDate:Date;
+    inspectionorder:Number;
 }

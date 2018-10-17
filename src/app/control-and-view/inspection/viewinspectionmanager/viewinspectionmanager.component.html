@@ -1,0 +1,27 @@
+
+<app-manager-dash-board></app-manager-dash-board>
+<br><br>
+<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <!-- <div class="container"> -->
+  <div class="row col-md-12 ">
+    <h3> {{roomtype}} - {{roomid}} Inspection Report  </h3>
+    <h5><b>Inspected by {{supervisorname}} on {{EmployeeName}}</b></h5><br><br>
+  </div>
+  <br><br>
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
+    <table class="table table-responsive table-hover table-bordered table">
+        <h4>{{templatename}}</h4>
+      <thead class="tableHead">
+          <td>Template Questions</td>
+          <td>Score Type - {{scoreName}}</td>
+          <td>Notes</td>
+      </thead>
+      <tbody>
+        <tr *ngFor="let x of inspectioneddetails" >
+            <td>{{x.Question}}</td>
+            <td>{{x.Value}}</td>
+            <td>{{x.Notes}}</td>
+        </tr>
+      </tbody>
+      </table>
+</div>
