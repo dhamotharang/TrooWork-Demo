@@ -12,7 +12,7 @@
       <h1 style="text-align: right"></h1>
       <div class="form-group">
         <label>Workorder Type</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WOEditList.WorkorderTypeKey"
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="workordertypekey"
           required>
           <option>--Select--</option>
           <option *ngFor="let e of workorderTypeList" [value]="e.WorkorderTypeKey">
@@ -22,7 +22,7 @@
       </div>
       <div class="form-group">
         <label>Building*</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WOEditList.FacilityKey"
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey"
           (change)="getFloorDisp($event.target.value);" required>
           <option>--Select--</option>
           <option *ngFor="let b of facilitylist" [value]="b.FacilityKey">
@@ -32,8 +32,8 @@
       </div>
       <div class="form-group">
         <label>Floor*</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WOEditList.FloorKey"
-          [disabled]="!WOEditList.FacilityKey" (change)="getZoneRoomTypeRoom($event.target.value,FacilityKey);getEquiment($event.target.value,FacilityKey);"
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey"
+          [disabled]="!FacilityKey" (change)="getZoneRoomTypeRoom($event.target.value,FacilityKey);getEquiment($event.target.value,FacilityKey);"
           required>
           <option>--Select--</option>
           <option *ngFor="let b of FloorList" [value]="b.FloorKey">
@@ -43,8 +43,8 @@
       </div>
       <div class="form-group">
         <label>Zone</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WOEditList.ZoneKey"
-          [disabled]="!WOEditList.FloorKey||showEqTypes" (change)="getRoomTypeRoom($event.target.value,FacilityKey,FloorKey);"
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey"
+          [disabled]="!FloorKey||(showEqTypes==true)" (change)="getRoomTypeRoom($event.target.value,FacilityKey,FloorKey);"
           required>
           <option>--Select--</option>
           <option *ngFor="let b of zonelist" [value]="b.ZoneKey">
@@ -54,8 +54,8 @@
       </div>
       <div class="form-group">
         <label>Room Type</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WOEditList.RoomTypeKey"
-          [disabled]="!WOEditList.FloorKey||showEqTypes" (change)="getRoom($event.target.value,ZoneKey,FacilityKey,FloorKey);"
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey"
+          [disabled]="!FloorKey||(showEqTypes==true)" (change)="getRoom($event.target.value,ZoneKey,FacilityKey,FloorKey);"
           required>
           <option>--Select--</option>
           <option *ngFor="let b of RoomTypeList" [value]="b.RoomTypeKey">
@@ -65,8 +65,8 @@
       </div>
       <div class="form-group">
         <label>Room</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WOEditList.RoomKey"
-          [disabled]="!WOEditList.FloorKey||showEqTypes" required>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomKey"
+          [disabled]="!FloorKey||(showEqTypes==true)" required>
           <option>--Select--</option>
           <option *ngFor="let b of RoomList" [value]="b.RoomKey">
             {{b.RoomName}}
@@ -75,7 +75,7 @@
       </div>
       <div class="form-group">
         <label>Priority Level</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WOEditList.PriorityKey"
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="PriorityKey"
           required>
           <option>--Select--</option>
           <option *ngFor="let b of priorityList" [value]="b.PriorityKey">
@@ -92,7 +92,7 @@
       <h1 style="text-align: right"></h1>
       <div class="form-group">
         <label>Workorder Notes*</label>
-        <textarea class="form-control rounded-0" [(ngModel)]="WOEditList.WorkorderNotes" rows="6" style="resize: none;"></textarea>
+        <textarea class="form-control rounded-0" [(ngModel)]="WorkorderNotes" rows="6" style="resize: none;"></textarea>
       </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Is Equipment</label>
@@ -100,7 +100,7 @@
       </div>
       <div class="form-group">
         <label>Equipment Type</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WOEditList.EquipmentTypeKey"
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EquipmentTypeKey"
           [disabled]="!showEqTypes" (change)="showEquipment_typechange($event.target.value,FacilityKey,FloorKey)"
           required>
           <option>--Select--</option>
@@ -111,7 +111,7 @@
       </div>
       <div class="form-group">
         <label>Equipment Name</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WOEditList.EquipmentKey"
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EquipmentKey"
           [disabled]="!showEqTypes" required>
           <option>--Select--</option>
           <option *ngFor="let e of EquipmentList" [value]="e.EquipmentTypeKey">
@@ -121,7 +121,7 @@
       </div>
       <div class="form-group">
         <label>Employee*</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WOEditList.EmployeeKey"
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EmployeeKey"
           required>
           <option>--Select--</option>
           <option *ngFor="let e of EmployeeOption" [value]="e.EmployeeKey">
@@ -148,15 +148,19 @@
         </div>
       </div>
       <div class="col-md-12">
+        <div class="col col-md-3"></div>
+        <div style="text-align:left" class="col-md-3">
+          <button type="button" class="btn btn-primary" (click)=UpdateWO()>Update Work Instance</button>
+        </div>
         <div style="text-align:left" class="col-md-3">
           <a routerLink="/ViewWorkOrder" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Go
               Back
             </b>
           </a></div>
-        <div class="col col-md-3"></div>
         <div style="text-align:left" class="col-md-3">
           <button type="button" class="btn btn-danger button_style" (click)=DeleteWO()>Delete</button>
         </div>
+        <div class="col col-md-3"></div>
       </div>
     </div>
   </div>

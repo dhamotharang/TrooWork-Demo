@@ -142,7 +142,8 @@ export class WorkOrderServiceService {
         .post (url, obj);
     }
     delete_WO(obj)
-    {const url = 'http://localhost:3000/api/deleteWorkOrders';
+    {
+      const url = 'http://localhost:3000/api/deleteWorkOrders';
     return this
       .http
       .post (url, obj);
@@ -152,6 +153,13 @@ export class WorkOrderServiceService {
       return this
       .http
       .get('http://localhost:3000/api/workorderDetails?SearchKey='+WO_Key+'&OrganizationID='+org_id);
+    }
+    deleteCurrent_WO(obj)
+    {
+      const url = 'http://localhost:3000/api/deleteByWorkorderKey';
+      return this
+        .http
+        .post (url, obj);
     }
 
 // ****Pooja's code starts here****
