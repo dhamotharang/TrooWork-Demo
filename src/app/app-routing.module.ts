@@ -115,6 +115,7 @@ import { ResetpasswordforsamoduleComponent } from './control-and-view/superadmin
 import { SettingusernameandpswrdaftremplcreatebymanComponent } from './control-and-view/people/settingusernameandpswrdaftremplcreatebyman/settingusernameandpswrdaftremplcreatebyman.component';
 import { ViewworkordersforemployeeComponent } from './control-and-view/employee/viewworkordersforemployee/viewworkordersforemployee.component';
 import { ViewinspectionmanagerComponent } from './control-and-view/inspection/viewinspectionmanager/viewinspectionmanager.component';
+import { EditWorkOrderComponent } from './control-and-view/work-order/edit-work-order/edit-work-order.component';
 
 const routes: Routes = [
   {
@@ -459,60 +460,64 @@ const routes: Routes = [
     component: JobTitleEditAdminComponent
   },
   {
-    path:'ViewDocuments',
-    component:ViewDocumentsComponent
+    path: 'ViewDocuments',
+    component: ViewDocumentsComponent
   },
   {
-    path:'CreateWorkOrder',
-    component:CreateWorkorderComponent
+    path: 'CreateWorkOrder',
+    component: CreateWorkorderComponent
   },
   {
-    path:'CreateOrganization',
-    component:CreateOrganizationComponent
+    path: 'CreateOrganization',
+    component: CreateOrganizationComponent
   },
   {
-    path:'ViewOrganization',
-    component:ViewOrganizationComponent
-  },
-   {
-     path:'Orgedit/:OrganizationID',
-     component:EditOrganizationComponent
-   },
-   {
-     path:'Createemployee',
-     component:CreateemployeeComponent
-   },
-   {
-     path:'Viewemployee',
-     component:ViewemployeeComponent
-   },
-   {
-    path:'Managelogincredentials',
-    component:ManagelogincredentialsComponent
-   },
-   {
-    path:'Editemployee/:EmployeeKey',
-    component:EditemployeeComponent
-   },
-   {
-    path:'Viewmeetingortrainingevent',
-    component:ViewmeetingortrainingeventComponent
-   },
-   {
-   path:'Resetpasswordforsamodule/:EmpKey',
-   component:ResetpasswordforsamoduleComponent
+    path: 'ViewOrganization',
+    component: ViewOrganizationComponent
   },
   {
-    path:'Settingusernameandpswrdaftremplcreatebyman/:EmpKey',
-    component:SettingusernameandpswrdaftremplcreatebymanComponent
+    path: 'Orgedit/:OrganizationID',
+    component: EditOrganizationComponent
   },
   {
-    path:'Viewworkordersforemployee',
-    component:ViewworkordersforemployeeComponent
+    path: 'Createemployee',
+    component: CreateemployeeComponent
   },
   {
-    path:'ViewInspectionManager/:InspectionOrderKey',
-    component:ViewinspectionmanagerComponent
+    path: 'Viewemployee',
+    component: ViewemployeeComponent
+  },
+  {
+    path: 'Managelogincredentials',
+    component: ManagelogincredentialsComponent
+  },
+  {
+    path: 'Editemployee/:EmployeeKey',
+    component: EditemployeeComponent
+  },
+  {
+    path: 'Viewmeetingortrainingevent',
+    component: ViewmeetingortrainingeventComponent
+  },
+  {
+    path: 'Resetpasswordforsamodule/:EmpKey',
+    component: ResetpasswordforsamoduleComponent
+  },
+  {
+    path: 'Settingusernameandpswrdaftremplcreatebyman/:EmpKey',
+    component: SettingusernameandpswrdaftremplcreatebymanComponent
+  },
+  {
+    path: 'Viewworkordersforemployee',
+    component: ViewworkordersforemployeeComponent
+  },
+  {
+    path: 'ViewInspectionManager/:InspectionOrderKey',
+    component: ViewinspectionmanagerComponent
+  },
+  {
+    path: 'EditWorkOrder/:WorkorderKey',
+    component: EditWorkOrderComponent
   }
 ];
 

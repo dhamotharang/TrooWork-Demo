@@ -113,12 +113,14 @@
     </div>
   </div>
  <div><br><br></div>
+ <form [formGroup]="searchform">
       <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
-        <input class="form-control" name="searchWO" maxlength="20" type="text"
-          placeholder="Search WorkOrder Type,Employee,Room" aria-label="Search" [(ngmodel)]="searchWO"
+        <input class="form-control" name="searchWO" maxlength="20" type="text"  specialIsAlphaNumeric minlength="3" formControlName="SearchWo"
+          placeholder="Search WorkOrder Type,Employee,Room" aria-label="Search" [(ngmodel)]="SearchWo"
           (input)="searchworkType_emp_room($event.target.value);" style="width: 100%;">
-        <!-- <div *ngIf="searchform.controls.SearchFacility.errors?.minlength">Minimum 3 characters required.</div> -->
-      </div>
+      <div *ngIf="searchform.controls.SearchWo.errors?.minlength">Minimum 3 characters required.</div>
+    </div>
+    </form>
     
     <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
     <table *ngIf='workorderList' class="table table-hover table-responsive table-bordered table">
@@ -137,26 +139,26 @@
         <th>Notes</th>
         <th>View</th>
         <th *ngIf="checkValue.length <= 0">Delete</th>
-        <th *ngIf="checkValue.length > 0"> <button  sweetalert sweet-options="{{sweet.option}}" sweet-confirm-option="{{sweet.confirm}}" class = "btn btn-danger button_style" sweet-cancel-option="{{sweet.cancel}}"     type="button"  sweet-on-cancel="checkCancel()" sweet-on-confirm="deleteWorkOrdersPage()"  tabindex="4"> <span class="glyphicon glyphicon-trash"></span>  Delete</button></th>
+        <th *ngIf="checkValue.length > 0"> <button  sweet-confirm-option="{{sweet.confirm}}" class = "btn btn-danger button_style"  sweetalert sweet-options="{{sweet.option}}"   type="button"  sweet-on-cancel="checkCancel()" (click)="deleteWorkOrdersPage()"  tabindex="4"> <span class="glyphicon glyphicon-trash"></span>  Delete</button></th>
       </thead>
       <tbody>
-          <tr *ngFor="let x of workorderList">
-              <td (click)="viewWorkForEdit(x.WorkorderKey)">{{x.WorkorderTypeName}} </td>
-              <td style="width:7%;overflow: auto" (click)="viewWorkForEdit(x.WorkorderKey)"> {{x.WorkorderTime}}</td> 
-              <td (click)="viewWorkForEdit(x.WorkorderKey)">{{x.WorkorderStatus}}</td>
-              <td (click)="viewWorkForEdit(x.WorkorderKey)"> {{x.LastName}},{{x.FirstName}}</td>
-              <td id="tooltip" (click)="viewWorkForEdit(x.WorkorderKey)">{{x.RoomId}}</td>
-              <td (click)="viewWorkForEdit(x.WorkorderKey)" id="tooltip" >{{x.EquipmentName}}
-                  <span id="tooltip-span" style="position:absolute;color: white;">{{x.EquipmentType}}</span> </td>
-              <td (click)="viewWorkForEdit(x.WorkorderKey)" *ngIf="x.IsReccurring === 1 && x.IsSchedule === 0">YES</td>
-              <td (click)="viewWorkForEdit(x.WorkorderKey)" *ngIf="x.IsReccurring === 1 && x.IsSchedule === 1">YES , {{x.ScheduleName}}</td>
-              <td (click)="viewWorkForEdit(x.WorkorderKey)" *ngIf="x.IsReccurring === 0 && x.IsSchedule === 1">NO , {{x.ScheduleName}}</td>
-              <td (click)="viewWorkForEdit(x.WorkorderKey)" *ngIf="x.IsReccurring === 0 && x.IsSchedule === 0">NO</td>
-              <td (click)="viewWorkForEdit(x.WorkorderKey)">{{x.checkin}}</td>
-              <td (click)="viewWorkForEdit(x.WorkorderKey)">{{x.checkout}}</td>
-              <td (click)="viewWorkForEdit(x.WorkorderKey)">{{x.duration}}</td>
-              <td (click)="viewWorkForEdit(x.WorkorderKey)">{{x.DelayTime}}</td>
-              <td style="width:15%;word-break: break-all;" (click)="viewWorkForEdit(x.WorkorderKey)">{{x.WorkorderNotes}}</td> 
+          <tr *ngFor="let x of workorderList;let i=index">
+              <td><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}">{{x.WorkorderTypeName}}</a></td>
+              <td><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}"> {{x.WorkorderTime}}</a></td> 
+              <td><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}"> {{x.WorkorderStatus}}</a></td>
+              <td><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}"> {{x.LastName}},{{x.FirstName}}</a></td>
+                <td><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}">{{x.RoomId}}</a></td>
+                  <td><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}">{{x.EquipmentName}}
+                  <span id="tooltip-span" style="position:absolute;color: white;">{{x.EquipmentType}}</span> </a></td>
+              <td  *ngIf="x.IsReccurring === 1 && x.IsSchedule === 0"><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}">YES</a></td>
+              <td *ngIf="x.IsReccurring === 1 && x.IsSchedule === 1"><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}">YES , {{x.ScheduleName}}</a></td>
+              <td  *ngIf="x.IsReccurring === 0 && x.IsSchedule === 1"><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}">NO , {{x.ScheduleName}}</a></td>
+              <td  *ngIf="x.IsReccurring === 0 && x.IsSchedule === 0"><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}">NO</a></td>
+              <td><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}">{{x.checkin}}</a></td>
+                <td><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}">{{x.checkout}}</a></td>
+                  <td><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}">{{x.duration}}</a></td>
+                    <td><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}">{{x.DelayTime}}</a></td>
+              <td style="width:15%;word-break: break-all;"><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}">{{x.WorkorderNotes}}</a></td> 
               <!--                                            http://localhost:3000/pho1/
                                           http://demotroowork.azurewebsites.net/pho1/1499936421536.jpg-- working
                                                           http://demotroowork.azurewebsites.net/-->
@@ -166,7 +168,7 @@
                       <button type="button" class="btn btn-default btn-xs" *ngIf="x.IsPhotoRequired === 1 && x.WorkorderStatus === 'Completed'" >View Image</button>
                   </a> </td> 
               <td *ngIf="x.WorkorderStatus !== 'Scheduled'"></td>
-              <td *ngIf="x.WorkorderStatus === 'Scheduled'"> <input type="checkbox" [(ngModel)]="workorderCheckValue" (click)="checkBoxValueForDelete($index, workorderCheckValue, x.WorkorderKey)"> </td>
+              <td *ngIf="x.WorkorderStatus === 'Scheduled'"> <input type="checkbox" [(ngModel)]="workorderCheckValue" (change)="toggleVisibility($event);checkBoxValueForDelete(i, workorderCheckValue, x.WorkorderKey);" ></td>
 
           </tr>
           <tr *ngIf="workorderList?.length == 0">
