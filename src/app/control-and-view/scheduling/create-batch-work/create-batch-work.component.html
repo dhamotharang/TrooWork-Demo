@@ -11,7 +11,7 @@
     <div class="row col-md-12">
       <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scheduling">Schedule Name: </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
-        <input type="text" [(ngmodel)]="scheduleName" style="background-color: #D4F4FF !important;width: 30rem" class="form-control">
+        <input type="text" [(ngModel)]="scheduleName" style="background-color: #D4F4FF !important;width: 30rem" class="form-control">
       </div>
     </div>
 
@@ -20,7 +20,7 @@
         <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scheduling">Schedule Description:
           </label></h5>
         <div class="md-form col-md-3" style="text-align:left">
-          <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngmodel)]="scheduleDescription">
+          <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="scheduleDescription">
         </div>
       </div>
 
@@ -28,7 +28,7 @@
         <div class="row col-md-12">
           <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scheduling">Employee: </label></h5>
           <div class="md-form col-md-3" style="text-align:left">
-            <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngmodel)]="employeeKey"
+            <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="employeeKey"
               (change)="setEmployeeForbatchSchedule($event.target.value)">
               <option>--Select--</option>
               <option *ngFor="let b of empList" [value]="b.EmployeeKey">
@@ -39,9 +39,6 @@
         </div>
         <div class="row col-md-12">
           <div class="col-md-6 text-center">
-            <!-- <button style="color:white !important" (click)="createScheduleName(scheduleName,scheduleDescription)" class="btn btn-success">Create
-              Schedule Name</button> -->
-
             <a style="color:white !important" class="btn btn-success" (click)="createScheduleName()"><b>Create
                 Schedule Name</b>
             </a>

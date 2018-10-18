@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SchedulingService } from '../../../service/scheduling.service';
 import { Router } from "@angular/router";
-import { debug } from 'util';
 @Component({
   selector: 'app-create-batch-work',
   templateUrl: './create-batch-work.component.html',
@@ -45,27 +44,27 @@ export class CreateBatchWorkComponent implements OnInit {
 
   createScheduleName() {
     debugger;
-    // if (!this.scheduleName) {
-    //   alert("BatchSchduleName is not provided !");
-    // } else if (!this.scheduleDescription) {
-    //   alert("ScheduleDescription is not provided!");
-    // }
-    // else if (!this.empKey) {
-    //   alert("Employee Name is not provided !");
-    // }
-    // else {
-    this.scheduleService
-      .checkScheduleName(this.scheduleName, this.employeekey, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        if (data[0].count > 0) {
-          alert("Schedule Name already present");
-        }
-        else if (data.length == 0) {
-          this.scheduleService.addScheduleName(this.scheduleName, this.empKey, this.scheduleDescription, this.employeekey, this.OrganizationID)
-            .subscribe(res => this.router.navigateByUrl('/SchedulingView'));
-        }
-      });
-    // }
+    if (!this.scheduleName) {
+      alert("BatchSchduleName is not provided !");
+    } else if (!this.scheduleDescription) {
+      alert("ScheduleDescription is not provided!");
+    }
+    else if (!this.empKey) {
+      alert("Employee Name is not provided !");
+    }
+    else {
+      this.scheduleService
+        .checkScheduleName(this.scheduleName, this.employeekey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          if (data[0].count > 0) {
+            alert("Schedule Name already present");
+          }
+          else if (data[0].count == 0) {
+            this.scheduleService.addScheduleName(this.scheduleName, this.empKey, this.scheduleDescription, this.employeekey, this.OrganizationID)
+              .subscribe(res => this.router.navigateByUrl('/SchedulingView'));
+          }
+        });
+    }
   }
   ngOnInit() {
 

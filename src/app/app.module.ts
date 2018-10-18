@@ -136,6 +136,8 @@ import { ViewmeetingortrainingeventComponent } from './control-and-view/employee
 import { ResetpasswordforsamoduleComponent } from './control-and-view/superadmin/people/resetpasswordforsamodule/resetpasswordforsamodule.component';
 import { SettingusernameandpswrdaftremplcreatebymanComponent } from './control-and-view/people/settingusernameandpswrdaftremplcreatebyman/settingusernameandpswrdaftremplcreatebyman.component';
 import { ViewworkordersforemployeeComponent } from './control-and-view/employee/viewworkordersforemployee/viewworkordersforemployee.component';
+import { BatchScheduleRoomComponent } from './control-and-view/scheduling/batch-schedule-room/batch-schedule-room.component';
+import { BatchScheduleNameEditComponent } from './control-and-view/scheduling/batch-schedule-name-edit/batch-schedule-name-edit.component';
 
 @NgModule({
   declarations: [
@@ -244,7 +246,9 @@ import { ViewworkordersforemployeeComponent } from './control-and-view/employee/
     ResetpasswordforsamoduleComponent,
     SettingusernameandpswrdaftremplcreatebymanComponent,
     ViewworkordersforemployeeComponent,
-    EditWorkOrderComponent
+    EditWorkOrderComponent,
+    BatchScheduleRoomComponent,
+    BatchScheduleNameEditComponent
 
   ],
   imports: [

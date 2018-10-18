@@ -87,4 +87,29 @@ export class SchedulingService {
     }
     return this.http.post(uri, obj);
   }
+
+  getSchedulingRoomList(scheduleKey, orgID) {
+    return this
+      .http
+      .get(`http://localhost:3000/api/getscheduledroomsbybatchschedulename?batchschedulenamekey=` + scheduleKey + '&OrganizationID=' + orgID);
+  }
+
+  getAllOtherRoomList(scheduleKey, orgID, pageno, itemsPerPage) {
+    return this
+      .http
+      .get(`http://localhost:3000/api/getScheduleRoomslistByBatchScheduleNamekey?batchschedulenamekey=` + scheduleKey + '&OrganizationID=' + orgID + '&pageno=' + pageno + '&itemsperpage=' + itemsPerPage);
+  }
+
+
+  addRoomToSchedule(BatchScheduleNameKey, addRoomString, employeekey, OrgID) {
+
+    const uri = "http://localhost:3000/api/addRoomInWorkOrder";
+    const obj = {
+      empkey: employeekey,
+      wkey: BatchScheduleNameKey,
+      rkey: addRoomString,
+      OrganizationID: OrgID
+    }
+    return this.http.post(uri, obj);
+  }
 }
