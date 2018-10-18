@@ -114,7 +114,9 @@ import { ViewmeetingortrainingeventComponent } from './control-and-view/employee
 import { ResetpasswordforsamoduleComponent } from './control-and-view/superadmin/people/resetpasswordforsamodule/resetpasswordforsamodule.component';
 import { SettingusernameandpswrdaftremplcreatebymanComponent } from './control-and-view/people/settingusernameandpswrdaftremplcreatebyman/settingusernameandpswrdaftremplcreatebyman.component';
 import { ViewworkordersforemployeeComponent } from './control-and-view/employee/viewworkordersforemployee/viewworkordersforemployee.component';
+import { ViewinspectionmanagerComponent } from './control-and-view/inspection/viewinspectionmanager/viewinspectionmanager.component';
 import { EditWorkOrderComponent } from './control-and-view/work-order/edit-work-order/edit-work-order.component';
+import { ManagerinspectiontemplateComponent } from './control-and-view/inspection/managerinspectiontemplate/managerinspectiontemplate.component';
 
 import { BatchScheduleRoomComponent } from './control-and-view/scheduling/batch-schedule-room/batch-schedule-room.component';
 import { BatchScheduleNameEditComponent } from './control-and-view/scheduling/batch-schedule-name-edit/batch-schedule-name-edit.component';
@@ -523,6 +525,18 @@ const routes: Routes = [
   {
     path: 'scheduleRoomEdit',
     component: BatchScheduleNameEditComponent
+  },
+  {
+    path: 'ViewInspectionManager/:InspectionOrderKey',
+    component: ViewinspectionmanagerComponent
+  },
+  {
+    path: 'EditWorkOrder/:WorkorderKey',
+    component: EditWorkOrderComponent
+  },
+  {
+    path: 'Managerinspectiontemplate/:InspectionOrderKey',
+    component: ManagerinspectiontemplateComponent
   }
 ];
 

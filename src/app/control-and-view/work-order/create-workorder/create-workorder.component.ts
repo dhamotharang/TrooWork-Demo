@@ -37,7 +37,7 @@ export class CreateWorkorderComponent implements OnInit {
   isBarcodeRequired: any;
   WorkorderTypeKey;
   workorderNotes;
-  showEqTypes;
+  showEqTypes=false;
   // temp-variables
   wot;
   notes;
@@ -454,6 +454,7 @@ export class CreateWorkorderComponent implements OnInit {
     }
     debugger;
     if (this.isRecurring == false) {
+      console.log(this.timeValue);
       if (this.timeValue) {
         this.workTime = this.timeValue.getHours() + ':' + this.timeValue.getMinutes();
       } else {

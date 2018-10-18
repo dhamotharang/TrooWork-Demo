@@ -138,6 +138,8 @@ import { SettingusernameandpswrdaftremplcreatebymanComponent } from './control-a
 import { ViewworkordersforemployeeComponent } from './control-and-view/employee/viewworkordersforemployee/viewworkordersforemployee.component';
 import { BatchScheduleRoomComponent } from './control-and-view/scheduling/batch-schedule-room/batch-schedule-room.component';
 import { BatchScheduleNameEditComponent } from './control-and-view/scheduling/batch-schedule-name-edit/batch-schedule-name-edit.component';
+import { ViewinspectionmanagerComponent } from './control-and-view/inspection/viewinspectionmanager/viewinspectionmanager.component';
+import { ManagerinspectiontemplateComponent } from './control-and-view/inspection/managerinspectiontemplate/managerinspectiontemplate.component';
 
 @NgModule({
   declarations: [
@@ -248,7 +250,10 @@ import { BatchScheduleNameEditComponent } from './control-and-view/scheduling/ba
     ViewworkordersforemployeeComponent,
     EditWorkOrderComponent,
     BatchScheduleRoomComponent,
-    BatchScheduleNameEditComponent
+    BatchScheduleNameEditComponent,
+    ViewinspectionmanagerComponent,
+    EditWorkOrderComponent,
+    ManagerinspectiontemplateComponent
 
   ],
   imports: [
