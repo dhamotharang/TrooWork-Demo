@@ -137,6 +137,8 @@ import { ResetpasswordforsamoduleComponent } from './control-and-view/superadmin
 import { SettingusernameandpswrdaftremplcreatebymanComponent } from './control-and-view/people/settingusernameandpswrdaftremplcreatebyman/settingusernameandpswrdaftremplcreatebyman.component';
 import { ViewworkordersforemployeeComponent } from './control-and-view/employee/viewworkordersforemployee/viewworkordersforemployee.component';
 import { ViewinspectionmanagerComponent } from './control-and-view/inspection/viewinspectionmanager/viewinspectionmanager.component';
+import { ManagerinspectiontemplateComponent } from './control-and-view/inspection/managerinspectiontemplate/managerinspectiontemplate.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -245,7 +247,8 @@ import { ViewinspectionmanagerComponent } from './control-and-view/inspection/vi
     SettingusernameandpswrdaftremplcreatebymanComponent,
     ViewworkordersforemployeeComponent,
     ViewinspectionmanagerComponent,
-    EditWorkOrderComponent
+    EditWorkOrderComponent,
+    ManagerinspectiontemplateComponent
 
   ],
   imports: [

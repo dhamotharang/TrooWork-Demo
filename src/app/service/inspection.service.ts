@@ -158,5 +158,33 @@ export class InspectionService {
     .http
     .get('http://localhost:3000/api/getinspectionDetails?inspectionorder='+ioKey+'&OrganizationID='+OrgId)
   }
+  InspectionDetails(Insp_Key)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/getInspectionorder?InspectionorderKey=' + Insp_Key+"&OrganizationID="+21);
+  }
+  templateQuestionService(templateId)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/getTemplateQuestions?templateId='+ templateId+"&OrganizationID="+21);
+  }
+  InspectionSaveService(inspectionDetail)
+  {
+    const url='http://localhost:3000/api/saveinspectedQuestions';
+    
+    return this
+      .http
+      .post (url,inspectionDetail).subscribe(res => console.log('Done'));
+  }
+  inspectionCompletedService(inspectionDetail1)
+  {
+    const url='http://localhost:3000/api/inspectionCompleted';
+    
+    return this
+      .http
+      .post (url,inspectionDetail1).subscribe(res => console.log('Done'));
+  }
   }
 

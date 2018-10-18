@@ -116,6 +116,7 @@ import { SettingusernameandpswrdaftremplcreatebymanComponent } from './control-a
 import { ViewworkordersforemployeeComponent } from './control-and-view/employee/viewworkordersforemployee/viewworkordersforemployee.component';
 import { ViewinspectionmanagerComponent } from './control-and-view/inspection/viewinspectionmanager/viewinspectionmanager.component';
 import { EditWorkOrderComponent } from './control-and-view/work-order/edit-work-order/edit-work-order.component';
+import { ManagerinspectiontemplateComponent } from './control-and-view/inspection/managerinspectiontemplate/managerinspectiontemplate.component';
 
 const routes: Routes = [
   {
@@ -518,6 +519,10 @@ const routes: Routes = [
   {
     path: 'EditWorkOrder/:WorkorderKey',
     component: EditWorkOrderComponent
+  },
+  {
+    path:'Managerinspectiontemplate/:InspectionOrderKey',
+    component:ManagerinspectiontemplateComponent
   }
 ];
 

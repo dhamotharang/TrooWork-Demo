@@ -3,17 +3,19 @@
 <br><br>
 <div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
-  <div class="row col-md-12 ">
-    <h3> {{roomtype}} - {{roomid}} Inspection Report  </h3>
-    <h5><b>Inspected by {{supervisorname}} on {{EmployeeName}}</b></h5><br><br>
+    <div style="text-align:center">
+    <h3> {{inspectioneddetails[0].RoomType}} - {{inspectioneddetails[0].RoomId}} Inspection Report  </h3>
+    <h5><b>Inspected by {{inspectioneddetails[0].SupervisorName}} on {{inspectioneddetails[0].EmployeeName}}</b></h5><br><br>
+    <h4>{{inspectioneddetails[0].TemplateName}}</h4>
   </div>
   <br><br>
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
+   
     <table class="table table-responsive table-hover table-bordered table">
-        <h4>{{templatename}}</h4>
+       
       <thead class="tableHead">
           <td>Template Questions</td>
-          <td>Score Type - {{scoreName}}</td>
+          <td>Score Type - {{inspectioneddetails[0].ScoreName}}</td>
           <td>Notes</td>
       </thead>
       <tbody>
@@ -24,4 +26,5 @@
         </tr>
       </tbody>
       </table>
+      <a routerLink="/InspectionView" class="btn btn-primary">Done</a>
 </div>

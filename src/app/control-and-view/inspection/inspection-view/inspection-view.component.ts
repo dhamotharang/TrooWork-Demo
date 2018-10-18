@@ -16,6 +16,28 @@ export class InspectionViewComponent implements OnInit {
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
   ins_Key:Number;
+  role: String;
+  name: String;
+  toServeremployeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
   
   constructor(private router: Router,private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef) { }
   
@@ -93,6 +115,17 @@ export class InspectionViewComponent implements OnInit {
     }
   }
   ngOnInit() {
+    //token starts....
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.toServeremployeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
+    //token ends
     var curr_date = this.convert_DT(new Date());
     this.inspectionService
       .getInspectionOrderTablewithFromCurrentDateFilter(curr_date)
