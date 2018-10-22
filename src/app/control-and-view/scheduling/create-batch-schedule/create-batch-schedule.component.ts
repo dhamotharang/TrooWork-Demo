@@ -227,8 +227,17 @@ export class CreateBatchScheduleComponent implements OnInit {
         this.scheduleDetails = data;
         this.empName = this.scheduleDetails[0].EmployeeName;
         this.WorkorderNotes = this.scheduleDetails[0].WorkorderNotes;
-        this.workScheduleStartDate = new Date(this.scheduleDetails[0].workScheduleStartDate);
-        this.workScheduleEndDate = new Date(this.scheduleDetails[0].workScheduleEndDate);
+        if (this.scheduleDetails[0].workScheduleStartDate) {
+          this.workScheduleStartDate = new Date(this.scheduleDetails[0].workScheduleStartDate);
+        } else {
+          this.workScheduleStartDate = new Date(Date.now());
+        }
+
+        if (this.scheduleDetails[0].workScheduleEndDate) {
+          this.workScheduleEndDate = new Date(this.scheduleDetails[0].workScheduleEndDate);
+        } else {
+          this.workScheduleEndDate = new Date(Date.now());
+        }
 
       });
     this.scheduleService
@@ -383,6 +392,7 @@ export class CreateBatchScheduleComponent implements OnInit {
   }
 
   createBatchReport() {
+    debugger;
     this.wotypeFlag = 0;
     if (this.workScheduleStartDate) {
       this.startDT = this.convert_DT(this.workScheduleStartDate);
@@ -401,8 +411,8 @@ export class CreateBatchScheduleComponent implements OnInit {
       }
     }
 
-    for (var i = 0; i < this.roomTempList.length; i++) {
-      if (!this.roomTempList[i].WorkorderTypeKey) {
+    for (var j = 0; j < this.roomTempList.length; j++) {
+      if (!this.roomTempList[j].WorkorderTypeKey) {
         this.wotypeFlag = this.wotypeFlag + 1;
       }
     }
@@ -568,160 +578,158 @@ export class CreateBatchScheduleComponent implements OnInit {
             this.batchFlag = this.batchFlag + 1;
             this.reload();
           });
+      }
+      //Inserting the list of new rooms in schedule
+      if (this.roomTempList.length > 0) {
 
-        //Inserting the list of new rooms in schedule
-        if (this.roomTempList.length > 0) {
+        var temproomobj2 = [];
+        var workorderkeyobj2 = [];
+        var roomlistObj2 = [];
+        var FrequencyObj2 = [];
+        var monObj2 = [];
+        var tueObj2 = [];
+        var wedObj2 = [];
+        var thuObj2 = [];
+        var friObj2 = [];
+        var satObj2 = [];
+        var sunObj2 = [];
+        var barObj2 = [];
+        var photoObj2 = [];
+        var roomsString2;
+        var roomList2 = [];
+        var FRequency2;
+        var MOnCheck2;
+        var TUeCheck2;
+        var WEdCheck2;
+        var THuCheck2;
+        var FRiCheck2;
+        var SAtCheck2;
+        var SUnCheck2;
+        var BArCheck2;
+        var PHotCheck2;
+        var WOrkordertkey2;
+        var TEmproomidobj2;
 
-          var temproomobj2 = [];
-          var workorderkeyobj2 = [];
-          var roomlistObj2 = [];
-          var FrequencyObj2 = [];
-          var monObj2 = [];
-          var tueObj2 = [];
-          var wedObj2 = [];
-          var thuObj2 = [];
-          var friObj2 = [];
-          var satObj2 = [];
-          var sunObj2 = [];
-          var barObj2 = [];
-          var photoObj2 = [];
-          var roomsString2;
-          var roomList2 = [];
-          var FRequency2;
-          var MOnCheck2;
-          var TUeCheck2;
-          var WEdCheck2;
-          var THuCheck2;
-          var FRiCheck2;
-          var SAtCheck2;
-          var SUnCheck2;
-          var BArCheck2;
-          var PHotCheck2;
-          var WOrkordertkey2;
-          var TEmproomidobj2;
+        for (var j = 0; j < this.roomTempList.length; j++) {
 
-          for (var j = 0; j < this.roomTempList.length; j++) {
+          temproomobj2.push(this.roomTempList[j].Temp_workorderbatchscheduleroomID);
+          workorderkeyobj2.push(this.roomTempList[j].WorkorderTypeKey);
+          roomList2.push(this.roomTempList[j].RoomKey);
+          FrequencyObj2.push(this.roomTempList[j].dailyFrequency);
 
-            temproomobj2.push(this.roomTempList[j].Temp_workorderbatchscheduleroomID);
-            workorderkeyobj2.push(this.roomTempList[j].WorkorderTypeKey);
-            roomList2.push(this.roomTempList[j].RoomKey);
-            FrequencyObj2.push(this.roomTempList[j].dailyFrequency);
-
-            if (this.roomTempList[j].check_mon === true) {
-              monObj2.push(this.roomTempList[j].check_mon);
-            }
-            else {
-              this.roomTempList[j].check_mon = false;
-              monObj2.push(this.roomTempList[j].check_mon);
-            }
-
-            if (this.roomTempList[j].check_tue === true) {
-              tueObj2.push(this.roomTempList[j].check_tue);
-            }
-            else {
-              this.roomTempList[j].check_tue = false;
-              tueObj2.push(this.roomTempList[j].check_tue);
-            }
-
-            if (this.roomTempList[j].check_wed === true) {
-              wedObj2.push(this.roomTempList[j].check_wed);
-            }
-            else {
-              this.roomTempList[j].check_wed = false;
-              wedObj2.push(this.roomTempList[j].check_wed);
-            }
-
-            if (this.roomTempList[j].check_thu === true) {
-              thuObj2.push(this.roomTempList[j].check_thu);
-            }
-            else {
-              this.roomTempList[j].check_thu = false;
-              thuObj2.push(this.roomTempList[j].check_thu);
-            }
-
-            if (this.roomTempList[j].check_fri === true) {
-              friObj2.push(this.roomTempList[j].check_fri);
-            }
-            else {
-              this.roomTempList[j].check_fri = false;
-              friObj2.push(this.roomTempList[j].check_fri);
-            }
-
-            if (this.roomTempList[j].check_sat === true) {
-              satObj2.push(this.roomTempList[j].check_sat);
-            }
-            else {
-              this.roomTempList[j].check_sat = false;
-              satObj2.push(this.roomTempList[j].check_sat);
-            }
-
-            if (this.roomTempList[j].check_sun === true) {
-              sunObj2.push(this.roomTempList[j].check_sun);
-            }
-            else {
-              this.roomTempList[j].check_sun = false;
-              sunObj2.push(this.roomTempList[j].check_sun);
-            }
-
-            if (this.roomTempList[j].barcodeReq === true) {
-              barObj2.push(this.roomTempList[j].barcodeReq);
-            }
-            else {
-              this.roomTempList[j].barcodeReq = false;
-              barObj2.push(this.roomTempList[j].barcodeReq);
-            }
-
-            if (this.roomTempList[j].photoReq === true) {
-              photoObj2.push(this.roomTempList[j].photoReq);
-            }
-            else {
-              this.roomTempList[j].photoReq = false;
-              photoObj2.push(this.roomTempList[j].photoReq);
-            }
+          if (this.roomTempList[j].check_mon === true) {
+            monObj2.push(this.roomTempList[j].check_mon);
           }
-          roomsString2 = roomList2.join(',');
-          FRequency2 = FrequencyObj2.join(',');
-          MOnCheck2 = monObj2.join(',');
-          TUeCheck2 = tueObj2.join(',');
-          WEdCheck2 = wedObj2.join(',');
-          THuCheck2 = thuObj2.join(',');
-          FRiCheck2 = friObj2.join(',');
-          SAtCheck2 = satObj2.join(',');
-          SUnCheck2 = sunObj2.join(',');
-          BArCheck2 = barObj2.join(',');
-          PHotCheck2 = photoObj2.join(',');
-          WOrkordertkey2 = workorderkeyobj2.join(',');
-          TEmproomidobj2 = temproomobj2.join(',');
-          this.scheduleInsert = {
-            temproomidlist: TEmproomidobj2,
-            roomList: roomsString2,
-            frequency: FRequency2,
-            monCheck: MOnCheck2,
-            tueCheck: TUeCheck2,
-            wedCheck: WEdCheck2,
-            thuCheck: THuCheck2,
-            friCheck: FRiCheck2,
-            satCheck: SAtCheck2,
-            sunCheck: SUnCheck2,
-            barCheck: BArCheck2,
-            photCheck: PHotCheck2,
-            workordertype: WOrkordertkey2,
-            empKey: this.employeekey,
-            batchScheduleNameKey: this.BatchScheduleNameKey,
-            WorkorderNotes: this.WorkorderNotes,
-            OrganizationID: this.OrganizationID,
-            fromdate: this.startDT,
-            todate: this.endDT
+          else {
+            this.roomTempList[j].check_mon = false;
+            monObj2.push(this.roomTempList[j].check_mon);
           }
 
+          if (this.roomTempList[j].check_tue === true) {
+            tueObj2.push(this.roomTempList[j].check_tue);
+          }
+          else {
+            this.roomTempList[j].check_tue = false;
+            tueObj2.push(this.roomTempList[j].check_tue);
+          }
 
-          this.scheduleService
-            .setInsertScheduleReport(this.scheduleInsert).subscribe(res => {
-              this.batchFlag = this.batchFlag + 1;
-              this.reload();
-            });
+          if (this.roomTempList[j].check_wed === true) {
+            wedObj2.push(this.roomTempList[j].check_wed);
+          }
+          else {
+            this.roomTempList[j].check_wed = false;
+            wedObj2.push(this.roomTempList[j].check_wed);
+          }
+
+          if (this.roomTempList[j].check_thu === true) {
+            thuObj2.push(this.roomTempList[j].check_thu);
+          }
+          else {
+            this.roomTempList[j].check_thu = false;
+            thuObj2.push(this.roomTempList[j].check_thu);
+          }
+
+          if (this.roomTempList[j].check_fri === true) {
+            friObj2.push(this.roomTempList[j].check_fri);
+          }
+          else {
+            this.roomTempList[j].check_fri = false;
+            friObj2.push(this.roomTempList[j].check_fri);
+          }
+
+          if (this.roomTempList[j].check_sat === true) {
+            satObj2.push(this.roomTempList[j].check_sat);
+          }
+          else {
+            this.roomTempList[j].check_sat = false;
+            satObj2.push(this.roomTempList[j].check_sat);
+          }
+
+          if (this.roomTempList[j].check_sun === true) {
+            sunObj2.push(this.roomTempList[j].check_sun);
+          }
+          else {
+            this.roomTempList[j].check_sun = false;
+            sunObj2.push(this.roomTempList[j].check_sun);
+          }
+
+          if (this.roomTempList[j].barcodeReq === true) {
+            barObj2.push(this.roomTempList[j].barcodeReq);
+          }
+          else {
+            this.roomTempList[j].barcodeReq = false;
+            barObj2.push(this.roomTempList[j].barcodeReq);
+          }
+
+          if (this.roomTempList[j].photoReq === true) {
+            photoObj2.push(this.roomTempList[j].photoReq);
+          }
+          else {
+            this.roomTempList[j].photoReq = false;
+            photoObj2.push(this.roomTempList[j].photoReq);
+          }
+        }
+        roomsString2 = roomList2.join(',');
+        FRequency2 = FrequencyObj2.join(',');
+        MOnCheck2 = monObj2.join(',');
+        TUeCheck2 = tueObj2.join(',');
+        WEdCheck2 = wedObj2.join(',');
+        THuCheck2 = thuObj2.join(',');
+        FRiCheck2 = friObj2.join(',');
+        SAtCheck2 = satObj2.join(',');
+        SUnCheck2 = sunObj2.join(',');
+        BArCheck2 = barObj2.join(',');
+        PHotCheck2 = photoObj2.join(',');
+        WOrkordertkey2 = workorderkeyobj2.join(',');
+        TEmproomidobj2 = temproomobj2.join(',');
+        this.scheduleInsert = {
+          temproomidlist: TEmproomidobj2,
+          roomList: roomsString2,
+          frequency: FRequency2,
+          monCheck: MOnCheck2,
+          tueCheck: TUeCheck2,
+          wedCheck: WEdCheck2,
+          thuCheck: THuCheck2,
+          friCheck: FRiCheck2,
+          satCheck: SAtCheck2,
+          sunCheck: SUnCheck2,
+          barCheck: BArCheck2,
+          photCheck: PHotCheck2,
+          workordertype: WOrkordertkey2,
+          empKey: this.employeekey,
+          batchScheduleNameKey: this.BatchScheduleNameKey,
+          WorkorderNotes: this.WorkorderNotes,
+          OrganizationID: this.OrganizationID,
+          fromdate: this.startDT,
+          todate: this.endDT
         }
 
+
+        this.scheduleService
+          .setInsertScheduleReport(this.scheduleInsert).subscribe(res => {
+            this.batchFlag = this.batchFlag + 1;
+            this.reload();
+          });
       }
     }
   }

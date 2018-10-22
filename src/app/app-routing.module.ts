@@ -121,6 +121,8 @@ import { CreateinspectionComponent } from './control-and-view/supervisor/createi
 import { ViewinspctnbysprvsrComponent } from './control-and-view/supervisor/viewinspctnbysprvsr/viewinspctnbysprvsr.component';
 import { SupervsrinspectiontemplateComponent } from './control-and-view/supervisor/supervsrinspectiontemplate/supervsrinspectiontemplate.component';
 
+import { BatchScheduleRoomComponent } from './control-and-view/scheduling/batch-schedule-room/batch-schedule-room.component';
+import { BatchScheduleNameEditComponent } from './control-and-view/scheduling/batch-schedule-name-edit/batch-schedule-name-edit.component';
 const routes: Routes = [
   {
     path: '',
@@ -516,6 +518,18 @@ const routes: Routes = [
     component: ViewworkordersforemployeeComponent
   },
   {
+    path: 'EditWorkOrder/:WorkorderKey',
+    component: EditWorkOrderComponent
+  },
+  {
+    path: 'scheduleRoomView',
+    component: BatchScheduleRoomComponent
+  },
+  {
+    path: 'scheduleRoomEdit',
+    component: BatchScheduleNameEditComponent
+  },
+  {
     path: 'ViewInspectionManager/:InspectionOrderKey',
     component: ViewinspectionmanagerComponent
   },
@@ -538,6 +552,10 @@ const routes: Routes = [
   {
     path:'Supervsrinspectiontemplate/:InspectionOrderKey',
     component:SupervsrinspectiontemplateComponent
+  },
+  {
+    path: 'Managerinspectiontemplate/:InspectionOrderKey',
+    component: ManagerinspectiontemplateComponent
   }
 ];
 
