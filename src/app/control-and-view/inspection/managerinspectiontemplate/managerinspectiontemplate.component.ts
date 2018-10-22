@@ -24,7 +24,23 @@ export class ManagerinspectiontemplateComponent implements OnInit {
   ind=0;
   TemplateDetails;
   lastIndexValue;
-  //InspectionOrderKey;
+  // for star rating 
+  starList: boolean[] = [true,true,true,true,true]; 
+  rating:number; 
+  
+  setStar(data:any){
+    this.rating=data+1;                               
+    for(var i=0;i<=4;i++){  
+      if(i<=data){  
+        this.starList[i]=false;  
+      }  
+      else{  
+        this.starList[i]=true;  
+      }  
+   }  
+}  
+// for star rating 
+
   convert_DT(str) {
     var date = new Date(str),
       mnth = ('0' + (date.getMonth() + 1)).slice(-2),
@@ -108,6 +124,12 @@ debugger;
 // else{
 //   this.Scoringtype.ratingValue.push({rating:this.rating,questionID:TemplateQuestionID});
 // }
+else if(ScoreName === '5 Star'|| ScoreName==='3 Star'){
+  var length = Object.keys(this.starList).length;
+  var arrayLength = this.starList.length;
+  var values =this.starList[arrayLength - 1];
+  this.Scoringtype.ratingValue.push({rating:values,questionID:TemplateQuestionID});
+}
 console.log(this.Scoringtype);
 }
 inspectionCompleted()

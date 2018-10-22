@@ -138,6 +138,9 @@ import { SettingusernameandpswrdaftremplcreatebymanComponent } from './control-a
 import { ViewworkordersforemployeeComponent } from './control-and-view/employee/viewworkordersforemployee/viewworkordersforemployee.component';
 import { ViewinspectionmanagerComponent } from './control-and-view/inspection/viewinspectionmanager/viewinspectionmanager.component';
 import { ManagerinspectiontemplateComponent } from './control-and-view/inspection/managerinspectiontemplate/managerinspectiontemplate.component';
+import { CreateinspectionComponent } from './control-and-view/supervisor/createinspection/createinspection.component';
+import { ViewinspctnbysprvsrComponent } from './control-and-view/supervisor/viewinspctnbysprvsr/viewinspctnbysprvsr.component';
+import { SupervsrinspectiontemplateComponent } from './control-and-view/supervisor/supervsrinspectiontemplate/supervsrinspectiontemplate.component';
 
 @NgModule({
   declarations: [
@@ -248,7 +251,10 @@ import { ManagerinspectiontemplateComponent } from './control-and-view/inspectio
     ViewworkordersforemployeeComponent,
     ViewinspectionmanagerComponent,
     EditWorkOrderComponent,
-    ManagerinspectiontemplateComponent
+    ManagerinspectiontemplateComponent,
+    CreateinspectionComponent,
+    ViewinspctnbysprvsrComponent,
+    SupervsrinspectiontemplateComponent
 
   ],
   imports: [

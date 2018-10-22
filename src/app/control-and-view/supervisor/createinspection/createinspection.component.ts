@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { InspectionService } from '../../../service/inspection.service';
 import { Inspection } from '../../../model-class/Inspection';
-
 @Component({
-  selector: 'app-inspection-create',
-  templateUrl: './inspection-create.component.html',
-  styleUrls: ['./inspection-create.component.scss']
+  selector: 'app-createinspection',
+  templateUrl: './createinspection.component.html',
+  styleUrls: ['./createinspection.component.scss']
 })
-export class InspectionCreateComponent implements OnInit {
+export class CreateinspectionComponent implements OnInit {
+
   marked = false;
   templateName: Inspection[];
   auditor: Inspection[];
@@ -43,7 +43,9 @@ public formatter = (_: Date) => {
           return [date.getFullYear(), mnth, day].join("-");
   };
 
+
   constructor(private inspectionService: InspectionService) { }
+
   selectFloorfromBuildings(facKey){
     this.facikey=facKey;
     this.inspectionService
@@ -98,8 +100,10 @@ public formatter = (_: Date) => {
     this.inspectionService.createInspections(this.TemplateID,this.SupervisorKey,dateFrom,date2,this.theCheckbox,newTime,this.RoomKey);
     
 }
+
   ngOnInit() {
 
+    
     this.inspectionService
     .getTemplateName()
     .subscribe((data: Inspection[]) => {

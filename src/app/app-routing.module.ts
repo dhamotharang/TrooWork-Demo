@@ -117,6 +117,9 @@ import { ViewworkordersforemployeeComponent } from './control-and-view/employee/
 import { ViewinspectionmanagerComponent } from './control-and-view/inspection/viewinspectionmanager/viewinspectionmanager.component';
 import { EditWorkOrderComponent } from './control-and-view/work-order/edit-work-order/edit-work-order.component';
 import { ManagerinspectiontemplateComponent } from './control-and-view/inspection/managerinspectiontemplate/managerinspectiontemplate.component';
+import { CreateinspectionComponent } from './control-and-view/supervisor/createinspection/createinspection.component';
+import { ViewinspctnbysprvsrComponent } from './control-and-view/supervisor/viewinspctnbysprvsr/viewinspctnbysprvsr.component';
+import { SupervsrinspectiontemplateComponent } from './control-and-view/supervisor/supervsrinspectiontemplate/supervsrinspectiontemplate.component';
 
 const routes: Routes = [
   {
@@ -505,7 +508,7 @@ const routes: Routes = [
     component: ResetpasswordforsamoduleComponent
   },
   {
-    path: 'Settingusernameandpswrdaftremplcreatebyman/:EmpKey',
+    path: 'Settingusernameandpswrdaftremplcreatebyman/:EmployeeKey/:str',
     component: SettingusernameandpswrdaftremplcreatebymanComponent
   },
   {
@@ -523,6 +526,18 @@ const routes: Routes = [
   {
     path:'Managerinspectiontemplate/:InspectionOrderKey',
     component:ManagerinspectiontemplateComponent
+  },
+  {
+    path:'Createinspectionbysuprvsr',
+    component:CreateinspectionComponent
+  },
+  {
+    path:'Viewinspctnbysprvsr',
+    component:ViewinspctnbysprvsrComponent
+  },
+  {
+    path:'Supervsrinspectiontemplate/:InspectionOrderKey',
+    component:SupervsrinspectiontemplateComponent
   }
 ];
 
