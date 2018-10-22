@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { workorder } from '../../../model-class/work-order';
 import { WorkOrderServiceService } from '../../../service/work-order-service.service';
 import { Router } from "@angular/router";
+
 @Component({
-  selector: 'app-create-quick-order',
-  templateUrl: './create-quick-order.component.html',
-  styleUrls: ['./create-quick-order.component.scss']
+  selector: 'app-create-quick-work-order',
+  templateUrl: './create-quick-work-order.component.html',
+  styleUrls: ['./create-quick-work-order.component.scss']
 })
-export class CreateQuickOrderComponent implements OnInit {
+export class CreateQuickWorkOrderComponent implements OnInit {
   EmployeeOption: workorder[];
   facilitylist: workorder[];
   emp_key: number;
@@ -124,11 +125,9 @@ export class CreateQuickOrderComponent implements OnInit {
       OrganizationID: 21
 
     };
-    debugger;
     this.WorkOrderServiceService
       .addQuickWorkOrder(this.createworkorder)
       .subscribe(res => this.router.navigateByUrl('/ViewWorkOrder'));
-    // debugger;
   }
 
 
@@ -152,4 +151,5 @@ export class CreateQuickOrderComponent implements OnInit {
         this.prioritylist = data;
       });
   }
+
 }
