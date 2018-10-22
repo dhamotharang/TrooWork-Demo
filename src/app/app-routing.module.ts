@@ -116,6 +116,7 @@ import { SettingusernameandpswrdaftremplcreatebymanComponent } from './control-a
 import { ViewworkordersforemployeeComponent } from './control-and-view/employee/viewworkordersforemployee/viewworkordersforemployee.component';
 import { ViewinspectionmanagerComponent } from './control-and-view/inspection/viewinspectionmanager/viewinspectionmanager.component';
 import { EditWorkOrderComponent } from './control-and-view/work-order/edit-work-order/edit-work-order.component';
+import { TrainingComponent } from './control-and-view/supervisor/training/training.component';
 import { ManagerinspectiontemplateComponent } from './control-and-view/inspection/managerinspectiontemplate/managerinspectiontemplate.component';
 
 import { BatchScheduleRoomComponent } from './control-and-view/scheduling/batch-schedule-room/batch-schedule-room.component';
@@ -531,6 +532,14 @@ const routes: Routes = [
   {
     path: 'EditWorkOrder/:WorkorderKey',
     component: EditWorkOrderComponent
+  },
+  {
+    path:'EditWorkOrder/:WorkorderKey',
+    component:EditWorkOrderComponent
+  },
+  {
+    path:'Training',
+    component:TrainingComponent
   },
   {
     path: 'Managerinspectiontemplate/:InspectionOrderKey',

@@ -22,6 +22,7 @@ export class EditWorkOrderComponent implements OnInit {
   priorityList: workorder[];
   EquipmentList: workorder[];
   EquipmentTypeList: workorder[];
+  floorvalue;
   WOEditList;
   isPhotoRequired: any;
   isBarcodeRequired: any;
@@ -63,7 +64,8 @@ export class EditWorkOrderComponent implements OnInit {
   occursonday;
 
   workorderCreation;
-
+  timetable = { times: [] };
+  count=0;
   constructor(private route: ActivatedRoute, private router: Router,private formBuilder: FormBuilder, private WorkOrderServiceService: WorkOrderServiceService) { 
     this.route.params.subscribe(params => this.WO_Key = params.WorkorderKey);
   }
@@ -111,19 +113,34 @@ export class EditWorkOrderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
+      debugger;
       if(this.WOEditList.EquipmentKey==-1) 
       {
         this.showEqTypes=false;
+        this.FloorKey=this.WOEditList.FloorKey;
+         this.RoomTypeKey=this.WOEditList.RoomTypeKey;
       }
       else
       {       
         this.showEqTypes=true;
+        this.RoomTypeKey=null;
+        
         this.WorkOrderServiceService
-      .getallEquipment(this.WOEditList.FacilityKey, this.WOEditList.FloorKey, this.org_id)
+      .getFloor( this.WO_Key,this.org_id)
       .subscribe((data: any[]) => {
-        this.EquipmentTypeList = data;
-        this.EquipmentList = data;
+        debugger;
+        this.floorvalue=parseInt( data[0].FloorKeyList);
+        this.FloorKey=this.floorvalue;
+        this.WorkOrderServiceService
+        .getallEquipment(this.WOEditList.FacilityKey, this.floorvalue, this.org_id)
+        .subscribe((data: any[]) => {
+          this.EquipmentTypeList = data;
+          this.EquipmentList = data;
+          this.EquipmentTypeKey=this.WOEditList.EquipmentTypeKey;
+          this.EquipmentKey=this.WOEditList.EquipmentKey;
+        });
       });
+       
       }
       if(this.WOEditList.IsPhotoRequired==1)
       {
@@ -142,29 +159,35 @@ export class EditWorkOrderComponent implements OnInit {
       this.dateValue=new Date(this.WOEditList.WorkorderDate);
       var date_time=this.dateValue;
       //this.timeValue=new Date(this.WOEditList.WorkorderTime);
-      debugger;
+      
       this.workordertypekey=this.WOEditList.WorkorderTypeKey;
       this.FacilityKey=this.WOEditList.FacilityKey;
-      this.FloorKey=this.WOEditList.FloorKey;
+      
       this.ZoneKey=this.WOEditList.ZoneKey;
-      this.RoomTypeKey=this.WOEditList.RoomTypeKey;
+     
       this.RoomKey=this.WOEditList.RoomKey;
       this.PriorityKey=this.WOEditList.PriorityKey;
       this.WorkorderNotes=this.WOEditList.WorkorderNotes;
       this.EmployeeKey=this.WOEditList.EmployeeKey;
-      this.EquipmentTypeKey=this.WOEditList.EquipmentTypeKey;
-      this.EquipmentKey=this.WOEditList.EquipmentKey;
+    
       var cur_time = new Date(Date.now());
-      // var hour=this.WOEditList.WorkorderTime.getHours();
-      // var minute=this.WOEditList.WorkorderTime.getMinutes();
-      // cur_time.setHours=hour;
-      // cur_time.setMinutes=minute;
+
+      // var timeValue1=this.WOEditList.WorkorderTime;
+      // var time1=timeValue1.split(",");
+      // for(var i=0;i<time1.length;i++)
+      // {
+      // var test=time1[i].split(":");
+      // console.log(test[0]+" .... "+test[1]);
+      //  var today=new Date(cur_time.getFullYear(),cur_time.getMonth(),cur_time.getDate(),test[0],test[1],0);
+      
+      //   this.timetable.times = [];
+      //   this.timetable.times.push(today);
+        
+      // }
       var timeValue1=this.WOEditList.WorkorderTime;
       var test=timeValue1.split(":");
-      console.log(test[0]+" .... "+test[1]);
-      date_time.setHours=test[0];
-      date_time.setMinutes=test[1];
-      this.timeValue=date_time;
+       var today=new Date(cur_time.getFullYear(),cur_time.getMonth(),cur_time.getDate(),test[0],test[1],0);
+        this.timeValue=today;
       });
       
     this.WorkOrderServiceService
@@ -503,34 +526,34 @@ export class EditWorkOrderComponent implements OnInit {
     });
   }
   createWorkorder2() {
-    // tslint:disable-next-line:no-debugger
+    
     debugger;
-    // tslint:disable-next-line:no-var-keyword
+    
     var roomlistObj = [];
-    // tslint:disable-next-line:no-var-keyword
+    
     var roomtypelistObj = [];
-    // tslint:disable-next-line:no-var-keyword
+   
     var zonelistObj = [];
-    // tslint:disable-next-line:no-var-keyword
+  
     var floorlistObj = [];
-    // tslint:disable-next-line:no-var-keyword
+    
     var facilitylistObj = [];
 
-    // tslint:disable-next-line:no-var-keyword
+    
     var EquListObj = [];
 
 
-    // tslint:disable-next-line:no-var-keyword
+    
     var facilityList = [];
-    // tslint:disable-next-line:no-var-keyword
+    
     var roomList = [];
-    // tslint:disable-next-line:no-var-keyword
+   
     var roomtypeList = [];
-    // tslint:disable-next-line:no-var-keyword
+  
     var zoneList = [];
-    // tslint:disable-next-line:no-var-keyword
+    
     var floorList = [];
-    // tslint:disable-next-line:no-var-keyword
+    
     var equList = [];
     facilitylistObj = this.facilitylist;
     facilityList = [];
@@ -545,9 +568,9 @@ export class EditWorkOrderComponent implements OnInit {
     roomlistObj = this.RoomList;
     EquListObj = this.EquipmentList;
 
-    this.intervaltype = '0'; // char(1),/*d for day, w for week, m for month*/
-    this.repeatinterval = 1; // int,/*daily(every `2` days) weekly(every `1` week) monthly(every `3` months)*/
-    this.occurenceinstance = null; // int,/*daily(3) weekly(null) monthly(null) monthly(1)*/
+    this.intervaltype = '0'; 
+    this.repeatinterval = 1; 
+    this.occurenceinstance = null; 
     this.occursonday = null;
 
     if (this.workordertypekey) {
@@ -639,6 +662,7 @@ export class EditWorkOrderComponent implements OnInit {
         roomtypeString = roomtypeList.join(',');
       }
     }
+    debugger;
     if (this.EquipmentKey) {
       this.eqp_key = this.EquipmentKey;
     } else {
@@ -732,5 +756,15 @@ export class EditWorkOrderComponent implements OnInit {
     });
 
   }
+  change_values()
+  {
+    if(this.showEqTypes==true)
+    {
+      this.ZoneKey=-1;
+      this.RoomTypeKey=-1;
+      this.RoomKey=-1;
+    }
+  }
+  
 
 }

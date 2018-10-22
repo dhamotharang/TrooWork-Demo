@@ -822,5 +822,14 @@ export class CreateWorkorderComponent implements OnInit {
       this.timetable.times.push('');
     }
   }
+  change_values()
+  {
+    if(this.showEqTypes==true)
+    {
+      this.ZoneKey=-1;
+      this.RoomTypeKey=-1;
+      this.RoomKey=-1;
+    }
+  }
 
 }

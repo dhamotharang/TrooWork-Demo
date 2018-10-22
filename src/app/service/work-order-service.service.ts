@@ -110,7 +110,7 @@ export class WorkOrderServiceService {
         .http
         .post (url, viewWorkOrder);
     }
-    getallEquipment(floor_key,facility_key,org_id)
+    getallEquipment(facility_key,floor_key,org_id)
     {
       return this
       .http
@@ -153,6 +153,12 @@ export class WorkOrderServiceService {
       return this
       .http
       .get('http://localhost:3000/api/workorderDetails?SearchKey='+WO_Key+'&OrganizationID='+org_id);
+    }
+    getFloor( WOrder_Key,org_id)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/getFloorKeyForEquipWorkOrder?workorderkey='+WOrder_Key+'&OrganizationID='+org_id);
     }
     deleteCurrent_WO(obj)
     {

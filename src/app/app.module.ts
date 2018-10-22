@@ -136,6 +136,7 @@ import { ViewmeetingortrainingeventComponent } from './control-and-view/employee
 import { ResetpasswordforsamoduleComponent } from './control-and-view/superadmin/people/resetpasswordforsamodule/resetpasswordforsamodule.component';
 import { SettingusernameandpswrdaftremplcreatebymanComponent } from './control-and-view/people/settingusernameandpswrdaftremplcreatebyman/settingusernameandpswrdaftremplcreatebyman.component';
 import { ViewworkordersforemployeeComponent } from './control-and-view/employee/viewworkordersforemployee/viewworkordersforemployee.component';
+import { TrainingComponent } from './control-and-view/supervisor/training/training.component';
 import { BatchScheduleRoomComponent } from './control-and-view/scheduling/batch-schedule-room/batch-schedule-room.component';
 import { ViewinspectionmanagerComponent } from './control-and-view/inspection/viewinspectionmanager/viewinspectionmanager.component';
 import { ManagerinspectiontemplateComponent } from './control-and-view/inspection/managerinspectiontemplate/managerinspectiontemplate.component';
@@ -251,6 +252,7 @@ import { CreateQuickWorkOrderComponent } from './control-and-view/supervisor/cre
     SettingusernameandpswrdaftremplcreatebymanComponent,
     ViewworkordersforemployeeComponent,
     EditWorkOrderComponent,
+    TrainingComponent,
     BatchScheduleRoomComponent,
     ViewinspectionmanagerComponent,
     EditWorkOrderComponent,
