@@ -115,7 +115,7 @@ import { ResetpasswordforsamoduleComponent } from './control-and-view/superadmin
 import { SettingusernameandpswrdaftremplcreatebymanComponent } from './control-and-view/people/settingusernameandpswrdaftremplcreatebyman/settingusernameandpswrdaftremplcreatebyman.component';
 import { ViewworkordersforemployeeComponent } from './control-and-view/employee/viewworkordersforemployee/viewworkordersforemployee.component';
 import { EditWorkOrderComponent } from './control-and-view/work-order/edit-work-order/edit-work-order.component';
-
+import { TrainingComponent } from './control-and-view/supervisor/training/training.component';
 const routes: Routes = [
   {
     path: '',
@@ -513,6 +513,10 @@ const routes: Routes = [
   {
     path:'EditWorkOrder/:WorkorderKey',
     component:EditWorkOrderComponent
+  },
+  {
+    path:'Training',
+    component:TrainingComponent
   }
 ];
 
