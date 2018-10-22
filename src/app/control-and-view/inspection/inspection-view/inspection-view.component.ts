@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges, Directive, HostListener, ElementRef, Inpu
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { InspectionService } from '../../../service/inspection.service';
 import { Inspection } from '../../../model-class/Inspection';
+import { ActivatedRoute, Router } from "@angular/router";
 @Component({
   selector: 'app-inspection-view',
   templateUrl: './inspection-view.component.html',
@@ -14,8 +15,31 @@ export class InspectionViewComponent implements OnInit {
   todate: Date;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
+  ins_Key:Number;
+  role: String;
+  name: String;
+  toServeremployeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
   
-  constructor(private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef) { }
+  constructor(private router: Router,private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef) { }
   
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     return new RegExp(this.regexStr).test(event.key);
@@ -38,6 +62,8 @@ export class InspectionViewComponent implements OnInit {
 
     }, 100)
   }
+
+
   filteringInspectionManagerByDate() {
     if (!this.fromdate) {
       var date1 = this.convert_DT(new Date());
@@ -89,6 +115,17 @@ export class InspectionViewComponent implements OnInit {
     }
   }
   ngOnInit() {
+    //token starts....
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.toServeremployeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
+    //token ends
     var curr_date = this.convert_DT(new Date());
     this.inspectionService
       .getInspectionOrderTablewithFromCurrentDateFilter(curr_date)

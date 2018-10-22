@@ -114,8 +114,13 @@ import { ViewmeetingortrainingeventComponent } from './control-and-view/employee
 import { ResetpasswordforsamoduleComponent } from './control-and-view/superadmin/people/resetpasswordforsamodule/resetpasswordforsamodule.component';
 import { SettingusernameandpswrdaftremplcreatebymanComponent } from './control-and-view/people/settingusernameandpswrdaftremplcreatebyman/settingusernameandpswrdaftremplcreatebyman.component';
 import { ViewworkordersforemployeeComponent } from './control-and-view/employee/viewworkordersforemployee/viewworkordersforemployee.component';
+import { ViewinspectionmanagerComponent } from './control-and-view/inspection/viewinspectionmanager/viewinspectionmanager.component';
 import { EditWorkOrderComponent } from './control-and-view/work-order/edit-work-order/edit-work-order.component';
 import { TrainingComponent } from './control-and-view/supervisor/training/training.component';
+import { ManagerinspectiontemplateComponent } from './control-and-view/inspection/managerinspectiontemplate/managerinspectiontemplate.component';
+
+import { BatchScheduleRoomComponent } from './control-and-view/scheduling/batch-schedule-room/batch-schedule-room.component';
+import { BatchScheduleNameEditComponent } from './control-and-view/scheduling/batch-schedule-name-edit/batch-schedule-name-edit.component';
 const routes: Routes = [
   {
     path: '',
@@ -459,56 +464,76 @@ const routes: Routes = [
     component: JobTitleEditAdminComponent
   },
   {
-    path:'ViewDocuments',
-    component:ViewDocumentsComponent
+    path: 'ViewDocuments',
+    component: ViewDocumentsComponent
   },
   {
-    path:'CreateWorkOrder',
-    component:CreateWorkorderComponent
+    path: 'CreateWorkOrder',
+    component: CreateWorkorderComponent
   },
   {
-    path:'CreateOrganization',
-    component:CreateOrganizationComponent
+    path: 'CreateOrganization',
+    component: CreateOrganizationComponent
   },
   {
-    path:'ViewOrganization',
-    component:ViewOrganizationComponent
-  },
-   {
-     path:'Orgedit/:OrganizationID',
-     component:EditOrganizationComponent
-   },
-   {
-     path:'Createemployee',
-     component:CreateemployeeComponent
-   },
-   {
-     path:'Viewemployee',
-     component:ViewemployeeComponent
-   },
-   {
-    path:'Managelogincredentials',
-    component:ManagelogincredentialsComponent
-   },
-   {
-    path:'Editemployee/:EmployeeKey',
-    component:EditemployeeComponent
-   },
-   {
-    path:'Viewmeetingortrainingevent',
-    component:ViewmeetingortrainingeventComponent
-   },
-   {
-   path:'Resetpasswordforsamodule/:EmpKey',
-   component:ResetpasswordforsamoduleComponent
+    path: 'ViewOrganization',
+    component: ViewOrganizationComponent
   },
   {
-    path:'Settingusernameandpswrdaftremplcreatebyman/:EmpKey',
-    component:SettingusernameandpswrdaftremplcreatebymanComponent
+    path: 'Orgedit/:OrganizationID',
+    component: EditOrganizationComponent
   },
   {
-    path:'Viewworkordersforemployee',
-    component:ViewworkordersforemployeeComponent
+    path: 'Createemployee',
+    component: CreateemployeeComponent
+  },
+  {
+    path: 'Viewemployee',
+    component: ViewemployeeComponent
+  },
+  {
+    path: 'Managelogincredentials',
+    component: ManagelogincredentialsComponent
+  },
+  {
+    path: 'Editemployee/:EmployeeKey',
+    component: EditemployeeComponent
+  },
+  {
+    path: 'Viewmeetingortrainingevent',
+    component: ViewmeetingortrainingeventComponent
+  },
+  {
+    path: 'Resetpasswordforsamodule/:EmpKey',
+    component: ResetpasswordforsamoduleComponent
+  },
+  {
+    path: 'Settingusernameandpswrdaftremplcreatebyman/:EmpKey',
+    component: SettingusernameandpswrdaftremplcreatebymanComponent
+  },
+  {
+    path: 'Viewworkordersforemployee',
+    component: ViewworkordersforemployeeComponent
+  },
+  {
+    path: 'EditWorkOrder/:WorkorderKey',
+    component: EditWorkOrderComponent
+  },
+  {
+    path: 'scheduleRoomView',
+    component: BatchScheduleRoomComponent
+  },
+  {
+    path: 'scheduleRoomEdit',
+    component: BatchScheduleNameEditComponent
+  },
+  {
+    path: 'ViewInspectionManager/:InspectionOrderKey',
+    component: ViewinspectionmanagerComponent
+  },
+  {
+    path: 'EditWorkOrder/:WorkorderKey',
+    component: EditWorkOrderComponent
   },
   {
     path:'EditWorkOrder/:WorkorderKey',
@@ -517,6 +542,10 @@ const routes: Routes = [
   {
     path:'Training',
     component:TrainingComponent
+  },
+  {
+    path: 'Managerinspectiontemplate/:InspectionOrderKey',
+    component: ManagerinspectiontemplateComponent
   }
 ];
 

@@ -48,10 +48,10 @@
                 <td>{{i.TemplateName}} </td>
                 <td>{{i.FacilityName}}-{{i.RoomId}} </td>
                 <td>{{i.Inspectiondate}}</td>
-                <td>{{i.LastName}},{{i.FirstName}} </td>
+                <td>{{i.LastName}},{{i.FirstName}} </td>      
                 <td>{{i.EmployeeName}}</td>
-                <td *ngIf="i.InspectionCompletedBy !== null"> <button type="button" class="btn btn-default" (click)="viewInspectionDetails(i.InspectionOrderKey)">Inspection Completed </button></td>
-                <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey === toServeremployeekey)"> <button type="button" class="btn btn-default" (click)="managerInspection(i.InspectionOrderKey, i.TemplateId, i.TemplateName)">Inspect</button></td>
+                <td *ngIf="i.InspectionCompletedBy !== null"> <a routerLink="/ViewInspectionManager/{{i.InspectionOrderKey}}" class="btn btn-primary">Inspection Completed </a></td>
+                <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey === toServeremployeekey)"> <a routerLink="/Managerinspectiontemplate/{{i.InspectionOrderKey}}" class="btn btn-primary">Inspect</a></td>
                 <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey !== toServeremployeekey)">Scheduled</td>
               </tr>
             </tbody>

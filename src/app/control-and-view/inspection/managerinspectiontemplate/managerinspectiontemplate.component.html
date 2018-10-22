@@ -1,0 +1,104 @@
+<app-manager-dash-board></app-manager-dash-board>
+<br><br>
+
+<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <div style="text-align:center">
+    <h3 style="text-align:center">{{viewEmpInspectionDetails[0].TemplateName}}</h3>
+    <h4>{{viewEmpInspectionDetails[0].FacilityName}}{{viewEmpInspectionDetails[0].FloorName}}{{viewEmpInspectionDetails[0].RoomId}}
+    </h4>
+  </div><br><br>
+  <ul id="menu" *ngFor="let item of viewEmpInspectionDetails;let i = index" class="form-group">
+    <li class="col-sm-offset-1 col-sm-10">
+    </li>
+    <li class="col-sm-offset-4 col-sm-10" *ngIf="item.ScoreName === 'Yes/No'">
+      <div class="list inspectionPadding">
+        <a class="item item-text-wrap">
+          <h2 class="item-text-wrap">{{i + 1}}. {{item.Question}}</h2>
+          <div class="row bg-info col-md-12">
+            <div class="col-md-6 bg-info">
+              <div class="form-group">
+                <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Score</label>
+                <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]='Scoringtype.rating_yn[item.TemplateQuestionID]'
+                  (change)="saveRatings(item.TemplateQuestionID,item.ScoreName)">
+                  <option>--Select--</option>
+                  <option *ngFor="let w of names" [value]="w">
+                    {{w}}
+                  </option>
+                </select>
+              </div>
+             </div> 
+            <div class="col-md-6">
+              <div>
+                <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Notes</label>
+                <textarea class="form-control rounded-0" [(ngModel)]="Scoringtype.inspectionNotes[item.TemplateQuestionID]" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </li>
+
+    <li class="col-sm-offset-4 col-sm-10" *ngIf="item.ScoreName ==='Pass/Fail'">
+      <div class="list inspectionPadding">
+        <a class="item item-text-wrap">
+          <h2 class="item-text-wrap">{{i + 1}}. {{item.Question}}</h2>
+
+          <div class="row bg-info col-md-12">
+            <div class="col-md-6 bg-info"> 
+              <div class="form-group">
+                <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Score</label>
+                <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]='Scoringtype.rating_yn[item.TemplateQuestionID]'
+                  (change)="saveRatings(item.TemplateQuestionID,item.ScoreName)">
+                  <option>Pass</option>
+                  <option *ngFor="let w of names" [value]="w">
+                    {{w}}
+                    <!-- .names -->
+                  </option>
+                </select>
+              </div>
+             </div> 
+            <div class="col-md-6">
+              <div>
+                <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Notes</label>
+                <textarea class="form-control rounded-0" rows="3" [(ngModel)]="Scoringtype.inspectionNotes[item.TemplateQuestionID]"></textarea>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </li>
+    <li class="col-sm-offset-4 col-sm-10" *ngIf="item.ScoreName ==='5 Star'">
+      <div class="list inspectionPadding">
+        <a class="item item-text-wrap">
+          <h2 class="item-text-wrap">{{i + 1}}. {{item.Question}}</h2>
+          <div class="col-md-6">
+            <div>
+              <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Notes</label>
+              <textarea class="form-control rounded-0" rows="3" [(ngModel)]="Scoringtype.inspectionNotes[item.TemplateQuestionID]"></textarea>
+            </div>
+          </div>
+        </a>
+      </div>
+    </li>
+
+    <li class="col-sm-offset-4 col-sm-10" *ngIf="item.ScoreName ==='3 Star'">
+      <div class="list inspectionPadding">
+        <a class="item item-text-wrap">
+          <h2 class="item-text-wrap">{{i + 1}}. {{item.Question}}</h2>
+          <div class="col-md-6">
+            <div>
+              <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Notes</label>
+              <textarea class="form-control rounded-0" rows="3" [(ngModel)]="Scoringtype.inspectionNotes[item.TemplateQuestionID]"></textarea>
+            </div>
+          </div>
+        </a>
+      </div>
+    </li>
+  </ul>
+  <div class="row col-md-12">
+    <div class="col-md-6"></div>
+    <div style="text-align:center">
+      <button type="button" style="text-align:center" class="btn btn-primary" (click)="inspectionCompleted()">Submit</button></div>
+    <button type="button" style="text-align:center" class="btn btn-primary">Back</button>
+  </div>
+</div>
