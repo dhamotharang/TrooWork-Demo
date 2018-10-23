@@ -3,6 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { workorder } from '../../../model-class/work-order';
 import { WorkOrderServiceService } from '../../../service/work-order-service.service';
 import { FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
+
+const URL = 'http://localhost:3000/api/upload_test';
+
 @Component({
   selector: 'app-viewworkordersforemployee',
   templateUrl: './viewworkordersforemployee.component.html',
@@ -29,7 +32,9 @@ export class ViewworkordersforemployeeComponent implements OnInit {
   countCancel;
  barcodeValue= {};
  addUrl;
-
+ wokey:Number;
+ emp:Number;
+ 
  public uploader: FileUploader = new FileUploader({url:'', itemAlias: 'photo'});
   // adding properties and methods that will be used by the igxDatePicker
 
@@ -85,7 +90,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
   }
 
   selectFloorfromBuildings(facKey) {
-    debugger;
+    //debugger;
     this.facikey = facKey;
     this.WorkOrderServiceService
       .getallFloorNames(facKey, this.orgid)
@@ -116,24 +121,25 @@ export class ViewworkordersforemployeeComponent implements OnInit {
   workorderCompleted(i, barcodeRequired, photoRequired, workorderkey,file) {
 //            debugger;
     
-//       this.countCancel=1;
-//       this.countCancel1=this.countCancel;
+      this.countCancel=1;
+     this.countCancel1=this.countCancel;
 // //        console.log(" file is selected or not 1" + $scope.up.file);
 // //                console.log(" file is selected or not 1" + $scope.file);
 // //                console.log(" file is selected or not 1" + $scope.up.file);
 // //                console.log(" file is selected or not 1" + $scope.file);
-//   //         if (this.myworkorder.barcodeValue && barcodeRequired === 1) {
-//   // this.myworkorder.BarcodeValue = null;
-//   //         $scope.clickToOpen("Barcode is not provided !");
-//   //         return;
-//   // }
+//         if (this.myworkorder.barcodeValue && barcodeRequired === 1)
+//          {
+// //   // this.myworkorder.BarcodeValue = null;
+// //   //         $scope.clickToOpen("Barcode is not provided !");
+// //   //         return;
+//          }
 
-//   if (this.myworkorder.barcodeValue && barcodeRequired === 1) {
-//     this.myworkorder.BarcodeValue = this.myworkorder.barcodeValue;
-//     this.addUrl='?barcode=' + this.myworkorder.BarcodeValue + "&wkey=" +  workorderkey +"&OrganizationID="+this.orgid;
-//     // this.uploader.onBeforeUploadItem = (item) => {
-//     // item.withCredentials = false;
-//     // item.url = URL + this.addUrl;
+  // if (this.myworkorder.barcodeValue && barcodeRequired === 1) {
+  //   this.myworkorder.BarcodeValue = this.myworkorder.barcodeValue;
+  //   this.addUrl='?barcode=' + this.myworkorder.BarcodeValue + "&wkey=" +  workorderkey +"&OrganizationID="+this.orgid;
+  //    this.uploader.onBeforeUploadItem = (item) => {
+  //    item.withCredentials = false;
+  //    item.url = URL + this.addUrl;
 
 //           // $http.get(ControllerURL + "/barcodeRoom_check?barcode=" + this.myworkorder.BarcodeValue + "&wkey=" + workorderkey+ "&OrganizationID="+this.orgid)
 //           // .success(function(response) {
@@ -238,24 +244,36 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 //               }
 //           });
 //   }
-//   this.myworkorder.barcodeValue = null;
-//           this.showbutton[this.RowIndex] = false;
+        //  this.myworkorder.barcodeValue = null;
+          this.showbutton[this.RowIndex] = false;
   };
+  FileSelected() {
+    this.addUrl='?Workorderkey=' + this.wokey + '&EmployeeKey=' + this.emp ;
+    this.uploader.onBeforeUploadItem = (item) => {
+    item.withCredentials = false;
+    item.url = URL + this.addUrl;
+    
+    }
+    }
   workorderFinish(i) {
+    debugger;
     if (this.RowIndex || this.RowIndex === 0) {
       this.showbutton[this.RowIndex] = false;
     }
-    this.RowIndex = i;
-    this.showbutton[this.RowIndex] = true;
-    this.FinishButton[this.RowIndex] = true;
+    var RowIndex;
+    RowIndex = i;
+    this.showbutton[RowIndex] = true;
+    this.FinishButton[RowIndex] = false;
+    this.countCancel1=true;
   };
   cancelWorkorderSubmission(i) {
+    debugger;
     if (this.RowIndex || this.RowIndex === 0){
 //                var identity1 = "showbutton";
-this.showbutton[this.RowIndex] = false;
+       this.showbutton[this.RowIndex] = false;
     }
-    if(this.countCancel1==1){
-      this.countCancel1=0;
+    if(this.countCancel1==true){
+      this.countCancel1=false;
       var curr_date = this.convert_DT(new Date());
       this.WorkOrderServiceService
       .getWOdetailsForEmployee(curr_date, this.empk, this.orgid)
@@ -271,10 +289,10 @@ this.showbutton[this.RowIndex] = false;
       .getWOdetailsForEmployee(curr_date, this.empk, this.orgid)
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
-        // for (var i = 0; i < this.WorkorderDetTable.length; i++)
-        //  {
-        //   this.FinishButton[i] = true;
-        // }
+        for (var i = 0; i < this.WorkorderDetTable.length; i++)
+         {
+          this.FinishButton[i] = true;
+        }
       });
 
     this.WorkOrderServiceService
@@ -286,6 +304,12 @@ this.showbutton[this.RowIndex] = false;
     this.searchform = this.formBuilder.group({
       SearchWO: ['', Validators.required]
     });
+
+    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+         console.log('ImageUpload:uploaded:', item, status, response);
+         alert('File uploaded successfully');
+  };
   }
 
 }

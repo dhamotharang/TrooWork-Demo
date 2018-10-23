@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DocumentserviceService } from '../../../service/documentservice.service';
 import { Documents } from '../../../model-class/Documents';
-import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
+import { FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 
 const URL = 'http://localhost:3000/api/upload_test';
 
