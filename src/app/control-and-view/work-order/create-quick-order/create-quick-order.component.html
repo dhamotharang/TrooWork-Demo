@@ -36,8 +36,8 @@
           <input type="checkbox" [(ngModel)]="isPhotoRequired" data-md-icheck (change)="toggleVisibility($event)" />
         </div>
       </div>
-      </div>
-      <div class="col-md-6">
+    </div>
+    <div class="col-md-6">
       <div class="form-group">
         <label>Workorder Notes*</label>
         <textarea class="form-control rounded-0" [(ngModel)]="WorkorderNotes" rows="6" style="resize: none;"></textarea>
@@ -51,13 +51,14 @@
             {{b.PriorityText}}
           </option>
         </select>
-      </div> 
+      </div>
     </div>
     <br>
     <div class="row col-md-12">
       <div class="col-md-6"></div>
       <div style="text-align:center">
-        <button type="button" class="btn btn-primary" (click)=saveQuickWorkOrder()>save</button>
+        <a style="color:white !important" class="btn btn-primary" (click)="saveQuickWorkOrder()"><b>Save</b>
+        </a>
         <br><br>
       </div>
     </div>

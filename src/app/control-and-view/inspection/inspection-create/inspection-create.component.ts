@@ -25,7 +25,9 @@ export class InspectionCreateComponent implements OnInit {
   theCheckbox:any;
   time1:any;
   RoomKey:Number;
-// adding properties and methods that will be used by the igxDatePicker
+
+  // adding properties and methods that will be used by the igxDatePicker
+
 public date: Date = new Date(Date.now());
 
 private dayFormatter = new Intl.DateTimeFormat('en', { weekday: 'long'});

@@ -9,16 +9,29 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./settingusernameandpswrdaftremplcreatebyman.component.scss']
 })
 export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnInit {
-  build:People[];
+  
+  str$:Object;
+  sasemail:People[];
   empKey$:Object;
   orgid:Number=21;
+  password:String='troowork';
+  reEnterPassword:String='troowork';
+  username:any;
+
   constructor(private route: ActivatedRoute, private peopleService: PeopleServiceService, private http: HttpClient) {
-    this.route.params.subscribe(params => this.empKey$ = params.EmpKey);
+    this.route.params.subscribe(params => this.empKey$ = params.EmployeeKey);
+    this.route.params.subscribe(params => this.str$ = params.str);
+   }
+
+   setUsernamePassword(){
+
+    
    }
 
   ngOnInit() {
+    this.username=this.str$;
     this.peopleService.getuserNamePasswordforsaveandSendemail(this.empKey$,this.orgid).subscribe((data: People[]) => {
-      this.build = data;
+      this.sasemail = data;
       // debugger;
     });
   }

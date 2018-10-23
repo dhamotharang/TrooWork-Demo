@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges, Directive, HostListener, ElementRef, Inpu
 import { InspectionService } from '../../../service/inspection.service';
 import { Inspection } from '../../../model-class/Inspection';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-inspectiontemplate-edit',
   templateUrl: './inspectiontemplate-edit.component.html',
@@ -13,7 +14,11 @@ export class InspectiontemplateEditComponent implements OnInit {
   delete_tempid: number;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
-  constructor(private formBuilder: FormBuilder,private inspectionService: InspectionService, private el: ElementRef) { }
+  OrganizationID=21;
+  editQuestions;
+
+  constructor(private formBuilder: FormBuilder,private inspectionService: InspectionService, private el: ElementRef,private router: Router) { }
+  
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     return new RegExp(this.regexStr).test(event.key);
   }
@@ -66,5 +71,35 @@ export class InspectiontemplateEditComponent implements OnInit {
         SearchTemplate: ['', Validators.required]
       });
   }
+  editTemplateDetails(index , TemplateID){
+    this.inspectionService.checkforInspectionOnTemplate(TemplateID, this.OrganizationID).subscribe((data: any[]) => {
+     
+      if( data[0].count==0){
+        // this.router.navigateByUrl('InspectiontemplatedetailEdit/'TemplateID);
+        this.router.navigate(['/InspectiontemplatedetailEdit', TemplateID]);
+      }else
+      {
+         this.editQuestions = index;
+    }  
 
+    });
+  }
+  cancelTemplateDetails() {
+    this.editQuestions = -1;
+    this.inspectionService
+    .getInspectionTemplateDetails().subscribe((data: Inspection[]) => {
+      this.inspectiontemplate = data;
+    });
+  }
+  submiteditInspectionTemplate(TemplateName, TemplateID, ScoreTypeKey) {
+
+    this.inspectionService
+    .updateEditInspection(TemplateName, TemplateID, ScoreTypeKey, this.OrganizationID).subscribe(() => {
+      this.inspectionService
+      .getInspectionTemplateDetails().subscribe((data: Inspection[]) => {
+        this.inspectiontemplate = data;
+      });
+      this.editQuestions = -1;
+    });
+  }
 }

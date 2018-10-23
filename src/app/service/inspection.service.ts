@@ -186,5 +186,70 @@ export class InspectionService {
       .http
       .post (url,inspectionDetail1).subscribe(res => console.log('Done'));
   }
+  updateEditedTemplateQuestion(obj){
+    const url='http://localhost:3000/api/updateEditedTemplateQuestion';
+    return this
+    .http
+    .post (url,obj);
+  }
+  insertEditedTemplateQuestion(obj){
+    const url='http://localhost:3000/api/insertEditedTemplateQuestion';
+    return this
+    .http
+    .post (url,obj);
+  }
+  updateTemplateDetails(templatename,tempEditid,OrganizationID,ScoreTypeKey) {
+    return this
+    .http
+    .get('http://localhost:3000/api/updateTemplateDetails?templatename='+templatename+'&tempEditid='+tempEditid+'&OrganizationID='+OrganizationID+'&ScoreTypeKey='+ScoreTypeKey);
+
+  }
+  getTemplateQuestionsEditDetails(templateid, OrganizationID) {
+    return this
+    .http
+    .get('http://localhost:3000/api/getTemplateQuestionsEditDetails?templateid=' + templateid + '&OrganizationID=' + OrganizationID);
+
+  }
+  deleteSelectedTemplateQuestion(templateID, OrganizationID){
+    return this
+    .http
+    .get('http://localhost:3000/api/deleteSelectedTemplateQuestion?templateID='+templateID+'&OrganizationID='+OrganizationID);
+
+  }
+  getTemplateEditDetails(templateid, OrganizationID) {
+    return this
+    .http
+    .get('http://localhost:3000/api/getTemplateEditDetails?templateid=' + templateid + '&OrganizationID=' + OrganizationID);
+  }
+  scoringtype(OrganizationID) {
+    return this
+    .http
+    .get('http://localhost:3000/api/scoringtype?OrganizationID=' + OrganizationID);
+
+  }
+  checkforInspectionOnTemplate(templateid,OrganizationID){
+    return this
+    .http
+    .get('http://localhost:3000/api/checkforInspectionOnTemplate?templateid='+templateid+'&OrganizationID='+OrganizationID);
+  }
+  updateEditInspection(TemplateName, TemplateID, ScoreTypeKey, OrganizationID) {
+    return this
+    .http
+    .get('http://localhost:3000/api/updateEditInspection?TemplateName='+TemplateName+'&TemplateID='+TemplateID+'&ScoreTypeKey='+ScoreTypeKey+'&OrganizationID='+OrganizationID);
+
+  }
+  SearchTemplateandLocationbysuprvsr(SearchValue,orgid,toservempkey,newdate){
+    return this
+    .http
+    .get('http://localhost:3000/api/searchinspection?searchWO='+SearchValue+'&OrganizationID='+orgid+'&toServeremployeekey='+toservempkey+'&today_DT='+newdate);
+
+  }
+  getInspectionOrderTablewithCurrentDatefrsprvsr(curr_date,toservempkey,orgid)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/getSupervisorInspectionView?to_date='+curr_date+'&employeekey='+toservempkey+'&OrganizationID='+orgid);
+
+  }
   }
 

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { workorder } from '../../../model-class/work-order';
 import { WorkOrderServiceService } from '../../../service/work-order-service.service';
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 @Component({
   selector: 'app-create-quick-order',
   templateUrl: './create-quick-order.component.html',
@@ -43,15 +42,15 @@ export class CreateQuickOrderComponent implements OnInit {
   occursonday;
 
   workorderCreation;
-  constructor(private route: ActivatedRoute,private fb: FormBuilder, private router: Router, private WorkOrderServiceService: WorkOrderServiceService) { }
+
+  constructor(private router: Router, private WorkOrderServiceService: WorkOrderServiceService) { }
+
   convert_DT(str) {
     var date = new Date(str),
       mnth = ('0' + (date.getMonth() + 1)).slice(-2),
       day = ('0' + date.getDate()).slice(-2);
     return [date.getFullYear(), mnth, day].join('-');
   }
-
-
 
   toggleVisibility(e) {
     if (e.target.checked) {
@@ -129,8 +128,7 @@ export class CreateQuickOrderComponent implements OnInit {
     this.WorkOrderServiceService
       .addQuickWorkOrder(this.createworkorder)
       .subscribe(res => this.router.navigateByUrl('/ViewWorkOrder'));
-      
-    debugger;
+    // debugger;
   }
 
 

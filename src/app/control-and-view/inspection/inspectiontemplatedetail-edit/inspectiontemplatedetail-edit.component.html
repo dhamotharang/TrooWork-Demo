@@ -11,7 +11,7 @@
     <div class="row col-md-12">
       <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scoringtype" >Scoring Type* </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
-          <select style="background-color: #D4F4FF !important;width: 31.5rem" class="form-control"  [(ngModel)]="ScoreTypeKey">
+          <select style="background-color: #D4F4FF !important;width: 31.5rem" class="form-control"   [(ngModel)]="TemplateEditDetails.ScoreTypeKey">
               <option >--Select--</option>
               
               <option *ngFor="let s of scores" [value]="s.ScoreTypeKey">
@@ -24,7 +24,7 @@
     <div class="row col-md-12">
         <h5 style="text-align:right" class="col-md-4"><label for="inspectiontemplatename" >Inspection Template Name* </label></h5>
         <div class="md-form col-md-3" style="text-align:left">
-            <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"  [(ngModel)]="InspTempName"> 
+            <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"  [(ngModel)]="TemplateEditDetails.TemplateName"> 
           </div>
         <div class="col col-md-5"></div>
       </div>
@@ -33,22 +33,26 @@
               <!-- already present array -->
               <tr *ngFor="let field of fieldArray">
                 <td>
-                  <input [(ngModel)]="field.question" class="form-control" type="text" value="{{field.question}}" />
+                  <input [(ngModel)]="field.Question" (input)='addtempId(field.TemplateQuestionID)' class="form-control" type="text" value="{{field.Question}}" />
                 </td>
                 <td>
-                  <button class="btn btn-default" type="button" (click)="deleteFieldValue(i)">DELETE QUESTION</button>
+                  <button class="btn btn-default" type="button" (click)="deleteFieldValue(field.TemplateQuestionID)">DELETE QUESTION</button>
                 </td>
               </tr>
           <!-- new space to enter values -->
-              <tr>
+              <tr *ngFor="let f of newAttribute; let k = index">
                 <td>
-                  <input class="form-control" type="text" id="newAttributeCode" [(ngModel)]="newAttribute.question" name="newAttributeCode" />
+                  <input class="form-control" type="text" id="newAttributeCode" [(ngModel)]="newAttribute[k]" name="newAttributeCode" />
                 </td>
                 <td>
-                  <button class="btn btn-default" type="button" (click)="addFieldValue()">ADD QUESTION</button>
+                  <button class="btn btn-default" type="button" (click)="deleteNewFieldValue(k)">DELETE QUESTION</button>
                 </td>
+                
               </tr>
-              <button class="btn btn-default" type="button" (click)="valuesSave(ScoreTypeKey,InspTempName)">Update</button>
+              <td>
+                <button class="btn btn-default" type="button" (click)="addFieldValue()">ADD QUESTION</button>
+              </td>
+              <button class="btn btn-default" type="button" (click)="savetemplate()">Update</button>
               <button class="btn btn-default" type="button">Cancel</button>
             </tbody>
           </table>
