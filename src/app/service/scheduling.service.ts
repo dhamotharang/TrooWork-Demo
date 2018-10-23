@@ -112,4 +112,36 @@ export class SchedulingService {
     }
     return this.http.post(uri, obj);
   }
+
+  getScheduleDetailsbyID(scheduleKey, orgID) {
+    return this
+      .http
+      .get(`http://localhost:3000/api/getScheduleById?bkey=` + scheduleKey + '&OrganizationID=' + orgID);
+  }
+
+  assignChangesForWO(employeekey, orgID, EmpKey, scheduleNameKey, ScheduleDescription) {
+    return this
+      .http
+      .get(`http://localhost:3000/api/assignChangesForWork?managerkey=` + employeekey + '&empkey=' + EmpKey + '&batchkey=' + scheduleNameKey + '&batchdesp=' + ScheduleDescription + '&OrganizationID=' + orgID);
+  }
+
+  checkForNewScheduleName(EmpKey, orgID, BatchSchduleName) {
+    return this
+      .http
+      .get(`http://localhost:3000/api/checkForNewScheduleName?bkey=` + BatchSchduleName + '&employeekey=' + EmpKey + '&OrganizationID=' + orgID);
+  }
+
+  updateScheduleNameDetails(employeeKey, OrgID, BatchscheduleName, empKey, scheduleNameKey, ScheduleDescription) {
+
+    const uri = "http://localhost:3000/api/updateScheduleName";
+    const obj = {
+      BatchSchduleName: BatchscheduleName,
+      ScheduleDescription: ScheduleDescription,
+      EmployeeKey: empKey,
+      bskey: scheduleNameKey,
+      employeekey: employeeKey,
+      OrganizationID: OrgID
+    }
+    return this.http.post(uri, obj);
+  }
 }

@@ -116,13 +116,16 @@ import { SettingusernameandpswrdaftremplcreatebymanComponent } from './control-a
 import { ViewworkordersforemployeeComponent } from './control-and-view/employee/viewworkordersforemployee/viewworkordersforemployee.component';
 import { ViewinspectionmanagerComponent } from './control-and-view/inspection/viewinspectionmanager/viewinspectionmanager.component';
 import { EditWorkOrderComponent } from './control-and-view/work-order/edit-work-order/edit-work-order.component';
+import { TrainingComponent } from './control-and-view/supervisor/training/training.component';
 import { ManagerinspectiontemplateComponent } from './control-and-view/inspection/managerinspectiontemplate/managerinspectiontemplate.component';
 import { CreateinspectionComponent } from './control-and-view/supervisor/createinspection/createinspection.component';
 import { ViewinspctnbysprvsrComponent } from './control-and-view/supervisor/viewinspctnbysprvsr/viewinspctnbysprvsr.component';
 import { SupervsrinspectiontemplateComponent } from './control-and-view/supervisor/supervsrinspectiontemplate/supervsrinspectiontemplate.component';
 
 import { BatchScheduleRoomComponent } from './control-and-view/scheduling/batch-schedule-room/batch-schedule-room.component';
-import { BatchScheduleNameEditComponent } from './control-and-view/scheduling/batch-schedule-name-edit/batch-schedule-name-edit.component';
+import { CreateWorkOrderComponent } from './control-and-view/supervisor/create-work-order/create-work-order.component';
+import { CreateQuickWorkOrderComponent } from './control-and-view/supervisor/create-quick-work-order/create-quick-work-order.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -335,7 +338,7 @@ const routes: Routes = [
     component: SchedulingViewComponent
   },
   {
-    path: 'EditBatchWork',
+    path: 'EditBatchWork/:scheduleNameKey',
     component: EditBatchWorkComponent
   },
   {
@@ -526,10 +529,6 @@ const routes: Routes = [
     component: BatchScheduleRoomComponent
   },
   {
-    path: 'scheduleRoomEdit',
-    component: BatchScheduleNameEditComponent
-  },
-  {
     path: 'ViewInspectionManager/:InspectionOrderKey',
     component: ViewinspectionmanagerComponent
   },
@@ -554,8 +553,24 @@ const routes: Routes = [
     component:SupervsrinspectiontemplateComponent
   },
   {
+    path:'EditWorkOrder/:WorkorderKey',
+    component:EditWorkOrderComponent
+  },
+  {
+    path:'Training',
+    component:TrainingComponent
+  },
+  {
     path: 'Managerinspectiontemplate/:InspectionOrderKey',
     component: ManagerinspectiontemplateComponent
+  },
+  {
+    path: 'CreateWorkOrderSuperVisor',
+    component: CreateWorkOrderComponent
+  },
+  {
+    path: 'createQuickOrderSuperVisor',
+    component: CreateQuickWorkOrderComponent
   }
 ];
 

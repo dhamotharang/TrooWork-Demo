@@ -4,11 +4,11 @@ import { workorder } from '../../../model-class/work-order';
 import { WorkOrderServiceService } from '../../../service/work-order-service.service';
 
 @Component({
-  selector: 'app-create-workorder',
-  templateUrl: './create-workorder.component.html',
-  styleUrls: ['./create-workorder.component.scss']
+  selector: 'app-create-work-order',
+  templateUrl: './create-work-order.component.html',
+  styleUrls: ['./create-work-order.component.scss']
 })
-export class CreateWorkorderComponent implements OnInit {
+export class CreateWorkOrderComponent implements OnInit {
   EmployeeOption: workorder[];
   workorderTypeList: workorder[];
   facilitylist: workorder[];
@@ -37,7 +37,7 @@ export class CreateWorkorderComponent implements OnInit {
   isBarcodeRequired: any;
   WorkorderTypeKey;
   workorderNotes;
-  showEqTypes=false;
+  showEqTypes = false;
   // temp-variables
   wot;
   notes;
@@ -78,7 +78,7 @@ export class CreateWorkorderComponent implements OnInit {
   WorkorderStartDate;
   WorkorderEndDate;
   occurenceat;
-  DailyrecurringGap=0;
+  DailyrecurringGap = 0;
   rep_interval = 1;
   occurs_on = null;
   weektable_one;
@@ -472,21 +472,17 @@ export class CreateWorkorderComponent implements OnInit {
       this.rep_interval = this.DailyrecurringGap;
     }
     else if (this.isRecurring == true && this.weeklyrecurring == true) {
-      if(this.Time_weekly)
-      {
-      this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();
+      if (this.Time_weekly) {
+        this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();
       }
-      else
-      {
+      else {
         alert("Please Enter Time!");
       }
-    }  else if (this.isRecurring == true && this.monthlyrecurring == true) {
-      if(this.Time_monthly)
-      {
-      this.workTime = this.Time_monthly.getHours() + ':' + this.Time_monthly.getMinutes();
+    } else if (this.isRecurring == true && this.monthlyrecurring == true) {
+      if (this.Time_monthly) {
+        this.workTime = this.Time_monthly.getHours() + ':' + this.Time_monthly.getMinutes();
       }
-      else
-      {
+      else {
         alert("Please Enter Time!");
       }
       if (this.monthlyreccradio1 == true) {
@@ -494,7 +490,7 @@ export class CreateWorkorderComponent implements OnInit {
         this.rep_interval = (this.month1) ? this.month1 : 1;
       }
       else if (this.monthlyreccradio2 == true) {
-      
+
         this.occurs_on = this.day2;
         this.rep_interval = (this.month2) ? this.month2 : 1;
         this.occurs_type = this.pos2;
@@ -820,15 +816,6 @@ export class CreateWorkorderComponent implements OnInit {
     this.timetable.times = [];
     for (var i = 0; i < this.dailyFrequency; i++) {
       this.timetable.times.push('');
-    }
-  }
-  change_values()
-  {
-    if(this.showEqTypes==true)
-    {
-      this.ZoneKey=-1;
-      this.RoomTypeKey=-1;
-      this.RoomKey=-1;
     }
   }
 
