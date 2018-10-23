@@ -98,17 +98,25 @@
                             <td (click)="viewWorkForEdit(w.WorkorderKey)" *ngIf="w.IsReccurring === 0 ">NO</td>
                             <td>{{w.WorkorderNotes}}</td>
                             <td>
-                                <!-- <div *ngIf="FinishButton[i] == true "> -->
+                                 <div *ngIf="FinishButton[i] == true "> {{FinishButton[i]}}
                                     <button type="button" class="btn btn-default" (click)="workorderFinish(i)">Finish</button>
-                                <!-- </div> -->
+                                 </div> 
                                 <div *ngIf="showbutton[i] == true && showbutton[i] !== false">
-                                    <button type="button" *ngIf="checktoshowFinish(i);" class="btn btn-default" (click)="cancelWorkorderSubmission(i)">Cancel</button>
+                                    <button type="button" *ngIf="countCancel1" class="btn btn-default" (click)="cancelWorkorderSubmission(i)">Cancel</button>
                                   
-                                    <div ng-show="w.IsBarcodeRequired == 1">
+                                    <div *ngIf="w.IsBarcodeRequired == 1">
                                         <label for = "barcode" class = "col-sm-3 control-label">Barcode</label>
                                         <div class = "col-sm-4">
                                             <input type = "text"  name="input"   ng-model="myworkorder.barcodeValue" placeholder="Enter Barcode" style="text-align:center;">
                                         </div>  
+                                    </div>
+                                    <div *ngIf="w.IsPhotoRequired == 1">
+                                        <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+                                        <button type="button" class="btn btn-success btn-s" 
+                                        (click)="uploader.uploadAll();FileSelected();" 
+                                        [disabled]="!uploader.getNotUploadedItems().length" >
+                                            Upload
+                                      </button>  
                                     </div>
                                     <!-- <div> -->
                                     <button type="submit" *ngIf="checktoshowFinish(i);" class="btn btn-default" (click)="workorderCompleted(i,w.IsBarcodeRequired,w.IsPhotoRequired,w.WorkorderKey,file)"
