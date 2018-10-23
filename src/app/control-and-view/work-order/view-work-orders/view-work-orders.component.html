@@ -140,6 +140,7 @@
         <th>View</th>
         <th *ngIf="checkValue.length <= 0">Delete</th>
         <th *ngIf="checkValue.length > 0"> <button  sweet-confirm-option="{{sweet.confirm}}" class = "btn btn-danger button_style"  sweetalert sweet-options="{{sweet.option}}"   type="button"  sweet-on-cancel="checkCancel()" (click)="deleteWorkOrdersPage()"  tabindex="4"> <span class="glyphicon glyphicon-trash"></span>  Delete</button></th>
+        <th>Action</th>
       </thead>
       <tbody>
           <tr *ngFor="let x of workorderList;let i=index">
@@ -169,7 +170,14 @@
                   </a> </td> 
               <td *ngIf="x.WorkorderStatus !== 'Scheduled'"></td>
               <td *ngIf="x.WorkorderStatus === 'Scheduled'"> <input type="checkbox" [(ngModel)]="workorderCheckValue" (change)="toggleVisibility($event);checkBoxValueForDelete(i, workorderCheckValue, x.WorkorderKey);" ></td>
-
+              <td  *ngIf="x.IsReccurring === 0"><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}" class="btn btn-primary" style="color:white !important" routerLinkActive="active"><b>Instance
+              </b>
+            </a></td>
+            <td  *ngIf="x.IsReccurring === 1"><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}" class="btn btn-primary" style="color:white !important" routerLinkActive="active"><b>Instance
+            </b>
+          </a><a routerLink="/UpdateRecurWorkorder/{{x.WorkorderKey}}" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Recurring
+            </b>
+          </a></td>
           </tr>
           <tr *ngIf="workorderList?.length == 0">
               <td colspan="14" class="no-data-available">No records found</td>

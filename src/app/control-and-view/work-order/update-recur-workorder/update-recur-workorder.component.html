@@ -4,7 +4,7 @@
 <div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
   <div class="row col-md-12 ">
-    <h3 style="margin-left: 25rem;">CREATE NEW WORK ORDER</h3>
+    <h3 style="margin-left: 25rem;">EDIT THIS WORK CYCLE</h3>
   </div>
   <br><br>
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
@@ -12,15 +12,13 @@
       <h1 style="text-align: right"></h1>
       <div class="form-group">
         <label>Workorder Type</label><br>
-        <select *ngIf="!newType" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" (change)='checkfornewWOT(WorkorderTypeKey)' [(ngModel)]="WorkorderTypeKey"
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="workordertypekey"
           required>
           <option>--Select--</option>
           <option *ngFor="let e of workorderTypeList" [value]="e.WorkorderTypeKey">
             {{e.WorkorderTypeText}}
           </option>
         </select>
-        <input type="text" *ngIf="newType" [(ngModel)]="newworkordertypetext" class="form-control" placeholder="Enter new workordertype">
-        <br><input type="button" style="margin-bottom:19px" *ngIf="newType"  (click)="GobacktoMenu()" class="btn btn-primary  button_style " value="Go Default"/>
       </div>
       <div class="form-group">
         <label>Building*</label><br>
@@ -87,7 +85,7 @@
       </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Recurring Yes</label>
-        <input type="checkbox" [(ngModel)]="isRecurring" data-md-icheck (change)="toggleVisibility_Recur($event)" />
+        <input type="checkbox" [(ngModel)]="isRecurring" data-md-icheck (change)="toggleVisibility($event)" />
       </div>
 
       <div class="form-group" *ngIf="isRecurring==false">
@@ -100,11 +98,11 @@
       <h1 style="text-align: right"></h1>
       <div class="form-group">
         <label>Workorder Notes*</label>
-        <textarea class="form-control rounded-0" [(ngModel)]="workorderNotes" rows="6" style="resize: none;"></textarea>
+        <textarea class="form-control rounded-0" [(ngModel)]="WorkorderNotes" rows="6" style="resize: none;"></textarea>
       </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Is Equipment</label>
-        <input type="checkbox" [(ngModel)]="showEqTypes" data-md-icheck (change)="toggleVisibility_Equipment($event);change_values();" />
+        <input type="checkbox" [(ngModel)]="showEqTypes" data-md-icheck (change)="toggleVisibility($event);change_values();" />
       </div>
       <div class="form-group">
         <label>Equipment Type</label><br>
@@ -267,13 +265,13 @@
       <div class="col-md-6">
         <div class="form-group">
           <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Photo Required</label>
-          <input type="checkbox" [(ngModel)]="isPhotoRequired" data-md-icheck (change)="toggleVisibility_Photo($event)" />
+          <input type="checkbox" [(ngModel)]="isPhotoRequired" data-md-icheck (change)="toggleVisibility($event)" />
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Barcode Required</label>
-          <input type="checkbox" [(ngModel)]="isBarcodeRequired" data-md-icheck (change)="toggleVisibility_Barcode($event)" />
+          <input type="checkbox" [(ngModel)]="isBarcodeRequired" data-md-icheck (change)="toggleVisibility($event)" />
         </div>
       </div>
 

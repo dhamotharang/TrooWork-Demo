@@ -37,7 +37,8 @@ export class CreateWorkorderComponent implements OnInit {
   isBarcodeRequired: any;
   WorkorderTypeKey;
   workorderNotes;
-  showEqTypes=false;
+  showEqTypes = false;
+  
   // temp-variables
   wot;
   notes;
@@ -54,7 +55,7 @@ export class CreateWorkorderComponent implements OnInit {
   is_PhotoRequired;
   is_BarcodeRequired;
   occurenceinstance;
-
+  addWOT;
   intervaltype;
   repeatinterval;
   occursonday;
@@ -66,7 +67,7 @@ export class CreateWorkorderComponent implements OnInit {
   isRecurring = false;
   monthlyreccradio1;
   monthlyreccradio2;
-
+  newType=false;
   //
   //recurr variables
   monthlyDays = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
@@ -78,7 +79,7 @@ export class CreateWorkorderComponent implements OnInit {
   WorkorderStartDate;
   WorkorderEndDate;
   occurenceat;
-  DailyrecurringGap=0;
+  DailyrecurringGap = 0;
   rep_interval = 1;
   occurs_on = null;
   weektable_one;
@@ -96,7 +97,7 @@ export class CreateWorkorderComponent implements OnInit {
   month2;
   occurs_type;
   pos2;
-
+  newworkordertypetext;
   public convert_DT(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
@@ -132,7 +133,10 @@ export class CreateWorkorderComponent implements OnInit {
     this.WorkOrderServiceService
       .getallworkorderType(this.emp_key, this.org_id)
       .subscribe((data: any[]) => {
-        this.workorderTypeList = data;
+        var newArray = data.slice(0); //clone the array, or you'll end up with a new "None" option added to your "values" array on every digest cycle.
+        newArray.unshift({ WorkorderTypeText: "Create New", WorkorderTypeKey: "-99" });
+        this.workorderTypeList = newArray;
+        // this.workorderTypeList = data;
       });
     this.WorkOrderServiceService
       .getallPriority(this.org_id)
@@ -207,7 +211,7 @@ export class CreateWorkorderComponent implements OnInit {
   }
   getEquiment(floor_key, facility_key) {
     this.WorkOrderServiceService
-      .getallEquipment(floor_key, facility_key, this.org_id)
+      .getallEquipment(facility_key, floor_key, this.org_id)
       .subscribe((data: any[]) => {
         this.EquipmentTypeList = data;
         this.EquipmentList = data;
@@ -472,21 +476,17 @@ export class CreateWorkorderComponent implements OnInit {
       this.rep_interval = this.DailyrecurringGap;
     }
     else if (this.isRecurring == true && this.weeklyrecurring == true) {
-      if(this.Time_weekly)
-      {
-      this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();
+      if (this.Time_weekly) {
+        this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();
       }
-      else
-      {
+      else {
         alert("Please Enter Time!");
       }
-    }  else if (this.isRecurring == true && this.monthlyrecurring == true) {
-      if(this.Time_monthly)
-      {
-      this.workTime = this.Time_monthly.getHours() + ':' + this.Time_monthly.getMinutes();
+    } else if (this.isRecurring == true && this.monthlyrecurring == true) {
+      if (this.Time_monthly) {
+        this.workTime = this.Time_monthly.getHours() + ':' + this.Time_monthly.getMinutes();
       }
-      else
-      {
+      else {
         alert("Please Enter Time!");
       }
       if (this.monthlyreccradio1 == true) {
@@ -494,7 +494,7 @@ export class CreateWorkorderComponent implements OnInit {
         this.rep_interval = (this.month1) ? this.month1 : 1;
       }
       else if (this.monthlyreccradio2 == true) {
-      
+
         this.occurs_on = this.day2;
         this.rep_interval = (this.month2) ? this.month2 : 1;
         this.occurs_type = this.pos2;
@@ -522,6 +522,29 @@ export class CreateWorkorderComponent implements OnInit {
             break;
         }
       }
+    }
+    if(this.newType==true)
+    {
+      if(this.newworkordertypetext)
+      {
+      this.WorkOrderServiceService
+      .checkforcheckForWorkOrderType(this.newworkordertypetext, this.emp_key, this.org_id)
+      .subscribe((data: any[]) => {
+        if(data[0].count==0){
+          this.addWOT={
+            WorkorderType:this.newworkordertypetext,
+            employeekey:this.emp_key,
+            OrganizationID:this.org_id
+          };
+          this.WorkOrderServiceService
+          .AddnewWOT(this.addWOT )
+          .subscribe((data: any[]) => {
+            this.wot = data[0].WorkOrderTypeKey;
+          });  
+        } 
+      });
+    }
+
     }
     this.workorderCreation = {
       occursontime: this.workTime,
@@ -786,6 +809,29 @@ export class CreateWorkorderComponent implements OnInit {
         }
       }
     }
+    if(this.newType==true)
+    {
+      if(this.newworkordertypetext)
+      {
+      this.WorkOrderServiceService
+      .checkforcheckForWorkOrderType(this.newworkordertypetext, this.emp_key, this.org_id)
+      .subscribe((data: any[]) => {
+        if(data[0].count==0){
+          this.addWOT={
+            WorkorderType:this.newworkordertypetext,
+            employeekey:this.emp_key,
+            OrganizationID:this.org_id
+          };
+          this.WorkOrderServiceService
+          .AddnewWOT(this.addWOT )
+          .subscribe((data: any[]) => {
+            this.wot = data[0].WorkOrderTypeKey;
+          });    
+        } 
+      });
+    }
+
+    }
     this.workorderCreation = {
       occursontime: this.workTime,
       workorderkey: - 99,
@@ -822,14 +868,22 @@ export class CreateWorkorderComponent implements OnInit {
       this.timetable.times.push('');
     }
   }
-  change_values()
-  {
-    if(this.showEqTypes==true)
-    {
-      this.ZoneKey=-1;
-      this.RoomTypeKey=-1;
-      this.RoomKey=-1;
+  change_values() {
+    if (this.showEqTypes == true) {
+      this.ZoneKey = -1;
+      this.RoomTypeKey = -1;
+      this.RoomKey = -1;
     }
   }
+  checkfornewWOT(wot_key) {
 
+    if (wot_key == '-99') {
+
+      this.newType = true;
+    }
+  }
+  GobacktoMenu()
+  {
+    this.newType = false;
+  }
 }

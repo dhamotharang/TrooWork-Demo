@@ -141,7 +141,7 @@ import { BatchScheduleRoomComponent } from './control-and-view/scheduling/batch-
 import { BatchScheduleNameEditComponent } from './control-and-view/scheduling/batch-schedule-name-edit/batch-schedule-name-edit.component';
 import { ViewinspectionmanagerComponent } from './control-and-view/inspection/viewinspectionmanager/viewinspectionmanager.component';
 import { ManagerinspectiontemplateComponent } from './control-and-view/inspection/managerinspectiontemplate/managerinspectiontemplate.component';
-
+import { UpdateRecurWorkorderComponent } from './control-and-view/work-order/update-recur-workorder/update-recur-workorder.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -255,7 +255,8 @@ import { ManagerinspectiontemplateComponent } from './control-and-view/inspectio
     BatchScheduleNameEditComponent,
     ViewinspectionmanagerComponent,
     EditWorkOrderComponent,
-    ManagerinspectiontemplateComponent
+    ManagerinspectiontemplateComponent,
+    UpdateRecurWorkorderComponent
 
   ],
   imports: [
