@@ -1,3 +1,126 @@
-<p>
-  view-work-order works!
-</p>
+<app-supervisor-dashboard></app-supervisor-dashboard>
+<div style="width: 100%;height: 100%;">
+  <div class="bg-dark" style="width: 100%;height: 100%;">
+    <br><br>
+    <h4 class="refer"><b>SEARCH WORK ORDER BY</b> </h4>
+    <br>
+
+    <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xs-12" style="border: 0.5px solid black !important;border-radius: 8px;">
+
+      <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xs-12"><br>
+        <!-- <div class = "col-sm-4 col-md-4 col-lg-4"> -->
+        <label class="col-sm-2 col-md-2 col-lg-2 control-label"> On Date</label>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+          <igx-datePicker [value]="date1" [(ngModel)]="WorkorderDate" (onSelection)="viewWorkorderFilterByDate()"></igx-datePicker>
+        </div>
+        <label class="col-sm-2 col-md-2 col-lg-2 control-label"> To Date</label>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+          <igx-datePicker [value]="date1" [(ngModel)]="WorkorderDate2" (onSelection)="viewEmployeeWorkorderByFilter(viewworkorder)"></igx-datePicker>
+        </div>
+        <!-- </div>   -->
+        <!-- <div class = "col-sm-4 col-md-4 col-lg-4"> -->
+        <label class="col-sm-2 col-md-2 col-lg-2  control-label">Building*</label>
+        <div class="col-sm-3 col-md-2 col-lg-2">
+          <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="FacilityKey" class="form-control"
+            (change)="selectFloorfromBuildings($event.target.value)">
+            <option>--Select--</option>
+            <option *ngFor="let z of facilityList" [value]="z.FacilityKey">
+              {{z.FacilityText}}
+            </option>
+          </select>
+        </div>
+        <!-- </div> -->
+        <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xs-12">
+          <label class="col-sm-2 col-md-2 col-lg-2 control-label">Floor*</label>
+          <div class="col-sm-2 col-md-2 col-lg-2">
+            <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="FloorKey" class="form-control"
+              (change)="selectZoneRoomtypefromFloor($event.target.value)">
+              <option>--Select--</option>
+              <option *ngFor="let z of floorList" [value]="z.FloorKey">
+                {{z.FloorName}}
+              </option>
+            </select>
+            <!-- </div> -->
+          </div>
+          <!-- <div class = "col-sm-4 col-md-4 col-lg-4"> -->
+          <label class="col-sm-2 col-md-2 col-lg-2  control-label">Zone</label>
+          <div class="col-sm-2 col-md-2 col-lg-2">
+            <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="ZoneKey" class="form-control">
+              <option>--Select--</option>
+              <option *ngFor="let z of zoneList" [value]="z.ZoneKey" (onSelection)=" viewEmployeeWorkorderByFilter(viewworkorder); changedZone();">
+                {{z.ZoneName}}
+              </option>
+            </select>
+          </div>
+          <label class="col-sm-2 col-md-2 col-lg-2  control-label">Room Type</label>
+          <div class="col-sm-2 col-md-2 col-lg-2">
+            <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="RoomTypeKey" class="form-control">
+              <option>--Select--</option>
+              <option *ngFor="let z of roomtypeList" [value]="z.RoomTypeKey" (onSelection)=" viewEmployeeWorkorderByFilter(viewworkorder)">
+                {{z.RoomTypeName}}
+              </option>
+            </select>
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <form [formGroup]="searchform">
+        <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
+          <input class="form-control" name="searchwo" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
+            placeholder="Search Workorder Type Name,Employee,Room,Notes" aria-label="Search" [(ngmodel)]="SearchWO"
+            formControlName="SearchWO" (input)="searchWO($event.target.value);" style="width: 100%;">
+          <div *ngIf="searchform.controls.SearchWO.errors?.minlength">Minimum 3 characters required.</div>
+        </div>
+      </form>
+      <!-- </div> -->
+      <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
+        <table class="table table-responsive table-hover table-bordered table">
+          <thead class="tableHead">
+            <th> Workorder Type Name </th>
+            <th>Status</th>
+            <th>Employee</th>
+            <th>Room</th>
+            <th>Equipment</th>
+            <th>Date & Time</th>
+            <th>Recurring</th>
+            <th>Notes</th>
+            <th>Action</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let w of WorkorderDetTable;let i=index">
+              <td>{{w.WorkorderTypeName}} </td>
+              <td>{{w.WorkorderStatus}}</td>
+              <td>{{w.LastName}},{{w.FirstName}}</td>
+              <td>{{w.RoomId}}</td>
+              <td>{{w.EquipmentType}}</td>
+              <td>{{w.WorkorderTime}}</td>
+              <td (click)="viewWorkForEdit(w.WorkorderKey)" *ngIf="w.IsReccurring === 1 ">YES</td>
+              <td (click)="viewWorkForEdit(w.WorkorderKey)" *ngIf="w.IsReccurring === 0 ">NO</td>
+              <td>{{w.WorkorderNotes}}</td>
+              <td>
+                <!-- <div *ngIf="FinishButton[i] == true "> -->
+                <button type="button" class="btn btn-default" (click)="workorderFinish(i)">Finish</button>
+                <!-- </div> -->
+                <div *ngIf="showbutton[i] == true && showbutton[i] !== false">
+                  <button type="button" *ngIf="checktoshowFinish(i);" class="btn btn-default" (click)="cancelWorkorderSubmission(i)">Cancel</button>
+
+                  <div ng-show="x.IsBarcodeRequired == 1">
+                    <label for="barcode" class="col-sm-3 control-label">Barcode</label>
+                    <div class="col-sm-4">
+                      <input type="text" name="input" ng-model="myworkorder.barcodeValue" placeholder="Enter Barcode"
+                        style="text-align:center;">
+                    </div>
+                  </div>
+                  <!-- <div> -->
+                  <button type="submit" *ngIf="checktoshowFinish(i);" class="btn btn-default" (click)="workorderCompleted(i,w.IsBarcodeRequired,w.IsPhotoRequired,w.WorkorderKey,file)"
+                    style="width:86px;margin-top: 7px;margin-left: -2px">Submit</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

@@ -125,6 +125,7 @@ import { SupervsrinspectiontemplateComponent } from './control-and-view/supervis
 import { BatchScheduleRoomComponent } from './control-and-view/scheduling/batch-schedule-room/batch-schedule-room.component';
 import { CreateWorkOrderComponent } from './control-and-view/supervisor/create-work-order/create-work-order.component';
 import { CreateQuickWorkOrderComponent } from './control-and-view/supervisor/create-quick-work-order/create-quick-work-order.component';
+import { ViewWorkOrderComponent } from './control-and-view/supervisor/view-work-order/view-work-order.component';
 
 const routes: Routes = [
   {
@@ -571,6 +572,10 @@ const routes: Routes = [
   {
     path: 'createQuickOrderSuperVisor',
     component: CreateQuickWorkOrderComponent
+  },
+  {
+    path: 'viewWorkOrderSupervisor',
+    component: ViewWorkOrderComponent
   }
 ];
 

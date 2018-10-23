@@ -145,7 +145,7 @@ import { ViewinspctnbysprvsrComponent } from './control-and-view/supervisor/view
 import { SupervsrinspectiontemplateComponent } from './control-and-view/supervisor/supervsrinspectiontemplate/supervsrinspectiontemplate.component';
 import { CreateWorkOrderComponent } from './control-and-view/supervisor/create-work-order/create-work-order.component';
 import { CreateQuickWorkOrderComponent } from './control-and-view/supervisor/create-quick-work-order/create-quick-work-order.component';
-
+import { ViewWorkOrderComponent } from './control-and-view/supervisor/view-work-order/view-work-order.component';
 
 @NgModule({
   declarations: [
@@ -264,7 +264,8 @@ import { CreateQuickWorkOrderComponent } from './control-and-view/supervisor/cre
     ViewinspctnbysprvsrComponent,
     SupervsrinspectiontemplateComponent,
     CreateWorkOrderComponent,
-    CreateQuickWorkOrderComponent
+    CreateQuickWorkOrderComponent,
+    ViewWorkOrderComponent
   ],
   imports: [
     BrowserModule,
