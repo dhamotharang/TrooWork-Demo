@@ -272,7 +272,7 @@ export class EditWorkOrderComponent implements OnInit {
   }
   getEquiment(floor_key, facility_key) {
     this.WorkOrderServiceService
-      .getallEquipment(floor_key, facility_key, this.org_id)
+      .getallEquipment( facility_key,floor_key, this.org_id)
       .subscribe((data: any[]) => {
         this.EquipmentTypeList = data;
         this.EquipmentList = data;

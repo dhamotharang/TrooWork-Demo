@@ -127,7 +127,7 @@ export class CreateQuickWorkOrderComponent implements OnInit {
     };
     this.WorkOrderServiceService
       .addQuickWorkOrder(this.createworkorder)
-      .subscribe(res => this.router.navigateByUrl('/ViewWorkOrder'));
+      .subscribe(res => this.router.navigateByUrl('/viewWorkOrderSupervisor'));
   }
 
 

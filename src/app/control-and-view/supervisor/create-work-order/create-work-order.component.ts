@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { workorder } from '../../../model-class/work-order';
 import { WorkOrderServiceService } from '../../../service/work-order-service.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-create-work-order',
@@ -114,7 +115,7 @@ export class CreateWorkOrderComponent implements OnInit {
 
   }
 
-  constructor(private formBuilder: FormBuilder, private WorkOrderServiceService: WorkOrderServiceService) { }
+  constructor(private formBuilder: FormBuilder, private WorkOrderServiceService: WorkOrderServiceService, private router: Router) { }
 
   ngOnInit() {
     this.weeklyrecurring = false;
@@ -543,7 +544,7 @@ export class CreateWorkOrderComponent implements OnInit {
       occursonday: this.occurs_on,
       occurstype: this.occurs_type
     };
-    this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe((data: any[]) => { });
+    this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => this.router.navigateByUrl('/ViewWorkOrder'));
   }
   createWorkorder2() {
 
@@ -806,9 +807,7 @@ export class CreateWorkOrderComponent implements OnInit {
       occursonday: this.occurs_on,
       occurstype: this.occurs_type
     };
-    this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe((data: any[]) => {
-
-    });
+    this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => this.router.navigateByUrl('/viewWorkOrderSupervisor'));
 
   }
   addFormField() {

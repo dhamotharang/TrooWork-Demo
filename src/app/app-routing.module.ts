@@ -118,6 +118,7 @@ import { ViewinspectionmanagerComponent } from './control-and-view/inspection/vi
 import { EditWorkOrderComponent } from './control-and-view/work-order/edit-work-order/edit-work-order.component';
 import { TrainingComponent } from './control-and-view/supervisor/training/training.component';
 import { ManagerinspectiontemplateComponent } from './control-and-view/inspection/managerinspectiontemplate/managerinspectiontemplate.component';
+import { UpdateRecurWorkorderComponent } from './control-and-view/work-order/update-recur-workorder/update-recur-workorder.component';
 import { CreateinspectionComponent } from './control-and-view/supervisor/createinspection/createinspection.component';
 import { ViewinspctnbysprvsrComponent } from './control-and-view/supervisor/viewinspctnbysprvsr/viewinspctnbysprvsr.component';
 import { SupervsrinspectiontemplateComponent } from './control-and-view/supervisor/supervsrinspectiontemplate/supervsrinspectiontemplate.component';
@@ -125,6 +126,7 @@ import { SupervsrinspectiontemplateComponent } from './control-and-view/supervis
 import { BatchScheduleRoomComponent } from './control-and-view/scheduling/batch-schedule-room/batch-schedule-room.component';
 import { CreateWorkOrderComponent } from './control-and-view/supervisor/create-work-order/create-work-order.component';
 import { CreateQuickWorkOrderComponent } from './control-and-view/supervisor/create-quick-work-order/create-quick-work-order.component';
+import { ViewWorkOrderComponent } from './control-and-view/supervisor/view-work-order/view-work-order.component';
 
 const routes: Routes = [
   {
@@ -164,6 +166,7 @@ const routes: Routes = [
     path: 'Flooredit/:Floor_Key/:Facility_Key',
     component: FloorEditComponent
   },
+ 
   {
     path: 'manageLoginCredentials',
     component: ManageLoginCredentialsComponent
@@ -565,12 +568,20 @@ const routes: Routes = [
     component: ManagerinspectiontemplateComponent
   },
   {
+    path: 'UpdateRecurWorkorder/:WorkorderKey',
+    component: UpdateRecurWorkorderComponent
+  },
+  {
     path: 'CreateWorkOrderSuperVisor',
     component: CreateWorkOrderComponent
   },
   {
     path: 'createQuickOrderSuperVisor',
     component: CreateQuickWorkOrderComponent
+  },
+  {
+    path: 'viewWorkOrderSupervisor',
+    component: ViewWorkOrderComponent
   }
 ];
 

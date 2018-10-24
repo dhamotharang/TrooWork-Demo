@@ -12,13 +12,15 @@
       <h1 style="text-align: right"></h1>
       <div class="form-group">
         <label>Workorder Type</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WorkorderTypeKey"
+        <select *ngIf="!newType" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" (change)='checkfornewWOT(WorkorderTypeKey)' [(ngModel)]="WorkorderTypeKey"
           required>
           <option>--Select--</option>
           <option *ngFor="let e of workorderTypeList" [value]="e.WorkorderTypeKey">
             {{e.WorkorderTypeText}}
           </option>
         </select>
+        <input type="text" *ngIf="newType" [(ngModel)]="newworkordertypetext" class="form-control" placeholder="Enter new workordertype">
+        <br><input type="button" style="margin-bottom:19px" *ngIf="newType"  (click)="GobacktoMenu()" class="btn btn-primary  button_style " value="Go Default"/>
       </div>
       <div class="form-group">
         <label>Building*</label><br>

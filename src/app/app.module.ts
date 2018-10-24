@@ -140,12 +140,13 @@ import { TrainingComponent } from './control-and-view/supervisor/training/traini
 import { BatchScheduleRoomComponent } from './control-and-view/scheduling/batch-schedule-room/batch-schedule-room.component';
 import { ViewinspectionmanagerComponent } from './control-and-view/inspection/viewinspectionmanager/viewinspectionmanager.component';
 import { ManagerinspectiontemplateComponent } from './control-and-view/inspection/managerinspectiontemplate/managerinspectiontemplate.component';
+import { UpdateRecurWorkorderComponent } from './control-and-view/work-order/update-recur-workorder/update-recur-workorder.component';
 import { CreateinspectionComponent } from './control-and-view/supervisor/createinspection/createinspection.component';
 import { ViewinspctnbysprvsrComponent } from './control-and-view/supervisor/viewinspctnbysprvsr/viewinspctnbysprvsr.component';
 import { SupervsrinspectiontemplateComponent } from './control-and-view/supervisor/supervsrinspectiontemplate/supervsrinspectiontemplate.component';
 import { CreateWorkOrderComponent } from './control-and-view/supervisor/create-work-order/create-work-order.component';
 import { CreateQuickWorkOrderComponent } from './control-and-view/supervisor/create-quick-work-order/create-quick-work-order.component';
-
+import { ViewWorkOrderComponent } from './control-and-view/supervisor/view-work-order/view-work-order.component';
 
 @NgModule({
   declarations: [
@@ -260,11 +261,13 @@ import { CreateQuickWorkOrderComponent } from './control-and-view/supervisor/cre
     ViewinspectionmanagerComponent,
     EditWorkOrderComponent,
     ManagerinspectiontemplateComponent,
+    UpdateRecurWorkorderComponent,
     CreateinspectionComponent,
     ViewinspctnbysprvsrComponent,
     SupervsrinspectiontemplateComponent,
     CreateWorkOrderComponent,
-    CreateQuickWorkOrderComponent
+    CreateQuickWorkOrderComponent,
+    ViewWorkOrderComponent
   ],
   imports: [
     BrowserModule,

@@ -167,6 +167,19 @@ export class WorkOrderServiceService {
         .http
         .post (url, obj);
     }
+    checkforcheckForWorkOrderType(newworkordertypetext, emp_key,org_id)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/checkforcheckForWorkOrderType?WorkorderTypeName='+newworkordertypetext+'&employeekey='+emp_key+'&OrganizationID='+org_id);
+    }
+    AddnewWOT(obj)
+    {
+      const url = 'http://localhost:3000/api/addworkordertype';
+      return this
+        .http
+        .post (url, obj);
+    }
 
 // ****Pooja's code starts here****
 
