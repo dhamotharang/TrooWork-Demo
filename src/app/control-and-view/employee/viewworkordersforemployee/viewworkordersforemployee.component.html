@@ -11,11 +11,11 @@
                 <!-- <div class = "col-sm-4 col-md-4 col-lg-4"> -->
                 <label class="col-sm-2 col-md-2 col-lg-2 control-label"> On Date</label>
                 <div class="col-sm-2 col-md-2 col-lg-2">
-                    <igx-datePicker [value]="date1" [(ngModel)]="WorkorderDate" (onSelection)="viewWorkorderFilterByDate()"></igx-datePicker>
+                    <igx-datePicker [value]="date1" [(ngModel)]="WorkorderDate" (onSelection)="viewEmployeeWorkorderByFilter()"></igx-datePicker>
                 </div>
                 <label class="col-sm-2 col-md-2 col-lg-2 control-label"> To Date</label>
                 <div class="col-sm-2 col-md-2 col-lg-2">
-                    <igx-datePicker [value]="date1" [(ngModel)]="WorkorderDate2" (onSelection)="viewEmployeeWorkorderByFilter(viewworkorder)"></igx-datePicker>
+                    <igx-datePicker [value]="date1" [(ngModel)]="WorkorderDate2" (onSelection)="viewEmployeeWorkorderByFilter()"></igx-datePicker>
                 </div>
                 <!-- </div>   -->
                 <!-- <div class = "col-sm-4 col-md-4 col-lg-4"> -->
@@ -98,7 +98,7 @@
                             <td (click)="viewWorkForEdit(w.WorkorderKey)" *ngIf="w.IsReccurring === 0 ">NO</td>
                             <td>{{w.WorkorderNotes}}</td>
                             <td>
-                                 <div *ngIf="FinishButton[i] == true "> {{FinishButton[i]}}
+                                 <div *ngIf="FinishButton[i] == true "> 
                                     <button type="button" class="btn btn-default" (click)="workorderFinish(i)">Finish</button>
                                  </div> 
                                 <div *ngIf="showbutton[i] == true && showbutton[i] !== false">
@@ -107,13 +107,13 @@
                                     <div *ngIf="w.IsBarcodeRequired == 1">
                                         <label for = "barcode" class = "col-sm-3 control-label">Barcode</label>
                                         <div class = "col-sm-4">
-                                            <input type = "text"  name="input"   ng-model="myworkorder.barcodeValue" placeholder="Enter Barcode" style="text-align:center;">
+                                            <input type = "text"  name="input"   [(ngModel)]="myworkorder.barcodeValue" placeholder="Enter Barcode" style="text-align:center;">
                                         </div>  
                                     </div>
                                     <div *ngIf="w.IsPhotoRequired == 1">
-                                        <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+                                        <input type="file" name="photo" ng2FileSelect [uploader]="uploader" [(ngModel)]='fileName' />
                                         <button type="button" class="btn btn-success btn-s" 
-                                        (click)="uploader.uploadAll();FileSelected();" 
+                                        (click)="uploader.uploadAll();FileSelected(w.WorkorderKey);" 
                                         [disabled]="!uploader.getNotUploadedItems().length" >
                                             Upload
                                       </button>  
