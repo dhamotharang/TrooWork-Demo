@@ -8,11 +8,12 @@ import { EditDepartmentComponent } from './edit-department/edit-department.compo
 import { ViewDepartmentComponent } from './view-department/view-department.component';
 import { ManageLoginsComponent } from './manage-logins/manage-logins.component';
 import { ResetPasswordsComponent } from './reset-passwords/reset-passwords.component';
+import { AddEmployeeComponent } from './add-employee/add-employee.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [JobTitleViewAdminComponent, JobTitleAddAdminComponent, JobTitleEditAdminComponent, CreateDepartmentComponent, EditDepartmentComponent, ViewDepartmentComponent, ManageLoginsComponent, ResetPasswordsComponent]
+  declarations: [JobTitleViewAdminComponent, JobTitleAddAdminComponent, JobTitleEditAdminComponent, CreateDepartmentComponent, EditDepartmentComponent, ViewDepartmentComponent, ManageLoginsComponent, ResetPasswordsComponent, AddEmployeeComponent]
 })
 export class AdminModule { }

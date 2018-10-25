@@ -1,25 +1,71 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, Input } from '@angular/core';
 import { People } from '../../../../model-class/People';
 import { PeopleServiceService } from '../../../../service/people-service.service';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-managelogincredentials',
   templateUrl: './managelogincredentials.component.html',
   styleUrls: ['./managelogincredentials.component.scss']
 })
 export class ManagelogincredentialsComponent implements OnInit {
-  
   loginCreds: People[];
   pageNo: Number = 1;
   itemsPerPage: Number = 10;
   showHide1: boolean;
   showHide2: boolean;
   pagination: Number;
-  
-  constructor(private peopleServiceService: PeopleServiceService) { }
-  
+  searchform: FormGroup;
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+  //validation starts ..... @rodney
+  regexStr = '^[a-zA-Z0-9_ ]*$';
+
+  constructor(private peopleServiceService: PeopleServiceService, private formBuilder: FormBuilder, private el: ElementRef) { }
+  @Input() isAlphaNumeric: boolean;
+  @HostListener('keypress', ['$event']) onKeyPress(event) {
+    return new RegExp(this.regexStr).test(event.key);
+  }
+
+  @HostListener('paste', ['$event']) blockPaste(event: KeyboardEvent) {
+    this.validateFields(event);
+  }
+
+  validateFields(event) {
+    setTimeout(() => {
+
+      this.el.nativeElement.value = this.el.nativeElement.value.replace(/[^A-Za-z ]/g, '').replace(/\s/g, '');
+      event.preventDefault();
+
+    }, 100)
+  }
+
+  //validation ends ..... @rodney
+
   previousPage() {
     this.pageNo = +this.pageNo - 1;
-    this.peopleServiceService.getLoginCredentialList(this.pageNo, this.itemsPerPage).subscribe((data: People[]) => {
+    this.peopleServiceService.getLoginCredentialList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.loginCreds = data;
       if (this.pageNo == 1) {
         this.showHide2 = true;
@@ -33,10 +79,9 @@ export class ManagelogincredentialsComponent implements OnInit {
 
   nextPage() {
     this.pageNo = +this.pageNo + 1;
-    this.peopleServiceService.getLoginCredentialList(this.pageNo, this.itemsPerPage).subscribe((data: People[]) => {
+    this.peopleServiceService.getLoginCredentialList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.loginCreds = data;
       this.pagination = +this.loginCreds[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
-      // console.log("pagination: "+this.pagination);
       if (this.pagination > 1) {
         this.showHide2 = true;
         this.showHide1 = true;
@@ -47,11 +92,27 @@ export class ManagelogincredentialsComponent implements OnInit {
       }
     });
   }
+
+  searchUserList(searchKey) {
+    this.peopleServiceService.searchLoginCredsList(searchKey, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+      this.loginCreds = data;
+      this.showHide2 = false;
+      this.showHide1 = false;
+    });
+  }
   ngOnInit() {
 
-    this.peopleServiceService.getLoginCredentialList(this.pageNo, this.itemsPerPage).subscribe((data: People[]) => {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
+    this.peopleServiceService.getLoginCredentialList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.loginCreds = data;
-      // console.log(this.loginCreds[0].totalItems);
       if (this.loginCreds[0].totalItems > this.itemsPerPage) {
         this.showHide2 = true;
         this.showHide1 = false;
@@ -60,6 +121,10 @@ export class ManagelogincredentialsComponent implements OnInit {
         this.showHide2 = false;
         this.showHide1 = false;
       }
+    });
+
+    this.searchform = this.formBuilder.group({
+      SearchJobTitle: ['', Validators.required]
     });
   }
 

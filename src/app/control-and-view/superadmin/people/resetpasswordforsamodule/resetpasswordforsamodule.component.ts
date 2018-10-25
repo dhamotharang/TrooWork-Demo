@@ -17,24 +17,46 @@ export class ResetpasswordforsamoduleComponent implements OnInit {
   userMail: Object;
   build: People[];
 
-  constructor(private route: ActivatedRoute, private peopleService: PeopleServiceService, private http: HttpClient) 
-  {
-    this.route.params.subscribe(params => this.empKey$ = params.EmpKey);
-   }
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
 
-   resetUserPassword(username, password, userLoginId) {
-    this.peopleService.resetUserPassword(username, password, this.empKey$, userLoginId).subscribe((data: People[]) => {
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+  constructor(private route: ActivatedRoute, private peopleService: PeopleServiceService, private http: HttpClient) {
+    this.route.params.subscribe(params => this.empKey$ = params.EmpKey);
+  }
+
+  resetUserPassword(username, password, userLoginId) {
+    this.peopleService.resetUserPassword(username, password, this.empKey$, userLoginId, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.response = data[0];
       this.build = data;
     });
 
     if (this.build.length > 0) { // resetUserPassword returns username. just to make sure that the reset action was done properly, we are returnig the username
       //debugger;
-      this.peopleService.getUserEmail(username).subscribe((data: People[]) => {
+      this.peopleService.getUserEmail(username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
         debugger;
         this.managerMail = data[0].EmailID;
         this.userMail = data[0].newmail;
-        
+
         if (this.userMail == null) {
           alert("Password Changed Successfully! Mail not send , Mail-Id not found !");
         } else {
@@ -58,7 +80,16 @@ export class ResetpasswordforsamoduleComponent implements OnInit {
 
   ngOnInit() {
 
-    this.peopleService.getLoginDetailsByEmpKey(this.empKey$).subscribe((data: People[]) => {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
+    this.peopleService.getLoginDetailsByEmpKey(this.empKey$, this.OrganizationID).subscribe((data: People[]) => {
       this.build = data;
       // debugger;
     });
