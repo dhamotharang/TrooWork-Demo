@@ -219,56 +219,56 @@ export class InventoryService {
     return this.http.post(uri, obj);
   }
 
-  checkForNewDepartment(DeptName) {
+  checkForNewDepartment(DeptName, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/checkForNewInventory?checkValue=' + DeptName + '&type=department' + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/checkForNewInventory?checkValue=' + DeptName + '&type=department' + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
-  addDepartment(DeptName) {
+  addDepartment(DeptName, empKey, OrgID) {
     const uri = "http://localhost:3000/api/addNewDepartment";
     const obj = {
       DepartmentName: DeptName,
-      empkey: 2861,
-      OrganizationID: 21
+      empkey: empKey,
+      OrganizationID: OrgID
     };
     return this.http.post(uri, obj);
   }
 
 
-  getDepartmentList() {
+  getDepartmentList(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/viewDepartmentpage?pageno=' + 1 + '&itemsPerPage=' + 1000 + '&empkey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/viewDepartmentpage?pageno=' + 1 + '&itemsPerPage=' + 1000 + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
-  SearchDepartment(DeptName) {
+  SearchDepartment(DeptName, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/searchDepartmentType?OrganizationID=' + 21 + '&searchDepartment=' + DeptName)
+      .get('http://localhost:3000/api/searchDepartmentType?OrganizationID=' + OrgID + '&searchDepartment=' + DeptName)
   }
 
-  DeleteDepartment(deptKey) {
+  DeleteDepartment(deptKey, OrgID) {
     const uri = "http://localhost:3000/api/deleteDepartment";
     const obj = {
       DepartmentKey: deptKey,
-      OrganizationID: 21
+      OrganizationID: OrgID
     };
     return this.http.post(uri, obj);
   }
 
-  EditDepartment(deptKey) {
+  EditDepartment(deptKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/editviewDepartment?DepartmentKey=' + deptKey + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/editviewDepartment?DepartmentKey=' + deptKey + '&OrganizationID=' + OrgID);
 
   }
-  UpdateDepartment(departmentName, departmentKey) {
+  UpdateDepartment(departmentName, departmentKey, empKey, OrgID) {
     const uri = "http://localhost:3000/api/editSelectedDepartment";
     const obj = {
       DepartmentKey: departmentKey,
       DepartmentName: departmentName,
-      empkey: 2861,
-      OrganizationID: 21
+      empkey: empKey,
+      OrganizationID: OrgID
     };
     return this.http.post(uri, obj);
   }
@@ -640,10 +640,10 @@ export class InventoryService {
     return this.http.post(uri, obj);
   }
 
-  checkEditedRoomName(facKey,roomName,RoomKey) {
+  checkEditedRoomName(facKey, roomName, RoomKey) {
     return this
       .http
-      .get('http://localhost:3000/api/checkForEditedRoomName?roomKey=' + RoomKey + '&RoomName=' + roomName+ '&FacilityKey=' + facKey+ '&employeekey=' + 2861+ '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/checkForEditedRoomName?roomKey=' + RoomKey + '&RoomName=' + roomName + '&FacilityKey=' + facKey + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
 
   }
   // @rodney ends....

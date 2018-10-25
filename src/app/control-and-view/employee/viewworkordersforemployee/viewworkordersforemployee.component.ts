@@ -28,12 +28,43 @@ export class ViewworkordersforemployeeComponent implements OnInit {
   FinishButton = {};
   RowIndex;
   countCancel1;
-  myworkorder = {};
+  myworkorder ;
   countCancel;
- barcodeValue= {};
+  barcodeValue={};
  addUrl;
  wokey:Number;
  emp:Number;
+ WorkorderDate:Date;
+ WorkorderDate2:Date;
+ role: String;
+  name: String;
+  toServeremployeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+  FacilityKey:Number;
+  FloorKey:Number;
+  RoomTypeKey:Number;
+  ZoneKey:Number;
+  fileName;
+  result;
+  
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
  
  public uploader: FileUploader = new FileUploader({url:'', itemAlias: 'photo'});
   // adding properties and methods that will be used by the igxDatePicker
@@ -113,8 +144,59 @@ export class ViewworkordersforemployeeComponent implements OnInit {
         this.roomtypeList = data;
       });
   }
-  searchWO(SearchValue) {
+  searchWO(SearchValue)
+   {
+    if (!this.WorkorderDate) {
+      var date1 = this.convert_DT(new Date());
+    }
+    else {
+      date1 = this.convert_DT(this.WorkorderDate);
+    }
+    if (!this.WorkorderDate2) {
+      var date2 = date1;
+    }
+    else {
+      date2 = this.convert_DT(this.WorkorderDate2);
+    }
+    if (SearchValue.length > 2) {
+      this.WorkOrderServiceService
+        .SearchwoByEmployee(SearchValue, date1, date2,this.toServeremployeekey,this.OrganizationID,this.FacilityKey,this.FloorKey,this.RoomTypeKey,this.ZoneKey).subscribe((data: any[]) => {
+          this.WorkorderDetTable = data;
 
+        });
+    }
+
+  }
+  viewEmployeeWorkorderByFilter()
+  {
+    if (!this.WorkorderDate) {
+      var date1 = this.convert_DT(new Date());
+    }
+    else {
+      date1 = this.convert_DT(this.WorkorderDate);
+    }
+    if (!this.WorkorderDate2) {
+      var date2 = date1;
+    }
+    else {
+      date2 = this.convert_DT(this.WorkorderDate2);
+    }
+    this.WorkOrderServiceService
+    .getworkOrderTablewithOnDateOnly(date1,this.toServeremployeekey,this.OrganizationID)
+    .subscribe((data: any[]) => {
+      // debugger;
+      this.WorkorderDetTable = data;
+    });
+    this.WorkOrderServiceService
+      .getworkOrderTablewithOnDateandToDateFilter(date1,date2,this.toServeremployeekey,this.OrganizationID,this.FacilityKey,this.FloorKey,this.RoomTypeKey,this.ZoneKey)
+      .subscribe((data: any[]) => {
+        // debugger;
+        this.WorkorderDetTable = data;
+        for (var i = 0; i < this.WorkorderDetTable.length; i++)
+        {
+         this.FinishButton[i] = true;
+       }
+      });
   }
 
   
@@ -123,10 +205,10 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     
       this.countCancel=1;
      this.countCancel1=this.countCancel;
-// //        console.log(" file is selected or not 1" + $scope.up.file);
-// //                console.log(" file is selected or not 1" + $scope.file);
-// //                console.log(" file is selected or not 1" + $scope.up.file);
-// //                console.log(" file is selected or not 1" + $scope.file);
+//        console.log(" file is selected or not 1" + $scope.up.file);
+//                console.log(" file is selected or not 1" + $scope.file);
+//                console.log(" file is selected or not 1" + $scope.up.file);
+//                console.log(" file is selected or not 1" + $scope.file);
 //         if (this.myworkorder.barcodeValue && barcodeRequired === 1)
 //          {
 // //   // this.myworkorder.BarcodeValue = null;
@@ -134,65 +216,66 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 // //   //         return;
 //          }
 
-  // if (this.myworkorder.barcodeValue && barcodeRequired === 1) {
-  //   this.myworkorder.BarcodeValue = this.myworkorder.barcodeValue;
-  //   this.addUrl='?barcode=' + this.myworkorder.BarcodeValue + "&wkey=" +  workorderkey +"&OrganizationID="+this.orgid;
-  //    this.uploader.onBeforeUploadItem = (item) => {
-  //    item.withCredentials = false;
-  //    item.url = URL + this.addUrl;
+   if (this.myworkorder.barcodeValue && barcodeRequired === 1) {
+    this.myworkorder.BarcodeValue = this.myworkorder.barcodeValue;
 
-//           // $http.get(ControllerURL + "/barcodeRoom_check?barcode=" + this.myworkorder.BarcodeValue + "&wkey=" + workorderkey+ "&OrganizationID="+this.orgid)
-//           // .success(function(response) {
-//           // if (response.message == "Failed to authenticate token.") {
-//           // $rootScope.clickToOpen1("Please Re-Login to continue !");
-//           // }
-//           this.result = response;
-//                   if (this.result === "1") {
-//           var type = 'manual';
-//                   barcodeRoomService.barcodeRoom(this.myworkorder.BarcodeValue, this.toServeremployeekey, workorderkey, type,this.OrganizationID).then(function(response) {
+    this.WorkOrderServiceService
+         .BarcodeRoomCheck(this.myworkorder.BarcodeValue,workorderkey,this.OrganizationID)
+         .subscribe((data: any[]) => {
+          // this.WorkorderDetTable = data;
+                // $http.get(ControllerURL + "/barcodeRoom_check?barcode=" + $scope.myworkorder.BarcodeValue + "&wkey=" + workorderkey+ "&OrganizationID="+$scope.OrganizationID)
+                // .success(function(response) {
+                var result = data;
+                        if (this.result === "1") {
+                var type = 'manual';
 
-//           // if (response.message == "Failed to authenticate token.") {
-//           // $rootScope.clickToOpen1("Please Re-Login to continue !");
-//           // }
-//               if(this.ShowWithoutFilter == false){
-//                 this.viewEmployeeWorkorderByFilter(this.viewworkorder);
-//               }
-//               else{
-//                 var curr_date = this.convert_DT(new Date());
-//                 this.WorkOrderServiceService
-//                 .getWOdetailsForEmployee(curr_date, this.empk, this.orgid)
-//                 .subscribe((data: any[]) => {
-//                   this.WorkorderDetTable = data;
-//                 });
-//               }
-           
-//           var statusFlag = response.WorkorderStatus;
-//                   if (statusFlag === 'Completed') {
-//           this.completionTime = 10;
-//           this.workorderkey = workorderkey;
+                this.WorkOrderServiceService
+                .BarcodeRoom(this.myworkorder.BarcodeValue,this.toServeremployeekey,workorderkey,type,this.OrganizationID)
+                .subscribe((data: any[]) => {
+                //  this.WorkorderDetTable = data;
+
+
+                        // barcodeRoomService.barcodeRoom($scope.myworkorder.BarcodeValue, $scope.toServeremployeekey, workorderkey, type,$scope.OrganizationID).then(function(response) {
+
+                    // if(this.ShowWithoutFilter == false){
+                    //   this.viewEmployeeWorkorderByFilter(this.viewworkorder);
+                    // }
+                    // else{
+                    //       $scope.pageChangeHandler($scope.pageno, $scope.viewworkorder.WorkorderDate);
+                    // }
+                 
+                // var statusFlag = data.WorkorderStatus;
+//                         if (statusFlag === 'Completed') {
+//                 $scope.completionTime = 10;
+//                         $scope.workorderkey = workorderkey;
 // //                        $scope.clickToOpenPopupforWorkordercompletion("Workorder completion time: ");
-                  
-                  
-//           }
-//           this.myworkorder.BarcodeValue = null;
-//           });
-//           }
-//           // else if (this.result === "0") {
-//           // $scope.clickToOpen("You are trying with Invalid room ID ! Please try again!!");
-//           //         return;
-//           // }
+                        
+                        
+//                 }
+                // this.myworkorder.BarcodeValue = null;
+                });
+                }
+                // else if (this.result === "0") {
+                // $scope.clickToOpen("You are trying with Invalid room ID ! Please try again!!");
+                //         return;
+                // }
 
-//           });
-//   }
+                });
+   }
   
-//   // if (!file && photoRequired === 1) {
-//   //   this.myworkorder.Fname = null;
-//   //         $scope.clickToOpen("Photo is not provided !");
-//   //         return;
-//   // }
+//   if (!file && photoRequired === 1) {
+//     this.myworkorder.Fname = null;
+//           $scope.clickToOpen("Photo is not provided !");
+//           return;
+//   }
 //   if (file && photoRequired === 1) {
-//   $http.get(ControllerURL + "/updateWorkorderByPhoto?pho=" + file.name + "&employeekey=" + this.empk + "&wkey=" + workorderkey+"&OrganizationID="+this.orgid)
-//           .success(function(response) {
+//     this.WorkOrderServiceService
+//     .UpdatewobyPhotoForEmployee(this.fileName, this.toServeremployeekey, this.orgid)
+//     .subscribe((data: any[]) => {
+//       // this.WorkorderDetTable = data;
+
+//   // $http.get(ControllerURL + "/updateWorkorderByPhoto?pho=" + fileName + "&employeekey=" + this.empk + "&wkey=" + workorderkey+"&OrganizationID="+this.orgid)
+//   //         .success(function(response) {
 // //                    debugger;
 //                  if(this.ShowWithoutFilter == false){
 //                   this.viewEmployeeWorkorderByFilter(this.viewworkorder);
@@ -205,16 +288,16 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 //                   this.WorkorderDetTable = data;
 //                 });
 //               }
-//           // var statusFlag = response.WorkorderStatus;
+//            var statusFlag = data.WorkorderStatus;
 //           //         if (statusFlag === 'Completed') {
-//           // $scope.completionTime = 10;
-//           //         $scope.workorderkey = workorderkey;
-// //                        $scope.clickToOpenPopupforWorkordercompletion("Workorder completion time: ");
+//           // this.completionTime = 10;
+//           //         this.workorderkey = workorderkey;
+//           //          //  $scope.clickToOpenPopupforWorkordercompletion("Workorder completion time: ");
                  
-//                   // $scope.viewWorkorderFilterByDate();
-//           // }
+//           //          this.viewEmployeeWorkorderByFilter();
+//           //  }
 //           });
-// //                var statusFlag = response.WorkorderStatus;
+//                 var statusFlag = data.WorkorderStatus;
 
 
 //   }
@@ -244,19 +327,21 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 //               }
 //           });
 //   }
-        //  this.myworkorder.barcodeValue = null;
-          this.showbutton[this.RowIndex] = false;
+//          this.myworkorder.barcodeValue = null;
+//           this.showbutton[this.RowIndex] = false;
   };
-  FileSelected() {
-    this.addUrl='?Workorderkey=' + this.wokey + '&EmployeeKey=' + this.emp ;
+  FileSelected(WorkorderKey) {
+    debugger;
+    this.addUrl='?Workorderkey=' + WorkorderKey + '&EmployeeKey=' + this.toServeremployeekey + '&OrganizationID=' + this.OrganizationID;
     this.uploader.onBeforeUploadItem = (item) => {
     item.withCredentials = false;
     item.url = URL + this.addUrl;
-    
+    // var fname;
+    // fname= this.uploader.queue[0].FileItem.file.FileLikeObject.name;
     }
     }
   workorderFinish(i) {
-    debugger;
+   // debugger;
     if (this.RowIndex || this.RowIndex === 0) {
       this.showbutton[this.RowIndex] = false;
     }
@@ -267,7 +352,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     this.countCancel1=true;
   };
   cancelWorkorderSubmission(i) {
-    debugger;
+    //debugger;
     if (this.RowIndex || this.RowIndex === 0){
 //                var identity1 = "showbutton";
        this.showbutton[this.RowIndex] = false;
@@ -283,6 +368,18 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     }
     };
   ngOnInit() {
+
+    //token starts....
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.toServeremployeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
+    //token ends
 
     var curr_date = this.convert_DT(new Date());
     this.WorkOrderServiceService

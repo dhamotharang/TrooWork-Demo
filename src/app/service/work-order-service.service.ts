@@ -209,5 +209,58 @@ export class WorkOrderServiceService {
       .http
       .get('http://localhost:3000/api/viewworkorder?viewdate='+curr_date+'&employeekey='+empk+'&pageno='+1+'&itemsPerPage='+25+'&OrganizationID='+orgid);
     }
+    getworkOrderTablewithOnDateOnly(date1,tosrvempky,orgid)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/viewworkorder?viewdate='+date1+'&employeekey='+tosrvempky+'&pageno='+1+'&itemsPerPage='+25+'&OrganizationID='+orgid);
+    }
+    getworkOrderTablewithOnDateandToDateFilter(date1,date2,tosrvempky,orgid,FacKey,Flrky,RmTypKy,ZnKy)
+    {
+      const url = 'http://localhost:3000/api/workorderEmployeeByallFilters';
+      const obj = {
+        manager : tosrvempky,
+        workorderDate :date1,
+        workorderDate2: date2,
+        facilitykey:FacKey,
+        roomTypeKey:RmTypKy,
+        floorKey:Flrky,
+        zoneKey:ZnKy,
+        OrganizationID:orgid
+        };
+       return this
+         .http
+         .post (url,obj);
+    }
+    SearchwoByEmployee(SearchValue, date1, date2,tosrvempky,orgid,FacKey,Flrky,RmTypKy,ZnKy)
+    {
+      const url = 'http://localhost:3000/api/myWorkOrderSearchList';
+    const obj = {
+      searchWO : SearchValue,
+      workorderDate :date1,
+      workorderDate2: date2,
+      manager:tosrvempky,
+      OrganizationID:orgid,
+      facilitykey:FacKey,
+      floorKey:Flrky,
+      roomTypeKey:RmTypKy,
+      zoneKey:ZnKy
+      };
+     return this
+       .http
+       .post (url,obj);
+    }
+    BarcodeRoomCheck(BarcodeValue,workorderkey,OrganizationID)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/barcodeRoom_check?barcode=' + BarcodeValue + "&wkey=" + workorderkey+ "&OrganizationID="+OrganizationID);
+    }
+    BarcodeRoom(BarcodeValue,toServeremployeekey,workorderkey,type,OrganizationID)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/barcodeRoom?barcode=' + BarcodeValue + "&employeekey=" + toServeremployeekey + "&wkey=" + workorderkey + "&updatetype=" + type+ "&OrganizationID="+OrganizationID);
+    }
     // ****Pooja's code ends here****
 }
