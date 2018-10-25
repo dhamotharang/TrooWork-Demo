@@ -107,7 +107,7 @@
                                     <div *ngIf="w.IsBarcodeRequired == 1">
                                         <label for = "barcode" class = "col-sm-3 control-label">Barcode</label>
                                         <div class = "col-sm-4">
-                                            <input type = "text"  name="input"   [(ngModel)]="myworkorder.barcodeValue" placeholder="Enter Barcode" style="text-align:center;">
+                                            <input type = "text"  name="input"   [(ngModel)]="BarcodeValue" placeholder="Enter Barcode" style="text-align:center;">
                                         </div>  
                                     </div>
                                     <div *ngIf="w.IsPhotoRequired == 1">
@@ -119,7 +119,7 @@
                                       </button>  
                                     </div>
                                     <!-- <div> -->
-                                    <button type="submit" *ngIf="checktoshowFinish(i);" class="btn btn-default" (click)="workorderCompleted(i,w.IsBarcodeRequired,w.IsPhotoRequired,w.WorkorderKey,file)"
+                                    <button type="submit" *ngIf="submitFlag" class="btn btn-default" (click)="workorderCompleted(i,w.IsBarcodeRequired,w.IsPhotoRequired,w.WorkorderKey,file)"
                                         style="width:86px;margin-top: 7px;margin-left: -2px">Submit</button>
                                 </div>
                             </td>

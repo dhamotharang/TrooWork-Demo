@@ -262,5 +262,17 @@ export class WorkOrderServiceService {
       .http
       .get('http://localhost:3000/api/barcodeRoom?barcode=' + BarcodeValue + "&employeekey=" + toServeremployeekey + "&wkey=" + workorderkey + "&updatetype=" + type+ "&OrganizationID="+OrganizationID);
     }
+    UpdatewobyPhotoForEmployee(fileName,toServeremployeekey,workorderkey,orgid)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/updateWorkorderByPhoto?pho=' + fileName + "&employeekey=" + toServeremployeekey + "&wkey=" + workorderkey+"&OrganizationID="+orgid);
+    }
+    CompletewoByempWithoutPhotoandBarcd(toServeremployeekey,workorderkey,OrganizationID)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/workCompleted?employeekey=' + toServeremployeekey + "&wkey=" + workorderkey+"&OrganizationID="+OrganizationID);
+    }
     // ****Pooja's code ends here****
 }

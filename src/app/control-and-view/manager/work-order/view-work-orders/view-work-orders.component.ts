@@ -36,7 +36,7 @@ export class ViewWorkOrdersComponent implements OnInit {
   emp_key: number;
   org_id: number;
   domain_name: string;
-  workorderList: workorder[];
+  workorderList;
   checkValue = [];
   FacilityKey: number;
   FloorKey: number;
@@ -56,7 +56,7 @@ export class ViewWorkOrdersComponent implements OnInit {
   DeleteWOList: workorder[];
   deleteWO;
   searchWorkorder;
-  workorderCheckValue=false;
+  // workorderCheckValue=false;
   //validation min3_alphanumeric
   searchform: FormGroup;
   regexStr = '^[a-zA-Z0-9_ ]*$';
@@ -114,6 +114,9 @@ export class ViewWorkOrdersComponent implements OnInit {
       .getworkorder(on_date, this.emp_key, page_no, iems_perpage, this.org_id)
       .subscribe((data: any[]) => {
         this.workorderList = data;
+        for (var i = 0; i < this.workorderList.length; i++) {
+          this.workorderList[i].workorderCheckValue = false;
+        }
       });
     debugger;
 
@@ -404,9 +407,9 @@ export class ViewWorkOrdersComponent implements OnInit {
       .delete_WO(this.deleteWO)
       .subscribe((data: any[]) => {
         // this.DeleteWOList = data; 
-        this.workorderCheckValue=false;
-        this.checkValue=[];
-        this.workorderKey=[];
+        this.workorderList.workorderCheckValue = false;
+        this.checkValue = [];
+        this.workorderKey = [];
         this.viewWO_Filter();
       });
   }
