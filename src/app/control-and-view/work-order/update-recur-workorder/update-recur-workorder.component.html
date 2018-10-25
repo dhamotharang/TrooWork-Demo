@@ -212,7 +212,7 @@
           (click)='monthlyreccradio1_change()'>
         <div class="form-group">
           <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">day</label>
-          <select [(ngModel)]="date1" class="form-control" [disabled]="monthlyreccradio1==false">
+          <select [(ngModel)]="day1" class="form-control" [disabled]="monthlyreccradio1==false">
             <option>--Select--</option>
             <option *ngFor=" let b of monthlyDays; let i = index" [value]="i + 2">
               {{i + 1}}
@@ -276,13 +276,20 @@
       </div>
 
     </div>
-
     <div class="row col-md-12">
-      <div class="col-md-6"></div>
-      <div style="text-align:center">
-        <button type="button" class="btn btn-primary" (click)=createWorkOrder()>save</button>
-        <br><br>
+      <div class="col col-md-3"></div>
+      <div style="text-align:left" class="col-md-3">
+        <button type="button" class="btn btn-primary" (click)=UpdateWO()>Update</button>
       </div>
+      <div style="text-align:left" class="col-md-3">
+        <a routerLink="/ViewWorkOrder" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Go
+            Back
+          </b>
+        </a></div>
+      <div style="text-align:left" class="col-md-3">
+        <button type="button" class="btn btn-danger button_style" (click)=DeleteWO()>Delete</button>
+      </div>
+      <div class="col col-md-3"></div>
     </div>
   </div>
 </div>

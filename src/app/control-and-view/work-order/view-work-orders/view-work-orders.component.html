@@ -141,9 +141,11 @@
         <th *ngIf="checkValue.length <= 0">Delete</th>
         <th *ngIf="checkValue.length > 0"> <button  sweet-confirm-option="{{sweet.confirm}}" class = "btn btn-danger button_style"  sweetalert sweet-options="{{sweet.option}}"   type="button"  sweet-on-cancel="checkCancel()" (click)="deleteWorkOrdersPage()"  tabindex="4"> <span class="glyphicon glyphicon-trash"></span>  Delete</button></th>
         <th>Action</th>
+        <!-- <th *ngIf="checkValue.length > 0"> <button  class = "btn btn-danger button_style" type="button" (click)="deleteWorkOrdersPage()"> Delete</button></th>
+        <th>Action</th> -->
       </thead>
       <tbody>
-          <tr *ngFor="let x of workorderList;let i=index">
+          <tr *ngFor="let x of workorderList; let i=index">
               <td><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}">{{x.WorkorderTypeName}}</a></td>
               <td><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}"> {{x.WorkorderTime}}</a></td> 
               <td><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}"> {{x.WorkorderStatus}}</a></td>
