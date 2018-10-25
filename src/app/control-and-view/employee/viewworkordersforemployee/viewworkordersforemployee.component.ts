@@ -25,7 +25,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
   zoneList: workorder[];
   roomtypeList: workorder[];
   showbutton = {};
-  FinishButton = {};
+  FinishButton=[] ;
   RowIndex;
   countCancel1;
   myworkorder ;
@@ -47,6 +47,8 @@ export class ViewworkordersforemployeeComponent implements OnInit {
   ZoneKey:Number;
   fileName;
   result;
+  submitFlag;
+  BarcodeValue;
   
 
   url_base64_decode(str) {
@@ -201,7 +203,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 
   
   workorderCompleted(i, barcodeRequired, photoRequired, workorderkey,file) {
-//            debugger;
+           debugger;
     
       this.countCancel=1;
      this.countCancel1=this.countCancel;
@@ -209,33 +211,33 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 //                console.log(" file is selected or not 1" + $scope.file);
 //                console.log(" file is selected or not 1" + $scope.up.file);
 //                console.log(" file is selected or not 1" + $scope.file);
-//         if (this.myworkorder.barcodeValue && barcodeRequired === 1)
+//         if (this.BarcodeValue && barcodeRequired === 1)
 //          {
-// //   // this.myworkorder.BarcodeValue = null;
+// //   // this.BarcodeValue = null;
 // //   //         $scope.clickToOpen("Barcode is not provided !");
 // //   //         return;
 //          }
 
-   if (this.myworkorder.barcodeValue && barcodeRequired === 1) {
-    this.myworkorder.BarcodeValue = this.myworkorder.barcodeValue;
-
-    this.WorkOrderServiceService
-         .BarcodeRoomCheck(this.myworkorder.BarcodeValue,workorderkey,this.OrganizationID)
+   if (this.BarcodeValue && barcodeRequired === 1) {
+      this.WorkOrderServiceService
+         .BarcodeRoomCheck(this.BarcodeValue,workorderkey,this.OrganizationID)
          .subscribe((data: any[]) => {
+           debugger;
           // this.WorkorderDetTable = data;
-                // $http.get(ControllerURL + "/barcodeRoom_check?barcode=" + $scope.myworkorder.BarcodeValue + "&wkey=" + workorderkey+ "&OrganizationID="+$scope.OrganizationID)
+                // $http.get(ControllerURL + "/barcodeRoom_check?barcode=" + $scope.BarcodeValue + "&wkey=" + workorderkey+ "&OrganizationID="+$scope.OrganizationID)
                 // .success(function(response) {
-                var result = data;
-                        if (this.result === "1") {
+
+                  this.result = data;
+                        if (this.result === 1) {
                 var type = 'manual';
 
                 this.WorkOrderServiceService
-                .BarcodeRoom(this.myworkorder.BarcodeValue,this.toServeremployeekey,workorderkey,type,this.OrganizationID)
+                .BarcodeRoom(this.BarcodeValue,this.toServeremployeekey,workorderkey,type,this.OrganizationID)
                 .subscribe((data: any[]) => {
                 //  this.WorkorderDetTable = data;
 
 
-                        // barcodeRoomService.barcodeRoom($scope.myworkorder.BarcodeValue, $scope.toServeremployeekey, workorderkey, type,$scope.OrganizationID).then(function(response) {
+                        // barcodeRoomService.barcodeRoom($scope.BarcodeValue, $scope.toServeremployeekey, workorderkey, type,$scope.OrganizationID).then(function(response) {
 
                     // if(this.ShowWithoutFilter == false){
                     //   this.viewEmployeeWorkorderByFilter(this.viewworkorder);
@@ -252,7 +254,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
                         
                         
 //                 }
-                // this.myworkorder.BarcodeValue = null;
+                // this.BarcodeValue = null;
                 });
                 }
                 // else if (this.result === "0") {
@@ -268,11 +270,11 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 //           $scope.clickToOpen("Photo is not provided !");
 //           return;
 //   }
-//   if (file && photoRequired === 1) {
-//     this.WorkOrderServiceService
-//     .UpdatewobyPhotoForEmployee(this.fileName, this.toServeremployeekey, this.orgid)
-//     .subscribe((data: any[]) => {
-//       // this.WorkorderDetTable = data;
+   if (file && photoRequired === 1) {
+    this.WorkOrderServiceService
+    .UpdatewobyPhotoForEmployee(this.fileName,this.toServeremployeekey,workorderkey,this.OrganizationID)
+    .subscribe((data: any[]) => {
+      // this.WorkorderDetTable = data;
 
 //   // $http.get(ControllerURL + "/updateWorkorderByPhoto?pho=" + fileName + "&employeekey=" + this.empk + "&wkey=" + workorderkey+"&OrganizationID="+this.orgid)
 //   //         .success(function(response) {
@@ -296,13 +298,20 @@ export class ViewworkordersforemployeeComponent implements OnInit {
                  
 //           //          this.viewEmployeeWorkorderByFilter();
 //           //  }
-//           });
+ });
 //                 var statusFlag = data.WorkorderStatus;
 
 
-//   }
+  }
 
-//   if (photoRequired !== 1 && barcodeRequired !== 1) {
+  if (photoRequired !== 1 && barcodeRequired !== 1) 
+  {
+               this.WorkOrderServiceService
+               .CompletewoByempWithoutPhotoandBarcd(this.toServeremployeekey,workorderkey,this.OrganizationID)
+                 .subscribe((data: any[]) => {
+                  this.FinishButton[i]=true;
+                  // this.WorkorderDetTable = data;
+
 //   $http.get(ControllerURL + "/workCompleted?employeekey=" + this.empk + "&wkey=" + workorderkey+"&OrganizationID="+this.orgid)
 //           .success(function(response) {
 //           //Author:Rodney starts here
@@ -317,18 +326,28 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 //                   if(this.ShowWithoutFilter == false){
 //                     this.viewEmployeeWorkorderByFilter(this.viewworkorder);
 //               }
-//               else{
-//                 var curr_date = this.convert_DT(new Date());
-//                 this.WorkOrderServiceService
-//                 .getWOdetailsForEmployee(curr_date, this.empk, this.orgid)
-//                 .subscribe((data: any[]) => {
-//                   this.WorkorderDetTable = data;
-//                 });
-//               }
-//           });
-//   }
-//          this.myworkorder.barcodeValue = null;
-//           this.showbutton[this.RowIndex] = false;
+              // else{
+              //   var curr_date = this.convert_DT(new Date());
+              //   this.WorkOrderServiceService
+              //   .getWOdetailsForEmployee(curr_date, this.empk, this.orgid)
+              //   .subscribe((data: any[]) => {
+              //     this.WorkorderDetTable = data;
+              //   });
+              // }
+           });
+  }
+//          this.BarcodeValue = null;
+          this.FinishButton[i]=true;
+          this.showbutton[i] = false;
+              this.submitFlag=false;
+              this.countCancel1=false;
+    for(var j; j<this.FinishButton.length ;j++)
+    {
+      
+        this.FinishButton[i]=true;
+        this.showbutton[i]=false;
+      
+    }
   };
   FileSelected(WorkorderKey) {
     debugger;
@@ -350,6 +369,14 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     this.showbutton[RowIndex] = true;
     this.FinishButton[RowIndex] = false;
     this.countCancel1=true;
+    this.submitFlag=true;
+    for(var j; j<this.FinishButton.length ;j++)
+    {
+      if(i!==j) {
+        this.FinishButton[i]=false;
+        this.showbutton[i]=false;
+      }
+    }
   };
   cancelWorkorderSubmission(i) {
     //debugger;
@@ -365,7 +392,11 @@ export class ViewworkordersforemployeeComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
       });
+
     }
+    this.submitFlag=false;
+    this.FinishButton[i] = true;
+    this.showbutton[i] = false;
     };
   ngOnInit() {
 
