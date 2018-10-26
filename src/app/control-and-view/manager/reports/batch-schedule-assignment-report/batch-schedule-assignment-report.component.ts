@@ -23,6 +23,7 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
   totalSatTime:number;
   totalSunTime:number;
   workorderNotes:string;
+ 
   public excelarray: Array<any> = [{
     // Building:'',	Floor:'',	Zone:'',	Room:'',	FloorType:'',	RoomType:'',	Minutes:'',	Frequency:'',	Monday:'',	Tuesday:'',	Wednesday:'',	Thursday:'',	Friday:'',	Saturday:'',	Sunday:''
   }
@@ -322,13 +323,18 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
           {
             barcodevalue=''
           }
-          debugger;
+         
           this.excelarray.push({Building:buildingname,Floor:floorname,Zone:zon_name,Room:roomnum,FloorType:floor_type,	RoomType:room_type,	Minutes:minute,	Frequency:freq,	Monday:mondayvalue,	Tuesday:tuesdayvalue,	Wednesday:wednesdayvalue,	Thursday:thursdayvalue,	Friday:fridayvalue,	Saturday:saturdayvalue,	Sunday:sundayvalue,IsPhotoRequired:photovalue,IsBarcodeRequired:barcodevalue})
           
         }
         this.excelarray.push('');
         this.excelarray.push({Building:'Total Assigned daily minutes',Monday:this.totalMonTime,Tuesday:this.totalTuesTime,Wednesday:this.totalWedTime,Thursday:this.totalThuTime,Friday:this.totalFriTime,Saturday:this.totalSatTime,Sunday:this.totalSunTime})
-        
+        debugger;
+        var temp_Report=[{} ];
+        temp_Report.push({AssignmentArea:'assignment1'});
+        var newarr=[{} ];
+        newarr.push(temp_Report);
+        newarr.push(this.excelarray);
         this.excelService.exportAsExcelFile(this.excelarray, 'sample');
       }
   }

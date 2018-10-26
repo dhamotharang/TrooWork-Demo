@@ -146,12 +146,13 @@ import { SupervsrinspectiontemplateComponent } from './control-and-view/supervis
 import { CreateWorkOrderComponent } from './control-and-view/supervisor/create-work-order/create-work-order.component';
 import { CreateQuickWorkOrderComponent } from './control-and-view/supervisor/create-quick-work-order/create-quick-work-order.component';
 import { ViewWorkOrderComponent } from './control-and-view/supervisor/view-work-order/view-work-order.component';
-
+import { CreateBatchWorkorderComponent } from './control-and-view/manager/work-order/create-batch-workorder/create-batch-workorder.component';
 import { CreateDepartmentComponent } from './control-and-view/admin/create-department/create-department.component';
 import { EditDepartmentComponent } from './control-and-view/admin/edit-department/edit-department.component';
 import { ViewDepartmentComponent } from './control-and-view/admin/view-department/view-department.component';
 import { ManageLoginsComponent } from './control-and-view/admin/manage-logins/manage-logins.component';
 import { ResetPasswordsComponent } from './control-and-view/admin/reset-passwords/reset-passwords.component';
+import { ViewBatchWorkorderComponent } from './control-and-view/manager/work-order/view-batch-workorder/view-batch-workorder.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -275,7 +276,9 @@ import { ResetPasswordsComponent } from './control-and-view/admin/reset-password
     EditDepartmentComponent,
     ViewDepartmentComponent,
     ManageLoginsComponent,
-    ResetPasswordsComponent
+    ResetPasswordsComponent,
+    CreateBatchWorkorderComponent,
+    ViewBatchWorkorderComponent
   ],
   imports: [
     BrowserModule,
