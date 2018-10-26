@@ -29,6 +29,7 @@ export class ManagerinspectiontemplateComponent implements OnInit {
   rating:number; 
   
   setStar(data:any){
+    debugger;
     this.rating=data+1;                               
     for(var i=0;i<=4;i++){  
       if(i<=data){  
@@ -87,7 +88,7 @@ Scoringtype = {ratingValue:[],inspectionNotes:[],rating_yn:[]};
 
     this.inspectionService.InspectionDetails(this.inspKey$).subscribe((data: any[]) => {
       this.viewEmpInspectionDetails = data;
-      debugger;
+      //debugger;
       this.questionsCount=this.viewEmpInspectionDetails.length;
       this.val=data;
       if(this.viewEmpInspectionDetails[0].ScoreName === 'Yes/No')
@@ -113,7 +114,7 @@ Scoringtype = {ratingValue:[],inspectionNotes:[],rating_yn:[]};
   saveRatings(TemplateQuestionID,ScoreName)
 {
 
-debugger;
+//debugger;
   if(ScoreName === 'Yes/No' || ScoreName==='Pass/Fail'){
     // console.log($scope.Scoringtype);
     var length = Object.keys(this.Scoringtype.rating_yn).length;
@@ -134,7 +135,7 @@ console.log(this.Scoringtype);
 }
 inspectionCompleted()
 {
-debugger;
+//debugger;
   var temp=[];
    var choices1 = [];
   choices1[0] = this.Scoringtype;
@@ -229,7 +230,7 @@ debugger;
               questionid:questionid,
    
             };
-            debugger;
+            //debugger;
             this.inspectionService
   .InspectionSaveService(this.inspectionDetail)
 
@@ -306,7 +307,7 @@ debugger;
                   questionid:questionid,
        
                 };
-                debugger;
+                //debugger;
                 this.inspectionService
       .InspectionSaveService(this.inspectionDetail)
     

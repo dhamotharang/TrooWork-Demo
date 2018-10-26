@@ -274,5 +274,22 @@ export class WorkOrderServiceService {
       .http
       .get('http://localhost:3000/api/workCompleted?employeekey=' + toServeremployeekey + "&wkey=" + workorderkey+"&OrganizationID="+OrganizationID);
     }
+    getworkOrderTablewithbuildingFilter(date1,date2,tosrvempky,orgid,FacKey,Flrky,RmTypKy,ZnKy)
+    {
+      const url = 'http://localhost:3000/api/workorderEmployeeByallFilters';
+      const obj = {
+        manager : tosrvempky,
+        workorderDate :date1,
+        workorderDate2: date2,
+        facilitykey:FacKey,
+        roomTypeKey:RmTypKy,
+        floorKey:Flrky,
+        zoneKey:ZnKy,
+        OrganizationID:orgid
+        };
+       return this
+         .http
+         .post (url,obj);
+    }
     // ****Pooja's code ends here****
 }
