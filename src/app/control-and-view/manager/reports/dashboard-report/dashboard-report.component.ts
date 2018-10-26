@@ -127,9 +127,12 @@ export class DashboardReportComponent implements OnInit {
       
               }
               this.data1 = this.sampledata1;
-              this.config1 = new PieChartConfig('pie chart', 0.4);
+              this.config1 = new PieChartConfig(' ', 0.4);
               this.elementId1 = 'piechart';
+              if (this.data1.length > 1)
+              {
               this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
+              }
             }
       });
 
@@ -166,6 +169,7 @@ export class DashboardReportComponent implements OnInit {
   }
 
   dashboardreportbyfilter() {
+   
     if (!this.EmployeeKey) {
       this.em_Key = null;
     }
@@ -184,6 +188,10 @@ export class DashboardReportComponent implements OnInit {
     else {
       date2 = this.convert_DT(this.todate);
     }
+    if (date2 && date1 > date2) {
+      alert("Please check your Start Date!");
+      return;
+    }
     console.log(date2 + " ... after date formatting");
     this.org_id = 21;
     this.WorkorderTypeKey;
@@ -192,7 +200,7 @@ export class DashboardReportComponent implements OnInit {
       workordertypeString = null;
     }
     else {
-      //for(var i=0;i<this.WorkorderTypeKey[i].length;i++)
+   
       var workordertypeList = [];
       var workordertypeListObj = this.WorkorderTypeKey;
       var workordertypeString;
@@ -216,46 +224,26 @@ export class DashboardReportComponent implements OnInit {
     this.ReportServiceService
       .getvaluesfilterbypie(date1, date2, this.em_Key, workordertypeString, this.org_id, this.manager)
       .subscribe((data: Reports[]) => {
-        this.filterbypie = data;
+        this.pievalues = data;
         
               this.sampledata2 = [['WorkorderStatus', 'count']];
       
-              for (var i = 0; i < this.filterbypie.length; i++) {
-                debugger;
-                var status = this.filterbypie[i].WorkorderStatus;
-                var num = this.filterbypie[i].totalItems;
+              for (var i = 0; i < this.pievalues.length; i++) {
+                
+                var status = this.pievalues[i].WorkorderStatus;
+                var num = this.pievalues[i].totalItems;
                 this.data3 = ([status, num]);
                 this.sampledata2.push(this.data3);
       
               }
               this.data1 = this.sampledata2;
-              this.config1 = new PieChartConfig('pie chart', 0.4);
+              console.log(this.data1.length);
+              this.config1 = new PieChartConfig(' ', 0.4);
               this.elementId1 = 'piechart';
-              if (this.data1.length > 0) {
+              if (this.data1.length > 1) {
               this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
             }
       });
-    // this.showElement = true;
-    // setTimeout(() => {
-    //   if (this.filterbypie.length > 0) {
-    //     console.log('hide');
-    //     this.showElement = false;
-    //     this.sampledata2 = [['WorkorderStatus', 'count']];
-
-    //     for (var i = 0; i < this.filterbypie.length; i++) {
-    //       debugger;
-    //       var status = this.filterbypie[i].WorkorderStatus;
-    //       var num = this.filterbypie[i].totalItems;
-    //       this.data3 = ([status, num]);
-    //       this.sampledata2.push(this.data3);
-
-    //     }
-    //     this.data1 = this.sampledata2;
-    //     this.config1 = new PieChartConfig('pie chart', 0.4);
-    //     this.elementId1 = 'piechart';
-    //     this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
-    //   }
-    // }, 2000);
   }
 }
 

@@ -52,12 +52,13 @@ export class BuildingViewComponent implements OnInit {
   }
 
   searchFacility(SearchValue) {
-    this.inventoryService
-      .SearchBuilding(SearchValue).subscribe((data: Inventory[]) => {
-        this.build = data;
+    if (SearchValue.length >= 3) {
+      this.inventoryService
+        .SearchBuilding(SearchValue).subscribe((data: Inventory[]) => {
+          this.build = data;
 
-      });
-
+        });
+    }
   };
 
 

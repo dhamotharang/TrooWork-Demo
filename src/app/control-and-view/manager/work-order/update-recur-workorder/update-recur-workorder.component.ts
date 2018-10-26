@@ -273,19 +273,19 @@ export class UpdateRecurWorkorderComponent implements OnInit {
               this.monthlyreccradio1 = false;
               var tempInstance = data[0].OccurrenceDayInstance;
               if (tempInstance == 'mo') {
-                this.day2 = 'MON';
+                this.day2 = 'Mon';
               } else if (tempInstance == 'tu') {
-                this.day2 = 'TUE';
+                this.day2 = 'Tue';
               } else if (tempInstance == 'we') {
-                this.day2 = 'WED';
+                this.day2 = 'Wed';
               } else if (tempInstance == 'th') {
-                this.day2 = 'THU';
+                this.day2 = 'Thu';
               } else if (tempInstance == 'fr') {
-                this.day2 = 'FRI';
+                this.day2 = 'Fri';
               } else if (tempInstance == 'sa') {
-                this.day2 = 'SAT';
+                this.day2 = 'Sat';
               } else if (tempInstance == 'su') {
-                this.day2 = 'SUN';
+                this.day2 = 'Sun';
               }
               var tempInstanceWeekDay = data[0].OccurrenceDayOfWeek;
               if (tempInstanceWeekDay == 1) {

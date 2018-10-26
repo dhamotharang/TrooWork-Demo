@@ -121,7 +121,7 @@ import { UpdateRecurWorkorderComponent } from './control-and-view/manager/work-o
 import { CreateinspectionComponent } from './control-and-view/supervisor/createinspection/createinspection.component';
 import { ViewinspctnbysprvsrComponent } from './control-and-view/supervisor/viewinspctnbysprvsr/viewinspctnbysprvsr.component';
 import { SupervsrinspectiontemplateComponent } from './control-and-view/supervisor/supervsrinspectiontemplate/supervsrinspectiontemplate.component';
-
+import { ViewBatchWorkorderComponent } from './control-and-view/manager/work-order/view-batch-workorder/view-batch-workorder.component';
 import { BatchScheduleRoomComponent } from './control-and-view/manager/scheduling/batch-schedule-room/batch-schedule-room.component';
 import { CreateWorkOrderComponent } from './control-and-view/supervisor/create-work-order/create-work-order.component';
 import { CreateQuickWorkOrderComponent } from './control-and-view/supervisor/create-quick-work-order/create-quick-work-order.component';
@@ -132,7 +132,7 @@ import { EditDepartmentComponent } from './control-and-view/admin/edit-departmen
 import { ViewDepartmentComponent } from './control-and-view/admin/view-department/view-department.component';
 import { ManageLoginsComponent } from './control-and-view/admin/manage-logins/manage-logins.component';
 import { ResetPasswordsComponent } from './control-and-view/admin/reset-passwords/reset-passwords.component';
-
+import { CreateBatchWorkorderComponent } from './control-and-view/manager/work-order/create-batch-workorder/create-batch-workorder.component';
 const routes: Routes = [
   {
     path: '',
@@ -603,6 +603,15 @@ const routes: Routes = [
   {
     path: 'resetPasswords/:EmpKey',
     component: ResetPasswordsComponent
+  },
+  {
+    path: 'CreateBatchWorkOrder',
+    component: CreateBatchWorkorderComponent
+  },
+  
+  {
+    path: 'ViewBatchWorkorder',
+    component: ViewBatchWorkorderComponent
   }
 ];
 

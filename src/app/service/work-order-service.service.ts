@@ -128,8 +128,20 @@ export class WorkOrderServiceService {
         .http
         .post (url, obj);
     }
+    addworkorderSchedule(obj) {
+      const url = 'http://localhost:3000/api/addworkorderSchedule';
+      return this
+        .http
+        .post (url, obj);
+    }
     addWorkOrderEqup(obj) {
       const url = 'http://localhost:3000/api/addworkorderwithEquipment';
+      return this
+        .http
+        .post (url, obj);
+    }
+    addworkorderSchedulewithEquipment(obj) {
+      const url = 'http://localhost:3000/api/addworkorderSchedulewithEquipment';
       return this
         .http
         .post (url, obj);
@@ -179,6 +191,12 @@ export class WorkOrderServiceService {
       return this
         .http
         .post (url, obj);
+    }
+    getEmployee_scheduleNamae(schedulename, org_id)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/getEmployeeForBatchScheduling?key='+schedulename+'&OrganizationID='+org_id);
     }
 
 // ****Pooja's code starts here****

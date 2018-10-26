@@ -71,7 +71,7 @@ export class EmployeeChangePasswordComponent implements OnInit {
           this.passDetails = data;
         });
       if (this.passDetails.length > 0) {
-        this.peopleService.getUserEmail(this.username).subscribe((data: People[]) => {
+        this.peopleService.getUserEmail(this.username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
           debugger;
           this.managerMail = data[0].EmailID;
           this.userMail = data[0].newmail;
