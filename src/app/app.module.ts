@@ -153,6 +153,10 @@ import { ViewDepartmentComponent } from './control-and-view/admin/view-departmen
 import { ManageLoginsComponent } from './control-and-view/admin/manage-logins/manage-logins.component';
 import { ResetPasswordsComponent } from './control-and-view/admin/reset-passwords/reset-passwords.component';
 import { ViewBatchWorkorderComponent } from './control-and-view/manager/work-order/view-batch-workorder/view-batch-workorder.component';
+import { EditBatchWorkorderComponent } from './control-and-view/manager/work-order/edit-batch-workorder/edit-batch-workorder.component';
+import { WorkOrderTypeComponent } from './control-and-view/manager/work-order/work-order-type/work-order-type.component';
+import { EditWorkorderTypeComponent } from './control-and-view/manager/work-order/edit-workorder-type/edit-workorder-type.component';
+import { CreateWorkorderTypeComponent } from './control-and-view/manager/work-order/create-workorder-type/create-workorder-type.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -278,7 +282,11 @@ import { ViewBatchWorkorderComponent } from './control-and-view/manager/work-ord
     ManageLoginsComponent,
     ResetPasswordsComponent,
     CreateBatchWorkorderComponent,
-    ViewBatchWorkorderComponent
+    ViewBatchWorkorderComponent,
+    EditBatchWorkorderComponent,
+    WorkOrderTypeComponent,
+    EditWorkorderTypeComponent,
+    CreateWorkorderTypeComponent
   ],
   imports: [
     BrowserModule,

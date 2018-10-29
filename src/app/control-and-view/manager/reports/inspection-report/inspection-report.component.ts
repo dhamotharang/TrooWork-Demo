@@ -69,9 +69,21 @@ export class InspectionReportComponent implements OnInit {
   }
 
   generateInspectionReport(from_date, to_date, SupervisorKey) {
+    if (!from_date) {
+      var fromdate = this.convert_DT(new Date());
 
-    var fromdate = this.convert_DT(from_date);
-    var todate = this.convert_DT(to_date);
+    }
+    else {
+      fromdate = this.convert_DT(from_date);
+    }
+    if (!to_date) {
+      var todate = this.convert_DT(new Date());
+
+    }
+    else {
+      todate = this.convert_DT(to_date);
+    }
+    
     if (todate && fromdate > todate) {
       todate = null;
       alert("Please check your Start Date!");

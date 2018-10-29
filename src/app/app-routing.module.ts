@@ -133,6 +133,10 @@ import { ViewDepartmentComponent } from './control-and-view/admin/view-departmen
 import { ManageLoginsComponent } from './control-and-view/admin/manage-logins/manage-logins.component';
 import { ResetPasswordsComponent } from './control-and-view/admin/reset-passwords/reset-passwords.component';
 import { CreateBatchWorkorderComponent } from './control-and-view/manager/work-order/create-batch-workorder/create-batch-workorder.component';
+import { EditBatchWorkorderComponent } from './control-and-view/manager/work-order/edit-batch-workorder/edit-batch-workorder.component';
+import { WorkOrderTypeComponent } from './control-and-view/manager/work-order/work-order-type/work-order-type.component';
+import { EditWorkorderTypeComponent } from './control-and-view/manager/work-order/edit-workorder-type/edit-workorder-type.component';
+import { CreateWorkorderTypeComponent } from './control-and-view/manager/work-order/create-workorder-type/create-workorder-type.component';
 const routes: Routes = [
   {
     path: '',
@@ -171,7 +175,10 @@ const routes: Routes = [
     path: 'Flooredit/:Floor_Key/:Facility_Key',
     component: FloorEditComponent
   },
-
+  {
+    path: 'EditWorkorderType/:WorkorderTypeKey',
+    component: EditWorkorderTypeComponent
+  },
   {
     path: 'manageLoginCredentials',
     component: ManageLoginCredentialsComponent
@@ -529,6 +536,10 @@ const routes: Routes = [
     component: EditWorkOrderComponent
   },
   {
+    path: 'EditBatchWorkorder/:WorkorderScheduleKey',
+    component: EditBatchWorkorderComponent
+  },
+  {
     path: 'scheduleRoomView',
     component: BatchScheduleRoomComponent
   },
@@ -612,6 +623,14 @@ const routes: Routes = [
   {
     path: 'ViewBatchWorkorder',
     component: ViewBatchWorkorderComponent
+  },
+  {
+    path: 'WorkOrderType',
+    component: WorkOrderTypeComponent
+  },
+  {
+    path: 'CreateWorkorderType',
+    component: CreateWorkorderTypeComponent
   }
 ];
 

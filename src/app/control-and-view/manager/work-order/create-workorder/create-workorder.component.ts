@@ -533,7 +533,7 @@ export class CreateWorkorderComponent implements OnInit {
               this.addWOT = {
                 WorkorderType: this.newworkordertypetext,
                 employeekey: this.emp_key,
-                OrganizationID: this.org_id
+                OrganizationID: this.org_id,
               };
               this.WorkOrderServiceService
                 .AddnewWOT(this.addWOT)
