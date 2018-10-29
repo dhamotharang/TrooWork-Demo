@@ -5,11 +5,11 @@ import { WorkOrderServiceService } from '../../../../service/work-order-service.
 import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-create-workorder',
-  templateUrl: './create-workorder.component.html',
-  styleUrls: ['./create-workorder.component.scss']
+  selector: 'app-create-batch-workorder',
+  templateUrl: './create-batch-workorder.component.html',
+  styleUrls: ['./create-batch-workorder.component.scss']
 })
-export class CreateWorkorderComponent implements OnInit {
+export class CreateBatchWorkorderComponent implements OnInit {
   EmployeeOption: workorder[];
   workorderTypeList: workorder[];
   facilitylist: workorder[];
@@ -20,6 +20,7 @@ export class CreateWorkorderComponent implements OnInit {
   priorityList: workorder[];
   EquipmentList: workorder[];
   EquipmentTypeList: workorder[];
+  scheduleList: workorder[];
   emp_key: number;
   org_id: number;
   marked = false;
@@ -32,6 +33,7 @@ export class CreateWorkorderComponent implements OnInit {
   EquipmentKey: number;
   PriorityKey: number;
   EmployeeKey: number;
+  BatchScheduleNameKey:number;
   timeValue: any;
   dateValue: any;
   isPhotoRequired: any;
@@ -143,6 +145,11 @@ export class CreateWorkorderComponent implements OnInit {
       .getallPriority(this.org_id)
       .subscribe((data: any[]) => {
         this.priorityList = data;
+      });
+    this.WorkOrderServiceService
+      .getallScheduleName(this.emp_key, this.org_id)
+      .subscribe((data: any[]) => {
+        this.scheduleList = data;
       });
     this.WorkOrderServiceService
       .getallEmployee(this.emp_key, this.org_id)
@@ -268,6 +275,15 @@ export class CreateWorkorderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.EquipmentList = data;
       });
+
+  }
+  getEmployee(schedulename)
+  {
+    this.WorkOrderServiceService
+    .getEmployee_scheduleNamae(schedulename, this.org_id)
+    .subscribe((data: any[]) => {
+      this.EmployeeKey = data[0].EmployeeKey;
+    });
   }
   createWorkOrder() {
     if (this.showEqTypes === false) {
@@ -408,13 +424,10 @@ export class CreateWorkorderComponent implements OnInit {
     } else {
       this.is_BarcodeRequired = 0;
     }
-    if (this.isRecurring == false) {
-      this.isrecurring = 0;
-    }
-    else if (this.isRecurring == true && this.dailyrecurring == true) {
+     if (this.dailyrecurring == true) {
       this.intervaltype = 'd';
       this.isrecurring = 1;
-    } else if (this.isRecurring == true && this.weeklyrecurring == true) {
+    } else if (this.weeklyrecurring == true) {
       this.intervaltype = 'w';
       this.isrecurring = 1;
       var selectedWeekdays = [];
@@ -433,19 +446,10 @@ export class CreateWorkorderComponent implements OnInit {
       if (this.weektable_seven === true)
         selectedWeekdays.push('sa');
       this.occurs_on = selectedWeekdays.join(',');
-    } else if (this.isRecurring == true && this.monthlyrecurring == true) {
+    } else if (this.monthlyrecurring == true) {
       this.intervaltype = 'm';
       this.isrecurring = 1;
     }
-    if (this.isRecurring == false) {
-      if (this.dateValue) {
-        this.startDT = this.convert_DT(this.dateValue);
-      } else {
-        this.startDT = this.convert_DT(new Date());
-      }
-      this.endDT = this.startDT;
-    }
-    else {
       if (this.WorkorderStartDate) {
         this.startDT = this.convert_DT(this.WorkorderStartDate);
       } else {
@@ -456,16 +460,7 @@ export class CreateWorkorderComponent implements OnInit {
       } else {
         this.endDT = this.convert_DT(new Date());
       }
-    }
-    debugger;
-    if (this.isRecurring == false) {
-      console.log(this.timeValue);
-      if (this.timeValue) {
-        this.workTime = this.timeValue.getHours() + ':' + this.timeValue.getMinutes();
-      } else {
-        this.workTime = new Date().getHours() + ':' + new Date().getMinutes();
-      }
-    } else if (this.isRecurring == true && this.dailyrecurring == true) {
+     if (this.dailyrecurring == true) {
       var timeset = [];
       var timeset_corr = [];
       timeset = this.timetable.times;
@@ -476,14 +471,14 @@ export class CreateWorkorderComponent implements OnInit {
       this.workTime = timeset_corr.join(',');
       this.rep_interval = this.DailyrecurringGap;
     }
-    else if (this.isRecurring == true && this.weeklyrecurring == true) {
+    else if (this.weeklyrecurring == true) {
       if (this.Time_weekly) {
         this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();
       }
       else {
         alert("Please Enter Time!");
       }
-    } else if (this.isRecurring == true && this.monthlyrecurring == true) {
+    } else if (this.monthlyrecurring == true) {
       if (this.Time_monthly) {
         this.workTime = this.Time_monthly.getHours() + ':' + this.Time_monthly.getMinutes();
       }
@@ -533,7 +528,7 @@ export class CreateWorkorderComponent implements OnInit {
               this.addWOT = {
                 WorkorderType: this.newworkordertypetext,
                 employeekey: this.emp_key,
-                OrganizationID: this.org_id,
+                OrganizationID: this.org_id
               };
               this.WorkOrderServiceService
                 .AddnewWOT(this.addWOT)
@@ -546,6 +541,7 @@ export class CreateWorkorderComponent implements OnInit {
 
     }
     this.workorderCreation = {
+      scheduleKey:this.BatchScheduleNameKey,
       occursontime: this.workTime,
       workorderkey: - 99,
       workordertypekey: this.wot,
@@ -569,7 +565,7 @@ export class CreateWorkorderComponent implements OnInit {
       occursonday: this.occurs_on,
       occurstype: this.occurs_type
     };
-    this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => this.router.navigateByUrl('/ViewWorkOrder'));
+    this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => this.router.navigateByUrl('/ViewBatchWorkorder'));
   }
   createWorkorder2() {
 
@@ -709,13 +705,11 @@ export class CreateWorkorderComponent implements OnInit {
     } else {
       this.is_BarcodeRequired = 0;
     }
-    if (this.isRecurring == false) {
-      this.isrecurring = 0;
-    }
-    else if (this.isRecurring == true && this.dailyrecurring == true) {
+    
+    if (this.dailyrecurring == true) {
       this.intervaltype = 'd';
       this.isrecurring = 1;
-    } else if (this.isRecurring == true && this.weeklyrecurring == true) {
+    } else if ( this.weeklyrecurring == true) {
       this.intervaltype = 'w';
       this.isrecurring = 1;
       var selectedWeekdays = [];
@@ -735,15 +729,8 @@ export class CreateWorkorderComponent implements OnInit {
         selectedWeekdays.push('sa');
       this.occurs_on = selectedWeekdays.join(',');
     }
-    if (this.isRecurring == false) {
-      if (this.dateValue) {
-        this.startDT = this.convert_DT(this.dateValue);
-      } else {
-        this.startDT = this.convert_DT(new Date());
-      }
-      this.endDT = this.startDT;
-    }
-    else {
+    
+    
       if (this.WorkorderStartDate) {
         this.startDT = this.convert_DT(this.WorkorderStartDate);
       } else {
@@ -754,14 +741,8 @@ export class CreateWorkorderComponent implements OnInit {
       } else {
         this.endDT = this.convert_DT(new Date());
       }
-    }
-    if (this.isRecurring == false) {
-      if (this.timeValue) {
-        this.workTime = this.timeValue.getHours() + ':' + this.timeValue.getMinutes();
-      } else {
-        this.workTime = new Date().getHours() + ':' + new Date().getMinutes();
-      }
-    } else if (this.isRecurring == true && this.dailyrecurring == true) {
+    
+     if (this.dailyrecurring == true) {
       var timeset = [];
       var timeset_corr = [];
       timeset = this.timetable.times;
@@ -771,9 +752,9 @@ export class CreateWorkorderComponent implements OnInit {
 
       this.workTime = timeset_corr.join(',');
       this.rep_interval = this.DailyrecurringGap;
-    } else if (this.isRecurring == true && this.weeklyrecurring == true) {
+    } else if (this.weeklyrecurring == true) {
       this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();
-    } else if (this.isRecurring == true && this.monthlyrecurring == true) {
+    } else if (this.monthlyrecurring == true) {
       this.workTime = this.Time_monthly.getHours() + ':' + this.Time_monthly.getMinutes();
       if (this.monthlyreccradio1 == true) {
         this.occurs_on = this.day1;
@@ -830,6 +811,7 @@ export class CreateWorkorderComponent implements OnInit {
 
     }
     this.workorderCreation = {
+      scheduleKey:this.BatchScheduleNameKey,
       occursontime: this.workTime,
       workorderkey: - 99,
       workordertypekey: this.wot,
@@ -853,8 +835,8 @@ export class CreateWorkorderComponent implements OnInit {
       occursonday: this.occurs_on,
       occurstype: this.occurs_type
     };
-    this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => this.router.navigateByUrl('/ViewWorkOrder'));
-    
+    this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res => this.router.navigateByUrl('/ViewBatchWorkorder'));
+
   }
   addFormField() {
     debugger;

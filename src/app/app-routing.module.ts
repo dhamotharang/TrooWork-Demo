@@ -121,7 +121,7 @@ import { UpdateRecurWorkorderComponent } from './control-and-view/manager/work-o
 import { CreateinspectionComponent } from './control-and-view/supervisor/createinspection/createinspection.component';
 import { ViewinspctnbysprvsrComponent } from './control-and-view/supervisor/viewinspctnbysprvsr/viewinspctnbysprvsr.component';
 import { SupervsrinspectiontemplateComponent } from './control-and-view/supervisor/supervsrinspectiontemplate/supervsrinspectiontemplate.component';
-
+import { ViewBatchWorkorderComponent } from './control-and-view/manager/work-order/view-batch-workorder/view-batch-workorder.component';
 import { BatchScheduleRoomComponent } from './control-and-view/manager/scheduling/batch-schedule-room/batch-schedule-room.component';
 import { CreateWorkOrderComponent } from './control-and-view/supervisor/create-work-order/create-work-order.component';
 import { CreateQuickWorkOrderComponent } from './control-and-view/supervisor/create-quick-work-order/create-quick-work-order.component';
@@ -137,6 +137,11 @@ import { SetLoginCredentialsForUserComponent } from './control-and-view/admin/se
 import { ViewEmployeeAdminComponent } from './control-and-view/admin/view-employee-admin/view-employee-admin.component';
 import { EditEmployeeDetailsAdminComponent } from './control-and-view/admin/edit-employee-details-admin/edit-employee-details-admin.component';
 
+import { CreateBatchWorkorderComponent } from './control-and-view/manager/work-order/create-batch-workorder/create-batch-workorder.component';
+import { EditBatchWorkorderComponent } from './control-and-view/manager/work-order/edit-batch-workorder/edit-batch-workorder.component';
+import { WorkOrderTypeComponent } from './control-and-view/manager/work-order/work-order-type/work-order-type.component';
+import { EditWorkorderTypeComponent } from './control-and-view/manager/work-order/edit-workorder-type/edit-workorder-type.component';
+import { CreateWorkorderTypeComponent } from './control-and-view/manager/work-order/create-workorder-type/create-workorder-type.component';
 const routes: Routes = [
   {
     path: '',
@@ -175,7 +180,10 @@ const routes: Routes = [
     path: 'Flooredit/:Floor_Key/:Facility_Key',
     component: FloorEditComponent
   },
-
+  {
+    path: 'EditWorkorderType/:WorkorderTypeKey',
+    component: EditWorkorderTypeComponent
+  },
   {
     path: 'manageLoginCredentials',
     component: ManageLoginCredentialsComponent
@@ -521,7 +529,7 @@ const routes: Routes = [
     component: ResetpasswordforsamoduleComponent
   },
   {
-    path: 'Settingusernameandpswrdaftremplcreatebyman/:EmployeeKey/:str',
+    path: 'Settingusernameandpswrdaftremplcreatebyman/:EmployeeKey/:str/:UserRoleTypeKey',
     component: SettingusernameandpswrdaftremplcreatebymanComponent
   },
   {
@@ -531,6 +539,10 @@ const routes: Routes = [
   {
     path: 'EditWorkOrder/:WorkorderKey',
     component: EditWorkOrderComponent
+  },
+  {
+    path: 'EditBatchWorkorder/:WorkorderScheduleKey',
+    component: EditBatchWorkorderComponent
   },
   {
     path: 'scheduleRoomView',
@@ -623,6 +635,23 @@ const routes: Routes = [
   {
     path: 'editEmpDetailsAdmin/:EmployeeKey',
     component: EditEmployeeDetailsAdminComponent
+  },
+  {
+    path: 'CreateBatchWorkOrder',
+    component: CreateBatchWorkorderComponent
+  },
+
+  {
+    path: 'ViewBatchWorkorder',
+    component: ViewBatchWorkorderComponent
+  },
+  {
+    path: 'WorkOrderType',
+    component: WorkOrderTypeComponent
+  },
+  {
+    path: 'CreateWorkorderType',
+    component: CreateWorkorderTypeComponent
   }
 ];
 

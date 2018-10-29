@@ -65,7 +65,7 @@ export class CreateEmployeeComponent implements OnInit {
   //  debugger;
       this.temp_res=data22;
       var empKey=this.temp_res.EmployeeKey;
-      this.router.navigate(['/Settingusernameandpswrdaftremplcreatebyman',empKey,str]);
+      this.router.navigate(['/Settingusernameandpswrdaftremplcreatebyman',empKey,str,this.UserRoleTypeKey]);
     });
   }
   ngOnInit() {

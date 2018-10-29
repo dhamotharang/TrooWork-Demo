@@ -24,21 +24,38 @@ export class ManagerinspectiontemplateComponent implements OnInit {
   ind=0;
   TemplateDetails;
   lastIndexValue;
+  
   // for star rating 
-  starList: boolean[] = [true,true,true,true,true]; 
+  // starList5: boolean[] = [true,true,true,true,true]; 
+  // starList3: boolean[] = [true,true,true];
+  starList: boolean[];
   rating:number; 
   
-  setStar(data:any){
+  setStar3(data:any){
+ //debugger;
     this.rating=data+1;                               
-    for(var i=0;i<=4;i++){  
+    for(var i=0;i<=2;i++){  
       if(i<=data){  
         this.starList[i]=false;  
       }  
       else{  
-        this.starList[i]=true;  
+      this.starList[i]=true;  
       }  
    }  
-}  
+} 
+setStar(data:any){
+  //debugger;
+     this.rating=data+1;                               
+     for(var i=0;i<=4;i++){  
+       if(i<=data){  
+         this.starList[i]=false;  
+       }  
+       else{  
+       this.starList[i]=true;  
+       }  
+    }  
+ }  
+
 // for star rating 
 
   convert_DT(str) {
@@ -87,7 +104,7 @@ Scoringtype = {ratingValue:[],inspectionNotes:[],rating_yn:[]};
 
     this.inspectionService.InspectionDetails(this.inspKey$).subscribe((data: any[]) => {
       this.viewEmpInspectionDetails = data;
-      debugger;
+      //debugger;
       this.questionsCount=this.viewEmpInspectionDetails.length;
       this.val=data;
       if(this.viewEmpInspectionDetails[0].ScoreName === 'Yes/No')
@@ -100,6 +117,12 @@ Scoringtype = {ratingValue:[],inspectionNotes:[],rating_yn:[]};
       {
         this.names= ['Fail','N/A'];
         this.ScoreName=this.viewEmpInspectionDetails[0].ScoreName;
+      }
+      else if(this.viewEmpInspectionDetails[0].ScoreName === '5 Star'){
+        this.starList = [true,true,true,true,true]; 
+      }
+      else if(this.viewEmpInspectionDetails[0].ScoreName === '3 Star'){
+        this.starList = [true,true,true]; 
       }
        this.Temp_templateId=this.viewEmpInspectionDetails[0].TemplateID;
       this.inspectionService
@@ -124,17 +147,17 @@ debugger;
 // else{
 //   this.Scoringtype.ratingValue.push({rating:this.rating,questionID:TemplateQuestionID});
 // }
-else if(ScoreName === '5 Star'|| ScoreName==='3 Star'){
-  var length = Object.keys(this.starList).length;
-  var arrayLength = this.starList.length;
-  var values =this.starList[arrayLength - 1];
-  this.Scoringtype.ratingValue.push({rating:values,questionID:TemplateQuestionID});
+else if (ScoreName === '5 Star') {
+  this.Scoringtype.ratingValue.push({rating: this.rating, questionID: TemplateQuestionID});
+}
+else if (ScoreName === '3 Star') {
+  this.Scoringtype.ratingValue.push({rating: this.rating, questionID: TemplateQuestionID});
 }
 console.log(this.Scoringtype);
 }
 inspectionCompleted()
 {
-debugger;
+//debugger;
   var temp=[];
    var choices1 = [];
   choices1[0] = this.Scoringtype;
@@ -229,7 +252,7 @@ debugger;
               questionid:questionid,
    
             };
-            debugger;
+            //debugger;
             this.inspectionService
   .InspectionSaveService(this.inspectionDetail)
 
@@ -306,7 +329,7 @@ debugger;
                   questionid:questionid,
        
                 };
-                debugger;
+                //debugger;
                 this.inspectionService
       .InspectionSaveService(this.inspectionDetail)
     

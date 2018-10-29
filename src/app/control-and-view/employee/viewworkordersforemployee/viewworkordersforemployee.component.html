@@ -21,7 +21,7 @@
                 <!-- <div class = "col-sm-4 col-md-4 col-lg-4"> -->
                 <label class="col-sm-2 col-md-2 col-lg-2  control-label">Building*</label>
                 <div class="col-sm-3 col-md-2 col-lg-2">
-                    <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="FacilityKey" class="form-control" (change)="selectFloorfromBuildings($event.target.value)">
+                    <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="FacilityKey" class="form-control" (change)="selectFloorfromBuildings($event.target.value);viewEmployeeWorkorderByFilter()" >
                         <option>--Select--</option>
                         <option *ngFor="let z of facilityList" [value]="z.FacilityKey">
                             {{z.FacilityText}}
@@ -32,7 +32,7 @@
                 <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xs-12">
                     <label class="col-sm-2 col-md-2 col-lg-2 control-label">Floor*</label>
                     <div class="col-sm-2 col-md-2 col-lg-2">
-                        <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="FloorKey" class="form-control" (change)="selectZoneRoomtypefromFloor($event.target.value)">
+                        <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="FloorKey" class="form-control" (change)="selectZoneRoomtypefromFloor($event.target.value);viewEmployeeWorkorderByFilter()" >
                             <option>--Select--</option>
                             <option *ngFor="let z of floorList" [value]="z.FloorKey">
                                 {{z.FloorName}}
@@ -43,9 +43,9 @@
                     <!-- <div class = "col-sm-4 col-md-4 col-lg-4"> -->
                     <label class="col-sm-2 col-md-2 col-lg-2  control-label">Zone</label>
                     <div class="col-sm-2 col-md-2 col-lg-2">
-                        <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="ZoneKey" class="form-control">
+                        <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="ZoneKey" class="form-control" (change)="viewEmployeeWorkorderByFilter()">
                             <option>--Select--</option>
-                            <option *ngFor="let z of zoneList" [value]="z.ZoneKey" (onSelection)=" viewEmployeeWorkorderByFilter(viewworkorder); changedZone();">
+                            <option *ngFor="let z of zoneList" [value]="z.ZoneKey">
                                 {{z.ZoneName}}
                             </option>
                         </select>
@@ -54,7 +54,7 @@
                     <div class="col-sm-2 col-md-2 col-lg-2">
                         <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="RoomTypeKey" class="form-control">
                             <option>--Select--</option>
-                            <option *ngFor="let z of roomtypeList" [value]="z.RoomTypeKey" (onSelection)=" viewEmployeeWorkorderByFilter(viewworkorder)">
+                            <option *ngFor="let z of roomtypeList" [value]="z.RoomTypeKey">
                                 {{z.RoomTypeName}}
                             </option>
                         </select>
@@ -111,9 +111,9 @@
                                         </div>  
                                     </div>
                                     <div *ngIf="w.IsPhotoRequired == 1">
-                                        <input type="file" name="photo" ng2FileSelect [uploader]="uploader" [(ngModel)]='fileName' />
+                                        <input type="file" name="photo" ng2FileSelect [uploader]="uploader" [(ngModel)]='fileName' (input)="FileSelected(w.WorkorderKey);" />
                                         <button type="button" class="btn btn-success btn-s" 
-                                        (click)="uploader.uploadAll();FileSelected(w.WorkorderKey);" 
+                                        (click)="uploader.uploadAll();" 
                                         [disabled]="!uploader.getNotUploadedItems().length" >
                                             Upload
                                       </button>  
