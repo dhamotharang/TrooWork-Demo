@@ -517,7 +517,7 @@ const routes: Routes = [
     component: ResetpasswordforsamoduleComponent
   },
   {
-    path: 'Settingusernameandpswrdaftremplcreatebyman/:EmployeeKey/:str',
+    path: 'Settingusernameandpswrdaftremplcreatebyman/:EmployeeKey/:str/:UserRoleTypeKey',
     component: SettingusernameandpswrdaftremplcreatebymanComponent
   },
   {
