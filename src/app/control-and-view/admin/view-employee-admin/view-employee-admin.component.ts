@@ -1,23 +1,20 @@
-import { Component, OnInit, OnChanges, Directive, HostListener, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, Input } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import { People } from '../../../../model-class/People';
-import { PeopleServiceService } from '../../../../service/people-service.service';
-@Component({
-  selector: 'app-viewemployee',
-  templateUrl: './viewemployee.component.html',
-  styleUrls: ['./viewemployee.component.scss']
-})
-export class ViewemployeeComponent implements OnInit {
+import { People } from '../../../model-class/People';
+import { PeopleServiceService } from '../../../service/people-service.service';
 
+@Component({
+  selector: 'app-view-employee-admin',
+  templateUrl: './view-employee-admin.component.html',
+  styleUrls: ['./view-employee-admin.component.scss']
+})
+export class ViewEmployeeAdminComponent implements OnInit {
   jobtitle: People[];
   employeedetailstable: People[];
   searchform: FormGroup;
-  orgid: Number;
-  empkey: Number;
-  ManagerKey: Number;
   JobTitleKey: Number;
-  manager: People[];
-  //  seljobtitlevalue:any;
+  managerList;
+  ManagerKey: Number;
 
   role: String;
   name: String;
@@ -56,34 +53,25 @@ export class ViewemployeeComponent implements OnInit {
   }
   validateFields(event) {
     setTimeout(() => {
-
       this.el.nativeElement.value = this.el.nativeElement.value.replace(/[^A-Za-z ]/g, '').replace(/\s/g, '');
       event.preventDefault();
-
     }, 100)
   }
-  // seljobtitlevalue,ManagerKey
-  getempdettablewithselectedddvsa() {
+
+  getempdettablewithselectedJobtitle() {
     this.PeopleServiceService
-      .getAllEmployeeDetailswithjobtitledropdownsa(this.orgid, this.empkey, this.JobTitleKey, this.ManagerKey)
+      .getEmployeeByFilters(this.JobTitleKey, this.ManagerKey, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.employeedetailstable = data;
       });
 
   }
-
   searchEmployeeDetails(SearchValue) {
-
-    if (SearchValue.length > 2) {
-      this.PeopleServiceService
-        .searchResultOfEmployeedetailsTable(SearchValue)
-        .subscribe((data: People[]) => {
-          // debugger;
-          this.employeedetailstable = data;
-
-        });
-    }
+    this.PeopleServiceService
+      .searchResultOfEmployeedetailsTable(SearchValue)
+      .subscribe((data: People[]) => {
+        this.employeedetailstable = data;
+      });
   }
   ngOnInit() {
 
@@ -96,30 +84,25 @@ export class ViewemployeeComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
-    this.orgid = 21;
-    this.empkey = 2751;
-
     this.PeopleServiceService
       .getJobTitle()
       .subscribe((data: People[]) => {
-        // debugger;
         this.jobtitle = data;
-      });
-    this.PeopleServiceService
-      .getvaluesForManagerDropdowninSA(this.empkey, this.orgid)
-      .subscribe((data: People[]) => {
-        // debugger;
-        this.manager = data;
       });
     this.PeopleServiceService
       .getAllEmployeeDetails(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.employeedetailstable = data;
       });
     this.searchform = this.formBuilder.group({
       SearchEmpDetails: ['', Validators.required]
     });
+
+    this.PeopleServiceService
+      .getmanagersForEmp(this.employeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.managerList = data;
+      });
   }
 
 }

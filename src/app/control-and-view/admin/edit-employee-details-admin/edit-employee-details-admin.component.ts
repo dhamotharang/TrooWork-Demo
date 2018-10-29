@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { People } from '../../../../model-class/People';
+import { People } from '../../../model-class/People';
 import { ActivatedRoute, Router } from "@angular/router";
-import { PeopleServiceService } from '../../../../service/people-service.service';
+import { PeopleServiceService } from '../../../service/people-service.service';
+
 @Component({
-  selector: 'app-edit-employeedetails',
-  templateUrl: './edit-employeedetails.component.html',
-  styleUrls: ['./edit-employeedetails.component.scss']
+  selector: 'app-edit-employee-details-admin',
+  templateUrl: './edit-employee-details-admin.component.html',
+  styleUrls: ['./edit-employee-details-admin.component.scss']
 })
-export class EditEmployeedetailsComponent implements OnInit {
+export class EditEmployeeDetailsAdminComponent implements OnInit {
   marked = true;
   firstName: Array<any>;
   lastName: Array<any>;
@@ -26,6 +27,31 @@ export class EditEmployeedetailsComponent implements OnInit {
   managerKey: Number = 2861;
   delete_EmpKey: Number;
   employeedetailstable: People[];
+  managerList;
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
 
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
@@ -68,6 +94,15 @@ export class EditEmployeedetailsComponent implements OnInit {
   }
   ngOnInit() {
 
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.PeopleServiceService.EditEmployeeDetailsbyManager(this.empk$, this.orgid).subscribe((data: Array<any>) => {
       this.editempdtails = data[0];
       this.BirthDate = new Date(this.editempdtails.BirthDate);
@@ -95,6 +130,12 @@ export class EditEmployeedetailsComponent implements OnInit {
       .getSupervisorListforDropdown()
       .subscribe((data: People[]) => {
         this.supervisor = data;
+      });
+
+    this.PeopleServiceService
+      .getmanagersForEmp(this.employeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.managerList = data;
       });
   }
   toggleVisibility(e) {

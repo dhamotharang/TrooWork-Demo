@@ -132,6 +132,10 @@ import { EditDepartmentComponent } from './control-and-view/admin/edit-departmen
 import { ViewDepartmentComponent } from './control-and-view/admin/view-department/view-department.component';
 import { ManageLoginsComponent } from './control-and-view/admin/manage-logins/manage-logins.component';
 import { ResetPasswordsComponent } from './control-and-view/admin/reset-passwords/reset-passwords.component';
+import { AddEmployeeComponent } from './control-and-view/admin/add-employee/add-employee.component';
+import { SetLoginCredentialsForUserComponent } from './control-and-view/admin/set-login-credentials-for-user/set-login-credentials-for-user.component';
+import { ViewEmployeeAdminComponent } from './control-and-view/admin/view-employee-admin/view-employee-admin.component';
+import { EditEmployeeDetailsAdminComponent } from './control-and-view/admin/edit-employee-details-admin/edit-employee-details-admin.component';
 
 const routes: Routes = [
   {
@@ -603,6 +607,22 @@ const routes: Routes = [
   {
     path: 'resetPasswords/:EmpKey',
     component: ResetPasswordsComponent
+  },
+  {
+    path: 'addEmployeeAdmin',
+    component: AddEmployeeComponent
+  },
+  {
+    path: 'setUserLoginAdmin/:EmployeeKey/:str/:UserRoleTypeKey',
+    component: SetLoginCredentialsForUserComponent
+  },
+  {
+    path: 'viewEmployeeAdmin',
+    component: ViewEmployeeAdminComponent
+  },
+  {
+    path: 'editEmpDetailsAdmin/:EmployeeKey',
+    component: EditEmployeeDetailsAdminComponent
   }
 ];
 

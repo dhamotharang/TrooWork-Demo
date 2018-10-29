@@ -8,26 +8,26 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ['./editemployee.component.scss']
 })
 export class EditemployeeComponent implements OnInit {
-  
-  organization:People[];
+
+  organization: People[];
   orgID: number = 21;
   emplokey: number = 2751;
   empk$: Object;
   editempdtailsbysa;
   useroletyp;
-  manager:People[];
-  department:People[];
-  employeestatus:People[];
+  manager: People[];
+  department: People[];
+  employeestatus: People[];
   marked = true;
-  jobtitle:People[];
+  jobtitle: People[];
   BirthDate: Date;
   HireDate: Date;
   managerKey: Number = 2861;
-  delete_EmpKey:Number;
-  employeedetailstable:People[];
-  Updatdby: Number=2751;
+  delete_EmpKey: Number;
+  employeedetailstable: People[];
+  Updatdby: Number = 2751;
   // adding properties and methods that will be used by the igxDatePicker
-  
+
   public date: Date = new Date(Date.now());
 
   private dayFormatter = new Intl.DateTimeFormat('en', { weekday: 'long' });
@@ -43,7 +43,7 @@ export class EditemployeeComponent implements OnInit {
     return [date.getFullYear(), mnth, day].join("-");
   };
 
-  constructor(private route: ActivatedRoute,private PeopleServiceService: PeopleServiceService, private router: Router) { 
+  constructor(private route: ActivatedRoute, private PeopleServiceService: PeopleServiceService, private router: Router) {
     this.route.params.subscribe(params => this.empk$ = params.EmployeeKey);
   }
   toggleVisibility(e) {
@@ -52,37 +52,29 @@ export class EditemployeeComponent implements OnInit {
     } else {
       this.marked = true;
     }
-    
+
   }
   deleteEmployee() {
     debugger;
-    
+
     this.PeopleServiceService
-      .DeleteEmployeeDetailsbySuperadmin(this.delete_EmpKey,this.orgID,this.Updatdby).subscribe(()=>{
-
-        this.PeopleServiceService
-        .getAllEmployeeDetails()
-        .subscribe((data: People[]) => {
-          // debugger;
-          this.employeedetailstable = data;
-        });
-
-      });
+      .DeleteEmployeeDetailsbySuperadmin(this.delete_EmpKey, this.orgID, this.Updatdby).subscribe(res => this.router.navigateByUrl('/Viewemployee'));
   }
   deleteEmpPass(empk$) {
     this.delete_EmpKey = empk$;
     debugger;
   }
-  editEmployee(OrganizationID,UserRoleTypeKey,EmployeeNumber,ManagerKey,FirstName,LastName,MiddleName,BD,AddressLine1,City,AddressLine2,State,Country,PrimaryPhone,ZipCode,AlternatePhone,EmailID,EmployeeStatusKey,HD,IsSupervisor,JobTitleKey,DepartmentKey,Gender) {
+  editEmployee(OrganizationID, UserRoleTypeKey, EmployeeNumber, ManagerKey, FirstName, LastName, MiddleName, BD, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, IsSupervisor, JobTitleKey, DepartmentKey, Gender) {
     var birthdt = this.convert_DT(BD);
     var hiredt = this.convert_DT(HD);
 
-    this.PeopleServiceService.UpdateEmployeeDetailsbySa(this.managerKey,this.empk$,this.orgID,UserRoleTypeKey,EmployeeNumber,FirstName,LastName,MiddleName,birthdt,AddressLine1,City,AddressLine2,State,Country,PrimaryPhone,ZipCode,AlternatePhone,EmailID,EmployeeStatusKey,hiredt,IsSupervisor,JobTitleKey,DepartmentKey,Gender).subscribe(res => this.router.navigateByUrl('/Viewemployee'));
+    this.PeopleServiceService.UpdateEmployeeDetailsbySa(this.managerKey, this.empk$, this.orgID, UserRoleTypeKey, EmployeeNumber, FirstName, LastName, MiddleName, birthdt, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, JobTitleKey, DepartmentKey, Gender)
+      .subscribe(res => this.router.navigateByUrl('/Viewemployee'));
 
   }
   ngOnInit() {
 
-    this.PeopleServiceService.EditEmployeeDetailsbySuperadmin(this.empk$,this.orgID).subscribe((data: Array<any>) => {
+    this.PeopleServiceService.EditEmployeeDetailsbySuperadmin(this.empk$, this.orgID).subscribe((data: Array<any>) => {
       this.editempdtailsbysa = data[0];
       this.BirthDate = new Date(this.editempdtailsbysa.BirthDate);
       this.HireDate = new Date(this.editempdtailsbysa.HireDate);
@@ -95,31 +87,31 @@ export class EditemployeeComponent implements OnInit {
         // debugger;
         this.organization = data;
       });
-      this.PeopleServiceService
+    this.PeopleServiceService
       .getUserRoleTypesa(this.orgID)
       .subscribe((data: People[]) => {
         // debugger;
         this.useroletyp = data;
       });
-      this.PeopleServiceService
-      .getvaluesForManagerDropdowninSA(this.emplokey,this.orgID)
+    this.PeopleServiceService
+      .getvaluesForManagerDropdowninSA(this.emplokey, this.orgID)
       .subscribe((data: People[]) => {
         // debugger;
         this.manager = data;
       });
-      this.PeopleServiceService
-      .getDepartmentforddinSuperadmin(this.emplokey,this.orgID)
+    this.PeopleServiceService
+      .getDepartmentforddinSuperadmin(this.emplokey, this.orgID)
       .subscribe((data: People[]) => {
         // debugger;
         this.department = data;
       });
-      this.PeopleServiceService
-      .getEmployeeStatusListforDropdowninSuperadmin(this.emplokey,this.orgID)
+    this.PeopleServiceService
+      .getEmployeeStatusListforDropdowninSuperadmin(this.emplokey, this.orgID)
       .subscribe((data: People[]) => {
         // debugger;
         this.employeestatus = data;
       });
-      this.PeopleServiceService
+    this.PeopleServiceService
       .getjobTitleforDropdowninSuperadmin(this.orgID)
       .subscribe((data: People[]) => {
         // debugger;
