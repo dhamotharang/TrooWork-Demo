@@ -13,7 +13,7 @@ export class CreateemployeeComponent implements OnInit {
   department: People[];
   OrgID:number;
   EmployeeNumber: Number;
-  UserRoleTypeKey: Number;
+  UserRoleTypeKey;
   FirstName: String;
   LastName: String;
   MiddleName: String;
@@ -30,9 +30,18 @@ export class CreateemployeeComponent implements OnInit {
   EmailID: any;
   HireDate: Date;
   theCheckbox: any;
-  JobTitleKey: Number;
-  OrganizationID: Number;
-  DepartmentKey: Number;
+  JobTitleKey;
+  OrganizationID;
+  DepartmentKey;
+  useroletype;
+  roleTypeKey;
+  managerList;
+  showManager;
+  IsSupervisor;
+  employeekey;
+  ManagerKey;
+  name;
+  role;
   marked = true;
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
@@ -51,15 +60,49 @@ export class CreateemployeeComponent implements OnInit {
   };
 
   constructor(private PeopleServiceService: PeopleServiceService) { }
-
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
   createEmployee(){
     debugger;
     var BD = this.convert_DT(this.BirthDate);
     var HD = this.convert_DT(this.HireDate);
-    this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID,this.EmployeeNumber,this.UserRoleTypeKey,this.FirstName,this.LastName,this.MiddleName,BD,this.Gender,this.AddressLine1,this.City,this.AddressLine2,this.State,this.Country,this.PrimaryPhone,this.ZipCode,this.AlternatePhone,this.EmailID,HD,this.theCheckbox,this.JobTitleKey,this.DepartmentKey).subscribe(res => console.log('Done'));
+    this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID,this.ManagerKey,this.EmployeeNumber,this.UserRoleTypeKey,this.FirstName,this.LastName,this.MiddleName,BD,this.Gender,this.AddressLine1,this.City,this.AddressLine2,this.State,this.Country,this.PrimaryPhone,this.ZipCode,this.AlternatePhone,this.EmailID,HD,this.theCheckbox,this.JobTitleKey,this.DepartmentKey).subscribe((data: People[]) => {
+     
+    });
   }
   ngOnInit() {
     this.OrgID=21;
+    this.OrganizationID = '';
+    this.UserRoleTypeKey='';
+    this.Gender='';
+    this.JobTitleKey='';
+    this.DepartmentKey='';
+    this.UserRoleTypeKey='';
+
+
+
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrgID = profile.OrganizationID;
     this.PeopleServiceService
       .getUserRoleTypesa(this.OrgID)
       .subscribe((data: People[]) => {
@@ -84,12 +127,40 @@ export class CreateemployeeComponent implements OnInit {
         // debugger;
         this.department = data;
       });
+      this.PeopleServiceService
+      .getUserRoleType()
+      .subscribe((data: any[]) => {
+        this.useroletype = data;
+
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].UserRoleName == "Employee") {
+            this.roleTypeKey = data[i].UserRoleTypeKey;
+          }
+        }
+
+      });
   }
   toggleVisibility(e) {
     if (e.target.checked) {
       this.marked = false;
     } else {
       this.marked = true;
+    }
+  }
+  selectUserType(userType) {
+    debugger;
+    userType;
+    if (userType == this.roleTypeKey) {
+      this.showManager = true;
+      this.PeopleServiceService
+        .getmanagersForEmp(this.employeekey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.managerList = data;
+        });
+      console.log(this.showManager);
+    } else {
+      this.showManager = false;
+      console.log(this.showManager);
     }
   }
 

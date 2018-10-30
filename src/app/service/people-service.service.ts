@@ -386,11 +386,11 @@ export class PeopleServiceService {
       .get('http://localhost:3000/api/editviewJobTitle?JobTitleKey=' + JobTitleKey + '&OrganizationID=' + 21);
   }
   // ****@Pooja's Code Starts here****
-  createEmployeebySuperAdmin(OrgID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, theCheckbox, JobTitleKey, DepartmentKey) {
+  createEmployeebySuperAdmin(OrgID, EmployeeNumber,ManagerKey, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, theCheckbox, JobTitleKey, DepartmentKey) {
     const url = "http://localhost:3000/api/addemp";
     const obj = {
       employeenumber: EmployeeNumber,
-      managerkey: UserRoleTypeKey,
+      managerkey: ManagerKey,
       firstname: FirstName,
       lastname: LastName,
       middlename: MiddleName,
