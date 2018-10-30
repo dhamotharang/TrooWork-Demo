@@ -152,9 +152,18 @@ import { EditDepartmentComponent } from './control-and-view/admin/edit-departmen
 import { ViewDepartmentComponent } from './control-and-view/admin/view-department/view-department.component';
 import { ManageLoginsComponent } from './control-and-view/admin/manage-logins/manage-logins.component';
 import { ResetPasswordsComponent } from './control-and-view/admin/reset-passwords/reset-passwords.component';
+import { AddEmployeeComponent } from './control-and-view/admin/add-employee/add-employee.component';
+import { SetLoginCredentialsForUserComponent } from './control-and-view/admin/set-login-credentials-for-user/set-login-credentials-for-user.component';
+import { ViewEmployeeAdminComponent } from './control-and-view/admin/view-employee-admin/view-employee-admin.component';
+import { EditEmployeeDetailsAdminComponent } from './control-and-view/admin/edit-employee-details-admin/edit-employee-details-admin.component';
+
 import { ViewBatchWorkorderComponent } from './control-and-view/manager/work-order/view-batch-workorder/view-batch-workorder.component';
 import { SetUsnamepaswdbySAComponent } from './control-and-view/superadmin/people/set-usnamepaswdby-sa/set-usnamepaswdby-sa.component';
 
+import { EditBatchWorkorderComponent } from './control-and-view/manager/work-order/edit-batch-workorder/edit-batch-workorder.component';
+import { WorkOrderTypeComponent } from './control-and-view/manager/work-order/work-order-type/work-order-type.component';
+import { EditWorkorderTypeComponent } from './control-and-view/manager/work-order/edit-workorder-type/edit-workorder-type.component';
+import { CreateWorkorderTypeComponent } from './control-and-view/manager/work-order/create-workorder-type/create-workorder-type.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -279,9 +288,17 @@ import { SetUsnamepaswdbySAComponent } from './control-and-view/superadmin/peopl
     ViewDepartmentComponent,
     ManageLoginsComponent,
     ResetPasswordsComponent,
+    AddEmployeeComponent,
+    SetLoginCredentialsForUserComponent,
+    ViewEmployeeAdminComponent,
+    EditEmployeeDetailsAdminComponent,
     CreateBatchWorkorderComponent,
     ViewBatchWorkorderComponent,
-    SetUsnamepaswdbySAComponent
+    SetUsnamepaswdbySAComponent,
+    EditBatchWorkorderComponent,
+    WorkOrderTypeComponent,
+    EditWorkorderTypeComponent,
+    CreateWorkorderTypeComponent
   ],
   imports: [
     BrowserModule,

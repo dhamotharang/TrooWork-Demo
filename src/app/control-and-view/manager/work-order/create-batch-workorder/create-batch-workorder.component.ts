@@ -565,7 +565,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
       occursonday: this.occurs_on,
       occurstype: this.occurs_type
     };
-    this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => this.router.navigateByUrl('/ViewWorkOrder'));
+    this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => this.router.navigateByUrl('/ViewBatchWorkorder'));
   }
   createWorkorder2() {
 
@@ -835,7 +835,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
       occursonday: this.occurs_on,
       occurstype: this.occurs_type
     };
-    this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res => this.router.navigateByUrl('/ViewWorkOrder'));
+    this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res => this.router.navigateByUrl('/ViewBatchWorkorder'));
 
   }
   addFormField() {

@@ -255,7 +255,6 @@ export class PeopleServiceService {
       .get('http://localhost:3000/api/department?empkey=' + 2861 + '&OrganizationID=' + 21);
   }
   createEmployeebyManager(EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, theCheckbox, JobTitleKey, SupervisorKey, DepartmentKey) {
-    //debugger;
     const uri = "http://localhost:3000/api/addemp";
     const obj = {
       employeenumber: EmployeeNumber,
@@ -284,12 +283,7 @@ export class PeopleServiceService {
     };
     return this.http.post(uri, obj);
   }
-  getAllEmployeeDetails() {
-    return this
-      .http
-      .get('http://localhost:3000/api/getAllEmployees?pagenumber=' + 1 + '&itemsPerPage=' + 25 + '&empkey=' + 2861 + '&OrganizationID=' + 21);
-  }
-  getAllEmployeeDetailsSuper(empkey, org) {
+  getAllEmployeeDetails(empkey, org) {
     return this
       .http
       .get('http://localhost:3000/api/getAllEmployees?pagenumber=' + 1 + '&itemsPerPage=' + 25 + '&empkey=' + empkey + '&OrganizationID=' + org);
@@ -362,24 +356,6 @@ export class PeopleServiceService {
     return this
       .http
       .get('http://localhost:3000/api/empDetails?SearchKey=' + empk + '&OrganizationID=' + orgid);
-  }
-  checkUserName(userName, empKey, orgID) {
-    return this
-      .http
-      .get('http://localhost:3000/api/checkUsername?username=' + userName + '&employeekey=' + empKey + '&OrganizationID=' + orgID);
-  }
-
-  setLoginCreds(userName, passWord, empKey, employeekey, uRoleTypeKey, OrgID) {
-    const uri = "http://localhost:3000/api/setUsernamePassword";
-    const obj = {
-      username: userName,
-      password: passWord,
-      employeekey: empKey,
-      updatedBy: employeekey,
-      userRoleTypeKey: uRoleTypeKey,
-      OrganizationID: OrgID
-    };
-    return this.http.post(uri, obj);
   }
   // ****@Pooja's Code Ends here****
 
@@ -585,4 +561,81 @@ export class PeopleServiceService {
       .http
       .get('http://localhost:3000/api/searchEmployeeList?searchEmployee=' + key + '&employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
+
+  getmanagersForEmp(empKey, orgID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/getManagerForEmployee?employeekey=' + empKey + '&OrganizationID=' + orgID);
+  }
+
+  createEmployeebyAdmin(EmployeeNumber, ManagerKey, FirstName, LastName, MiddleName, BD, Gender,
+    AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, issupervisor,
+    JobTitleKey, DepartmentKey, employeekey, OrganizationID) {
+    const uri = "http://localhost:3000/api/addemp";
+    const obj = {
+      employeenumber: EmployeeNumber,
+      managerkey: ManagerKey,
+      firstname: FirstName,
+      lastname: LastName,
+      middlename: MiddleName,
+      birthDate: BD,
+      gender: Gender,
+      addressline1: AddressLine1,
+      city: City,
+      addressline2: AddressLine2,
+      state: State,
+      country: Country,
+      primaryphone: PrimaryPhone,
+      zipcode: ZipCode,
+      alternatephone: AlternatePhone,
+      email: EmailID,
+      hireDate: HD,
+      isSupervisor: issupervisor,
+      jobTitleKey: JobTitleKey,
+      departmentKey: DepartmentKey,
+      metaupdatedBy: employeekey,
+      OrganizationID: OrganizationID
+    };
+    return this.http.post(uri, obj);
+  }
+
+  checkEmpNumber(empNumber, empKey, orgID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/checkforEmployeeNumber?Employeenumber=' + empNumber + '&employeekey=' + empKey + '&OrganizationID=' + orgID);
+  }
+
+  checkUserName(userName, empKey, orgID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/checkUsername?username=' + userName + '&employeekey=' + empKey + '&OrganizationID=' + orgID);
+  }
+
+  setLoginCreds(userName, passWord, empKey, employeekey, uRoleTypeKey, OrgID) {
+    const uri = "http://localhost:3000/api/setUsernamePassword";
+    const obj = {
+      username: userName,
+      password: passWord,
+      employeekey: empKey,
+      updatedBy: employeekey,
+      userRoleTypeKey: uRoleTypeKey,
+      OrganizationID: OrgID
+    };
+    return this.http.post(uri, obj);
+  }
+
+  getEmployeeByFilters(jobtKey, managerKey, empKey, orgID) {
+    const uri = "http://localhost:3000/api/employeeByAllFilter";
+    const obj = {
+      JobTitleKey: jobtKey,
+      ManagerKey: managerKey,
+      employeekey: empKey,
+      pagenumber: 1,
+      itemsPerPage: 25,
+      OrganizationID: orgID
+    };
+    return this.http.post(uri, obj);
+  }
+
+
 }

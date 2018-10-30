@@ -53,4 +53,16 @@ export class LoginService {
       .http
       .get(`http://localhost:3000/api/getManagerDetailsByID?employeekey=` + empKey + '&OrganizationID=' + orgID);
   }
+
+  getUpdateList(empkey, orgID) {
+    return this
+      .http
+      .get(`http://localhost:3000/api/welcomeUpdateMessage?empKey=` + empkey + '&OrganizationID=' + orgID);
+  }
+
+  getEmpNameForWelcomeMessage(empkey, orgID) {
+    return this
+      .http
+      .get(`http://localhost:3000/api/welcomeMessage?empKey=` + empkey + '&OrganizationID=' + orgID);
+  }
 }

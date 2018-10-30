@@ -97,11 +97,35 @@ export class WorkOrderServiceService {
       .http
       .get('http://localhost:3000/api/allWorkordertype?empkey='+emp_key+'&OrganizationID='+org_id);
     }
+    getall_workordertype(pageno,items_perpage,emp_key,org_id)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/viewWorkorderType?pageno='+pageno+'&itemsPerPage='+items_perpage+'&employeekey='+emp_key+'&OrganizationID='+org_id);
+    }
+    Edit_WOT(wOT_key,org_id)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/editviewWorkOrderType?WorkorderTypeKey='+wOT_key+'&OrganizationID='+org_id);
+    }
+    checkforWOT(WOTName,emp_key,org_id)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/checkforcheckForWorkOrderType?WorkorderTypeName='+WOTName+'&employeekey='+emp_key+'&OrganizationID='+org_id);
+    }
     getworkorder(on_date,emp_key,page_no,iems_perpage,org_id)
     {
       return this
       .http
       .get('http://localhost:3000/api/viewworkorder?viewdate='+on_date+'&employeekey='+emp_key+'&pageno='+page_no+'&itemsPerPage='+iems_perpage+'&OrganizationID='+org_id);
+    }
+    getBatchworkorder(on_date,emp_key, page_no, iems_perpage,org_id)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/viewScheduledWorks?viewdate='+on_date+'&employeekey='+emp_key+'&pageno='+page_no+'&itemsPerPage='+iems_perpage+'&OrganizationID='+org_id);
     }
     getWoFilter(viewWorkOrder)
     {
@@ -110,6 +134,14 @@ export class WorkOrderServiceService {
         .http
         .post (url, viewWorkOrder);
     }
+    getBatchWoFilter(viewWorkOrder)
+    {
+      const url = 'http://localhost:3000/api/workorderScheduleByallFilters';
+      return this
+        .http
+        .post (url, viewWorkOrder);
+    }
+    
     getallEquipment(facility_key,floor_key,org_id)
     {
       return this
@@ -146,9 +178,29 @@ export class WorkOrderServiceService {
         .http
         .post (url, obj);
     }
+    UpdateWOT(obj) {
+      const url = 'http://localhost:3000/api/editSelectedWorkordertype';
+      return this
+        .http
+        .post (url, obj);
+    }
+    createWOT(obj) {
+      debugger;
+      const url = 'http://localhost:3000/api/addNewWorkordertype';
+      return this
+        .http
+        .post (url, obj);
+    }
     search_WO(obj)
     {
       const url = 'http://localhost:3000/api/searchWorkorderByallFilters';
+      return this
+        .http
+        .post (url, obj);
+    }
+    search_Batch_WO(obj)
+    {
+      const url = 'http://localhost:3000/api/searchWorkorderScheduleByallFilters';
       return this
         .http
         .post (url, obj);
@@ -166,15 +218,59 @@ export class WorkOrderServiceService {
       .http
       .get('http://localhost:3000/api/workorderDetails?SearchKey='+WO_Key+'&OrganizationID='+org_id);
     }
+    getBatchWO_edit(BatchWO_Key,org_id)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/workorderScheduleDetails?SearchKey='+BatchWO_Key+'&OrganizationID='+org_id);
+    }
+    search_workordertype(org_id,key)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/searchworkOrderType?OrganizationID='+org_id+'&searchWorkOrderType='+key);
+    }
+    getRoomList(Key,org_id)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/getRoomNameByRoomList?SearchKey='+Key+'&OrganizationID='+org_id);
+    }
+    getEquipmentNameList(Key,org_id)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/getEquipmentNameList?workorderSchedulekey='+Key+'&OrganizationID='+org_id);
+    }
     getFloor( WOrder_Key,org_id)
     {
       return this
       .http
       .get('http://localhost:3000/api/getFloorKeyForEquipWorkOrder?workorderkey='+WOrder_Key+'&OrganizationID='+org_id);
     }
+    getFloor_batch( WOrder_Key,org_id)
+    {
+      return this
+      .http
+      .get('http://localhost:3000/api/getFloorKeyForEquipSchedule?workorderSchedulekey='+WOrder_Key+'&OrganizationID='+org_id);
+    }
     deleteCurrent_WO(obj)
     {
       const url = 'http://localhost:3000/api/deleteByWorkorderKey';
+      return this
+        .http
+        .post (url, obj);
+    }
+    deleteCurrent_BatchWO(obj)
+    {
+      const url = 'http://localhost:3000/api/deleteWorkOrderBatchSchedule';
+      return this
+        .http
+        .post (url, obj);
+    }
+    DeleteWOT(obj)
+    {
+      const url = 'http://localhost:3000/api/deleteWorkOrderType';
       return this
         .http
         .post (url, obj);
