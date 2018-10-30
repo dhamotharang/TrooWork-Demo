@@ -1,0 +1,45 @@
+<app-set-usnamepaswdby-sa></app-set-usnamepaswdby-sa>
+<br><br>
+<div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
+  <br><br>
+  <div style="text-align:center">
+    <h3 style="color: #174a5e;"><strong>SETTING USERNAME AND PASSWORD</strong></h3>
+  </div>
+
+  <br>
+  <div class="col-md-12">
+    <div class="row col-md-12">
+      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="username">User Name: </label></h5>
+      <div class="md-form col-md-3" style="text-align:left">
+        <input *ngIf="sasemail" type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
+           id="username" [(ngModel)]="username">
+      </div>
+      <div class="col col-md-5"></div>
+    </div>
+    <div class="row col-md-12">
+      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="Password">Password: </label></h5>
+      <div class="md-form col-md-3" style="text-align:left">
+        <input *ngIf="sasemail" type="password" disabled="disabled" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
+           id="Password" [(ngModel)]="password">
+      </div>
+      <div class="col col-md-5"></div>
+    </div>
+    <div class="row col-md-12">
+      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="Re-typePassword">Re-type Password: </label></h5>
+      <div class="md-form col-md-3" style="text-align:left">
+        <input *ngIf="sasemail" type="password" disabled="disabled" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
+           id="Re-typePassword" [(ngModel)]="reEnterPassword">
+      </div>
+      <div class="col col-md-5"></div>
+    </div>
+    <div class="row col-md-12">
+      <div class="col col-md-4"></div>
+      <div style="text-align:right" class="col-md-3">
+        <a style="color:white !important" routerLink="/ViewEmployee" class="btn btn-success" routerLinkActive="active"
+          (click)="setUsernamePassword()"><b>Save & Send Email</b>
+        </a></div>
+      <div class="col col-md-2"></div>
+    </div>
+  </div>
+  <br><br>
+</div>

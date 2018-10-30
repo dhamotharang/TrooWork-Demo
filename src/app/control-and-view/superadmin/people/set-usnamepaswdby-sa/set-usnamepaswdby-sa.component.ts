@@ -3,13 +3,14 @@ import { People } from '../../../../model-class/People';
 import { PeopleServiceService } from '../../../../service/people-service.service';
 import { ActivatedRoute, Router} from "@angular/router";
 import { HttpClient } from '@angular/common/http';
+
 @Component({
-  selector: 'app-settingusernameandpswrdaftremplcreatebyman',
-  templateUrl: './settingusernameandpswrdaftremplcreatebyman.component.html',
-  styleUrls: ['./settingusernameandpswrdaftremplcreatebyman.component.scss']
+  selector: 'app-set-usnamepaswdby-sa',
+  templateUrl: './set-usnamepaswdby-sa.component.html',
+  styleUrls: ['./set-usnamepaswdby-sa.component.scss']
 })
-export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnInit {
-  
+export class SetUsnamepaswdbySAComponent implements OnInit {
+
   str$:Object;
   sasemail:People[];
   empKey$:Object;
@@ -43,14 +44,14 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
     return window.atob(output);
   }
 
-  constructor(private route: ActivatedRoute, private peopleService: PeopleServiceService, private http: HttpClient,private router: Router) {
+  constructor(private route: ActivatedRoute, private peopleService: PeopleServiceService, private http: HttpClient,private router: Router) 
+  {
     this.route.params.subscribe(params => this.empKey$ = params.EmployeeKey);
     this.route.params.subscribe(params => this.str$ = params.str);
     this.route.params.subscribe(params => this.userRoleTypeKey$ = params.UserRoleTypeKey);
    }
 
    setUsernamePassword(){
-     debugger;
     if (!this.username) {
       alert("UserName can't be empty");
     } else {
@@ -61,7 +62,7 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
           } else {
             this.peopleService.setLoginCreds(this.username, this.password, this.empKey$, this.employeekey, this.userRoleTypeKey$, this.OrganizationID)
               .subscribe((data: any[]) => {
-                this.router.navigateByUrl('/ViewEmployee');
+                this.router.navigateByUrl('/Viewemployee');
                 if (data[0].length > 0) {
                   this.peopleService.getUserEmail(this.username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
                     this.managerMail = data[0].EmailID;
@@ -91,8 +92,8 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
     
    }
 
-  ngOnInit() {
-
+  ngOnInit()
+  {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));

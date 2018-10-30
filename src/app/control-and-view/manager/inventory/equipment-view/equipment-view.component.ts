@@ -9,7 +9,11 @@ import { FormBuilder, Validators, FormGroup } from "@angular/forms";
   styleUrls: ['./equipment-view.component.scss']
 })
 export class EquipmentViewComponent implements OnInit {
-
+  pageNo: Number = 1;
+  itemsPerPage: Number = 25;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
   equipments: Inventory[];
   delete_EquipKey: number;
   searchform: FormGroup;
@@ -36,18 +40,61 @@ export class EquipmentViewComponent implements OnInit {
   }
 
   //validation ends ..... @rodney
+  previousPage() {
+    this.pageNo = +this.pageNo - 1;
+    this.inventoryService
+      .getEquipmentList()
+      .subscribe((data: Inventory[]) => {
+        this.equipments = data;
+      if (this.pageNo == 1) {
+        this.showHide2 = true;
+        this.showHide1 = false;
+      } else {
+        this.showHide2 = true;
+        this.showHide1 = true;
+      }
+    });
+  }
+
+  nextPage() {
+    this.pageNo = +this.pageNo + 1;
+    this.inventoryService
+    .getEquipmentList()
+    .subscribe((data: Inventory[]) => {
+      this.equipments = data;
+      this.pagination = +this.equipments[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+      if (this.pagination > 1) {
+        this.showHide2 = true;
+        this.showHide1 = true;
+      }
+      else {
+        this.showHide2 = false;
+        this.showHide1 = true;
+      }
+    });
+  }
 
   searchEquipment(SearchValue) {
     if (SearchValue.length >= 3) {
       this.inventoryService
         .SearchEquipment(SearchValue).subscribe((data: Inventory[]) => {
           this.equipments = data;
+          this.showHide2 = false;
+          this.showHide1 = false;
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
         .getEquipmentList()
         .subscribe((data: Inventory[]) => {
           this.equipments = data;
+          if (this.equipments[0].totalItems > this.itemsPerPage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.equipments[0].totalItems <= this.itemsPerPage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
         });
     }
   }
@@ -72,6 +119,14 @@ export class EquipmentViewComponent implements OnInit {
       .getEquipmentList()
       .subscribe((data: Inventory[]) => {
         this.equipments = data;
+        if (this.equipments[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.equipments[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
       });
 
     this.searchform = this.formBuilder.group({

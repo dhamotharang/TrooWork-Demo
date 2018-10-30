@@ -26,7 +26,10 @@ export class FloorTypeEDitComponent implements OnInit {
           alert("FloorType already present");
         }
         else {
-          this.inventoryService.UpdateFloorType(FloorTypeName, this.flrTypeKey$).subscribe(res => this.router.navigateByUrl('/FloorTypeView'));
+          this.inventoryService.UpdateFloorType(FloorTypeName, this.flrTypeKey$).subscribe(res =>{
+            alert("FloorType updated successfully");
+             this.router.navigateByUrl('/FloorTypeView');
+            });
         }
       });
     }
