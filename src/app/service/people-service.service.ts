@@ -357,24 +357,6 @@ export class PeopleServiceService {
       .http
       .get('http://localhost:3000/api/empDetails?SearchKey=' + empk + '&OrganizationID=' + orgid);
   }
-  checkUserName(userName, empKey, orgID) {
-    return this
-      .http
-      .get('http://localhost:3000/api/checkUsername?username=' + userName + '&employeekey=' + empKey + '&OrganizationID=' + orgID);
-  }
-
-  setLoginCreds(userName, passWord, empKey, employeekey, uRoleTypeKey, OrgID) {
-    const uri = "http://localhost:3000/api/setUsernamePassword";
-    const obj = {
-      username: userName,
-      password: passWord,
-      employeekey: empKey,
-      updatedBy: employeekey,
-      userRoleTypeKey: uRoleTypeKey,
-      OrganizationID: OrgID
-    };
-    return this.http.post(uri, obj);
-  }
   // ****@Pooja's Code Ends here****
 
   getJobtitleView() {
