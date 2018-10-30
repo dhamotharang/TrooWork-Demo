@@ -544,7 +544,11 @@ export class EditBatchWorkorderComponent implements OnInit {
       var roomsString;
       if (this.RoomKey) {
         roomsString = this.RoomKey;
-      } else {
+      }else if(this.RoomNameList)
+      {
+        roomsString = this.RoomNameList;
+      }
+       else {
         if (roomlistObj) {
           for (var j = 0; j < roomlistObj.length; j++) {
             roomList.push(roomlistObj[j].RoomKey);
@@ -857,6 +861,9 @@ export class EditBatchWorkorderComponent implements OnInit {
       }
       if (this.EquipmentKey) {
         this.eqp_key = this.EquipmentKey;
+      }else if(this.EquipmentNameList)
+      {
+        this.eqp_key = this.EquipmentNameList;
       } else {
         if (EquListObj) {
           for (var j = 0; j < EquListObj.length; j++) {

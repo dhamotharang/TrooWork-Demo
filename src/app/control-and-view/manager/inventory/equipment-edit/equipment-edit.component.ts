@@ -56,8 +56,11 @@ export class EquipmentEditComponent implements OnInit {
           alert("Equipment already present");
         }
         else if (this.dept[0].count == 0) {
-          this.inventoryService.updateEquipment(EquipmentName, EquipmentDescription, EquipmentBarcode, this.equipTypeKey, this.FacKey, this.FloorKey,this.equipKey$)
-            .subscribe(res => this.router.navigateByUrl('/EquipmentView'));
+          this.inventoryService.updateEquipment(EquipmentName, EquipmentDescription, EquipmentBarcode, this.equipTypeKey, this.FacKey, this.FloorKey, this.equipKey$)
+            .subscribe(res => { 
+              alert("Equipment updated successfully");
+              this.router.navigateByUrl('/EquipmentView') ;
+            });
         }
       });
     }
@@ -69,7 +72,7 @@ export class EquipmentEditComponent implements OnInit {
       .subscribe((data: Inventory[]) => {
         this.equipEditList = data;
         this.FacKey = data[0].FacilityKey;
-        this.equipTypeKey=data[0].EquipmentTypeKey;
+        this.equipTypeKey = data[0].EquipmentTypeKey;
         console.log("...  facKey:" + this.FacKey);
         this.inventoryService
           .getallFloorList(data[0].FacilityKey)
