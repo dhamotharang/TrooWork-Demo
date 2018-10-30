@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { People } from '../../../../model-class/People';
 import { PeopleServiceService } from '../../../../service/people-service.service';
+import { ActivatedRoute, Router } from "@angular/router";
 @Component({
   selector: 'app-createemployee',
   templateUrl: './createemployee.component.html',
@@ -34,6 +35,8 @@ export class CreateemployeeComponent implements OnInit {
   OrganizationID: Number;
   DepartmentKey: Number;
   marked = true;
+  temp_res;
+
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
 
@@ -50,13 +53,20 @@ export class CreateemployeeComponent implements OnInit {
     return [date.getFullYear(), mnth, day].join("-");
   };
 
-  constructor(private PeopleServiceService: PeopleServiceService) { }
+  constructor(private PeopleServiceService: PeopleServiceService,private router: Router) { }
 
   createEmployee(){
     debugger;
     var BD = this.convert_DT(this.BirthDate);
     var HD = this.convert_DT(this.HireDate);
-    this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID,this.EmployeeNumber,this.UserRoleTypeKey,this.FirstName,this.LastName,this.MiddleName,BD,this.Gender,this.AddressLine1,this.City,this.AddressLine2,this.State,this.Country,this.PrimaryPhone,this.ZipCode,this.AlternatePhone,this.EmailID,HD,this.theCheckbox,this.JobTitleKey,this.DepartmentKey).subscribe(res => console.log('Done'));
+    var str = "";
+    str = this.FirstName +''+this.LastName;
+    this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID,this.EmployeeNumber,this.UserRoleTypeKey,this.FirstName,this.LastName,this.MiddleName,BD,this.Gender,this.AddressLine1,this.City,this.AddressLine2,this.State,this.Country,this.PrimaryPhone,this.ZipCode,this.AlternatePhone,this.EmailID,HD,this.theCheckbox,this.JobTitleKey,this.DepartmentKey).subscribe((data22:any[]) => {
+      //  debugger;
+          this.temp_res=data22;
+          var empKey=this.temp_res.EmployeeKey;
+          this.router.navigate(['/SetUsnamepaswdbySA',empKey,str,this.UserRoleTypeKey]);
+        });
   }
   ngOnInit() {
     this.OrgID=21;

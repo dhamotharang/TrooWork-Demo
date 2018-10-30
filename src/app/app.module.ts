@@ -153,6 +153,8 @@ import { ViewDepartmentComponent } from './control-and-view/admin/view-departmen
 import { ManageLoginsComponent } from './control-and-view/admin/manage-logins/manage-logins.component';
 import { ResetPasswordsComponent } from './control-and-view/admin/reset-passwords/reset-passwords.component';
 import { ViewBatchWorkorderComponent } from './control-and-view/manager/work-order/view-batch-workorder/view-batch-workorder.component';
+import { SetUsnamepaswdbySAComponent } from './control-and-view/superadmin/people/set-usnamepaswdby-sa/set-usnamepaswdby-sa.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -278,7 +280,8 @@ import { ViewBatchWorkorderComponent } from './control-and-view/manager/work-ord
     ManageLoginsComponent,
     ResetPasswordsComponent,
     CreateBatchWorkorderComponent,
-    ViewBatchWorkorderComponent
+    ViewBatchWorkorderComponent,
+    SetUsnamepaswdbySAComponent
   ],
   imports: [
     BrowserModule,

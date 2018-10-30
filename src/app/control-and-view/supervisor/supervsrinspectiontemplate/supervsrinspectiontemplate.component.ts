@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./supervsrinspectiontemplate.component.scss']
 })
 export class SupervsrinspectiontemplateComponent implements OnInit {
+ 
   viewEmpInspectionDetails;
   inspKey$;
   names;
@@ -24,21 +25,37 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
   ind=0;
   TemplateDetails;
   lastIndexValue;
+
+
   // for star rating 
   starList: boolean[] = [true,true,true,true,true]; 
   rating:number; 
   
-  setStar(data:any){
-    this.rating=data+1;                               
-    for(var i=0;i<=4;i++){  
-      if(i<=data){  
-        this.starList[i]=false;  
+  setStar3(data:any){
+    //debugger;
+       this.rating=data+1;                               
+       for(var i=0;i<=2;i++){  
+         if(i<=data){  
+           this.starList[i]=false;  
+         }  
+         else{  
+         this.starList[i]=true;  
+         }  
       }  
-      else{  
-        this.starList[i]=true;  
-      }  
-   }  
-}  
+   } 
+   setStar(data:any){
+     //debugger;
+        this.rating=data+1;                               
+        for(var i=0;i<=4;i++){  
+          if(i<=data){  
+            this.starList[i]=false;  
+          }  
+          else{  
+          this.starList[i]=true;  
+          }  
+       }  
+    }  
+   
 // for star rating 
 
   convert_DT(str) {
@@ -102,6 +119,12 @@ Scoringtype = {ratingValue:[],inspectionNotes:[],rating_yn:[]};
         this.names= ['Fail','N/A'];
         this.ScoreName=this.viewEmpInspectionDetails[0].ScoreName;
       }
+      else if(this.viewEmpInspectionDetails[0].ScoreName === '5 Star'){
+        this.starList = [true,true,true,true,true]; 
+      }
+      else if(this.viewEmpInspectionDetails[0].ScoreName === '3 Star'){
+        this.starList = [true,true,true]; 
+      }
        this.Temp_templateId=this.viewEmpInspectionDetails[0].TemplateID;
       this.inspectionService
           .templateQuestionService(this.viewEmpInspectionDetails[0].TemplateID).subscribe((data: any[]) => {
@@ -125,11 +148,11 @@ Scoringtype = {ratingValue:[],inspectionNotes:[],rating_yn:[]};
   // else{
   //   this.Scoringtype.ratingValue.push({rating:this.rating,questionID:TemplateQuestionID});
   // }
-  else if(ScoreName === '5 Star'|| ScoreName==='3 Star'){
-    var length = Object.keys(this.starList).length;
-    var arrayLength = this.starList.length;
-    var values =this.starList[arrayLength - 1];
-    this.Scoringtype.ratingValue.push({rating:values,questionID:TemplateQuestionID});
+  else if (ScoreName === '5 Star') {
+    this.Scoringtype.ratingValue.push({rating: this.rating, questionID: TemplateQuestionID});
+  }
+  else if (ScoreName === '3 Star') {
+    this.Scoringtype.ratingValue.push({rating: this.rating, questionID: TemplateQuestionID});
   }
   console.log(this.Scoringtype);
   }
