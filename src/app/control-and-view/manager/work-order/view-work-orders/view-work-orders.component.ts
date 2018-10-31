@@ -56,12 +56,35 @@ export class ViewWorkOrdersComponent implements OnInit {
   DeleteWOList: workorder[];
   deleteWO;
   searchWorkorder;
+  role: String;
+  name: String;
+  IsSupervisor: Number;
+  
   // workorderCheckValue=false;
   //validation min3_alphanumeric
   searchform: FormGroup;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
   constructor(private formBuilder: FormBuilder, private WorkOrderServiceService: WorkOrderServiceService, private el: ElementRef) { }
+  
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+  
+  
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     return new RegExp(this.regexStr).test(event.key);
   }
@@ -79,8 +102,16 @@ export class ViewWorkOrdersComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.emp_key = 2861;
-    this.org_id = 21;
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.emp_key = profile.employeekey;
+    this.org_id = profile.OrganizationID;
+    // this.emp_key = 2861;
+    // this.org_id = 21;
     this.domain_name = 'workstatus';
     var on_date = this.convert_DT(new Date());
     var page_no = 1;

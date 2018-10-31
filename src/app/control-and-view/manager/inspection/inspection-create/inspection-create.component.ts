@@ -25,6 +25,28 @@ export class InspectionCreateComponent implements OnInit {
   theCheckbox:any;
   time1:any;
   RoomKey:Number;
+  role: String;
+  name: String;
+  IsSupervisor: Number;
+  emp_key: Number;
+  org_id: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
 
   // adding properties and methods that will be used by the igxDatePicker
 
@@ -99,6 +121,16 @@ public formatter = (_: Date) => {
     
 }
   ngOnInit() {
+
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.emp_key = profile.employeekey;
+    this.org_id = profile.OrganizationID;
+
 
     this.inspectionService
     .getTemplateName()
