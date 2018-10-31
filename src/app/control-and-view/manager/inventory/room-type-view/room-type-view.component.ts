@@ -110,6 +110,14 @@ export class RoomTypeViewComponent implements OnInit {
           .getRoomTypeList()
           .subscribe((data: Inventory[]) => {
             this.roomTypes = data;
+            if (this.roomTypes[0].totalItems > this.itemsPerPage) {
+              this.showHide2 = true;
+              this.showHide1 = false;
+            }
+            else if (this.roomTypes[0].totalItems <= this.itemsPerPage) {
+              this.showHide2 = false;
+              this.showHide1 = false;
+            }
           });
       });
   }

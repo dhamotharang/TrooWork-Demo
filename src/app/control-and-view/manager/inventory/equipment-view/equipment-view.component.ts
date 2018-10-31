@@ -110,6 +110,14 @@ export class EquipmentViewComponent implements OnInit {
           .getEquipmentList()
           .subscribe((data: Inventory[]) => {
             this.equipments = data;
+            if (this.equipments[0].totalItems > this.itemsPerPage) {
+              this.showHide2 = true;
+              this.showHide1 = false;
+            }
+            else if (this.equipments[0].totalItems <= this.itemsPerPage) {
+              this.showHide2 = false;
+              this.showHide1 = false;
+            }
           });
       });
   }

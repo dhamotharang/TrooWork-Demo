@@ -111,6 +111,14 @@ export class FloorTypeViewComponent implements OnInit {
           .getFloorTypeList()
           .subscribe((data: Inventory[]) => {
             this.floorType = data;
+            if (this.floorType[0].totalItems > this.itemsPerPage) {
+              this.showHide2 = true;
+              this.showHide1 = false;
+            }
+            else if (this.floorType[0].totalItems <= this.itemsPerPage) {
+              this.showHide2 = false;
+              this.showHide1 = false;
+            }
           });
       });
   }

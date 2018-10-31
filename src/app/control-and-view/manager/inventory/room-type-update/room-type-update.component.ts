@@ -59,11 +59,12 @@ export class RoomTypeUpdateComponent implements OnInit {
     }
   }
   ngOnInit() {
-    debugger;
+   
     this.inventoryService
       .EditRoomtTypeAutoGenerate(this.rTypeKey$)
       .subscribe((data: Array<any>) => {
         this.roomTypeList = data[0];
+        debugger;
         this.metricType = data[0].MetricType;
         this.inventoryService
         .getMetricValues()

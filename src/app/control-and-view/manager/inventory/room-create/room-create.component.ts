@@ -17,6 +17,13 @@ export class RoomCreateComponent implements OnInit {
   floorType: Inventory[];
   roomType: Inventory[];
   Barcode: Array<any>;
+  FacilityKey;
+  FloorTypeKey;
+  ZoneKey;
+  RoomTypeKey;
+  RoomName;
+  SquareFoot;
+  temp_barcode;
   constructor(private inventoryService: InventoryService, private router: Router) { }
 
   selectFloorfromBuildings(facKey) {
@@ -37,6 +44,31 @@ export class RoomCreateComponent implements OnInit {
       });
   }
   addRoom(FacilityKey, FloorKey, FloorTypeKey, ZoneKey, RoomTypeKey, RoomName, SquareFoot, Barcode) {
+    // if(FacilityKey&& FloorKey&& FloorTypeKey&& ZoneKey&& RoomTypeKey&& RoomName)
+    // {
+    //   this.inventoryService
+    //   .checkNewRoom(FacilityKey, FloorKey, FloorTypeKey, ZoneKey, RoomTypeKey, RoomName)
+    //   .subscribe((data: Inventory[]) => {
+    //     var temp1=data;
+    //   });
+    // }
+    // if(Barcode)
+    // {
+    //   this.inventoryService
+    //           .checkRoomBarcode(Barcode)
+    //           .subscribe((data: Inventory[]) => {
+    //             var temp2=data;
+    //           });
+    // }
+    // if(RoomName)
+    // {
+    //   this.inventoryService
+    //                 .checkRoomName(RoomName)
+    //                 .subscribe((data: Inventory[]) => {
+    //                   var temp3=data;
+    //                 }); 
+    // }
+
     if (!FacilityKey) {
       FacilityKey = null;
       alert("Building name is not provided !");
@@ -81,7 +113,10 @@ export class RoomCreateComponent implements OnInit {
                         alert("Room Name already exists !");
                       } else {
                         this.inventoryService.addRoom(FacilityKey, FloorKey, FloorTypeKey, ZoneKey, RoomTypeKey, RoomName, SquareFoot, Barcode)
-                          .subscribe(res => this.router.navigateByUrl('/roomView'));
+                          .subscribe(res => {
+                            alert("Room created successfully");
+                            this.router.navigateByUrl('/roomView');
+                          });
                       }
                     });
                 }
@@ -112,7 +147,19 @@ export class RoomCreateComponent implements OnInit {
       .getBarcodeForRoom()
       .subscribe((data: Array<any>) => {
         this.Barcode = data[0];
+        this.temp_barcode = data[0];
       });
+  }
+  clearall() {
+    this.FacilityKey = null;
+    this.FloorKey = null;
+    this.FloorTypeKey = null;
+    this.RoomTypeKey = null;
+    this.ZoneKey = null;
+    this.RoomName = null;
+    this.SquareFoot = null;
+    this.Barcode = this.temp_barcode;
+
   }
 
 }
