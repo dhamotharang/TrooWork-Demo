@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { People } from '../../../../model-class/People';
 import { PeopleServiceService } from '../../../../service/people-service.service';
-import { ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-set-usnamepaswdby-sa',
-  templateUrl: './set-usnamepaswdby-sa.component.html',
-  styleUrls: ['./set-usnamepaswdby-sa.component.scss']
+  selector: 'app-set-user-login-super',
+  templateUrl: './set-user-login-super.component.html',
+  styleUrls: ['./set-user-login-super.component.scss']
 })
-export class SetUsnamepaswdbySAComponent implements OnInit {
-
-  str$;
-  empKey$;
-  userRoleTypeKey$;
+export class SetUserLoginSuperComponent implements OnInit {
+  str$: Object;
+  empKey$: Object;
+  userRoleTypeKey$: Object;
   sasemail: People[];
   orgid: Number = 21;
   password: String = 'troowork';
@@ -26,7 +25,6 @@ export class SetUsnamepaswdbySAComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -43,11 +41,22 @@ export class SetUsnamepaswdbySAComponent implements OnInit {
     }
     return window.atob(output);
   }
-
   constructor(private route: ActivatedRoute, private peopleService: PeopleServiceService, private http: HttpClient, private router: Router) {
     this.route.params.subscribe(params => this.empKey$ = params.EmployeeKey);
     this.route.params.subscribe(params => this.str$ = params.str);
     this.route.params.subscribe(params => this.userRoleTypeKey$ = params.UserRoleTypeKey);
+  }
+  ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
+    this.username = this.str$;
   }
   setUsernamePassword() {
     if (!this.username) {
@@ -60,7 +69,7 @@ export class SetUsnamepaswdbySAComponent implements OnInit {
           } else {
             this.peopleService.setLoginCreds(this.username, this.password, this.empKey$, this.employeekey, this.userRoleTypeKey$, this.OrganizationID)
               .subscribe((data: any[]) => {
-                this.router.navigateByUrl('/viewEmployeeAdmin');
+                this.router.navigateByUrl('/Viewemployee');
                 if (data[0].length > 0) {
                   this.peopleService.getUserEmail(this.username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
                     this.managerMail = data[0].EmailID;
@@ -88,24 +97,4 @@ export class SetUsnamepaswdbySAComponent implements OnInit {
         });
     }
   }
-
-
-  ngOnInit()
-  {
-    var token = localStorage.getItem('token');
-    var encodedProfile = token.split('.')[1];
-    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-    this.role = profile.role;
-    this.IsSupervisor = profile.IsSupervisor;
-    this.name = profile.username;
-    this.employeekey = profile.employeekey;
-    this.OrganizationID = profile.OrganizationID;
-
-    this.username = this.str$;
-    // this.peopleService.getuserNamePasswordforsaveandSendemail(this.empKey$,this.orgid).subscribe((data: People[]) => {
-    //   this.sasemail = data;
-    //   // debugger;
-    // });
-  }
-
 }

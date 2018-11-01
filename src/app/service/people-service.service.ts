@@ -239,20 +239,20 @@ export class PeopleServiceService {
       .http
       .get('http://localhost:3000/api/getAllUserRoleType_Admin?OrganizationID=' + 21);
   }
-  getJobTitle() {
+  getJobTitle(empkey,OrganizationID) {
     return this
       .http
-      .get('http://localhost:3000/api/selectJobtitle?empkey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/selectJobtitle?empkey=' + empkey + '&OrganizationID=' + OrganizationID);
   }
   getSuperVisor() {
     return this
       .http
       .get('http://localhost:3000/api/supervisorname?employeekey=' + 2861 + '&OrganizationID=' + 21);
   }
-  getDepartment() {
+  getDepartment(empkey,OrganizationID) {
     return this
       .http
-      .get('http://localhost:3000/api/department?empkey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/department?empkey=' + empkey + '&OrganizationID=' + OrganizationID);
   }
   createEmployeebyManager(EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, theCheckbox, JobTitleKey, SupervisorKey, DepartmentKey) {
     const uri = "http://localhost:3000/api/addemp";
@@ -283,20 +283,20 @@ export class PeopleServiceService {
     };
     return this.http.post(uri, obj);
   }
-  getAllEmployeeDetails(empkey, org) {
+  getAllEmployeeDetails(pagenumber,itemsPerPage,empkey, org) {
     return this
       .http
-      .get('http://localhost:3000/api/getAllEmployees?pagenumber=' + 1 + '&itemsPerPage=' + 25 + '&empkey=' + empkey + '&OrganizationID=' + org);
+      .get('http://localhost:3000/api/getAllEmployees?pagenumber=' + pagenumber + '&itemsPerPage=' + itemsPerPage + '&empkey=' + empkey + '&OrganizationID=' + org);
   }
   getAllEmployeeDetailswithjobtitledropdown(seljobtitlevalue) {
     return this
       .http
       .get('http://localhost:3000/api/searchEmpByJobTitle?jobtitleString=' + seljobtitlevalue + '&empkey=' + 2861 + '&OrganizationID=' + 21);
   }
-  searchResultOfEmployeedetailsTable(SearchValue) {
+  searchResultOfEmployeedetailsTable(SearchValue,pageno,itemsPerPage,employeekey,OrganizationID) {
     return this
       .http
-      .get('http://localhost:3000/api/searchEmployeeOnTable?searchEmployee=' + SearchValue + '&pageno=' + 1 + '&itemsPerPage=' + 25 + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/searchEmployeeOnTable?searchEmployee=' + SearchValue + '&pageno=' + pageno + '&itemsPerPage=' + itemsPerPage + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
   }
   UpdateEmployeeDetailsbyManager(mankey, empk, orgid, EmployeeNumber, userRoleTypeKey, FirstName, LastName, MiddleName, BirthDate, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HireDate, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey) {
     const uri = "http://localhost:3000/api/update_employee_info";
@@ -636,6 +636,11 @@ export class PeopleServiceService {
     };
     return this.http.post(uri, obj);
   }
+  JobtitleForSuperAdmin(OrganizationID){
+    return this
+    .http
+    .get('http://localhost:3000/api/JobtitleForSuperAdmin?OrganizationID='+OrganizationID);
 
+  }
 
 }

@@ -78,9 +78,34 @@ export class ViewWorkOrdersComponent implements OnInit {
     }, 100)
 
   }
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
   ngOnInit() {
-    this.emp_key = 2861;
-    this.org_id = 21;
+    // this.emp_key = 2861;
+    // this.org_id = 21;
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    // this.role = profile.role;
+    // this.IsSupervisor = profile.IsSupervisor;
+    // this.name = profile.username;
+    this.emp_key = profile.employeekey;
+    this.org_id = profile.OrganizationID;
+
     this.domain_name = 'workstatus';
     var on_date = this.convert_DT(new Date());
     var page_no = 1;

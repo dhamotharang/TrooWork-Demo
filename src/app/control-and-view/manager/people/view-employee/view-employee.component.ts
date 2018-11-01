@@ -66,7 +66,7 @@ export class ViewEmployeeComponent implements OnInit {
   }
   searchEmployeeDetails(SearchValue) {
     this.PeopleServiceService
-      .searchResultOfEmployeedetailsTable(SearchValue)
+      .searchResultOfEmployeedetailsTable(SearchValue,1,25,this.employeekey,this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.employeedetailstable = data;
@@ -84,13 +84,13 @@ export class ViewEmployeeComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.PeopleServiceService
-      .getJobTitle()
+      .getJobTitle(this.employeekey,this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.jobtitle = data;
       });
     this.PeopleServiceService
-      .getAllEmployeeDetails(this.employeekey, this.OrganizationID)
+      .getAllEmployeeDetails(1,25,this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.employeedetailstable = data;

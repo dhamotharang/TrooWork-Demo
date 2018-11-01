@@ -152,7 +152,7 @@ export class AddEmployeeComponent implements OnInit {
 
       });
     this.PeopleServiceService
-      .getJobTitle()
+      .getJobTitle(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.jobtitle = data;
       });
@@ -162,7 +162,7 @@ export class AddEmployeeComponent implements OnInit {
         this.supervisor = data;
       });
     this.PeopleServiceService
-      .getDepartment()
+      .getDepartment(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.department = data;
       });

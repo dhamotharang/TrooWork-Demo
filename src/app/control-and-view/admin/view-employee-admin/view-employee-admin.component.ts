@@ -68,7 +68,7 @@ export class ViewEmployeeAdminComponent implements OnInit {
   }
   searchEmployeeDetails(SearchValue) {
     this.PeopleServiceService
-      .searchResultOfEmployeedetailsTable(SearchValue)
+      .searchResultOfEmployeedetailsTable(SearchValue,1,25,this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.employeedetailstable = data;
       });
@@ -85,12 +85,12 @@ export class ViewEmployeeAdminComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.PeopleServiceService
-      .getJobTitle()
+      .getJobTitle(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.jobtitle = data;
       });
     this.PeopleServiceService
-      .getAllEmployeeDetails(this.employeekey, this.OrganizationID)
+      .getAllEmployeeDetails(1,25,this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.employeedetailstable = data;
       });
