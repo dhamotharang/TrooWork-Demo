@@ -23,7 +23,7 @@ export class ViewWorkOrdersComponent implements OnInit {
     return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
 
   }
-  loading: boolean;
+  loading: boolean;// loading
   EmployeeOption: workorder[];
   facilitylist: workorder[];
   scheduleList: workorder[];
@@ -102,7 +102,7 @@ export class ViewWorkOrdersComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.loading = true;
+    this.loading = true;// loading
     this.emp_key = 2861;
     this.org_id = 21;
     var token = localStorage.getItem('token');
@@ -151,7 +151,7 @@ export class ViewWorkOrdersComponent implements OnInit {
         for (var i = 0; i < this.workorderList.length; i++) {
           this.workorderList[i].workorderCheckValue = false;
         }
-        this.loading = false;
+        this.loading = false;// loading
       });
     debugger;
 
