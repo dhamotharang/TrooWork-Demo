@@ -9,7 +9,11 @@ import { FormBuilder, Validators, FormGroup } from "@angular/forms";
   styleUrls: ['./equipment-type-view.component.scss']
 })
 export class EquipmentTypeViewComponent implements OnInit {
-
+  pageNo: Number = 1;
+  itemsPerPage: Number = 25;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
   equipmentType: Inventory[];
   delete_EquipTypeKey: number;
   searchform: FormGroup;
@@ -36,18 +40,61 @@ export class EquipmentTypeViewComponent implements OnInit {
   }
 
   //validation ends ..... @rodney
+  previousPage() {
+    this.pageNo = +this.pageNo - 1;
+    this.inventoryService
+    .getEquipmentTypeList()
+    .subscribe((data: Inventory[]) => {
+      this.equipmentType = data;
+      if (this.pageNo == 1) {
+        this.showHide2 = true;
+        this.showHide1 = false;
+      } else {
+        this.showHide2 = true;
+        this.showHide1 = true;
+      }
+    });
+  }
+
+  nextPage() {
+    this.pageNo = +this.pageNo + 1;
+    this.inventoryService
+    .getEquipmentTypeList()
+    .subscribe((data: Inventory[]) => {
+      this.equipmentType = data;
+      this.pagination = +this.equipmentType[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+      if (this.pagination > 1) {
+        this.showHide2 = true;
+        this.showHide1 = true;
+      }
+      else {
+        this.showHide2 = false;
+        this.showHide1 = true;
+      }
+    });
+  }
 
   searchEquipmentType(SearchValue) {
     if (SearchValue.length >= 3) {
       this.inventoryService
         .SearchEquipmentType(SearchValue).subscribe((data: Inventory[]) => {
           this.equipmentType = data;
+          this.showHide2 = false;
+          this.showHide1 = false;
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
         .getEquipmentTypeList()
         .subscribe((data: Inventory[]) => {
           this.equipmentType = data;
+          if (this.equipmentType[0].totalItems > this.itemsPerPage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.equipmentType[0].totalItems <= this.itemsPerPage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
         });
     }
   }
@@ -63,6 +110,14 @@ export class EquipmentTypeViewComponent implements OnInit {
           .getEquipmentTypeList()
           .subscribe((data: Inventory[]) => {
             this.equipmentType = data;
+            if (this.equipmentType[0].totalItems > this.itemsPerPage) {
+              this.showHide2 = true;
+              this.showHide1 = false;
+            }
+            else if (this.equipmentType[0].totalItems <= this.itemsPerPage) {
+              this.showHide2 = false;
+              this.showHide1 = false;
+            }
           });
       });
   }
@@ -72,6 +127,14 @@ export class EquipmentTypeViewComponent implements OnInit {
       .getEquipmentTypeList()
       .subscribe((data: Inventory[]) => {
         this.equipmentType = data;
+        if (this.equipmentType[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.equipmentType[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
       });
 
     this.searchform = this.formBuilder.group({

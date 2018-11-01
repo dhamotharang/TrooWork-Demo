@@ -41,7 +41,7 @@ export class InventoryService {
     };
     return this
       .http
-      .post(url, obj).subscribe(res => console.log('Done'));
+      .post(url, obj);
 
   }
   DeleteBuilding(facility_key) {
@@ -119,7 +119,7 @@ export class InventoryService {
     };
     return this
       .http
-      .post(url, obj).subscribe(res => console.log('Done'));
+      .post(url, obj);
   }
   createZones(FacilityKey, FloorName, ZoneName) {
     //debugger;
@@ -137,7 +137,7 @@ export class InventoryService {
     };
     return this
       .http
-      .post(url, obj).subscribe(res => console.log('Done'));
+      .post(url, obj);
   }
 
   getallBuildingList() {
@@ -167,7 +167,7 @@ export class InventoryService {
     };
     return this
       .http
-      .post(url, obj).subscribe(res => console.log('Done'));
+      .post(url, obj);
   }
 
   // @rodney starts....

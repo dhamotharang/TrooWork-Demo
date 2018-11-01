@@ -9,6 +9,11 @@ import { FormBuilder, Validators, FormGroup } from "@angular/forms";
   styleUrls: ['./floor-view.component.scss']
 })
 export class FloorViewComponent implements OnInit {
+  pageNo: Number = 1;
+  itemsPerPage: Number = 25;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
   floor: Inventory[];
   delete_faciKey: number;
   delete_floorKey: number;
@@ -35,11 +40,57 @@ export class FloorViewComponent implements OnInit {
   }
 
   //validation ends ..... @pooja
+  previousPage() {
+    this.pageNo = +this.pageNo - 1;
+    this.inventoryService
+    .getFloors()
+    .subscribe((data: Inventory[]) => {
+      this.floor = data;
+      if (this.pageNo == 1) {
+        this.showHide2 = true;
+        this.showHide1 = false;
+      } else {
+        this.showHide2 = true;
+        this.showHide1 = true;
+      }
+    });
+  }
+
+  nextPage() {
+    this.pageNo = +this.pageNo + 1;
+    this.inventoryService
+    .getFloors()
+    .subscribe((data: Inventory[]) => {
+      this.floor = data;
+      this.pagination = +this.floor[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+      if (this.pagination > 1) {
+        this.showHide2 = true;
+        this.showHide1 = true;
+      }
+      else {
+        this.showHide2 = false;
+        this.showHide1 = true;
+      }
+    });
+  }
 
   deleteFloor() {
     this.inventoryService
-      .DeleteFloor(this.delete_faciKey, this.delete_floorKey).subscribe(res => this.ngOnInit());
-
+      .DeleteFloor(this.delete_faciKey, this.delete_floorKey).subscribe(res => {
+        this.inventoryService
+        .getFloors()
+        .subscribe((data: Inventory[]) => {
+          this.floor = data;
+      if (this.floor[0].totalItems > this.itemsPerPage) {
+        this.showHide2 = true;
+        this.showHide1 = false;
+      }
+      else if (this.floor[0].totalItems <= this.itemsPerPage) {
+        this.showHide2 = false;
+        this.showHide1 = false;
+      }
+    });
+  });
   }
   deleteFloorPass(FacilityKey, FloorKey) {
     this.delete_faciKey = FacilityKey;
@@ -52,6 +103,8 @@ export class FloorViewComponent implements OnInit {
       this.inventoryService
         .SearchFloor(SearchValue).subscribe((data: Inventory[]) => {
           this.floor = data;
+          this.showHide2 = false;
+          this.showHide1 = false;
 
         });
     } else if (SearchValue.length == 0) {
@@ -59,6 +112,14 @@ export class FloorViewComponent implements OnInit {
         .getFloors()
         .subscribe((data: Inventory[]) => {
           this.floor = data;
+          if (this.floor[0].totalItems > this.itemsPerPage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.floor[0].totalItems <= this.itemsPerPage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
         });
     }
   };
@@ -69,6 +130,14 @@ export class FloorViewComponent implements OnInit {
       .getFloors()
       .subscribe((data: Inventory[]) => {
         this.floor = data;
+        if (this.floor[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.floor[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
       });
     this.searchform = this.formBuilder.group({
       SearchFloor: ['', Validators.required]

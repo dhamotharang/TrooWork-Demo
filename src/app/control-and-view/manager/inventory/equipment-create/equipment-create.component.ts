@@ -58,7 +58,10 @@ export class EquipmentCreateComponent implements OnInit {
               alert("Equipment Barcode already present");
             } else if (this.dept[0].count == 0) {
               this.inventoryService.addEquipment(EquipmentName, EquipmentDescription, barcode, EquipmentTypeKey, this.FacKey, this.FloorKey)
-                .subscribe(res => this.router.navigateByUrl('/EquipmentView'));
+                .subscribe(res => {
+                  alert("Equipment created successfully");
+                  this.router.navigateByUrl('/EquipmentView');
+              });
             }
           });
         }
