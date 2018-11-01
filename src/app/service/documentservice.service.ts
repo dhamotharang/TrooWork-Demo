@@ -9,10 +9,10 @@ export class DocumentserviceService {
 
   constructor(private http: HttpClient) { }
 
-  getDocumentFoldersDataTable(empkey,orgid){
+  getDocumentFoldersDataTable(page,itemsCount,empkey,orgid){
     return this
     .http
-    .get('http://localhost:3000/api/getFormDetails?pageno='+1+'&itemsPerPage='+25+'&empkey='+empkey+'&OrganizationID='+orgid);
+    .get('http://localhost:3000/api/getFormDetails?pageno='+page+'&itemsPerPage='+itemsCount+'&empkey='+empkey+'&OrganizationID='+orgid);
   }
   SearchDocFolder(orgid,SearchValue){
     return this
@@ -35,7 +35,6 @@ export class DocumentserviceService {
     // .get('http://localhost:3000/api/addNewForms?newform='+DocFolderName+'&serverEmpKey='+servempkey+'&OrganizationID='+orgid);
   }
   EditDocFolderName(Docfoldername,orgid){
-    // debugger;
     return this
     .http
     .get('http://localhost:3000/api/getEditFormDetails?FormtypeId='+Docfoldername+'&OrganizationID='+orgid);

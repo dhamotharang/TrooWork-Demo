@@ -308,7 +308,6 @@ import { CreateWorkorderTypeComponent } from './control-and-view/manager/work-or
     CalendarModule,
     IgxDatePickerModule,
     NgMultiSelectDropDownModule.forRoot()
-
   ],
   providers: [CreatebuildingComponent, CreatebuildingService, GooglePieChartService],
   bootstrap: [AppComponent],

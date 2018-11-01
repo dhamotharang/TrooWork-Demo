@@ -15,7 +15,6 @@ export class ViewWorkOrdersComponent implements OnInit {
     return [date.getFullYear(), mnth, day].join("-");
 
   }
-
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
   private dayFormatter = new Intl.DateTimeFormat('en', { weekday: 'long' });
@@ -24,6 +23,7 @@ export class ViewWorkOrdersComponent implements OnInit {
     return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
 
   }
+  loading: boolean;
   EmployeeOption: workorder[];
   facilitylist: workorder[];
   scheduleList: workorder[];
@@ -79,6 +79,7 @@ export class ViewWorkOrdersComponent implements OnInit {
 
   }
   ngOnInit() {
+    this.loading = true;
     this.emp_key = 2861;
     this.org_id = 21;
     this.domain_name = 'workstatus';
@@ -117,6 +118,7 @@ export class ViewWorkOrdersComponent implements OnInit {
         for (var i = 0; i < this.workorderList.length; i++) {
           this.workorderList[i].workorderCheckValue = false;
         }
+        this.loading = false;
       });
     debugger;
 
@@ -181,7 +183,8 @@ export class ViewWorkOrdersComponent implements OnInit {
       });
   }
   viewWO_Filter() {
-    debugger;
+    // debugger;
+    this.loading = true;
     if (!this.FacilityKey) {
       var fac_key = null;
 
@@ -278,6 +281,7 @@ export class ViewWorkOrdersComponent implements OnInit {
       .getWoFilter(this.viewWorkOrder)
       .subscribe((data: any[]) => {
         this.workorderList = data;
+        this.loading = false;
       });
   }
   checkBoxValueForDelete(index, CheckValue, WorkorderKey) {
