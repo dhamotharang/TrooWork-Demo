@@ -9,7 +9,6 @@ import { Inventory } from '../../../../model-class/Inventory';
 })
 export class ZoneViewComponent implements OnInit {
   pageNo: Number = 1;
-  itemsPerPage: Number = 25;
   showHide1: boolean;
   showHide2: boolean;
   pagination: Number;
@@ -19,6 +18,29 @@ export class ZoneViewComponent implements OnInit {
   delete_faciKey: number;
   delete_floorKey: number;
   delete_zoneKey: number;
+  itemsperPage: Number = 25;
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
 
   //validation starts ..... @rodney
   regexStr = '^[a-zA-Z0-9_ ]*$';
@@ -44,57 +66,56 @@ export class ZoneViewComponent implements OnInit {
   previousPage() {
     this.pageNo = +this.pageNo - 1;
     this.inventoryService
-      .getZones()
+      .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.zone = data;
-      if (this.pageNo == 1) {
-        this.showHide2 = true;
-        this.showHide1 = false;
-      } else {
-        this.showHide2 = true;
-        this.showHide1 = true;
-      }
-    });
+        if (this.pageNo == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
   }
 
   nextPage() {
     this.pageNo = +this.pageNo + 1;
     this.inventoryService
-      .getZones()
+      .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.zone = data;
-      this.pagination = +this.zone[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
-      if (this.pagination > 1) {
-        this.showHide2 = true;
-        this.showHide1 = true;
-      }
-      else {
-        this.showHide2 = false;
-        this.showHide1 = true;
-      }
-    });
+        this.pagination = +this.zone[0].totalItems / (+this.pageNo * (+this.itemsperPage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
   }
 
 
   searchZone(SearchValue) {
-    //  debugger;
     if (SearchValue.length >= 3) {
       this.inventoryService
-        .searchZone(SearchValue).subscribe((data: Inventory[]) => {
+        .searchZone(SearchValue, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.zone = data;
           this.showHide2 = false;
           this.showHide1 = false;
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
-        .getZones()
+        .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.zone = data;
-          if (this.zone[0].totalItems > this.itemsPerPage) {
+          if (this.zone[0].totalItems > this.itemsperPage) {
             this.showHide2 = true;
             this.showHide1 = false;
           }
-          else if (this.zone[0].totalItems <= this.itemsPerPage) {
+          else if (this.zone[0].totalItems <= this.itemsperPage) {
             this.showHide2 = false;
             this.showHide1 = false;
           }
@@ -110,35 +131,44 @@ export class ZoneViewComponent implements OnInit {
 
   deleteZone() {
     this.inventoryService
-      .DeleteZone(this.delete_faciKey, this.delete_floorKey, this.delete_zoneKey).subscribe(res =>{
+      .DeleteZone(this.delete_faciKey, this.delete_floorKey, this.delete_zoneKey, this.employeekey, this.OrganizationID).subscribe(res => {
         this.inventoryService
-      .getZones()
-      .subscribe((data: Inventory[]) => {
-        this.zone = data;
-        if (this.zone[0].totalItems > this.itemsPerPage) {
-          this.showHide2 = true;
-          this.showHide1 = false;
-        }
-        else if (this.zone[0].totalItems <= this.itemsPerPage) {
-          this.showHide2 = false;
-          this.showHide1 = false;
-        }
-      });
+          .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
+          .subscribe((data: Inventory[]) => {
+            this.zone = data;
+            if (this.zone[0].totalItems > this.itemsperPage) {
+              this.showHide2 = true;
+              this.showHide1 = false;
+            }
+            else if (this.zone[0].totalItems <= this.itemsperPage) {
+              this.showHide2 = false;
+              this.showHide1 = false;
+            }
+          });
 
       });
 
   }
   ngOnInit() {
-    // debugger;
+
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.inventoryService
-      .getZones()
+      .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.zone = data;
-        if (this.zone[0].totalItems > this.itemsPerPage) {
+        if (this.zone[0].totalItems > this.itemsperPage) {
           this.showHide2 = true;
           this.showHide1 = false;
         }
-        else if (this.zone[0].totalItems <= this.itemsPerPage) {
+        else if (this.zone[0].totalItems <= this.itemsperPage) {
           this.showHide2 = false;
           this.showHide1 = false;
         }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../../../service/login.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-welcomepage',
   templateUrl: './welcomepage.component.html',
@@ -14,6 +15,7 @@ export class WelcomepageComponent implements OnInit {
   IsSupervisor: Number;
   OrganizationID: Number;
 
+  
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -31,9 +33,16 @@ export class WelcomepageComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService, private router: Router) { }
 
+  callCreateWO() {
+    this.router.navigateByUrl('/CreateWorkOrder')
+  }
+  callCreateInspection() {
+    this.router.navigateByUrl('/InspectionCreate')
+  }
   ngOnInit() {
+   
 
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
@@ -50,11 +59,6 @@ export class WelcomepageComponent implements OnInit {
         this.updateList = data;
       });
 
-    this.loginService
-      .getEmpNameForWelcomeMessage(this.employeekey, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.empName = data[0].EmpName;
-      });
   }
 
 }

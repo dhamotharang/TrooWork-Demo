@@ -6,250 +6,245 @@ import { HttpClient } from '@angular/common/http';
 export class InspectionService {
 
   constructor(private http: HttpClient) { }
-  getTemplateName() {
+  getTemplateName(empKey, orgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getTemplates?employeekey='+2861+'&OrganizationID='+21);
+      .get('http://localhost:3000/api/getTemplates?employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
-  getAuditorName(){
+  getAuditorName(empKey, orgID) {
     return this
       .http
-      .get('http://localhost:3000/api/supervisorname?employeekey='+2861+'&OrganizationID='+21);
+      .get('http://localhost:3000/api/supervisorname?employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
-  getEmployeeName(){
+  getEmployeeName(empKey, orgID) {
     return this
       .http
-      .get('http://localhost:3000/api/allemployees?empkey='+2861+'&OrganizationID='+21);
+      .get('http://localhost:3000/api/allemployees?empkey=' + empKey + '&OrganizationID=' + orgID);
   }
-  getBuildingName(){
+  getBuildingName(empKey, orgID) {
     return this
-    .http
-    .get('http://localhost:3000/api/allfacility?empkey='+2861+'&OrganizationID='+21);
+      .http
+      .get('http://localhost:3000/api/allfacility?empkey=' + empKey + '&OrganizationID=' + orgID);
   }
-  getallFloorNames(key){
+  getallFloorNames(key, orgID) {
     return this
-    .http
-    .get('http://localhost:3000/api/domainvaluesByKey?domain=facilityOnly'+'&key='+key+'&OrganizationID='+21);
+      .http
+      .get('http://localhost:3000/api/domainvaluesByKey?domain=facilityOnly' + '&key=' + key + '&OrganizationID=' + orgID);
   }
-  getallZones(fkey,flkey){
+  getallZones(fkey, flkey, orgID) {
     // debugger;
     return this
-    .http
-    .get('http://localhost:3000/api/zoneByFacility_Floor?fkey='+fkey+'&floorkey='+flkey+'&OrganizationID='+21);
+      .http
+      .get('http://localhost:3000/api/zoneByFacility_Floor?fkey=' + fkey + '&floorkey=' + flkey + '&OrganizationID=' + orgID);
   }
-  getallRooms(fkey,flkey){
-    return this
-    .http
-    .get('http://localhost:3000/api/roomByFacility_Floor?fkey='+fkey+'&floorkey='+flkey+'&OrganizationID='+21);
-  }
-  getallRoomType(fkey,flkey){
-    return this
-    .http
-    .get('http://localhost:3000/api/roomtypeByFacility_Floor?fkey='+fkey+'&floorkey='+flkey+'&OrganizationID='+21);
-  }
-  getScoreTypeList(){
-    return this
-    .http
-    .get('http://localhost:3000/api/scoringtype?OrganizationID='+21);
-  }
-  createInspectionTemplate(ScoreTypeKey,InspTempName,QustArry) {
-     const url='http://localhost:3000/api/addTemplatequestion';
-     const obj = {
-      scoringTypeKey : ScoreTypeKey,
-      question : QustArry,
-      templatename :InspTempName,
-      employeekey: 2861,
-      OrganizationID:21
-      };
-     return this
-       .http
-       .post (url,obj).subscribe(res => console.log('Done'));
-  }
-  createInspections(TemplateID,SupervisorKey,fromdate,todate,theCheckbox,time,RoomKey){
-    const url='http://localhost:3000/api/addInspectionOrderwithRecurring';
-    const obj = {
-      templateID : TemplateID,
-      supervisorKey : SupervisorKey,
-      inspectionFromDate : fromdate,
-      inspectionToDate : todate ,
-      isRecurring : theCheckbox,
-      inspectiontime : time,
-      roomKey:RoomKey,
-      OrganizationID : 21,
-      empkey:2861,
-      metaUpdatedBy:2861,
-      fulltime:fromdate+" "+time
-     };
+  getallRooms(fkey, flkey, orgID) {
     return this
       .http
-      .post (url,obj).subscribe(res => console.log('Done'));
+      .get('http://localhost:3000/api/roomByFacility_Floor?fkey=' + fkey + '&floorkey=' + flkey + '&OrganizationID=' + orgID);
   }
-  getTemplateNameList(){
+  getallRoomType(fkey, flkey, orgID) {
     return this
-    .http
-    .get('http://localhost:3000/api/getTempDetailsForDropdown?employeekey='+2861+'&OrganizationID='+21);
+      .http
+      .get('http://localhost:3000/api/roomtypeByFacility_Floor?fkey=' + fkey + '&floorkey=' + flkey + '&OrganizationID=' + orgID);
   }
-  getInspectionTemplateTable(key){
+  getScoreTypeList(orgID) {
     return this
-    .http
-    .get('http://localhost:3000/api/getTemplateFilterByTemplateID?key='+key+'&OrganizationID='+21);
+      .http
+      .get('http://localhost:3000/api/scoringtype?OrganizationID=' + orgID);
   }
-  DeleteInspectionTemplate(templateID,templateQuestionID){
-    const url='http://localhost:3000/api/deleteInspectionTemplateQuestions';
+  createInspectionTemplate(ScoreTypeKey, InspTempName, QustArry, empKey, orgID) {
+    const url = 'http://localhost:3000/api/addTemplatequestion';
     const obj = {
-      templateID : templateID,
-      templateQuestionID : templateQuestionID,
-      updatedBy :2861,
-      OrganizationID: 21     
-      };
-     return this
-       .http
-       .post (url,obj);
-  }
-  getInspectionTemplateDetails(){
+      scoringTypeKey: ScoreTypeKey,
+      question: QustArry,
+      templatename: InspTempName,
+      employeekey: empKey,
+      OrganizationID: orgID
+    };
     return this
-    .http
-    .get('http://localhost:3000/api/getTemplateDetails?pageno='+1+'&itemsPerPage='+25+'&empkey='+2861+'&OrganizationID='+21);
+      .http
+      .post(url, obj).subscribe(res => console.log('Done'));
+  }
+  createInspections(TemplateID, SupervisorKey, fromdate, todate, theCheckbox, time, RoomKey, empKey, orgID) {
+    const url = 'http://localhost:3000/api/addInspectionOrderwithRecurring';
+    const obj = {
+      templateID: TemplateID,
+      supervisorKey: SupervisorKey,
+      inspectionFromDate: fromdate,
+      inspectionToDate: todate,
+      isRecurring: theCheckbox,
+      inspectiontime: time,
+      roomKey: RoomKey,
+      OrganizationID: orgID,
+      empkey: empKey,
+      metaUpdatedBy: empKey,
+      fulltime: fromdate + " " + time
+    };
+    return this
+      .http
+      .post(url, obj).subscribe(res => console.log('Done'));
+  }
+  getTemplateNameList(empKey, orgID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/getTempDetailsForDropdown?employeekey=' + empKey + '&OrganizationID=' + orgID);
+  }
+  getInspectionTemplateTable(key, orgID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/getTemplateFilterByTemplateID?key=' + key + '&OrganizationID=' + orgID);
+  }
+  DeleteInspectionTemplate(templateID, templateQuestionID, empKey, orgID) {
+    const url = 'http://localhost:3000/api/deleteInspectionTemplateQuestions';
+    const obj = {
+      templateID: templateID,
+      templateQuestionID: templateQuestionID,
+      updatedBy: empKey,
+      OrganizationID: orgID
+    };
+    return this
+      .http
+      .post(url, obj);
+  }
+  getInspectionTemplateDetails(page, itemsCount, empKey, orgID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/getTemplateDetails?pageno=' + page + '&itemsPerPage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + orgID);
 
   }
-  getInspectionOrderTablewithFromCurrentDateFilter(curr_date){
+  getInspectionOrderTablewithFromCurrentDateFilter(curr_date, page, itemsCount, empKey, orgID) {
     return this
-    .http
-    .get('http://localhost:3000/api/viewInspection?pageno='+1+'&itemsPerPage='+25+'&inspectionDate='+curr_date+'&employeekey='+2861+'&OrganizationID='+21);
+      .http
+      .get('http://localhost:3000/api/viewInspection?pageno=' + page + '&itemsPerPage=' + itemsCount + '&inspectionDate=' + curr_date + '&employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
-  getInspectionOrderTablewithFromDateandToDateFilter(date1,date2){
+  getInspectionOrderTablewithFromDateandToDateFilter(date1, date2, empKey, orgID) {
     return this
-    .http
-    .get('http://localhost:3000/api/viewAllInspectionByDates?search_DT='+date1+'&search_DT2='+date2+'&employeekey='+2861+'&OrganizationID='+21);
+      .http
+      .get('http://localhost:3000/api/viewAllInspectionByDates?search_DT=' + date1 + '&search_DT2=' + date2 + '&employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
-  getInspectionOrderTablewithFromDateOnly(date1){
+  getInspectionOrderTablewithFromDateOnly(date1, page, itemsCount, empKey, orgID) {
     return this
-    .http
-    .get('http://localhost:3000/api/viewInspection?pageno='+1+'&itemsPerPage='+25+'&inspectionDate='+date1+'&employeekey='+2861+'&OrganizationID='+21);
+      .http
+      .get('http://localhost:3000/api/viewInspection?pageno=' + page + '&itemsPerPage=' + itemsCount + '&inspectionDate=' + date1 + '&employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
-  DeleteTemplate(templateID){
-    const url='http://localhost:3000/api/deleteInspectionTemplate';
+  DeleteTemplate(templateID, empKey, orgID) {
+    const url = 'http://localhost:3000/api/deleteInspectionTemplate';
     const obj = {
-      templateID : templateID,
-      updatedBy :2861,
-      OrganizationID: 21     
-      };
-     return this
-       .http
-       .post (url,obj);
-  }
-  SearchTemplate(searchMytemp){
+      templateID: templateID,
+      updatedBy: empKey,
+      OrganizationID: orgID
+    };
     return this
       .http
-      .get('http://localhost:3000/api/searchMytemplate?OrganizationID='+21+'&searchMytemp='+searchMytemp)
+      .post(url, obj);
   }
-  SearchTempNameandQuestion(searchMytemp,TemplateID){
+  SearchTemplate(searchMytemp, orgID) {
     return this
       .http
-      .get('http://localhost:3000/api/searchtemplateQun?OrganizationID='+21+'&searchMytemp='+searchMytemp+'&TemplateID='+TemplateID)
+      .get('http://localhost:3000/api/searchMytemplate?OrganizationID=' + orgID + '&searchMytemp=' + searchMytemp)
   }
-  SearchTemplateandLocation(SearchValue,search_DT,search_DT2){
-    return this
-    .http
-    .get('http://localhost:3000/api/searchInspectionOrder?OrganizationID='+21+'&searchLocation='+SearchValue+'&search_DT='+search_DT+'&search_DT2='+search_DT2)
-  }
-  getViewInspectionManager(ioKey,OrgId){
-    return this
-    .http
-    .get('http://localhost:3000/api/getinspectionDetails?inspectionorder='+ioKey+'&OrganizationID='+OrgId)
-  }
-  InspectionDetails(Insp_Key)
-  {
-    return this
-    .http
-    .get('http://localhost:3000/api/getInspectionorder?InspectionorderKey=' + Insp_Key+"&OrganizationID="+21);
-  }
-  templateQuestionService(templateId)
-  {
-    return this
-    .http
-    .get('http://localhost:3000/api/getTemplateQuestions?templateId='+ templateId+"&OrganizationID="+21);
-  }
-  InspectionSaveService(inspectionDetail)
-  {
-    const url='http://localhost:3000/api/saveinspectedQuestions';
-    
+  SearchTempNameandQuestion(searchMytemp, TemplateID, orgID) {
     return this
       .http
-      .post (url,inspectionDetail).subscribe(res => console.log('Done'));
+      .get('http://localhost:3000/api/searchtemplateQun?OrganizationID=' + orgID + '&searchMytemp=' + searchMytemp + '&TemplateID=' + TemplateID)
   }
-  inspectionCompletedService(inspectionDetail1)
-  {
-    const url='http://localhost:3000/api/inspectionCompleted';
-    
+  SearchTemplateandLocation(SearchValue, search_DT, search_DT2, orgID) {
     return this
       .http
-      .post (url,inspectionDetail1).subscribe(res => console.log('Done'));
+      .get('http://localhost:3000/api/searchInspectionOrder?OrganizationID=' + orgID + '&searchLocation=' + SearchValue + '&search_DT=' + search_DT + '&search_DT2=' + search_DT2)
   }
-  updateEditedTemplateQuestion(obj){
-    const url='http://localhost:3000/api/updateEditedTemplateQuestion';
+  getViewInspectionManager(ioKey, OrgId) {
     return this
-    .http
-    .post (url,obj);
+      .http
+      .get('http://localhost:3000/api/getinspectionDetails?inspectionorder=' + ioKey + '&OrganizationID=' + OrgId)
   }
-  insertEditedTemplateQuestion(obj){
-    const url='http://localhost:3000/api/insertEditedTemplateQuestion';
+  InspectionDetails(Insp_Key, orgID) {
     return this
-    .http
-    .post (url,obj);
+      .http
+      .get('http://localhost:3000/api/getInspectionorder?InspectionorderKey=' + Insp_Key + "&OrganizationID=" + orgID);
   }
-  updateTemplateDetails(templatename,tempEditid,OrganizationID,ScoreTypeKey) {
+  templateQuestionService(templateId, orgID) {
     return this
-    .http
-    .get('http://localhost:3000/api/updateTemplateDetails?templatename='+templatename+'&tempEditid='+tempEditid+'&OrganizationID='+OrganizationID+'&ScoreTypeKey='+ScoreTypeKey);
+      .http
+      .get('http://localhost:3000/api/getTemplateQuestions?templateId=' + templateId + "&OrganizationID=" + orgID);
+  }
+  InspectionSaveService(inspectionDetail) {
+    const url = 'http://localhost:3000/api/saveinspectedQuestions';
+
+    return this
+      .http
+      .post(url, inspectionDetail).subscribe(res => console.log('Done'));
+  }
+  inspectionCompletedService(inspectionDetail1) {
+    const url = 'http://localhost:3000/api/inspectionCompleted';
+
+    return this
+      .http
+      .post(url, inspectionDetail1).subscribe(res => console.log('Done'));
+  }
+  updateEditedTemplateQuestion(obj) {
+    const url = 'http://localhost:3000/api/updateEditedTemplateQuestion';
+    return this
+      .http
+      .post(url, obj);
+  }
+  insertEditedTemplateQuestion(obj) {
+    const url = 'http://localhost:3000/api/insertEditedTemplateQuestion';
+    return this
+      .http
+      .post(url, obj);
+  }
+  updateTemplateDetails(templatename, tempEditid, OrganizationID, ScoreTypeKey) {
+    return this
+      .http
+      .get('http://localhost:3000/api/updateTemplateDetails?templatename=' + templatename + '&tempEditid=' + tempEditid + '&OrganizationID=' + OrganizationID + '&ScoreTypeKey=' + ScoreTypeKey);
 
   }
   getTemplateQuestionsEditDetails(templateid, OrganizationID) {
     return this
-    .http
-    .get('http://localhost:3000/api/getTemplateQuestionsEditDetails?templateid=' + templateid + '&OrganizationID=' + OrganizationID);
+      .http
+      .get('http://localhost:3000/api/getTemplateQuestionsEditDetails?templateid=' + templateid + '&OrganizationID=' + OrganizationID);
 
   }
-  deleteSelectedTemplateQuestion(templateID, OrganizationID){
+  deleteSelectedTemplateQuestion(templateID, OrganizationID) {
     return this
-    .http
-    .get('http://localhost:3000/api/deleteSelectedTemplateQuestion?templateID='+templateID+'&OrganizationID='+OrganizationID);
+      .http
+      .get('http://localhost:3000/api/deleteSelectedTemplateQuestion?templateID=' + templateID + '&OrganizationID=' + OrganizationID);
 
   }
   getTemplateEditDetails(templateid, OrganizationID) {
     return this
-    .http
-    .get('http://localhost:3000/api/getTemplateEditDetails?templateid=' + templateid + '&OrganizationID=' + OrganizationID);
+      .http
+      .get('http://localhost:3000/api/getTemplateEditDetails?templateid=' + templateid + '&OrganizationID=' + OrganizationID);
   }
   scoringtype(OrganizationID) {
     return this
-    .http
-    .get('http://localhost:3000/api/scoringtype?OrganizationID=' + OrganizationID);
+      .http
+      .get('http://localhost:3000/api/scoringtype?OrganizationID=' + OrganizationID);
 
   }
-  checkforInspectionOnTemplate(templateid,OrganizationID){
+  checkforInspectionOnTemplate(templateid, OrganizationID) {
     return this
-    .http
-    .get('http://localhost:3000/api/checkforInspectionOnTemplate?templateid='+templateid+'&OrganizationID='+OrganizationID);
+      .http
+      .get('http://localhost:3000/api/checkforInspectionOnTemplate?templateid=' + templateid + '&OrganizationID=' + OrganizationID);
   }
   updateEditInspection(TemplateName, TemplateID, ScoreTypeKey, OrganizationID) {
     return this
-    .http
-    .get('http://localhost:3000/api/updateEditInspection?TemplateName='+TemplateName+'&TemplateID='+TemplateID+'&ScoreTypeKey='+ScoreTypeKey+'&OrganizationID='+OrganizationID);
+      .http
+      .get('http://localhost:3000/api/updateEditInspection?TemplateName=' + TemplateName + '&TemplateID=' + TemplateID + '&ScoreTypeKey=' + ScoreTypeKey + '&OrganizationID=' + OrganizationID);
 
   }
-  SearchTemplateandLocationbysuprvsr(SearchValue,orgid,toservempkey,newdate){
+  SearchTemplateandLocationbysuprvsr(SearchValue, orgid, toservempkey, newdate) {
     return this
-    .http
-    .get('http://localhost:3000/api/searchinspection?searchWO='+SearchValue+'&OrganizationID='+orgid+'&toServeremployeekey='+toservempkey+'&today_DT='+newdate);
+      .http
+      .get('http://localhost:3000/api/searchinspection?searchWO=' + SearchValue + '&OrganizationID=' + orgid + '&toServeremployeekey=' + toservempkey + '&today_DT=' + newdate);
 
   }
-  getInspectionOrderTablewithCurrentDatefrsprvsr(curr_date,toservempkey,orgid)
-  {
+  getInspectionOrderTablewithCurrentDatefrsprvsr(curr_date, toservempkey, orgid) {
     return this
-    .http
-    .get('http://localhost:3000/api/getSupervisorInspectionView?to_date='+curr_date+'&employeekey='+toservempkey+'&OrganizationID='+orgid);
+      .http
+      .get('http://localhost:3000/api/getSupervisorInspectionView?to_date=' + curr_date + '&employeekey=' + toservempkey + '&OrganizationID=' + orgid);
 
   }
-  }
+}
 

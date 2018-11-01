@@ -15,12 +15,14 @@ export class InspectionViewComponent implements OnInit {
   todate: Date;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
-  ins_Key:Number;
+  ins_Key: Number;
   role: String;
   name: String;
   toServeremployeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+  pageNo: Number = 1;
+  itemsPerPage: Number = 25;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -38,9 +40,9 @@ export class InspectionViewComponent implements OnInit {
     }
     return window.atob(output);
   }
-  
-  constructor(private router: Router,private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef) { }
-  
+
+  constructor(private router: Router, private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef) { }
+
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     return new RegExp(this.regexStr).test(event.key);
   }
@@ -78,18 +80,18 @@ export class InspectionViewComponent implements OnInit {
       date2 = this.convert_DT(this.todate);
     }
     this.inspectionService
-    .getInspectionOrderTablewithFromDateOnly(date1)
-    .subscribe((data: Inspection[]) => {
-      // debugger;
-      this.inspectionordertable = data;
-    });
-    this.inspectionService
-      .getInspectionOrderTablewithFromDateandToDateFilter(date1, date2)
+      .getInspectionOrderTablewithFromDateOnly(date1, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
         // debugger;
         this.inspectionordertable = data;
       });
-   
+    this.inspectionService
+      .getInspectionOrderTablewithFromDateandToDateFilter(date1, date2, this.toServeremployeekey, this.OrganizationID)
+      .subscribe((data: Inspection[]) => {
+        // debugger;
+        this.inspectionordertable = data;
+      });
+
   }
   searchTL(SearchValue) {
     // var curr_date;
@@ -108,7 +110,7 @@ export class InspectionViewComponent implements OnInit {
     }
     if (SearchValue.length > 2) {
       this.inspectionService
-        .SearchTemplateandLocation(SearchValue, date1, date2).subscribe((data: Inspection[]) => {
+        .SearchTemplateandLocation(SearchValue, date1, date2, this.OrganizationID).subscribe((data: Inspection[]) => {
           this.inspectionordertable = data;
 
         });
@@ -128,7 +130,7 @@ export class InspectionViewComponent implements OnInit {
     //token ends
     var curr_date = this.convert_DT(new Date());
     this.inspectionService
-      .getInspectionOrderTablewithFromCurrentDateFilter(curr_date)
+      .getInspectionOrderTablewithFromCurrentDateFilter(curr_date, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
         // debugger;
         this.inspectionordertable = data;

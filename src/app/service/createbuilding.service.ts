@@ -6,13 +6,13 @@ import { HttpClient } from '@angular/common/http';
 export class CreatebuildingService {
 
   constructor(private http: HttpClient) { }
-  createBuildings(createbuilding) {
-    const url='http://localhost:3000/api/addfacility';
+  createBuildings(createbuilding, empKey, orgID) {
+    const url = 'http://localhost:3000/api/addfacility';
     const obj = {
       fac: createbuilding,
-      employeekey: 2861,
-      OrganizationID:21
-     };
+      employeekey: empKey,
+      OrganizationID: orgID
+    };
     return this
       .http
       .post (url,obj);

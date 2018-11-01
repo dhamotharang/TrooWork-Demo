@@ -4,7 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import {Router } from "@angular/router";
+import { Router } from "@angular/router";
 @Component({
   selector: 'app-floor-edit',
   templateUrl: './floor-edit.component.html',
@@ -15,29 +15,60 @@ export class FloorEditComponent implements OnInit {
   floorKey$: Object;
   flooroptions: Inventory[];
   buildingList: Inventory[];
-  constructor(private route: ActivatedRoute,private inventoryService: InventoryService, private router: Router) {
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
     this.route.params.subscribe(params => this.facKey$ = params.Facility_Key);
     this.route.params.subscribe(params => this.floorKey$ = params.Floor_Key);
-   }
+  }
 
-  updateFloor(FacilityKey,
-    FloorKey,FloorName,FloorDescription) {
+  updateFloor(FacilityKey, FloorKey, FloorName, FloorDescription) {
 
     this.inventoryService
-    .UpdateFloor(FacilityKey,FloorKey,FloorName,FloorDescription)
-    .subscribe((data: Inventory[]) => { 
-      alert("Floor updated successfully");
-      this.router.navigateByUrl('/Floorview');
-    });
+      .UpdateFloor(FacilityKey, FloorKey, FloorName, FloorDescription, this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        alert("Floor updated successfully");
+        this.router.navigateByUrl('/Floorview');
+      });
   }
   ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.inventoryService
-    .getallBuildingList()
-    .subscribe((data: Inventory[]) => {
-      // debugger;
-      this.buildingList = data;
-    });
-    this.inventoryService.EditFloorAutoGenerate(this.floorKey$,this.facKey$).subscribe((data: Inventory[]) => {
+      .getallBuildingList(this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.buildingList = data;
+      });
+    this.inventoryService.EditFloorAutoGenerate(this.floorKey$, this.facKey$, this.OrganizationID).subscribe((data: Inventory[]) => {
       this.flooroptions = data;
       debugger;
     });

@@ -23,6 +23,30 @@ export class RoomEditComponent implements OnInit {
   roomTypeKey: Number;
   floorTypeKey: Number;
   ZoneName: String;
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
   constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
     this.route.params.subscribe(params => this.roomKey$ = params.RoomKey);
   }
@@ -30,7 +54,7 @@ export class RoomEditComponent implements OnInit {
   selectFloorfromBuildings(facKey) {
     this.facKey = facKey;
     this.inventoryService
-      .getallFloorList(facKey)
+      .getallFloorList(facKey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floor = data;
       });
@@ -39,7 +63,7 @@ export class RoomEditComponent implements OnInit {
   selectZonefromFloor(flrKey) {
     this.floorKey = flrKey;
     this.inventoryService
-      .getallZoneList(this.facKey, flrKey)
+      .getallZoneList(this.facKey, flrKey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.zone = data;
       });
@@ -107,8 +131,17 @@ export class RoomEditComponent implements OnInit {
   // }
   ngOnInit() {
 
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.inventoryService
-      .getRoomDetailsList(this.roomKey$)
+      .getRoomDetailsList(this.roomKey$, this.OrganizationID)
       .subscribe((data: Array<any>) => {
         this.room = data[0];
         this.facKey = data[0].FacilityKey;
@@ -116,12 +149,12 @@ export class RoomEditComponent implements OnInit {
         this.zoneKey = data[0].FloorKey;
 
         this.inventoryService
-          .getallFloorList(this.facKey)
+          .getallFloorList(this.facKey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.floor = data;
           });
         this.inventoryService
-          .getallZoneList(this.facKey, this.floorKey)
+          .getallZoneList(this.facKey, this.floorKey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.zone = data;
           });
@@ -129,18 +162,18 @@ export class RoomEditComponent implements OnInit {
 
 
     this.inventoryService
-      .getallBuildingList()
+      .getallBuildingList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.building = data;
       });
 
     this.inventoryService
-      .getallFloorTypeList()
+      .getallFloorTypeList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floorType = data;
       });
     this.inventoryService
-      .getallRoomTypeList()
+      .getallRoomTypeList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.roomType = data;
       });

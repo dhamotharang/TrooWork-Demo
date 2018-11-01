@@ -9,16 +9,41 @@ import { Router } from '@angular/router';
   styleUrls: ['./inspectiontemplate-edit.component.scss']
 })
 export class InspectiontemplateEditComponent implements OnInit {
-  inspectiontemplate :Inspection[];
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+  pageNo: Number = 1;
+  itemsPerPage: Number = 25;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+  inspectiontemplate: Inspection[];
   searchform: FormGroup;
   delete_tempid: number;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
-  OrganizationID=21;
   editQuestions;
 
-  constructor(private formBuilder: FormBuilder,private inspectionService: InspectionService, private el: ElementRef,private router: Router) { }
-  
+  constructor(private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef, private router: Router) { }
+
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     return new RegExp(this.regexStr).test(event.key);
   }
@@ -38,13 +63,13 @@ export class InspectiontemplateEditComponent implements OnInit {
   deleteTemplate() {
     // debugger;
     this.inspectionService
-      .DeleteTemplate(this.delete_tempid).subscribe(()=>{
+      .DeleteTemplate(this.delete_tempid, this.employeekey, this.OrganizationID).subscribe(() => {
         this.inspectionService
-        .getInspectionTemplateDetails()
-        .subscribe((data: Inspection[]) => {
-          this.inspectiontemplate = data;
-        });
-      });  
+          .getInspectionTemplateDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+          .subscribe((data: Inspection[]) => {
+            this.inspectiontemplate = data;
+          });
+      });
   }
 
   deleteTemplatePass(TemplateID) {
@@ -53,53 +78,61 @@ export class InspectiontemplateEditComponent implements OnInit {
   }
   searchTemplate(SearchValue) {
     this.inspectionService
-      .SearchTemplate(SearchValue).subscribe((data: Inspection[]) => {
+      .SearchTemplate(SearchValue, this.OrganizationID).subscribe((data: Inspection[]) => {
         this.inspectiontemplate = data;
 
       });
 
   };
   ngOnInit() {
-    
-      this.inspectionService
-      .getInspectionTemplateDetails()
+
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
+    this.inspectionService
+      .getInspectionTemplateDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
         // debugger;
         this.inspectiontemplate = data;
       });
-      this.searchform = this.formBuilder.group({
-        SearchTemplate: ['', Validators.required]
-      });
+    this.searchform = this.formBuilder.group({
+      SearchTemplate: ['', Validators.required]
+    });
   }
-  editTemplateDetails(index , TemplateID){
+  editTemplateDetails(index, TemplateID) {
     this.inspectionService.checkforInspectionOnTemplate(TemplateID, this.OrganizationID).subscribe((data: any[]) => {
-     
-      if( data[0].count==0){
+
+      if (data[0].count == 0) {
         // this.router.navigateByUrl('InspectiontemplatedetailEdit/'TemplateID);
         this.router.navigate(['/InspectiontemplatedetailEdit', TemplateID]);
-      }else
-      {
-         this.editQuestions = index;
-    }  
+      } else {
+        this.editQuestions = index;
+      }
 
     });
   }
   cancelTemplateDetails() {
     this.editQuestions = -1;
     this.inspectionService
-    .getInspectionTemplateDetails().subscribe((data: Inspection[]) => {
-      this.inspectiontemplate = data;
-    });
+      .getInspectionTemplateDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID).subscribe((data: Inspection[]) => {
+        this.inspectiontemplate = data;
+      });
   }
   submiteditInspectionTemplate(TemplateName, TemplateID, ScoreTypeKey) {
 
     this.inspectionService
-    .updateEditInspection(TemplateName, TemplateID, ScoreTypeKey, this.OrganizationID).subscribe(() => {
-      this.inspectionService
-      .getInspectionTemplateDetails().subscribe((data: Inspection[]) => {
-        this.inspectiontemplate = data;
+      .updateEditInspection(TemplateName, TemplateID, ScoreTypeKey, this.OrganizationID).subscribe(() => {
+        this.inspectionService
+          .getInspectionTemplateDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID).subscribe((data: Inspection[]) => {
+            this.inspectiontemplate = data;
+          });
+        this.editQuestions = -1;
       });
-      this.editQuestions = -1;
-    });
   }
 }

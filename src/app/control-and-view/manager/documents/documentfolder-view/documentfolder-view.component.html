@@ -5,7 +5,8 @@
     <h4 class="refer"><b>DOCUMENT FOLDER</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/NewdocumentfolderCreate" class="btn btn-primary" routerLinkActive="active">Create New Document Folder
+      <a routerLink="/NewdocumentfolderCreate" class="btn btn-primary" routerLinkActive="active">Create New Document
+        Folder
       </a>
     </div>
     <form [formGroup]="searchform">
@@ -28,7 +29,7 @@
 
             <td>
               <a routerLink="/DocumentfolderEdit/{{d.FormtypeId}}" class="btn btn-primary">Edit</a>
-              <a button type="button" mdbBtn color="primary" class="relative waves-light"(click)="basicModal.show();deleteFolderPass(d.FormtypeId); "
+              <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteFolderPass(d.FormtypeId); "
                 mdbWavesEffect>Delete</a>
             </td>
           </tr>
@@ -59,6 +60,8 @@
           </div>
         </tbody>
       </table>
+      <button class="btn btn-success" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
+      <button class="btn btn-success" (click)="nextPage()" *ngIf="showHide2">Next >></button>
     </div>
   </div>
 </div>
