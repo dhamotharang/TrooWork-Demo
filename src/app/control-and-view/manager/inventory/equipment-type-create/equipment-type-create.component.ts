@@ -14,11 +14,31 @@ export class EquipmentTypeCreateComponent implements OnInit {
   // createbuilding: FormGroup;
   EquipmentTypeName: String;
   EquipmentTypeDescription: String;
-  constructor(private fb: FormBuilder, private inventoryServ: InventoryService, private router: Router) {
-    // this.createbuilding = fb.group({
-    //   DepartmentName: ['', Validators.required]
-    // });
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
   }
+
+  constructor(private fb: FormBuilder, private inventoryServ: InventoryService, private router: Router) { }
 
   addEquipmentType() {
     if (!this.EquipmentTypeName) {
@@ -26,19 +46,28 @@ export class EquipmentTypeCreateComponent implements OnInit {
     } else if (!this.EquipmentTypeDescription) {
       alert("Please provide a Equipment Type Description");
     } else {
-      this.inventoryServ.checkForNewEquipmentType(this.EquipmentTypeName).subscribe((data: Inventory[]) => {
+      this.inventoryServ.checkForNewEquipmentType(this.EquipmentTypeName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
         this.dept = data;
         if (this.dept[0].count > 0) {
           alert("Equipment Type already present");
         }
         else if (this.dept[0].count == 0) {
-          this.inventoryServ.addEquipmentType(this.EquipmentTypeName, this.EquipmentTypeDescription).subscribe(res => this.router.navigateByUrl('/EquipmentTypeView'));
+          this.inventoryServ.addEquipmentType(this.EquipmentTypeName, this.EquipmentTypeDescription, this.employeekey, this.OrganizationID).subscribe(res => this.router.navigateByUrl('/EquipmentTypeView'));
         }
       });
     }
   }
 
   ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
   }
 
 }

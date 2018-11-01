@@ -13,6 +13,31 @@ export class FloorViewComponent implements OnInit {
   delete_faciKey: number;
   delete_floorKey: number;
   searchform: FormGroup;
+  pageNo: Number = 1;
+  itemsPerpage: number = 25;
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
   //validation starts ..... @pooja
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
@@ -38,7 +63,7 @@ export class FloorViewComponent implements OnInit {
 
   deleteFloor() {
     this.inventoryService
-      .DeleteFloor(this.delete_faciKey, this.delete_floorKey).subscribe(res => this.ngOnInit());
+      .DeleteFloor(this.delete_faciKey, this.delete_floorKey, this.employeekey, this.OrganizationID).subscribe(res => this.ngOnInit());
 
   }
   deleteFloorPass(FacilityKey, FloorKey) {
@@ -50,13 +75,13 @@ export class FloorViewComponent implements OnInit {
     //  debugger;
     if (SearchValue.length >= 3) {
       this.inventoryService
-        .SearchFloor(SearchValue).subscribe((data: Inventory[]) => {
+        .SearchFloor(SearchValue, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.floor = data;
 
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
-        .getFloors()
+        .getFloors(this.pageNo, this.itemsPerpage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.floor = data;
         });
@@ -64,9 +89,18 @@ export class FloorViewComponent implements OnInit {
   };
 
   ngOnInit() {
-    // debugger;
+
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.inventoryService
-      .getFloors()
+      .getFloors(this.pageNo, this.itemsPerpage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floor = data;
       });

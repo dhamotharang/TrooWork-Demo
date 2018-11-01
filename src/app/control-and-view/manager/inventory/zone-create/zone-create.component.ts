@@ -9,33 +9,61 @@ import { Inventory } from '../../../../model-class/Inventory';
 export class ZoneCreateComponent implements OnInit {
   building: Inventory[];
   floorName: Inventory[];
-  constructor(private inventoryService: InventoryService) { }
 
-  addZone(FacilityKey,FloorName,ZoneName) {
-    // debugger;
- 
-    this.inventoryService.createZones(FacilityKey,FloorName,ZoneName);
-}
 
- selectFloorfromBuildings(facKey)
- {
-  this.inventoryService
-    .getallFloorList(facKey)
-    .subscribe((data: Inventory[]) => {
-      // debugger;
-      this.floorName = data;
-    });
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
   }
 
-  ngOnInit() 
-  {
+  constructor(private inventoryService: InventoryService) { }
+
+  addZone(FacilityKey, FloorName, ZoneName) {
+    this.inventoryService.createZones(FacilityKey, FloorName, ZoneName, this.employeekey, this.OrganizationID);
+  }
+
+  selectFloorfromBuildings(facKey) {
     this.inventoryService
-    .getallBuildingList()
-    .subscribe((data: Inventory[]) => {
-      // debugger;
-      this.building = data;
-    });
-  
+      .getallFloorList(facKey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.floorName = data;
+      });
+  }
+
+  ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
+    this.inventoryService
+      .getallBuildingList(this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.building = data;
+      });
+
 
   }
 

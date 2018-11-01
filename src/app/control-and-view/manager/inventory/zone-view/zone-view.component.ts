@@ -14,6 +14,30 @@ export class ZoneViewComponent implements OnInit {
   delete_faciKey: number;
   delete_floorKey: number;
   delete_zoneKey: number;
+  pageNo: Number = 1;
+  itemsperPage: Number = 25;
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
 
   //validation starts ..... @rodney
   regexStr = '^[a-zA-Z0-9_ ]*$';
@@ -38,16 +62,15 @@ export class ZoneViewComponent implements OnInit {
   //validation ends ..... @rodney
 
   searchZone(SearchValue) {
-    //  debugger;
     if (SearchValue.length >= 3) {
       this.inventoryService
-        .searchZone(SearchValue).subscribe((data: Inventory[]) => {
+        .searchZone(SearchValue, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.zone = data;
 
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
-        .getZones()
+        .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.zone = data;
         });
@@ -62,20 +85,29 @@ export class ZoneViewComponent implements OnInit {
 
   deleteZone() {
     this.inventoryService
-      .DeleteZone(this.delete_faciKey, this.delete_floorKey, this.delete_zoneKey).subscribe(res =>{
+      .DeleteZone(this.delete_faciKey, this.delete_floorKey, this.delete_zoneKey, this.employeekey, this.OrganizationID).subscribe(res => {
         this.inventoryService
-      .getZones()
-      .subscribe((data: Inventory[]) => {
-        this.zone = data;
-      });
+          .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
+          .subscribe((data: Inventory[]) => {
+            this.zone = data;
+          });
 
       });
 
   }
   ngOnInit() {
-    // debugger;
+
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.inventoryService
-      .getZones()
+      .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.zone = data;
       });

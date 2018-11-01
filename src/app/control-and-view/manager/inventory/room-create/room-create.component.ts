@@ -24,12 +24,36 @@ export class RoomCreateComponent implements OnInit {
   RoomName;
   SquareFoot;
   temp_barcode;
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
   constructor(private inventoryService: InventoryService, private router: Router) { }
 
   selectFloorfromBuildings(facKey) {
     this.FaciKey = facKey;
     this.inventoryService
-      .getallFloorList(facKey)
+      .getallFloorList(facKey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floor = data;
       });
@@ -38,7 +62,7 @@ export class RoomCreateComponent implements OnInit {
   selectZonefromFloor(flrKey) {
     this.FloorKey = flrKey;
     this.inventoryService
-      .getallZoneList(this.FaciKey, flrKey)
+      .getallZoneList(this.FaciKey, flrKey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.zone = data;
       });
@@ -95,24 +119,24 @@ export class RoomCreateComponent implements OnInit {
       alert("Barcode is not provided !");
     } else {
       this.inventoryService
-        .checkNewRoom(FacilityKey, FloorKey, FloorTypeKey, ZoneKey, RoomTypeKey, RoomName)
+        .checkNewRoom(FacilityKey, FloorKey, FloorTypeKey, ZoneKey, RoomTypeKey, RoomName, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           if (data.length > 0) {
             alert("Room already present");
           } else {
             this.inventoryService
-              .checkRoomBarcode(Barcode)
+              .checkRoomBarcode(Barcode, this.employeekey, this.OrganizationID)
               .subscribe((data: Inventory[]) => {
                 if (data.length > 0) {
                   alert("Barcode already exists! Please enter a unique barcode.");
                 } else {
                   this.inventoryService
-                    .checkRoomName(RoomName)
+                    .checkRoomName(RoomName, this.OrganizationID)
                     .subscribe((data: Inventory[]) => {
                       if (data[0].count > 0) {
                         alert("Room Name already exists !");
                       } else {
-                        this.inventoryService.addRoom(FacilityKey, FloorKey, FloorTypeKey, ZoneKey, RoomTypeKey, RoomName, SquareFoot, Barcode)
+                        this.inventoryService.addRoom(FacilityKey, FloorKey, FloorTypeKey, ZoneKey, RoomTypeKey, RoomName, SquareFoot, Barcode, this.employeekey, this.OrganizationID)
                           .subscribe(res => {
                             alert("Room created successfully");
                             this.router.navigateByUrl('/roomView');
@@ -128,23 +152,32 @@ export class RoomCreateComponent implements OnInit {
 
   }
   ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.inventoryService
-      .getallBuildingList()
+      .getallBuildingList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.building = data;
       });
     this.inventoryService
-      .getallFloorTypeList()
+      .getallFloorTypeList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floorType = data;
       });
     this.inventoryService
-      .getallRoomTypeList()
+      .getallRoomTypeList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.roomType = data;
       });
     this.inventoryService
-      .getBarcodeForRoom()
+      .getBarcodeForRoom(this.employeekey, this.OrganizationID)
       .subscribe((data: Array<any>) => {
         this.Barcode = data[0];
         this.temp_barcode = data[0];

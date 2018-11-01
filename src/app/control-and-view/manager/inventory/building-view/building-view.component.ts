@@ -13,6 +13,32 @@ export class BuildingViewComponent implements OnInit {
   build: Inventory[];
   delete_faciKey: number;
   searchform: FormGroup;
+  pageNo: Number = 1;
+  itemsperPage: Number = 25;
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+
   //validation starts ..... @rodney
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
@@ -38,10 +64,10 @@ export class BuildingViewComponent implements OnInit {
   deleteFacility() {
     //debugger;
     this.inventoryService
-      .DeleteBuilding(this.delete_faciKey).subscribe(() => {
+      .DeleteBuilding(this.delete_faciKey, this.employeekey, this.OrganizationID).subscribe(() => {
 
         this.inventoryService
-          .getBuildings()
+          .getBuildings(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.build = data;
           });
@@ -54,7 +80,7 @@ export class BuildingViewComponent implements OnInit {
   searchFacility(SearchValue) {
     if (SearchValue.length >= 3) {
       this.inventoryService
-        .SearchBuilding(SearchValue).subscribe((data: Inventory[]) => {
+        .SearchBuilding(SearchValue, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.build = data;
 
         });
@@ -67,8 +93,17 @@ export class BuildingViewComponent implements OnInit {
     //debugger;
   }
   ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.inventoryService
-      .getBuildings()
+      .getBuildings(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.build = data;
       });

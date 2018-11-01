@@ -13,6 +13,29 @@ export class EquipmentTypeEditComponent implements OnInit {
   // equipType: Inventory[];
   equipType: Array<any>;
 
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
   constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
     this.route.params.subscribe(params => this.equipTypeKey$ = params.EquipTypeKey);
   }
@@ -24,13 +47,13 @@ export class EquipmentTypeEditComponent implements OnInit {
     } else if (!equipTypeDesc) {
       alert("Please provide a Equipment Type Description");
     } else {
-      this.inventoryService.checkForNewEquipmentType(equipType).subscribe((data: Array<any>) => {
+      this.inventoryService.checkForNewEquipmentType(equipType, this.employeekey, this.OrganizationID).subscribe((data: Array<any>) => {
         this.equipType = data;
         if (this.equipType[0].count > 0) {
           alert("Equipment Type already present");
         }
         else {
-          this.inventoryService.UpdateEquipmentType(equipType, equipTypeDesc, equipTypeKey).subscribe(res => this.router.navigateByUrl('/EquipmentTypeView'));
+          this.inventoryService.UpdateEquipmentType(equipType, equipTypeDesc, equipTypeKey, this.employeekey, this.OrganizationID).subscribe(res => this.router.navigateByUrl('/EquipmentTypeView'));
         }
       });
     }
@@ -38,7 +61,16 @@ export class EquipmentTypeEditComponent implements OnInit {
 
   ngOnInit() {
 
-    this.inventoryService.getEquipmentTypeListEdit(this.equipTypeKey$).subscribe((data: Array<any>) => {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
+    this.inventoryService.getEquipmentTypeListEdit(this.equipTypeKey$, this.OrganizationID).subscribe((data: Array<any>) => {
       console.log(this.equipTypeKey$);
       debugger;
       this.equipType = data[0];

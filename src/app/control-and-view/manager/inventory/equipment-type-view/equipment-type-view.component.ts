@@ -14,6 +14,29 @@ export class EquipmentTypeViewComponent implements OnInit {
   delete_EquipTypeKey: number;
   searchform: FormGroup;
 
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
   //validation starts ..... @rodney
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
@@ -40,12 +63,12 @@ export class EquipmentTypeViewComponent implements OnInit {
   searchEquipmentType(SearchValue) {
     if (SearchValue.length >= 3) {
       this.inventoryService
-        .SearchEquipmentType(SearchValue).subscribe((data: Inventory[]) => {
+        .SearchEquipmentType(SearchValue, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.equipmentType = data;
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
-        .getEquipmentTypeList()
+        .getEquipmentTypeList(this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.equipmentType = data;
         });
@@ -58,9 +81,9 @@ export class EquipmentTypeViewComponent implements OnInit {
 
   deleteEquipmentType() {
     this.inventoryService
-      .DeleteEquipmentType(this.delete_EquipTypeKey).subscribe(() => {
+      .DeleteEquipmentType(this.delete_EquipTypeKey, this.employeekey, this.OrganizationID).subscribe(() => {
         this.inventoryService
-          .getEquipmentTypeList()
+          .getEquipmentTypeList(this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.equipmentType = data;
           });
@@ -68,8 +91,17 @@ export class EquipmentTypeViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.inventoryService
-      .getEquipmentTypeList()
+      .getEquipmentTypeList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.equipmentType = data;
       });
