@@ -33,6 +33,7 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
     return window.atob(output);
   }
 
+ 
   viewEmpInspectionDetails;
   inspKey$;
   names;
@@ -48,22 +49,38 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
   ind = 0;
   TemplateDetails;
   lastIndexValue;
-  // for star rating 
-  starList: boolean[] = [true, true, true, true, true];
-  rating: number;
 
-  setStar(data: any) {
-    this.rating = data + 1;
-    for (var i = 0; i <= 4; i++) {
-      if (i <= data) {
-        this.starList[i] = false;
-      }
-      else {
-        this.starList[i] = true;
-      }
-    }
-  }
+
   // for star rating 
+  starList: boolean[] = [true,true,true,true,true]; 
+  rating:number; 
+  
+  setStar3(data:any){
+    //debugger;
+       this.rating=data+1;                               
+       for(var i=0;i<=2;i++){  
+         if(i<=data){  
+           this.starList[i]=false;  
+         }  
+         else{  
+         this.starList[i]=true;  
+         }  
+      }  
+   } 
+   setStar(data:any){
+     //debugger;
+        this.rating=data+1;                               
+        for(var i=0;i<=4;i++){  
+          if(i<=data){  
+            this.starList[i]=false;  
+          }  
+          else{  
+          this.starList[i]=true;  
+          }  
+       }  
+    }  
+   
+// for star rating 
 
   convert_DT(str) {
     var date = new Date(str),
@@ -133,7 +150,13 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
         this.names = ['Fail', 'N/A'];
         this.ScoreName = this.viewEmpInspectionDetails[0].ScoreName;
       }
-      this.Temp_templateId = this.viewEmpInspectionDetails[0].TemplateID;
+      else if(this.viewEmpInspectionDetails[0].ScoreName === '5 Star'){
+        this.starList = [true,true,true,true,true]; 
+      }
+      else if(this.viewEmpInspectionDetails[0].ScoreName === '3 Star'){
+        this.starList = [true,true,true]; 
+      }
+       this.Temp_templateId=this.viewEmpInspectionDetails[0].TemplateID;
       this.inspectionService
         .templateQuestionService(this.viewEmpInspectionDetails[0].TemplateID, this.OrganizationID).subscribe((data: any[]) => {
           this.TemplateDetails = data;
@@ -149,19 +172,19 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
       // console.log($scope.Scoringtype);
       var length = Object.keys(this.Scoringtype.rating_yn).length;
       var arrayLength = this.Scoringtype.rating_yn.length;
-      var value = this.Scoringtype.rating_yn[arrayLength - 1];
-      this.Scoringtype.ratingValue.push({ rating: value, questionID: TemplateQuestionID });
-    }
-    // else{
-    //   this.Scoringtype.ratingValue.push({rating:this.rating,questionID:TemplateQuestionID});
-    // }
-    else if (ScoreName === '5 Star' || ScoreName === '3 Star') {
-      var length = Object.keys(this.starList).length;
-      var arrayLength = this.starList.length;
-      var values = this.starList[arrayLength - 1];
-      this.Scoringtype.ratingValue.push({ rating: values, questionID: TemplateQuestionID });
-    }
-    console.log(this.Scoringtype);
+      var value =this.Scoringtype.rating_yn[arrayLength - 1];
+      this.Scoringtype.ratingValue.push({rating:value,questionID:TemplateQuestionID});
+  }
+  // else{
+  //   this.Scoringtype.ratingValue.push({rating:this.rating,questionID:TemplateQuestionID});
+  // }
+  else if (ScoreName === '5 Star') {
+    this.Scoringtype.ratingValue.push({rating: this.rating, questionID: TemplateQuestionID});
+  }
+  else if (ScoreName === '3 Star') {
+    this.Scoringtype.ratingValue.push({rating: this.rating, questionID: TemplateQuestionID});
+  }
+  console.log(this.Scoringtype);
   }
   inspectionCompleted() {
     //debugger;

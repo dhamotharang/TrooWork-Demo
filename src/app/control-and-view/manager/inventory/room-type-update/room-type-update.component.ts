@@ -52,15 +52,25 @@ export class RoomTypeUpdateComponent implements OnInit {
         });
 
       this.inventoryService.updateRoomType(this.rTypeKey$, this.metricTypeKey, this.metricType, RoomTypeName, MetricTypeValue)
-        .subscribe(res => this.router.navigateByUrl('/roomTypeView'));
+        .subscribe(res => {
+          alert("RoomType updated successfully");
+          this.router.navigateByUrl('/roomTypeView');
+      });
     }
   }
   ngOnInit() {
+   
     this.inventoryService
       .EditRoomtTypeAutoGenerate(this.rTypeKey$)
       .subscribe((data: Array<any>) => {
         this.roomTypeList = data[0];
+        debugger;
         this.metricType = data[0].MetricType;
+        this.inventoryService
+        .getMetricValues()
+        .subscribe((data: Inventory[]) => {
+          this.metricTypeList = data;
+        });
       });
   }
 

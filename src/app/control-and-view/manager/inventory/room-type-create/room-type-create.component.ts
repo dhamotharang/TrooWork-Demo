@@ -40,7 +40,21 @@ export class RoomTypeCreateComponent implements OnInit {
           alert("Room Type already present");
         }
         else if (data.length == 0) {
-          this.inventoryService.addRoomType(RoomTypeName, MetricTypeValue, MetricType).subscribe(res => this.router.navigateByUrl('/roomTypeView'));
+          if(!RoomTypeName)
+          {
+            alert("Enter RoomType Name!");
+          }else if(!MetricType)
+          {
+            alert("Enter MetricType!");
+          }else if(!MetricTypeValue)
+          {
+            alert("Enter MetricTypeValue!");
+          }else{
+          this.inventoryService.addRoomType(RoomTypeName, MetricTypeValue, MetricType).subscribe(res =>{ 
+            alert("RoomType created successfully");
+            this.router.navigateByUrl('/roomTypeView');
+          });
+        }
         }
       });
   }

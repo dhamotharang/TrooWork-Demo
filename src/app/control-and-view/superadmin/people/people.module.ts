@@ -5,11 +5,12 @@ import { CreateemployeeComponent } from './createemployee/createemployee.compone
 import { ManagelogincredentialsComponent } from './managelogincredentials/managelogincredentials.component';
 import { EditemployeeComponent } from './editemployee/editemployee.component';
 import { ResetpasswordforsamoduleComponent } from './resetpasswordforsamodule/resetpasswordforsamodule.component';
+import { SetUsnamepaswdbySAComponent } from './set-usnamepaswdby-sa/set-usnamepaswdby-sa.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [ViewemployeeComponent, CreateemployeeComponent, ManagelogincredentialsComponent, EditemployeeComponent, ResetpasswordforsamoduleComponent]
+  declarations: [ViewemployeeComponent, CreateemployeeComponent, ManagelogincredentialsComponent, EditemployeeComponent, ResetpasswordforsamoduleComponent, SetUsnamepaswdbySAComponent]
 })
 export class PeopleModule { }

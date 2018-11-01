@@ -74,9 +74,9 @@
           <div class="col-md-6">
             <div>
               <br>
-                <a *ngFor="let item of starList; let i=index " (click)="setStar(i)">  
-                    <i *ngIf="item" class="fa fa-star-o"></i>    
-                    <i *ngIf="!item" class="fa fa-star"></i>     
+                <a *ngFor="let x of starList; let i=index " (click)="setStar(i);saveRatings(item.TemplateQuestionID,item.ScoreName)">  
+                    <i *ngIf="x" class="fa fa-star-o"></i>    
+                    <i *ngIf="!x" class="fa fa-star"></i>     
                    </a>  
                   Rating :- {{rating}} stars  
                   <br>  
@@ -95,9 +95,9 @@
           <div class="col-md-6">
             <div>
                 <br>
-                <a *ngFor="let item of starList; let i=index " (click)="setStar(i)">  
-                    <i *ngIf="item" class="fa fa-star-o"></i>    
-                    <i *ngIf="!item" class="fa fa-star"></i>     
+                <a *ngFor="let x of starList; let i=index " (click)="setStar3(i);saveRatings(item.TemplateQuestionID,item.ScoreName)">  
+                  <i *ngIf="x" class="fa fa-star-o"></i>    
+                  <i *ngIf="!x" class="fa fa-star"></i>       
                    </a>  
                   Rating :- {{rating}} stars  
                   <br>

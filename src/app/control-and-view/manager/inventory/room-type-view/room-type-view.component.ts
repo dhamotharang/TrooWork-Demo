@@ -9,6 +9,11 @@ import { FormBuilder, Validators, FormGroup } from "@angular/forms";
   styleUrls: ['./room-type-view.component.scss']
 })
 export class RoomTypeViewComponent implements OnInit {
+  pageNo: Number = 1;
+  itemsPerPage: Number = 25;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
   roomTypes: Inventory[];
   delete_RoomTypeKey: number;
   searchform: FormGroup;
@@ -35,18 +40,61 @@ export class RoomTypeViewComponent implements OnInit {
   }
 
   //validation ends ..... @rodney
+  previousPage() {
+    this.inventoryService
+    .getRoomTypeList()
+    .subscribe((data: Inventory[]) => {
+      this.roomTypes = data;
+      if (this.pageNo == 1) {
+        this.showHide2 = true;
+        this.showHide1 = false;
+      } else {
+        this.showHide2 = true;
+        this.showHide1 = true;
+      }
+    });
+  }
+
+  nextPage() {
+    this.pageNo = +this.pageNo + 1;
+    this.inventoryService
+    .getRoomTypeList()
+    .subscribe((data: Inventory[]) => {
+      this.roomTypes = data;
+      this.pagination = +this.roomTypes[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+      if (this.pagination > 1) {
+        this.showHide2 = true;
+        this.showHide1 = true;
+      }
+      else {
+        this.showHide2 = false;
+        this.showHide1 = true;
+      }
+    });
+  }
+
 
   searchRoomType(SearchValue) {
     if (SearchValue.length >= 3) {
       this.inventoryService
         .SearchRoomType(SearchValue).subscribe((data: Inventory[]) => {
           this.roomTypes = data;
+          this.showHide2 = false;
+          this.showHide1 = false;
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
         .getRoomTypeList()
         .subscribe((data: Inventory[]) => {
           this.roomTypes = data;
+          if (this.roomTypes[0].totalItems > this.itemsPerPage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.roomTypes[0].totalItems <= this.itemsPerPage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
         });
     }
   }
@@ -62,6 +110,14 @@ export class RoomTypeViewComponent implements OnInit {
           .getRoomTypeList()
           .subscribe((data: Inventory[]) => {
             this.roomTypes = data;
+            if (this.roomTypes[0].totalItems > this.itemsPerPage) {
+              this.showHide2 = true;
+              this.showHide1 = false;
+            }
+            else if (this.roomTypes[0].totalItems <= this.itemsPerPage) {
+              this.showHide2 = false;
+              this.showHide1 = false;
+            }
           });
       });
   }
@@ -71,6 +127,14 @@ export class RoomTypeViewComponent implements OnInit {
       .getRoomTypeList()
       .subscribe((data: Inventory[]) => {
         this.roomTypes = data;
+        if (this.roomTypes[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.roomTypes[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
       });
 
     this.searchform = this.formBuilder.group({

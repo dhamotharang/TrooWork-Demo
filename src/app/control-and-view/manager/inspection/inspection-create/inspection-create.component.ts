@@ -49,6 +49,9 @@ export class InspectionCreateComponent implements OnInit {
   theCheckbox: any;
   time1: any;
   RoomKey: Number;
+  emp_key: Number;
+  org_id: Number;
+
 
   // adding properties and methods that will be used by the igxDatePicker
 
@@ -133,6 +136,7 @@ export class InspectionCreateComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
+
 
     this.inspectionService
       .getTemplateName(this.employeekey, this.OrganizationID)

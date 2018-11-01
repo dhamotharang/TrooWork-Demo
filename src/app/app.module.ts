@@ -158,6 +158,8 @@ import { ViewEmployeeAdminComponent } from './control-and-view/admin/view-employ
 import { EditEmployeeDetailsAdminComponent } from './control-and-view/admin/edit-employee-details-admin/edit-employee-details-admin.component';
 
 import { ViewBatchWorkorderComponent } from './control-and-view/manager/work-order/view-batch-workorder/view-batch-workorder.component';
+import { SetUsnamepaswdbySAComponent } from './control-and-view/superadmin/people/set-usnamepaswdby-sa/set-usnamepaswdby-sa.component';
+
 import { EditBatchWorkorderComponent } from './control-and-view/manager/work-order/edit-batch-workorder/edit-batch-workorder.component';
 import { WorkOrderTypeComponent } from './control-and-view/manager/work-order/work-order-type/work-order-type.component';
 import { EditWorkorderTypeComponent } from './control-and-view/manager/work-order/edit-workorder-type/edit-workorder-type.component';
@@ -292,6 +294,7 @@ import { CreateWorkorderTypeComponent } from './control-and-view/manager/work-or
     EditEmployeeDetailsAdminComponent,
     CreateBatchWorkorderComponent,
     ViewBatchWorkorderComponent,
+    SetUsnamepaswdbySAComponent,
     EditBatchWorkorderComponent,
     WorkOrderTypeComponent,
     EditWorkorderTypeComponent,

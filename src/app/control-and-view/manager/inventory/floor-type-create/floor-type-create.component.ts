@@ -24,7 +24,10 @@ export class FloorTypeCreateComponent implements OnInit {
           alert("Floor Type already present");
         }
         else if (data.length == 0) {
-          this.inventoryServ.addNewFloorType(FloorTypeName).subscribe(res => this.router.navigateByUrl('/FloorTypeView'));
+          this.inventoryServ.addNewFloorType(FloorTypeName).subscribe(res =>{
+            alert("FloorType created successfully");
+             this.router.navigateByUrl('/FloorTypeView');
+            });
         }
       });
     }

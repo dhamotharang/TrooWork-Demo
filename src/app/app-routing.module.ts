@@ -126,7 +126,7 @@ import { BatchScheduleRoomComponent } from './control-and-view/manager/schedulin
 import { CreateWorkOrderComponent } from './control-and-view/supervisor/create-work-order/create-work-order.component';
 import { CreateQuickWorkOrderComponent } from './control-and-view/supervisor/create-quick-work-order/create-quick-work-order.component';
 import { ViewWorkOrderComponent } from './control-and-view/supervisor/view-work-order/view-work-order.component';
-
+import { SetUsnamepaswdbySAComponent } from './control-and-view/superadmin/people/set-usnamepaswdby-sa/set-usnamepaswdby-sa.component';
 import { CreateDepartmentComponent } from './control-and-view/admin/create-department/create-department.component';
 import { EditDepartmentComponent } from './control-and-view/admin/edit-department/edit-department.component';
 import { ViewDepartmentComponent } from './control-and-view/admin/view-department/view-department.component';
@@ -644,6 +644,10 @@ const routes: Routes = [
   {
     path: 'ViewBatchWorkorder',
     component: ViewBatchWorkorderComponent
+  },
+  {
+    path:'SetUsnamepaswdbySA/:EmployeeKey/:str/:UserRoleTypeKey',
+    component:SetUsnamepaswdbySAComponent
   },
   {
     path: 'WorkOrderType',
