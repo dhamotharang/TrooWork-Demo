@@ -9,6 +9,8 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ['./inspection-view.component.scss']
 })
 export class InspectionViewComponent implements OnInit {
+
+  loading: boolean;// loading
   inspectionordertable: Inspection[];
   searchform: FormGroup;
   fromdate: Date;
@@ -67,6 +69,7 @@ export class InspectionViewComponent implements OnInit {
 
 
   filteringInspectionManagerByDate() {
+    // this.loading = true;// loading
     if (!this.fromdate) {
       var date1 = this.convert_DT(new Date());
     }
@@ -82,14 +85,15 @@ export class InspectionViewComponent implements OnInit {
     this.inspectionService
       .getInspectionOrderTablewithFromDateOnly(date1, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.inspectionordertable = data;
+        // this.loading = false;// loading
       });
     this.inspectionService
       .getInspectionOrderTablewithFromDateandToDateFilter(date1, date2, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
         // debugger;
         this.inspectionordertable = data;
+        // this.loading = false;// loading
       });
 
   }
@@ -115,9 +119,21 @@ export class InspectionViewComponent implements OnInit {
 
         });
     }
+    else if (SearchValue.length == 0) {
+      var curr_date = this.convert_DT(new Date());
+      this.inspectionService
+      .getInspectionOrderTablewithFromCurrentDateFilter(curr_date, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
+      .subscribe((data: Inspection[]) => {
+        // debugger;
+        this.inspectionordertable = data;
+        // this.loading = false;// loading
+      });
+    }
   }
   ngOnInit() {
+
     //token starts....
+
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -128,12 +144,16 @@ export class InspectionViewComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     //token ends
+    // this.loading = true;// loading
+    this.fromdate = new Date();
     var curr_date = this.convert_DT(new Date());
+
     this.inspectionService
       .getInspectionOrderTablewithFromCurrentDateFilter(curr_date, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
         // debugger;
         this.inspectionordertable = data;
+        // this.loading = false;// loading
       });
     this.searchform = this.formBuilder.group({
       SearchTL: ['', Validators.required]
