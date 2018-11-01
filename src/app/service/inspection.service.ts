@@ -6,10 +6,10 @@ import { HttpClient } from '@angular/common/http';
 export class InspectionService {
 
   constructor(private http: HttpClient) { }
-  getTemplateName(empKey, orgID) {
+  getTemplateName(empkey, orgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getTemplates?employeekey=' + empKey + '&OrganizationID=' + orgID);
+      .get('http://localhost:3000/api/getTemplates?employeekey=' + empkey + '&OrganizationID=' + orgID);
   }
   getAuditorName(empKey, orgID) {
     return this

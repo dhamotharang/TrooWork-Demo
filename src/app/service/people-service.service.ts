@@ -18,7 +18,7 @@ export class PeopleServiceService {
   getLoginDetailsByEmpKey(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getLoginDetailsByID?employeekey=' + empKey + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/getLoginDetailsByID?employeekey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
@@ -37,123 +37,123 @@ export class PeopleServiceService {
   }
 
 
-  getJobTitleList() {
+  getJobTitleList(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/selectJobtitle?empkey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/selectJobtitle?empkey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
-  getallEmployeesList() {
+  getallEmployeesList(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/allemployees?empkey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/allemployees?empkey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
-  gettodaysMeeting(today) {
+  gettodaysMeeting(today, empKey, OrgID) {
     debugger;
     return this
       .http
-      .get('http://localhost:3000/api/gettodaysMeeting?ondate=' + today + '&employeekey=' + 2861 + '&pageno=' + 1 + '&itemsPerPage=' + 1000 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/gettodaysMeeting?ondate=' + today + '&employeekey=' + empKey + '&pageno=' + 1 + '&itemsPerPage=' + 1000 + '&OrganizationID=' + OrgID);
 
   }
 
-  viewMtngTrainingbyFilter(fromDate, toDate, JobList, EmpList) {
+  viewMtngTrainingbyFilter(fromDate, toDate, JobList, EmpList, empKey, OrgID) {
 
     const uri = "http://localhost:3000/api/viewMeettingTrainingByAllFilter";
     const obj = {
-      empKey: 2861,
+      empKey: empKey,
       search_DT: fromDate,
       search_DT2: toDate,
       employees: EmpList,
       jobs: JobList,
-      OrganizationID: 21
+      OrganizationID: OrgID
     };
     return this.http.post(uri, obj);
   }
 
 
-  SearchmeetingTraining(fromDate, toDate, JobList, EmpList, SearchValue) {
+  SearchmeetingTraining(fromDate, toDate, JobList, EmpList, SearchValue, empKey, OrgID) {
 
     const uri = "http://localhost:3000/api/searchMeetingEventView";
     const obj = {
-      empKey: 2861,
+      empKey: empKey,
       search_DT: fromDate,
       search_DT2: toDate,
       employees: EmpList,
       jobs: JobList,
       searchMeeting: SearchValue,
-      OrganizationID: 21
+      OrganizationID: OrgID
     };
     return this.http.post(uri, obj);
   }
 
-  viewEmployeesOfEvent(eventKey) {
+  viewEmployeesOfEvent(eventKey, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/viewEmployeesOfEvent?EventKey=' + eventKey + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/viewEmployeesOfEvent?EventKey=' + eventKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
-  markAttendance(empKey, eventKey) {
+  markAttendance(empKey, eventKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/submitMarkAsAttendedTraining?EventKey=' + eventKey + '&attendedEmployees=' + empKey + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/submitMarkAsAttendedTraining?EventKey=' + eventKey + '&attendedEmployees=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
 
-  removeAttendance(empKey, eventKey) {
+  removeAttendance(empKey, eventKey, OrgID) {
 
-    const uri = "http://localhost:3000/api/unAttendedTrainingChangeStatus?EventKey=" + eventKey + "&employeekey=" + empKey + "&OrganizationID=" + 21;
+    const uri = "http://localhost:3000/api/unAttendedTrainingChangeStatus?EventKey=" + eventKey + "&employeekey=" + empKey + "&OrganizationID=" + OrgID;
     const obj = {};
     return this.http.post(uri, obj);
   }
 
 
-  DeleteMeetingTraining(eventKey) {
+  DeleteMeetingTraining(eventKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/deleteMeetingViewEmployeeDetails?EventKey=' + eventKey + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/deleteMeetingViewEmployeeDetails?EventKey=' + eventKey + '&OrganizationID=' + OrgID);
 
   }
 
 
-  getSupervisorList() {
+  getSupervisorList(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/supervisorname?employeekey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/supervisorname?employeekey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
-  getallEventList() {
+  getallEventList(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/meetingTraining?empKey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/meetingTraining?empKey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
-  getSupervisorEmployeesList(supervisorKey) {
+  getSupervisorEmployeesList(supervisorKey, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/empGetBySupervisor?SupervisorKey=' + supervisorKey + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
-
-  }
-
-  getJobtitleEmployeesList(jobTleKey) {
-    return this
-      .http
-      .get('http://localhost:3000/api/empKey_byJobtitle?jobTitle=' + jobTleKey + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/empGetBySupervisor?SupervisorKey=' + supervisorKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
-  getSupervisorJobtitleEmployeesList(jobTleKey, superVsrKey) {
+  getJobtitleEmployeesList(jobTleKey, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/empGetBySupervisorjobTitle?SupervisorKey=' + superVsrKey + '&JobTitleKey=' + jobTleKey + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/empKey_byJobtitle?jobTitle=' + jobTleKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
-  addMeetingTraining(EventType, eventHost, Venue, time1, time2, Notes, EmployeeKeyString, date1) {
+  getSupervisorJobtitleEmployeesList(jobTleKey, superVsrKey, empKey, OrgID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/empGetBySupervisorjobTitle?SupervisorKey=' + superVsrKey + '&JobTitleKey=' + jobTleKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+
+  }
+
+  addMeetingTraining(EventType, eventHost, Venue, time1, time2, Notes, EmployeeKeyString, date1, empKey, OrgID) {
 
     const uri = "http://localhost:3000/api/addMeetingTraining";
     const obj = {
@@ -165,28 +165,28 @@ export class PeopleServiceService {
       startTime: time1,
       endTime: time2,
       empKey: EmployeeKeyString,
-      employeekey: 2861,
-      OrganizationID: 21
+      employeekey: empKey,
+      OrganizationID: OrgID
     };
     return this.http.post(uri, obj);
   }
 
 
-  getMeetingTrainingDetails(eventKey, actionKey) {
+  getMeetingTrainingDetails(eventKey, actionKey, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getEditViewTrainingMeetingDetails?EventKey=' + eventKey + '&ActionKey=' + actionKey + '&EmployeeKey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/getEditViewTrainingMeetingDetails?EventKey=' + eventKey + '&ActionKey=' + actionKey + '&EmployeeKey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
-  getallEmpsSelected(eventKey, actionKey) {
+  getallEmpsSelected(eventKey, actionKey, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getselectedEmployeeByEventKey?EventKey=' + eventKey + '&ActionKey=' + actionKey + '&EmployeeKey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/getselectedEmployeeByEventKey?EventKey=' + eventKey + '&ActionKey=' + actionKey + '&EmployeeKey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
-  updateMeetingTraining(EventType, eventHost, Venue, time1, time2, Notes, EmployeeKeyString, date1, EventKey) {
+  updateMeetingTraining(EventType, eventHost, Venue, time1, time2, Notes, EmployeeKeyString, date1, EventKey, empKey, OrgID) {
 
     const uri = "http://localhost:3000/api/updateEditMeetingDetails";
     const obj = {
@@ -198,8 +198,8 @@ export class PeopleServiceService {
       startTime: time1,
       endTime: time2,
       empKey: EmployeeKeyString,
-      employeekey: 2861,
-      OrganizationID: 21,
+      employeekey: empKey,
+      OrganizationID: OrgID,
       // actionTypeKey: EventType,
       eventKey: EventKey
 
@@ -207,54 +207,54 @@ export class PeopleServiceService {
     return this.http.post(uri, obj);
   }
 
-  getEventTypeList() {
+  getEventTypeList(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getAllDefaultEvents?pageno=' + 1 + '&itemsPerPage=' + 1000 + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/getAllDefaultEvents?pageno=' + 1 + '&itemsPerPage=' + 1000 + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
-  DeleteEventType(actionKey, actionTypeKey) {
-    const uri = "http://localhost:3000/api/deleteDefaultEventDetails?ActionKey" + actionKey + "&ActionTypeKey=" + actionTypeKey + "&OrganizationID=" + 21;
+  DeleteEventType(actionKey, actionTypeKey, OrgID) {
+    const uri = "http://localhost:3000/api/deleteDefaultEventDetails?ActionKey" + actionKey + "&ActionTypeKey=" + actionTypeKey + "&OrganizationID=" + OrgID;
     const obj = {};
     return this.http.post(uri, obj);
 
   }
 
-  getEventTypeDetails(actionKey, actionTypeKey) {
+  getEventTypeDetails(actionKey, actionTypeKey, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getDefaultEventDetailsForEdit?actionKey=' + actionKey + '&actiontypeKey=' + actionTypeKey + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/getDefaultEventDetailsForEdit?actionKey=' + actionKey + '&actiontypeKey=' + actionTypeKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
-  UpdateEventType(type, name, desc, actionKey, actionTypeKey) {
-    const uri = "http://localhost:3000/api/submitDefaultEventDetails?ActionType=" + type + "&Action=" + name + "&Description=" + desc + "&ActionKey=" + actionKey + "&ActionTypeKey=" + actionTypeKey + "&employeekey=" + 2861 + "&OrganizationID=" + 21;
+  UpdateEventType(type, name, desc, actionKey, actionTypeKey, empKey, OrgID) {
+    const uri = "http://localhost:3000/api/submitDefaultEventDetails?ActionType=" + type + "&Action=" + name + "&Description=" + desc + "&ActionKey=" + actionKey + "&ActionTypeKey=" + actionTypeKey + "&employeekey=" + empKey + "&OrganizationID=" + OrgID;
     const obj = {};
     return this.http.post(uri, obj);
 
   }
   // ****@Pooja's Code Starts here****
 
-  getUserRoleType() {
+  getUserRoleType(OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getAllUserRoleType_Admin?OrganizationID=' + 21);
+      .get('http://localhost:3000/api/getAllUserRoleType_Admin?OrganizationID=' + OrgID);
   }
-  getJobTitle() {
+  getJobTitle(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/selectJobtitle?empkey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/selectJobtitle?empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
-  getSuperVisor() {
+  getSuperVisor(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/supervisorname?employeekey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/supervisorname?employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
-  getDepartment() {
+  getDepartment(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/department?empkey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/department?empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
-  createEmployeebyManager(EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, theCheckbox, JobTitleKey, SupervisorKey, DepartmentKey) {
+  createEmployeebyManager(EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, theCheckbox, JobTitleKey, SupervisorKey, DepartmentKey, empKey, OrgID) {
     const uri = "http://localhost:3000/api/addemp";
     const obj = {
       employeenumber: EmployeeNumber,
@@ -278,8 +278,8 @@ export class PeopleServiceService {
       jobTitleKey: JobTitleKey,
       supervisorKey: SupervisorKey,
       departmentKey: DepartmentKey,
-      metaupdatedBy: 2861,
-      OrganizationID: 21
+      metaupdatedBy: empKey,
+      OrganizationID: OrgID
     };
     return this.http.post(uri, obj);
   }
@@ -288,15 +288,15 @@ export class PeopleServiceService {
       .http
       .get('http://localhost:3000/api/getAllEmployees?pagenumber=' + 1 + '&itemsPerPage=' + 25 + '&empkey=' + empkey + '&OrganizationID=' + org);
   }
-  getAllEmployeeDetailswithjobtitledropdown(seljobtitlevalue) {
+  getAllEmployeeDetailswithjobtitledropdown(seljobtitlevalue, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/searchEmpByJobTitle?jobtitleString=' + seljobtitlevalue + '&empkey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/searchEmpByJobTitle?jobtitleString=' + seljobtitlevalue + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
-  searchResultOfEmployeedetailsTable(SearchValue) {
+  searchResultOfEmployeedetailsTable(SearchValue, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/searchEmployeeOnTable?searchEmployee=' + SearchValue + '&pageno=' + 1 + '&itemsPerPage=' + 25 + '&employeekey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/searchEmployeeOnTable?searchEmployee=' + SearchValue + '&pageno=' + 1 + '&itemsPerPage=' + 25 + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   UpdateEmployeeDetailsbyManager(mankey, empk, orgid, EmployeeNumber, userRoleTypeKey, FirstName, LastName, MiddleName, BirthDate, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HireDate, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey) {
     const uri = "http://localhost:3000/api/update_employee_info";
@@ -331,25 +331,25 @@ export class PeopleServiceService {
 
 
   }
-  getEmployeeStatusListforDropdown() {
+  getEmployeeStatusListforDropdown(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getEmployeeStatus?employeekey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/getEmployeeStatus?employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
-  getJobTitleListforDropdown() {
+  getJobTitleListforDropdown(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/selectJobtitle?empkey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/selectJobtitle?empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
-  getDeptListforDropdown() {
+  getDeptListforDropdown(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/department?empkey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/department?empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
-  getSupervisorListforDropdown() {
+  getSupervisorListforDropdown(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/supervisorname?employeekey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/supervisorname?employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   EditEmployeeDetailsbyManager(empk, orgid) {
@@ -359,34 +359,34 @@ export class PeopleServiceService {
   }
   // ****@Pooja's Code Ends here****
 
-  getJobtitleView() {
+  getJobtitleView(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/addNewJobTitle?empkey=' + 2861 + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/addNewJobTitle?empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
-  searchJobtitle(SearchJobTitle) {
+  searchJobtitle(SearchJobTitle, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/searchjobTitle?OrganizationID=' + 21 + '&searchJobTitle=' + SearchJobTitle);
+      .get('http://localhost:3000/api/searchjobTitle?OrganizationID=' + OrgID + '&searchJobTitle=' + SearchJobTitle);
   }
-  addJobtitle(jobtitleName, jobTitleDescription) {
+  addJobtitle(jobtitleName, jobTitleDescription, empKey, OrgID) {
     const uri = "http://localhost:3000/api/addJobTitleNew";
     const obj = {
       JobTitle: jobtitleName,
       JobTitleDescription: jobTitleDescription,
-      empkey: 2861,
-      OrganizationID: 21
+      empkey: empKey,
+      OrganizationID: OrgID
     };
     return this.http.post(uri, obj);
 
   }
-  getEditJobtitleDetails(JobTitleKey) {
+  getEditJobtitleDetails(JobTitleKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/editviewJobTitle?JobTitleKey=' + JobTitleKey + '&OrganizationID=' + 21);
+      .get('http://localhost:3000/api/editviewJobTitle?JobTitleKey=' + JobTitleKey + '&OrganizationID=' + OrgID);
   }
   // ****@Pooja's Code Starts here****
-  createEmployeebySuperAdmin(OrgID, EmployeeNumber,ManagerKey, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, theCheckbox, JobTitleKey, DepartmentKey) {
+  createEmployeebySuperAdmin(OrgID, EmployeeNumber, ManagerKey, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, theCheckbox, JobTitleKey, DepartmentKey, empKey) {
     const url = "http://localhost:3000/api/addemp";
     const obj = {
       employeenumber: EmployeeNumber,
@@ -409,7 +409,7 @@ export class PeopleServiceService {
       isSupervisor: theCheckbox,
       jobTitleKey: JobTitleKey,
       departmentKey: DepartmentKey,
-      metaupdatedBy: 2861,
+      metaupdatedBy: empKey,
       OrganizationID: OrgID
     };
     return this
@@ -535,23 +535,23 @@ export class PeopleServiceService {
       .get('http://localhost:3000/api/getLoginDetailsForAllUsers?pageno=' + 1 + '&itemsperpage=' + 25 + '&employeekey=' + empKey + '&OrganizationID=' + orgid);
   }
   // ****@Pooja's Code Ends here****
-  updateEditJobtitle(JobTitle_Key, jobtitleName, jobTitleDescription) {
+  updateEditJobtitle(JobTitle_Key, jobtitleName, jobTitleDescription, empKey, OrgID) {
 
     const uri = "http://localhost:3000/api/updateSelectedJobTitle";
     const obj = {
       JobTitleKey: JobTitle_Key,
       JobTitle: jobtitleName,
       JobTitleDescription: jobTitleDescription,
-      empkey: 2861,
-      OrganizationID: 21
+      empkey: empKey,
+      OrganizationID: OrgID
     };
     return this.http.post(uri, obj);
   }
-  deleteJobTitle(deleteJobtitleKey) {
+  deleteJobTitle(deleteJobtitleKey, OrgID) {
     const uri = "http://localhost:3000/api/deleteJobTitleSelected";
     const obj = {
       JobTitleKey: deleteJobtitleKey,
-      OrganizationID: 21
+      OrganizationID: OrgID
     };
     return this.http.post(uri, obj);
   }

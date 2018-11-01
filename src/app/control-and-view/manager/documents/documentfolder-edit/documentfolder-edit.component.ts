@@ -8,28 +8,52 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ['./documentfolder-edit.component.scss']
 })
 export class DocumentfolderEditComponent implements OnInit {
-  orgID: number;
-  empkey: number;
   folder;
   folder$: Object;
-  // folder.FormType:any;
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
 
   constructor(private route: ActivatedRoute, private documentService: DocumentserviceService, private router: Router) {
     this.route.params.subscribe(params => this.folder$ = params.FormtypeId);
   }
 
   updateFolderName() {
-    this.orgID = 21;
-    this.empkey = 2861;
-    // console.log(this.folder$);
-    // console.log(this.folder.FormType);
-    this.documentService.UpdateDocumentFolderName(this.folder$, this.folder.FormType, this.empkey, this.orgID).subscribe(res => console.log('Done'));
+    this.documentService.UpdateDocumentFolderName(this.folder$, this.folder.FormType, this.employeekey, this.OrganizationID).subscribe(res => console.log('Done'));
   }
 
   ngOnInit() {
-    debugger;
-    this.orgID = 21;
-    this.documentService.EditDocFolderName(this.folder$, this.orgID).subscribe((data: any[]) => {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
+    this.documentService.EditDocFolderName(this.folder$, this.OrganizationID).subscribe((data: any[]) => {
       this.folder = data[0]
     });
   }

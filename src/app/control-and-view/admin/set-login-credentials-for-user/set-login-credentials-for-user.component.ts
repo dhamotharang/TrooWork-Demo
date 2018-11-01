@@ -14,7 +14,6 @@ export class SetLoginCredentialsForUserComponent implements OnInit {
   empKey$: Object;
   userRoleTypeKey$: Object;
   sasemail: People[];
-  orgid: Number = 21;
   password: String = 'troowork';
   reEnterPassword: String = 'troowork';
   username: any;

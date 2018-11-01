@@ -10,35 +10,63 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ['./create-workorder-type.component.scss']
 })
 export class CreateWorkorderTypeComponent implements OnInit {
-  emp_key;
-  org_id;
   add_WOT;
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+
   constructor(private formBuilder: FormBuilder, private WorkOrderServiceService: WorkOrderServiceService, private el: ElementRef) { }
 
   ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
   }
   addWOT(WorkOrderTypeName) {
-    this.org_id = 21;
-    this.emp_key = 2861;
-    this.add_WOT={
+    this.add_WOT = {
       WorkorderTypeName: WorkOrderTypeName,
       RoomTypeKey: null,
       Frequency: null,
       Repeatable: true,
       WorkorderTime: null,
-      OrganizationID: this.org_id,
-      empkey:this.emp_key
+      OrganizationID: this.OrganizationID,
+      empkey: this.employeekey
     };
     this.WorkOrderServiceService
-    .checkforWOT(WorkOrderTypeName, this.emp_key, this.org_id)
+      .checkforWOT(WorkOrderTypeName, this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         debugger;
         if (data[0].count == 0) {
-          this.WorkOrderServiceService.createWOT( this.add_WOT)
-          .subscribe((data: any[]) => {
-          });
+          this.WorkOrderServiceService.createWOT(this.add_WOT)
+            .subscribe((data: any[]) => {
+            });
         }
       });
-   
-}
+
+  }
 }

@@ -13,6 +13,30 @@ export class EventEditComponent implements OnInit {
   actionTypeKey$: Object;
   //dept: Inventory[];
   dept: Array<any>;
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+
 
   constructor(private route: ActivatedRoute, private peopleServ: PeopleServiceService, private router: Router) {
     this.route.params.subscribe(params => this.actionKey$ = params.ActionKey);
@@ -20,13 +44,22 @@ export class EventEditComponent implements OnInit {
   }
 
   updateEventType(type, name, desc) {
-debugger;
-    this.peopleServ.UpdateEventType(type, name, desc, this.actionKey$, this.actionTypeKey$).subscribe(res => this.router.navigateByUrl('/EventView'));
+    debugger;
+    this.peopleServ.UpdateEventType(type, name, desc, this.actionKey$, this.actionTypeKey$, this.employeekey, this.OrganizationID).subscribe(res => this.router.navigateByUrl('/EventView'));
 
   }
 
   ngOnInit() {
-    this.peopleServ.getEventTypeDetails(this.actionKey$, this.actionTypeKey$).subscribe((data: Array<any>) => {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
+    this.peopleServ.getEventTypeDetails(this.actionKey$, this.actionTypeKey$, this.employeekey, this.OrganizationID).subscribe((data: Array<any>) => {
       debugger;
       this.dept = data[0];
     });

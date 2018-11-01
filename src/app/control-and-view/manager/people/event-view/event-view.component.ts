@@ -15,6 +15,30 @@ export class EventViewComponent implements OnInit {
   ActionKey: Number;
   ActionTypeKey: Number;
 
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+
   //validation starts ..... @rodney
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
@@ -46,9 +70,9 @@ export class EventViewComponent implements OnInit {
 
   deleteEventType() {
     this.peopleServ
-      .DeleteEventType(this.ActionKey, this.ActionTypeKey).subscribe(res => {
+      .DeleteEventType(this.ActionKey, this.ActionTypeKey, this.OrganizationID).subscribe(res => {
         this.peopleServ
-          .getEventTypeList()
+          .getEventTypeList(this.employeekey, this.OrganizationID)
           .subscribe((data: People[]) => {
             this.eventType = data;
           });
@@ -57,13 +81,22 @@ export class EventViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.searchform = this.formBuilder.group({
       SearchMeetingTraining: ['', Validators.required]
     });
 
 
     this.peopleServ
-      .getEventTypeList()
+      .getEventTypeList(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.eventType = data;
       });

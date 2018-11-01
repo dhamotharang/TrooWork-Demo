@@ -11,20 +11,48 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class EditWorkorderTypeComponent implements OnInit {
 
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
   WOT_Key;
   workorderTypeList: workorder[];
-  emp_key;
-  org_id;
   update_WO;
   constructor(private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, private WorkOrderServiceService: WorkOrderServiceService) {
     this.route.params.subscribe(params => this.WOT_Key = params.WorkorderTypeKey);
   }
 
   ngOnInit() {
-    this.org_id = 21;
-    this.emp_key = 2861;
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.WorkOrderServiceService
-      .Edit_WOT(this.WOT_Key, this.org_id)
+      .Edit_WOT(this.WOT_Key, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.workorderTypeList = data;
       });
@@ -37,10 +65,10 @@ export class EditWorkorderTypeComponent implements OnInit {
       Frequency: null,
       Repeatable: true,
       WorkorderTime: null,
-      OrganizationID: this.org_id
+      OrganizationID: this.OrganizationID
     };
     this.WorkOrderServiceService
-      .checkforWOT(WOTName, this.emp_key, this.org_id)
+      .checkforWOT(WOTName, this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         debugger;
         if (data[0].count == 0) {

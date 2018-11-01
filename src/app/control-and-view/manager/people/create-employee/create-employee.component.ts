@@ -35,9 +35,33 @@ export class CreateEmployeeComponent implements OnInit {
   SupervisorKey: Number;
   DepartmentKey: Number;
   temp_res;
-  
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+
   // EmpKey:Number=2861;
-  
+
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
 
@@ -54,41 +78,50 @@ export class CreateEmployeeComponent implements OnInit {
     return [date.getFullYear(), mnth, day].join("-");
   };
 
-  constructor(private route: ActivatedRoute,private PeopleServiceService: PeopleServiceService,private router: Router) { }
-  createEmployee(){
+  constructor(private route: ActivatedRoute, private PeopleServiceService: PeopleServiceService, private router: Router) { }
+  createEmployee() {
     // debugger;
     var BD = this.convert_DT(this.BirthDate);
     var HD = this.convert_DT(this.HireDate);
     var str = "";
-    str = this.FirstName +''+this.LastName;
-    this.PeopleServiceService.createEmployeebyManager(this.EmployeeNumber,this.UserRoleTypeKey,this.FirstName,this.LastName,this.MiddleName,BD,this.Gender,this.AddressLine1,this.City,this.AddressLine2,this.State,this.Country,this.PrimaryPhone,this.ZipCode,this.AlternatePhone,this.EmailID,HD,this.theCheckbox,this.JobTitleKey,this.SupervisorKey,this.DepartmentKey).subscribe((data22:any[]) => {
-  //  debugger;
-      this.temp_res=data22;
-      var empKey=this.temp_res.EmployeeKey;
-      this.router.navigate(['/Settingusernameandpswrdaftremplcreatebyman',empKey,str,this.UserRoleTypeKey]);
+    str = this.FirstName + '' + this.LastName;
+    this.PeopleServiceService.createEmployeebyManager(this.EmployeeNumber, this.UserRoleTypeKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.theCheckbox, this.JobTitleKey, this.SupervisorKey, this.DepartmentKey, this.employeekey, this.OrganizationID).subscribe((data22: any[]) => {
+      //  debugger;
+      this.temp_res = data22;
+      var empKey = this.temp_res.EmployeeKey;
+      this.router.navigate(['/Settingusernameandpswrdaftremplcreatebyman', empKey, str, this.UserRoleTypeKey]);
     });
   }
   ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.PeopleServiceService
-      .getUserRoleType()
+      .getUserRoleType(this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.useroletype = data;
       });
     this.PeopleServiceService
-      .getJobTitle()
+      .getJobTitle(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.jobtitle = data;
       });
     this.PeopleServiceService
-      .getSuperVisor()
+      .getSuperVisor(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.supervisor = data;
       });
     this.PeopleServiceService
-      .getDepartment()
+      .getDepartment(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.department = data;

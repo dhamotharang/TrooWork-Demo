@@ -9,12 +9,36 @@ import { ExcelserviceService } from '../../../../service/excelservice.service';
   styleUrls: ['./inspection-report.component.scss']
 })
 export class InspectionReportComponent implements OnInit {
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+
   public convert_DT(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
       day = ("0" + date.getDate()).slice(-2);
     return [date.getFullYear(), mnth, day].join("-");
-
   }
 
   // adding properties and methods that will be used by the igxDatePicker
@@ -40,7 +64,6 @@ export class InspectionReportComponent implements OnInit {
   }
   //export to excel 
   exportToExcel(): void {
-    // debugger;
     for (var i = 0; i < this.viewinspectionReport.length; i++) {
       var temp_name = (this.viewinspectionReport[i].TemplateName);
       var ins_date = (this.viewinspectionReport[i].InspectionDate);
@@ -61,8 +84,19 @@ export class InspectionReportComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
+
     this.ReportServiceService
-      .getallsupervisor()
+      .getallsupervisor(this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.supervisoroptions = data;
       });
@@ -83,7 +117,7 @@ export class InspectionReportComponent implements OnInit {
     else {
       todate = this.convert_DT(to_date);
     }
-    
+
     if (todate && fromdate > todate) {
       todate = null;
       alert("Please check your Start Date!");
@@ -91,16 +125,15 @@ export class InspectionReportComponent implements OnInit {
     }
     if (SupervisorKey == undefined) {
       this.ReportServiceService
-        .getinspectionreport_bydate(fromdate, todate)
+        .getinspectionreport_bydate(fromdate, todate, this.employeekey, this.OrganizationID)
         .subscribe((data: Reports[]) => {
           this.viewinspectionReport = data;
         });
     }
     else {
       this.ReportServiceService
-        .getinspectionreport(fromdate, todate, SupervisorKey)
+        .getinspectionreport(fromdate, todate, SupervisorKey, this.OrganizationID)
         .subscribe((data: Reports[]) => {
-          // debugger;
           this.viewinspectionReport = data;
         });
     }

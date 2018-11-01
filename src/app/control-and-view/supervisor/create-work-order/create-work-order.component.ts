@@ -20,8 +20,6 @@ export class CreateWorkOrderComponent implements OnInit {
   priorityList: workorder[];
   EquipmentList: workorder[];
   EquipmentTypeList: workorder[];
-  emp_key: number;
-  org_id: number;
   marked = false;
   FacilityKey: number;
   FloorKey: number;
@@ -107,6 +105,29 @@ export class CreateWorkOrderComponent implements OnInit {
 
   }
 
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
   private dayFormatter = new Intl.DateTimeFormat('en', { weekday: 'long' });
@@ -119,32 +140,39 @@ export class CreateWorkOrderComponent implements OnInit {
   constructor(private router: Router, private WorkOrderServiceService: WorkOrderServiceService) { }
 
   ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.weeklyrecurring = false;
     this.monthlyrecurring = false;
     this.dailyrecurring = false;
     this.monthlyreccradio1 = false;
     this.monthlyreccradio2 = false;
-    this.emp_key = 2861;
-    this.org_id = 21;
     this.WorkOrderServiceService
-      .getallFacility(this.emp_key, this.org_id)
+      .getallFacility(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.facilitylist = data;
       });
     this.WorkOrderServiceService
-      .getallworkorderType(this.emp_key, this.org_id)
+      .getallworkorderType(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         var newArray = data.slice(0); //clone the array, or you'll end up with a new "None" option added to your "values" array on every digest cycle.
         newArray.unshift({ WorkorderTypeText: "Create New", WorkorderTypeKey: "-99" });
         this.workorderTypeList = newArray;
       });
     this.WorkOrderServiceService
-      .getallPriority(this.org_id)
+      .getallPriority(this.OrganizationID)
       .subscribe((data: any[]) => {
         this.priorityList = data;
       });
     this.WorkOrderServiceService
-      .getallEmployee(this.emp_key, this.org_id)
+      .getallEmployee(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.EmployeeOption = data;
       });
@@ -211,7 +239,7 @@ export class CreateWorkOrderComponent implements OnInit {
   }
   getEquiment(floor_key, facility_key) {
     this.WorkOrderServiceService
-      .getallEquipment(facility_key, floor_key, this.org_id)
+      .getallEquipment(facility_key, floor_key, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.EquipmentTypeList = data;
         this.EquipmentList = data;
@@ -220,50 +248,50 @@ export class CreateWorkOrderComponent implements OnInit {
   getFloorDisp(facilityName) {
     debugger;
     this.WorkOrderServiceService
-      .getallFloor(facilityName, this.org_id)
+      .getallFloor(facilityName, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.FloorList = data;
       });
   }
   getZoneRoomTypeRoom(floor, facility) {
     this.WorkOrderServiceService
-      .getzone_facilityfloor(floor, facility, this.org_id)
+      .getzone_facilityfloor(floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.zonelist = data;
       });
     this.WorkOrderServiceService
-      .getroomType_facilityfloor(floor, facility, this.org_id)
+      .getroomType_facilityfloor(floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.RoomTypeList = data;
       });
     this.WorkOrderServiceService
-      .getRoom_facilityfloor(floor, facility, this.org_id)
+      .getRoom_facilityfloor(floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
   }
   getRoomTypeRoom(zone, facility, floor) {
     this.WorkOrderServiceService
-      .getRoomtype_zone_facilityfloor(zone, floor, facility, this.org_id)
+      .getRoomtype_zone_facilityfloor(zone, floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.RoomTypeList = data;
       });
     this.WorkOrderServiceService
-      .getRoom_zone_facilityfloor(zone, floor, facility, this.org_id)
+      .getRoom_zone_facilityfloor(zone, floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
   }
   getRoom(roomtype, zone, facility, floor) {
     this.WorkOrderServiceService
-      .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.org_id)
+      .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
   }
   showEquipment_typechange(equip_type, facility, floor) {
     this.WorkOrderServiceService
-      .getEquipment_typechange(equip_type, facility, floor, this.org_id)
+      .getEquipment_typechange(equip_type, facility, floor, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.EquipmentList = data;
       });
@@ -385,9 +413,9 @@ export class CreateWorkOrderComponent implements OnInit {
       this.eqp_key = - 1;
     }
     if (this.EmployeeKey) {
-      this.emp_key = this.EmployeeKey;
+      this.employeekey = this.EmployeeKey;
     } else {
-      this.emp_key = - 1;
+      this.employeekey = - 1;
     }
     if (this.ZoneKey) {
       this.zone = this.ZoneKey;
@@ -529,13 +557,13 @@ export class CreateWorkOrderComponent implements OnInit {
     if (this.newType == true) {
       if (this.newworkordertypetext) {
         this.WorkOrderServiceService
-          .checkforcheckForWorkOrderType(this.newworkordertypetext, this.emp_key, this.org_id)
+          .checkforcheckForWorkOrderType(this.newworkordertypetext, this.employeekey, this.OrganizationID)
           .subscribe((data: any[]) => {
             if (data[0].count == 0) {
               this.addWOT = {
                 WorkorderType: this.newworkordertypetext,
-                employeekey: this.emp_key,
-                OrganizationID: this.org_id
+                employeekey: this.employeekey,
+                OrganizationID: this.OrganizationID
               };
               this.WorkOrderServiceService
                 .AddnewWOT(this.addWOT)
@@ -558,7 +586,7 @@ export class CreateWorkOrderComponent implements OnInit {
       floorkeys: floorString,
       zonekeys: zoneString,
       roomtypekeys: roomtypeString,
-      employeekey: this.emp_key,
+      employeekey: this.employeekey,
       priority: this.priority,
       fromdate: this.startDT,
       todate: this.endDT,
@@ -677,9 +705,9 @@ export class CreateWorkOrderComponent implements OnInit {
       }
     }
     if (this.EmployeeKey) {
-      this.emp_key = this.EmployeeKey;
+      this.employeekey = this.EmployeeKey;
     } else {
-      this.emp_key = - 1;
+      this.employeekey = - 1;
     }
     if (this.ZoneKey) {
       this.zone = this.ZoneKey;
@@ -805,13 +833,13 @@ export class CreateWorkOrderComponent implements OnInit {
     if (this.newType == true) {
       if (this.newworkordertypetext) {
         this.WorkOrderServiceService
-          .checkforcheckForWorkOrderType(this.newworkordertypetext, this.emp_key, this.org_id)
+          .checkforcheckForWorkOrderType(this.newworkordertypetext, this.employeekey, this.OrganizationID)
           .subscribe((data: any[]) => {
             if (data[0].count == 0) {
               this.addWOT = {
                 WorkorderType: this.newworkordertypetext,
-                employeekey: this.emp_key,
-                OrganizationID: this.org_id
+                employeekey: this.employeekey,
+                OrganizationID: this.OrganizationID
               };
               this.WorkOrderServiceService
                 .AddnewWOT(this.addWOT)
@@ -834,7 +862,7 @@ export class CreateWorkOrderComponent implements OnInit {
       floorkeys: floorString,
       zonekeys: zoneString,
       roomtypekeys: roomtypeString,
-      employeekey: this.emp_key,
+      employeekey: this.employeekey,
       priority: this.priority,
       fromdate: this.startDT,
       todate: this.endDT,

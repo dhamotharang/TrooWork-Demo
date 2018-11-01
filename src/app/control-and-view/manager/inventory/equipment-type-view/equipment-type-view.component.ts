@@ -13,7 +13,8 @@ export class EquipmentTypeViewComponent implements OnInit {
   equipmentType: Inventory[];
   delete_EquipTypeKey: number;
   searchform: FormGroup;
-
+  pageNo: Number = 1;
+  itemsPerPage: Number = 25;
   role: String;
   name: String;
   employeekey: Number;
@@ -68,7 +69,7 @@ export class EquipmentTypeViewComponent implements OnInit {
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
-        .getEquipmentTypeList(this.employeekey, this.OrganizationID)
+        .getEquipmentTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.equipmentType = data;
         });
@@ -83,7 +84,7 @@ export class EquipmentTypeViewComponent implements OnInit {
     this.inventoryService
       .DeleteEquipmentType(this.delete_EquipTypeKey, this.employeekey, this.OrganizationID).subscribe(() => {
         this.inventoryService
-          .getEquipmentTypeList(this.employeekey, this.OrganizationID)
+          .getEquipmentTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.equipmentType = data;
           });
@@ -101,7 +102,7 @@ export class EquipmentTypeViewComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.inventoryService
-      .getEquipmentTypeList(this.employeekey, this.OrganizationID)
+      .getEquipmentTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.equipmentType = data;
       });

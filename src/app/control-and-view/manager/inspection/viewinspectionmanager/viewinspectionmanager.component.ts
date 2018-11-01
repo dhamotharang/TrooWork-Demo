@@ -9,15 +9,15 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class ViewinspectionmanagerComponent implements OnInit {
 
-  inspectioneddetails:Inspection[];
-  ioKey$ :object;
+  inspectioneddetails: Inspection[];
+  ioKey$: object;
   role: String;
   name: String;
   IsSupervisor: Number;
   OrgId: Number;
   emp_key: Number;
 
-  constructor(private route: ActivatedRoute,private router: Router,private inspectionService: InspectionService) { 
+  constructor(private route: ActivatedRoute, private router: Router, private inspectionService: InspectionService) {
     this.route.params.subscribe(params => this.ioKey$ = params.InspectionOrderKey);
   }
   url_base64_decode(str) {
@@ -41,14 +41,14 @@ export class ViewinspectionmanagerComponent implements OnInit {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-     this.role = profile.role;
-     this.IsSupervisor = profile.IsSupervisor;
-     this.name = profile.username;
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
     this.emp_key = profile.employeekey;
     this.OrgId = profile.OrganizationID;
-    
+
     this.inspectionService
-      .getViewInspectionManager(this.ioKey$,this.OrgId)
+      .getViewInspectionManager(this.ioKey$, this.OrgId)
       .subscribe((data: Inspection[]) => {
         // debugger;
         this.inspectioneddetails = data;

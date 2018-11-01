@@ -13,7 +13,8 @@ export class ViewDepartmentComponent implements OnInit {
   departments: Inventory[];
   delete_DeptKey: number;
   searchform: FormGroup;
-
+  pageNo: Number = 1;
+  itemsPerPage: Number = 25;
   role: String;
   name: String;
   employeekey: Number;
@@ -68,7 +69,7 @@ export class ViewDepartmentComponent implements OnInit {
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
-        .getDepartmentList(this.employeekey, this.OrganizationID)
+        .getDepartmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.departments = data;
         });
@@ -83,7 +84,7 @@ export class ViewDepartmentComponent implements OnInit {
     this.inventoryService
       .DeleteDepartment(this.delete_DeptKey, this.OrganizationID).subscribe(() => {
         this.inventoryService
-          .getDepartmentList(this.employeekey, this.OrganizationID)
+          .getDepartmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.departments = data;
           });
@@ -102,7 +103,7 @@ export class ViewDepartmentComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.inventoryService
-      .getDepartmentList(this.employeekey, this.OrganizationID)
+      .getDepartmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.departments = data;
       });

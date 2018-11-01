@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { People } from '../../../../model-class/People';
 import { PeopleServiceService } from '../../../../service/people-service.service';
-import { ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -11,14 +11,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SetUsnamepaswdbySAComponent implements OnInit {
 
-  str$:Object;
-  sasemail:People[];
-  empKey$:Object;
+  str$: Object;
+  sasemail: People[];
+  empKey$: Object;
   userRoleTypeKey$: Object;
-  orgid:Number=21;
-  password:String='troowork';
-  reEnterPassword:String='troowork';
-  username:any;
+  password: String = 'troowork';
+  reEnterPassword: String = 'troowork';
+  username: any;
   managerMail: Object;
   userMail: Object;
   role: String;
@@ -44,14 +43,13 @@ export class SetUsnamepaswdbySAComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private route: ActivatedRoute, private peopleService: PeopleServiceService, private http: HttpClient,private router: Router) 
-  {
+  constructor(private route: ActivatedRoute, private peopleService: PeopleServiceService, private http: HttpClient, private router: Router) {
     this.route.params.subscribe(params => this.empKey$ = params.EmployeeKey);
     this.route.params.subscribe(params => this.str$ = params.str);
     this.route.params.subscribe(params => this.userRoleTypeKey$ = params.UserRoleTypeKey);
-   }
+  }
 
-   setUsernamePassword(){
+  setUsernamePassword() {
     if (!this.username) {
       alert("UserName can't be empty");
     } else {
@@ -89,11 +87,10 @@ export class SetUsnamepaswdbySAComponent implements OnInit {
           }
         });
     }
-    
-   }
 
-  ngOnInit()
-  {
+  }
+
+  ngOnInit() {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -104,8 +101,8 @@ export class SetUsnamepaswdbySAComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
 
-    this.username=this.str$;
-    this.peopleService.getuserNamePasswordforsaveandSendemail(this.empKey$,this.orgid).subscribe((data: People[]) => {
+    this.username = this.str$;
+    this.peopleService.getuserNamePasswordforsaveandSendemail(this.empKey$, this.OrganizationID).subscribe((data: People[]) => {
       this.sasemail = data;
       // debugger;
     });

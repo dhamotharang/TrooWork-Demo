@@ -11,7 +11,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 export class ManageLoginsComponent implements OnInit {
   loginCreds: People[];
   pageNo: Number = 1;
-  itemsPerPage: Number = 10;
+  itemsPerPage: Number = 25;
   showHide1: boolean;
   showHide2: boolean;
   pagination: Number;

@@ -7,221 +7,197 @@ import { HttpClient } from '@angular/common/http';
 export class ReportServiceService {
 
   constructor(private http: HttpClient) { }
-   // code by sudina starts
-  getallsupervisor() {
+  // code by sudina starts
+  getallsupervisor(empKey, orgID) {
     return this
       .http
-      .get('http://localhost:3000/api/supervisorname?employeekey='+2861+'&OrganizationID='+21);
+      .get('http://localhost:3000/api/supervisorname?employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
-  getinspectionreport(fromdate,todate,SupervisorKey)
-  {
+  getinspectionreport(fromdate, todate, SupervisorKey, orgID) {
 
     return this
       .http
-      .get('http://localhost:3000/api/viewinspection_Filter?key='+SupervisorKey+'&searchDT='+fromdate+'&searchDT2='+todate+'&OrganizationID='+21);
+      .get('http://localhost:3000/api/viewinspection_Filter?key=' + SupervisorKey + '&searchDT=' + fromdate + '&searchDT2=' + todate + '&OrganizationID=' + orgID);
   }
-  getinspectionreport_bydate(fromdate,todate)
-  {
+  getinspectionreport_bydate(fromdate, todate, empKey, orgID) {
     return this
-    .http
-    .get('http://localhost:3000/api/viewinspectionReport_FilterByDates?employeekey='+2861+'&searchDT='+fromdate+'&searchDT2='+todate+'&OrganizationID='+21);
+      .http
+      .get('http://localhost:3000/api/viewinspectionReport_FilterByDates?employeekey=' + empKey + '&searchDT=' + fromdate + '&searchDT2=' + todate + '&OrganizationID=' + orgID);
   }
-  getallemployee()
-  {
+  getallemployee(empKey, orgID) {
     return this
-    .http
-    .get('http://localhost:3000/api/allemployees?employeekey='+2861+'&OrganizationID='+21);
+      .http
+      .get('http://localhost:3000/api/allemployees?employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
-  getallworkordertype()
-  {
+  getallworkordertype(empKey, orgID) {
     return this
-    .http
-    .get('http://localhost:3000/api/allWorkordertype?employeekey='+2861+'&OrganizationID='+21);
+      .http
+      .get('http://localhost:3000/api/allWorkordertype?employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
-  getpievalues(currentdate)
-  {
+  getpievalues(currentdate, empKey, orgID) {
     return this
-    .http
-    .get('http://localhost:3000/api/valuesForPie?date='+currentdate+'&empkey='+2861+'&userkey='+2861+'&OrganizationID='+21);
+      .http
+      .get('http://localhost:3000/api/valuesForPie?date=' + currentdate + '&empkey=' + empKey + '&userkey=' + empKey + '&OrganizationID=' + orgID);
   }
-  getdashboardreport(dateTemp_1,dateTemp_2,em_Key,Workorder_TypeKey)
-  {
-    const url='http://localhost:3000/api/getEmployeeForPie';
+  getdashboardreport(dateTemp_1, dateTemp_2, em_Key, Workorder_TypeKey, empKey, orgID) {
+    const url = 'http://localhost:3000/api/getEmployeeForPie';
     const obj = {
       Date: dateTemp_1,
-      Date1:dateTemp_2,
-      EmployeeKey:em_Key,
-      WorkorderTypeKey:Workorder_TypeKey,
-      managerKey: 2861,
-      OrganizationID:21
-     };
+      Date1: dateTemp_2,
+      EmployeeKey: em_Key,
+      WorkorderTypeKey: Workorder_TypeKey,
+      managerKey: empKey,
+      OrganizationID: orgID
+    };
     return this
       .http
-      .post (url,obj);
+      .post(url, obj);
   }
-  getvaluesfilterbypie(dateTemp_1,dateTemp_2,em_Key,Workorder_TypeKey,org_id,Manager)
-  {
+  getvaluesfilterbypie(dateTemp_1, dateTemp_2, em_Key, Workorder_TypeKey, org_id, Manager) {
     debugger;
-    const url='http://localhost:3000/api/workorderByfilterPie';
+    const url = 'http://localhost:3000/api/workorderByfilterPie';
     const obj = {
-      manager :Manager,
-      workorderDate:dateTemp_1,
-      workorderDate2 :dateTemp_2,
-      employeekey :em_Key,      
-      workorderTypeKey : Workorder_TypeKey,      
-       OrganizationID : org_id
+      manager: Manager,
+      workorderDate: dateTemp_1,
+      workorderDate2: dateTemp_2,
+      employeekey: em_Key,
+      workorderTypeKey: Workorder_TypeKey,
+      OrganizationID: org_id
     };
     return this
       .http
-      .post (url,obj);
+      .post(url, obj);
 
   }
-  getallbatchschedules()
-  {
-    return this
-    .http
-    .get('http://localhost:3000/api/getBatchScheduleName?empkey='+2861+'&OrganizationID='+21);
-  }
-  getbatchschedulereport(Workorder_ScheduleKey)
-  {
-    return this
-    .http
-    .get('http://localhost:3000/api/BatchSchedule_Report?WorkorderScheduleKey='+Workorder_ScheduleKey+'&OrganizationID='+21);
-  }
-  getScheduleAssignReport(Workorder_ScheduleKey)
-  {
-    return this
-    .http
-    .get('http://localhost:3000/api/viewScheduleReport?BatchScheduleNameKey='+Workorder_ScheduleKey+'&employeekey='+2861+'&OrganizationID='+21);
-  }
-   // code by sudina ends
-
-
-   // code by Anju starts
-   //Services for barcode reporting 
-   getBarcodeReport()
-   {
-     return this
-     .http
-     .get('http://localhost:3000/api/allfacility?empkey='+2861+'&OrganizationID='+21);
-   }
-
-   getEquipmentType()
-   {
-    return this
-    .http
-    .get('http://localhost:3000/api/allequiptype?employeekey='+2861+'&OrganizationID='+21);
-   }
-
-   getEquipment()
-   {
-    return this
-    .http
-    .get('http://localhost:3000/api/getallEquipments?employeekey='+2861+'&OrganizationID='+21);
-   }
-
-   getFloor(key)
-   {
-    return this
-    .http
-    .get('http://localhost:3000/api/domainvaluesByKey?domain=facilityOnly&key='+key+'&OrganizationID='+21);
-   }
-   getZone(fkey,floorkey)
-   {
-    return this
-    .http
-    .get('http://localhost:3000/api/zoneByFacility_Floor?fkey='+fkey+'&floorkey='+floorkey+'&OrganizationID='+21);
-   }
-
-   getRoom(fkey,floorkey)
-   {
-    return this
-    .http
-    .get('http://localhost:3000/api/roomtypeByFacility_Floor?fkey='+fkey+'&floorkey='+floorkey+'&OrganizationID='+21);
-     }
-
-
-     generateBarcodeReportService(FacilityKey,FloorKey,RoomTypeKey,ZoneKey)
-    {
-    const url='http://localhost:3000/api/barcodeReportByallFilters';
-    const obj = {
-      OrganizationID:21,
-      manager: 2861,
-      facilitykey:FacilityKey,
-      floorKey:FloorKey,
-      roomTypeKey:RoomTypeKey,
-      zoneKey:ZoneKey
-
-    
-     };
+  getallbatchschedules(empKey, orgID) {
     return this
       .http
-      .post (url,obj);
-
-     }
-     generateBarcodeByEqupiment(EquipmentKey,EquipmentTypeKey)
-     {
-      const url='http://localhost:3000/api/barcodeReportByEquipment';
-      const obj = {
-        OrganizationID:21,
-        employeekey: 2861,
-        EquipmentTypeKey:EquipmentTypeKey,
-        EquipmentKey:EquipmentKey
-  
-      
-       };
-      return this
-        .http
-        .post (url,obj);    
-       }
-
-       //services for workorder reporting
-       getEmployee()
-     {
-      return this
-     .http
-      .get('http://localhost:3000/api/getAllValueByDomain?domainName=employees&empkey'+2861+'&OrganizationID='+21);
-   }
-
-   getWorkstatus()
-   {
+      .get('http://localhost:3000/api/getBatchScheduleName?empkey=' + empKey + '&OrganizationID=' + orgID);
+  }
+  getbatchschedulereport(Workorder_ScheduleKey, orgID) {
     return this
-    .http
-     .get('http://localhost:3000/api/getAllValueByDomain?domainName=workstatus&empkey'+2861+'&OrganizationID='+21);
-   }
-
-   getRooms(fkey,floorkey,zonekey)
-   {
+      .http
+      .get('http://localhost:3000/api/BatchSchedule_Report?WorkorderScheduleKey=' + Workorder_ScheduleKey + '&OrganizationID=' + orgID);
+  }
+  getScheduleAssignReport(Workorder_ScheduleKey, empKey, orgID) {
     return this
-    .http
-     .get('http://localhost:3000/api/roomByFacility_Floor_zone?fkey='+fkey+'&floorkey='+floorkey+'&zonekey='+zonekey+'&OrganizationID='+21 );
-   }
+      .http
+      .get('http://localhost:3000/api/viewScheduleReport?BatchScheduleNameKey=' + Workorder_ScheduleKey + '&employeekey=' + empKey + '&OrganizationID=' + orgID);
+  }
+  // code by sudina ends
 
-   generateWorkOrderReportService(FacilityKey,FloorKey,RoomTypeKey,ZoneKey,fromdate,todate,RoomKey,EmployeeKey,WorkorderStatusKey)
-   {
-    // debugger;
-   const url='http://localhost:3000/api/workorderReportByallFilters';
-   const obj = {
-    OrganizationID:21,
-     manager: 2861,
-     workorderDate:fromdate,
-     workorderDate2:todate,
-     facilitykey:FacilityKey,
-     floorKey:FloorKey,
-     roomTypeKey:RoomTypeKey,
-     zoneKey:ZoneKey,
-     roomKey:RoomKey,
-     employeeKey:EmployeeKey,
-     workorderStatusKey:WorkorderStatusKey
 
-  
+  // code by Anju starts
+  //Services for barcode reporting 
+  getBarcodeReport(empKey, orgID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/allfacility?empkey=' + empKey + '&OrganizationID=' + orgID);
+  }
+
+  getEquipmentType(empKey, orgID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/allequiptype?employeekey=' + empKey + '&OrganizationID=' + orgID);
+  }
+
+  getEquipment(empKey, orgID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/getallEquipments?employeekey=' + empKey + '&OrganizationID=' + orgID);
+  }
+
+  getFloor(key, orgID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/domainvaluesByKey?domain=facilityOnly&key=' + key + '&OrganizationID=' + orgID);
+  }
+  getZone(fkey, floorkey, orgID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/zoneByFacility_Floor?fkey=' + fkey + '&floorkey=' + floorkey + '&OrganizationID=' + orgID);
+  }
+
+  getRoom(fkey, floorkey, orgID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/roomtypeByFacility_Floor?fkey=' + fkey + '&floorkey=' + floorkey + '&OrganizationID=' + orgID);
+  }
+
+
+  generateBarcodeReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, empKey, orgID) {
+    const url = 'http://localhost:3000/api/barcodeReportByallFilters';
+    const obj = {
+      OrganizationID: orgID,
+      manager: empKey,
+      facilitykey: FacilityKey,
+      floorKey: FloorKey,
+      roomTypeKey: RoomTypeKey,
+      zoneKey: ZoneKey
+
+
     };
-   // debugger;
-   return this
-     .http
-     .post (url,obj);
+    return this
+      .http
+      .post(url, obj);
 
-    }
+  }
+  generateBarcodeByEqupiment(EquipmentKey, EquipmentTypeKey, empKey, orgID) {
+    const url = 'http://localhost:3000/api/barcodeReportByEquipment';
+    const obj = {
+      OrganizationID: orgID,
+      employeekey: empKey,
+      EquipmentTypeKey: EquipmentTypeKey,
+      EquipmentKey: EquipmentKey
 
-   //code by Anju Ends
+
+    };
+    return this
+      .http
+      .post(url, obj);
+  }
+
+  //services for workorder reporting
+  getEmployee(empKey, orgID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/getAllValueByDomain?domainName=employees&empkey' + empKey + '&OrganizationID=' + orgID);
+  }
+
+  getWorkstatus(empKey, orgID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/getAllValueByDomain?domainName=workstatus&empkey' + empKey + '&OrganizationID=' + orgID);
+  }
+
+  getRooms(fkey, floorkey, zonekey, empKey, orgID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/roomByFacility_Floor_zone?fkey=' + fkey + '&floorkey=' + floorkey + '&zonekey=' + zonekey + '&OrganizationID=' + orgID);
+  }
+
+  generateWorkOrderReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, fromdate, todate, RoomKey, EmployeeKey, WorkorderStatusKey, empKey, orgID) {
+    const url = 'http://localhost:3000/api/workorderReportByallFilters';
+    const obj = {
+      OrganizationID: orgID,
+      manager: empKey,
+      workorderDate: fromdate,
+      workorderDate2: todate,
+      facilitykey: FacilityKey,
+      floorKey: FloorKey,
+      roomTypeKey: RoomTypeKey,
+      zoneKey: ZoneKey,
+      roomKey: RoomKey,
+      employeeKey: EmployeeKey,
+      workorderStatusKey: WorkorderStatusKey
+
+
+    };
+    return this
+      .http
+      .post(url, obj);
+
+  }
+
+  //code by Anju Ends
 }

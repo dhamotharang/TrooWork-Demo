@@ -12,8 +12,7 @@ export class ViewemployeeComponent implements OnInit {
   jobtitle: People[];
   employeedetailstable: People[];
   searchform: FormGroup;
-  orgid: Number;
-  empkey: Number;
+
   ManagerKey: Number;
   JobTitleKey: Number;
   manager: People[];
@@ -65,7 +64,7 @@ export class ViewemployeeComponent implements OnInit {
   // seljobtitlevalue,ManagerKey
   getempdettablewithselectedddvsa() {
     this.PeopleServiceService
-      .getAllEmployeeDetailswithjobtitledropdownsa(this.orgid, this.empkey, this.JobTitleKey, this.ManagerKey)
+      .getAllEmployeeDetailswithjobtitledropdownsa(this.OrganizationID, this.employeekey, this.JobTitleKey, this.ManagerKey)
       .subscribe((data: People[]) => {
         // debugger;
         this.employeedetailstable = data;
@@ -77,7 +76,7 @@ export class ViewemployeeComponent implements OnInit {
 
     if (SearchValue.length > 2) {
       this.PeopleServiceService
-        .searchResultOfEmployeedetailsTable(SearchValue)
+        .searchResultOfEmployeedetailsTable(SearchValue, this.employeekey, this.OrganizationID)
         .subscribe((data: People[]) => {
           // debugger;
           this.employeedetailstable = data;
@@ -96,17 +95,14 @@ export class ViewemployeeComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
-    this.orgid = 21;
-    this.empkey = 2751;
-
     this.PeopleServiceService
-      .getJobTitle()
+      .getJobTitle(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.jobtitle = data;
       });
     this.PeopleServiceService
-      .getvaluesForManagerDropdowninSA(this.empkey, this.orgid)
+      .getvaluesForManagerDropdowninSA(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.manager = data;

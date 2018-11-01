@@ -12,7 +12,6 @@ export class CreateemployeeComponent implements OnInit {
   jobtitle: People[];
   organization: People[];
   department: People[];
-  OrgID:number;
   EmployeeNumber: Number;
   UserRoleTypeKey;
   FirstName: String;
@@ -78,30 +77,29 @@ export class CreateemployeeComponent implements OnInit {
     }
     return window.atob(output);
   }
-  constructor(private PeopleServiceService: PeopleServiceService,private router: Router) { }
+  constructor(private PeopleServiceService: PeopleServiceService, private router: Router) { }
 
-  createEmployee(){
+  createEmployee() {
     debugger;
     var BD = this.convert_DT(this.BirthDate);
     var HD = this.convert_DT(this.HireDate);
-    
+
     var str = "";
-    str = this.FirstName +''+this.LastName;
-    this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID,this.ManagerKey,this.EmployeeNumber,this.UserRoleTypeKey,this.FirstName,this.LastName,this.MiddleName,BD,this.Gender,this.AddressLine1,this.City,this.AddressLine2,this.State,this.Country,this.PrimaryPhone,this.ZipCode,this.AlternatePhone,this.EmailID,HD,this.theCheckbox,this.JobTitleKey,this.DepartmentKey).subscribe((data22:any[]) => {
+    str = this.FirstName + '' + this.LastName;
+    this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID, this.ManagerKey, this.EmployeeNumber, this.UserRoleTypeKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.theCheckbox, this.JobTitleKey, this.DepartmentKey, this.employeekey).subscribe((data22: any[]) => {
       //  debugger;
-          this.temp_res=data22;
-          var empKey=this.temp_res.EmployeeKey;
-          this.router.navigate(['/SetUsnamepaswdbySA',empKey,str,this.UserRoleTypeKey]);
-        });
+      this.temp_res = data22;
+      var empKey = this.temp_res.EmployeeKey;
+      this.router.navigate(['/SetUsnamepaswdbySA', empKey, str, this.UserRoleTypeKey]);
+    });
   }
   ngOnInit() {
-    this.OrgID=21;
     this.OrganizationID = '';
-    this.UserRoleTypeKey='';
-    this.Gender='';
-    this.JobTitleKey='';
-    this.DepartmentKey='';
-    this.UserRoleTypeKey='';
+    this.UserRoleTypeKey = '';
+    this.Gender = '';
+    this.JobTitleKey = '';
+    this.DepartmentKey = '';
+    this.UserRoleTypeKey = '';
 
 
 
@@ -112,33 +110,33 @@ export class CreateemployeeComponent implements OnInit {
     this.IsSupervisor = profile.IsSupervisor;
     this.name = profile.username;
     this.employeekey = profile.employeekey;
-    this.OrgID = profile.OrganizationID;
+    this.OrganizationID = profile.OrganizationID;
     this.PeopleServiceService
-      .getUserRoleTypesa(this.OrgID)
+      .getUserRoleTypesa(this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.useroletypesa = data;
       });
     this.PeopleServiceService
-      .getJobTitle()
+      .getJobTitle(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.jobtitle = data;
       });
     this.PeopleServiceService
-      .getOrganization(this.OrgID)
+      .getOrganization(this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.organization = data;
       });
     this.PeopleServiceService
-      .getDepartment()
+      .getDepartment(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.department = data;
       });
-      this.PeopleServiceService
-      .getUserRoleType()
+    this.PeopleServiceService
+      .getUserRoleType(this.OrganizationID)
       .subscribe((data: any[]) => {
         this.useroletype = data;
 

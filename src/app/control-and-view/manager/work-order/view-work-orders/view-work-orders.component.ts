@@ -103,8 +103,6 @@ export class ViewWorkOrdersComponent implements OnInit {
   }
   ngOnInit() {
     this.loading = true;
-    this.emp_key = 2861;
-    this.org_id = 21;
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));

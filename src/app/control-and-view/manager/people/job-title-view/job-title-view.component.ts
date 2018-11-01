@@ -14,10 +14,34 @@ export class JobTitleViewComponent implements OnInit {
   deleteJobtitleKey: number;
   searchform: FormGroup;
 
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+
   constructor(private formBuilder: FormBuilder, private peopleServiceService: PeopleServiceService, private router: Router) { }
 
   searchJobTitle(SearchJobTitle) {
-    this.peopleServiceService.searchJobtitle(SearchJobTitle).subscribe((data: People[]) => {
+    this.peopleServiceService.searchJobtitle(SearchJobTitle, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.jobView = data;
 
     });
@@ -27,9 +51,9 @@ export class JobTitleViewComponent implements OnInit {
 
   }
   deleteJobTitle() {
-    this.peopleServiceService.deleteJobTitle(this.deleteJobtitleKey)
+    this.peopleServiceService.deleteJobTitle(this.deleteJobtitleKey, this.OrganizationID)
       .subscribe(res =>
-        this.peopleServiceService.getJobtitleView().subscribe((data: People[]) => {
+        this.peopleServiceService.getJobtitleView(this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
           this.jobView = data;
 
         })
@@ -37,7 +61,17 @@ export class JobTitleViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.peopleServiceService.getJobtitleView().subscribe((data: People[]) => {
+
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
+    this.peopleServiceService.getJobtitleView(this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.jobView = data;
 
     });

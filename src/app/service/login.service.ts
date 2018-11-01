@@ -18,10 +18,10 @@ export class LoginService {
     return this.http.post(uri, obj);
   }
 
-  getmessage() {
+  getmessage(empkey, orgID) {
     return this
       .http
-      .get(`http://localhost:3000/api/welcomeUpdateMessage?empKey=` + 2861 + '&OrganizationID=' + 21);
+      .get(`http://localhost:3000/api/welcomeUpdateMessage?empKey=` + empkey + '&OrganizationID=' + orgID);
   }
 
   getUserProfileDetails(empKey, orgID) {

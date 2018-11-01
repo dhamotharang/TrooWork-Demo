@@ -33,7 +33,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
   EquipmentKey: number;
   PriorityKey: number;
   EmployeeKey: number;
-  BatchScheduleNameKey:number;
+  BatchScheduleNameKey: number;
   timeValue: any;
   dateValue: any;
   isPhotoRequired: any;
@@ -145,15 +145,12 @@ export class CreateBatchWorkorderComponent implements OnInit {
     this.dailyrecurring = false;
     this.monthlyreccradio1 = false;
     this.monthlyreccradio2 = false;
-    // this.emp_key = 2861;
-    // this.org_id = 21;
-
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-     this.role = profile.role;
-     this.IsSupervisor = profile.IsSupervisor;
-     this.name = profile.username;
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
     this.emp_key = profile.employeekey;
     this.org_id = profile.OrganizationID;
 
@@ -306,13 +303,12 @@ export class CreateBatchWorkorderComponent implements OnInit {
       });
 
   }
-  getEmployee(schedulename)
-  {
+  getEmployee(schedulename) {
     this.WorkOrderServiceService
-    .getEmployee_scheduleNamae(schedulename, this.org_id)
-    .subscribe((data: any[]) => {
-      this.EmployeeKey = data[0].EmployeeKey;
-    });
+      .getEmployee_scheduleNamae(schedulename, this.org_id)
+      .subscribe((data: any[]) => {
+        this.EmployeeKey = data[0].EmployeeKey;
+      });
   }
   createWorkOrder() {
     if (this.showEqTypes === false) {
@@ -336,11 +332,6 @@ export class CreateBatchWorkorderComponent implements OnInit {
     var zoneList = [];
     var floorList = [];
     facilitylistObj = this.facilitylist;
-    // facilityList = [];
-    // roomList = [];
-    // roomtypeList = [];
-    // zoneList = [];
-    // floorList = [];
     floorlistObj = this.FloorList;
     zonelistObj = this.zonelist;
     roomtypelistObj = this.RoomTypeList;
@@ -453,7 +444,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
     } else {
       this.is_BarcodeRequired = 0;
     }
-     if (this.dailyrecurring == true) {
+    if (this.dailyrecurring == true) {
       this.intervaltype = 'd';
       this.isrecurring = 1;
     } else if (this.weeklyrecurring == true) {
@@ -479,17 +470,17 @@ export class CreateBatchWorkorderComponent implements OnInit {
       this.intervaltype = 'm';
       this.isrecurring = 1;
     }
-      if (this.WorkorderStartDate) {
-        this.startDT = this.convert_DT(this.WorkorderStartDate);
-      } else {
-        this.startDT = this.convert_DT(new Date());
-      }
-      if (this.WorkorderEndDate) {
-        this.endDT = this.convert_DT(this.WorkorderEndDate);
-      } else {
-        this.endDT = this.convert_DT(new Date());
-      }
-     if (this.dailyrecurring == true) {
+    if (this.WorkorderStartDate) {
+      this.startDT = this.convert_DT(this.WorkorderStartDate);
+    } else {
+      this.startDT = this.convert_DT(new Date());
+    }
+    if (this.WorkorderEndDate) {
+      this.endDT = this.convert_DT(this.WorkorderEndDate);
+    } else {
+      this.endDT = this.convert_DT(new Date());
+    }
+    if (this.dailyrecurring == true) {
       var timeset = [];
       var timeset_corr = [];
       timeset = this.timetable.times;
@@ -570,7 +561,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
 
     }
     this.workorderCreation = {
-      scheduleKey:this.BatchScheduleNameKey,
+      scheduleKey: this.BatchScheduleNameKey,
       occursontime: this.workTime,
       workorderkey: - 99,
       workordertypekey: this.wot,
@@ -612,12 +603,6 @@ export class CreateBatchWorkorderComponent implements OnInit {
     var floorList = [];
     var equList = [];
     facilitylistObj = this.facilitylist;
-    // facilityList = [];
-    // roomList = [];
-    // roomtypeList = [];
-    // zoneList = [];
-    // floorList = [];
-    // equList = [];
     floorlistObj = this.FloorList;
     zonelistObj = this.zonelist;
     roomtypelistObj = this.RoomTypeList;
@@ -734,11 +719,11 @@ export class CreateBatchWorkorderComponent implements OnInit {
     } else {
       this.is_BarcodeRequired = 0;
     }
-    
+
     if (this.dailyrecurring == true) {
       this.intervaltype = 'd';
       this.isrecurring = 1;
-    } else if ( this.weeklyrecurring == true) {
+    } else if (this.weeklyrecurring == true) {
       this.intervaltype = 'w';
       this.isrecurring = 1;
       var selectedWeekdays = [];
@@ -758,20 +743,20 @@ export class CreateBatchWorkorderComponent implements OnInit {
         selectedWeekdays.push('sa');
       this.occurs_on = selectedWeekdays.join(',');
     }
-    
-    
-      if (this.WorkorderStartDate) {
-        this.startDT = this.convert_DT(this.WorkorderStartDate);
-      } else {
-        this.startDT = this.convert_DT(new Date());
-      }
-      if (this.WorkorderEndDate) {
-        this.endDT = this.convert_DT(this.WorkorderEndDate);
-      } else {
-        this.endDT = this.convert_DT(new Date());
-      }
-    
-     if (this.dailyrecurring == true) {
+
+
+    if (this.WorkorderStartDate) {
+      this.startDT = this.convert_DT(this.WorkorderStartDate);
+    } else {
+      this.startDT = this.convert_DT(new Date());
+    }
+    if (this.WorkorderEndDate) {
+      this.endDT = this.convert_DT(this.WorkorderEndDate);
+    } else {
+      this.endDT = this.convert_DT(new Date());
+    }
+
+    if (this.dailyrecurring == true) {
       var timeset = [];
       var timeset_corr = [];
       timeset = this.timetable.times;
@@ -840,7 +825,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
 
     }
     this.workorderCreation = {
-      scheduleKey:this.BatchScheduleNameKey,
+      scheduleKey: this.BatchScheduleNameKey,
       occursontime: this.workTime,
       workorderkey: - 99,
       workordertypekey: this.wot,
