@@ -8,11 +8,37 @@ import { Documents } from '../../../../model-class/Documents';
   styleUrls: ['./documentfolder-view.component.scss']
 })
 export class DocumentfolderViewComponent implements OnInit {
+  pageNo: Number = 1;
+  itemsPerPage: Number = 25;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
 
   searchform: FormGroup;
   documents: Documents[];
-  orgID: number;
-  empkey: number;
   delete_foldKey: number;
   //validation starts ..... @Pooja
   regexStr = '^[a-zA-Z0-9_ ]*$';
@@ -38,22 +64,20 @@ export class DocumentfolderViewComponent implements OnInit {
   //validation ends ..... @Pooja
 
   searchDocumentFolder(SearchValue) {
-    this.orgID = 21;
     this.documentService
-      .SearchDocFolder(this.orgID, SearchValue).subscribe((data: Documents[]) => {
+      .SearchDocFolder(this.OrganizationID, SearchValue).subscribe((data: Documents[]) => {
         this.documents = data;
 
       });
 
   };
   deleteFolder() {
-    debugger;
-    this.orgID = 21;
+
     this.documentService
-      .DeleteDocFolder(this.delete_foldKey, this.orgID).subscribe(() => {
+      .DeleteDocFolder(this.delete_foldKey, this.OrganizationID).subscribe(() => {
 
         this.documentService
-          .getDocumentFoldersDataTable(this.empkey, this.orgID)
+          .getDocumentFoldersDataTable(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Documents[]) => {
             this.documents = data;
           });
@@ -65,10 +89,17 @@ export class DocumentfolderViewComponent implements OnInit {
     debugger;
   }
   ngOnInit() {
-    this.orgID = 21;
-    this.empkey = 2861;
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.documentService
-      .getDocumentFoldersDataTable(this.empkey, this.orgID)
+      .getDocumentFoldersDataTable(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Documents[]) => {
         this.documents = data;
       });

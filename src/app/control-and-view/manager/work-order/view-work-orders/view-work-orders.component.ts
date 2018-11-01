@@ -15,7 +15,6 @@ export class ViewWorkOrdersComponent implements OnInit {
     return [date.getFullYear(), mnth, day].join("-");
 
   }
-
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
   private dayFormatter = new Intl.DateTimeFormat('en', { weekday: 'long' });
@@ -24,6 +23,7 @@ export class ViewWorkOrdersComponent implements OnInit {
     return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
 
   }
+  loading: boolean;// loading
   EmployeeOption: workorder[];
   facilitylist: workorder[];
   scheduleList: workorder[];
@@ -56,12 +56,35 @@ export class ViewWorkOrdersComponent implements OnInit {
   DeleteWOList: workorder[];
   deleteWO;
   searchWorkorder;
+  role: String;
+  name: String;
+  IsSupervisor: Number;
+  
   // workorderCheckValue=false;
   //validation min3_alphanumeric
   searchform: FormGroup;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
   constructor(private formBuilder: FormBuilder, private WorkOrderServiceService: WorkOrderServiceService, private el: ElementRef) { }
+  
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+  
+  
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     return new RegExp(this.regexStr).test(event.key);
   }
@@ -95,17 +118,15 @@ export class ViewWorkOrdersComponent implements OnInit {
     return window.atob(output);
   }
   ngOnInit() {
-    // this.emp_key = 2861;
-    // this.org_id = 21;
+    this.loading = true;// loading
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-    // this.role = profile.role;
-    // this.IsSupervisor = profile.IsSupervisor;
-    // this.name = profile.username;
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
     this.emp_key = profile.employeekey;
     this.org_id = profile.OrganizationID;
-
     this.domain_name = 'workstatus';
     var on_date = this.convert_DT(new Date());
     var page_no = 1;
@@ -142,6 +163,7 @@ export class ViewWorkOrdersComponent implements OnInit {
         for (var i = 0; i < this.workorderList.length; i++) {
           this.workorderList[i].workorderCheckValue = false;
         }
+        this.loading = false;// loading
       });
     debugger;
 
@@ -206,7 +228,8 @@ export class ViewWorkOrdersComponent implements OnInit {
       });
   }
   viewWO_Filter() {
-    debugger;
+    // debugger;
+    this.loading = true;
     if (!this.FacilityKey) {
       var fac_key = null;
 
@@ -303,6 +326,7 @@ export class ViewWorkOrdersComponent implements OnInit {
       .getWoFilter(this.viewWorkOrder)
       .subscribe((data: any[]) => {
         this.workorderList = data;
+        this.loading = false;
       });
   }
   checkBoxValueForDelete(index, CheckValue, WorkorderKey) {

@@ -48,7 +48,10 @@ export class CreateDepartmentComponent implements OnInit {
           alert("Department already present");
         }
         else if (data.length == 0) {
-          this.inventoryServ.addDepartment(DepartmentName, this.employeekey, this.OrganizationID).subscribe(res => this.router.navigateByUrl('/ViewDepartment'));
+          this.inventoryServ.addDepartment(DepartmentName, this.employeekey, this.OrganizationID).subscribe(res =>{ 
+            alert("Department created successfully");
+            this.router.navigateByUrl('/ViewDepartment')
+        });
         }
       });
     }

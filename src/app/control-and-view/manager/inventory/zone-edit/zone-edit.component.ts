@@ -19,6 +19,30 @@ export class ZoneEditComponent implements OnInit {
   buildingList: Inventory[] = [];
   zoneEditValues: Inventory[];
   zone: Inventory[];
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
   constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
     this.route.params.subscribe(params => this.facKey$ = params.Facility_Key);
     this.route.params.subscribe(params => this.floorKey$ = params.Floor_Key);
@@ -28,14 +52,14 @@ export class ZoneEditComponent implements OnInit {
 
   selectFloorfromBuildings(facKey) {
     this.inventoryService
-      .getallFloorList(facKey)
+      .getallFloorList(facKey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floorList = data;
         // this.zoneEditValues[0].FloorKey=null;
       });
   }
 
-  updateZone(FacilityKey,FacilityName,FloorName, FloorKey, ZoneKey, ZoneName) {
+  updateZone(FacilityKey, FacilityName, FloorName, FloorKey, ZoneKey, ZoneName) {
     debugger;
     if (!FacilityKey) {
       FacilityKey = null;
@@ -51,14 +75,19 @@ export class ZoneEditComponent implements OnInit {
     }
     else {
 
-      this.inventoryService.checkForZone(FacilityKey, FloorKey, ZoneName).subscribe((data: Inventory[]) => {
+      this.inventoryService.checkForZone(FacilityKey, FloorKey, ZoneName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
         this.zone = data;
         if (data.length > 0) {
           alert("Zone already present !");
         }
         else if (data.length == 0) {
-          this.inventoryService.updateZone(FacilityKey,FacilityName,FloorName, FloorKey, ZoneKey, ZoneName)
-          .subscribe(res => this.router.navigateByUrl('/Zoneview'));
+          this.inventoryService.updateZone(FacilityKey, FacilityName, FloorName, FloorKey, ZoneKey, ZoneName, this.employeekey, this.OrganizationID)
+            .subscribe(res => {
+              alert("Zone updated successfully");
+              this.router.navigateByUrl('/Zoneview');
+            });
+
+
         }
       });
 
@@ -66,22 +95,31 @@ export class ZoneEditComponent implements OnInit {
     }
   }
   ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     //building list for dropdown
     this.inventoryService
-      .getallBuildingList()
+      .getallBuildingList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.buildingList = data;
       });
 
     // floor list for dropdown
     this.inventoryService
-      .getallFloorList(this.facKey$)
+      .getallFloorList(this.facKey$, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floorList = data;
       });
     //zone details
     this.inventoryService
-      .EditZoneAutoGenerate(this.zoneKey$)
+      .EditZoneAutoGenerate(this.zoneKey$, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         debugger;
         this.zoneEditValues = data;

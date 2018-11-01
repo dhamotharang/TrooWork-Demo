@@ -18,6 +18,29 @@ export class EquipmentViewComponent implements OnInit {
   delete_EquipKey: number;
   searchform: FormGroup;
 
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
   //validation starts ..... @rodney
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
@@ -43,48 +66,48 @@ export class EquipmentViewComponent implements OnInit {
   previousPage() {
     this.pageNo = +this.pageNo - 1;
     this.inventoryService
-      .getEquipmentList()
+      .getEquipmentList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.equipments = data;
-      if (this.pageNo == 1) {
-        this.showHide2 = true;
-        this.showHide1 = false;
-      } else {
-        this.showHide2 = true;
-        this.showHide1 = true;
-      }
-    });
+        if (this.pageNo == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
   }
 
   nextPage() {
     this.pageNo = +this.pageNo + 1;
     this.inventoryService
-    .getEquipmentList()
-    .subscribe((data: Inventory[]) => {
-      this.equipments = data;
-      this.pagination = +this.equipments[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
-      if (this.pagination > 1) {
-        this.showHide2 = true;
-        this.showHide1 = true;
-      }
-      else {
-        this.showHide2 = false;
-        this.showHide1 = true;
-      }
-    });
+      .getEquipmentList(this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.equipments = data;
+        this.pagination = +this.equipments[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
   }
 
   searchEquipment(SearchValue) {
     if (SearchValue.length >= 3) {
       this.inventoryService
-        .SearchEquipment(SearchValue).subscribe((data: Inventory[]) => {
+        .SearchEquipment(SearchValue, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.equipments = data;
           this.showHide2 = false;
           this.showHide1 = false;
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
-        .getEquipmentList()
+        .getEquipmentList(this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.equipments = data;
           if (this.equipments[0].totalItems > this.itemsPerPage) {
@@ -105,18 +128,35 @@ export class EquipmentViewComponent implements OnInit {
 
   deleteEquipments() {
     this.inventoryService
-      .DeleteEquipment(this.delete_EquipKey).subscribe(() => {
+      .DeleteEquipment(this.delete_EquipKey, this.employeekey, this.OrganizationID).subscribe(() => {
         this.inventoryService
-          .getEquipmentList()
+          .getEquipmentList(this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.equipments = data;
+            if (this.equipments[0].totalItems > this.itemsPerPage) {
+              this.showHide2 = true;
+              this.showHide1 = false;
+            }
+            else if (this.equipments[0].totalItems <= this.itemsPerPage) {
+              this.showHide2 = false;
+              this.showHide1 = false;
+            }
           });
       });
   }
 
   ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.inventoryService
-      .getEquipmentList()
+      .getEquipmentList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.equipments = data;
         if (this.equipments[0].totalItems > this.itemsPerPage) {

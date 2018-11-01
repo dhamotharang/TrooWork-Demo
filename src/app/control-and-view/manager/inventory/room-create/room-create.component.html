@@ -9,7 +9,7 @@
   <br>
   <div class="col-md-12">
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building">Building: </label></h5>
+      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building">Building* </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
         <select style="background-color: #D4F4FF !important;width: 31.5rem" (change)="selectFloorfromBuildings($event.target.value)"
           class="form-control" [(ngModel)]="FacilityKey">
@@ -23,7 +23,7 @@
       <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building">Floor Name: </label></h5>
+      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building">Floor Name* </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
         <select style="background-color: #D4F4FF !important;width: 31.5rem" (change)="selectZonefromFloor($event.target.value)"
           class="form-control" [(ngModel)]="FloorKey">
@@ -37,7 +37,7 @@
       <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building">Floor Type Name: </label></h5>
+      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building">Floor Type Name* </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
         <select style="background-color: #D4F4FF !important;width: 31.5rem" class="form-control" [(ngModel)]="FloorTypeKey">
           <option>--Select--</option>
@@ -50,7 +50,7 @@
       <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building">Zone Name: </label></h5>
+      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building">Zone Name* </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
         <select style="background-color: #D4F4FF !important;width: 31.5rem" class="form-control" [(ngModel)]="ZoneKey">
           <option>--Select--</option>
@@ -63,7 +63,7 @@
       <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building">Room Type Name: </label></h5>
+      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building">Room Type Name* </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
         <select style="background-color: #D4F4FF !important;width: 31.5rem" class="form-control" [(ngModel)]="RoomTypeKey">
           <option>--Select--</option>
@@ -76,21 +76,21 @@
       <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
-      <h5 style="text-align:right" class="col-md-4"><label for="building">Room Name: </label></h5>
+      <h5 style="text-align:right" class="col-md-4"><label for="building">Room Name* </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
         <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomName">
       </div>
       <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
-      <h5 style="text-align:right" class="col-md-4"><label for="building">Square Foot: </label></h5>
+      <h5 style="text-align:right" class="col-md-4"><label for="building">Square Foot* </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
         <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="SquareFoot">
       </div>
       <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
-      <h5 style="text-align:right" class="col-md-4"><label for="building">Barcode: </label></h5>
+      <h5 style="text-align:right" class="col-md-4"><label for="building">Barcode* </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
         <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="Barcode.barcode">
       </div>
@@ -99,11 +99,11 @@
 
     <div class="row col-md-12">
       <div class="col col-md-3"></div>
-      <div style="text-align:right" class="col-md-3"><a style="color:white !important" routerLink="/roomView" class="btn btn-success"
-          routerLinkActive="active" (click)="addRoom(FacilityKey,FloorKey,FloorTypeKey,ZoneKey,RoomTypeKey,RoomName,SquareFoot,Barcode.barcode
+      <div style="text-align:right" class="col-md-3"><button style="color:white !important" class="btn btn-success"
+           (click)="addRoom(FacilityKey,FloorKey,FloorTypeKey,ZoneKey,RoomTypeKey,RoomName,SquareFoot,Barcode.barcode
           )"><b>Create
             New Room</b>
-        </a>
+          </button>
       </div>
       <div style="text-align:left" class="col-md-3">
         <a routerLink="/roomView" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Go
@@ -112,10 +112,10 @@
         </a>
       </div>
       <div style="text-align:left" class="col-md-3">
-        <a routerLink="/roomCreate" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Clear
+        <button class="btn btn-success" style="color:white !important" (click)="clearall()"><b>Clear
             All Values
           </b>
-        </a>
+        </button>
       </div>
       <div class="col col-md-3"></div>
     </div>

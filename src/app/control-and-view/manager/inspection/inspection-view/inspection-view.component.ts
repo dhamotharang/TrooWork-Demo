@@ -9,18 +9,22 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ['./inspection-view.component.scss']
 })
 export class InspectionViewComponent implements OnInit {
+
+  loading: boolean;// loading
   inspectionordertable: Inspection[];
   searchform: FormGroup;
   fromdate: Date;
   todate: Date;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
-  ins_Key:Number;
+  ins_Key: Number;
   role: String;
   name: String;
   toServeremployeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+  pageNo: Number = 1;
+  itemsPerPage: Number = 25;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -38,9 +42,9 @@ export class InspectionViewComponent implements OnInit {
     }
     return window.atob(output);
   }
-  
-  constructor(private router: Router,private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef) { }
-  
+
+  constructor(private router: Router, private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef) { }
+
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     return new RegExp(this.regexStr).test(event.key);
   }
@@ -65,6 +69,7 @@ export class InspectionViewComponent implements OnInit {
 
 
   filteringInspectionManagerByDate() {
+    // this.loading = true;// loading
     if (!this.fromdate) {
       var date1 = this.convert_DT(new Date());
     }
@@ -78,18 +83,19 @@ export class InspectionViewComponent implements OnInit {
       date2 = this.convert_DT(this.todate);
     }
     this.inspectionService
-    .getInspectionOrderTablewithFromDateOnly(date1)
-    .subscribe((data: Inspection[]) => {
-      // debugger;
-      this.inspectionordertable = data;
-    });
+      .getInspectionOrderTablewithFromDateOnly(date1, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
+      .subscribe((data: Inspection[]) => {
+        this.inspectionordertable = data;
+        // this.loading = false;// loading
+      });
     this.inspectionService
-      .getInspectionOrderTablewithFromDateandToDateFilter(date1, date2)
+      .getInspectionOrderTablewithFromDateandToDateFilter(date1, date2, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
         // debugger;
         this.inspectionordertable = data;
+        // this.loading = false;// loading
       });
-   
+
   }
   searchTL(SearchValue) {
     // var curr_date;
@@ -108,14 +114,26 @@ export class InspectionViewComponent implements OnInit {
     }
     if (SearchValue.length > 2) {
       this.inspectionService
-        .SearchTemplateandLocation(SearchValue, date1, date2).subscribe((data: Inspection[]) => {
+        .SearchTemplateandLocation(SearchValue, date1, date2, this.OrganizationID).subscribe((data: Inspection[]) => {
           this.inspectionordertable = data;
 
         });
     }
+    else if (SearchValue.length == 0) {
+      var curr_date = this.convert_DT(new Date());
+      this.inspectionService
+      .getInspectionOrderTablewithFromCurrentDateFilter(curr_date, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
+      .subscribe((data: Inspection[]) => {
+        // debugger;
+        this.inspectionordertable = data;
+        // this.loading = false;// loading
+      });
+    }
   }
   ngOnInit() {
+
     //token starts....
+
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -126,12 +144,16 @@ export class InspectionViewComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     //token ends
+    // this.loading = true;// loading
+    this.fromdate = new Date();
     var curr_date = this.convert_DT(new Date());
+
     this.inspectionService
-      .getInspectionOrderTablewithFromCurrentDateFilter(curr_date)
+      .getInspectionOrderTablewithFromCurrentDateFilter(curr_date, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
         // debugger;
         this.inspectionordertable = data;
+        // this.loading = false;// loading
       });
     this.searchform = this.formBuilder.group({
       SearchTL: ['', Validators.required]

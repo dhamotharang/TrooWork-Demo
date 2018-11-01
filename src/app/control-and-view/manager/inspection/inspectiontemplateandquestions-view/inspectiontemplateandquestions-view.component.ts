@@ -8,17 +8,41 @@ import { FormBuilder, Validators, FormGroup } from "@angular/forms";
   styleUrls: ['./inspectiontemplateandquestions-view.component.scss']
 })
 export class InspectiontemplateandquestionsViewComponent implements OnInit {
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
   searchform: FormGroup;
   // searchTemplateNameAndQuestion:Inspection[];
   template: Inspection[];
   viewinspectionTemplate: Inspection[];
-  delete_tempId:number;
-  templateQuestionID :number;
-  key :number;
-  searchFlag:any;
+  delete_tempId: number;
+  templateQuestionID: number;
+  key: number;
+  searchFlag: any;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
-  constructor(private formBuilder: FormBuilder,private inspectionService: InspectionService, private el: ElementRef) { }
+  constructor(private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef) { }
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     return new RegExp(this.regexStr).test(event.key);
   }
@@ -35,47 +59,57 @@ export class InspectiontemplateandquestionsViewComponent implements OnInit {
 
     }, 100)
   }
-  showInspectionTemplateTable(tempKey){
+  showInspectionTemplateTable(tempKey) {
     this.inspectionService
-    .getInspectionTemplateTable(tempKey)
-    .subscribe((data: Inspection[]) => {
-      // debugger;
-      this.searchFlag=true;
-      this.viewinspectionTemplate = data;
-    });
+      .getInspectionTemplateTable(tempKey, this.OrganizationID)
+      .subscribe((data: Inspection[]) => {
+        // debugger;
+        this.searchFlag = true;
+        this.viewinspectionTemplate = data;
+      });
   }
   deleteInspTemplate() {
     debugger;
     this.inspectionService
-      .DeleteInspectionTemplate(this.delete_tempId,this.templateQuestionID).subscribe(()=>{
+      .DeleteInspectionTemplate(this.delete_tempId, this.templateQuestionID, this.employeekey, this.OrganizationID).subscribe(() => {
         this.inspectionService
-        . getInspectionTemplateTable(this.key)
-        .subscribe((data: Inspection[]) => {
-          this.viewinspectionTemplate = data;
-        });
+          .getInspectionTemplateTable(this.key, this.OrganizationID)
+          .subscribe((data: Inspection[]) => {
+            this.viewinspectionTemplate = data;
+          });
 
-      });  
+      });
   }
-  deleteInspTemplatePass(templateID,templateQuestionID) {
+  deleteInspTemplatePass(templateID, templateQuestionID) {
     this.delete_tempId = templateID;
-    this.templateQuestionID=templateQuestionID;
+    this.templateQuestionID = templateQuestionID;
     debugger;
   }
-  searchTNandTQ(SearchValue,TemplateID){
+  searchTNandTQ(SearchValue, TemplateID) {
     this.inspectionService
-    .SearchTempNameandQuestion(SearchValue,TemplateID).subscribe((data: Inspection[]) => {
-      this.viewinspectionTemplate = data;
+      .SearchTempNameandQuestion(SearchValue, TemplateID, this.OrganizationID).subscribe((data: Inspection[]) => {
+        this.viewinspectionTemplate = data;
 
-    });
+      });
   }
   ngOnInit() {
-    this.searchFlag=false;
+
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
+    this.searchFlag = false;
     this.inspectionService
-    .getTemplateNameList()
-    .subscribe((data: Inspection[]) => {
-      // debugger;
-      this.template = data;
-    });
+      .getTemplateNameList(this.employeekey, this.OrganizationID)
+      .subscribe((data: Inspection[]) => {
+        // debugger;
+        this.template = data;
+      });
     this.searchform = this.formBuilder.group({
       searchTemplateNameAndQuestion: ['', Validators.required]
     });

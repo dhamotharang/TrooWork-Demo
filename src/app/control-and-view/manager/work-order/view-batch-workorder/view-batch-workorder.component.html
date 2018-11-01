@@ -121,7 +121,8 @@
               <td>{{x.EndDate}}</td>
               <td> {{x.LastName}},{{x.FirstName}}</td>
               <td>{{x.WorkorderNotes}}</td>
-              <td><a routerLink="/EditBatchWorkorder/{{x.WorkorderScheduleKey}}" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Recurring</b> </a></td>
+              <td *ngIf="x.IsEquipment === 0"></td>
+              <td *ngIf="x.IsEquipment === 1"><a routerLink="/EditBatchWorkorder/{{x.WorkorderScheduleKey}}" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Recurring</b> </a></td>
             </tr>
             <tr *ngIf="workorderList?.length == 0">
               <td colspan="14" class="no-data-available">No records found</td>

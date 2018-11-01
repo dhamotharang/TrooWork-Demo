@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
+import { ActivatedRoute, Router } from "@angular/router";
 @Component({
   selector: 'app-zone-create',
   templateUrl: './zone-create.component.html',
@@ -9,33 +10,75 @@ import { Inventory } from '../../../../model-class/Inventory';
 export class ZoneCreateComponent implements OnInit {
   building: Inventory[];
   floorName: Inventory[];
-  constructor(private inventoryService: InventoryService) { }
 
-  addZone(FacilityKey,FloorName,ZoneName) {
-    // debugger;
- 
-    this.inventoryService.createZones(FacilityKey,FloorName,ZoneName);
-}
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
 
- selectFloorfromBuildings(facKey)
- {
-  this.inventoryService
-    .getallFloorList(facKey)
-    .subscribe((data: Inventory[]) => {
-      // debugger;
-      this.floorName = data;
-    });
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+  constructor(private inventoryService: InventoryService, private router: Router) { }
+
+  addZone(FacilityKey, FloorName, ZoneName) {
+    if (!FacilityKey) {
+      alert("Please select a building!");
+    } else if (!FloorName) {
+      alert("Enter floor name!");
+    }
+    else if (!ZoneName) {
+      alert("Enter zone name!");
+    }
+    else {
+
+      this.inventoryService.createZones(FacilityKey, FloorName, ZoneName, this.employeekey, this.OrganizationID)
+        .subscribe((data: Inventory[]) => {
+          alert("Zone created successfully");
+          this.router.navigateByUrl('/Zoneview');
+        });
+    }
+
   }
 
-  ngOnInit() 
-  {
+  selectFloorfromBuildings(facKey) {
     this.inventoryService
-    .getallBuildingList()
-    .subscribe((data: Inventory[]) => {
-      // debugger;
-      this.building = data;
-    });
-  
+      .getallFloorList(facKey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.floorName = data;
+      });
+  }
+
+  ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
+    this.inventoryService
+      .getallBuildingList(this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.building = data;
+      });
+
 
   }
 

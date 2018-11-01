@@ -1,6 +1,6 @@
 <app-manager-dash-board></app-manager-dash-board>
 <br><br>
-
+<!-- <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" /> -->
 <div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
   <div class="row col-md-12 ">
@@ -8,56 +8,60 @@
   </div>
   <br><br>
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
-      <h1 style="text-align: right"></h1>
+    <h1 style="text-align: right"></h1>
+    <!-- <form class="" method="post" action="https://formspree.io/"> -->
+    <div class="form-group" style="width: 25rem;">
+      <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">From Date</label>
+
+      <igx-datePicker [value]="date1" [(ngModel)]="fromdate" (onSelection)="filteringInspectionManagerByDate()"></igx-datePicker>
+    </div>
+    <div class="col-md-6">
       <!-- <form class="" method="post" action="https://formspree.io/"> -->
       <div class="form-group" style="width: 25rem;">
-        <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">From Date</label>
-
-        <igx-datePicker [value]="date1" [(ngModel)]="fromdate"(onSelection)="filteringInspectionManagerByDate()"></igx-datePicker>
+        <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">To Date</label>
+        <igx-datePicker [value]="date1" [(ngModel)]="todate" (onSelection)="filteringInspectionManagerByDate()"></igx-datePicker>
       </div>
-      <div class="col-md-6">
-        <!-- <form class="" method="post" action="https://formspree.io/"> -->
-        <div class="form-group" style="width: 25rem;">
-          <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">To Date</label>
-          <igx-datePicker [value]="date1" [(ngModel)]="todate"(onSelection)="filteringInspectionManagerByDate()"></igx-datePicker>
+    </div>
+    <br>
+    <div class="col-md-12">
+      <form [formGroup]="searchform">
+        <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
+          <input class="form-control" name="searchtl" maxlength="20" specialIsAlphaNumeric minlength="3" type="text" placeholder="Search Template,Location"
+            aria-label="Search" [(ngmodel)]="SearchTL" formControlName="SearchTL" (input)="searchTL($event.target.value);"
+            style="width: 100%;">
+          <div *ngIf="searchform.controls.SearchTL.errors?.minlength">Minimum 3 characters required.</div>
         </div>
+      </form>
+      <!-- </div> -->
+      <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
+        <table class="table table-responsive table-hover table-bordered table">
+          <thead class="tableHead">
+            <th> Template </th>
+            <th>Location</th>
+            <th>Inspection Date & Time</th>
+            <th>Auditor</th>
+            <th>Employee</th>
+            <th>Status</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let i of inspectionordertable">
+              <td>{{i.TemplateName}} </td>
+              <td>{{i.FacilityName}}-{{i.RoomId}} </td>
+              <td>{{i.Inspectiondate}} {{i.InspectionTime}}</td>
+              <td>{{i.LastName}},{{i.FirstName}} </td>
+              <td>{{i.EmployeeName}}</td>
+              <td *ngIf="i.InspectionCompletedBy !== null"> <a routerLink="/ViewInspectionManager/{{i.InspectionOrderKey}}"
+                  class="btn btn-primary">Inspection Completed </a></td>
+              <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey === toServeremployeekey)"> <a routerLink="/Managerinspectiontemplate/{{i.InspectionOrderKey}}"
+                  class="btn btn-primary">Inspect</a></td>
+              <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey !== toServeremployeekey)">Scheduled</td>
+            </tr>
+            <tr *ngIf="inspectionordertable?.length == 0">
+              <td colspan="2" class="no-data-available">No records found</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <br>
-      <div class="col-md-12">
-        <form [formGroup]="searchform"> 
-          <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
-             <input class="form-control" name="searchtl" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
-               placeholder="Search Template,Location" aria-label="Search" [(ngmodel)]="SearchTL" formControlName="SearchTL"
-               (input)="searchTL($event.target.value);" style="width: 100%;">
-             <div *ngIf="searchform.controls.SearchTL.errors?.minlength">Minimum 3 characters required.</div>
-           </div> 
-          </form> 
-         <!-- </div> -->
-         <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
-          <table class="table table-responsive table-hover table-bordered table">
-            <thead class="tableHead">
-              <th> Template </th>
-              <th>Location</th>
-              <th>Inspection Date & Time</th>
-              <th>Auditor</th>
-              <th>Employee</th>
-              <th>Status</th>
-            </thead>
-            <tbody>
-              <tr *ngFor="let i of inspectionordertable" >
-                <td>{{i.TemplateName}} </td>
-                <td>{{i.FacilityName}}-{{i.RoomId}} </td>
-                <td>{{i.Inspectiondate}}</td>
-                <td>{{i.LastName}},{{i.FirstName}} </td>      
-                <td>{{i.EmployeeName}}</td>
-                <td *ngIf="i.InspectionCompletedBy !== null"> <a routerLink="/ViewInspectionManager/{{i.InspectionOrderKey}}" class="btn btn-primary">Inspection Completed </a></td>
-                <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey === toServeremployeekey)"> <a routerLink="/Managerinspectiontemplate/{{i.InspectionOrderKey}}" class="btn btn-primary">Inspect</a></td>
-                <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey !== toServeremployeekey)">Scheduled</td>
-              </tr>
-            </tbody>
-            </table>
     </div>
   </div>
 </div>
-    
-    

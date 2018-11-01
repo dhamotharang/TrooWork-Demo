@@ -15,6 +15,31 @@ export class RoomTypeUpdateComponent implements OnInit {
   metricType: String;
   metricTypeKey: Number;
   roomTypeList: Array<Inventory>;
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+
   constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
     this.route.params.subscribe(params => this.rTypeKey$ = params.RoomTypeKey);
   }
@@ -36,7 +61,7 @@ export class RoomTypeUpdateComponent implements OnInit {
     }
     else {
       this.inventoryService
-        .getMetricValues()
+        .getMetricValues(this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.metricTypeList = data;
           for (let i of this.metricTypeList) {
@@ -44,32 +69,37 @@ export class RoomTypeUpdateComponent implements OnInit {
               this.metricTypeKey = i.MetricTypeKey;
             }
           }
-          // for (var i = 0; i < data.length; i++) {
-          //   if (data[i].MetricType == this.metricType) {
-          //     this.metricTypeKey = data[i].MetricTypeKey;
-          //   }
-          // }
         });
 
-      this.inventoryService.updateRoomType(this.rTypeKey$, this.metricTypeKey, this.metricType, RoomTypeName, MetricTypeValue)
+      this.inventoryService.updateRoomType(this.rTypeKey$, this.metricTypeKey, this.metricType, RoomTypeName, MetricTypeValue, this.employeekey, this.OrganizationID)
         .subscribe(res => {
           alert("RoomType updated successfully");
           this.router.navigateByUrl('/roomTypeView');
-      });
+        });
     }
   }
   ngOnInit() {
-    debugger;
+
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.inventoryService
-      .EditRoomtTypeAutoGenerate(this.rTypeKey$)
+      .EditRoomtTypeAutoGenerate(this.rTypeKey$, this.OrganizationID)
       .subscribe((data: Array<any>) => {
         this.roomTypeList = data[0];
+        debugger;
         this.metricType = data[0].MetricType;
         this.inventoryService
-        .getMetricValues()
-        .subscribe((data: Inventory[]) => {
-          this.metricTypeList = data;
-        });
+          .getMetricValues(this.OrganizationID)
+          .subscribe((data: Inventory[]) => {
+            this.metricTypeList = data;
+          });
       });
   }
 

@@ -9,10 +9,38 @@ import { FormBuilder, Validators, FormGroup } from "@angular/forms";
   styleUrls: ['./floor-view.component.scss']
 })
 export class FloorViewComponent implements OnInit {
+  pageNo: Number = 1;
+  itemsPerPage: Number = 25;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
   floor: Inventory[];
   delete_faciKey: number;
   delete_floorKey: number;
   searchform: FormGroup;
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
   //validation starts ..... @pooja
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
@@ -35,11 +63,58 @@ export class FloorViewComponent implements OnInit {
   }
 
   //validation ends ..... @pooja
+  previousPage() {
+    this.pageNo = +this.pageNo - 1;
+    this.inventoryService
+      .getFloors(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.floor = data;
+        if (this.pageNo == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
+  }
+
+  nextPage() {
+    this.pageNo = +this.pageNo + 1;
+    this.inventoryService
+      .getFloors(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.floor = data;
+        this.pagination = +this.floor[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
+  }
+
 
   deleteFloor() {
     this.inventoryService
-      .DeleteFloor(this.delete_faciKey, this.delete_floorKey).subscribe(res => this.ngOnInit());
-
+      .DeleteFloor(this.delete_faciKey, this.delete_floorKey, this.employeekey, this.OrganizationID).subscribe(res => {
+        this.inventoryService
+          .getFloors(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+          .subscribe((data: Inventory[]) => {
+            this.floor = data;
+            if (this.floor[0].totalItems > this.itemsPerPage) {
+              this.showHide2 = true;
+              this.showHide1 = false;
+            }
+            else if (this.floor[0].totalItems <= this.itemsPerPage) {
+              this.showHide2 = false;
+              this.showHide1 = false;
+            }
+          });
+      });
   }
   deleteFloorPass(FacilityKey, FloorKey) {
     this.delete_faciKey = FacilityKey;
@@ -50,25 +125,52 @@ export class FloorViewComponent implements OnInit {
     //  debugger;
     if (SearchValue.length >= 3) {
       this.inventoryService
-        .SearchFloor(SearchValue).subscribe((data: Inventory[]) => {
+        .SearchFloor(SearchValue, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.floor = data;
+          this.showHide2 = false;
+          this.showHide1 = false;
 
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
-        .getFloors()
+        .getFloors(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.floor = data;
+          if (this.floor[0].totalItems > this.itemsPerPage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.floor[0].totalItems <= this.itemsPerPage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
         });
     }
   };
 
   ngOnInit() {
-    // debugger;
+
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.inventoryService
-      .getFloors()
+      .getFloors(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floor = data;
+        if (this.floor[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.floor[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
       });
     this.searchform = this.formBuilder.group({
       SearchFloor: ['', Validators.required]

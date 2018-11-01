@@ -312,7 +312,6 @@ import { SetUserLoginSuperComponent } from '../app/control-and-view/superadmin/p
     CalendarModule,
     IgxDatePickerModule,
     NgMultiSelectDropDownModule.forRoot()
-
   ],
   providers: [CreatebuildingComponent, CreatebuildingService, GooglePieChartService],
   bootstrap: [AppComponent],

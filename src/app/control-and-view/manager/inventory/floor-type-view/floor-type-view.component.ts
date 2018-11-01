@@ -18,6 +18,29 @@ export class FloorTypeViewComponent implements OnInit {
   delete_FloorTypeKey: number;
   searchform: FormGroup;
 
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
   //validation starts ..... @rodney
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
@@ -40,52 +63,52 @@ export class FloorTypeViewComponent implements OnInit {
   }
 
   //validation ends ..... @rodney
- 
-   previousPage() {
+
+  previousPage() {
     this.pageNo = +this.pageNo - 1;
     this.inventoryService
-    .getFloorTypeList()
-    .subscribe((data: Inventory[]) => {
-      this.floorType = data;
-      if (this.pageNo == 1) {
-        this.showHide2 = true;
-        this.showHide1 = false;
-      } else {
-        this.showHide2 = true;
-        this.showHide1 = true;
-      }
-    });
+      .getFloorTypeList(this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.floorType = data;
+        if (this.pageNo == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
   }
 
   nextPage() {
     this.pageNo = +this.pageNo + 1;
     this.inventoryService
-    .getFloorTypeList()
-    .subscribe((data: Inventory[]) => {
-      this.floorType = data;
-      this.pagination = +this.floorType[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
-      if (this.pagination > 1) {
-        this.showHide2 = true;
-        this.showHide1 = true;
-      }
-      else {
-        this.showHide2 = false;
-        this.showHide1 = true;
-      }
-    });
+      .getFloorTypeList(this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.floorType = data;
+        this.pagination = +this.floorType[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
   }
 
   searchFloorType(SearchValue) {
     if (SearchValue.length >= 3) {
       this.inventoryService
-        .SearchFloorType(SearchValue).subscribe((data: Inventory[]) => {
+        .SearchFloorType(SearchValue, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.floorType = data;
           this.showHide2 = false;
           this.showHide1 = false;
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
-        .getFloorTypeList()
+        .getFloorTypeList(this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.floorType = data;
           if (this.floorType[0].totalItems > this.itemsPerPage) {
@@ -106,18 +129,35 @@ export class FloorTypeViewComponent implements OnInit {
 
   deleteFloorType() {
     this.inventoryService
-      .DeleteFloorType(this.delete_FloorTypeKey).subscribe(() => {
+      .DeleteFloorType(this.delete_FloorTypeKey, this.employeekey, this.OrganizationID).subscribe(() => {
         this.inventoryService
-          .getFloorTypeList()
+          .getFloorTypeList(this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.floorType = data;
+            if (this.floorType[0].totalItems > this.itemsPerPage) {
+              this.showHide2 = true;
+              this.showHide1 = false;
+            }
+            else if (this.floorType[0].totalItems <= this.itemsPerPage) {
+              this.showHide2 = false;
+              this.showHide1 = false;
+            }
           });
       });
   }
 
   ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.inventoryService
-      .getFloorTypeList()
+      .getFloorTypeList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floorType = data;
         if (this.floorType[0].totalItems > this.itemsPerPage) {

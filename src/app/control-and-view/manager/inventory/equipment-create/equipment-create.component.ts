@@ -18,6 +18,30 @@ export class EquipmentCreateComponent implements OnInit {
   EquipmentTypeDescription: String;
   barcode: Array<Inventory>;
   FloorKey: Number;
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
   constructor(private fb: FormBuilder, private inventoryService: InventoryService, private router: Router) {
 
   }
@@ -25,7 +49,7 @@ export class EquipmentCreateComponent implements OnInit {
   selectFloorfromBuildings(facKey) {
     this.FacKey = facKey;
     this.inventoryService
-      .getallFloorList(facKey)
+      .getallFloorList(facKey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floors = data;
       });
@@ -46,19 +70,22 @@ export class EquipmentCreateComponent implements OnInit {
     } else if (!this.FloorKey) {
       alert("Floor is not provided");
     } else {
-      this.inventoryService.checkForNewEquipment(EquipmentTypeKey, EquipmentName).subscribe((data: Inventory[]) => {
+      this.inventoryService.checkForNewEquipment(EquipmentTypeKey, EquipmentName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
         this.dept = data;
         if (this.dept[0].count > 0) {
           alert("Equipment already present");
         }
         else if (this.dept[0].count == 0) {
-          this.inventoryService.checkForNewEquipmentbarcode(barcode).subscribe((data: Inventory[]) => {
+          this.inventoryService.checkForNewEquipmentbarcode(barcode, this.OrganizationID).subscribe((data: Inventory[]) => {
             this.dept = data;
             if (this.dept[0].count > 0) {
               alert("Equipment Barcode already present");
             } else if (this.dept[0].count == 0) {
-              this.inventoryService.addEquipment(EquipmentName, EquipmentDescription, barcode, EquipmentTypeKey, this.FacKey, this.FloorKey)
-                .subscribe(res => this.router.navigateByUrl('/EquipmentView'));
+              this.inventoryService.addEquipment(EquipmentName, EquipmentDescription, barcode, EquipmentTypeKey, this.FacKey, this.FloorKey, this.employeekey, this.OrganizationID)
+                .subscribe(res => {
+                  alert("Equipment created successfully");
+                  this.router.navigateByUrl('/EquipmentView');
+                });
             }
           });
         }
@@ -67,19 +94,28 @@ export class EquipmentCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.inventoryService
-      .getAllEquipmentType()
+      .getAllEquipmentType(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.equipmentType = data;
       });
     this.inventoryService
-      .getBarcodeForEquipment()
+      .getBarcodeForEquipment(this.employeekey, this.OrganizationID)
       .subscribe((data: Array<any>) => {
         this.barcode = data[0];
       });
 
     this.inventoryService
-      .getallBuildingList()
+      .getallBuildingList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.buildings = data;
       });

@@ -76,7 +76,7 @@ export class BatchScheduleRoomComponent implements OnInit {
   }
 
   addRoomToSchedule() {
-    var addRoomList=[];
+    var addRoomList = [];
     var addRoomString;
     debugger;
     if (this.checkValue.length > 0) {
@@ -143,12 +143,12 @@ export class BatchScheduleRoomComponent implements OnInit {
       });
 
     this.inventoryService
-      .getallBuildingList()
+      .getallBuildingList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.building = data;
       });
     this.inventoryService
-      .getallFloorTypeList()
+      .getallFloorTypeList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floorType = data;
       });
