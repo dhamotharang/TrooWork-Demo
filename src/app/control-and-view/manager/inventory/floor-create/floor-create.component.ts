@@ -12,10 +12,6 @@ export class FloorCreateComponent implements OnInit {
 
   flooroptions: Inventory[];
   floorcreate: FormGroup;
-
-
-  floorcreate: FormGroup;
-
   role: String;
   name: String;
   employeekey: Number;
