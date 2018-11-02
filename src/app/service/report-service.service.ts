@@ -159,12 +159,12 @@ export class ReportServiceService {
       .post (url,obj);
 
      }
-     generateBarcodeByEqupiment(EquipmentKey,EquipmentTypeKey)
+     generateBarcodeByEqupimenttype(EquipmentKey,EquipmentTypeKey,employeekey,OrganizationID)
      {
       const url='http://localhost:3000/api/barcodeReportByEquipment';
       const obj = {
-        OrganizationID:21,
-        employeekey: 2861,
+        OrganizationID:OrganizationID,
+        employeekey: employeekey,
         EquipmentTypeKey:EquipmentTypeKey,
         EquipmentKey:EquipmentKey
   
@@ -174,6 +174,24 @@ export class ReportServiceService {
         .http
         .post (url,obj);    
        }
+       //Pooja's code starts here
+       generateBarcodeByEqupiment(EquipmentKey,EquipmentTypeKey,employeekey,OrganizationID)
+       {
+        const url='http://localhost:3000/api/barcodeReportByEquipment';
+        const obj = {
+          OrganizationID:OrganizationID,
+          employeekey: employeekey,
+          EquipmentTypeKey:EquipmentTypeKey,
+          EquipmentKey:EquipmentKey
+            
+         };
+
+        return this
+        .http
+        .post (url,obj);   
+       }
+
+        //Pooja's code ends here
 
        //services for workorder reporting
        getEmployee()

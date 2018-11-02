@@ -16,7 +16,8 @@ export class InspectionReportComponent implements OnInit {
     return [date.getFullYear(), mnth, day].join("-");
 
   }
-
+  fromdate:Date;
+  
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
   private dayFormatter = new Intl.DateTimeFormat('en', { weekday: 'long' });
@@ -61,6 +62,9 @@ export class InspectionReportComponent implements OnInit {
   }
 
   ngOnInit() {
+   
+    this.fromdate = new Date();
+
     this.ReportServiceService
       .getallsupervisor()
       .subscribe((data: Reports[]) => {

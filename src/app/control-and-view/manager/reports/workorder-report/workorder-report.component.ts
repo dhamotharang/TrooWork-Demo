@@ -30,16 +30,22 @@ export class WorkorderReportComponent implements OnInit {
    }
 
 
-
+   fromdate: Date;
    facilitylist:Reports[];
    floor:Reports[];
   zoneroom:Reports[];
   room:Reports[];
   rooms:Reports[];
-  
+  FacilityKey;
   emp:Reports[];
   workstatus:Reports[];
   viewWorkorderReport:Reports[];
+  FloorKey;
+  ZoneKey;
+  RoomTypeKey;
+  RoomKey;
+  EmployeeKey;
+  WorkorderStatusKey;
 
   public workexcel:Array<any> = [{
     WorkorderTypeName:'',DateandTime:'',Status:'',Employee:'',Room:'',Equipment:'',CheckinTime:'',CheckoutTime:'',Duration:'',DelayTime:'',Notes:''
@@ -50,6 +56,14 @@ export class WorkorderReportComponent implements OnInit {
 
   ngOnInit()
    {
+     this.FacilityKey="";
+     this.FloorKey="";
+     this.ZoneKey="";
+     this.RoomTypeKey="";
+     this.RoomKey="";
+     this.EmployeeKey="";
+     this.WorkorderStatusKey="";
+    this.fromdate = new Date();
     this.ReportServiceService.getBarcodeReport().subscribe((data: Reports[]) =>
      {
     // debugger;

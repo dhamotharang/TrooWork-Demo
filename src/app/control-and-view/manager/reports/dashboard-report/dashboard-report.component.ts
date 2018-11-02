@@ -68,7 +68,7 @@ export class DashboardReportComponent implements OnInit {
   date2: string;
   org_id: number;
   manager: string;
-  EmployeeKey: number;
+  EmployeeKey;
   fromdate: Date;
   todate: Date;
   WorkorderTypeKey = [];
@@ -81,6 +81,8 @@ export class DashboardReportComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.EmployeeKey="";
+    this.fromdate = new Date();
     var dateTemp_1 = this.convert_DT(new Date());
     var dateTemp_2 = this.convert_DT(new Date());
     this.ReportServiceService

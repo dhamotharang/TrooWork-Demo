@@ -41,13 +41,19 @@ export class CreateinspectionComponent implements OnInit {
   room: Inspection[];
   roomtype: Inspection[];
   facikey: Number;
-  TemplateID: Number;
-  SupervisorKey: Number;
+  TemplateID;
+  SupervisorKey:any;
   fromdate: Date;
   todate: Date;
   theCheckbox: any;
   time1: any;
-  RoomKey: Number;
+  RoomKey;
+  Building;
+  Floor;
+  Zone;
+  Employee;
+  RoomType;
+  
 
   // adding properties and methods that will be used by the igxDatePicker
 
@@ -100,6 +106,26 @@ export class CreateinspectionComponent implements OnInit {
   }
 
   createInspection() {
+
+    if (!this.TemplateID) {
+      alert("Template Name is not provided");
+    }
+    else if (!this.Building) {
+      alert("Building should be selected");
+    }
+    else if (!this.Floor) {
+      alert("Floor should be provided");
+    }
+    else if (!this.RoomKey && !this.RoomType) {
+      alert("Room or Room Type should be provided");
+    }
+    else if (!this.time1) {
+      alert("Time should be provided");
+    }
+    if (!this.Employee) {
+      this.Employee = - 1;
+    }
+
     // debugger;
     console.log(this.fromdate);
     console.log(this.todate);
@@ -120,7 +146,22 @@ export class CreateinspectionComponent implements OnInit {
     var q1 = this.time1.getMinutes();
     var newTime = q + ":" + q1;
 
-    this.inspectionService.createInspections(this.TemplateID, this.SupervisorKey, dateFrom, date2, this.theCheckbox, newTime, this.RoomKey, this.employeekey, this.OrganizationID);
+    this.inspectionService.createInspections(this.TemplateID, this.SupervisorKey, dateFrom, date2, this.theCheckbox, newTime, this.RoomKey,this.Employee, this.employeekey, this.OrganizationID).subscribe(res => {
+      alert("Successfully Added");
+      this.TemplateID = "";
+      this.fromdate = null;
+      this.todate = null;
+      this.SupervisorKey = "";
+      this.Building = "";
+      this.Floor = "";
+      this.Zone = "";
+      this.RoomKey = "";
+      this.theCheckbox = false;
+      this.marked = false;
+      this.time1 = null;
+      this.Employee = "";
+      this.RoomType = "";
+    });
 
   }
 
@@ -135,6 +176,14 @@ export class CreateinspectionComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
+    this.fromdate = new Date();
+    this.TemplateID = "";
+    this.Building = "";
+    this.Floor = "";
+    this.Zone = "";
+    this.RoomKey = "";
+    this.Employee = "";
+    this.RoomType = "";
 
     this.inspectionService
       .getTemplateName(this.employeekey, this.OrganizationID)
@@ -147,6 +196,7 @@ export class CreateinspectionComponent implements OnInit {
       .subscribe((data: Inspection[]) => {
         // debugger;
         this.auditor = data;
+        this.SupervisorKey = this.employeekey;
       });
     this.inspectionService
       .getEmployeeName(this.employeekey, this.OrganizationID)

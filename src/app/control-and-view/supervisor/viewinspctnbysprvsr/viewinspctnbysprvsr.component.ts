@@ -24,6 +24,7 @@ export class ViewinspctnbysprvsrComponent implements OnInit {
   OrganizationID: Number;
   orgid:Number=21;
   toservempkey:Number=2881;
+  
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -75,6 +76,19 @@ export class ViewinspctnbysprvsrComponent implements OnInit {
           this.inspectionordertable = data;
 
         });
+    }
+    
+    else if (SearchValue.length == 0) {
+      var curr_date = new Date(Date.now());
+      var newdate=this.convert_DT(curr_date);
+      //var curr_date = this.convert_DT(Date.now());
+      this.inspectionService
+      .getInspectionOrderTablewithCurrentDatefrsprvsr(newdate,this.toservempkey,this.orgid)
+      .subscribe((data: Inspection[]) => {
+        // debugger;
+        this.inspectionordertable = data;
+        // this.loading = false;// loading
+      });
     }
 
   }

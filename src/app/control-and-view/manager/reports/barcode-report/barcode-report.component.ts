@@ -12,6 +12,31 @@ import { ExcelserviceService } from '../../../../service/excelservice.service';
 })
 export class BarcodeReportComponent implements OnInit
  {
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+
   Roomflag:any;
   Equipmentflag:any;
   facilitylist:Reports[];
@@ -22,6 +47,13 @@ export class BarcodeReportComponent implements OnInit
   room:Reports[];
   viewBarcodeReport:Reports[];
   viewBarcodeEquipment:Reports[];
+  FacilityKey;
+  FloorKey;
+  ZoneKey;
+  RoomTypeKey;
+  EquipmentTypeKey;
+  EquipmentKey;
+  newArray;
 
   public reportarray:Array<any> = [{
     RoomName:'',Barcode:'',Building:'',Floor:'',Zone:'',Roomtype:''
@@ -46,6 +78,21 @@ export class BarcodeReportComponent implements OnInit
   }
   ngOnInit() 
   {
+     this.FacilityKey="";
+     this.FloorKey="";
+     this.ZoneKey="";
+     this.RoomTypeKey="";
+     this.EquipmentTypeKey="";
+     this.EquipmentKey="";
+
+     var token = localStorage.getItem('token');
+     var encodedProfile = token.split('.')[1];
+     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+     this.role = profile.role;
+     this.IsSupervisor = profile.IsSupervisor;
+     this.name = profile.username;
+     this.employeekey = profile.employeekey;
+     this.OrganizationID = profile.OrganizationID;
 
       this.ReportServiceService
       .getBarcodeReport()
@@ -59,10 +106,10 @@ export class BarcodeReportComponent implements OnInit
       .subscribe((data: Reports[]) =>
          {
        // debugger;
-       var newArray = data.slice(0); //clone the array, or you'll end up with a new "None" option added to your "values" array on every digest cycle.
-        //         newArray.unshift({EquipmentTypeText: "Select All", EquipmentTypeKey: "-99"});
-        // // this.equipmenttypelist = data;
-        this.equipmenttypelist = newArray;
+        this.newArray = data.slice(0); //clone the array, or you'll end up with a new "None" option added to your "values" array on every digest cycle.
+        this.newArray.unshift({EquipmentTypeText: "Select All", EquipmentTypeKey: "-99"});
+        // this.equipmenttypelist = data;
+        this.equipmenttypelist = this.newArray;
 
         });
   
@@ -116,6 +163,11 @@ export class BarcodeReportComponent implements OnInit
   generateBarcodeReport(FacilityKey,FloorKey,RoomTypeKey,ZoneKey,EquipmentTypeKey,EquipmentKey)
   {
   // debugger;
+  if(!this.FacilityKey && !this.EquipmentTypeKey && !this.EquipmentKey )
+  {
+    alert("Please choose any filter");
+  }
+  
   if(FacilityKey){
     
   this.ReportServiceService
@@ -132,7 +184,7 @@ export class BarcodeReportComponent implements OnInit
   {
    // debugger;
     this.ReportServiceService
-    .generateBarcodeByEqupiment(EquipmentKey,EquipmentTypeKey)
+    .generateBarcodeByEqupimenttype(EquipmentKey,EquipmentTypeKey,this.employeekey,this.OrganizationID)
      .subscribe((data: Reports[]) =>
         {
           this.Roomflag=false;
@@ -140,7 +192,17 @@ export class BarcodeReportComponent implements OnInit
        this.viewBarcodeEquipment= data;
        });
   }
-
+if(EquipmentKey)
+{
+  this.ReportServiceService
+  .generateBarcodeByEqupiment(EquipmentKey,EquipmentTypeKey,this.employeekey,this.OrganizationID)
+  .subscribe((data: Reports[]) =>
+        {
+          this.Roomflag=false;
+          this.Equipmentflag=true;
+       this.viewBarcodeEquipment= data;
+       });
+}
 
   }
 
