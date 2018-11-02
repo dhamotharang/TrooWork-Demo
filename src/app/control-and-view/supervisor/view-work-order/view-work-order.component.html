@@ -100,7 +100,7 @@
               <td (click)="viewWorkForEdit(w.WorkorderKey)" *ngIf="w.IsReccurring === 0 ">NO</td>
               <td>{{w.WorkorderNotes}}</td>
               <td>
-                <div *ngIf="FinishButton[i] == true "> {{FinishButton[i]}}
+                <div *ngIf="FinishButton[i] == true ">
                   <button type="button" class="btn btn-default" (click)="workorderFinish(i)">Finish</button>
                 </div>
                 <div *ngIf="showbutton[i] == true && showbutton[i] !== false">

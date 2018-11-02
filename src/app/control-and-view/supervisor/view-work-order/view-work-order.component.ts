@@ -134,7 +134,7 @@ export class ViewWorkOrderComponent implements OnInit {
       });
   }
   searchWO(SearchValue) {
-
+    
   }
 
 

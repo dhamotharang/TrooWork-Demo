@@ -17,8 +17,6 @@ export class ViewDepartmentComponent implements OnInit {
   departments: Inventory[];
   delete_DeptKey: number;
   searchform: FormGroup;
-  pageNo: Number = 1;
-  itemsPerPage: Number = 25;
   role: String;
   name: String;
   employeekey: Number;
@@ -46,35 +44,35 @@ export class ViewDepartmentComponent implements OnInit {
   previousPage() {
     this.pageNo = +this.pageNo - 1;
     this.inventoryService
-      .getDepartmentList(this.employeekey, this.OrganizationID)
+      .getDepartmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.departments = data;
-      if (this.pageNo == 1) {
-        this.showHide2 = true;
-        this.showHide1 = false;
-      } else {
-        this.showHide2 = true;
-        this.showHide1 = true;
-      }
-    });
+        if (this.pageNo == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
   }
 
   nextPage() {
     this.pageNo = +this.pageNo + 1;
     this.inventoryService
-    .getDepartmentList(this.employeekey, this.OrganizationID)
-    .subscribe((data: Inventory[]) => {
-      this.departments = data;
-      this.pagination = +this.departments[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
-      if (this.pagination > 1) {
-        this.showHide2 = true;
-        this.showHide1 = true;
-      }
-      else {
-        this.showHide2 = false;
-        this.showHide1 = true;
-      }
-    });
+      .getDepartmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.departments = data;
+        this.pagination = +this.departments[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
   }
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
