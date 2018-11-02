@@ -29,6 +29,30 @@ export class MeetingTrainingViewComponent implements OnInit {
   JobTitleKey = [];
   EmployeeKey = [];
 
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+
   fromdate: Date;
   todate: Date;
   // filterList: People[];
@@ -107,7 +131,7 @@ export class MeetingTrainingViewComponent implements OnInit {
     }
 
     this.peopleServ
-      .viewMtngTrainingbyFilter(dateFrom, date2, JobTitleString, EmployeeKeyString)
+      .viewMtngTrainingbyFilter(dateFrom, date2, JobTitleString, EmployeeKeyString, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.meetingTraining = data;
       });
@@ -165,13 +189,13 @@ export class MeetingTrainingViewComponent implements OnInit {
     if (SearchValue.length >= 3) {
 
       this.peopleServ
-        .SearchmeetingTraining(dateFrom, date2, JobTitleString, EmployeeKeyString, SearchValue).subscribe((data: People[]) => {
+        .SearchmeetingTraining(dateFrom, date2, JobTitleString, EmployeeKeyString, SearchValue, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
           this.meetingTraining = data;
         });
     } else if (SearchValue.length == 0) {
 
       this.peopleServ
-        .viewMtngTrainingbyFilter(dateFrom, date2, JobTitleString, EmployeeKeyString)
+        .viewMtngTrainingbyFilter(dateFrom, date2, JobTitleString, EmployeeKeyString, this.employeekey, this.OrganizationID)
         .subscribe((data: People[]) => {
           this.meetingTraining = data;
         });
@@ -180,26 +204,35 @@ export class MeetingTrainingViewComponent implements OnInit {
 
 
   ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.searchform = this.formBuilder.group({
       SearchMeetingTraining: ['', Validators.required]
     });
 
 
     this.peopleServ
-      .getJobTitleList()
+      .getJobTitleList(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.jobTitle = data;
       });
 
     this.peopleServ
-      .getallEmployeesList()
+      .getallEmployeesList(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.empList = data;
       });
 
     this.todayDt = this.convert_DT(this.date1);
     this.peopleServ
-      .gettodaysMeeting(this.todayDt)
+      .gettodaysMeeting(this.todayDt, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.meetingTraining = data;
       });

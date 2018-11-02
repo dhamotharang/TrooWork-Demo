@@ -36,6 +36,9 @@
                 <!-- <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey === toServeremployeekey)"> <a routerLink="/Managerinspectiontemplate/{{i.InspectionOrderKey}}" class="btn btn-primary">Inspect</a></td>
                 <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey !== toServeremployeekey)">Scheduled</td> --> 
               </tr>
+              <tr *ngIf="inspectionordertable?.length == 0">
+                <td colspan="2" class="no-data-available">No records found</td>
+              </tr>
             </tbody>
             </table>
     </div>

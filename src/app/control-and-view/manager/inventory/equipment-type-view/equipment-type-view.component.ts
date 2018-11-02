@@ -17,7 +17,6 @@ export class EquipmentTypeViewComponent implements OnInit {
   equipmentType: Inventory[];
   delete_EquipTypeKey: number;
   searchform: FormGroup;
-
   role: String;
   name: String;
   employeekey: Number;
@@ -66,35 +65,35 @@ export class EquipmentTypeViewComponent implements OnInit {
   previousPage() {
     this.pageNo = +this.pageNo - 1;
     this.inventoryService
-    .getEquipmentTypeList()
-    .subscribe((data: Inventory[]) => {
-      this.equipmentType = data;
-      if (this.pageNo == 1) {
-        this.showHide2 = true;
-        this.showHide1 = false;
-      } else {
-        this.showHide2 = true;
-        this.showHide1 = true;
-      }
-    });
+      .getEquipmentTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.equipmentType = data;
+        if (this.pageNo == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
   }
 
   nextPage() {
     this.pageNo = +this.pageNo + 1;
     this.inventoryService
-    .getEquipmentTypeList()
-    .subscribe((data: Inventory[]) => {
-      this.equipmentType = data;
-      this.pagination = +this.equipmentType[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
-      if (this.pagination > 1) {
-        this.showHide2 = true;
-        this.showHide1 = true;
-      }
-      else {
-        this.showHide2 = false;
-        this.showHide1 = true;
-      }
-    });
+      .getEquipmentTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.equipmentType = data;
+        this.pagination = +this.equipmentType[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
   }
 
   searchEquipmentType(SearchValue) {
@@ -107,7 +106,7 @@ export class EquipmentTypeViewComponent implements OnInit {
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
-        .getEquipmentTypeList(this.employeekey, this.OrganizationID)
+        .getEquipmentTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.equipmentType = data;
           if (this.equipmentType[0].totalItems > this.itemsPerPage) {
@@ -130,7 +129,7 @@ export class EquipmentTypeViewComponent implements OnInit {
     this.inventoryService
       .DeleteEquipmentType(this.delete_EquipTypeKey, this.employeekey, this.OrganizationID).subscribe(() => {
         this.inventoryService
-          .getEquipmentTypeList(this.employeekey, this.OrganizationID)
+          .getEquipmentTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.equipmentType = data;
             if (this.equipmentType[0].totalItems > this.itemsPerPage) {
@@ -156,7 +155,7 @@ export class EquipmentTypeViewComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.inventoryService
-      .getEquipmentTypeList(this.employeekey, this.OrganizationID)
+      .getEquipmentTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.equipmentType = data;
         if (this.equipmentType[0].totalItems > this.itemsPerPage) {

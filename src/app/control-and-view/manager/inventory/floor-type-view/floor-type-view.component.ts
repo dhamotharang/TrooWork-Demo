@@ -67,7 +67,7 @@ export class FloorTypeViewComponent implements OnInit {
   previousPage() {
     this.pageNo = +this.pageNo - 1;
     this.inventoryService
-      .getFloorTypeList(this.employeekey, this.OrganizationID)
+      .getFloorTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floorType = data;
         if (this.pageNo == 1) {
@@ -83,7 +83,7 @@ export class FloorTypeViewComponent implements OnInit {
   nextPage() {
     this.pageNo = +this.pageNo + 1;
     this.inventoryService
-      .getFloorTypeList(this.employeekey, this.OrganizationID)
+      .getFloorTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floorType = data;
         this.pagination = +this.floorType[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
@@ -108,7 +108,7 @@ export class FloorTypeViewComponent implements OnInit {
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
-        .getFloorTypeList(this.employeekey, this.OrganizationID)
+        .getFloorTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.floorType = data;
           if (this.floorType[0].totalItems > this.itemsPerPage) {
@@ -131,7 +131,7 @@ export class FloorTypeViewComponent implements OnInit {
     this.inventoryService
       .DeleteFloorType(this.delete_FloorTypeKey, this.employeekey, this.OrganizationID).subscribe(() => {
         this.inventoryService
-          .getFloorTypeList(this.employeekey, this.OrganizationID)
+          .getFloorTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.floorType = data;
             if (this.floorType[0].totalItems > this.itemsPerPage) {
@@ -157,7 +157,7 @@ export class FloorTypeViewComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.inventoryService
-      .getFloorTypeList(this.employeekey, this.OrganizationID)
+      .getFloorTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floorType = data;
         if (this.floorType[0].totalItems > this.itemsPerPage) {

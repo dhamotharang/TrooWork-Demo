@@ -126,7 +126,6 @@ import { BatchScheduleRoomComponent } from './control-and-view/manager/schedulin
 import { CreateWorkOrderComponent } from './control-and-view/supervisor/create-work-order/create-work-order.component';
 import { CreateQuickWorkOrderComponent } from './control-and-view/supervisor/create-quick-work-order/create-quick-work-order.component';
 import { ViewWorkOrderComponent } from './control-and-view/supervisor/view-work-order/view-work-order.component';
-import { SetUsnamepaswdbySAComponent } from './control-and-view/superadmin/people/set-usnamepaswdby-sa/set-usnamepaswdby-sa.component';
 import { CreateDepartmentComponent } from './control-and-view/admin/create-department/create-department.component';
 import { EditDepartmentComponent } from './control-and-view/admin/edit-department/edit-department.component';
 import { ViewDepartmentComponent } from './control-and-view/admin/view-department/view-department.component';
@@ -142,6 +141,8 @@ import { EditBatchWorkorderComponent } from './control-and-view/manager/work-ord
 import { WorkOrderTypeComponent } from './control-and-view/manager/work-order/work-order-type/work-order-type.component';
 import { EditWorkorderTypeComponent } from './control-and-view/manager/work-order/edit-workorder-type/edit-workorder-type.component';
 import { CreateWorkorderTypeComponent } from './control-and-view/manager/work-order/create-workorder-type/create-workorder-type.component';
+import { SetUserLoginSuperComponent } from '../app/control-and-view/superadmin/people/set-user-login-super/set-user-login-super.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -645,10 +646,7 @@ const routes: Routes = [
     path: 'ViewBatchWorkorder',
     component: ViewBatchWorkorderComponent
   },
-  {
-    path:'SetUsnamepaswdbySA/:EmployeeKey/:str/:UserRoleTypeKey',
-    component:SetUsnamepaswdbySAComponent
-  },
+ 
   {
     path: 'WorkOrderType',
     component: WorkOrderTypeComponent
@@ -656,6 +654,10 @@ const routes: Routes = [
   {
     path: 'CreateWorkorderType',
     component: CreateWorkorderTypeComponent
+  },
+  {
+    path: 'setUserLoginSuper/:EmployeeKey/:str/:UserRoleTypeKey',
+    component: SetUserLoginSuperComponent
   }
 ];
 

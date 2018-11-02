@@ -26,6 +26,30 @@ export class MeetingTrainingEditComponent implements OnInit {
   time1: any;
   time2: any;
 
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+
   convert_DT(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(- 2),
@@ -57,20 +81,20 @@ export class MeetingTrainingEditComponent implements OnInit {
     console.log("inside select....");
     if ((this.jobTleKey > 0) && (this.superVsrKey > 0)) {
       this.peopleServ
-        .getSupervisorJobtitleEmployeesList(this.jobTleKey, this.superVsrKey)
+        .getSupervisorJobtitleEmployeesList(this.jobTleKey, this.superVsrKey, this.employeekey, this.OrganizationID)
         .subscribe((data: People[]) => {
           this.Employee = data;
         });
     } else if ((this.jobTleKey > 0) && (this.superVsrKey == 0)) {
       this.peopleServ
-        .getJobtitleEmployeesList(this.jobTleKey)
+        .getJobtitleEmployeesList(this.jobTleKey, this.employeekey, this.OrganizationID)
         .subscribe((data: People[]) => {
           this.Employee = data;
         });
     }
     else if ((this.jobTleKey == 0) && (this.superVsrKey > 0)) {
       this.peopleServ
-        .getSupervisorEmployeesList(this.superVsrKey)
+        .getSupervisorEmployeesList(this.superVsrKey, this.employeekey, this.OrganizationID)
         .subscribe((data: People[]) => {
           this.Employee = data;
         });
@@ -157,34 +181,41 @@ export class MeetingTrainingEditComponent implements OnInit {
       var newTime1 = q2 + ":" + q3;
 
       this.peopleServ
-        .updateMeetingTraining(ActionKey, Eventhost, Venue, newTime, newTime1, MeetingNotes, EmployeeKeyString, newDate, this.eventKey$)
+        .updateMeetingTraining(ActionKey, Eventhost, Venue, newTime, newTime1, MeetingNotes, EmployeeKeyString, newDate, this.eventKey$, this.employeekey, this.OrganizationID)
         .subscribe(res => this.router.navigateByUrl('/MeetingTrainingView'));
     }
 
   }
 
   ngOnInit() {
-    debugger;
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
     this.peopleServ
-      .getJobTitleList()
+      .getJobTitleList(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.jobTitle = data;
       });
 
     this.peopleServ
-      .getallEmployeesList()
+      .getallEmployeesList(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.empList = data;
       });
 
     this.peopleServ
-      .getSupervisorList()
+      .getSupervisorList(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.supervisor = data;
       });
 
     this.peopleServ
-      .getallEventList()
+      .getallEventList(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.event = data;
       });
@@ -192,7 +223,7 @@ export class MeetingTrainingEditComponent implements OnInit {
 
 
     this.peopleServ
-      .getMeetingTrainingDetails(this.eventKey$, this.actionKey$)
+      .getMeetingTrainingDetails(this.eventKey$, this.actionKey$, this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.mtngDetails = data[0];
         // var currentDate = this.convert_DT(this.mtngDetails.MeetingDate);
@@ -200,7 +231,7 @@ export class MeetingTrainingEditComponent implements OnInit {
       });
 
     this.peopleServ
-      .getallEmpsSelected(this.eventKey$, this.actionKey$)
+      .getallEmpsSelected(this.eventKey$, this.actionKey$, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.Employee = data;
       });

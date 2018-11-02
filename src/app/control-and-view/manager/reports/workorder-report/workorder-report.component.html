@@ -19,9 +19,9 @@
 
 
       <div class="form-group">
-        <label>Building*</label><br>
+        <label>Building</label><br>
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey" (change)="getFloorDisp($event.target.value)" >
-          <option >--Select--</option>
+          <option value="" >--Select--</option>
           <option *ngFor="let b of facilitylist" [value]="b.FacilityKey">
               {{b.FacilityText}}
           </option>
@@ -30,10 +30,10 @@
 
 
         <div class="form-group">
-          <label>Floor*</label><br>
+          <label>Floor</label><br>
 
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey" (change)="getZoneRoom($event.target.value,FacilityKey)" [disabled]="!FacilityKey">
-          <option >--Select--</option>
+          <option value="" >--Select--</option>
           <option *ngFor="let f of floor" [value]="f.FloorKey">
               {{f.FloorName}}
           </option>
@@ -49,7 +49,7 @@
           <option value="">z2</option>
         </select> -->
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey" (change)="getRoomsName($event.target.value,FacilityKey,FloorKey)" [disabled]="!FloorKey">
-          <option >--Select--</option>
+          <option value="">--Select--</option>
           <option *ngFor="let z of zoneroom" [value]="z.ZoneKey">
               {{z.ZoneName}}
           </option>
@@ -65,7 +65,7 @@
         </select> -->
 
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey" [disabled]="!FloorKey">
-          <option >--Select--</option>
+          <option value="">--Select--</option>
           <option *ngFor="let r of room" [value]="r.RoomTypeKey">
               {{r.RoomTypeName}}
           </option>
@@ -81,7 +81,7 @@
         </select> -->
 
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomKey" [disabled]="!FloorKey">
-          <option >--Select--</option>
+          <option value="">--Select--</option>
           <option *ngFor="let r of rooms" [value]="r.RoomKey">
               {{r.RoomName}}
           </option>
@@ -104,7 +104,7 @@
     <div class="form-group">
       <label>Employee</label><br>
     <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EmployeeKey" >
-      <option >--Select--</option>
+      <option value="" >--Select--</option>
       <option *ngFor="let e of emp" [value]="e.EmployeeKey">
           {{e.EmployeeText}}
       </option>
@@ -114,7 +114,7 @@
   <div class="form-group">
     <label>WorkStatus</label><br>
   <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WorkorderStatusKey" >
-    <option >--Select--</option>
+    <option value="" >--Select--</option>
     <option *ngFor="let w of workstatus" [value]="w.WorkorderStatusKey">
         {{w.WorkorderStatus}}
     </option>

@@ -59,14 +59,14 @@ export class ViewWorkOrdersComponent implements OnInit {
   role: String;
   name: String;
   IsSupervisor: Number;
-  
+
   // workorderCheckValue=false;
   //validation min3_alphanumeric
   searchform: FormGroup;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
   constructor(private formBuilder: FormBuilder, private WorkOrderServiceService: WorkOrderServiceService, private el: ElementRef) { }
-  
+
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -83,8 +83,8 @@ export class ViewWorkOrdersComponent implements OnInit {
     }
     return window.atob(output);
   }
-  
-  
+
+
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     return new RegExp(this.regexStr).test(event.key);
   }
@@ -102,9 +102,7 @@ export class ViewWorkOrdersComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.loading = true;// loading
-    this.emp_key = 2861;
-    this.org_id = 21;
+    this.loading = true;
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -113,8 +111,6 @@ export class ViewWorkOrdersComponent implements OnInit {
     this.name = profile.username;
     this.emp_key = profile.employeekey;
     this.org_id = profile.OrganizationID;
-    // this.emp_key = 2861;
-    // this.org_id = 21;
     this.domain_name = 'workstatus';
     var on_date = this.convert_DT(new Date());
     var page_no = 1;

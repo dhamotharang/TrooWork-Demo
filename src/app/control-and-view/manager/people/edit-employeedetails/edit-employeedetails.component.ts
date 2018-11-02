@@ -27,6 +27,30 @@ export class EditEmployeedetailsComponent implements OnInit {
   delete_EmpKey: Number;
   employeedetailstable: People[];
 
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
 
@@ -68,6 +92,15 @@ export class EditEmployeedetailsComponent implements OnInit {
   }
   ngOnInit() {
 
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.PeopleServiceService.EditEmployeeDetailsbyManager(this.empk$, this.orgid).subscribe((data: Array<any>) => {
       this.editempdtails = data[0];
       this.BirthDate = new Date(this.editempdtails.BirthDate);
@@ -76,23 +109,23 @@ export class EditEmployeedetailsComponent implements OnInit {
     });
 
     this.PeopleServiceService
-      .getEmployeeStatusListforDropdown()
+      .getEmployeeStatusListforDropdown(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.employeestatus = data;
       });
     this.PeopleServiceService
-      .getJobTitleListforDropdown()
+      .getJobTitleListforDropdown(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.jobtitle = data;
       });
     this.PeopleServiceService
-      .getDeptListforDropdown()
+      .getDeptListforDropdown(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.department = data;
       });
 
     this.PeopleServiceService
-      .getSupervisorListforDropdown()
+      .getSupervisorListforDropdown(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.supervisor = data;
       });

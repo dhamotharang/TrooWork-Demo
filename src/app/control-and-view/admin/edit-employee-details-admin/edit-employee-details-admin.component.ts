@@ -17,11 +17,8 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
   jobtitle: People[];
   department: People[];
   supervisor: People[];
-  updatedby: Number = 2861;
   editempdtails;
   empk$: Object;
-  orgid: number = 21;
-  orgID: number = 21;
   BirthDate: Date;
   HireDate: Date;
   managerKey: Number = 2861;
@@ -77,7 +74,7 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
     var birthdt = this.convert_DT(BD);
     var hiredt = this.convert_DT(HD);
 
-    this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.managerKey, this.empk$, this.orgid, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey)
+    this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.managerKey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey)
       .subscribe(res => this.router.navigateByUrl('/ViewEmployee'));
 
   }
@@ -86,7 +83,7 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
     debugger;
 
     this.PeopleServiceService
-      .DeleteEmployeeDetailsbyManager(this.delete_EmpKey, this.orgID, this.updatedby).subscribe(res => this.router.navigateByUrl('/ViewEmployee'));
+      .DeleteEmployeeDetailsbyManager(this.delete_EmpKey, this.OrganizationID, this.employeekey).subscribe(res => this.router.navigateByUrl('/ViewEmployee'));
   }
   deleteEmpPass(empk$) {
     this.delete_EmpKey = empk$;
@@ -103,7 +100,16 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
-    this.PeopleServiceService.EditEmployeeDetailsbyManager(this.empk$, this.orgid).subscribe((data: Array<any>) => {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
+    this.PeopleServiceService.EditEmployeeDetailsbyManager(this.empk$, this.OrganizationID).subscribe((data: Array<any>) => {
       this.editempdtails = data[0];
       this.BirthDate = new Date(this.editempdtails.BirthDate);
       this.HireDate = new Date(this.editempdtails.HireDate);
@@ -111,23 +117,23 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
     });
 
     this.PeopleServiceService
-      .getEmployeeStatusListforDropdown()
+      .getEmployeeStatusListforDropdown(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.employeestatus = data;
       });
     this.PeopleServiceService
-      .getJobTitleListforDropdown()
+      .getJobTitleListforDropdown(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.jobtitle = data;
       });
     this.PeopleServiceService
-      .getDeptListforDropdown()
+      .getDeptListforDropdown(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.department = data;
       });
 
     this.PeopleServiceService
-      .getSupervisorListforDropdown()
+      .getSupervisorListforDropdown(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.supervisor = data;
       });

@@ -17,8 +17,6 @@ export class BuildingViewComponent implements OnInit {
   build: Inventory[];
   delete_faciKey: number;
   searchform: FormGroup;
-  pageNo: Number = 1;
-  itemsperPage: Number = 25;
   role: String;
   name: String;
   employeekey: Number;
@@ -68,35 +66,35 @@ export class BuildingViewComponent implements OnInit {
   previousPage() {
     this.pageNo = +this.pageNo - 1;
     this.inventoryService
-    .getBuildings()
-    .subscribe((data: Inventory[]) => {
-      this.build = data;
-      if (this.pageNo == 1) {
-        this.showHide2 = true;
-        this.showHide1 = false;
-      } else {
-        this.showHide2 = true;
-        this.showHide1 = true;
-      }
-    });
+      .getBuildings(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.build = data;
+        if (this.pageNo == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
   }
 
   nextPage() {
     this.pageNo = +this.pageNo + 1;
     this.inventoryService
-      .getBuildings()
+      .getBuildings(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.build = data;
-      this.pagination = +this.build[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
-      if (this.pagination > 1) {
-        this.showHide2 = true;
-        this.showHide1 = true;
-      }
-      else {
-        this.showHide2 = false;
-        this.showHide1 = true;
-      }
-    });
+        this.pagination = +this.build[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
   }
   deleteFacility() {
     //debugger;
@@ -104,7 +102,7 @@ export class BuildingViewComponent implements OnInit {
       .DeleteBuilding(this.delete_faciKey, this.employeekey, this.OrganizationID).subscribe(() => {
 
         this.inventoryService
-          .getBuildings(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
+          .getBuildings(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.build = data;
             if (this.build[0].totalItems > this.itemsPerPage) {
@@ -131,21 +129,20 @@ export class BuildingViewComponent implements OnInit {
           this.showHide1 = false;
         });
     }
-    else if (SearchValue.length == 0)
-    {
+    else if (SearchValue.length == 0) {
       this.inventoryService
-      .getBuildings()
-      .subscribe((data: Inventory[]) => {
-        this.build = data;
-        if (this.build[0].totalItems > this.itemsPerPage) {
-          this.showHide2 = true;
-          this.showHide1 = false;
-        }
-        else if (this.build[0].totalItems <= this.itemsPerPage) {
-          this.showHide2 = false;
-          this.showHide1 = false;
-        }
-      });
+        .getBuildings(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+        .subscribe((data: Inventory[]) => {
+          this.build = data;
+          if (this.build[0].totalItems > this.itemsPerPage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.build[0].totalItems <= this.itemsPerPage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
+        });
     }
   };
 
@@ -165,7 +162,7 @@ export class BuildingViewComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.inventoryService
-      .getBuildings(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
+      .getBuildings(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.build = data;
         if (this.build[0].totalItems > this.itemsPerPage) {

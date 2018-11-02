@@ -36,11 +36,7 @@ export class DepartmentCreateComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private fb: FormBuilder, private inventoryServ: InventoryService, private router: Router) {
-    // this.createbuilding = fb.group({
-    //   DepartmentName: ['', Validators.required]
-    // });
-  }
+  constructor(private fb: FormBuilder, private inventoryServ: InventoryService, private router: Router) { }
 
   addDepartment(DepartmentName) {
     if (!DepartmentName) {

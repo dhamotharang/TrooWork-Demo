@@ -16,8 +16,6 @@ export class ViewworkordersforemployeeComponent implements OnInit {
   searchform: FormGroup;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
-  empk: Number = 2861;
-  orgid: Number = 21;
   WorkorderDetTable: workorder[];
   facilityList: workorder[];
   floorList: workorder[];
@@ -25,31 +23,31 @@ export class ViewworkordersforemployeeComponent implements OnInit {
   zoneList: workorder[];
   roomtypeList: workorder[];
   showbutton = {};
-  FinishButton=[] ;
+  FinishButton = [];
   RowIndex;
   countCancel1;
-  myworkorder ;
+  myworkorder;
   countCancel;
-  barcodeValue={};
- addUrl;
- wokey:Number;
- emp:Number;
- WorkorderDate:Date;
- WorkorderDate2:Date;
- role: String;
+  barcodeValue = {};
+  addUrl;
+  wokey: Number;
+  emp: Number;
+  WorkorderDate: Date;
+  WorkorderDate2: Date;
+  role: String;
   name: String;
   toServeremployeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-  FacilityKey:Number;
-  FloorKey:Number;
-  RoomTypeKey:Number;
-  ZoneKey:Number;
+  FacilityKey: Number;
+  FloorKey: Number;
+  RoomTypeKey: Number;
+  ZoneKey: Number;
   fileName;
   result;
   submitFlag;
   BarcodeValue;
-  
+
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -67,8 +65,8 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     }
     return window.atob(output);
   }
- 
- public uploader: FileUploader = new FileUploader({url:'', itemAlias: 'photo'});
+
+  public uploader: FileUploader = new FileUploader({ url: '', itemAlias: 'photo' });
   // adding properties and methods that will be used by the igxDatePicker
 
   public date: Date = new Date(Date.now());
@@ -126,7 +124,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     //debugger;
     this.facikey = facKey;
     this.WorkOrderServiceService
-      .getallFloorNames(facKey, this.orgid)
+      .getallFloorNames(facKey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.floorList = data;
       });
@@ -134,20 +132,19 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 
   selectZoneRoomtypefromFloor(flkey) {
     this.WorkOrderServiceService
-      .getallZones(this.facikey, flkey, this.orgid)
+      .getallZones(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: any[]) => {
         // debugger;
         this.zoneList = data;
       });
     this.WorkOrderServiceService
-      .getallRoomType(this.facikey, flkey, this.orgid)
+      .getallRoomType(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: any[]) => {
         // debugger;
         this.roomtypeList = data;
       });
   }
-  searchWO(SearchValue)
-   {
+  searchWO(SearchValue) {
     if (!this.WorkorderDate) {
       var date1 = this.convert_DT(new Date());
     }
@@ -162,7 +159,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     }
     if (SearchValue.length >= 3) {
       this.WorkOrderServiceService
-        .SearchwoByEmployee(SearchValue, date1, date2,this.toServeremployeekey,this.OrganizationID,this.FacilityKey,this.FloorKey,this.RoomTypeKey,this.ZoneKey).subscribe((data: any[]) => {
+        .SearchwoByEmployee(SearchValue, date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey).subscribe((data: any[]) => {
           this.WorkorderDetTable = data;
 
         });
@@ -170,19 +167,17 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     else if (SearchValue.length == 0) {
       var curr_date = this.convert_DT(new Date());
       this.WorkOrderServiceService
-      .getWOdetailsForEmployee(curr_date, this.empk, this.orgid)
-      .subscribe((data: any[]) => {
-        this.WorkorderDetTable = data;
-        for (var i = 0; i < this.WorkorderDetTable.length; i++)
-         {
-          this.FinishButton[i] = true;
-        }
-      });
+        .getWOdetailsForEmployee(curr_date, this.toServeremployeekey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.WorkorderDetTable = data;
+          for (var i = 0; i < this.WorkorderDetTable.length; i++) {
+            this.FinishButton[i] = true;
+          }
+        });
     }
 
   }
-  viewEmployeeWorkorderByFilter()
-  {
+  viewEmployeeWorkorderByFilter() {
     // debugger;
     if (!this.WorkorderDate) {
       var date1 = this.convert_DT(new Date());
@@ -197,85 +192,82 @@ export class ViewworkordersforemployeeComponent implements OnInit {
       date2 = this.convert_DT(this.WorkorderDate2);
     }
     this.WorkOrderServiceService
-    .getworkOrderTablewithOnDateOnly(date1,this.toServeremployeekey,this.OrganizationID)
-    .subscribe((data: any[]) => {
-      // debugger;
-      this.WorkorderDetTable = data;
-    });
-    this.WorkOrderServiceService
-      .getworkOrderTablewithOnDateandToDateFilter(date1,date2,this.toServeremployeekey,this.OrganizationID,this.FacilityKey,this.FloorKey,this.RoomTypeKey,this.ZoneKey)
+      .getworkOrderTablewithOnDateOnly(date1, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         // debugger;
         this.WorkorderDetTable = data;
-        for (var i = 0; i < this.WorkorderDetTable.length; i++)
-        {
-         this.FinishButton[i] = true;
-       }
       });
-      this.WorkOrderServiceService
-      .getworkOrderTablewithbuildingFilter(date1,date2,this.toServeremployeekey,this.OrganizationID,this.FacilityKey,this.FloorKey,this.RoomTypeKey,this.ZoneKey)
+    this.WorkOrderServiceService
+      .getworkOrderTablewithOnDateandToDateFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
+      .subscribe((data: any[]) => {
+        // debugger;
+        this.WorkorderDetTable = data;
+        for (var i = 0; i < this.WorkorderDetTable.length; i++) {
+          this.FinishButton[i] = true;
+        }
+      });
+    this.WorkOrderServiceService
+      .getworkOrderTablewithbuildingFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
       });
-      
-  }
-  
-  workorderCompleted(i, barcodeRequired, photoRequired, workorderkey,file) {
-          //debugger;    
-      this.countCancel=1;
-     this.countCancel1=this.countCancel;
 
-   if (this.BarcodeValue && barcodeRequired === 1) {
+  }
+
+  workorderCompleted(i, barcodeRequired, photoRequired, workorderkey, file) {
+    //debugger;    
+    this.countCancel = 1;
+    this.countCancel1 = this.countCancel;
+
+    if (this.BarcodeValue && barcodeRequired === 1) {
       this.WorkOrderServiceService
-         .BarcodeRoomCheck(this.BarcodeValue,workorderkey,this.OrganizationID)
-         .subscribe((data: any[]) => {
-                  this.result = data;
-                        if (this.result === 1) {
-                var type = 'manual';
-                this.WorkOrderServiceService
-                .BarcodeRoom(this.BarcodeValue,this.toServeremployeekey,workorderkey,type,this.OrganizationID)
-                .subscribe((data: any[]) => {             
-                });
-                }
-                });
-   } 
-   if (this.fileName && photoRequired === 1) {
-    this.WorkOrderServiceService
-    .UpdatewobyPhotoForEmployee(this.fileName,this.toServeremployeekey,workorderkey,this.OrganizationID)
-    .subscribe((data: any[]) => {
-      //debugger;
- });
-  }
-  if (photoRequired !== 1 && barcodeRequired !== 1) 
-  {
-               this.WorkOrderServiceService
-               .CompletewoByempWithoutPhotoandBarcd(this.toServeremployeekey,workorderkey,this.OrganizationID)
-                 .subscribe((data: any[]) => {
-                  this.FinishButton[i]=true;             
-           });
-  }
-          this.FinishButton[i]=true;
-          this.showbutton[i] = false;
-              this.submitFlag=false;
-              this.countCancel1=false;
-    for(var j; j<this.FinishButton.length ;j++)
-    {
-      
-        this.FinishButton[i]=true;
-        this.showbutton[i]=false;
-      
+        .BarcodeRoomCheck(this.BarcodeValue, workorderkey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.result = data;
+          if (this.result === 1) {
+            var type = 'manual';
+            this.WorkOrderServiceService
+              .BarcodeRoom(this.BarcodeValue, this.toServeremployeekey, workorderkey, type, this.OrganizationID)
+              .subscribe((data: any[]) => {
+              });
+          }
+        });
+    }
+    if (this.fileName && photoRequired === 1) {
+      this.WorkOrderServiceService
+        .UpdatewobyPhotoForEmployee(this.fileName, this.toServeremployeekey, workorderkey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          //debugger;
+        });
+    }
+    if (photoRequired !== 1 && barcodeRequired !== 1) {
+      this.WorkOrderServiceService
+        .CompletewoByempWithoutPhotoandBarcd(this.toServeremployeekey, workorderkey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.FinishButton[i] = true;
+        });
+    }
+    this.FinishButton[i] = true;
+    this.showbutton[i] = false;
+    this.submitFlag = false;
+    this.countCancel1 = false;
+    for (var j; j < this.FinishButton.length; j++) {
+
+      this.FinishButton[i] = true;
+      this.showbutton[i] = false;
+
     }
   };
   FileSelected(WorkorderKey) {
-   // debugger;
-    this.addUrl='?Workorderkey=' + WorkorderKey + '&EmployeeKey=' + this.toServeremployeekey + '&OrganizationID=' + this.OrganizationID;
+    // debugger;
+    this.addUrl = '?Workorderkey=' + WorkorderKey + '&EmployeeKey=' + this.toServeremployeekey + '&OrganizationID=' + this.OrganizationID;
     this.uploader.onBeforeUploadItem = (item) => {
-    item.withCredentials = false;      
-    item.url = URL + this.addUrl;
-    }   
+      item.withCredentials = false;
+      item.url = URL + this.addUrl;
     }
+  }
   workorderFinish(i) {
-   // debugger;
+    // debugger;
     if (this.RowIndex || this.RowIndex === 0) {
       this.showbutton[this.RowIndex] = false;
     }
@@ -283,36 +275,35 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     RowIndex = i;
     this.showbutton[RowIndex] = true;
     this.FinishButton[RowIndex] = false;
-    this.countCancel1=true;
-    this.submitFlag=true;
-    for(var j; j<this.FinishButton.length ;j++)
-    {
-      if(i!==j) {
-        this.FinishButton[i]=false;
-        this.showbutton[i]=false;
+    this.countCancel1 = true;
+    this.submitFlag = true;
+    for (var j; j < this.FinishButton.length; j++) {
+      if (i !== j) {
+        this.FinishButton[i] = false;
+        this.showbutton[i] = false;
       }
     }
   };
   cancelWorkorderSubmission(i) {
     //debugger;
-    if (this.RowIndex || this.RowIndex === 0){
-//                var identity1 = "showbutton";
-       this.showbutton[this.RowIndex] = false;
+    if (this.RowIndex || this.RowIndex === 0) {
+      //                var identity1 = "showbutton";
+      this.showbutton[this.RowIndex] = false;
     }
-    if(this.countCancel1==true){
-      this.countCancel1=false;
+    if (this.countCancel1 == true) {
+      this.countCancel1 = false;
       var curr_date = this.convert_DT(new Date());
       this.WorkOrderServiceService
-      .getWOdetailsForEmployee(curr_date, this.empk, this.orgid)
-      .subscribe((data: any[]) => {
-        this.WorkorderDetTable = data;
-      });
+        .getWOdetailsForEmployee(curr_date, this.toServeremployeekey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.WorkorderDetTable = data;
+        });
 
     }
-    this.submitFlag=false;
+    this.submitFlag = false;
     this.FinishButton[i] = true;
     this.showbutton[i] = false;
-    };
+  };
   ngOnInit() {
 
     //token starts....
@@ -329,17 +320,16 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 
     var curr_date = this.convert_DT(new Date());
     this.WorkOrderServiceService
-      .getWOdetailsForEmployee(curr_date, this.empk, this.orgid)
+      .getWOdetailsForEmployee(curr_date, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
-        for (var i = 0; i < this.WorkorderDetTable.length; i++)
-         {
+        for (var i = 0; i < this.WorkorderDetTable.length; i++) {
           this.FinishButton[i] = true;
         }
       });
 
     this.WorkOrderServiceService
-      .getallBuildingsForEmployee(this.empk, this.orgid)
+      .getallBuildingsForEmployee(this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.facilityList = data;
       });
@@ -352,11 +342,11 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       //debugger;
 
-         console.log('ImageUpload:uploaded:', item, status, response);
-         this.fileName =  item.file.name;
+      console.log('ImageUpload:uploaded:', item, status, response);
+      this.fileName = item.file.name;
 
-         alert('File uploaded successfully');
-  };
+      alert('File uploaded successfully');
+    };
   }
 
 }

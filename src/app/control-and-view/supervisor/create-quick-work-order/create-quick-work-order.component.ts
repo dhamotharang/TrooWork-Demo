@@ -11,8 +11,6 @@ import { Router } from "@angular/router";
 export class CreateQuickWorkOrderComponent implements OnInit {
   EmployeeOption: workorder[];
   facilitylist: workorder[];
-  emp_key: number;
-  org_id: number;
   marked = false;
   prioritylist: workorder[];
   EmployeeKey;
@@ -43,6 +41,30 @@ export class CreateQuickWorkOrderComponent implements OnInit {
   occursonday;
 
   workorderCreation;
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
 
   constructor(private router: Router, private WorkOrderServiceService: WorkOrderServiceService) { }
 
@@ -83,9 +105,9 @@ export class CreateQuickWorkOrderComponent implements OnInit {
     }
     else {
       if (this.EmployeeKey) {
-        this.emp_key = this.EmployeeKey;
+        this.employeekey = this.EmployeeKey;
       } else {
-        this.emp_key = - 1;
+        this.employeekey = - 1;
       }
 
       if (this.PriorityKey) {
@@ -108,7 +130,7 @@ export class CreateQuickWorkOrderComponent implements OnInit {
         floorkeys: '-1',
         zonekeys: '-1',
         roomtypekeys: '-1',
-        employeekey: this.emp_key,
+        employeekey: this.employeekey,
         priority: this.priority,
         fromdate: this.startDT,
         todate: this.startDT,
@@ -131,21 +153,27 @@ export class CreateQuickWorkOrderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.emp_key = 2861;
-    this.org_id = 21;
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
 
     this.WorkOrderServiceService
-      .getallEmployee(this.emp_key, this.org_id)
+      .getallEmployee(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.EmployeeOption = data;
       });
     this.WorkOrderServiceService
-      .getallFacility(this.emp_key, this.org_id)
+      .getallFacility(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.facilitylist = data;
       });
     this.WorkOrderServiceService
-      .getallPriority(this.org_id)
+      .getallPriority(this.OrganizationID)
       .subscribe((data: any[]) => {
         this.prioritylist = data;
       });

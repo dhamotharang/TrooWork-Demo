@@ -34,8 +34,6 @@ export class ViewBatchWorkorderComponent implements OnInit {
   workStatusList: workorder[];
   workorderTypeList: workorder[];
   RoomList: workorder[];
-  emp_key: number;
-  org_id: number;
   domain_name: string;
   workorderList;
   checkValue = [];
@@ -55,6 +53,30 @@ export class ViewBatchWorkorderComponent implements OnInit {
   marked = false;
   workorderKey = [];
   searchWorkorder;
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
   // workorderCheckValue=false;
   //validation min3_alphanumeric
   searchform: FormGroup;
@@ -78,39 +100,46 @@ export class ViewBatchWorkorderComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.emp_key = 2861;
-    this.org_id = 21;
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.domain_name = 'workstatus';
     var on_date = this.convert_DT(new Date());
     var page_no = 1;
     var iems_perpage = 25;
     this.WorkOrderServiceService
-      .getallFacility(this.emp_key, this.org_id)
+      .getallFacility(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.facilitylist = data;
       });
     this.WorkOrderServiceService
-      .getallEmployeeName(this.emp_key, this.org_id)
+      .getallEmployeeName(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.EmployeeOption = data;
       });
     this.WorkOrderServiceService
-      .getallScheduleName(this.emp_key, this.org_id)
+      .getallScheduleName(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.scheduleList = data;
       });
     this.WorkOrderServiceService
-      .getallworkStatus(this.domain_name, this.emp_key, this.org_id)
+      .getallworkStatus(this.domain_name, this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.workStatusList = data;
       });
     this.WorkOrderServiceService
-      .getallworkorderType(this.emp_key, this.org_id)
+      .getallworkorderType(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.workorderTypeList = data;
       });
     this.WorkOrderServiceService
-      .getBatchworkorder(on_date, this.emp_key, page_no, iems_perpage, this.org_id)
+      .getBatchworkorder(on_date, this.employeekey, page_no, iems_perpage, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.workorderList = data;
       });
@@ -135,43 +164,43 @@ export class ViewBatchWorkorderComponent implements OnInit {
   getFloorDisp(facilityName) {
     debugger;
     this.WorkOrderServiceService
-      .getallFloor(facilityName, this.org_id)
+      .getallFloor(facilityName, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.FloorList = data;
       });
   }
   getZoneRoomTypeRoom(floor, facility) {
     this.WorkOrderServiceService
-      .getzone_facilityfloor(floor, facility, this.org_id)
+      .getzone_facilityfloor(floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.zonelist = data;
       });
     this.WorkOrderServiceService
-      .getroomType_facilityfloor(floor, facility, this.org_id)
+      .getroomType_facilityfloor(floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.RoomTypeList = data;
       });
     this.WorkOrderServiceService
-      .getRoom_facilityfloor(floor, facility, this.org_id)
+      .getRoom_facilityfloor(floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
   }
   getRoomTypeRoom(zone, facility, floor) {
     this.WorkOrderServiceService
-      .getRoomtype_zone_facilityfloor(zone, floor, facility, this.org_id)
+      .getRoomtype_zone_facilityfloor(zone, floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.RoomTypeList = data;
       });
     this.WorkOrderServiceService
-      .getRoom_zone_facilityfloor(zone, floor, facility, this.org_id)
+      .getRoom_zone_facilityfloor(zone, floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
   }
   getRoom(roomtype, zone, facility, floor) {
     this.WorkOrderServiceService
-      .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.org_id)
+      .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
@@ -267,7 +296,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
       employeekey: em_key,
       workorderTypeKey: wot_key,
       BatchScheduleNameKey: batch_key,
-      OrganizationID: this.org_id,
+      OrganizationID: this.OrganizationID,
       floorKey: floor_key
     };
     this.WorkOrderServiceService
@@ -366,7 +395,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
       employeekey: em_key,
       workorderTypeKey: wot_key,
       BatchScheduleNameKey: batch_key,
-      OrganizationID: this.org_id,
+      OrganizationID: this.OrganizationID,
       floorKey: floor_key,
       searchWO: search_value
     };
