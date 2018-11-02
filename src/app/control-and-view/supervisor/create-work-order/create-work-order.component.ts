@@ -343,10 +343,10 @@ export class CreateWorkOrderComponent implements OnInit {
     } else {
       this.notes = null;
     }
-    if (this.FacilityKey) {
+    if (!this.FacilityKey) {
       alert("Building is not specified !");
     }
-    if (this.FloorKey) {
+    if (!this.FloorKey) {
       alert("Floor is not specified !");
     }
     var roomsString;
@@ -599,7 +599,10 @@ export class CreateWorkOrderComponent implements OnInit {
       occursonday: this.occurs_on,
       occurstype: this.occurs_type
     };
-    this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => this.router.navigateByUrl('/viewWorkOrderSupervisorr'));
+    this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res =>{ 
+      alert("work order created successfully");
+      this.router.navigateByUrl('/viewWorkOrderSupervisor');
+  });
   }
   createWorkorder2() {
 

@@ -92,54 +92,54 @@ export class CreateemployeeComponent implements OnInit {
   createEmployee() {
     debugger;
 
-    if (this.OrganizationID === undefined) {
+    if (!(this.OrganizationID) ) {
       alert("Organization Not provided !");
       return;
     }
-    if (this.EmployeeNumber === undefined) {
+    if (!(this.EmployeeNumber) ) {
       alert("Employee Number Not provided !");
       return;
     }
-    if (this.UserRoleTypeKey === undefined) {
+    if (!(this.UserRoleTypeKey) ) {
       alert("User Role Type Not provided !");
       return;
     }
-    if (this.showManager === true && this.ManagerKey === undefined) {
+    if (this.showManager === true && !(this.ManagerKey) ) {
       alert("Manager Not provided !");
       return;
     }
     else {
       this.ManagerKey = -1;
     }
-    if (this.FirstName === undefined) {
+    if (!(this.FirstName )) {
       alert("First Name Not provided !");
       return;
     }
-    if (this.LastName === undefined) {
+    if (!(this.LastName) ) {
       alert("LastName Not provided !");
       return;
     }
-    if (this.Gender === undefined) {
+    if (!(this.Gender) ) {
       alert("Gender Not provided !");
       return;
     }
-    if (this.PrimaryPhone === undefined) {
+    if (!(this.PrimaryPhone) ) {
       alert("Primary Phone Not provided !");
       return;
     }
-    if (this.HireDate === undefined) {
+    if (!(this.HireDate) ) {
       alert("HireDate Not provided !");
       return;
     }
-    if (this.JobTitleKey === undefined) {
+    if (!(this.JobTitleKey) ) {
       this.JobTitleKey = -1;
     }
-    if (this.DepartmentKey === undefined) {
+    if (!(this.DepartmentKey) ) {
       this.DepartmentKey = -1;
     }
     var BD;
-    if (this.BirthDate === undefined) {
-      BD = new Date();
+    if (!(this.BirthDate) ) {
+      BD = this.convert_DT(new Date());
     }
     else {
       BD = this.convert_DT(this.BirthDate);

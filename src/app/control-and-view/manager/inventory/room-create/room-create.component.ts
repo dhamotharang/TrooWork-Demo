@@ -24,7 +24,7 @@ export class RoomCreateComponent implements OnInit {
   RoomName;
   SquareFoot;
   temp_barcode;
-
+  unqBar;
   role: String;
   name: String;
   employeekey: Number;
@@ -127,7 +127,8 @@ export class RoomCreateComponent implements OnInit {
             this.inventoryService
               .checkRoomBarcode(Barcode, this.employeekey, this.OrganizationID)
               .subscribe((data: Inventory[]) => {
-                if (data.length > 0) {
+                this.unqBar = data;
+                if (this.unqBar.Barcode!=0) {
                   alert("Barcode already exists! Please enter a unique barcode.");
                 } else {
                   this.inventoryService

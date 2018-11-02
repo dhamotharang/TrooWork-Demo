@@ -558,6 +558,20 @@ export class InventoryService {
       .get('http://localhost:3000/api/getRoomById?roomKey=' + RoomKey + '&OrganizationID=' + OrgID);
 
   }
+  checkUniqueBarcode_Updation(Barcode,roomkey,employeekey,OrganizationID) {
+
+    return this
+      .http
+      .get('http://localhost:3000/api/checkUniqueBarcode_Updation?barcode='+Barcode+'&roomkey='+roomkey+'&employeekey='+employeekey+'&OrganizationID='+OrganizationID);
+
+  }
+  updateRoom(obj)
+  {
+    const url = 'http://localhost:3000/api/updateRoom';
+    return this
+      .http
+      .post (url, obj);
+  }
 
   checkForNewFloorType(FloorTypeName, empKey, OrgID) {
     return this
