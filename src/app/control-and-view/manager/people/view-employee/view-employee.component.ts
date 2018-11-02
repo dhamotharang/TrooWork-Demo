@@ -17,7 +17,8 @@ export class ViewEmployeeComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  pageNo: number = 1;
+  itemsCount: Number = 25;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -65,7 +66,7 @@ export class ViewEmployeeComponent implements OnInit {
   }
   searchEmployeeDetails(SearchValue) {
     this.PeopleServiceService
-      .searchResultOfEmployeedetailsTable(SearchValue, this.employeekey, this.OrganizationID)
+      .searchResultOfEmployeedetailsTable(SearchValue, this.pageNo, this.itemsCount, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.employeedetailstable = data;
       });
@@ -87,7 +88,7 @@ export class ViewEmployeeComponent implements OnInit {
         this.jobtitle = data;
       });
     this.PeopleServiceService
-      .getAllEmployeeDetails(this.employeekey, this.OrganizationID)
+      .getAllEmployeeDetails(1, 25, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.employeedetailstable = data;
       });

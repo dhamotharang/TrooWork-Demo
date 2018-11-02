@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 export class BuildingEditComponent implements OnInit {
   facKey$: Object;
   build: Inventory[];
+
 
 
   role: String;
@@ -38,12 +39,16 @@ export class BuildingEditComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private route: ActivatedRoute, private inventoryService: InventoryService) {
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
     this.route.params.subscribe(params => this.facKey$ = params.Facility_Key);
   }
 
   updateBuilding(FacilityName, FacilityKey) {
-    this.inventoryService.UpdateBuilding(FacilityName, FacilityKey, this.employeekey, this.OrganizationID);
+    this.inventoryService.UpdateBuilding(FacilityName, FacilityKey, this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        alert("Building updated successfully");
+        this.router.navigateByUrl('/Buildview');
+      });
   }
 
   ngOnInit() {

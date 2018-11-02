@@ -36,7 +36,7 @@ export class InventoryService {
     };
     return this
       .http
-      .post(url, obj).subscribe(res => console.log('Done'));
+      .post(url, obj);
 
   }
   DeleteBuilding(facility_key, empKey, OrgID) {
@@ -99,7 +99,7 @@ export class InventoryService {
     };
     return this
       .http
-      .post(url, obj).subscribe(res => console.log('Done'));
+      .post(url, obj);
   }
   createZones(FacilityKey, FloorName, ZoneName, empKey, OrgID) {
     const url = 'http://localhost:3000/api/addnewZone';
@@ -112,7 +112,7 @@ export class InventoryService {
     };
     return this
       .http
-      .post(url, obj).subscribe(res => console.log('Done'));
+      .post(url, obj);
   }
 
   getallBuildingList(empKey, OrgID) {
@@ -138,7 +138,7 @@ export class InventoryService {
     };
     return this
       .http
-      .post(url, obj).subscribe(res => console.log('Done'));
+      .post(url, obj);
   }
 
   // @rodney starts....

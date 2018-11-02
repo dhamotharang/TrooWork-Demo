@@ -51,7 +51,7 @@
               </div>
             </form> 
           </div>
-          <div style="margin-left: 1.5rem;margin-right: 1.5rem;"></div>
+    <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
     <table class="table table-hover table-responsive table-bordered table">
       <thead class="tableHead">
         <!-- <tr> -->
@@ -76,4 +76,8 @@
           <td><a routerLink="/Editemployee/{{e.EmployeeKey}}">{{ e.JobTitle }}</a></td>
           <td><a routerLink="/Editemployee/{{e.EmployeeKey}}">{{ e.PrimaryPhone }}</a></td>
         </tr>
-     
+      </tbody>
+      </table>
+      <button class="btn btn-success" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
+      <button class="btn btn-success" (click)="nextPage()" *ngIf="showHide2">Next >></button>
+      </div>

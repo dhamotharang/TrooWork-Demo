@@ -15,7 +15,7 @@ export class CreatebuildingService {
     };
     return this
       .http
-      .post(url, obj).subscribe(res => console.log('Done'));
+      .post (url,obj);
 
 
     // return this

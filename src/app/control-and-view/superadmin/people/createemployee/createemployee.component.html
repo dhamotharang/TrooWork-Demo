@@ -10,8 +10,8 @@
   <!-- form-row col-md-12 -->
   <div class="col-md-6">
       <div class="form-group">
-          <label>Organization</label><br>
-          <select name="org" style="width: 77%; background-color: #d4f4ff;" class="form-control" [(ngModel)]="OrganizationID">
+          <label>Organization*</label><br>
+          <select name="org" style="width: 77%; background-color: #d4f4ff;" (change)='OrganizationChanged()' class="form-control" [(ngModel)]="OrganizationID">
             <option value="">--Select--</option>
             <option *ngFor="let o of organization" [ngValue]="o.OrganizationID">
               {{o.OrganizationName}}
@@ -20,7 +20,7 @@
         </div>
     <div class="col-md-6 bg-dark">
       <div class="form-group bg-dark">
-        <label>Employee Number</label>
+        <label>Employee Number*</label>
         <!-- <div class="col-md-6 mb-2"> -->
         <input type="text" name="EmployeeNumber" class="form-control"  maxlength="15" placeholder="Employee Number" [(ngModel)]="EmployeeNumber">
         <!-- </div> -->
@@ -28,7 +28,7 @@
     </div>
     <div class="col-md-6">
       <div class="form-group ">
-        <label>User Role Type</label><br>
+        <label>User Role Type*</label><br>
         <select name="userroletype" style="width: 77%; background-color: #d4f4ff;" class="form-control" [(ngModel)]="UserRoleTypeKey"  (change)="selectUserType($event.target.value)">
           <option value="" placeholder>--Select--</option>
           <option *ngFor="let u of useroletypesa" [value]="u.UserRoleTypeKey">
@@ -41,7 +41,7 @@
 
 <div class="col-md-6" *ngIf="showManager">
       <div class="form-group ">
-        <label>Manager</label><br>
+        <label>Manager*</label><br>
         <select name="userroletype" style="width: 77%; background-color: #d4f4ff;" class="form-control" [(ngModel)]="ManagerKey">
           <option value="" placeholder>--Select--</option>
           <option *ngFor="let u of managerList" [value]="u.ManagerKey">

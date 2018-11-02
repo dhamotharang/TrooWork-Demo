@@ -12,7 +12,6 @@ export class FloorCreateComponent implements OnInit {
 
   flooroptions: Inventory[];
   floorcreate: FormGroup;
-
   role: String;
   name: String;
   employeekey: Number;
@@ -36,7 +35,7 @@ export class FloorCreateComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private fb: FormBuilder, private inventoryService: InventoryService) {
+  constructor(private router: Router, private fb: FormBuilder, private inventoryService: InventoryService) {
 
     this.floorcreate = fb.group({
       FacilityKey: ['', Validators.required],
@@ -44,8 +43,24 @@ export class FloorCreateComponent implements OnInit {
       FloorDescription: ['', Validators.required]
     });
   }
+
   addFloor(FacilityKey, FloorName, FloorDescription) {
-    this.inventoryService.createFloors(FacilityKey, FloorName, FloorDescription, this.employeekey, this.OrganizationID);
+    if (!FacilityKey) {
+      alert("Please select a building name!");
+    } else if (!FloorName) {
+      alert("Enter floor name!");
+    }
+    else if (!FloorDescription) {
+      alert("Enter floor description!");
+    }
+    else {
+
+      this.inventoryService.createFloors(FacilityKey, FloorName, FloorDescription, this.employeekey, this.OrganizationID)
+        .subscribe((data: Inventory[]) => {
+          alert("Floor created successfully");
+          this.router.navigateByUrl('/Floorview');
+        });
+    }
   }
 
   ngOnInit() {

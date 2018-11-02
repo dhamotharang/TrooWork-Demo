@@ -13,7 +13,8 @@ export class ViewmeetingortrainingeventComponent implements OnInit {
   toServeremployeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  page: Number = 1;
+  count: Number = 25;
   viewmeeting: People[];
   searchform: FormGroup;
   regexStr = '^[a-zA-Z0-9_ ]*$';
@@ -83,7 +84,7 @@ export class ViewmeetingortrainingeventComponent implements OnInit {
     //token ends
     var curr_date = this.convert_DT(new Date());
     this.PeopleServiceService
-      .getMeetingTrainingViewforemployee(curr_date, this.toServeremployeekey, this.OrganizationID)
+      .getMeetingTrainingViewforemployee(this.page, this.count, curr_date, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.viewmeeting = data;
       });

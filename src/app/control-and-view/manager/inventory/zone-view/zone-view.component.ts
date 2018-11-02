@@ -8,13 +8,16 @@ import { Inventory } from '../../../../model-class/Inventory';
   styleUrls: ['./zone-view.component.scss']
 })
 export class ZoneViewComponent implements OnInit {
+  pageNo: Number = 1;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
   zone: Inventory[];
   searchform: FormGroup;
 
   delete_faciKey: number;
   delete_floorKey: number;
   delete_zoneKey: number;
-  pageNo: Number = 1;
   itemsperPage: Number = 25;
   role: String;
   name: String;
@@ -60,19 +63,62 @@ export class ZoneViewComponent implements OnInit {
     }, 100)
   }
   //validation ends ..... @rodney
+  previousPage() {
+    this.pageNo = +this.pageNo - 1;
+    this.inventoryService
+      .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.zone = data;
+        if (this.pageNo == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
+  }
+
+  nextPage() {
+    this.pageNo = +this.pageNo + 1;
+    this.inventoryService
+      .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.zone = data;
+        this.pagination = +this.zone[0].totalItems / (+this.pageNo * (+this.itemsperPage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
+  }
+
 
   searchZone(SearchValue) {
     if (SearchValue.length >= 3) {
       this.inventoryService
         .searchZone(SearchValue, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.zone = data;
-
+          this.showHide2 = false;
+          this.showHide1 = false;
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
         .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.zone = data;
+          if (this.zone[0].totalItems > this.itemsperPage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.zone[0].totalItems <= this.itemsperPage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
         });
     }
   };
@@ -90,6 +136,14 @@ export class ZoneViewComponent implements OnInit {
           .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.zone = data;
+            if (this.zone[0].totalItems > this.itemsperPage) {
+              this.showHide2 = true;
+              this.showHide1 = false;
+            }
+            else if (this.zone[0].totalItems <= this.itemsperPage) {
+              this.showHide2 = false;
+              this.showHide1 = false;
+            }
           });
 
       });
@@ -110,6 +164,14 @@ export class ZoneViewComponent implements OnInit {
       .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.zone = data;
+        if (this.zone[0].totalItems > this.itemsperPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.zone[0].totalItems <= this.itemsperPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
       });
 
     this.searchform = this.formBuilder.group({

@@ -22,7 +22,7 @@ export class OrganizationService {
     };
     return this
       .http
-      .post(url, obj).subscribe(res => console.log('Done'));
+      .post(url, obj);
   }
   getOrganization(page, itemCount) {
     return this
@@ -62,5 +62,10 @@ export class OrganizationService {
       .http
       .post(url, obj);
 
+  }
+  checkForTenantId(TenantID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/checkForTenantId?TenantID=' + TenantID);
   }
 }

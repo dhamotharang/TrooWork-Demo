@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { People } from '../../../../model-class/People';
 import { PeopleServiceService } from '../../../../service/people-service.service';
-import { ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
+
 @Component({
-  selector: 'app-settingusernameandpswrdaftremplcreatebyman',
-  templateUrl: './settingusernameandpswrdaftremplcreatebyman.component.html',
-  styleUrls: ['./settingusernameandpswrdaftremplcreatebyman.component.scss']
+  selector: 'app-set-user-login-super',
+  templateUrl: './set-user-login-super.component.html',
+  styleUrls: ['./set-user-login-super.component.scss']
 })
-export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnInit {
-  
-  str$:Object;
-  sasemail:People[];
-  empKey$:Object;
+export class SetUserLoginSuperComponent implements OnInit {
+  str$: Object;
+  empKey$: Object;
   userRoleTypeKey$: Object;
-  orgid:Number=21;
-  password:String='troowork';
-  reEnterPassword:String='troowork';
-  username:any;
+  sasemail: People[];
+  orgid: Number = 21;
+  password: String = 'troowork';
+  reEnterPassword: String = 'troowork';
+  username: any;
   managerMail: Object;
   userMail: Object;
   role: String;
@@ -25,8 +25,6 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-  page: Number = 1;
-  count: Number = 25;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -43,15 +41,24 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
     }
     return window.atob(output);
   }
-
-  constructor(private route: ActivatedRoute, private peopleService: PeopleServiceService, private http: HttpClient,private router: Router) {
+  constructor(private route: ActivatedRoute, private peopleService: PeopleServiceService, private http: HttpClient, private router: Router) {
     this.route.params.subscribe(params => this.empKey$ = params.EmployeeKey);
     this.route.params.subscribe(params => this.str$ = params.str);
     this.route.params.subscribe(params => this.userRoleTypeKey$ = params.UserRoleTypeKey);
-   }
+  }
+  ngOnInit() {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
 
-   setUsernamePassword(){
-     debugger;
+    this.username = this.str$;
+  }
+  setUsernamePassword() {
     if (!this.username) {
       alert("UserName can't be empty");
     } else {
@@ -62,7 +69,7 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
           } else {
             this.peopleService.setLoginCreds(this.username, this.password, this.empKey$, this.employeekey, this.userRoleTypeKey$, this.OrganizationID)
               .subscribe((data: any[]) => {
-                this.router.navigateByUrl('/ViewEmployee');
+                this.router.navigateByUrl('/Viewemployee');
                 if (data[0].length > 0) {
                   this.peopleService.getUserEmail(this.username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
                     this.managerMail = data[0].EmailID;
@@ -89,26 +96,5 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
           }
         });
     }
-    
-   }
-
-  ngOnInit() {
-
-    var token = localStorage.getItem('token');
-    var encodedProfile = token.split('.')[1];
-    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-    this.role = profile.role;
-    this.IsSupervisor = profile.IsSupervisor;
-    this.name = profile.username;
-    this.employeekey = profile.employeekey;
-    this.OrganizationID = profile.OrganizationID;
-
-
-    this.username=this.str$;
-    this.peopleService.getuserNamePasswordforsaveandSendemail(this.page, this.count, this.empKey$,this.orgid).subscribe((data: People[]) => {
-      this.sasemail = data;
-      // debugger;
-    });
   }
-
 }

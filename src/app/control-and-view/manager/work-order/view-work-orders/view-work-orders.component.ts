@@ -23,7 +23,7 @@ export class ViewWorkOrdersComponent implements OnInit {
     return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
 
   }
-  loading: boolean;
+  loading: boolean;// loading
   EmployeeOption: workorder[];
   facilitylist: workorder[];
   scheduleList: workorder[];
@@ -59,14 +59,14 @@ export class ViewWorkOrdersComponent implements OnInit {
   role: String;
   name: String;
   IsSupervisor: Number;
-  
+
   // workorderCheckValue=false;
   //validation min3_alphanumeric
   searchform: FormGroup;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
   constructor(private formBuilder: FormBuilder, private WorkOrderServiceService: WorkOrderServiceService, private el: ElementRef) { }
-  
+
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -83,8 +83,8 @@ export class ViewWorkOrdersComponent implements OnInit {
     }
     return window.atob(output);
   }
-  
-  
+
+
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     return new RegExp(this.regexStr).test(event.key);
   }
@@ -111,8 +111,6 @@ export class ViewWorkOrdersComponent implements OnInit {
     this.name = profile.username;
     this.emp_key = profile.employeekey;
     this.org_id = profile.OrganizationID;
-    // this.emp_key = 2861;
-    // this.org_id = 21;
     this.domain_name = 'workstatus';
     var on_date = this.convert_DT(new Date());
     var page_no = 1;
@@ -149,7 +147,7 @@ export class ViewWorkOrdersComponent implements OnInit {
         for (var i = 0; i < this.workorderList.length; i++) {
           this.workorderList[i].workorderCheckValue = false;
         }
-        this.loading = false;
+        this.loading = false;// loading
       });
     debugger;
 

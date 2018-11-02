@@ -8,14 +8,14 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
   styleUrls: ['./managelogincredentials.component.scss']
 })
 export class ManagelogincredentialsComponent implements OnInit {
-  loginCreds: People[];
+  loginCreds;
   pageNo: Number = 1;
   itemsPerPage: Number = 10;
   showHide1: boolean;
   showHide2: boolean;
   pagination: Number;
   searchform: FormGroup;
-
+  SearchUser;
   role: String;
   name: String;
   employeekey: Number;
@@ -124,7 +124,8 @@ export class ManagelogincredentialsComponent implements OnInit {
     });
 
     this.searchform = this.formBuilder.group({
-      SearchJobTitle: ['', Validators.required]
+      SearchJobTitle: ['', Validators.required],
+      SearchUser: ['', Validators.required]
     });
   }
 

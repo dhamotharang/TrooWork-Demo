@@ -20,7 +20,8 @@ export class EventViewComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  page: Number = 1;
+  count: Number = 25;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -72,7 +73,7 @@ export class EventViewComponent implements OnInit {
     this.peopleServ
       .DeleteEventType(this.ActionKey, this.ActionTypeKey, this.OrganizationID).subscribe(res => {
         this.peopleServ
-          .getEventTypeList(this.employeekey, this.OrganizationID)
+          .getEventTypeList(this.page, this.count, this.employeekey, this.OrganizationID)
           .subscribe((data: People[]) => {
             this.eventType = data;
           });
@@ -96,7 +97,7 @@ export class EventViewComponent implements OnInit {
 
 
     this.peopleServ
-      .getEventTypeList(this.employeekey, this.OrganizationID)
+      .getEventTypeList(this.page, this.count, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.eventType = data;
       });

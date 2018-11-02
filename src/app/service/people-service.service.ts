@@ -207,10 +207,10 @@ export class PeopleServiceService {
     return this.http.post(uri, obj);
   }
 
-  getEventTypeList(empKey, OrgID) {
+  getEventTypeList(page, itemsPerPage, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getAllDefaultEvents?pageno=' + 1 + '&itemsPerPage=' + 1000 + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get('http://localhost:3000/api/getAllDefaultEvents?pageno=' + page + '&itemsPerPage=' + itemsPerPage + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   DeleteEventType(actionKey, actionTypeKey, OrgID) {
@@ -283,20 +283,20 @@ export class PeopleServiceService {
     };
     return this.http.post(uri, obj);
   }
-  getAllEmployeeDetails(empkey, org) {
+  getAllEmployeeDetails(pagenumber, itemsPerPage, empkey, org) {
     return this
       .http
-      .get('http://localhost:3000/api/getAllEmployees?pagenumber=' + 1 + '&itemsPerPage=' + 25 + '&empkey=' + empkey + '&OrganizationID=' + org);
+      .get('http://localhost:3000/api/getAllEmployees?pagenumber=' + pagenumber + '&itemsPerPage=' + itemsPerPage + '&empkey=' + empkey + '&OrganizationID=' + org);
   }
   getAllEmployeeDetailswithjobtitledropdown(seljobtitlevalue, empKey, OrgID) {
     return this
       .http
       .get('http://localhost:3000/api/searchEmpByJobTitle?jobtitleString=' + seljobtitlevalue + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
-  searchResultOfEmployeedetailsTable(SearchValue, empKey, OrgID) {
+  searchResultOfEmployeedetailsTable(SearchValue, pageno, itemsPerPage, employeekey, OrganizationID) {
     return this
       .http
-      .get('http://localhost:3000/api/searchEmployeeOnTable?searchEmployee=' + SearchValue + '&pageno=' + 1 + '&itemsPerPage=' + 25 + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get('http://localhost:3000/api/searchEmployeeOnTable?searchEmployee=' + SearchValue + '&pageno=' + pageno + '&itemsPerPage=' + itemsPerPage + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
   }
   UpdateEmployeeDetailsbyManager(mankey, empk, orgid, EmployeeNumber, userRoleTypeKey, FirstName, LastName, MiddleName, BirthDate, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HireDate, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey) {
     const uri = "http://localhost:3000/api/update_employee_info";
@@ -518,10 +518,10 @@ export class PeopleServiceService {
     return this
       .http.post(url, obj);
   }
-  getMeetingTrainingViewforemployee(curr_date, empKey, orgID) {
+  getMeetingTrainingViewforemployee(page, count, curr_date, empKey, orgID) {
     return this
       .http
-      .get('http://localhost:3000/api/gettodaysMeeting?ondate=' + curr_date + '&employeekey=' + empKey + '&pageno=' + 1 + '&itemsPerPage=' + 25 + '&OrganizationID=' + orgID);
+      .get('http://localhost:3000/api/gettodaysMeeting?ondate=' + curr_date + '&employeekey=' + empKey + '&pageno=' + page + '&itemsPerPage=' + count + '&OrganizationID=' + orgID);
   }
 
   SearchMeetingviewforemployee(SearchValue, empKey, orgID, curr_date) {
@@ -529,10 +529,10 @@ export class PeopleServiceService {
       .http
       .get('http://localhost:3000/api/searchEmpMeetingORTraining?OrganizationID=' + orgID + '&searchActionType=' + SearchValue + '&toServeremployeekey=' + empKey + '&today_DT=' + curr_date);
   }
-  getuserNamePasswordforsaveandSendemail(empKey, orgid) {
+  getuserNamePasswordforsaveandSendemail(page, count, empKey, orgid) {
     return this
       .http
-      .get('http://localhost:3000/api/getLoginDetailsForAllUsers?pageno=' + 1 + '&itemsperpage=' + 25 + '&employeekey=' + empKey + '&OrganizationID=' + orgid);
+      .get('http://localhost:3000/api/getLoginDetailsForAllUsers?pageno=' + page + '&itemsperpage=' + count + '&employeekey=' + empKey + '&OrganizationID=' + orgid);
   }
   // ****@Pooja's Code Ends here****
   updateEditJobtitle(JobTitle_Key, jobtitleName, jobTitleDescription, empKey, OrgID) {
@@ -636,6 +636,11 @@ export class PeopleServiceService {
     };
     return this.http.post(uri, obj);
   }
+  JobtitleForSuperAdmin(OrganizationID) {
+    return this
+      .http
+      .get('http://localhost:3000/api/JobtitleForSuperAdmin?OrganizationID=' + OrganizationID);
 
+  }
 
 }

@@ -106,7 +106,6 @@ export class EditWorkOrderComponent implements OnInit {
       day = ("0" + date.getDate()).slice(- 2);
     return [date.getFullYear(), mnth, day].join("-");
   };
-
   ngOnInit() {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];

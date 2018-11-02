@@ -6,11 +6,12 @@ import { ManagelogincredentialsComponent } from './managelogincredentials/manage
 import { EditemployeeComponent } from './editemployee/editemployee.component';
 import { ResetpasswordforsamoduleComponent } from './resetpasswordforsamodule/resetpasswordforsamodule.component';
 import { SetUsnamepaswdbySAComponent } from './set-usnamepaswdby-sa/set-usnamepaswdby-sa.component';
+import { SetUserLoginSuperComponent } from './set-user-login-super/set-user-login-super.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [ViewemployeeComponent, CreateemployeeComponent, ManagelogincredentialsComponent, EditemployeeComponent, ResetpasswordforsamoduleComponent, SetUsnamepaswdbySAComponent]
+  declarations: [ViewemployeeComponent, CreateemployeeComponent, ManagelogincredentialsComponent, EditemployeeComponent, ResetpasswordforsamoduleComponent, SetUsnamepaswdbySAComponent, SetUserLoginSuperComponent]
 })
 export class PeopleModule { }
