@@ -17,7 +17,8 @@ export class ViewEmployeeComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  pageNo: number = 1;
+  itemsCount: Number = 25;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -57,18 +58,16 @@ export class ViewEmployeeComponent implements OnInit {
   }
   getempdettablewithselectedJobtitle(seljobtitlevalue) {
     this.PeopleServiceService
-      .getAllEmployeeDetailswithjobtitledropdown(seljobtitlevalue)
+      .getAllEmployeeDetailswithjobtitledropdown(seljobtitlevalue, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.employeedetailstable = data;
       });
 
   }
   searchEmployeeDetails(SearchValue) {
     this.PeopleServiceService
-      .searchResultOfEmployeedetailsTable(SearchValue)
+      .searchResultOfEmployeedetailsTable(SearchValue, this.pageNo, this.itemsCount, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.employeedetailstable = data;
       });
   }
@@ -84,15 +83,13 @@ export class ViewEmployeeComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.PeopleServiceService
-      .getJobTitle()
+      .getJobTitle(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.jobtitle = data;
       });
     this.PeopleServiceService
-      .getAllEmployeeDetails(this.employeekey, this.OrganizationID)
+      .getAllEmployeeDetails(1, 25, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.employeedetailstable = data;
       });
     this.searchform = this.formBuilder.group({

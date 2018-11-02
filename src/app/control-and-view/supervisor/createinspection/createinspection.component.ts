@@ -13,7 +13,11 @@ export class CreateinspectionComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  Building;
+  Floor;
+  Zone;
+  Employee;
+  RoomType;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -42,18 +46,12 @@ export class CreateinspectionComponent implements OnInit {
   roomtype: Inspection[];
   facikey: Number;
   TemplateID;
-  SupervisorKey:any;
+  SupervisorKey;
   fromdate: Date;
   todate: Date;
   theCheckbox: any;
   time1: any;
   RoomKey;
-  Building;
-  Floor;
-  Zone;
-  Employee;
-  RoomType;
-  
 
   // adding properties and methods that will be used by the igxDatePicker
 
@@ -106,7 +104,6 @@ export class CreateinspectionComponent implements OnInit {
   }
 
   createInspection() {
-
     if (!this.TemplateID) {
       alert("Template Name is not provided");
     }
@@ -125,8 +122,6 @@ export class CreateinspectionComponent implements OnInit {
     if (!this.Employee) {
       this.Employee = - 1;
     }
-
-    // debugger;
     console.log(this.fromdate);
     console.log(this.todate);
     if (!this.fromdate) {
@@ -146,7 +141,7 @@ export class CreateinspectionComponent implements OnInit {
     var q1 = this.time1.getMinutes();
     var newTime = q + ":" + q1;
 
-    this.inspectionService.createInspections(this.TemplateID, this.SupervisorKey, dateFrom, date2, this.theCheckbox, newTime, this.RoomKey,this.Employee, this.employeekey, this.OrganizationID).subscribe(res => {
+    this.inspectionService.createInspections(this.TemplateID, this.SupervisorKey, dateFrom, date2, this.theCheckbox, newTime, this.RoomKey, this.Employee, this.employeekey, this.OrganizationID).subscribe(res => {
       alert("Successfully Added");
       this.TemplateID = "";
       this.fromdate = null;

@@ -10,8 +10,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class EditemployeeComponent implements OnInit {
 
   organization: People[];
-  orgID: number = 21;
-  emplokey: number = 2751;
   empk$: Object;
   editempdtailsbysa;
   useroletyp;
@@ -22,10 +20,31 @@ export class EditemployeeComponent implements OnInit {
   jobtitle: People[];
   BirthDate: Date;
   HireDate: Date;
-  managerKey: Number = 2861;
   delete_EmpKey: Number;
   employeedetailstable: People[];
-  Updatdby: Number = 2751;
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
   // adding properties and methods that will be used by the igxDatePicker
 
   public date: Date = new Date(Date.now());
@@ -42,7 +61,7 @@ export class EditemployeeComponent implements OnInit {
       day = ("0" + date.getDate()).slice(- 2);
     return [date.getFullYear(), mnth, day].join("-");
   };
-
+  managerKey: Number = 1;
   constructor(private route: ActivatedRoute, private PeopleServiceService: PeopleServiceService, private router: Router) {
     this.route.params.subscribe(params => this.empk$ = params.EmployeeKey);
   }
@@ -58,7 +77,7 @@ export class EditemployeeComponent implements OnInit {
     debugger;
 
     this.PeopleServiceService
-      .DeleteEmployeeDetailsbySuperadmin(this.delete_EmpKey, this.orgID, this.Updatdby).subscribe(res => this.router.navigateByUrl('/Viewemployee'));
+      .DeleteEmployeeDetailsbySuperadmin(this.delete_EmpKey, this.OrganizationID, this.employeekey).subscribe(res => this.router.navigateByUrl('/Viewemployee'));
   }
   deleteEmpPass(empk$) {
     this.delete_EmpKey = empk$;
@@ -68,13 +87,21 @@ export class EditemployeeComponent implements OnInit {
     var birthdt = this.convert_DT(BD);
     var hiredt = this.convert_DT(HD);
 
-    this.PeopleServiceService.UpdateEmployeeDetailsbySa(this.managerKey, this.empk$, this.orgID, UserRoleTypeKey, EmployeeNumber, FirstName, LastName, MiddleName, birthdt, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, JobTitleKey, DepartmentKey, Gender)
+    this.PeopleServiceService.UpdateEmployeeDetailsbySa(this.managerKey, this.empk$, this.OrganizationID, UserRoleTypeKey, EmployeeNumber, FirstName, LastName, MiddleName, birthdt, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, JobTitleKey, DepartmentKey, Gender)
       .subscribe(res => this.router.navigateByUrl('/Viewemployee'));
 
   }
   ngOnInit() {
 
-    this.PeopleServiceService.EditEmployeeDetailsbySuperadmin(this.empk$, this.orgID).subscribe((data: Array<any>) => {
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+    this.PeopleServiceService.EditEmployeeDetailsbySuperadmin(this.empk$, this.OrganizationID).subscribe((data: Array<any>) => {
       this.editempdtailsbysa = data[0];
       this.BirthDate = new Date(this.editempdtailsbysa.BirthDate);
       this.HireDate = new Date(this.editempdtailsbysa.HireDate);
@@ -82,37 +109,37 @@ export class EditemployeeComponent implements OnInit {
     });
 
     this.PeopleServiceService
-      .getOrganizationDDforSuprAdmin(this.orgID)
+      .getOrganizationDDforSuprAdmin(this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.organization = data;
       });
     this.PeopleServiceService
-      .getUserRoleTypesa(this.orgID)
+      .getUserRoleTypesa(this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.useroletyp = data;
       });
     this.PeopleServiceService
-      .getvaluesForManagerDropdowninSA(this.emplokey, this.orgID)
+      .getvaluesForManagerDropdowninSA(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.manager = data;
       });
     this.PeopleServiceService
-      .getDepartmentforddinSuperadmin(this.emplokey, this.orgID)
+      .getDepartmentforddinSuperadmin(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.department = data;
       });
     this.PeopleServiceService
-      .getEmployeeStatusListforDropdowninSuperadmin(this.emplokey, this.orgID)
+      .getEmployeeStatusListforDropdowninSuperadmin(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.employeestatus = data;
       });
     this.PeopleServiceService
-      .getjobTitleforDropdowninSuperadmin(this.orgID)
+      .getjobTitleforDropdowninSuperadmin(this.OrganizationID)
       .subscribe((data: People[]) => {
         // debugger;
         this.jobtitle = data;

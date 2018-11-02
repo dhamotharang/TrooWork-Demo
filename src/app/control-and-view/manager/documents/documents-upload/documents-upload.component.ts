@@ -13,43 +13,71 @@ const URL = 'http://localhost:3000/api/upload_test';
 
 export class DocumentsUploadComponent implements OnInit {
 
-  documentsList:Documents[];
-  orgID:number;
-  empkey:number;
-  FormtypeId:number;
-  DescName:any;
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+  documentsList: Documents[];
+  FormtypeId: number;
+  DescName: any;
   addUrl;
-  
-  public uploader: FileUploader = new FileUploader({url:'', itemAlias: 'photo'});
-  
+
+  public uploader: FileUploader = new FileUploader({ url: '', itemAlias: 'photo' });
+
   constructor(private documentService: DocumentserviceService) { }
 
-  
+
 
   ngOnInit() {
-    this.empkey=2861;
-    this.orgID=21;
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.documentService
-      .getDocumentFolderNamesfordropdown(this.empkey,this.orgID)
+      .getDocumentFolderNamesfordropdown(this.employeekey, this.OrganizationID)
       .subscribe((data: Documents[]) => {
         this.documentsList = data;
       });
-      
-      this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+
+    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-         console.log('ImageUpload:uploaded:', item, status, response);
-         alert('File uploaded successfully');
-  };
+      console.log('ImageUpload:uploaded:', item, status, response);
+      alert('File uploaded successfully');
+    };
   }
   // sub(){
   //   this.addUrl='?formtypeId=' + this.FormtypeId + '&formDesc=' + this.DescName +'&empkey='+this.empkey+'&OrganizationID='+ this.orgID;
   // }
   FileSelected() {
-    this.addUrl='?formtypeId=' + this.FormtypeId + '&formDesc=' + this.DescName +'&empkey='+this.empkey+'&OrganizationID='+ this.orgID;
+    this.addUrl = '?formtypeId=' + this.FormtypeId + '&formDesc=' + this.DescName + '&empkey=' + this.employeekey + '&OrganizationID=' + this.OrganizationID;
     this.uploader.onBeforeUploadItem = (item) => {
-    item.withCredentials = false;
-    item.url = URL + this.addUrl;
-    
+      item.withCredentials = false;
+      item.url = URL + this.addUrl;
+
     }
-    }
+  }
 }

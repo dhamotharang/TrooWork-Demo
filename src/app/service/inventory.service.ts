@@ -36,7 +36,7 @@ export class InventoryService {
     };
     return this
       .http
-      .post(url, obj).subscribe(res => console.log('Done'));
+      .post(url, obj);
 
   }
   DeleteBuilding(facility_key, empKey, OrgID) {
@@ -99,7 +99,7 @@ export class InventoryService {
     };
     return this
       .http
-      .post(url, obj).subscribe(res => console.log('Done'));
+      .post(url, obj);
   }
   createZones(FacilityKey, FloorName, ZoneName, empKey, OrgID) {
     const url = 'http://localhost:3000/api/addnewZone';
@@ -112,7 +112,7 @@ export class InventoryService {
     };
     return this
       .http
-      .post(url, obj).subscribe(res => console.log('Done'));
+      .post(url, obj);
   }
 
   getallBuildingList(empKey, OrgID) {
@@ -138,7 +138,7 @@ export class InventoryService {
     };
     return this
       .http
-      .post(url, obj).subscribe(res => console.log('Done'));
+      .post(url, obj);
   }
 
   // @rodney starts....
@@ -158,8 +158,7 @@ export class InventoryService {
   checkForZone(FacilityKey, FloorKey, ZoneName, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/checkForNewZone?FacilityKey=' + FacilityKey + '&FloorKey=' + FloorKey +
-        '&ZoneName=' + ZoneName + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get('http://localhost:3000/api/checkForNewZone?FacilityKey=' + FacilityKey + '&FloorKey=' + FloorKey + '&ZoneName=' + ZoneName + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   updateZone(facilityKey, facilityName, floorName, floorKey, zoneKey, zoneName, empKey, OrgID) {
@@ -206,10 +205,10 @@ export class InventoryService {
   }
 
 
-  getDepartmentList(empKey, OrgID) {
+  getDepartmentList(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/viewDepartmentpage?pageno=' + 1 + '&itemsPerPage=' + 1000 + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get('http://localhost:3000/api/viewDepartmentpage?pageno=' + page + '&itemsPerPage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   SearchDepartment(DeptName, OrgID) {
@@ -251,10 +250,10 @@ export class InventoryService {
       .get('http://localhost:3000/api/searchequipment?OrganizationID=' + OrgID + '&searchEquipment=' + EquipName);
   }
 
-  getEquipmentList(empKey, OrgID) {
+  getEquipmentList(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getAllEquipmentTypeEquipment?pageno=' + 1 + '&itemsperpage=' + 1000 + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get('http://localhost:3000/api/getAllEquipmentTypeEquipment?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
 
@@ -268,10 +267,10 @@ export class InventoryService {
     return this.http.post(uri, obj);
   }
 
-  getEquipmentTypeList(empKey, OrgID) {
+  getEquipmentTypeList(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getAllEquipmentTypes?pageno=' + 1 + '&itemsperpage=' + 1000 + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get('http://localhost:3000/api/getAllEquipmentTypes?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   SearchEquipmentType(EquipTypeName, OrgID) {
     return this
@@ -327,10 +326,10 @@ export class InventoryService {
 
 
 
-  getRoomTypeList(empKey, OrgID) {
+  getRoomTypeList(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getAllRoomType?pageno=' + 1 + '&itemsperpage=' + 1000 + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get('http://localhost:3000/api/getAllRoomType?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   SearchRoomType(RoomType, OrgID) {
     return this
@@ -374,10 +373,10 @@ export class InventoryService {
     return this.http.post(uri, obj);
   }
 
-  getFloorTypeList(empKey, OrgID) {
+  getFloorTypeList(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/allFloorType?pagenumber=' + 1 + '&itemsPerPage=' + 1000 + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get('http://localhost:3000/api/allFloorType?pagenumber=' + page + '&itemsPerPage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   SearchFloorType(FloorType, OrgID) {
     return this
@@ -395,10 +394,10 @@ export class InventoryService {
     return this.http.post(uri, obj);
   }
 
-  getRoomList(empKey, OrgID) {
+  getRoomList(page, itemsCount,empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getAllRooms?pageno=' + 1 + '&itemsperpage=' + 1000 + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get('http://localhost:3000/api/getAllRooms?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   SearchRoom(Room, empKey, OrgID) {
     return this
@@ -609,6 +608,7 @@ export class InventoryService {
       BarcodeINT: equipmentBarcode
     };
     return this.http.post(uri, obj);
+    
   }
 
   checkEditedRoomName(facKey, roomName, RoomKey, empKey, OrgID) {

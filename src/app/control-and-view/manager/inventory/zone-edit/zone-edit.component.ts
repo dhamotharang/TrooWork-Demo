@@ -82,7 +82,12 @@ export class ZoneEditComponent implements OnInit {
         }
         else if (data.length == 0) {
           this.inventoryService.updateZone(FacilityKey, FacilityName, FloorName, FloorKey, ZoneKey, ZoneName, this.employeekey, this.OrganizationID)
-            .subscribe(res => this.router.navigateByUrl('/Zoneview'));
+            .subscribe(res => {
+              alert("Zone updated successfully");
+              this.router.navigateByUrl('/Zoneview');
+            });
+
+
         }
       });
 

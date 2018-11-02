@@ -42,7 +42,25 @@ export class CreateQuickOrderComponent implements OnInit {
   occursonday;
 
   workorderCreation;
-
+  role: String;
+  name: String;
+  IsSupervisor: Number;
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
   constructor(private router: Router, private WorkOrderServiceService: WorkOrderServiceService) { }
 
   convert_DT(str) {
@@ -120,8 +138,8 @@ export class CreateQuickOrderComponent implements OnInit {
       workordernote: this.notes,
       isbar: this.is_BarcodeRequired,
       isphoto: this.is_PhotoRequired,
-      metaupdatedby: 2861,
-      OrganizationID: 21
+      metaupdatedby: this.emp_key,
+      OrganizationID: this.org_id
 
     };
     debugger;
@@ -133,8 +151,15 @@ export class CreateQuickOrderComponent implements OnInit {
 
 
   ngOnInit() {
-    this.emp_key = 2861;
-    this.org_id = 21;
+
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.emp_key = profile.employeekey;
+    this.org_id = profile.OrganizationID;
 
     this.WorkOrderServiceService
       .getallEmployee(this.emp_key, this.org_id)

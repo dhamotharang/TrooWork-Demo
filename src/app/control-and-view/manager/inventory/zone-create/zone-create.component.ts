@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
+import { ActivatedRoute, Router } from "@angular/router";
 @Component({
   selector: 'app-zone-create',
   templateUrl: './zone-create.component.html',
@@ -9,7 +10,6 @@ import { Inventory } from '../../../../model-class/Inventory';
 export class ZoneCreateComponent implements OnInit {
   building: Inventory[];
   floorName: Inventory[];
-
 
   role: String;
   name: String;
@@ -33,11 +33,26 @@ export class ZoneCreateComponent implements OnInit {
     }
     return window.atob(output);
   }
-
-  constructor(private inventoryService: InventoryService) { }
+  constructor(private inventoryService: InventoryService, private router: Router) { }
 
   addZone(FacilityKey, FloorName, ZoneName) {
-    this.inventoryService.createZones(FacilityKey, FloorName, ZoneName, this.employeekey, this.OrganizationID);
+    if (!FacilityKey) {
+      alert("Please select a building!");
+    } else if (!FloorName) {
+      alert("Enter floor name!");
+    }
+    else if (!ZoneName) {
+      alert("Enter zone name!");
+    }
+    else {
+
+      this.inventoryService.createZones(FacilityKey, FloorName, ZoneName, this.employeekey, this.OrganizationID)
+        .subscribe((data: Inventory[]) => {
+          alert("Zone created successfully");
+          this.router.navigateByUrl('/Zoneview');
+        });
+    }
+
   }
 
   selectFloorfromBuildings(facKey) {

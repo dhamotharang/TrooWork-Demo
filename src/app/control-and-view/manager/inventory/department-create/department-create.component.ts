@@ -36,11 +36,7 @@ export class DepartmentCreateComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private fb: FormBuilder, private inventoryServ: InventoryService, private router: Router) {
-    // this.createbuilding = fb.group({
-    //   DepartmentName: ['', Validators.required]
-    // });
-  }
+  constructor(private fb: FormBuilder, private inventoryServ: InventoryService, private router: Router) { }
 
   addDepartment(DepartmentName) {
     if (!DepartmentName) {
@@ -52,7 +48,10 @@ export class DepartmentCreateComponent implements OnInit {
           alert("Department already present");
         }
         else if (data.length == 0) {
-          this.inventoryServ.addDepartment(DepartmentName, this.employeekey, this.OrganizationID).subscribe(res => this.router.navigateByUrl('/DepartmentView'));
+          this.inventoryServ.addDepartment(DepartmentName, this.employeekey, this.OrganizationID).subscribe(res =>{ 
+            alert("Department created successfully");
+            this.router.navigateByUrl('/DepartmentView');
+        });
         }
       });
     }

@@ -14,11 +14,32 @@ export class ViewDocumentsComponent implements OnInit {
   searchform: FormGroup;
   documentsList: Documents[];
   viewFolderDescriptionTable: Documents[];
-  orgID: number;
-  empkey: number;
   searchFlag: any;
-  // id:any;
-  // fileName:any;
+
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
+
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
   constructor(private formBuilder: FormBuilder, private documentService: DocumentserviceService, private el: ElementRef) { }
@@ -40,7 +61,7 @@ export class ViewDocumentsComponent implements OnInit {
   }
   RecentUpdates() {
     this.documentService
-      .getRecentUploads(this.empkey, this.orgID)
+      .getRecentUploads(this.employeekey, this.OrganizationID)
       .subscribe((data: Documents[]) => {
         this.searchFlag = true;
         this.viewFolderDescriptionTable = data;
@@ -48,14 +69,14 @@ export class ViewDocumentsComponent implements OnInit {
   }
   searchFNDN(SearchValue) {
     this.documentService
-      .SearchFileNameandDescName(this.orgID, SearchValue).subscribe((data: Documents[]) => {
+      .SearchFileNameandDescName(this.OrganizationID, SearchValue).subscribe((data: Documents[]) => {
         this.viewFolderDescriptionTable = data;
 
       });
   }
   showFileDetailsTablebydropdown(formtype) {
     this.documentService
-      .getFileDetailsTablewithDropdown(formtype, this.empkey, this.orgID).subscribe((data: Documents[]) => {
+      .getFileDetailsTablewithDropdown(formtype, this.employeekey, this.OrganizationID).subscribe((data: Documents[]) => {
         this.searchFlag = true;
         this.viewFolderDescriptionTable = data;
       });
@@ -91,10 +112,17 @@ export class ViewDocumentsComponent implements OnInit {
   // }
 
   ngOnInit() {
-    this.empkey = 2861;
-    this.orgID = 21;
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.documentService
-      .getDocumentFolderNamesfordropdown(this.empkey, this.orgID)
+      .getDocumentFolderNamesfordropdown(this.employeekey, this.OrganizationID)
       .subscribe((data: Documents[]) => {
         this.documentsList = data;
       });

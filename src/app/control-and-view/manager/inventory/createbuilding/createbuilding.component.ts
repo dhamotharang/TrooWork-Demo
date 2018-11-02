@@ -12,6 +12,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class CreatebuildingComponent implements OnInit {
 
+
+  createbuilding: FormGroup;
+
   role: String;
   name: String;
   employeekey: Number;
@@ -34,7 +37,7 @@ export class CreatebuildingComponent implements OnInit {
     }
     return window.atob(output);
   }
-  createbuilding: FormGroup; constructor(private fb: FormBuilder, private CreatebuildingService: CreatebuildingService) {
+  constructor(private router: Router, private fb: FormBuilder, private CreatebuildingService: CreatebuildingService) {
 
     this.createbuilding = fb.group({
       newbuildingName: ['', Validators.required]
@@ -43,10 +46,18 @@ export class CreatebuildingComponent implements OnInit {
 
 
   addBuilding(newbuildingName) {
-    debugger;
+    if (!newbuildingName) {
+      alert("Please Enter Building Name!")
+    } else {
 
-    this.CreatebuildingService.createBuildings(newbuildingName, this.employeekey, this.OrganizationID);
+      this.CreatebuildingService.createBuildings(newbuildingName, this.employeekey, this.OrganizationID)
+        .subscribe((data: Inventory[]) => {
+          alert("Building created successfully");
+          this.router.navigateByUrl('/Buildview');
+        });
+    }
   }
+
 
 
   ngOnInit() {

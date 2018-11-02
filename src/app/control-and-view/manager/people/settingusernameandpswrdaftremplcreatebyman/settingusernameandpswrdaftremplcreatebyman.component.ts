@@ -25,7 +25,8 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  page: Number = 1;
+  count: Number = 25;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -104,7 +105,7 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
 
 
     this.username=this.str$;
-    this.peopleService.getuserNamePasswordforsaveandSendemail(this.empKey$,this.orgid).subscribe((data: People[]) => {
+    this.peopleService.getuserNamePasswordforsaveandSendemail(this.page, this.count, this.empKey$,this.orgid).subscribe((data: People[]) => {
       this.sasemail = data;
       // debugger;
     });

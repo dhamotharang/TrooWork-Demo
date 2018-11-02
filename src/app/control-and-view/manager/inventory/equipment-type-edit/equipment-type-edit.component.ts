@@ -49,11 +49,14 @@ export class EquipmentTypeEditComponent implements OnInit {
     } else {
       this.inventoryService.checkForNewEquipmentType(equipType, this.employeekey, this.OrganizationID).subscribe((data: Array<any>) => {
         this.equipType = data;
-        if (this.equipType[0].count > 0) {
+        if (this.equipType[0].count == 1) {
           alert("Equipment Type already present");
         }
         else {
-          this.inventoryService.UpdateEquipmentType(equipType, equipTypeDesc, equipTypeKey, this.employeekey, this.OrganizationID).subscribe(res => this.router.navigateByUrl('/EquipmentTypeView'));
+          this.inventoryService.UpdateEquipmentType(equipType, equipTypeDesc, equipTypeKey, this.employeekey, this.OrganizationID).subscribe(res => {
+            alert("Equipment Type  updated successfully");
+            this.router.navigateByUrl('/EquipmentTypeView');
+          });
         }
       });
     }

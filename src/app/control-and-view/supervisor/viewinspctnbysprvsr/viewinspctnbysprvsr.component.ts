@@ -16,15 +16,12 @@ export class ViewinspctnbysprvsrComponent implements OnInit {
   todate: Date;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
-  ins_Key:Number;
+  ins_Key: Number;
   role: String;
   name: String;
   toServeremployeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-  orgid:Number=21;
-  toservempkey:Number=2881;
-  
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -43,7 +40,7 @@ export class ViewinspctnbysprvsrComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private router: Router,private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef) { }
 
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     return new RegExp(this.regexStr).test(event.key);
@@ -66,29 +63,29 @@ export class ViewinspctnbysprvsrComponent implements OnInit {
 
     }, 100)
   }
-  searchTL(SearchValue){
+  searchTL(SearchValue) {
 
     if (SearchValue.length > 2) {
       var curr_date = new Date(Date.now());
-      var newdate=this.convert_DT(curr_date);
+      var newdate = this.convert_DT(curr_date);
       this.inspectionService
-        .SearchTemplateandLocationbysuprvsr(SearchValue,this.orgid,this.toservempkey,newdate).subscribe((data: Inspection[]) => {
+        .SearchTemplateandLocationbysuprvsr(SearchValue, this.OrganizationID, this.toServeremployeekey, newdate).subscribe((data: Inspection[]) => {
           this.inspectionordertable = data;
 
         });
     }
-    
+
     else if (SearchValue.length == 0) {
       var curr_date = new Date(Date.now());
-      var newdate=this.convert_DT(curr_date);
+      var newdate = this.convert_DT(curr_date);
       //var curr_date = this.convert_DT(Date.now());
       this.inspectionService
-      .getInspectionOrderTablewithCurrentDatefrsprvsr(newdate,this.toservempkey,this.orgid)
-      .subscribe((data: Inspection[]) => {
-        // debugger;
-        this.inspectionordertable = data;
-        // this.loading = false;// loading
-      });
+        .getInspectionOrderTablewithCurrentDatefrsprvsr(newdate, this.toServeremployeekey, this.OrganizationID)
+        .subscribe((data: Inspection[]) => {
+          // debugger;
+          this.inspectionordertable = data;
+          // this.loading = false;// loading
+        });
     }
 
   }
@@ -109,7 +106,7 @@ export class ViewinspctnbysprvsrComponent implements OnInit {
 
     var curr_date = this.convert_DT(Date.now());
     this.inspectionService
-      .getInspectionOrderTablewithCurrentDatefrsprvsr(curr_date,this.toservempkey,this.orgid)
+      .getInspectionOrderTablewithCurrentDatefrsprvsr(curr_date, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
         // debugger;
         this.inspectionordertable = data;

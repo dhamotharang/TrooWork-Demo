@@ -16,8 +16,6 @@ export class ViewWorkOrderComponent implements OnInit {
   searchform: FormGroup;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
-  empk: Number = 2861;
-  orgid: Number = 21;
   WorkorderDetTable: workorder[];
   facilityList: workorder[];
   floorList: workorder[];
@@ -34,6 +32,28 @@ export class ViewWorkOrderComponent implements OnInit {
   addUrl;
   wokey: Number;
   emp: Number;
+  role: String;
+  name: String;
+  toServeremployeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
 
   public uploader: FileUploader = new FileUploader({ url: '', itemAlias: 'photo' });
   // adding properties and methods that will be used by the igxDatePicker
@@ -93,7 +113,7 @@ export class ViewWorkOrderComponent implements OnInit {
     //debugger;
     this.facikey = facKey;
     this.WorkOrderServiceService
-      .getallFloorNames(facKey, this.orgid)
+      .getallFloorNames(facKey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.floorList = data;
       });
@@ -101,13 +121,13 @@ export class ViewWorkOrderComponent implements OnInit {
 
   selectZoneRoomtypefromFloor(flkey) {
     this.WorkOrderServiceService
-      .getallZones(this.facikey, flkey, this.orgid)
+      .getallZones(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: any[]) => {
         // debugger;
         this.zoneList = data;
       });
     this.WorkOrderServiceService
-      .getallRoomType(this.facikey, flkey, this.orgid)
+      .getallRoomType(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: any[]) => {
         // debugger;
         this.roomtypeList = data;
@@ -136,12 +156,12 @@ export class ViewWorkOrderComponent implements OnInit {
 
     // if (this.myworkorder.barcodeValue && barcodeRequired === 1) {
     //   this.myworkorder.BarcodeValue = this.myworkorder.barcodeValue;
-    //   this.addUrl='?barcode=' + this.myworkorder.BarcodeValue + "&wkey=" +  workorderkey +"&OrganizationID="+this.orgid;
+    //   this.addUrl='?barcode=' + this.myworkorder.BarcodeValue + "&wkey=" +  workorderkey +"&OrganizationID="+this.OrganizationID;
     //    this.uploader.onBeforeUploadItem = (item) => {
     //    item.withCredentials = false;
     //    item.url = URL + this.addUrl;
 
-    //           // $http.get(ControllerURL + "/barcodeRoom_check?barcode=" + this.myworkorder.BarcodeValue + "&wkey=" + workorderkey+ "&OrganizationID="+this.orgid)
+    //           // $http.get(ControllerURL + "/barcodeRoom_check?barcode=" + this.myworkorder.BarcodeValue + "&wkey=" + workorderkey+ "&OrganizationID="+this.OrganizationID)
     //           // .success(function(response) {
     //           // if (response.message == "Failed to authenticate token.") {
     //           // $rootScope.clickToOpen1("Please Re-Login to continue !");
@@ -160,7 +180,7 @@ export class ViewWorkOrderComponent implements OnInit {
     //               else{
     //                 var curr_date = this.convert_DT(new Date());
     //                 this.WorkOrderServiceService
-    //                 .getWOdetailsForEmployee(curr_date, this.empk, this.orgid)
+    //                 .getWOdetailsForEmployee(curr_date, this.toServeremployeekey, this.OrganizationID)
     //                 .subscribe((data: any[]) => {
     //                   this.WorkorderDetTable = data;
     //                 });
@@ -191,7 +211,7 @@ export class ViewWorkOrderComponent implements OnInit {
     //   //         return;
     //   // }
     //   if (file && photoRequired === 1) {
-    //   $http.get(ControllerURL + "/updateWorkorderByPhoto?pho=" + file.name + "&employeekey=" + this.empk + "&wkey=" + workorderkey+"&OrganizationID="+this.orgid)
+    //   $http.get(ControllerURL + "/updateWorkorderByPhoto?pho=" + file.name + "&employeekey=" + this.toServeremployeekey + "&wkey=" + workorderkey+"&OrganizationID="+this.OrganizationID)
     //           .success(function(response) {
     // //                    debugger;
     //                  if(this.ShowWithoutFilter == false){
@@ -200,7 +220,7 @@ export class ViewWorkOrderComponent implements OnInit {
     //               else{
     //                 var curr_date = this.convert_DT(new Date());
     //                 this.WorkOrderServiceService
-    //                 .getWOdetailsForEmployee(curr_date, this.empk, this.orgid)
+    //                 .getWOdetailsForEmployee(curr_date, this.toServeremployeekey, this.OrganizationID)
     //                 .subscribe((data: any[]) => {
     //                   this.WorkorderDetTable = data;
     //                 });
@@ -220,7 +240,7 @@ export class ViewWorkOrderComponent implements OnInit {
     //   }
 
     //   if (photoRequired !== 1 && barcodeRequired !== 1) {
-    //   $http.get(ControllerURL + "/workCompleted?employeekey=" + this.empk + "&wkey=" + workorderkey+"&OrganizationID="+this.orgid)
+    //   $http.get(ControllerURL + "/workCompleted?employeekey=" + this.toServeremployeekey + "&wkey=" + workorderkey+"&OrganizationID="+this.OrganizationID)
     //           .success(function(response) {
     //           //Author:Rodney starts here
     //           // if (response.message == "Failed to authenticate token.") {
@@ -237,7 +257,7 @@ export class ViewWorkOrderComponent implements OnInit {
     //               else{
     //                 var curr_date = this.convert_DT(new Date());
     //                 this.WorkOrderServiceService
-    //                 .getWOdetailsForEmployee(curr_date, this.empk, this.orgid)
+    //                 .getWOdetailsForEmployee(curr_date, this.toServeremployeekey, this.OrganizationID)
     //                 .subscribe((data: any[]) => {
     //                   this.WorkorderDetTable = data;
     //                 });
@@ -276,17 +296,27 @@ export class ViewWorkOrderComponent implements OnInit {
       this.countCancel1 = false;
       var curr_date = this.convert_DT(new Date());
       this.WorkOrderServiceService
-        .getWOdetailsForEmployee(curr_date, this.empk, this.orgid)
+        .getWOdetailsForEmployee(curr_date, this.toServeremployeekey, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.WorkorderDetTable = data;
         });
     }
   };
   ngOnInit() {
+    //token starts....
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.toServeremployeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
 
+    //token ends
     var curr_date = this.convert_DT(new Date());
     this.WorkOrderServiceService
-      .getWOdetailsForEmployee(curr_date, this.empk, this.orgid)
+      .getWOdetailsForEmployee(curr_date, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
         for (var i = 0; i < this.WorkorderDetTable.length; i++) {
@@ -295,7 +325,7 @@ export class ViewWorkOrderComponent implements OnInit {
       });
 
     this.WorkOrderServiceService
-      .getallBuildingsForEmployee(this.empk, this.orgid)
+      .getallBuildingsForEmployee(this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.facilityList = data;
       });

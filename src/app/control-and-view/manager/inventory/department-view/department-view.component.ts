@@ -9,11 +9,14 @@ import { FormBuilder, Validators, FormGroup } from "@angular/forms";
   styleUrls: ['./department-view.component.scss']
 })
 export class DepartmentViewComponent implements OnInit {
-
+  pageNo: Number = 1;
+  itemsPerPage: Number = 25;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
   departments: Inventory[];
   delete_DeptKey: number;
   searchform: FormGroup;
-
   role: String;
   name: String;
   employeekey: Number;
@@ -38,6 +41,39 @@ export class DepartmentViewComponent implements OnInit {
   }
 
   //validation starts ..... @rodney
+  previousPage() {
+    this.pageNo = +this.pageNo - 1;
+    this.inventoryService
+      .getDepartmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.departments = data;
+        if (this.pageNo == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
+  }
+
+  nextPage() {
+    this.pageNo = +this.pageNo + 1;
+    this.inventoryService
+      .getDepartmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: Inventory[]) => {
+        this.departments = data;
+        this.pagination = +this.departments[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
+  }
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
   constructor(private formBuilder: FormBuilder, private inventoryService: InventoryService, private el: ElementRef) { }
@@ -65,12 +101,22 @@ export class DepartmentViewComponent implements OnInit {
       this.inventoryService
         .SearchDepartment(SearchValue, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.departments = data;
+          this.showHide2 = false;
+          this.showHide1 = false;
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
-        .getDepartmentList(this.employeekey, this.OrganizationID)
+        .getDepartmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.departments = data;
+          if (this.departments[0].totalItems > this.itemsPerPage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.departments[0].totalItems <= this.itemsPerPage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
         });
     }
   }
@@ -83,9 +129,17 @@ export class DepartmentViewComponent implements OnInit {
     this.inventoryService
       .DeleteDepartment(this.delete_DeptKey, this.OrganizationID).subscribe(() => {
         this.inventoryService
-          .getDepartmentList(this.employeekey, this.OrganizationID)
+          .getDepartmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.departments = data;
+            if (this.departments[0].totalItems > this.itemsPerPage) {
+              this.showHide2 = true;
+              this.showHide1 = false;
+            }
+            else if (this.departments[0].totalItems <= this.itemsPerPage) {
+              this.showHide2 = false;
+              this.showHide1 = false;
+            }
           });
       });
   }
@@ -102,9 +156,17 @@ export class DepartmentViewComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.inventoryService
-      .getDepartmentList(this.employeekey, this.OrganizationID)
+      .getDepartmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.departments = data;
+        if (this.departments[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.departments[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
       });
 
     this.searchform = this.formBuilder.group({

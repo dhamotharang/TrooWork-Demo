@@ -121,7 +121,7 @@ export class CreateWorkorderComponent implements OnInit {
   }
 
   constructor(private router: Router, private WorkOrderServiceService: WorkOrderServiceService) { }
-  
+
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -155,9 +155,7 @@ export class CreateWorkorderComponent implements OnInit {
     this.dailyrecurring = false;
     this.monthlyreccradio1 = false;
     this.monthlyreccradio2 = false;
-    // this.emp_key = 2861;
-    // this.org_id = 21;
-    
+
     this.WorkOrderServiceService
       .getallFacility(this.emp_key, this.org_id)
       .subscribe((data: any[]) => {
@@ -169,7 +167,6 @@ export class CreateWorkorderComponent implements OnInit {
         var newArray = data.slice(0); //clone the array, or you'll end up with a new "None" option added to your "values" array on every digest cycle.
         newArray.unshift({ WorkorderTypeText: "Create New", WorkorderTypeKey: "-99" });
         this.workorderTypeList = newArray;
-        // this.workorderTypeList = data;
       });
     this.WorkOrderServiceService
       .getallPriority(this.org_id)
@@ -323,11 +320,6 @@ export class CreateWorkorderComponent implements OnInit {
     var zoneList = [];
     var floorList = [];
     facilitylistObj = this.facilitylist;
-    // facilityList = [];
-    // roomList = [];
-    // roomtypeList = [];
-    // zoneList = [];
-    // floorList = [];
     floorlistObj = this.FloorList;
     zonelistObj = this.zonelist;
     roomtypelistObj = this.RoomTypeList;
@@ -619,12 +611,6 @@ export class CreateWorkorderComponent implements OnInit {
     var floorList = [];
     var equList = [];
     facilitylistObj = this.facilitylist;
-    // facilityList = [];
-    // roomList = [];
-    // roomtypeList = [];
-    // zoneList = [];
-    // floorList = [];
-    // equList = [];
     floorlistObj = this.FloorList;
     zonelistObj = this.zonelist;
     roomtypelistObj = this.RoomTypeList;
@@ -886,7 +872,7 @@ export class CreateWorkorderComponent implements OnInit {
       occurstype: this.occurs_type
     };
     this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => this.router.navigateByUrl('/ViewWorkOrder'));
-    
+
   }
   addFormField() {
     debugger;

@@ -140,7 +140,7 @@ export class AddEmployeeComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.PeopleServiceService
-      .getUserRoleType()
+      .getUserRoleType(this.OrganizationID)
       .subscribe((data: any[]) => {
         this.useroletype = data;
 
@@ -152,17 +152,17 @@ export class AddEmployeeComponent implements OnInit {
 
       });
     this.PeopleServiceService
-      .getJobTitle()
+      .getJobTitle(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.jobtitle = data;
       });
     this.PeopleServiceService
-      .getSuperVisor()
+      .getSuperVisor(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.supervisor = data;
       });
     this.PeopleServiceService
-      .getDepartment()
+      .getDepartment(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.department = data;
       });

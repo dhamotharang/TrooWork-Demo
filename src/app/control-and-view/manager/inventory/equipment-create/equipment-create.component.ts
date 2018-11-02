@@ -49,7 +49,7 @@ export class EquipmentCreateComponent implements OnInit {
   selectFloorfromBuildings(facKey) {
     this.FacKey = facKey;
     this.inventoryService
-      .getallFloorList(facKey,this.OrganizationID)
+      .getallFloorList(facKey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floors = data;
       });
@@ -82,7 +82,10 @@ export class EquipmentCreateComponent implements OnInit {
               alert("Equipment Barcode already present");
             } else if (this.dept[0].count == 0) {
               this.inventoryService.addEquipment(EquipmentName, EquipmentDescription, barcode, EquipmentTypeKey, this.FacKey, this.FloorKey, this.employeekey, this.OrganizationID)
-                .subscribe(res => this.router.navigateByUrl('/EquipmentView'));
+                .subscribe(res => {
+                  alert("Equipment created successfully");
+                  this.router.navigateByUrl('/EquipmentView');
+                });
             }
           });
         }

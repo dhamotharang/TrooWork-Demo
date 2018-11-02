@@ -7,35 +7,67 @@ import { Organization } from '../../../../model-class/Organization';
   styleUrls: ['./view-organization.component.scss']
 })
 export class ViewOrganizationComponent implements OnInit {
-  organization:Organization[];
+  organization: Organization[];
   delete_orgKey: number;
-  updatedby:number;
-  constructor(private organizationService: OrganizationService) { }
-  
-  deleteOrganization(){
-    this.updatedby=2751;
-    this.organizationService
-    .DeleteOrganization(this.delete_orgKey,this.updatedby).subscribe(() => {
+  pageNo: Number = 1;
+  itemsPerPage: Number = 25;
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
 
-      this.organizationService
-        .getOrganization()
-        .subscribe((data: Organization[]) => {
-          this.organization = data;
-        });
-
-    });
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
   }
-  deleteOrgPass(OrganizationID){
+
+  constructor(private organizationService: OrganizationService) { }
+
+  deleteOrganization() {
+    this.organizationService
+      .DeleteOrganization(this.delete_orgKey, this.employeekey).subscribe(() => {
+
+        this.organizationService
+          .getOrganization(this.pageNo, this.itemsPerPage)
+          .subscribe((data: Organization[]) => {
+            this.organization = data;
+          });
+
+      });
+  }
+  deleteOrgPass(OrganizationID) {
     this.delete_orgKey = OrganizationID;
   }
 
   ngOnInit() {
-    
+
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.organizationService
-    .getOrganization()
-    .subscribe((data: Organization[]) => {
-      this.organization = data;
-    });
+      .getOrganization(this.pageNo, this.itemsPerPage)
+      .subscribe((data: Organization[]) => {
+        this.organization = data;
+      });
   }
 
 }

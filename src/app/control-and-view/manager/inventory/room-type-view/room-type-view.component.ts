@@ -65,7 +65,7 @@ export class RoomTypeViewComponent implements OnInit {
   //validation ends ..... @rodney
   previousPage() {
     this.inventoryService
-      .getRoomTypeList(this.employeekey, this.OrganizationID)
+      .getRoomTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.roomTypes = data;
         if (this.pageNo == 1) {
@@ -81,7 +81,7 @@ export class RoomTypeViewComponent implements OnInit {
   nextPage() {
     this.pageNo = +this.pageNo + 1;
     this.inventoryService
-      .getRoomTypeList(this.employeekey, this.OrganizationID)
+      .getRoomTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.roomTypes = data;
         this.pagination = +this.roomTypes[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
@@ -107,7 +107,7 @@ export class RoomTypeViewComponent implements OnInit {
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
-        .getRoomTypeList(this.employeekey, this.OrganizationID)
+        .getRoomTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.roomTypes = data;
           if (this.roomTypes[0].totalItems > this.itemsPerPage) {
@@ -130,7 +130,7 @@ export class RoomTypeViewComponent implements OnInit {
     this.inventoryService
       .DeleteRoomType(this.delete_RoomTypeKey, this.employeekey, this.OrganizationID).subscribe(() => {
         this.inventoryService
-          .getRoomTypeList(this.employeekey, this.OrganizationID)
+          .getRoomTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.roomTypes = data;
             if (this.roomTypes[0].totalItems > this.itemsPerPage) {
@@ -156,7 +156,7 @@ export class RoomTypeViewComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.inventoryService
-      .getRoomTypeList(this.employeekey, this.OrganizationID)
+      .getRoomTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.roomTypes = data;
         if (this.roomTypes[0].totalItems > this.itemsPerPage) {

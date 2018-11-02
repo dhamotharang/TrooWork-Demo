@@ -1,4 +1,4 @@
-import { Component, OnInit,OnChanges, Directive, HostListener, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, Directive, HostListener, ElementRef, Input } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { People } from '../../../model-class/People';
 import { PeopleServiceService } from '../../../service/people-service.service';
@@ -8,16 +8,36 @@ import { PeopleServiceService } from '../../../service/people-service.service';
   styleUrls: ['./viewmeetingortrainingevent.component.scss']
 })
 export class ViewmeetingortrainingeventComponent implements OnInit {
-
-  viewmeeting:People[];
+  role: String;
+  name: String;
+  toServeremployeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+  page: Number = 1;
+  count: Number = 25;
+  viewmeeting: People[];
   searchform: FormGroup;
-  empKey: number = 2931;
-  orgID: number = 21;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
 
-  constructor(private formBuilder: FormBuilder,private el: ElementRef,private PeopleServiceService: PeopleServiceService) { }
-  
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+  constructor(private formBuilder: FormBuilder, private el: ElementRef, private PeopleServiceService: PeopleServiceService) { }
+
   convert_DT(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(- 2),
@@ -43,7 +63,7 @@ export class ViewmeetingortrainingeventComponent implements OnInit {
   searchMeeting(SearchValue) {
     var curr_date = this.convert_DT(new Date());
     this.PeopleServiceService
-      .SearchMeetingviewforemployee(SearchValue,this.empKey,this.orgID,curr_date).subscribe((data: People[]) => {
+      .SearchMeetingviewforemployee(SearchValue, this.toServeremployeekey, this.OrganizationID, curr_date).subscribe((data: People[]) => {
         this.viewmeeting = data;
 
       });
@@ -51,12 +71,23 @@ export class ViewmeetingortrainingeventComponent implements OnInit {
   };
   ngOnInit() {
 
+    //token starts....
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.toServeremployeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
+    //token ends
     var curr_date = this.convert_DT(new Date());
     this.PeopleServiceService
-    .getMeetingTrainingViewforemployee(curr_date,this.empKey,this.orgID)
-    .subscribe((data: People[]) => {
-      this.viewmeeting = data;
-    });
+      .getMeetingTrainingViewforemployee(this.page, this.count, curr_date, this.toServeremployeekey, this.OrganizationID)
+      .subscribe((data: People[]) => {
+        this.viewmeeting = data;
+      });
 
     this.searchform = this.formBuilder.group({
       SearchMeeting: ['', Validators.required]

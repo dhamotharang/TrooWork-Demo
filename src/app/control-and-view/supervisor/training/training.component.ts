@@ -1,4 +1,4 @@
-import { Component, OnInit,OnChanges, Directive, HostListener, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, Directive, HostListener, ElementRef, Input } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { People } from '../../../model-class/People';
 import { PeopleServiceService } from '../../../service/people-service.service';
@@ -9,7 +9,7 @@ import { PeopleServiceService } from '../../../service/people-service.service';
   styleUrls: ['./training.component.scss']
 })
 export class TrainingComponent implements OnInit {
-  viewmeeting:People[];
+  viewmeeting: People[];
   searchform: FormGroup;
   role;
   IsSupervisor;
@@ -18,9 +18,10 @@ export class TrainingComponent implements OnInit {
   OrganizationID;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
+  page: Number = 1;
+  itemCount: Number = 25;
+  constructor(private formBuilder: FormBuilder, private el: ElementRef, private PeopleServiceService: PeopleServiceService) { }
 
-  constructor(private formBuilder: FormBuilder,private el: ElementRef,private PeopleServiceService: PeopleServiceService) { }
-  
   convert_DT(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(- 2),
@@ -62,7 +63,7 @@ export class TrainingComponent implements OnInit {
   searchMeeting(SearchValue) {
     var curr_date = this.convert_DT(new Date());
     this.PeopleServiceService
-      .SearchMeetingviewforemployee(SearchValue,this.employeekey,this.OrganizationID,curr_date).subscribe((data: People[]) => {
+      .SearchMeetingviewforemployee(SearchValue, this.employeekey, this.OrganizationID, curr_date).subscribe((data: People[]) => {
         this.viewmeeting = data;
 
       });
@@ -77,13 +78,13 @@ export class TrainingComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-    
+
     var curr_date = this.convert_DT(new Date());
     this.PeopleServiceService
-    .getMeetingTrainingViewforemployee(curr_date,this.employeekey,this.OrganizationID)
-    .subscribe((data: People[]) => {
-      this.viewmeeting = data;
-    });
+      .getMeetingTrainingViewforemployee(this.page, this.itemCount, curr_date, this.employeekey, this.OrganizationID)
+      .subscribe((data: People[]) => {
+        this.viewmeeting = data;
+      });
 
     this.searchform = this.formBuilder.group({
       SearchMeeting: ['', Validators.required]

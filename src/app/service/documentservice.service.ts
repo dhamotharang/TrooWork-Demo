@@ -9,10 +9,10 @@ export class DocumentserviceService {
 
   constructor(private http: HttpClient) { }
 
-  getDocumentFoldersDataTable(page,itemsCount,empkey,orgid){
+  getDocumentFoldersDataTable(page,itemsCount,empKey,orgid){
     return this
     .http
-    .get('http://localhost:3000/api/getFormDetails?pageno='+page+'&itemsPerPage='+itemsCount+'&empkey='+empkey+'&OrganizationID='+orgid);
+    .get('http://localhost:3000/api/getFormDetails?pageno='+page+'&itemsPerPage='+itemsCount+'&empkey='+empKey+'&OrganizationID='+orgid);
   }
   SearchDocFolder(orgid,SearchValue){
     return this
@@ -29,22 +29,18 @@ export class DocumentserviceService {
     return this
       .http
       .post(url, obj);
-    
-    // return this
-    // .http
-    // .get('http://localhost:3000/api/addNewForms?newform='+DocFolderName+'&serverEmpKey='+servempkey+'&OrganizationID='+orgid);
   }
   EditDocFolderName(Docfoldername,orgid){
     return this
     .http
     .get('http://localhost:3000/api/getEditFormDetails?FormtypeId='+Docfoldername+'&OrganizationID='+orgid);
   }
-  UpdateDocumentFolderName(formtypeid,formtype,empkey,orgid){
+  UpdateDocumentFolderName(formtypeid,formtype,empKey,orgid){
     const url = 'http://localhost:3000/api/updateFormDetails';
     const obj = {
       FormtypeId: formtypeid,
       FormType: formtype,
-      empkey:empkey,
+      empkey:empKey,
       OrganizationID: orgid
     };
     return this
@@ -61,27 +57,27 @@ export class DocumentserviceService {
       .http
       .post(url, obj);
   }
-  getDocumentFolderNamesfordropdown(empkey,orgID)
+  getDocumentFolderNamesfordropdown(empKey,orgID)
   {
     return this
     .http
-    .get('http://localhost:3000/api/allFormtype?empkey='+empkey+'&OrganizationID='+orgID);
+    .get('http://localhost:3000/api/allFormtype?empkey='+empKey+'&OrganizationID='+orgID);
   }
-  getRecentUploads(empkey,orgID)
+  getRecentUploads(empKey,orgID)
   {
     return this
     .http
-    .get('http://localhost:3000/api/view_uploads?pageno='+1+'&itemsPerPage='+25+'&empkey='+empkey+'&OrganizationID='+orgID);
+    .get('http://localhost:3000/api/view_uploads?pageno='+1+'&itemsPerPage='+25+'&empkey='+empKey+'&OrganizationID='+orgID);
   }
   SearchFileNameandDescName(orgID,SearchValue){
     return this
     .http
     .get('http://localhost:3000/api/searchViewFormList?OrganizationID='+orgID+'&searchForm='+SearchValue);
   }
-  getFileDetailsTablewithDropdown(formtype,empkey,orgID){
+  getFileDetailsTablewithDropdown(formtype,empKey,orgID){
     return this
     .http
-    .get('http://localhost:3000/api/uploadsByFormType?formType='+formtype+'&empkey='+empkey+'&OrganizationID='+orgID);
+    .get('http://localhost:3000/api/uploadsByFormType?formType='+formtype+'&empkey='+empKey+'&OrganizationID='+orgID);
   }
 //   downloadFile(id): Observable<Blob> {
 //     let options = new RequestOptions({responseType: ResponseContentType.Blob });

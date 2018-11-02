@@ -66,7 +66,7 @@ export class EquipmentViewComponent implements OnInit {
   previousPage() {
     this.pageNo = +this.pageNo - 1;
     this.inventoryService
-      .getEquipmentList(this.employeekey, this.OrganizationID)
+      .getEquipmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.equipments = data;
         if (this.pageNo == 1) {
@@ -82,7 +82,7 @@ export class EquipmentViewComponent implements OnInit {
   nextPage() {
     this.pageNo = +this.pageNo + 1;
     this.inventoryService
-      .getEquipmentList(this.employeekey, this.OrganizationID)
+      .getEquipmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.equipments = data;
         this.pagination = +this.equipments[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
@@ -107,7 +107,7 @@ export class EquipmentViewComponent implements OnInit {
         });
     } else if (SearchValue.length == 0) {
       this.inventoryService
-        .getEquipmentList(this.employeekey, this.OrganizationID)
+        .getEquipmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.equipments = data;
           if (this.equipments[0].totalItems > this.itemsPerPage) {
@@ -130,7 +130,7 @@ export class EquipmentViewComponent implements OnInit {
     this.inventoryService
       .DeleteEquipment(this.delete_EquipKey, this.employeekey, this.OrganizationID).subscribe(() => {
         this.inventoryService
-          .getEquipmentList(this.employeekey, this.OrganizationID)
+          .getEquipmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.equipments = data;
             if (this.equipments[0].totalItems > this.itemsPerPage) {
@@ -156,7 +156,7 @@ export class EquipmentViewComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.inventoryService
-      .getEquipmentList(this.employeekey, this.OrganizationID)
+      .getEquipmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.equipments = data;
         if (this.equipments[0].totalItems > this.itemsPerPage) {

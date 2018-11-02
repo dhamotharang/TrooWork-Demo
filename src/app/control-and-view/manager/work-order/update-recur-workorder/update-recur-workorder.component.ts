@@ -11,8 +11,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class UpdateRecurWorkorderComponent implements OnInit {
   WO_Key: object;
-  emp_key: number;
-  org_id: number;
   EmployeeOption: workorder[];
   workorderTypeList: workorder[];
   facilitylist: workorder[];
@@ -100,6 +98,29 @@ export class UpdateRecurWorkorderComponent implements OnInit {
   monthlyreccradio2;
 
 
+  role: String;
+  name: String;
+  employeekey: Number;
+  IsSupervisor: Number;
+  OrganizationID: Number;
+
+  url_base64_decode(str) {
+    var output = str.replace('-', '+').replace('_', '/');
+    switch (output.length % 4) {
+      case 0:
+        break;
+      case 2:
+        output += '==';
+        break;
+      case 3:
+        output += '=';
+        break;
+      default:
+        throw 'Illegal base64url string!';
+    }
+    return window.atob(output);
+  }
+
   constructor(private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, private WorkOrderServiceService: WorkOrderServiceService) {
     this.route.params.subscribe(params => this.WO_Key = params.WorkorderKey);
   }
@@ -126,29 +147,36 @@ export class UpdateRecurWorkorderComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.emp_key = 2861;
-    this.org_id = 21;
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+
     this.WorkOrderServiceService
-      .getWO_edit(this.WO_Key, this.org_id)
+      .getWO_edit(this.WO_Key, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.WOEditList = data[0];
         this.WorkOrderServiceService
-          .getallFloor(this.WOEditList.FacilityKey, this.org_id)
+          .getallFloor(this.WOEditList.FacilityKey, this.OrganizationID)
           .subscribe((data: any[]) => {
             this.FloorList = data;
           });
         this.WorkOrderServiceService
-          .getzone_facilityfloor(this.WOEditList.FloorKey, this.WOEditList.FacilityKey, this.org_id)
+          .getzone_facilityfloor(this.WOEditList.FloorKey, this.WOEditList.FacilityKey, this.OrganizationID)
           .subscribe((data: any[]) => {
             this.zonelist = data;
           });
         this.WorkOrderServiceService
-          .getroomType_facilityfloor(this.WOEditList.FloorKey, this.WOEditList.FacilityKey, this.org_id)
+          .getroomType_facilityfloor(this.WOEditList.FloorKey, this.WOEditList.FacilityKey, this.OrganizationID)
           .subscribe((data: any[]) => {
             this.RoomTypeList = data;
           });
         this.WorkOrderServiceService
-          .getRoom_facilityfloor(this.WOEditList.FloorKey, this.WOEditList.FacilityKey, this.org_id)
+          .getRoom_facilityfloor(this.WOEditList.FloorKey, this.WOEditList.FacilityKey, this.OrganizationID)
           .subscribe((data: any[]) => {
             this.RoomList = data;
           });
@@ -163,13 +191,13 @@ export class UpdateRecurWorkorderComponent implements OnInit {
           this.RoomTypeKey = null;
 
           this.WorkOrderServiceService
-            .getFloor(this.WO_Key, this.org_id)
+            .getFloor(this.WO_Key, this.OrganizationID)
             .subscribe((data: any[]) => {
               // debugger;
               this.floorvalue = parseInt(data[0].FloorKeyList);
               this.FloorKey = this.floorvalue;
               this.WorkOrderServiceService
-                .getallEquipment(this.WOEditList.FacilityKey, this.floorvalue, this.org_id)
+                .getallEquipment(this.WOEditList.FacilityKey, this.floorvalue, this.OrganizationID)
                 .subscribe((data: any[]) => {
                   this.EquipmentTypeList = data;
                   this.EquipmentList = data;
@@ -196,8 +224,8 @@ export class UpdateRecurWorkorderComponent implements OnInit {
           if (this.WOEditList.IntervalType == 'd') {
 
             this.dailyrecurring = true;
-            this.monthlyrecurring=false;
-            this.weeklyrecurring=false;
+            this.monthlyrecurring = false;
+            this.weeklyrecurring = false;
             this.DailyrecurringGap = this.WOEditList.OccurrenceInterval;
             this.WorkorderStartDate = new Date(this.WOEditList.WorkorderDate);
             this.WorkorderEndDate = new Date(this.WOEditList.WorkorderEndDate);
@@ -230,7 +258,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
 
             this.weeklyrecurring = true;
             this.dailyrecurring = false;
-            this.monthlyrecurring=false;
+            this.monthlyrecurring = false;
             var days = [];
             var x = this.WOEditList.OccurrenceDayInstance;
             days = x.split(',');
@@ -266,8 +294,8 @@ export class UpdateRecurWorkorderComponent implements OnInit {
           if (this.WOEditList.IntervalType == 'm') {
             debugger;
             this.monthlyrecurring = true;
-            this.weeklyrecurring=false;
-            this.dailyrecurring=false;
+            this.weeklyrecurring = false;
+            this.dailyrecurring = false;
             if (data[0].OccurrenceDayOfWeek) {
               this.monthlyreccradio2 = true;
               this.monthlyreccradio1 = false;
@@ -308,19 +336,19 @@ export class UpdateRecurWorkorderComponent implements OnInit {
               }
               this.month2 = this.WOEditList.OccurrenceInterval;
               var cur_time = new Date(Date.now());
-            var timeValue1 = this.WOEditList.WorkorderTime;
-            var test = timeValue1.split(":");
-            var today = new Date(cur_time.getFullYear(), cur_time.getMonth(), cur_time.getDate(), test[0], test[1], 0);
-            this.Time_monthly = today;
-            this.WorkorderStartDate = new Date(this.WOEditList.WorkorderDate);
-            this.WorkorderEndDate = new Date(this.WOEditList.WorkorderEndDate);
+              var timeValue1 = this.WOEditList.WorkorderTime;
+              var test = timeValue1.split(":");
+              var today = new Date(cur_time.getFullYear(), cur_time.getMonth(), cur_time.getDate(), test[0], test[1], 0);
+              this.Time_monthly = today;
+              this.WorkorderStartDate = new Date(this.WOEditList.WorkorderDate);
+              this.WorkorderEndDate = new Date(this.WOEditList.WorkorderEndDate);
             }
-            else{
+            else {
               this.monthlyreccradio2 = false;
               this.monthlyreccradio1 = true;
-             
-              this.day1=this.WOEditList.OccurrenceDayInstance;
-              this.month1=this.WOEditList.OccurrenceInterval;
+
+              this.day1 = this.WOEditList.OccurrenceDayInstance;
+              this.month1 = this.WOEditList.OccurrenceInterval;
               var cur_time = new Date(Date.now());
               var timeValue1 = this.WOEditList.WorkorderTime;
               var test = timeValue1.split(":");
@@ -328,7 +356,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
               this.Time_monthly = today;
               this.WorkorderStartDate = new Date(this.WOEditList.WorkorderDate);
               this.WorkorderEndDate = new Date(this.WOEditList.WorkorderEndDate);
-            
+
             }
 
           }
@@ -368,22 +396,22 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       });
 
     this.WorkOrderServiceService
-      .getallFacility(this.emp_key, this.org_id)
+      .getallFacility(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.facilitylist = data;
       });
     this.WorkOrderServiceService
-      .getallworkorderType(this.emp_key, this.org_id)
+      .getallworkorderType(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.workorderTypeList = data;
       });
     this.WorkOrderServiceService
-      .getallPriority(this.org_id)
+      .getallPriority(this.OrganizationID)
       .subscribe((data: any[]) => {
         this.priorityList = data;
       });
     this.WorkOrderServiceService
-      .getallEmployee(this.emp_key, this.org_id)
+      .getallEmployee(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.EmployeeOption = data;
       });
@@ -398,57 +426,57 @@ export class UpdateRecurWorkorderComponent implements OnInit {
   getFloorDisp(facilityName) {
     debugger;
     this.WorkOrderServiceService
-      .getallFloor(facilityName, this.org_id)
+      .getallFloor(facilityName, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.FloorList = data;
       });
   }
   getZoneRoomTypeRoom(floor, facility) {
     this.WorkOrderServiceService
-      .getzone_facilityfloor(floor, facility, this.org_id)
+      .getzone_facilityfloor(floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.zonelist = data;
       });
     this.WorkOrderServiceService
-      .getroomType_facilityfloor(floor, facility, this.org_id)
+      .getroomType_facilityfloor(floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.RoomTypeList = data;
       });
     this.WorkOrderServiceService
-      .getRoom_facilityfloor(floor, facility, this.org_id)
+      .getRoom_facilityfloor(floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
   }
   getRoomTypeRoom(zone, facility, floor) {
     this.WorkOrderServiceService
-      .getRoomtype_zone_facilityfloor(zone, floor, facility, this.org_id)
+      .getRoomtype_zone_facilityfloor(zone, floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.RoomTypeList = data;
       });
     this.WorkOrderServiceService
-      .getRoom_zone_facilityfloor(zone, floor, facility, this.org_id)
+      .getRoom_zone_facilityfloor(zone, floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
   }
   getRoom(roomtype, zone, facility, floor) {
     this.WorkOrderServiceService
-      .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.org_id)
+      .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
   }
   showEquipment_typechange(equip_type, facility, floor) {
     this.WorkOrderServiceService
-      .getEquipment_typechange(equip_type, facility, floor, this.org_id)
+      .getEquipment_typechange(equip_type, facility, floor, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.EquipmentList = data;
       });
   }
   getEquiment(floor_key, facility_key) {
     this.WorkOrderServiceService
-      .getallEquipment(facility_key, floor_key, this.org_id)
+      .getallEquipment(facility_key, floor_key, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.EquipmentTypeList = data;
         this.EquipmentList = data;
@@ -457,7 +485,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
   DeleteWO() {
     this.deleteWO = {
       workorderkey: this.WO_Key,
-      OrganizationID: this.org_id
+      OrganizationID: this.OrganizationID
     };
     this.WorkOrderServiceService
       .deleteCurrent_WO(this.deleteWO)
@@ -601,9 +629,9 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       this.eqp_key = - 1;
     }
     if (this.EmployeeKey) {
-      this.emp_key = this.EmployeeKey;
+      this.employeekey = this.EmployeeKey;
     } else {
-      this.emp_key = - 1;
+      this.employeekey = - 1;
     }
     if (this.ZoneKey) {
       this.zone = this.ZoneKey;
@@ -753,7 +781,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       floorkeys: floorString,
       zonekeys: zoneString,
       roomtypekeys: roomtypeString,
-      employeekey: this.emp_key,
+      employeekey: this.employeekey,
       priority: this.priority,
       fromdate: this.startDT,
       todate: this.endDT,
@@ -881,9 +909,9 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       }
     }
     if (this.EmployeeKey) {
-      this.emp_key = this.EmployeeKey;
+      this.employeekey = this.EmployeeKey;
     } else {
-      this.emp_key = - 1;
+      this.employeekey = - 1;
     }
     if (this.ZoneKey) {
       this.zone = this.ZoneKey;
@@ -1016,7 +1044,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       floorkeys: floorString,
       zonekeys: zoneString,
       roomtypekeys: roomtypeString,
-      employeekey: this.emp_key,
+      employeekey: this.employeekey,
       priority: this.priority,
       fromdate: this.startDT,
       todate: this.endDT,
@@ -1033,20 +1061,20 @@ export class UpdateRecurWorkorderComponent implements OnInit {
 
     });
 
-}
-addFormField() {
-  debugger;
-  this.timetable.times = [];
-  for (var i = 0; i < this.dailyFrequency; i++) {
-    this.timetable.times.push('');
   }
-}
-change_values() {
-  if (this.showEqTypes == true) {
-    this.ZoneKey = -1;
-    this.RoomTypeKey = -1;
-    this.RoomKey = -1;
+  addFormField() {
+    debugger;
+    this.timetable.times = [];
+    for (var i = 0; i < this.dailyFrequency; i++) {
+      this.timetable.times.push('');
+    }
   }
-}
+  change_values() {
+    if (this.showEqTypes == true) {
+      this.ZoneKey = -1;
+      this.RoomTypeKey = -1;
+      this.RoomKey = -1;
+    }
+  }
 
 }
