@@ -180,7 +180,7 @@ export class InspectionService {
 
     return this
       .http
-      .post(url, inspectionDetail1).subscribe(res => console.log('Done'));
+      .post(url, inspectionDetail1);
   }
   updateEditedTemplateQuestion(obj) {
     const url = 'http://localhost:3000/api/updateEditedTemplateQuestion';

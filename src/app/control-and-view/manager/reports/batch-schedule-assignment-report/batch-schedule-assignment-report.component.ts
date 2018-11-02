@@ -93,8 +93,6 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
 
         for (var i = 0; i < this.reportarray.length; i++) {
           var count = [];
-
-          debugger;
           if (this.reportarray[i].Mon == 'true') {
             if (this.reportarray[i].MetricType === 'Minutes Per') {
               this.totalMonTime = this.totalMonTime + ((this.reportarray[i].MetricValue) * this.reportarray[i].Frequency);

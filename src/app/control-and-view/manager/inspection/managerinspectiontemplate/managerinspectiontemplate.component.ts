@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InspectionService } from '../../../../service/inspection.service';
 import { Inspection } from '../../../../model-class/Inspection';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 @Component({
   selector: 'app-managerinspectiontemplate',
   templateUrl: './managerinspectiontemplate.component.html',
@@ -119,7 +119,7 @@ export class ManagerinspectiontemplateComponent implements OnInit {
   saveInspection = {};
   //this.questionsCount=0;
 
-  constructor(private inspectionService: InspectionService, private route: ActivatedRoute) {
+  constructor(private inspectionService: InspectionService, private route: ActivatedRoute,private router: Router) {
     this.route.params.subscribe(params => this.inspKey$ = params.InspectionOrderKey);
   }
 
@@ -165,7 +165,7 @@ export class ManagerinspectiontemplateComponent implements OnInit {
   }
   saveRatings(TemplateQuestionID, ScoreName) {
 
-    debugger;
+    //debugger;
     if (ScoreName === 'Yes/No' || ScoreName === 'Pass/Fail') {
       // console.log($scope.Scoringtype);
       var length = Object.keys(this.Scoringtype.rating_yn).length;
@@ -285,7 +285,9 @@ export class ManagerinspectiontemplateComponent implements OnInit {
 
         };
       this.inspectionService
-        .inspectionCompletedService(this.inspectionDetail1)
+        .inspectionCompletedService(this.inspectionDetail1).subscribe(res =>{
+           this.router.navigate(['/ViewInspectionManager',this.inspKey$]);
+      });
 
     }
     else if (questionidList.length === totalQuestions && this.ScoreName !== 'Pass/Fail') {
@@ -354,7 +356,9 @@ export class ManagerinspectiontemplateComponent implements OnInit {
 
         };
       this.inspectionService
-        .inspectionCompletedService(this.inspectionDetail1)
+        .inspectionCompletedService(this.inspectionDetail1).subscribe(res =>{
+          this.router.navigate(['/ViewInspectionManager',this.inspKey$]);
+     });
 
     }
   }

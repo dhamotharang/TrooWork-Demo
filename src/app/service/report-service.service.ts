@@ -118,7 +118,7 @@ export class ReportServiceService {
       .get('http://localhost:3000/api/zoneByFacility_Floor?fkey=' + fkey + '&floorkey=' + floorkey + '&OrganizationID=' + orgID);
   }
 
-  getRoom(fkey, floorkey, orgID) {
+  getRoomtype(fkey, floorkey, orgID) {
     return this
       .http
       .get('http://localhost:3000/api/roomtypeByFacility_Floor?fkey=' + fkey + '&floorkey=' + floorkey + '&OrganizationID=' + orgID);
@@ -222,7 +222,35 @@ export class ReportServiceService {
       .http
       .post(url, obj);
   }
+  getRoom(fkey, floorkey,OrganizationID)
+  {
+    return this
+      .http
+      .get('http://localhost:3000/api/roomByFacility_Floor?fkey='+fkey+'&floorkey='+floorkey+'&OrganizationID='+OrganizationID);
+  }
+  generateWorkOrderReportServicewithdate(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, fromdate, date1, RoomKey, EmployeeKey, WorkorderStatusKey,employeekey, OrganizationID)
+  {
+    const url = 'http://localhost:3000/api/workorderReportByallFilters';
+    const obj = {
+      OrganizationID: OrganizationID,
+      manager: employeekey,
+      workorderDate: fromdate,
+      workorderDate2: date1,
+      facilitykey: FacilityKey,
+      floorKey: FloorKey,
+      roomTypeKey: RoomTypeKey,
+      zoneKey: ZoneKey,
+      roomKey: RoomKey,
+      employeeKey: EmployeeKey,
+      workorderStatusKey: WorkorderStatusKey
+    };
+    return this
+      .http
+      .post(url, obj);
 
+
+  }
+  
   //Pooja's code ends here
 
   //services for workorder reporting

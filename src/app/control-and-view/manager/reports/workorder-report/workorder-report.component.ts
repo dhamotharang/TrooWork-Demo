@@ -69,6 +69,7 @@ export class WorkorderReportComponent implements OnInit {
   RoomKey;
   EmployeeKey;
   WorkorderStatusKey;
+  todate:Date;
 
   public workexcel: Array<any> = [{
     WorkorderTypeName: '', DateandTime: '', Status: '', Employee: '', Room: '', Equipment: '', CheckinTime: '', CheckoutTime: '', Duration: '', DelayTime: '', Notes: ''
@@ -124,10 +125,17 @@ export class WorkorderReportComponent implements OnInit {
       });
 
     this.ReportServiceService
-      .getRoom(fkey, floorkey, this.OrganizationID)
+      .getRoomtype(fkey, floorkey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.room = data;
       });
+
+      this.ReportServiceService
+      .getRoom(fkey, floorkey, this.OrganizationID)
+      .subscribe((data: Reports[]) => {
+        this.rooms = data;
+      });
+
   }
 
   getRoomsName(zonekey, fkey, floorkey) {
@@ -140,6 +148,42 @@ export class WorkorderReportComponent implements OnInit {
   }
 
   generateWorkOrderReport(from_date, to_date, FacilityKey, FloorKey, RoomTypeKey, ZoneKey, RoomKey, EmployeeKey, WorkorderStatusKey) {
+   // debugger;
+    if (!(this.todate) ) {
+     
+       var date1 = this.convert_DT(this.fromdate);
+       if(!FacilityKey){
+        FacilityKey=null;
+       }
+       if(!FloorKey){
+        FloorKey=null;
+       }
+       if(!RoomTypeKey){
+        RoomTypeKey=null;
+       }
+       if(!ZoneKey){
+        ZoneKey=null;
+       }
+       if(!RoomTypeKey){
+        RoomTypeKey=null;
+       }
+       if(!RoomKey){
+        RoomKey=null;
+       }
+       if(!EmployeeKey){
+        EmployeeKey=null;
+       }
+       if(!WorkorderStatusKey){
+        WorkorderStatusKey=null;
+       }
+       var fromdate = this.convert_DT(from_date);
+       this.ReportServiceService
+      .generateWorkOrderReportServicewithdate(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, fromdate, date1, RoomKey, EmployeeKey, WorkorderStatusKey, this.employeekey, this.OrganizationID)
+      .subscribe((data: Reports[]) => {
+        this.viewWorkorderReport = data;
+      });
+    }
+
     var fromdate = this.convert_DT(from_date);
     var todate = this.convert_DT(to_date);
     if (todate && fromdate > todate) {
@@ -147,14 +191,14 @@ export class WorkorderReportComponent implements OnInit {
       alert("Please check your Start Date!");
       return;
     }
-
+else{
     this.ReportServiceService
       .generateWorkOrderReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, fromdate, todate, RoomKey, EmployeeKey, WorkorderStatusKey, this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.viewWorkorderReport = data;
       });
   }
-
+  }
   //export to excel 
   exportToExcel(): void {
 

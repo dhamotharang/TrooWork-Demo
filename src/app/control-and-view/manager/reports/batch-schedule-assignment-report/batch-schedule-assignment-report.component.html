@@ -91,13 +91,13 @@
         <tr *ngIf="reportarray?.length> 0">
           <td colspan="8">Total Assigned daily minutes</td>
           <!--                            <td></td>-->
-          <td>{{totalMonTime }}</td>
-          <td>{{totalTuesTime}}</td>
-          <td>{{totalWedTime}}</td>
-          <td>{{totalThuTime}}</td>
-          <td>{{totalFriTime}}</td>
-          <td>{{totalSatTime}}</td>
-          <td>{{totalSunTime}}</td>
+          <td>{{totalMonTime | number:'1.2-2'}}</td>
+          <td>{{totalTuesTime| number:'1.2-2'}}</td>
+          <td>{{totalWedTime | number:'1.2-2'}}</td>
+          <td>{{totalThuTime | number:'1.2-2'}}</td>
+          <td>{{totalFriTime | number:'1.2-2'}}</td>
+          <td>{{totalSatTime | number:'1.2-2'}}</td>
+          <td>{{totalSunTime | number:'1.2-2'}}</td>
           <td></td>
           <td></td>
         </tr>
