@@ -57,17 +57,19 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
     } else {
       this.peopleService.checkUserName(this.username, this.empKey$, this.OrganizationID)
         .subscribe((data: any[]) => {
+          debugger;
           if (data[0].result == 'Exists') {
             alert("UserName already exists");
+            return;
           } else {
             this.peopleService.setLoginCreds(this.username, this.password, this.empKey$, this.employeekey, this.userRoleTypeKey$, this.OrganizationID)
               .subscribe((data: any[]) => {
                 this.router.navigateByUrl('/ViewEmployee');
-                if (data[0].length > 0) {
+                
                   this.peopleService.getUserEmail(this.username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
                     this.managerMail = data[0].EmailID;
                     this.userMail = data[0].newmail;
-
+                    debugger;
                     if (this.userMail == null) {
                       alert("Login Credentials created for user Successfully! Mail not send , Mail-Id not found !");
                     } else {
@@ -84,7 +86,7 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
                         .subscribe(res => console.log('Mail Sent Successfully...'));
                     }
                   });
-                }
+                
               });
           }
         });

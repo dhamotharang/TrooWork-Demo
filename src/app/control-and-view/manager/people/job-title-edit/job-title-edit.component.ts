@@ -40,8 +40,18 @@ export class JobTitleEditComponent implements OnInit {
     this.route.params.subscribe(params => this.JobTitle_Key$ = params.JobTitle_Key);
   }
   updateJobTitle(JobTitle, JobTitleDescription) {
+    if(!JobTitle.trim()){
+      alert('JobtitleName not provided !');
+      return;
+    }
+    if(!JobTitleDescription.trim()){
+      alert('JobTitleDescription not provided !');
+      return;
+    }
     this.peopleServiceService.updateEditJobtitle(this.JobTitle_Key$, JobTitle, JobTitleDescription, this.employeekey, this.OrganizationID)
-      .subscribe(res => this.router.navigateByUrl('/JobTitleViewAdmin'));
+      .subscribe((data: any[]) => {
+        alert('Job title  successfully updated !');
+         this.router.navigateByUrl('/JobTitleView')});
   }
 
   ngOnInit() {

@@ -48,7 +48,7 @@
         <input *ngIf="editempdtails" type="text" name="MiddleName" class="form-control" placeholder="Middle Name" [(ngModel)]="editempdtails.MiddleName">        </div>
       <div class="form-group">
         <label>Birth Date</label>
-        <igx-datePicker item-width="25%" [(ngModel)]="BirthDate" [formatter]="formatter"></igx-datePicker>
+        <igx-datePicker item-width="25%" [(ngModel)]="BirthDate" ></igx-datePicker>
         <!-- <input type="text" name="password" class="form-control" placeholder="Birth Date"> -->
       </div>
 
@@ -60,9 +60,9 @@
           <label>Gender*</label><br>
           <select *ngIf="editempdtails" name="Gender" [(ngModel)]="editempdtails.Gender" style="width: 80%; background-color: #d4f4ff;">
             <option value="">--Select--</option>
-            <option value="1">MALE</option>
-            <option value="2">FEMALE</option>
-            <option value="3">OTHER</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
           </select>
           <!-- <div class="btn-group">
           <button class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select</button>
@@ -144,7 +144,7 @@
       <div class="form-group">
         <label>Hire Date*</label>
         <!-- *ngIf="hireDate" -->
-        <igx-datePicker *ngIf="editempdtails" item-width="25%" [(ngModel)]="HireDate"[formatter]="formatter"></igx-datePicker>
+        <igx-datePicker *ngIf="editempdtails" item-width="25%" [(ngModel)]="HireDate"></igx-datePicker>
         <!-- <mdb-date-picker name="mydate" [options]="myDatePickerOptions" [placeholder]="'Selected date'" [(ngModel)]="model" required></mdb-date-picker> -->
       </div>
       <div class="form-check form-check-inline">

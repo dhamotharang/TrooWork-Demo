@@ -56,4 +56,13 @@
           <td><a routerLink="/EditEmployeedetails/{{e.EmployeeKey}}">{{ e.JobTitle }}</a></td>
           <td><a routerLink="/EditEmployeedetails/{{e.EmployeeKey}}">{{ e.PrimaryPhone }}</a></td>
         </tr>
+        <tr *ngIf="employeedetailstable?.length == 0">
+          <td colspan="7">
+            No Records Found
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-success" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
+    <button class="btn btn-success" (click)="nextPage()" *ngIf="showHide2">Next >></button>
         <!--  -->

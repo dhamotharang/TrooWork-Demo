@@ -36,9 +36,19 @@ export class JobTitleAddComponent implements OnInit {
   constructor(private peopleServiceService: PeopleServiceService, private router: Router) { }
 
   addNewJobtitle(JobtitleName, JobTitleDescription) {
+    if(!JobtitleName.trim()){
+      alert('JobtitleName not provided !');
+      return;
+    }
+    if(!JobTitleDescription.trim()){
+      alert('JobTitleDescription not provided !');
+      return;
+    }
     this.peopleServiceService.addJobtitle(JobtitleName, JobTitleDescription, this.employeekey, this.OrganizationID)
-      .subscribe(res => this.router.navigateByUrl('/JobTitleView'));
-
+      .subscribe((data: any[]) => {
+        alert('New job title  successfully created !');
+         this.router.navigateByUrl('/JobTitleView');
+        });
   }
 
   ngOnInit() {
