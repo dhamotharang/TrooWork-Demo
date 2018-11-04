@@ -40,6 +40,7 @@ export class InspectionReportComponent implements OnInit {
       day = ("0" + date.getDate()).slice(-2);
     return [date.getFullYear(), mnth, day].join("-");
   }
+  fromdate: Date;
 
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
@@ -84,6 +85,8 @@ export class InspectionReportComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.fromdate = new Date();
 
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];

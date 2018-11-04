@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { People } from '../../../../model-class/People';
 import { PeopleServiceService } from '../../../../service/people-service.service';
 import { ActivatedRoute, Router } from "@angular/router";
@@ -36,6 +36,8 @@ export class CreateEmployeeComponent implements OnInit {
   DepartmentKey;
   temp_res;
 
+  minDate;
+  maxDate;
   role: String;
   name: String;
   employeekey: Number;
@@ -58,7 +60,26 @@ export class CreateEmployeeComponent implements OnInit {
     return [date.getFullYear(), mnth, day].join("-");
   };
 
+  
+
   constructor(private route: ActivatedRoute, private PeopleServiceService: PeopleServiceService, private router: Router) { }
+  
+  numberValid(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  charValidation(event: any){
+    const patternChar = /[a-zA-Z ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !patternChar.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -78,44 +99,46 @@ export class CreateEmployeeComponent implements OnInit {
 
   createEmployee() {
     debugger;
-    if (this.EmployeeNumber === undefined) {
+    if (!(this.EmployeeNumber) ) {
       alert("Employee Number Not provided !");
       return;
     }
-    if (this.UserRoleTypeKey === undefined) {
+    if (!(this.UserRoleTypeKey ) ) {
       alert("User Role Type Not provided !");
       return;
     }
 
-    if (this.FirstName === undefined) {
+    if (!(this.FirstName ) ) {
       alert("First Name Not provided !");
       return;
     }
-    if (this.LastName === undefined) {
+    if (!(this.LastName ) ) {
       alert("LastName Not provided !");
       return;
     }
-    if (this.Gender === undefined) {
+    if (!(this.Gender) ) {
       alert("Gender Not provided !");
       return;
     }
-    if (this.PrimaryPhone === undefined) {
+    if (!(this.PrimaryPhone) ) {
       alert("Primary Phone Not provided !");
       return;
     }
-    if (this.HireDate === undefined) {
+    if (!(this.HireDate) ) {
       alert("HireDate Not provided !");
       return;
     }
-    if (this.JobTitleKey === undefined) {
-      this.JobTitleKey = -1;
+    if (!(this.JobTitleKey ) ) {
+      alert("JobTitle Not provided !");
+      return;
     }
-    if (this.DepartmentKey === undefined) {
-      this.DepartmentKey = -1;
+    if (!(this.DepartmentKey) ) {
+      alert("Department Not provided !");
+      return;
     }
     var BD;
-    if (this.BirthDate === undefined) {
-      BD = new Date();
+    if (!(this.BirthDate) ) {
+      BD = this.convert_DT(new Date());
     }
     else {
       BD = this.convert_DT(this.BirthDate);
@@ -143,7 +166,8 @@ export class CreateEmployeeComponent implements OnInit {
     this.JobTitleKey = '';
     this.SupervisorKey = '';
     this.DepartmentKey = '';
-
+    this.minDate= new Date();
+    this.maxDate=new Date();
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));

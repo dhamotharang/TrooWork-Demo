@@ -93,7 +93,7 @@ export class DashboardReportComponent implements OnInit {
   date2: string;
   org_id: number;
   manager: string;
-  EmployeeKey: number;
+  EmployeeKey;
   fromdate: Date;
   todate: Date;
   WorkorderTypeKey = [];
@@ -106,6 +106,8 @@ export class DashboardReportComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.EmployeeKey = "";
+    this.fromdate = new Date();
 
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];

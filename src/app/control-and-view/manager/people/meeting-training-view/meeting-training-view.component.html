@@ -35,8 +35,8 @@
     <form [formGroup]="searchform">
       <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
         <input class="form-control" name="searchMeetingview" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
-          placeholder="Search" aria-label="Search" [(ngmodel)]="SearchMeetingTraining" formControlName="SearchMeetingTraining"
-          (input)="searchMeetingTraining($event.target.value);" style="width: 100%;">
+          placeholder="Search Action Name, Event Venue,Event Host" aria-label="Search" [(ngmodel)]="SearchMeetingTraining" formControlName="SearchMeetingTraining"
+          (input)="searchMeetingTraining($event.target.value);" style="width: 100%;" >
         <div *ngIf="searchform.controls.SearchMeetingTraining.errors?.minlength">Minimum 3 characters required.</div>
       </div>
     </form>

@@ -13,7 +13,7 @@
       <div class="form-group bg-dark">
         <label>Employee Number*</label>
         <!-- <div class="col-md-6 mb-2"> -->
-        <input type="text" name="EmployeeNumber"  maxlength="15"  class="form-control" placeholder="Employee Number" [(ngModel)]="EmployeeNumber">
+        <input type="text" name="EmployeeNumber"  maxlength="15" (keypress)="numberValid($event)" class="form-control" placeholder="Employee Number" [(ngModel)]="EmployeeNumber">
         <!-- </div> -->
       </div>
     </div>
@@ -36,22 +36,22 @@
     <div class="col-md-6">
       <div class="form-group">
         <label>First Name*</label>
-        <input type="text" name="FirstName" class="form-control"  maxlength="19" placeholder="First Name" [(ngModel)]="FirstName">
+        <input type="text" name="FirstName" class="form-control" (keypress)="charValidation($event)" maxlength="19" placeholder="First Name" [(ngModel)]="FirstName">
       </div>
       <div class="form-group">
         <label>Last Name*</label>
-        <input type="text" name="LastName" class="form-control"  maxlength="19" placeholder="Last Name" [(ngModel)]="LastName"> </div>
+        <input type="text" name="LastName" class="form-control" (keypress)="charValidation($event)" maxlength="19" placeholder="Last Name" [(ngModel)]="LastName"> </div>
       <!-- </form> -->
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <label>Middle Name</label>
-        <input type="text" name="MiddleName" class="form-control"  maxlength="19" placeholder="Middle Name" [(ngModel)]="MiddleName">
+        <input type="text" name="MiddleName" class="form-control" (keypress)="charValidation($event)" maxlength="19" placeholder="Middle Name" [(ngModel)]="MiddleName">
       </div>
       <div class="form-group">
         <label>Birth Date</label>
 
-        <igx-datePicker item-width="25%" [value]="date" [(ngModel)]="BirthDate" ></igx-datePicker>
+        <igx-datePicker item-width="25%" [value]="date" [maxValue]="maxDate" [(ngModel)]="BirthDate" ></igx-datePicker>
         <!-- <input type="text" name="password" class="form-control" placeholder="Birth Date"> -->
       </div>
 
@@ -83,7 +83,7 @@
       <div class="form-group">
         <label>City</label>
        
-      <input type="text" name="City" [(ngModel)]="City" maxlength="19" class="form-control" placeholder="City">
+      <input type="text" name="City" [(ngModel)]="City" maxlength="19" (keypress)="charValidation($event)" class="form-control" placeholder="City">
     </div>
     <!-- </form> -->
   </div>
@@ -103,27 +103,33 @@
 <div class="col-md-6">
   <div class="form-group">
     <label>Country</label>
-    <input type="text" name="Country" [(ngModel)]="Country" maxlength="19" class="form-control" placeholder="Country"> </div>
+    <input type="text" name="Country" [(ngModel)]="Country" (keypress)="charValidation($event)" maxlength="19" class="form-control" placeholder="Country"> </div>
   <div class="form-group">
     <label>Primary Phone Number*</label>
-    <input type="text" name="PrimaryPhone" [(ngModel)]="PrimaryPhone" maxlength="15" class="form-control" placeholder="Primary Phone Number">
+    <input type="text" name="PrimaryPhone" [(ngModel)]="PrimaryPhone" (keypress)="numberValid($event)" maxlength="15" class="form-control" placeholder="Primary Phone Number"  minlength="10" #Primaryphone="ngModel">
+    <div *ngIf="Primaryphone.errors?.minlength" style="color: red;">
+      Primary Phone Number must be at least 10 digit long.
+ </div>
   </div>
   <!-- </form> -->
 </div>
 <div class="col-md-6">
   <div class="form-group">
     <label>Zip Code</label>
-    <input type="text" name="ZipCode" [(ngModel)]="ZipCode" maxlength="10" class="form-control" placeholder="Zip Code"> </div>
+    <input type="text" name="ZipCode" [(ngModel)]="ZipCode" (keypress)="numberValid($event)" maxlength="10" class="form-control" placeholder="Zip Code"> </div>
   <div class="form-group">
     <label>Alternative Phone Number</label>
-    <input type="text" name="AlternatePhone" [(ngModel)]="AlternatePhone" maxlength="15" class="form-control" placeholder="Alternative Phone Number">
+    <input type="text" name="AlternatePhone" [(ngModel)]="AlternatePhone" (keypress)="numberValid($event)" maxlength="15" class="form-control" placeholder="Alternative Phone Number">
   </div>
 
 </div>
 <div class="col-md-6">
   <div class="form-group">
     <label>Email</label><br>
-    <input type="text" name="EmailID" [(ngModel)]="EmailID" maxlength="25" class="form-control" placeholder="Email">
+    <input type="text" name="EmailID" [(ngModel)]="EmailID" maxlength="25" class="form-control" placeholder="Email" email #prmEmail="ngModel">
+    <div *ngIf="prmEmail.errors?.email" style="color: red;"> 
+       Email not valid.
+ </div> 
   </div>
 </div>
 <br><br>
@@ -133,7 +139,7 @@
   <div class="col-md-6">
     <div class="form-group">
       <label>Hire Date*</label>
-      <igx-datePicker item-width="25%" [value]="hiredate" [(ngModel)]="HireDate" ></igx-datePicker>
+      <igx-datePicker item-width="25%" [value]="hiredate" [minValue]="minDate"  [(ngModel)]="HireDate" ></igx-datePicker>
       <!-- <mdb-date-picker name="mydate" [options]="myDatePickerOptions" [placeholder]="'Selected date'" [(ngModel)]="model" required></mdb-date-picker> -->
     </div>
     <div class="form-check form-check-inline">

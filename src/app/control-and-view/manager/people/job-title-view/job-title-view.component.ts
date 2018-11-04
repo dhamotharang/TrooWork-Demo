@@ -20,6 +20,12 @@ export class JobTitleViewComponent implements OnInit {
   IsSupervisor: Number;
   OrganizationID: Number;
 
+  pageNo: Number = 1;
+  itemsPerPage: Number = 25;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
+
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -41,10 +47,12 @@ export class JobTitleViewComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private peopleServiceService: PeopleServiceService, private router: Router) { }
 
   searchJobTitle(SearchJobTitle) {
+      if(SearchJobTitle.length>2){
     this.peopleServiceService.searchJobtitle(SearchJobTitle, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.jobView = data;
 
     });
+  }
   }
   deleteJobPass(key) {
     this.deleteJobtitleKey = key;
@@ -81,4 +89,5 @@ export class JobTitleViewComponent implements OnInit {
     });
   }
 
+  
 }

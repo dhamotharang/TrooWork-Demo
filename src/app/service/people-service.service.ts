@@ -642,5 +642,8 @@ export class PeopleServiceService {
       .get('http://localhost:3000/api/JobtitleForSuperAdmin?OrganizationID=' + OrganizationID);
 
   }
-
+  addMeetinTraingByNewEvent(obj){
+    const uri = "http://localhost:3000/api/addMeetinTraingByNewEvent";
+    return this.http.post(uri, obj);
+  }
 }

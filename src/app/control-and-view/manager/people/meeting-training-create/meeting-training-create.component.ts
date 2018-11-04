@@ -20,7 +20,7 @@ export class MeetingTrainingCreateComponent implements OnInit {
   EventType: Number;
   eventHost: String;
   Venue: String;
-  mtngDate: Date;
+  mtngDate;
   time1: any;
   time2: any;
   Notes: String;
@@ -37,6 +37,12 @@ export class MeetingTrainingCreateComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+
+  Event_Type;
+  Event_Name;
+  Description;
+  addnewEvent;
+  newMeet;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -204,7 +210,7 @@ export class MeetingTrainingCreateComponent implements OnInit {
       this.peopleServ
         .addMeetingTraining(this.EventType, this.eventHost, this.Venue, newTime, newTime1, this.Notes, EmployeeKeyString, newDate, this.employeekey, this.OrganizationID)
         .subscribe((data: People[]) => {
-
+          alert('Meeting/Training successfully created !');
           this.EventType = null;
           this.eventHost = null;
           this.Venue = null;
@@ -256,7 +262,8 @@ export class MeetingTrainingCreateComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-
+    this.newMeet=true;
+    this.mtngDate= new Date();
     this.peopleServ
       .getJobTitleList(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
@@ -292,6 +299,25 @@ export class MeetingTrainingCreateComponent implements OnInit {
       allowSearchFilter: true
     };
 
+  }
+  addNewMeeting(){
+
+this.addnewEvent={
+    ActionKey: null,
+    EmployeeKey: this.employeekey,
+    EventDescription: this.Description,
+    EventName: this.Event_Name,
+    EventType:this.Event_Type,
+    OrganizationID: this.OrganizationID,
+    eventDescription: this.Description,
+    eventName: this.Event_Name,
+    eventType: this.Event_Type
+};
+    this.peopleServ
+      .addMeetinTraingByNewEvent(this.addnewEvent)
+      .subscribe((data: People[]) => {
+        this.event = data;
+      });
   }
 
 }

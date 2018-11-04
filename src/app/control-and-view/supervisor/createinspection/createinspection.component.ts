@@ -122,7 +122,6 @@ export class CreateinspectionComponent implements OnInit {
     if (!this.Employee) {
       this.Employee = - 1;
     }
-    // debugger;
     console.log(this.fromdate);
     console.log(this.todate);
     if (!this.fromdate) {
@@ -172,6 +171,14 @@ export class CreateinspectionComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
+    this.fromdate = new Date();
+    this.TemplateID = "";
+    this.Building = "";
+    this.Floor = "";
+    this.Zone = "";
+    this.RoomKey = "";
+    this.Employee = "";
+    this.RoomType = "";
 
     this.inspectionService
       .getTemplateName(this.employeekey, this.OrganizationID)
@@ -184,6 +191,7 @@ export class CreateinspectionComponent implements OnInit {
       .subscribe((data: Inspection[]) => {
         // debugger;
         this.auditor = data;
+        this.SupervisorKey = this.employeekey;
       });
     this.inspectionService
       .getEmployeeName(this.employeekey, this.OrganizationID)

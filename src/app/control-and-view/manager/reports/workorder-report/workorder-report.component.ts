@@ -51,24 +51,40 @@ export class WorkorderReportComponent implements OnInit {
     return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
 
   }
+
+
+  fromdate: Date;
   facilitylist: Reports[];
   floor: Reports[];
   zoneroom: Reports[];
   room: Reports[];
   rooms: Reports[];
-
+  FacilityKey;
   emp: Reports[];
   workstatus: Reports[];
   viewWorkorderReport: Reports[];
+  FloorKey;
+  ZoneKey;
+  RoomTypeKey;
+  RoomKey;
+  EmployeeKey;
+  WorkorderStatusKey;
 
   public workexcel: Array<any> = [{
     WorkorderTypeName: '', DateandTime: '', Status: '', Employee: '', Room: '', Equipment: '', CheckinTime: '', CheckoutTime: '', Duration: '', DelayTime: '', Notes: ''
-  }
-  ];
+  }];
 
   constructor(private fb: FormBuilder, private ReportServiceService: ReportServiceService, private excelService: ExcelserviceService) { }
 
   ngOnInit() {
+    this.FacilityKey = "";
+    this.FloorKey = "";
+    this.ZoneKey = "";
+    this.RoomTypeKey = "";
+    this.RoomKey = "";
+    this.EmployeeKey = "";
+    this.WorkorderStatusKey = "";
+    this.fromdate = new Date();
 
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];

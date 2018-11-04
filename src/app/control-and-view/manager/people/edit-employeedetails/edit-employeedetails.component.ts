@@ -75,7 +75,7 @@ export class EditEmployeedetailsComponent implements OnInit {
     var birthdt = this.convert_DT(BD);
     var hiredt = this.convert_DT(HD);
 
-    this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.managerKey, this.empk$, this.orgid, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey)
+    this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.managerKey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey)
       .subscribe(res => this.router.navigateByUrl('/ViewEmployee'));
 
   }
@@ -84,7 +84,7 @@ export class EditEmployeedetailsComponent implements OnInit {
     debugger;
 
     this.PeopleServiceService
-      .DeleteEmployeeDetailsbyManager(this.delete_EmpKey, this.orgID, this.updatedby).subscribe(res => this.router.navigateByUrl('/ViewEmployee'));
+      .DeleteEmployeeDetailsbyManager(this.delete_EmpKey, this.OrganizationID, this.updatedby).subscribe(res => this.router.navigateByUrl('/ViewEmployee'));
   }
   deleteEmpPass(empk$) {
     this.delete_EmpKey = empk$;
@@ -101,7 +101,7 @@ export class EditEmployeedetailsComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
-    this.PeopleServiceService.EditEmployeeDetailsbyManager(this.empk$, this.orgid).subscribe((data: Array<any>) => {
+    this.PeopleServiceService.EditEmployeeDetailsbyManager(this.empk$, this.OrganizationID).subscribe((data: Array<any>) => {
       this.editempdtails = data[0];
       this.BirthDate = new Date(this.editempdtails.BirthDate);
       this.HireDate = new Date(this.editempdtails.HireDate);

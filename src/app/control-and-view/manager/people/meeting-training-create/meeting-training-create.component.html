@@ -7,7 +7,7 @@
     </div>
 
     <br>
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf='newMeet'>
         <div class="row col-md-12">
             <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="mtngTrainingEvent">Meeting/Training/Event*
                 </label></h5>
@@ -19,7 +19,7 @@
                     </option>
                 </select>
             </div>
-            <div class="col col-md-5"></div>
+            <div class="col col-md-5"><button class="btn btn-success" (click)='newMeet=false;'>Create New</button></div>
         </div>
 
         <div class="row col-md-12">
@@ -103,6 +103,45 @@
             <div class="col col-md-3"></div>
             <div style="text-align:right" class="col-md-3">
                 <a style="color:white !important" class="btn btn-success" (click)="addMeetingTrainingEvent()"><b>Save</b>
+                </a></div>
+            <div class="col col-md-3"></div>
+        </div>
+    </div>
+    <div *ngIf='!newMeet'>
+        <div class="row col-md-12">
+            <h5 style="text-align:right" class="col-md-4"><label for="eventHost">Event Type* </label></h5>
+            <div class="md-form col-md-3" style="text-align:left">
+                <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
+                    [(ngModel)]="Event_Type">
+            </div>
+            <div class="col col-md-5"></div>
+        </div>
+        <div class="row col-md-12">
+            <h5 style="text-align:right" class="col-md-4"><label for="Venue">Event Name* </label></h5>
+            <div class="md-form col-md-3" style="text-align:left">
+                <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
+                    [(ngModel)]="Event_Name">
+            </div>
+            <div class="col col-md-5"></div>
+        </div>
+        <div class="row col-md-12">
+            <h5 style="text-align:right" class="col-md-4"><label for="Venue">Description </label></h5>
+            <div class="md-form col-md-3" style="text-align:left">
+                <textarea class="form-control rounded-0" [(ngModel)]="Description" rows="5" style="resize: none;"></textarea>
+            </div>
+            <div class="col col-md-5"></div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col col-md-3"></div>
+            <div style="text-align:right" class="col-md-3">
+                <a style="color:white !important" class="btn btn-success" (click)="addNewMeeting()"><b>Save</b>
+                </a></div>
+            <div class="col col-md-3"></div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col col-md-3"></div>
+            <div style="text-align:right" class="col-md-3">
+                <a style="color:white !important" class="btn btn-success" (click)="newMeet=true;"><b>Go back</b>
                 </a></div>
             <div class="col col-md-3"></div>
         </div>

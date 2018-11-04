@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InspectionService } from '../../../service/inspection.service';
 import { Inspection } from '../../../model-class/Inspection';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute ,Router} from '@angular/router';
 
 @Component({
   selector: 'app-supervsrinspectiontemplate',
@@ -120,7 +120,7 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
   saveInspection = {};
   //this.questionsCount=0;
 
-  constructor(private inspectionService: InspectionService, private route: ActivatedRoute) {
+  constructor(private inspectionService: InspectionService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(params => this.inspKey$ = params.InspectionOrderKey);
   }
 

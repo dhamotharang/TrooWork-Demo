@@ -45,6 +45,25 @@ export class BarcodeReportComponent implements OnInit {
     return window.atob(output);
   }
 
+
+  // Roomflag:any;
+  // Equipmentflag:any;
+  // facilitylist:Reports[];
+  // equipmenttypelist:Reports[];
+  // equipment:Reports[];
+  // floor:Reports[];
+  // zoneroom:Reports[];
+  // room:Reports[];
+  // viewBarcodeReport:Reports[];
+  // viewBarcodeEquipment:Reports[];
+  FacilityKey;
+  FloorKey;
+  ZoneKey;
+  RoomTypeKey;
+  EquipmentTypeKey;
+  EquipmentKey;
+  newArray;
+
   public reportarray: Array<any> = [{
     RoomName: '', Barcode: '', Building: '', Floor: '', Zone: '', Roomtype: ''
   }
@@ -66,6 +85,12 @@ export class BarcodeReportComponent implements OnInit {
     });
   }
   ngOnInit() {
+    this.FacilityKey = "";
+    this.FloorKey = "";
+    this.ZoneKey = "";
+    this.RoomTypeKey = "";
+    this.EquipmentTypeKey = "";
+    this.EquipmentKey = "";
 
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
@@ -84,10 +109,10 @@ export class BarcodeReportComponent implements OnInit {
 
     this.ReportServiceService.getEquipmentType(this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
-        var newArray = data.slice(0); //clone the array, or you'll end up with a new "None" option added to your "values" array on every digest cycle.
-        //         newArray.unshift({EquipmentTypeText: "Select All", EquipmentTypeKey: "-99"});
-        // // this.equipmenttypelist = data;
-        this.equipmenttypelist = newArray;
+        this.newArray = data.slice(0); //clone the array, or you'll end up with a new "None" option added to your "values" array on every digest cycle.
+        this.newArray.unshift({ EquipmentTypeText: "Select All", EquipmentTypeKey: "-99" });
+        // this.equipmenttypelist = data;
+        this.equipmenttypelist = this.newArray;
 
       });
 
@@ -105,12 +130,46 @@ export class BarcodeReportComponent implements OnInit {
 
     this.ReportServiceService.getFloor(key, this.OrganizationID)
       .subscribe((data: Reports[]) => {
-
         this.floor = data;
       });
   }
+  generateBarcodeReport(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, EquipmentTypeKey, EquipmentKey) {
+    if (!this.FacilityKey && !this.EquipmentTypeKey && !this.EquipmentKey) {
+      alert("Please choose any filter");
+    }
+
+    if (FacilityKey) {
+      this.ReportServiceService
+        .generateBarcodeReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, this.employeekey, this.OrganizationID)
+        .subscribe((data: Reports[]) => {
+          this.Roomflag = true;
+          this.Equipmentflag = false;
+          this.viewBarcodeReport = data;
+        });
+    }
+    if (EquipmentTypeKey) {
+      this.ReportServiceService
+        .generateBarcodeByEqupimenttype(EquipmentKey, EquipmentTypeKey, this.employeekey, this.OrganizationID)
+        .subscribe((data: Reports[]) => {
+          this.Roomflag = false;
+          this.Equipmentflag = true;
+          this.viewBarcodeEquipment = data;
+        });
+    }
+
+    if (EquipmentKey) {
+      this.ReportServiceService
+        .generateBarcodeByEqupiment(EquipmentKey, EquipmentTypeKey, this.employeekey, this.OrganizationID)
+        .subscribe((data: Reports[]) => {
+          this.Roomflag = false;
+          this.Equipmentflag = true;
+          this.viewBarcodeEquipment = data;
+        });
+    }
+  }
 
   getZoneRoom(floorkey, fkey) {
+
     this.ReportServiceService
       .getZone(fkey, floorkey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
@@ -126,31 +185,6 @@ export class BarcodeReportComponent implements OnInit {
 
   }
 
-
-  generateBarcodeReport(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, EquipmentTypeKey, EquipmentKey) {
-    if (FacilityKey) {
-
-      this.ReportServiceService
-        .generateBarcodeReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, this.employeekey, this.OrganizationID)
-        .subscribe((data: Reports[]) => {
-          this.Roomflag = true;
-          this.Equipmentflag = false;
-          this.viewBarcodeReport = data;
-        });
-
-    }
-    if (EquipmentTypeKey) {
-      this.ReportServiceService
-        .generateBarcodeByEqupiment(EquipmentKey, EquipmentTypeKey, this.employeekey, this.OrganizationID)
-        .subscribe((data: Reports[]) => {
-          this.Roomflag = false;
-          this.Equipmentflag = true;
-          this.viewBarcodeEquipment = data;
-        });
-    }
-
-
-  }
 
   //export to excel 
   exportToExcel(): void {
