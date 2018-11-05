@@ -13,7 +13,7 @@ export class CreateemployeeComponent implements OnInit {
   organization: People[];
   department: People[];
   EmployeeNumber: Number;
-  OrgID: number;
+  OrganizationID;
   UserRoleTypeKey;
   FirstName: String;
   LastName: String;
@@ -32,7 +32,7 @@ export class CreateemployeeComponent implements OnInit {
   HireDate: Date;
   theCheckbox: any;
   JobTitleKey;
-  OrganizationID;
+  OrgID;
   DepartmentKey;
   useroletype;
   roleTypeKey;
@@ -138,17 +138,36 @@ export class CreateemployeeComponent implements OnInit {
       this.DepartmentKey = -1;
     }
     var BD;
+    var currentDate=this.convert_DT(new Date());
+   
     if (!(this.BirthDate) ) {
       BD = this.convert_DT(new Date());
     }
     else {
       BD = this.convert_DT(this.BirthDate);
     }
-
     var HD = this.convert_DT(this.HireDate);
+    if(BD > currentDate){
+      alert("Wrong BirthDate !");
+      return;
+    }
+    if(HD >currentDate){
+      alert("Wrong HireDate !");
+      return;
+    }
+    if( HD <BD){
+      alert("HireDate must be greater than birth date !");
+      return;
+    }
 
     var str = "";
     str = this.FirstName + '' + this.LastName;
+    this.PeopleServiceService.checkEmpNumber(this.EmployeeNumber, this.employeekey, this.OrganizationID)
+    .subscribe((data: any[]) => {
+      if (data[0].count > 0) {
+        alert("Employee Number already exists");
+      }
+      else {
     this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID, this.ManagerKey, this.EmployeeNumber, this.UserRoleTypeKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.theCheckbox, this.JobTitleKey, this.DepartmentKey, this.employeekey)
       .subscribe((data: any[]) => {
         //  debugger;
@@ -157,8 +176,28 @@ export class CreateemployeeComponent implements OnInit {
         var empKey = this.temp_res.EmployeeKey;
         this.router.navigate(['/setUserLoginSuper', empKey, str, this.UserRoleTypeKey]);
       });
+    }
+  });
   }
+
+  numberValid(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  charValidation(event: any){
+    const patternChar = /[a-zA-Z ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !patternChar.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
   ngOnInit() {
+    debugger;
     // this.OrgID = 21;
     this.OrganizationID = '';
     this.UserRoleTypeKey = '';
@@ -166,7 +205,7 @@ export class CreateemployeeComponent implements OnInit {
     this.JobTitleKey = '';
     this.DepartmentKey = '';
     this.UserRoleTypeKey = '';
-
+    this.ManagerKey='';
 
 
     var token = localStorage.getItem('token');
@@ -176,33 +215,33 @@ export class CreateemployeeComponent implements OnInit {
     this.IsSupervisor = profile.IsSupervisor;
     this.name = profile.username;
     this.employeekey = profile.employeekey;
-    this.OrganizationID = profile.OrganizationID;
+    this.OrgID = profile.OrganizationID;
     this.PeopleServiceService
-      .getUserRoleTypesa(this.OrganizationID)
+      .getUserRoleTypesa(this.OrgID)
       .subscribe((data: People[]) => {
         // debugger;
         this.useroletypesa = data;
       });
+    // this.PeopleServiceService
+    //   .getJobTitle(this.employeekey, this.OrgID)
+    //   .subscribe((data: People[]) => {
+    //     // debugger;
+    //     this.jobtitle = data;
+    //   });
     this.PeopleServiceService
-      .getJobTitle(this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        // debugger;
-        this.jobtitle = data;
-      });
-    this.PeopleServiceService
-      .getOrganization(this.OrganizationID)
+      .getOrganization(this.OrgID)
       .subscribe((data: People[]) => {
         // debugger;
         this.organization = data;
       });
+    // this.PeopleServiceService
+    //   .getDepartment(this.employeekey, this.OrgID)
+    //   .subscribe((data: People[]) => {
+    //     // debugger;
+    //     this.department = data;
+    //   });
     this.PeopleServiceService
-      .getDepartment(this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        // debugger;
-        this.department = data;
-      });
-    this.PeopleServiceService
-      .getUserRoleType(this.OrganizationID)
+      .getUserRoleType(this.OrgID)
       .subscribe((data: any[]) => {
         this.useroletype = data;
 
@@ -227,7 +266,7 @@ export class CreateemployeeComponent implements OnInit {
     if (userType == this.roleTypeKey) {
       this.showManager = true;
       this.PeopleServiceService
-        .getmanagersForEmp(this.employeekey, this.OrganizationID)
+        .getmanagersForEmp(this.employeekey, this.OrgID)
         .subscribe((data: any[]) => {
           this.managerList = data;
         });
