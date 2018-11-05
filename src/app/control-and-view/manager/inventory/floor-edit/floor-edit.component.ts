@@ -45,7 +45,18 @@ export class FloorEditComponent implements OnInit {
   }
 
   updateFloor(FacilityKey, FloorKey, FloorName, FloorDescription) {
-
+    if(FacilityKey=="--Select--"){
+      alert("Please Choose Building!");
+      return;
+    }
+    if(FloorName && !FloorName.trim()){
+      alert("Please Enter Floor Name!");
+      return;
+    }
+    if(FloorDescription && !FloorDescription.trim()){
+      alert("Please Enter Floor Description!");
+      return;
+    }
     this.inventoryService
       .UpdateFloor(FacilityKey, FloorKey, FloorName, FloorDescription, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
@@ -70,7 +81,7 @@ export class FloorEditComponent implements OnInit {
       });
     this.inventoryService.EditFloorAutoGenerate(this.floorKey$, this.facKey$, this.OrganizationID).subscribe((data: Inventory[]) => {
       this.flooroptions = data;
-      debugger;
+      
     });
   }
 

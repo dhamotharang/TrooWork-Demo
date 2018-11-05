@@ -5,7 +5,7 @@
     <h4 class="refer"><b> BUILDINGS</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/Createbuilding" class="btn btn-primary" routerLinkActive="active">Create New Building
+      <a routerLink="/Createbuilding" class="btn btn-success" routerLinkActive="active">Create New Building
       </a>
     </div>
     <form [formGroup]="searchform">
@@ -27,8 +27,8 @@
             <td>{{ x.FacilityName }}</td>
 
             <td>
-              <a routerLink="/Buildedit/{{ x.FacilityKey}}" class="btn btn-primary">Edit</a>
-              <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteFacPass(x.FacilityKey); "
+              <a routerLink="/Buildedit/{{ x.FacilityKey}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+              <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteFacPass(x.FacilityKey); "
                 mdbWavesEffect>Delete</a>
             </td>
           </tr>

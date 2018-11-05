@@ -44,6 +44,10 @@ export class BuildingEditComponent implements OnInit {
   }
 
   updateBuilding(FacilityName, FacilityKey) {
+      if(FacilityName && !FacilityName.trim()){
+        alert("Please Enter Building Name!");
+        return;
+      }
     this.inventoryService.UpdateBuilding(FacilityName, FacilityKey, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         alert("Building updated successfully");
@@ -64,7 +68,6 @@ export class BuildingEditComponent implements OnInit {
 
     this.inventoryService.EditFacility(this.facKey$, this.OrganizationID).subscribe((data: Inventory[]) => {
       this.build = data;
-      debugger;
     });
   }
 }
