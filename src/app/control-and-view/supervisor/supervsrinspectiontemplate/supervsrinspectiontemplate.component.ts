@@ -138,7 +138,7 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
 
     this.inspectionService.InspectionDetails(this.inspKey$, this.OrganizationID).subscribe((data: any[]) => {
       this.viewEmpInspectionDetails = data;
-      debugger;
+      //debugger;
       this.questionsCount = this.viewEmpInspectionDetails.length;
       this.val = data;
       if (this.viewEmpInspectionDetails[0].ScoreName === 'Yes/No') {
@@ -287,7 +287,9 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
 
         };
       this.inspectionService
-        .inspectionCompletedService(this.inspectionDetail1)
+        .inspectionCompletedService(this.inspectionDetail1).subscribe(res =>{
+          this.router.navigateByUrl('/Viewinspctnbysprvsr')
+     });
 
     }
     else if (questionidList.length === totalQuestions && this.ScoreName !== 'Pass/Fail') {
@@ -356,7 +358,9 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
 
         };
       this.inspectionService
-        .inspectionCompletedService(this.inspectionDetail1)
+        .inspectionCompletedService(this.inspectionDetail1).subscribe(res =>{
+          this.router.navigateByUrl('/Viewinspctnbysprvsr')
+     });
 
     }
   }

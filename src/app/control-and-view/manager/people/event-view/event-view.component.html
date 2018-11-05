@@ -13,13 +13,16 @@
         <th> Action </th>
       </thead>
       <tbody>
-        <tr *ngFor="let x of eventType">
-          <td>{{ x.ActionType }}</td>
-          <td>{{ x.Action }}</td>
-          <td>{{ x.Description }}</td>
-          <td><a routerLink="/EventEdit/{{ x.ActionKey}}/{{x.ActionTypeKey}}" class="btn btn-primary">Edit</a>
-            <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteEventValuePass(x.ActionKey,x.ActionTypeKey); "
-              mdbWavesEffect>Delete</a></td>
+        <tr *ngFor="let x of eventType;let k = index">
+          <td><input type="text"  class="form-control" [disabled]='!(k===editQuestions)' [(ngModel)]=" x.ActionType"></td>
+          <td><input type="text"  class="form-control" [disabled]='!(k===editQuestions)' [(ngModel)]="x.Action"></td>
+          <td><input type="text"  class="form-control" [disabled]='!(k===editQuestions)' [(ngModel)]="x.Description"></td>
+          <td><a *ngIf='!(k===editQuestions)' class="btn btn-primary" (click)='editQuestions=k;' class="btn btn-primary">Edit</a>
+            <a *ngIf='(k===editQuestions)' class="btn btn-primary" (click)='UpdateEventDetais(x.ActionType,x.Action,x.Description,x.ActionKey,x.ActionTypeKey)'>Update</a>
+            <a *ngIf='!(k===editQuestions)' button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteEventValuePass(x.ActionKey,x.ActionTypeKey); "
+              mdbWavesEffect>Delete</a>
+              <a *ngIf='(k===editQuestions)' class="btn btn-primary" (click)='cancelTemplateDetails()'>Cancel</a>  
+            </td>
         </tr>
         <tr *ngIf="eventType?.length == 0">
           <td colspan="4" class="no-data-available">No records found</td>

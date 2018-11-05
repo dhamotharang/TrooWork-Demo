@@ -25,7 +25,8 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
   delete_EmpKey: Number;
   employeedetailstable: People[];
   managerList;
-
+  useroletyp;
+  
   role: String;
   name: String;
   employeekey: Number;
@@ -142,6 +143,12 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
       .getmanagersForEmp(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.managerList = data;
+      });
+      this.PeopleServiceService
+      .getUserRoleTypesa(this.OrganizationID)
+      .subscribe((data: People[]) => {
+        // debugger;
+        this.useroletyp = data;
       });
   }
   toggleVisibility(e) {

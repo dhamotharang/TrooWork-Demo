@@ -18,7 +18,7 @@ export class CreateEmployeeComponent implements OnInit {
   FirstName: String;
   LastName: String;
   MiddleName: String;
-  BirthDate: Date;
+  BirthDate;
   Gender: String;
   AddressLine1: any;
   City: String;
@@ -29,7 +29,7 @@ export class CreateEmployeeComponent implements OnInit {
   ZipCode: any;
   AlternatePhone: any;
   EmailID: any;
-  HireDate: Date;
+  HireDate;
   theCheckbox: any;
   JobTitleKey;
   SupervisorKey;
@@ -42,7 +42,7 @@ export class CreateEmployeeComponent implements OnInit {
   name: String;
   employeekey: Number;
   IsSupervisor: Number;
-  OrganizationID: Number;
+  OrganizationID;
 
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
@@ -137,6 +137,8 @@ export class CreateEmployeeComponent implements OnInit {
       return;
     }
     var BD;
+    var currentDate=this.convert_DT(new Date());
+   
     if (!(this.BirthDate) ) {
       BD = this.convert_DT(new Date());
     }
@@ -144,6 +146,18 @@ export class CreateEmployeeComponent implements OnInit {
       BD = this.convert_DT(this.BirthDate);
     }
     var HD = this.convert_DT(this.HireDate);
+    if(BD > currentDate){
+      alert("Wrong BirthDate !");
+      return;
+    }
+    if(HD >currentDate){
+      alert("Wrong HireDate !");
+      return;
+    }
+    if( HD <BD){
+      alert("HireDate must be greater than birth date !");
+      return;
+    }
     var str = "";
     str = this.FirstName + '' + this.LastName;
     this.PeopleServiceService.checkEmpNumber(this.EmployeeNumber, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
@@ -151,6 +165,7 @@ export class CreateEmployeeComponent implements OnInit {
         this.PeopleServiceService.createEmployeebyManager(this.EmployeeNumber, this.UserRoleTypeKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.theCheckbox, this.JobTitleKey, this.SupervisorKey, this.DepartmentKey, this.employeekey, this.OrganizationID).subscribe((data22: any[]) => {
           //  debugger;
           this.temp_res = data22;
+          alert("Employee Created !");
           var empKey = this.temp_res.EmployeeKey;
           this.router.navigate(['/Settingusernameandpswrdaftremplcreatebyman', empKey, str, this.UserRoleTypeKey]);
         });
@@ -166,6 +181,13 @@ export class CreateEmployeeComponent implements OnInit {
     this.JobTitleKey = '';
     this.SupervisorKey = '';
     this.DepartmentKey = '';
+ 
+    this.UserRoleTypeKey = '';
+    this.Gender = '';
+    this.JobTitleKey = '';
+    this.DepartmentKey = '';
+    this.UserRoleTypeKey = '';
+    
     this.minDate= new Date();
     this.maxDate=new Date();
     var token = localStorage.getItem('token');

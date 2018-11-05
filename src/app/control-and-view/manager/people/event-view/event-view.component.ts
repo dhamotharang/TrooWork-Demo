@@ -22,6 +22,8 @@ export class EventViewComponent implements OnInit {
   OrganizationID: Number;
   page: Number = 1;
   count: Number = 25;
+  editQuestions;
+
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -72,6 +74,7 @@ export class EventViewComponent implements OnInit {
   deleteEventType() {
     this.peopleServ
       .DeleteEventType(this.ActionKey, this.ActionTypeKey, this.OrganizationID).subscribe(res => {
+        alert('Sucessfully Deleted !');
         this.peopleServ
           .getEventTypeList(this.page, this.count, this.employeekey, this.OrganizationID)
           .subscribe((data: People[]) => {
@@ -102,6 +105,25 @@ export class EventViewComponent implements OnInit {
         this.eventType = data;
       });
 
+  }
+  cancelTemplateDetails(){
+    this.editQuestions = -1;
+    this.peopleServ
+    .getEventTypeList(this.page, this.count, this.employeekey, this.OrganizationID)
+    .subscribe((data: People[]) => {
+      this.eventType = data;
+    });
+  }
+  UpdateEventDetais(ActionType,Action,Description,ActionKey,ActionTypeKey){
+    this.peopleServ.UpdateEventType(ActionType, Action, Description, ActionKey, ActionTypeKey, this.employeekey, this.OrganizationID).
+    subscribe(() => {
+      alert('Sucessfully Updated !');
+      this.peopleServ
+      .getEventTypeList(this.page, this.count, this.employeekey, this.OrganizationID)
+          .subscribe((data: People[]) => {
+            this.eventType = data;
+          });
+    });
   }
 
 }

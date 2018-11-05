@@ -1,4 +1,4 @@
-<app-manager-dash-board></app-manager-dash-board>
+<app-admin-dashboard></app-admin-dashboard>
 <br><br>
 
 <div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
@@ -15,14 +15,21 @@
       <div class="col-md-6">
         <div class="form-group ">
           <label>User Role Type</label><br>
-          <input *ngIf="editempdtails" type="text" name="UserRoleName" readonly class="form-control" [(ngModel)]="editempdtails.UserRoleName">
+          <!-- <input *ngIf="editempdtails" type="text" name="UserRoleName" readonly class="form-control" [(ngModel)]="editempdtails.UserRoleName"> -->
+          <select *ngIf="useroletyp" name="organization" style="width: 77%; background-color: #d4f4ff;" class="form-control" [(ngModel)]="editempdtails.UserRoleTypeKey">
+            <option value="" placeholder>--Select--</option>
+            <option *ngFor="let u of useroletyp" [value]="u.UserRoleTypeKey">
+              {{u.UserRoleName}}
+            </option>
+          </select>
+      </div>
         </div>
       </div>
     </div>
     <div class="form-row col-md-12">
       <div class="col-md-6 bg-dark">
         <label>Manager</label>
-        <select name="userroletype" style="width: 77%; background-color: #d4f4ff;" class="form-control" [(ngModel)]="editempdtails.ManagerKey">
+        <select *ngIf='managerList' name="userroletype" style="width: 77%; background-color: #d4f4ff;" class="form-control" [(ngModel)]="editempdtails.ManagerKey">
           <option value="" placeholder>--Select--</option>
           <option *ngFor="let u of managerList" [value]="u.ManagerKey">
             {{u.ManagerName}}
@@ -47,7 +54,7 @@
           [(ngModel)]="editempdtails.MiddleName"> </div>
       <div class="form-group">
         <label>Birth Date</label>
-        <igx-datePicker item-width="25%" [(ngModel)]="BirthDate" [formatter]="formatter"></igx-datePicker>
+        <igx-datePicker item-width="25%" [(ngModel)]="BirthDate"></igx-datePicker>
       </div>
 
     </div>
@@ -57,9 +64,9 @@
           <label>Gender*</label><br>
           <select *ngIf="editempdtails" name="Gender" [(ngModel)]="editempdtails.Gender" style="width: 80%; background-color: #d4f4ff;">
             <option value="">--Select--</option>
-            <option value="1">MALE</option>
-            <option value="2">FEMALE</option>
-            <option value="3">OTHER</option>
+            <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
           </select>
         </div>
       </div>
@@ -127,7 +134,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <label>Hire Date*</label>
-        <igx-datePicker *ngIf="editempdtails" item-width="25%" [(ngModel)]="HireDate" [formatter]="formatter"></igx-datePicker>
+        <igx-datePicker *ngIf="editempdtails" item-width="25%" [(ngModel)]="HireDate" ></igx-datePicker>
       </div>
       <div class="form-check form-check-inline">
         <label class="form-check-label" for="materialInline1">Is SuperVisor</label>
@@ -167,7 +174,7 @@
     <button type="button" style="text-align:center" class="btn btn-primary" (click)="editEmployee(editempdtails.EmployeeNumber,editempdtails.UserRoleTypeKey,editempdtails.FirstName,editempdtails.LastName,editempdtails.MiddleName,BirthDate,editempdtails.Gender,editempdtails.AddressLine1,editempdtails.City,editempdtails.AddressLine2,editempdtails.State,editempdtails.Country,editempdtails.PrimaryPhone,editempdtails.ZipCode,editempdtails.AlternatePhone,editempdtails.EmailID,editempdtails.EmployeeStatusKey,HireDate,editempdtails.IsSupervisor,editempdtails.SupervisorKey,editempdtails.JobTitleKey,editempdtails.DepartmentKey)">Update</button>
     <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteEmpPass(empk$); "
       mdbWavesEffect>Delete</a>
-    <a routerLink="/ViewEmployee" class="btn btn-primary" style="color:white !important" routerLinkActive="active"><b>Go
+    <a routerLink="/viewEmployeeAdmin" class="btn btn-primary" style="color:white !important" routerLinkActive="active"><b>Go
         Back
       </b>
     </a>

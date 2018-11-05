@@ -21,7 +21,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let i of inspectiontemplate;let k = index" class="r2">
-            <td><input type="text"  class="form-control" placeholder="Last Name" [disabled]='!(k===editQuestions)' [(ngModel)]=" i.TemplateName"></td>
+            <td><input type="text"  class="form-control" [disabled]='!(k===editQuestions)' [(ngModel)]=" i.TemplateName"></td>
             <td>{{ i.ScoreName }} </td>
             <td>
               <!-- <a routerLink="/InspectiontemplatedetailEdit/{{i.TemplateID}}" class="btn btn-primary">Edit</a> -->

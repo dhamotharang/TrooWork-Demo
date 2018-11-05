@@ -139,8 +139,9 @@
       <td>{{x.FloorName}}</td>
       <td>{{x.ZoneName}}</td>
       <td>{{x.RoomType}}</td>
-      
-     
+    </tr>
+    <tr *ngIf="viewBarcodeReport?.length == 0">
+      <td colspan="6" class="no-data-available">No records found</td>
     </tr>
   </tbody>
 </table>
@@ -150,7 +151,7 @@
 </div>
 
 <div style="text-align:center">
-  <button type="button" *ngIf='Roomflag'  class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
+  <button type="button" *ngIf='Roomflag?.length> 0'  class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
   </div>
 
 <!-- Table for generating barcode for Equipments -->
@@ -181,7 +182,7 @@
 
 
 <div style="text-align:center">
-  <button type="button" *ngIf='Equipmentflag'  class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
+  <button type="button" *ngIf='Equipmentflag?.length> 0'  class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
   </div>
 
 

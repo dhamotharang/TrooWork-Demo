@@ -32,7 +32,7 @@
                 <td>{{i.TemplateName}} </td>
                 <td>{{i.FacilityName}}-{{i.RoomId}} </td>
                 <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey === toServeremployeekey)"> <a routerLink="/Supervsrinspectiontemplate/{{i.InspectionOrderKey}}" class="btn btn-primary">Inspect</a></td>
-                <td *ngIf="i.InspectionCompletedBy !== null"> <a routerLink="/ViewInspectionManager/{{i.InspectionOrderKey}}" class="btn btn-primary">Inspection Completed </a></td>
+                <td *ngIf="i.InspectionCompletedBy !== null"> <a routerLink="/Supervsrinspectiontemplate/{{i.InspectionOrderKey}}" class="btn btn-primary">Inspection Completed </a></td>
                 <!-- <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey === toServeremployeekey)"> <a routerLink="/Managerinspectiontemplate/{{i.InspectionOrderKey}}" class="btn btn-primary">Inspect</a></td>
                 <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey !== toServeremployeekey)">Scheduled</td> --> 
               </tr>
