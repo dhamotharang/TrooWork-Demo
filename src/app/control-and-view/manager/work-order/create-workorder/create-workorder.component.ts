@@ -150,7 +150,7 @@ export class CreateWorkorderComponent implements OnInit {
     this.name = profile.username;
     this.employeeKey = profile.employeekey;
     this.org_id = profile.OrganizationID;
-
+    this.dateValue=new Date(Date.now());
     this.weeklyrecurring = false;
     this.monthlyrecurring = false;
     this.dailyrecurring = false;
@@ -314,6 +314,9 @@ export class CreateWorkorderComponent implements OnInit {
   
     if (!this.WorkorderTypeKey) {
       alert("select work-order type!");
+    }else if(this.newType == true && !(this.newworkordertypetext))
+    {
+      alert("enter work-order type!");
     }
     else if (!this.FacilityKey) {
       alert("select building!");
@@ -694,6 +697,9 @@ export class CreateWorkorderComponent implements OnInit {
   createWorkorder2() {
     if (!this.WorkorderTypeKey) {
       alert("select work-order type!");
+    }else if(this.newType == true && !(this.newworkordertypetext))
+    {
+      alert("enter work-order type!");
     }
     else if (!this.FacilityKey) {
       alert("select building!");
@@ -701,10 +707,89 @@ export class CreateWorkorderComponent implements OnInit {
     else if (!this.FloorKey) {
       alert("select floor!");
     }
-    else if (this.isRecurring==false && !(this.timeValue)) {
+    else if ( (!(this.timeValue)) && (this.isRecurring==false) ) {
       alert("please provide time!");
+    }else if(this.showEqTypes==true && !(this.EquipmentTypeKey))
+    {
+      alert("select equipment type!");
     }
-    else {
+    else if (this.isRecurring == true) 
+    {
+      if(this.dailyrecurring==false && this.weeklyrecurring==false && this.monthlyrecurring==false)
+      {
+        alert("Recurring Period is not provided !");
+      }
+      if (this.dailyrecurring == true) {
+        if (!this.WorkorderEndDate) {
+          alert("please provide end date!");
+        }
+        else if (!(this.dailyFrequency)) {
+          alert("select frequency !");
+        }else if(this.dailyFrequency)
+        {
+        for(var i=0;i<this.dailyFrequency;i++)
+        {
+          if(!(this.timetable.times[i]))
+          {
+            alert("Enter time values !");
+          }
+        }
+        this.withequip_wo();
+      }
+      
+
+      }
+      else if (this.weeklyrecurring == true) 
+      {
+        if (!(this.weektable_one) && !(this.weektable_two) && !(this.weektable_three) && !(this.weektable_four) && !(this.weektable_five) && !(this.weektable_six) && !(this.weektable_seven)) {
+          alert("please select atleast one day!");
+        }
+        else if (!this.Time_weekly) {
+          alert("please provide time!");
+        }
+       else if (!this.WorkorderEndDate) {
+          alert("please provide end date!");
+        }
+        else
+        {
+        this.withequip_wo();
+        }
+      }
+      else if (this.monthlyrecurring == true) 
+      {
+        if (this.monthlyreccradio1 == false && this.monthlyreccradio2 == false) {
+          alert("Select a radio option from monthly reccuring !");
+        }
+        else if(this.monthlyreccradio1 == true)
+        {
+          if(!(this.day1) || !(this.month1))
+          {
+            alert("provide entries for monthly recurring !");
+          }
+         
+        }
+        else if(this.monthlyreccradio2 == true)
+        {
+          if(!(this.day2) || !(this.pos2) || !(this.month2))
+          {
+            alert("provide entries for monthly recurring !");
+          }
+          
+        }
+        else if (!this.Time_monthly) {
+          alert("please provide time!");
+        }
+       else if (!this.WorkorderEndDate) {
+          alert("please provide end date!");
+        }
+        else{
+        this.withequip_wo();
+        }
+      }
+      
+    }
+    else
+    {
 
      
       var roomlistObj = [];
@@ -985,6 +1070,288 @@ export class CreateWorkorderComponent implements OnInit {
         this.router.navigateByUrl('/ViewWorkOrder');
       });
     }
+  }
+  withequip_wo()
+  {
+    
+    var roomlistObj = [];
+    var roomtypelistObj = [];
+    var zonelistObj = [];
+    var floorlistObj = [];
+    var facilitylistObj = [];
+    var EquListObj = [];
+    var facilityList = [];
+    var roomList = [];
+    var roomtypeList = [];
+    var zoneList = [];
+    var floorList = [];
+    var equList = [];
+    facilitylistObj = this.facilitylist;
+    floorlistObj = this.FloorList;
+    zonelistObj = this.zonelist;
+    roomtypelistObj = this.RoomTypeList;
+    roomlistObj = this.RoomList;
+    EquListObj = this.EquipmentList;
+
+    this.intervaltype = '0'; // char(1),/*d for day, w for week, m for month*/
+    this.repeatinterval = 1; // int,/*daily(every `2` days) weekly(every `1` week) monthly(every `3` months)*/
+    this.occurenceinstance = null; // int,/*daily(3) weekly(null) monthly(null) monthly(1)*/
+    this.occursonday = null;
+
+    if (this.WorkorderTypeKey) {
+      this.wot = this.WorkorderTypeKey;
+    } else {
+      this.wot = null;
+
+    }
+    if (this.workorderNotes) {
+      this.notes = this.workorderNotes;
+    } else {
+      this.notes = null;
+    }
+    if (this.FacilityKey) {
+
+    }
+    if (this.FloorKey) {
+
+    }
+    var roomsString;
+    roomsString = -1;
+    var facilityString;
+    if (this.FacilityKey) {
+      facilityString = this.FacilityKey;
+    } else {
+      if (facilitylistObj) {
+        for (var j = 0; j < facilitylistObj.length; j++) {
+          facilityList.push(facilitylistObj[j].FacilityKey);
+        }
+        facilityString = facilityList.join(',');
+      }
+    }
+    var floorString;
+    if (this.FloorKey) {
+      floorString = this.FloorKey;
+    } else {
+      if (floorlistObj) {
+        for (var j = 0; j < floorlistObj.length; j++) {
+          floorList.push(floorlistObj[j].FloorKey);
+        }
+        floorString = floorList.join(',');
+      }
+    }
+    var zoneString;
+    if (this.ZoneKey) {
+      zoneString = this.ZoneKey;
+    } else {
+      this.zone = null;
+      if (zonelistObj) {
+        for (var j = 0; j < zonelistObj.length; j++) {
+          zoneList.push(zonelistObj[j].ZoneKey);
+        }
+        zoneString = zoneList.join(',');
+      }
+    }
+    var roomtypeString;
+    if (this.RoomTypeKey) {
+      roomtypeString = this.RoomTypeKey;
+    } else {
+      if (roomtypelistObj) {
+        for (var j = 0; j < roomtypelistObj.length; j++) {
+          roomtypeList.push(roomtypelistObj[j].RoomTypeKey);
+        }
+        roomtypeString = roomtypeList.join(',');
+      }
+    }
+    if (this.EquipmentKey) {
+      this.eqp_key = this.EquipmentKey;
+    } else {
+      this.eqp_key = - 1;
+    }
+    if (this.EquipmentKey) {
+      this.eqp_key = this.EquipmentKey;
+    } else {
+      if (EquListObj) {
+        for (var j = 0; j < EquListObj.length; j++) {
+          equList.push(EquListObj[j].EquipmentKey);
+        }
+        this.eqp_key = equList.join(',');
+      }
+    }
+    if (this.EmployeeKey) {
+      this.emp_key = this.EmployeeKey;
+    } else {
+      this.emp_key = - 1;
+    }
+    if (this.ZoneKey) {
+      this.zone = this.ZoneKey;
+    } else {
+      this.zone = null;
+
+    }
+    if (this.PriorityKey) {
+      this.priority = this.PriorityKey;
+    } else {
+      this.priority = - 1;
+    }
+    if (this.isPhotoRequired) {
+      this.is_PhotoRequired = 1;
+    } else {
+      this.is_PhotoRequired = 0;
+    }
+    if (this.isBarcodeRequired) {
+      this.is_BarcodeRequired = 1;
+    } else {
+      this.is_BarcodeRequired = 0;
+    }
+    if (this.isRecurring == false) {
+      this.isrecurring = 0;
+    }
+    else if (this.isRecurring == true && this.dailyrecurring == true) {
+      this.intervaltype = 'd';
+      this.isrecurring = 1;
+    } else if (this.isRecurring == true && this.weeklyrecurring == true) {
+      this.intervaltype = 'w';
+      this.isrecurring = 1;
+      var selectedWeekdays = [];
+      if (this.weektable_one === true)
+        selectedWeekdays.push('su');
+      if (this.weektable_two === true)
+        selectedWeekdays.push('mo');
+      if (this.weektable_three === true)
+        selectedWeekdays.push('tu');
+      if (this.weektable_four === true)
+        selectedWeekdays.push('we');
+      if (this.weektable_five === true)
+        selectedWeekdays.push('th');
+      if (this.weektable_six === true)
+        selectedWeekdays.push('fr');
+      if (this.weektable_seven === true)
+        selectedWeekdays.push('sa');
+      this.occurs_on = selectedWeekdays.join(',');
+    }
+    if (this.isRecurring == false) {
+      if (this.dateValue) {
+        this.startDT = this.convert_DT(this.dateValue);
+      } else {
+        this.startDT = this.convert_DT(new Date());
+      }
+      this.endDT = this.startDT;
+    }
+    else {
+      if (this.WorkorderStartDate) {
+        this.startDT = this.convert_DT(this.WorkorderStartDate);
+      } else {
+        this.startDT = this.convert_DT(new Date());
+      }
+      if (this.WorkorderEndDate) {
+        this.endDT = this.convert_DT(this.WorkorderEndDate);
+      } else {
+        this.endDT = this.convert_DT(new Date());
+      }
+    }
+    if (this.isRecurring == false) {
+      if (this.timeValue) {
+        this.workTime = this.timeValue.getHours() + ':' + this.timeValue.getMinutes();
+      } else {
+        this.workTime = new Date().getHours() + ':' + new Date().getMinutes();
+      }
+    } else if (this.isRecurring == true && this.dailyrecurring == true) {
+      var timeset = [];
+      var timeset_corr = [];
+      timeset = this.timetable.times;
+      for (var i = 0; i < timeset.length; i++) {
+        timeset_corr.push(timeset[i].getHours() + ':' + timeset[i].getMinutes());
+      }
+
+      this.workTime = timeset_corr.join(',');
+      this.rep_interval = this.DailyrecurringGap;
+    } else if (this.isRecurring == true && this.weeklyrecurring == true) {
+      this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();
+    } else if (this.isRecurring == true && this.monthlyrecurring == true) {
+      this.workTime = this.Time_monthly.getHours() + ':' + this.Time_monthly.getMinutes();
+      if (this.monthlyreccradio1 == true) {
+        this.occurs_on = this.day1;
+        this.rep_interval = (this.month1) ? this.month1 : 1;
+      }
+      else if (this.monthlyreccradio2 == true) {
+        this.occurs_on = this.day2;
+        this.rep_interval = (this.month2) ? this.month2 : 1;
+        this.occurs_type = this.pos2;
+        switch (this.occurs_on) {
+          case '0':
+            this.occurs_on = 'su';
+            break;
+          case '1':
+            this.occurs_on = "mo";
+            break;
+          case '2':
+            this.occurs_on = "tu";
+            break;
+          case '3':
+            this.occurs_on = "we";
+            break;
+          case '4':
+            this.occurs_on = "th";
+            break;
+          case '5':
+            this.occurs_on = "fr";
+            break;
+          case '6':
+            this.occurs_on = "sa";
+            break;
+        }
+      }
+    }
+    if (this.newType == true) {
+      if (this.newworkordertypetext) {
+        this.WorkOrderServiceService
+          .checkforcheckForWorkOrderType(this.newworkordertypetext, this.employeeKey, this.org_id)
+          .subscribe((data: any[]) => {
+            if (data[0].count == 0) {
+              this.addWOT = {
+                WorkorderType: this.newworkordertypetext,
+                employeekey: this.employeeKey,
+                OrganizationID: this.org_id
+              };
+              this.WorkOrderServiceService
+                .AddnewWOT(this.addWOT)
+                .subscribe((data: any[]) => {
+                  this.wot = data[0].WorkOrderTypeKey;
+                });
+            }
+          });
+      }
+
+    }
+    this.workorderCreation = {
+      occursontime: this.workTime,
+      workorderkey: - 99,
+      workordertypekey: this.wot,
+      workordernote: this.notes,
+      equipmentkey: this.eqp_key,
+      roomkeys: roomsString,
+      facilitykeys: facilityString,
+      floorkeys: floorString,
+      zonekeys: zoneString,
+      roomtypekeys: roomtypeString,
+      employeekey: this.emp_key,
+      priority: this.priority,
+      fromdate: this.startDT,
+      todate: this.endDT,
+      isbar: this.is_BarcodeRequired,
+      isphoto: this.is_PhotoRequired,
+      metaupdatedby: this.employeeKey,
+      OrganizationID: this.org_id,
+      intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
+      repeatinterval: this.rep_interval,
+      occursonday: this.occurs_on,
+      occurstype: this.occurs_type
+    };
+    this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => {
+      alert("work-order created successfully");
+      this.router.navigateByUrl('/ViewWorkOrder');
+    });
+  
   }
   addFormField() {
    
