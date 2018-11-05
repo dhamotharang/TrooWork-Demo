@@ -59,6 +59,11 @@ export class ViewBatchWorkorderComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+  pageno: Number = 1;
+  items_perpage: Number = 25;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -111,8 +116,6 @@ export class ViewBatchWorkorderComponent implements OnInit {
 
     this.domain_name = 'workstatus';
     var on_date = this.convert_DT(new Date());
-    var page_no = 1;
-    var iems_perpage = 25;
     this.WorkOrderServiceService
       .getallFacility(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
@@ -139,11 +142,11 @@ export class ViewBatchWorkorderComponent implements OnInit {
         this.workorderTypeList = data;
       });
     this.WorkOrderServiceService
-      .getBatchworkorder(on_date, this.employeekey, page_no, iems_perpage, this.OrganizationID)
+      .getBatchworkorder(on_date, this.employeekey, this.pageno, this.items_perpage, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.workorderList = data;
       });
-    debugger;
+   
 
     // this.searchform = this.formBuilder.group({
     //   SearchworkType_emp_room: ['', Validators.required]
@@ -162,7 +165,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
     }
   }
   getFloorDisp(facilityName) {
-    debugger;
+  
     this.WorkOrderServiceService
       .getallFloor(facilityName, this.OrganizationID)
       .subscribe((data: any[]) => {
@@ -206,7 +209,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
       });
   }
   viewWO_Filter() {
-    debugger;
+   
     if (!this.FacilityKey) {
       var fac_key = null;
 
@@ -399,12 +402,24 @@ export class ViewBatchWorkorderComponent implements OnInit {
       floorKey: floor_key,
       searchWO: search_value
     };
+    if(search_value.length>=3)
+    {
     this.WorkOrderServiceService
       .search_Batch_WO(this.searchWorkorder)
       .subscribe((data: any[]) => {
-        debugger;
+      
         this.workorderList = data;
       });
+    }
+    else if(search_value.length==0)
+    {
+      var on_date = this.convert_DT(new Date());
+      this.WorkOrderServiceService
+      .getBatchworkorder(on_date, this.employeekey, this.pageno, this.items_perpage, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.workorderList = data;
+      });
+    }
   }
 
 }

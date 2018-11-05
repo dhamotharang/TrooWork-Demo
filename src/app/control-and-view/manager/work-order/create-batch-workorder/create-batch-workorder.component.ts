@@ -104,7 +104,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
   role: String;
   name: String;
   IsSupervisor: Number;
-
+  employeekey;
   public convert_DT(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
@@ -252,7 +252,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
       });
   }
   getFloorDisp(facilityName) {
-    debugger;
+    
     this.WorkOrderServiceService
       .getallFloor(facilityName, this.org_id)
       .subscribe((data: any[]) => {
@@ -419,9 +419,9 @@ export class CreateBatchWorkorderComponent implements OnInit {
       this.eqp_key = - 1;
     }
     if (this.EmployeeKey) {
-      this.emp_key = this.EmployeeKey;
+      this.employeekey = this.EmployeeKey;
     } else {
-      this.emp_key = - 1;
+      this.employeekey = - 1;
     }
     if (this.ZoneKey) {
       this.zone = this.ZoneKey;
@@ -572,14 +572,14 @@ export class CreateBatchWorkorderComponent implements OnInit {
       floorkeys: floorString,
       zonekeys: zoneString,
       roomtypekeys: roomtypeString,
-      employeekey: this.emp_key,
+      employeekey: this.employeekey,
       priority: this.priority,
       fromdate: this.startDT,
       todate: this.endDT,
       isbar: this.is_BarcodeRequired,
       isphoto: this.is_PhotoRequired,
-      metaupdatedby: 2861,
-      OrganizationID: 21,
+      metaupdatedby: this.emp_key,
+      OrganizationID: this.org_id,
       intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
       repeatinterval: this.rep_interval,
       occursonday: this.occurs_on,
@@ -589,7 +589,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
   }
   createWorkorder2() {
 
-    debugger;
+    
     var roomlistObj = [];
     var roomtypelistObj = [];
     var zonelistObj = [];
@@ -694,9 +694,9 @@ export class CreateBatchWorkorderComponent implements OnInit {
       }
     }
     if (this.EmployeeKey) {
-      this.emp_key = this.EmployeeKey;
+      this.employeekey = this.EmployeeKey;
     } else {
-      this.emp_key = - 1;
+      this.employeekey = - 1;
     }
     if (this.ZoneKey) {
       this.zone = this.ZoneKey;
@@ -836,14 +836,14 @@ export class CreateBatchWorkorderComponent implements OnInit {
       floorkeys: floorString,
       zonekeys: zoneString,
       roomtypekeys: roomtypeString,
-      employeekey: this.emp_key,
+      employeekey: this.employeekey,
       priority: this.priority,
       fromdate: this.startDT,
       todate: this.endDT,
       isbar: this.is_BarcodeRequired,
       isphoto: this.is_PhotoRequired,
-      metaupdatedby: 2861,
-      OrganizationID: 21,
+      metaupdatedby: this.emp_key,
+      OrganizationID: this.org_id,
       intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
       repeatinterval: this.rep_interval,
       occursonday: this.occurs_on,
@@ -853,7 +853,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
 
   }
   addFormField() {
-    debugger;
+  
     this.timetable.times = [];
     for (var i = 0; i < this.dailyFrequency; i++) {
       this.timetable.times.push('');

@@ -58,6 +58,13 @@ export class EditWorkorderTypeComponent implements OnInit {
       });
   }
   updateWOT(WOTName, WOTKey) {
+    if(!WOTName)
+    {
+      alert("please enter work-order type!");
+    }else if (!WOTName.trim()) {
+      alert("please enter work-order type!");
+    }else
+    {
     this.update_WO = {
       WorkorderTypeKey: WOTKey,
       WorkorderTypeName: WOTName,
@@ -70,14 +77,19 @@ export class EditWorkorderTypeComponent implements OnInit {
     this.WorkOrderServiceService
       .checkforWOT(WOTName, this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
-        debugger;
-        if (data[0].count == 0) {
+       if(data[0].count!=0)
+       {
+        alert("work-order type already exists!");
+       }
+        else if (data[0].count == 0) {
           this.WorkOrderServiceService
             .UpdateWOT(this.update_WO)
             .subscribe((data: any[]) => {
+              alert("work-order type updated successfully");
+              this.router.navigateByUrl('/WorkOrderType');
             });
         }
       });
-
+    }
   }
 }

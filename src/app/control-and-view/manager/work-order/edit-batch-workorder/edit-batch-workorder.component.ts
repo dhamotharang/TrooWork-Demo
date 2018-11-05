@@ -172,7 +172,7 @@ export class EditBatchWorkorderComponent implements OnInit {
         this.WorkOrderServiceService
           .getRoomList(this.WOEditList.RoomKeyList, this.OrganizationID)
           .subscribe((data: any[]) => {
-            debugger;
+           
             this.RoomNameList = data[0].RoomText;
           });
         this.WorkOrderServiceService
@@ -212,7 +212,7 @@ export class EditBatchWorkorderComponent implements OnInit {
             this.WorkOrderServiceService
               .getFloor_batch(this.BatchWO_Key, this.OrganizationID)
               .subscribe((data: any[]) => {
-                // debugger;
+               
                 this.floorvalue = parseInt(data[0].FloorKeyList);
                 this.FloorKey = this.floorvalue;
               });
@@ -229,7 +229,7 @@ export class EditBatchWorkorderComponent implements OnInit {
           this.WorkOrderServiceService
             .getFloor_batch(this.BatchWO_Key, this.OrganizationID)
             .subscribe((data: any[]) => {
-              // debugger;
+              
               this.floorvalue = parseInt(data[0].FloorKeyList);
               this.FloorKey = this.floorvalue;
               this.WorkOrderServiceService
@@ -326,7 +326,7 @@ export class EditBatchWorkorderComponent implements OnInit {
           this.Time_weekly = today;
         }
         if (this.WOEditList.IntervalType == 'm') {
-          debugger;
+         
           this.monthlyrecurring = true;
           this.weeklyrecurring = false;
           this.dailyrecurring = false;
@@ -785,7 +785,7 @@ export class EditBatchWorkorderComponent implements OnInit {
   }
   createWorkorder2() {
 
-    debugger;
+    
     var roomlistObj = [];
     var roomtypelistObj = [];
     var zonelistObj = [];
@@ -1036,7 +1036,7 @@ export class EditBatchWorkorderComponent implements OnInit {
 
   }
   addFormField() {
-    debugger;
+   
     this.timetable.times = [];
     for (var i = 0; i < this.dailyFrequency; i++) {
       this.timetable.times.push('');

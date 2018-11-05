@@ -23,7 +23,7 @@
         <div class="col-sm-3 col-md-2 col-lg-2">
           <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="FacilityKey" class="form-control"
             (change)="selectFloorfromBuildings($event.target.value)">
-            <option>--Select--</option>
+            <option value="">--Select--</option>
             <option *ngFor="let z of facilityList" [value]="z.FacilityKey">
               {{z.FacilityText}}
             </option>
@@ -35,7 +35,7 @@
           <div class="col-sm-2 col-md-2 col-lg-2">
             <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="FloorKey" class="form-control"
               (change)="selectZoneRoomtypefromFloor($event.target.value)">
-              <option>--Select--</option>
+              <option value="">--Select--</option>
               <option *ngFor="let z of floorList" [value]="z.FloorKey">
                 {{z.FloorName}}
               </option>
@@ -46,7 +46,7 @@
           <label class="col-sm-2 col-md-2 col-lg-2  control-label">Zone</label>
           <div class="col-sm-2 col-md-2 col-lg-2">
             <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="ZoneKey" class="form-control">
-              <option>--Select--</option>
+              <option value="">--Select--</option>
               <option *ngFor="let z of zoneList" [value]="z.ZoneKey" (onSelection)=" viewEmployeeWorkorderByFilter(viewworkorder); changedZone();">
                 {{z.ZoneName}}
               </option>
@@ -55,7 +55,7 @@
           <label class="col-sm-2 col-md-2 col-lg-2  control-label">Room Type</label>
           <div class="col-sm-2 col-md-2 col-lg-2">
             <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="RoomTypeKey" class="form-control">
-              <option>--Select--</option>
+              <option value="">--Select--</option>
               <option *ngFor="let z of roomtypeList" [value]="z.RoomTypeKey" (onSelection)=" viewEmployeeWorkorderByFilter(viewworkorder)">
                 {{z.RoomTypeName}}
               </option>
@@ -114,12 +114,13 @@
                     </div>
                   </div>
                   <div *ngIf="w.IsPhotoRequired == 1">
-                    <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
-                    <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll();FileSelected();"
-                      [disabled]="!uploader.getNotUploadedItems().length">
-                      Upload
-                    </button>
-                  </div>
+                    <input type="file" name="photo" ng2FileSelect [uploader]="uploader" [(ngModel)]='fileName' (input)="FileSelected(w.WorkorderKey);" />
+                    <button type="button" class="btn btn-success btn-s" 
+                    (click)="uploader.uploadAll();" 
+                    [disabled]="!uploader.getNotUploadedItems().length" >
+                        Upload
+                  </button>  
+                </div>
                   <!-- <div> -->
                   <button type="submit" *ngIf="checktoshowFinish(i);" class="btn btn-default" (click)="workorderCompleted(i,w.IsBarcodeRequired,w.IsPhotoRequired,w.WorkorderKey,file)"
                     style="width:86px;margin-top: 7px;margin-left: -2px">Submit</button>
@@ -128,6 +129,8 @@
             </tr>
           </tbody>
         </table>
+      <button class="btn btn-success" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
+      <button class="btn btn-success" (click)="nextPage()" *ngIf="showHide2">Next >></button>
       </div>
     </div>
   </div>

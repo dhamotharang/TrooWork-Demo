@@ -180,7 +180,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
           .subscribe((data: any[]) => {
             this.RoomList = data;
           });
-        // debugger;
+       
         if (this.WOEditList.EquipmentKey == -1) {
           this.showEqTypes = false;
           this.FloorKey = this.WOEditList.FloorKey;
@@ -193,7 +193,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
           this.WorkOrderServiceService
             .getFloor(this.WO_Key, this.OrganizationID)
             .subscribe((data: any[]) => {
-              // debugger;
+             
               this.floorvalue = parseInt(data[0].FloorKeyList);
               this.FloorKey = this.floorvalue;
               this.WorkOrderServiceService
@@ -280,7 +280,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
                 this.weektable_seven = true;
               }
             }
-            debugger;
+            
             // var dt1=this.DT_Format(this.WOEditList.ScheduleStartDate);
             // var dt2=this.DT_Format(this.WOEditList.ScheduleEndDate);
             this.WorkorderStartDate = new Date(this.WOEditList.WorkorderDate);
@@ -292,7 +292,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
             this.Time_weekly = today;
           }
           if (this.WOEditList.IntervalType == 'm') {
-            debugger;
+           
             this.monthlyrecurring = true;
             this.weeklyrecurring = false;
             this.dailyrecurring = false;
@@ -424,7 +424,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
     }
   }
   getFloorDisp(facilityName) {
-    debugger;
+  
     this.WorkOrderServiceService
       .getallFloor(facilityName, this.OrganizationID)
       .subscribe((data: any[]) => {
@@ -703,7 +703,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
         this.endDT = this.convert_DT(new Date());
       }
     }
-    debugger;
+   
     if (this.isRecurring == false) {
       console.log(this.timeValue);
       if (this.timeValue) {
@@ -798,7 +798,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
   }
   createWorkorder2() {
 
-    debugger;
+ 
     var roomlistObj = [];
     var roomtypelistObj = [];
     var zonelistObj = [];
@@ -1063,7 +1063,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
 
   }
   addFormField() {
-    debugger;
+  
     this.timetable.times = [];
     for (var i = 0; i < this.dailyFrequency; i++) {
       this.timetable.times.push('');

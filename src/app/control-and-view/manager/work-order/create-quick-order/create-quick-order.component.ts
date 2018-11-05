@@ -142,11 +142,11 @@ export class CreateQuickOrderComponent implements OnInit {
       OrganizationID: this.org_id
 
     };
-    debugger;
+   
     this.WorkOrderServiceService
       .addQuickWorkOrder(this.createworkorder)
       .subscribe(res => this.router.navigateByUrl('/ViewWorkOrder'));
-    // debugger;
+    
   }
 
 

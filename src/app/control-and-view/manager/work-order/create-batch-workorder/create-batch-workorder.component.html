@@ -21,7 +21,7 @@
         </select>
       </div>
       <div class="form-group">
-        <label>Workorder Type</label><br>
+        <label>Workorder Type*</label><br>
         <select *ngIf="!newType" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" (change)='checkfornewWOT(WorkorderTypeKey)' [(ngModel)]="WorkorderTypeKey"
           required>
           <option>--Select--</option>

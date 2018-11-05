@@ -279,15 +279,15 @@ export class WorkOrderServiceService {
       .http
       .get('http://localhost:3000/api/roomtypeByFacility_Floor?fkey=' + facikey + '&floorkey=' + flkey + '&OrganizationID=' + orgid);
   }
-  getWOdetailsForEmployee(curr_date, empk, orgid) {
+  getWOdetailsForEmployee(page, count, curr_date, empk, orgid) {
     return this
       .http
-      .get('http://localhost:3000/api/viewworkorder?viewdate=' + curr_date + '&employeekey=' + empk + '&pageno=' + 1 + '&itemsPerPage=' + 25 + '&OrganizationID=' + orgid);
+      .get('http://localhost:3000/api/viewworkorder?viewdate=' + curr_date + '&employeekey=' + empk + '&pageno=' + page + '&itemsPerPage=' + count + '&OrganizationID=' + orgid);
   }
-  getworkOrderTablewithOnDateOnly(date1, tosrvempky, orgid) {
+  getworkOrderTablewithOnDateOnly(page, count, date1, tosrvempky, orgid) {
     return this
       .http
-      .get('http://localhost:3000/api/viewworkorder?viewdate=' + date1 + '&employeekey=' + tosrvempky + '&pageno=' + 1 + '&itemsPerPage=' + 25 + '&OrganizationID=' + orgid);
+      .get('http://localhost:3000/api/viewworkorder?viewdate=' + date1 + '&employeekey=' + tosrvempky + '&pageno=' + page + '&itemsPerPage=' + count + '&OrganizationID=' + orgid);
   }
   getworkOrderTablewithOnDateandToDateFilter(date1, date2, tosrvempky, orgid, FacKey, Flrky, RmTypKy, ZnKy) {
     const url = 'http://localhost:3000/api/workorderEmployeeByallFilters';
