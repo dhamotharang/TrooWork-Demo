@@ -15,8 +15,8 @@ export class AddEmployeeComponent implements OnInit {
   jobtitle: People[];
   supervisor: People[];
   department: People[];
-  EmployeeNumber: Number;
-  UserRoleTypeKey: Number;
+  EmployeeNumber;
+  UserRoleTypeKey;
   FirstName: String;
   LastName: String;
   MiddleName: String;
@@ -33,19 +33,20 @@ export class AddEmployeeComponent implements OnInit {
   EmailID: any;
   HireDate: Date;
   theCheckbox: any;
-  JobTitleKey: Number;
-  SupervisorKey: Number;
-  DepartmentKey: Number;
+  JobTitleKey;
+  SupervisorKey;
+  DepartmentKey;
   temp_res;
   managerList;
-  ManagerKey: Number;
-  roleTypeKey: number = 0;
+  ManagerKey;
+  roleTypeKey = 0;
 
   role: String;
   name: String;
-  employeekey: Number;
-  IsSupervisor: Number;
-  OrganizationID: Number;
+  employeekey;
+  IsSupervisor;
+  OrganizationID;
+  
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -84,36 +85,80 @@ export class AddEmployeeComponent implements OnInit {
 
   createEmployee() {
     debugger;
-    if (!this.EmployeeNumber) {
-      alert("Employee number is not provided !");
-    } else if (!this.UserRoleTypeKey) {
-      alert("User Role Type is not provided !");
+    
+    if (!(this.EmployeeNumber) ) {
+      alert("Employee Number Not provided !");
+      return;
     }
-    else if (this.UserRoleTypeKey && this.roleTypeKey > 0 && this.showManager == true && !this.ManagerKey) {
-      alert("Manager is not provided !");
-    } else if (!this.FirstName) {
-      alert("First name is not provided !");
-    } else if (!this.LastName) {
-      alert("Last name is not provided !");
-    } else if (!this.Gender) {
-      alert("Gender is not provided !");
-    } else if (!this.PrimaryPhone) {
-      alert("Primary Phone is not provided !");
-    } else if (!this.HireDate) {
-      alert("Hire Date is not provided !");
-    } else if (!this.JobTitleKey) {
-      alert("Job Title is not provided !");
-    } else if (!this.DepartmentKey) {
-      alert("Department is not provided !");
-    } else {
+    if (!(this.UserRoleTypeKey) ) {
+      alert("User Role Type Not provided !");
+      return;
+    }
+    if (this.showManager === true && !(this.ManagerKey) ) {
+      alert("Manager Not provided !");
+      return;
+    }
+    else {
+      this.ManagerKey = -1;
+    }
+    if (!(this.FirstName )) {
+      alert("First Name Not provided !");
+      return;
+    }
+    if (!(this.LastName) ) {
+      alert("LastName Not provided !");
+      return;
+    }
+    if (!(this.Gender) ) {
+      alert("Gender Not provided !");
+      return;
+    }
+    if (!(this.PrimaryPhone) ) {
+      alert("Primary Phone Not provided !");
+      return;
+    }
+    if (!(this.HireDate) ) {
+      alert("HireDate Not provided !");
+      return;
+    }
+    if (!(this.JobTitleKey) ) {
+      alert("JobTitle Not provided !");
+      return;
+    }
+    if (!(this.DepartmentKey) ) {
+      alert("Department Not provided !");
+      return;
+    }
+    var BD;
+    var currentDate=this.convert_DT(new Date());
+   
+    if (!(this.BirthDate) ) {
+      BD = this.convert_DT(new Date());
+    }
+    else {
+      BD = this.convert_DT(this.BirthDate);
+    }
+    var HD = this.convert_DT(this.HireDate);
+    if(BD > currentDate){
+      alert("Wrong BirthDate !");
+      return;
+    }
+    if(HD >currentDate){
+      alert("Wrong HireDate !");
+      return;
+    }
+    if( HD <BD){
+      alert("HireDate must be greater than birth date !");
+      return;
+    }
+
       this.PeopleServiceService.checkEmpNumber(this.EmployeeNumber, this.employeekey, this.OrganizationID)
         .subscribe((data: any[]) => {
           if (data[0].count > 0) {
             alert("Employee Number already exists");
           }
           else {
-            var BD = this.convert_DT(this.BirthDate);
-            var HD = this.convert_DT(this.HireDate);
+           
             var str = "";
             str = this.FirstName + '' + this.LastName;
             this.PeopleServiceService.createEmployeebyAdmin(this.EmployeeNumber, this.ManagerKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender,
@@ -121,14 +166,23 @@ export class AddEmployeeComponent implements OnInit {
               this.JobTitleKey, this.DepartmentKey, this.employeekey, this.OrganizationID)
               .subscribe((data22: any[]) => {
                 this.temp_res = data22;
+                alert("Employee Created !");
                 var empKey = this.temp_res.EmployeeKey;
                 this.router.navigate(['/setUserLoginAdmin', empKey, str, this.UserRoleTypeKey]);
               });
           }
         });
-    }
+    
   }
   ngOnInit() {
+
+    this.OrganizationID = '';
+    this.UserRoleTypeKey = '';
+    this.Gender = '';
+    this.JobTitleKey = '';
+    this.DepartmentKey = '';
+    this.UserRoleTypeKey = '';
+    this.ManagerKey='';
 
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
@@ -167,7 +221,21 @@ export class AddEmployeeComponent implements OnInit {
         this.department = data;
       });
   }
+  numberValid(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
 
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  charValidation(event: any){
+    const patternChar = /[a-zA-Z ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !patternChar.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
   selectUserType(userType) {
     debugger;
     userType;

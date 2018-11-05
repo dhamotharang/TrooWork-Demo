@@ -12,13 +12,19 @@ export class ViewEmployeeComponent implements OnInit {
   employeedetailstable: People[];
   searchform: FormGroup;
 
+  pageNo: Number = 1;
+  itemsPerPage: Number = 25;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
+
   role: String;
   name: String;
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-  pageNo: number = 1;
-  itemsCount: Number = 25;
+  
+
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -65,11 +71,27 @@ export class ViewEmployeeComponent implements OnInit {
 
   }
   searchEmployeeDetails(SearchValue) {
-    this.PeopleServiceService
-      .searchResultOfEmployeedetailsTable(SearchValue, this.pageNo, this.itemsCount, this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        this.employeedetailstable = data;
-      });
+    
+      if (SearchValue.length >= 3) {
+        this.PeopleServiceService
+        .searchResultOfEmployeedetailsTable(SearchValue, this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+          this.employeedetailstable = data;
+          this.showHide2 = false;
+          this.showHide1 = false;
+        });
+      } else if (SearchValue.length == 0) {
+        this.PeopleServiceService.getAllEmployeeDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+          this.employeedetailstable = data;
+          if (this.employeedetailstable[0].totalItems > this.itemsPerPage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.employeedetailstable[0].totalItems <= this.itemsPerPage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
+        });
+      }
   }
   ngOnInit() {
 
@@ -88,12 +110,49 @@ export class ViewEmployeeComponent implements OnInit {
         this.jobtitle = data;
       });
     this.PeopleServiceService
-      .getAllEmployeeDetails(1, 25, this.employeekey, this.OrganizationID)
+      .getAllEmployeeDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.employeedetailstable = data;
+        if (this.employeedetailstable[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.employeedetailstable[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
       });
     this.searchform = this.formBuilder.group({
       SearchEmpDetails: ['', Validators.required]
+    });
+  }
+
+  previousPage() {
+    this.pageNo = +this.pageNo - 1;
+    this.PeopleServiceService.getAllEmployeeDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+      this.employeedetailstable = data;
+      if (this.pageNo == 1) {
+        this.showHide2 = true;
+        this.showHide1 = false;
+      } else {
+        this.showHide2 = true;
+        this.showHide1 = true;
+      }
+    });
+  }
+  nextPage() {
+    this.pageNo = +this.pageNo + 1;
+    this.PeopleServiceService.getAllEmployeeDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+      this.employeedetailstable = data;
+      this.pagination = +this.employeedetailstable[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+      if (this.pagination > 1) {
+        this.showHide2 = true;
+        this.showHide1 = true;
+      }
+      else {
+        this.showHide2 = false;
+        this.showHide1 = true;
+      }
     });
   }
 
