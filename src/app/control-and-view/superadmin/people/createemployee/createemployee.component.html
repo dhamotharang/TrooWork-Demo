@@ -168,7 +168,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Job Title*</label><br>
-          <select name="jobtitle" style="width: 84%; background-color: #d4f4ff;" [(ngModel)]="JobTitleKey" class="form-control">
+          <select name="jobtitle" style="margin-left:1 rem;width: 83%; background-color: #d4f4ff;" [(ngModel)]="JobTitleKey" class="form-control">
             <option value="" placeholder>--Select--</option>
             <option *ngFor="let j of jobtitle" [value]="j.JobTitleKey">
               {{j.JobTitleText}}
@@ -180,7 +180,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Department</label><br>
-          <select name="department" style="width: 82%; background-color: #d4f4ff;" class="form-control" [(ngModel)]="DepartmentKey">
+          <select name="department" style="width: 83%; background-color: #d4f4ff;" class="form-control" [(ngModel)]="DepartmentKey">
             <option value="">--Select--</option>
             <option *ngFor="let d of department" [value]="d.DepartmentKey">
               {{d.DepartmentName}}
