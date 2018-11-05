@@ -12,7 +12,8 @@ const URL = 'http://localhost:3000/api/upload_test';
   styleUrls: ['./viewworkordersforemployee.component.scss']
 })
 export class ViewworkordersforemployeeComponent implements OnInit {
-
+  pageNo: Number = 1;
+  itemsPerPage: Number = 25;
   searchform: FormGroup;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
@@ -167,7 +168,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     else if (SearchValue.length == 0) {
       var curr_date = this.convert_DT(new Date());
       this.WorkOrderServiceService
-        .getWOdetailsForEmployee(curr_date, this.toServeremployeekey, this.OrganizationID)
+        .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.WorkorderDetTable = data;
           for (var i = 0; i < this.WorkorderDetTable.length; i++) {
@@ -192,7 +193,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
       date2 = this.convert_DT(this.WorkorderDate2);
     }
     this.WorkOrderServiceService
-      .getworkOrderTablewithOnDateOnly(date1, this.toServeremployeekey, this.OrganizationID)
+      .getworkOrderTablewithOnDateOnly(this.pageNo,this.itemsPerPage,date1, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         // debugger;
         this.WorkorderDetTable = data;
@@ -294,7 +295,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
       this.countCancel1 = false;
       var curr_date = this.convert_DT(new Date());
       this.WorkOrderServiceService
-        .getWOdetailsForEmployee(curr_date, this.toServeremployeekey, this.OrganizationID)
+        .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.WorkorderDetTable = data;
         });
@@ -320,7 +321,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 
     var curr_date = this.convert_DT(new Date());
     this.WorkOrderServiceService
-      .getWOdetailsForEmployee(curr_date, this.toServeremployeekey, this.OrganizationID)
+      .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
         for (var i = 0; i < this.WorkorderDetTable.length; i++) {

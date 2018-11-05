@@ -140,7 +140,7 @@ export class EditWorkOrderComponent implements OnInit {
           .subscribe((data: any[]) => {
             this.RoomList = data;
           });
-        debugger;
+        
         if (this.WOEditList.EquipmentKey == -1) {
           this.showEqTypes = false;
           this.FloorKey = this.WOEditList.FloorKey;
@@ -153,7 +153,7 @@ export class EditWorkOrderComponent implements OnInit {
           this.WorkOrderServiceService
             .getFloor(this.WO_Key, this.OrganizationID)
             .subscribe((data: any[]) => {
-              debugger;
+             
               this.floorvalue = parseInt(data[0].FloorKeyList);
               this.FloorKey = this.floorvalue;
               this.WorkOrderServiceService
@@ -243,7 +243,7 @@ export class EditWorkOrderComponent implements OnInit {
     }
   }
   getFloorDisp(facilityName) {
-    debugger;
+  
     this.WorkOrderServiceService
       .getallFloor(facilityName, this.OrganizationID)
       .subscribe((data: any[]) => {
@@ -322,7 +322,7 @@ export class EditWorkOrderComponent implements OnInit {
   }
   createWorkorder1() {
     // tslint:disable-next-line:no-debugger
-    debugger;
+    
     // tslint:disable-next-line:no-var-keyword
     var roomlistObj = [];
     // tslint:disable-next-line:no-var-keyword
@@ -548,8 +548,6 @@ export class EditWorkOrderComponent implements OnInit {
   }
   createWorkorder2() {
 
-    debugger;
-
     var roomlistObj = [];
 
     var roomtypelistObj = [];
@@ -683,7 +681,7 @@ export class EditWorkOrderComponent implements OnInit {
         roomtypeString = roomtypeList.join(',');
       }
     }
-    debugger;
+   
     if (this.EquipmentKey) {
       this.eqp_key = this.EquipmentKey;
     } else {

@@ -35,7 +35,7 @@ export class CreateWorkorderTypeComponent implements OnInit {
   }
 
 
-  constructor(private formBuilder: FormBuilder, private WorkOrderServiceService: WorkOrderServiceService, private el: ElementRef) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private WorkOrderServiceService: WorkOrderServiceService, private el: ElementRef) { }
 
   ngOnInit() {
     var token = localStorage.getItem('token');
@@ -48,6 +48,13 @@ export class CreateWorkorderTypeComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
   }
   addWOT(WorkOrderTypeName) {
+    if(!WorkOrderTypeName)
+    {
+      alert("please enter work-order type!");
+    }else if (!WorkOrderTypeName.trim()) {
+      alert("please enter work-order type!");
+    }else
+    {
     this.add_WOT = {
       WorkorderTypeName: WorkOrderTypeName,
       RoomTypeKey: null,
@@ -60,13 +67,18 @@ export class CreateWorkorderTypeComponent implements OnInit {
     this.WorkOrderServiceService
       .checkforWOT(WorkOrderTypeName, this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
-        debugger;
-        if (data[0].count == 0) {
+        if(data[0].count!=0)
+       {
+        alert("work-order type already exists!");
+       }
+        else if (data[0].count == 0) {
           this.WorkOrderServiceService.createWOT(this.add_WOT)
             .subscribe((data: any[]) => {
+              alert("work-order type created successfully");
+              this.router.navigateByUrl('/WorkOrderType');
             });
         }
       });
-
+    }
   }
 }

@@ -15,7 +15,11 @@ export class WorkOrderTypeComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  pageno: Number = 1;
+  items_perpage: Number = 25;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -33,9 +37,7 @@ export class WorkOrderTypeComponent implements OnInit {
     return window.atob(output);
   }
 
-  workorderTypeList: workorder[];
-  pageno;
-  items_perpage;
+  workorderTypeList;
   delete_WOType;
   wot_key;
   searchform: FormGroup;
@@ -57,7 +59,39 @@ export class WorkOrderTypeComponent implements OnInit {
 
     }, 100)
   }
+  previousPage() {
+    this.pageno = +this.pageno - 1;
+    this.WorkOrderServiceService
+    .getall_workordertype(this.pageno, this.items_perpage, this.employeekey, this.OrganizationID)
+    .subscribe((data: any[]) => {
+      this.workorderTypeList = data;
+        if (this.pageno == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
+  }
 
+  nextPage() {
+    this.pageno = +this.pageno + 1;
+    this.WorkOrderServiceService
+    .getall_workordertype(this.pageno, this.items_perpage, this.employeekey, this.OrganizationID)
+    .subscribe((data: any[]) => {
+      this.workorderTypeList = data;
+        this.pagination = +this.workorderTypeList[0].totalItems / (+this.pageno * (+this.items_perpage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
+  }
   ngOnInit() {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
@@ -67,42 +101,75 @@ export class WorkOrderTypeComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-
-    this.pageno = 1;
-    this.items_perpage = 25;
     this.WorkOrderServiceService
       .getall_workordertype(this.pageno, this.items_perpage, this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.workorderTypeList = data;
+        if (this.workorderTypeList[0].totalItems > this.items_perpage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.workorderTypeList[0].totalItems <= this.items_perpage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
       });
     this.searchform = this.formBuilder.group({
       searchworkordertype: ['', Validators.required]
     });
   }
   searchWOType(key) {
+    if(key.length>=3)
+    {
     this.WorkOrderServiceService
       .search_workordertype(this.OrganizationID, key)
       .subscribe((data: any[]) => {
         this.workorderTypeList = data;
+        this.showHide2 = false;
+          this.showHide1 = false;
       });
+    }
+    else if(key.length==0)
+    {
+      this.WorkOrderServiceService
+      .getall_workordertype(this.pageno, this.items_perpage, this.employeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.workorderTypeList = data;
+        if (this.workorderTypeList[0].totalItems > this.items_perpage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.workorderTypeList[0].totalItems <= this.items_perpage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
+      });
+    }
 
   }
   passWOT(key) {
     this.wot_key = key;
   }
   deleteWOType() {
-    debugger;
     this.delete_WOType = {
       WorkorderTypeKey: this.wot_key,
       OrganizationID: this.OrganizationID
     };
     this.WorkOrderServiceService
       .DeleteWOT(this.delete_WOType).subscribe(() => {
-
+        alert("work-order type deleted successfully");
         this.WorkOrderServiceService
           .getall_workordertype(this.pageno, this.items_perpage, this.employeekey, this.OrganizationID)
           .subscribe((data: any[]) => {
             this.workorderTypeList = data;
+            if (this.workorderTypeList[0].totalItems > this.items_perpage) {
+              this.showHide2 = true;
+              this.showHide1 = false;
+            }
+            else if (this.workorderTypeList[0].totalItems <= this.items_perpage) {
+              this.showHide2 = false;
+              this.showHide1 = false;
+            }
           });
 
       });

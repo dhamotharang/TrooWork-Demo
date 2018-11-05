@@ -59,7 +59,11 @@ export class ViewWorkOrdersComponent implements OnInit {
   role: String;
   name: String;
   IsSupervisor: Number;
-
+  pageno: Number = 1;
+  items_perpage: Number = 25;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
   // workorderCheckValue=false;
   //validation min3_alphanumeric
   searchform: FormGroup;
@@ -113,8 +117,6 @@ export class ViewWorkOrdersComponent implements OnInit {
     this.org_id = profile.OrganizationID;
     this.domain_name = 'workstatus';
     var on_date = this.convert_DT(new Date());
-    var page_no = 1;
-    var iems_perpage = 25;
     this.WorkOrderServiceService
       .getallFacility(this.emp_key, this.org_id)
       .subscribe((data: any[]) => {
@@ -141,7 +143,7 @@ export class ViewWorkOrdersComponent implements OnInit {
         this.workorderTypeList = data;
       });
     this.WorkOrderServiceService
-      .getworkorder(on_date, this.emp_key, page_no, iems_perpage, this.org_id)
+      .getworkorder(on_date, this.emp_key, this.pageno, this.items_perpage, this.org_id)
       .subscribe((data: any[]) => {
         this.workorderList = data;
         for (var i = 0; i < this.workorderList.length; i++) {
@@ -149,7 +151,7 @@ export class ViewWorkOrdersComponent implements OnInit {
         }
         this.loading = false;// loading
       });
-    debugger;
+   
 
     // this.searchform = this.formBuilder.group({
     //   SearchworkType_emp_room: ['', Validators.required]
@@ -168,7 +170,7 @@ export class ViewWorkOrdersComponent implements OnInit {
     }
   }
   getFloorDisp(facilityName) {
-    debugger;
+    
     this.WorkOrderServiceService
       .getallFloor(facilityName, this.org_id)
       .subscribe((data: any[]) => {
@@ -212,7 +214,7 @@ export class ViewWorkOrdersComponent implements OnInit {
       });
   }
   viewWO_Filter() {
-    // debugger;
+   
     this.loading = true;
     if (!this.FacilityKey) {
       var fac_key = null;
@@ -314,7 +316,7 @@ export class ViewWorkOrdersComponent implements OnInit {
       });
   }
   checkBoxValueForDelete(index, CheckValue, WorkorderKey) {
-    debugger;
+   
     this.checkValue[index] = CheckValue;
     this.workorderKey[index] = WorkorderKey;
   }
@@ -412,15 +414,27 @@ export class ViewWorkOrdersComponent implements OnInit {
       floorKey: floor_key,
       searchWO: search_value
     };
+    if(search_value.length>=3)
+    {
     this.WorkOrderServiceService
       .search_WO(this.searchWorkorder)
       .subscribe((data: any[]) => {
-        debugger;
+       
         this.workorderList = data;
       });
+    }
+    else if(search_value.length==0)
+    {
+      var on_date = this.convert_DT(new Date());
+      this.WorkOrderServiceService
+      .getworkorder(on_date, this.emp_key, this.pageno,this. items_perpage, this.org_id)
+      .subscribe((data: any[]) => {
+        this.workorderList = data;
+      });
+    }
   }
   deleteWorkOrdersPage() {
-    debugger;
+   
     var deleteWorkOrderList = [];
     var deleteWorkOrderString;
 
@@ -443,6 +457,7 @@ export class ViewWorkOrdersComponent implements OnInit {
         this.workorderList.workorderCheckValue = false;
         this.checkValue = [];
         this.workorderKey = [];
+        alert("work order deleted successfully");
         this.viewWO_Filter();
       });
   }

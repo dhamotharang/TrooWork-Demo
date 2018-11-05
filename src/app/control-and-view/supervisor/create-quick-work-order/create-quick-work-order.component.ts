@@ -47,7 +47,7 @@ export class CreateQuickWorkOrderComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  emp_key;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -83,6 +83,7 @@ export class CreateQuickWorkOrderComponent implements OnInit {
     }
   }
   saveQuickWorkOrder() {
+    debugger;
     this.wot = - 1;
     this.startDT = this.convert_DT(new Date());
     var d = new Date();
@@ -91,23 +92,23 @@ export class CreateQuickWorkOrderComponent implements OnInit {
     this.workTime = datetext;
     this.is_BarcodeRequired = 0;
     var facilityString;
-
-    if (this.WorkorderNotes) {
-      this.notes = this.WorkorderNotes;
-    } else if (!this.WorkorderNotes) {
-      this.notes = null;
-      alert("Work Order Notes is not provided !");
+    if(!this.EmployeeKey)
+    {
+      alert("select an employee!");
     }
-    else if (this.FacilityKey) {
-      facilityString = this.FacilityKey;
-    } else if (!this.FacilityKey) {
+    else if (!this.FacilityKey) {
       alert("Building is not provided !");
-    }
+    } else
+    if (!this.WorkorderNotes) {
+      alert("Work Order Notes is not provided !");
+    } 
     else {
+      this.notes = this.WorkorderNotes;
+      facilityString = this.FacilityKey;
       if (this.EmployeeKey) {
-        this.employeekey = this.EmployeeKey;
+        this.emp_key = this.EmployeeKey;
       } else {
-        this.employeekey = - 1;
+        this.emp_key = - 1;
       }
 
       if (this.PriorityKey) {
@@ -130,7 +131,7 @@ export class CreateQuickWorkOrderComponent implements OnInit {
         floorkeys: '-1',
         zonekeys: '-1',
         roomtypekeys: '-1',
-        employeekey: this.employeekey,
+        employeekey: this.emp_key,
         priority: this.priority,
         fromdate: this.startDT,
         todate: this.startDT,
@@ -142,13 +143,17 @@ export class CreateQuickWorkOrderComponent implements OnInit {
         workordernote: this.notes,
         isbar: this.is_BarcodeRequired,
         isphoto: this.is_PhotoRequired,
-        metaupdatedby: 2861,
-        OrganizationID: 21
+        metaupdatedby: this.employeekey,
+        OrganizationID: this.OrganizationID
       };
-
+     
       this.WorkOrderServiceService
         .addQuickWorkOrder(this.createworkorder)
-        .subscribe(res => this.router.navigateByUrl('/viewWorkOrderSupervisor'));
+        .subscribe(res => {
+          
+          alert("work-order created successfully");
+          this.router.navigateByUrl('/viewWorkOrderSupervisor');
+        });
     }
   }
 
