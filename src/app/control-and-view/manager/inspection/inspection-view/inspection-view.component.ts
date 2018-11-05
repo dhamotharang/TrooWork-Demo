@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class InspectionViewComponent implements OnInit {
 
   loading: boolean;// loading
-  inspectionordertable: Inspection[];
+  inspectionordertable: any;
   searchform: FormGroup;
   fromdate: Date;
   todate: Date;
@@ -23,8 +23,15 @@ export class InspectionViewComponent implements OnInit {
   toServeremployeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+ 
+
+  //Variables for pagination
+
   pageNo: Number = 1;
-  itemsPerPage: Number = 25;
+  itemsPerPage: Number = 5;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -67,6 +74,46 @@ export class InspectionViewComponent implements OnInit {
     }, 100)
   }
 
+  //functions for pagination
+
+  nextPage() {
+    var curr_date = this.convert_DT(new Date());
+    this.pageNo = +this.pageNo + 1;
+    this.inspectionService
+    .getInspectionOrderTablewithFromCurrentDateFilter(curr_date, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
+    .subscribe((data: Inspection[]) => {
+      // debugger;
+      this.inspectionordertable = data;
+        this.pagination = +this.inspectionordertable[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
+  }
+  previousPage() {
+    var curr_date = this.convert_DT(new Date());
+    this.pageNo = +this.pageNo - 1;
+    this.inspectionService
+    .getInspectionOrderTablewithFromCurrentDateFilter(curr_date, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
+    .subscribe((data: Inspection[]) => {
+      // debugger;
+      this.inspectionordertable = data;
+        if (this.pageNo == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
+  }
+
+  //functions for pagination 
 
   filteringInspectionManagerByDate() {
     // this.loading = true;// loading
@@ -153,6 +200,14 @@ export class InspectionViewComponent implements OnInit {
       .subscribe((data: Inspection[]) => {
         // debugger;
         this.inspectionordertable = data;
+        if (this.inspectionordertable[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.inspectionordertable[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
         // this.loading = false;// loading
       });
     this.searchform = this.formBuilder.group({
