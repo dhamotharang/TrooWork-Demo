@@ -21,7 +21,7 @@
         </select>
       </div>
       <div class="form-group">
-          <label>Workorder Type</label><br>
+          <label>Workorder Type*</label><br>
           <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="workordertypekey"
             required>
             <option>--Select--</option>
@@ -101,7 +101,7 @@
     <div class="col-md-6">
       <h1 style="text-align: right"></h1>
       <div class="form-group">
-        <label>Workorder Notes*</label>
+        <label>Workorder Notes</label>
         <textarea class="form-control rounded-0" [(ngModel)]="WorkorderNotes" rows="6" style="resize: none;"></textarea>
       </div>
       <div class="form-group">
@@ -130,7 +130,7 @@
         </select>
       </div>
       <div class="form-group">
-        <label>Employee*</label><br>
+        <label>Employee</label><br>
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EmployeeKey" [disabled]="true">
           <option>--Select--</option>
           <option *ngFor="let e of EmployeeOption" [value]="e.EmployeeKey">
@@ -286,15 +286,15 @@
     <div class="row col-md-12">
         <div class="col col-md-3"></div>
         <div style="text-align:left" class="col-md-3">
-          <button type="button" class="btn btn-primary" (click)=UpdateWO()>Update</button>
+          <button type="button" class="btn btn-success" (click)=UpdateWO()><b>UPDATE</b></button>
         </div>
         <div style="text-align:left" class="col-md-3">
-          <a routerLink="/ViewBatchWorkorder" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Go
+          <a routerLink="/ViewBatchWorkorder" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
               Back
             </b>
           </a></div>
         <div style="text-align:left" class="col-md-3">
-          <button type="button" class="btn btn-danger button_style" (click)=DeleteWO()>Delete</button>
+          <button type="button" class="btn btn-danger button_style" (click)=DeleteWO()><b>DELETE</b></button>
         </div>
         <div class="col col-md-3"></div>
       </div>

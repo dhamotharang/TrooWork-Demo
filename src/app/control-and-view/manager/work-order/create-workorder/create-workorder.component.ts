@@ -23,15 +23,15 @@ export class CreateWorkorderComponent implements OnInit {
   emp_key: number;
   org_id: number;
   marked = false;
-  FacilityKey: number;
-  FloorKey: number;
-  ZoneKey: number;
-  RoomTypeKey: number;
+  FacilityKey;
+  FloorKey;
+  ZoneKey;
+  RoomTypeKey;
   RoomKey;
-  EquipmentTypeKey: number;
-  EquipmentKey: number;
-  PriorityKey: number;
-  EmployeeKey: number;
+  EquipmentTypeKey;
+  EquipmentKey;
+  PriorityKey;
+  EmployeeKey;
   timeValue: any;
   dateValue: any;
   isPhotoRequired: any;
@@ -76,11 +76,11 @@ export class CreateWorkorderComponent implements OnInit {
   weekDay = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   weekPosition = [{ id: 'First', value: '1' }, { id: 'Second', value: '2' }, { id: 'Third', value: '3' }, { id: 'Fourth', value: '4' }, { id: 'Fifth', value: '5' }, { id: 'Last', value: '-1' }];
   timetable = { times: [] };
-  dailyFrequency: number;
+  dailyFrequency;
   WorkorderStartDate;
   WorkorderEndDate;
   occurenceat;
-  DailyrecurringGap = 0;
+  DailyrecurringGap;
   rep_interval = 1;
   occurs_on = null;
   weektable_one;
@@ -141,7 +141,7 @@ export class CreateWorkorderComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.DailyrecurringGap=0;
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -156,7 +156,24 @@ export class CreateWorkorderComponent implements OnInit {
     this.dailyrecurring = false;
     this.monthlyreccradio1 = false;
     this.monthlyreccradio2 = false;
-
+    this.WorkorderTypeKey="";
+    this.FacilityKey="";
+    this.FloorKey="";
+    this.ZoneKey="";
+    this.RoomTypeKey="";
+    this.RoomKey="";
+    this.PriorityKey="";
+    this.EmployeeKey="";
+    this.EquipmentTypeKey="";
+    this.EquipmentKey="";
+    this.DailyrecurringGap="";
+    this.dailyFrequency="";
+    this.day1="";
+    this.day2="";
+    this.month1="";
+    this.month2="";
+    this.pos2="";
+    this.WorkorderStartDate=new Date(Date.now());
     this.WorkOrderServiceService
       .getallFacility(this.employeeKey, this.org_id)
       .subscribe((data: any[]) => {
