@@ -69,7 +69,7 @@ export class InspectionViewComponent implements OnInit {
 
 
   filteringInspectionManagerByDate() {
-    // this.loading = true;// loading
+    this.loading = true;// loading
     if (!this.fromdate) {
       var date1 = this.convert_DT(new Date());
     }
@@ -93,7 +93,7 @@ export class InspectionViewComponent implements OnInit {
       .subscribe((data: Inspection[]) => {
         // debugger;
         this.inspectionordertable = data;
-        // this.loading = false;// loading
+        this.loading = false;// loading
       });
 
   }
