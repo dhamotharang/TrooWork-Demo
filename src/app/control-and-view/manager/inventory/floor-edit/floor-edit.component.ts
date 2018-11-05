@@ -49,20 +49,31 @@ export class FloorEditComponent implements OnInit {
       alert("Please Choose Building!");
       return;
     }
-    if(FloorName && !FloorName.trim()){
+    else if(FloorName && !FloorName.trim()){
       alert("Please Enter Floor Name!");
       return;
     }
-    if(FloorDescription && !FloorDescription.trim()){
+    else if(FloorDescription && !FloorDescription.trim()){
       alert("Please Enter Floor Description!");
       return;
     }
+    if (!FacilityKey) {
+      alert("Please select a building name!");
+    }
+    else if (!FloorName) {
+      alert("Enter floor name!");
+    }
+    else if (!FloorDescription) {
+      alert("Enter floor description!");
+    }
+    else{
     this.inventoryService
       .UpdateFloor(FacilityKey, FloorKey, FloorName, FloorDescription, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         alert("Floor updated successfully");
         this.router.navigateByUrl('/Floorview');
       });
+    }
   }
   ngOnInit() {
     var token = localStorage.getItem('token');

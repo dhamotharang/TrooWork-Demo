@@ -44,6 +44,10 @@ export class BuildingEditComponent implements OnInit {
   }
 
   updateBuilding(FacilityName, FacilityKey) {
+    if(!FacilityName){
+      alert("Please Enter Building Name!");
+        return;
+    }
       if(FacilityName && !FacilityName.trim()){
         alert("Please Enter Building Name!");
         return;
