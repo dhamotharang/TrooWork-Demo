@@ -276,7 +276,6 @@ export class ViewWorkOrderComponent implements OnInit {
       date2 = this.convert_DT(this.WorkorderDate2);
     }
     if (SearchValue.length >= 3) {
-      debugger;
       if(this.FacilityKey=="")
       {
         this.FacilityKey=undefined;

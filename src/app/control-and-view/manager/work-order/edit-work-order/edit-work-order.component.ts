@@ -107,6 +107,16 @@ export class EditWorkOrderComponent implements OnInit {
     return [date.getFullYear(), mnth, day].join("-");
   };
   ngOnInit() {
+    this.workordertypekey = "";
+    this.FacilityKey = "";
+    this.FloorKey = "";
+    this.ZoneKey = "";
+    this.RoomTypeKey = "";
+    this.RoomKey = "";
+    this.PriorityKey = "";
+    this.EmployeeKey = "";
+    this.EquipmentTypeKey = "";
+    this.EquipmentKey = "";
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -140,7 +150,7 @@ export class EditWorkOrderComponent implements OnInit {
           .subscribe((data: any[]) => {
             this.RoomList = data;
           });
-        
+
         if (this.WOEditList.EquipmentKey == -1) {
           this.showEqTypes = false;
           this.FloorKey = this.WOEditList.FloorKey;
@@ -153,7 +163,7 @@ export class EditWorkOrderComponent implements OnInit {
           this.WorkOrderServiceService
             .getFloor(this.WO_Key, this.OrganizationID)
             .subscribe((data: any[]) => {
-             
+
               this.floorvalue = parseInt(data[0].FloorKeyList);
               this.FloorKey = this.floorvalue;
               this.WorkOrderServiceService
@@ -185,14 +195,11 @@ export class EditWorkOrderComponent implements OnInit {
 
         this.workordertypekey = this.WOEditList.WorkorderTypeKey;
         this.FacilityKey = this.WOEditList.FacilityKey;
-
         this.ZoneKey = this.WOEditList.ZoneKey;
-
         this.RoomKey = this.WOEditList.RoomKey;
         this.PriorityKey = this.WOEditList.PriorityKey;
         this.WorkorderNotes = this.WOEditList.WorkorderNotes;
         this.EmployeeKey = this.WOEditList.EmployeeKey;
-
         var cur_time = new Date(Date.now());
 
         // var timeValue1=this.WOEditList.WorkorderTime;
@@ -243,7 +250,7 @@ export class EditWorkOrderComponent implements OnInit {
     }
   }
   getFloorDisp(facilityName) {
-  
+
     this.WorkOrderServiceService
       .getallFloor(facilityName, this.OrganizationID)
       .subscribe((data: any[]) => {
@@ -309,6 +316,8 @@ export class EditWorkOrderComponent implements OnInit {
     this.WorkOrderServiceService
       .deleteCurrent_WO(this.deleteWO)
       .subscribe((data: any[]) => {
+        alert("work-order deleted successfully");
+        this.router.navigateByUrl('/ViewBatchWorkorder');
       });
   }
   UpdateWO() {
@@ -321,203 +330,203 @@ export class EditWorkOrderComponent implements OnInit {
     }
   }
   createWorkorder1() {
-    // tslint:disable-next-line:no-debugger
-    
-    // tslint:disable-next-line:no-var-keyword
-    var roomlistObj = [];
-    // tslint:disable-next-line:no-var-keyword
-    var roomtypelistObj = [];
-    // tslint:disable-next-line:no-var-keyword
-    var zonelistObj = [];
-    // tslint:disable-next-line:no-var-keyword
-    var floorlistObj = [];
-    // tslint:disable-next-line:no-var-keyword
-    var facilitylistObj = [];
-
-
-    // tslint:disable-next-line:no-var-keyword
-    var facilityList = [];
-    // tslint:disable-next-line:no-var-keyword
-    var roomList = [];
-    // tslint:disable-next-line:no-var-keyword
-    var roomtypeList = [];
-    // tslint:disable-next-line:no-var-keyword
-    var zoneList = [];
-    // tslint:disable-next-line:no-var-keyword
-    var floorList = [];
-
-    facilitylistObj = this.facilitylist;
-    facilityList = [];
-    roomList = [];
-    roomtypeList = [];
-    zoneList = [];
-    floorList = [];
-    // tslint:disable-next-line:prefer-const
-    //  let workorderCreation:
-    //   {
-    //     intervaltype: any,
-    //     repeatinterval: any,
-    //     occursonday: any,
-    //     WorkorderTypeKey: any
-    //   };
-    floorlistObj = this.FloorList;
-    zonelistObj = this.zonelist;
-    roomtypelistObj = this.RoomTypeList;
-    roomlistObj = this.RoomList;
-
-    this.intervaltype = '0'; // char(1),/*d for day, w for week, m for month*/
-    this.repeatinterval = 1; // int,/*daily(every `2` days) weekly(every `1` week) monthly(every `3` months)*/
-    this.occurenceinstance = null; // int,/*daily(3) weekly(null) monthly(null) monthly(1)*/
-    this.occursonday = null;
-    if (this.workordertypekey) {
-      this.wot = this.workordertypekey;
-    } else {
-      this.wot = null;
-
+    if (!this.workordertypekey) {
+      alert("select work-order type!");
     }
-    if (this.WorkorderNotes) {
-      this.notes = this.WorkorderNotes;
-    } else {
-      this.notes = null;
+    else if (!this.FacilityKey) {
+      alert("select building!");
     }
-    if (this.FacilityKey) {
-
+    else if (!this.FloorKey) {
+      alert("select floor!");
     }
-    if (this.FloorKey) {
-
-
+    else if (!(this.timeValue)) {
+      alert("please provide time!");
     }
-    // tslint:disable-next-line:no-var-keyword
-    var roomsString;
-    if (this.RoomKey) {
-      roomsString = this.RoomKey;
-    } else {
-      if (roomlistObj) {
-        // tslint:disable-next-line:no-var-keyword
-        for (var j = 0; j < roomlistObj.length; j++) {
-          roomList.push(roomlistObj[j].RoomKey);
-        }
-        roomsString = roomList.join(',');
+    else {
+      var roomlistObj = [];
+      // tslint:disable-next-line:no-var-keyword
+      var roomtypelistObj = [];
+      // tslint:disable-next-line:no-var-keyword
+      var zonelistObj = [];
+      // tslint:disable-next-line:no-var-keyword
+      var floorlistObj = [];
+      // tslint:disable-next-line:no-var-keyword
+      var facilitylistObj = [];
+
+
+      // tslint:disable-next-line:no-var-keyword
+      var facilityList = [];
+      // tslint:disable-next-line:no-var-keyword
+      var roomList = [];
+      // tslint:disable-next-line:no-var-keyword
+      var roomtypeList = [];
+      // tslint:disable-next-line:no-var-keyword
+      var zoneList = [];
+      // tslint:disable-next-line:no-var-keyword
+      var floorList = [];
+
+      facilitylistObj = this.facilitylist;
+      facilityList = [];
+      roomList = [];
+      roomtypeList = [];
+      zoneList = [];
+      floorList = [];
+      // tslint:disable-next-line:prefer-const
+      //  let workorderCreation:
+      //   {
+      //     intervaltype: any,
+      //     repeatinterval: any,
+      //     occursonday: any,
+      //     WorkorderTypeKey: any
+      //   };
+      floorlistObj = this.FloorList;
+      zonelistObj = this.zonelist;
+      roomtypelistObj = this.RoomTypeList;
+      roomlistObj = this.RoomList;
+
+      this.intervaltype = '0'; // char(1),/*d for day, w for week, m for month*/
+      this.repeatinterval = 1; // int,/*daily(every `2` days) weekly(every `1` week) monthly(every `3` months)*/
+      this.occurenceinstance = null; // int,/*daily(3) weekly(null) monthly(null) monthly(1)*/
+      this.occursonday = null;
+      if (this.workordertypekey) {
+        this.wot = this.workordertypekey;
       } else {
+        this.wot = null;
 
-        return;
       }
-    }
+      if (this.WorkorderNotes) {
+        this.notes = this.WorkorderNotes;
+      } else {
+        this.notes = null;
+      }
+      if (this.FacilityKey) {
 
-    // tslint:disable-next-line:no-var-keyword
-    var facilityString;
-    if (this.FacilityKey) {
-      facilityString = this.FacilityKey;
-    } else {
-      if (facilitylistObj) {
-        // tslint:disable-next-line:no-var-keyword
-        for (var j = 0; j < facilitylistObj.length; j++) {
-          facilityList.push(facilitylistObj[j].FacilityKey);
+      }
+      if (this.FloorKey) {
+
+
+      }
+      // tslint:disable-next-line:no-var-keyword
+      var roomsString;
+      if (this.RoomKey) {
+        roomsString = this.RoomKey;
+      } else {
+        if (roomlistObj) {
+          // tslint:disable-next-line:no-var-keyword
+          for (var j = 0; j < roomlistObj.length; j++) {
+            roomList.push(roomlistObj[j].RoomKey);
+          }
+          roomsString = roomList.join(',');
+        } else {
+
+          return;
         }
-        facilityString = facilityList.join(',');
       }
-    }
-    // tslint:disable-next-line:no-var-keyword
-    var floorString;
-    if (this.FloorKey) {
-      floorString = this.FloorKey;
-    } else {
-      if (floorlistObj) {
-        // tslint:disable-next-line:no-var-keyword
-        for (var j = 0; j < floorlistObj.length; j++) {
-          floorList.push(floorlistObj[j].FloorKey);
+
+      // tslint:disable-next-line:no-var-keyword
+      var facilityString;
+      if (this.FacilityKey) {
+        facilityString = this.FacilityKey;
+      } else {
+        if (facilitylistObj) {
+          // tslint:disable-next-line:no-var-keyword
+          for (var j = 0; j < facilitylistObj.length; j++) {
+            facilityList.push(facilitylistObj[j].FacilityKey);
+          }
+          facilityString = facilityList.join(',');
         }
-        floorString = floorList.join(',');
       }
-    }
-    // tslint:disable-next-line:no-var-keyword
-    var zoneString;
-    if (this.ZoneKey) {
-      zoneString = this.ZoneKey;
-    } else {
-      this.zone = null;
-      if (zonelistObj) {
-        // tslint:disable-next-line:no-var-keyword
-        for (var j = 0; j < zonelistObj.length; j++) {
-          zoneList.push(zonelistObj[j].ZoneKey);
+      // tslint:disable-next-line:no-var-keyword
+      var floorString;
+      if (this.FloorKey) {
+        floorString = this.FloorKey;
+      } else {
+        if (floorlistObj) {
+          // tslint:disable-next-line:no-var-keyword
+          for (var j = 0; j < floorlistObj.length; j++) {
+            floorList.push(floorlistObj[j].FloorKey);
+          }
+          floorString = floorList.join(',');
         }
-        zoneString = zoneList.join(',');
       }
-    }
-    // tslint:disable-next-line:no-var-keyword
-    var roomtypeString;
-    if (this.RoomTypeKey) {
-      roomtypeString = this.RoomTypeKey;
-    } else {
-      if (roomtypelistObj) {
-        // tslint:disable-next-line:no-var-keyword
-        for (var j = 0; j < roomtypelistObj.length; j++) {
-          roomtypeList.push(roomtypelistObj[j].RoomTypeKey);
+      // tslint:disable-next-line:no-var-keyword
+      var zoneString;
+      if (this.ZoneKey) {
+        zoneString = this.ZoneKey;
+      } else {
+        this.zone = null;
+        if (zonelistObj) {
+          // tslint:disable-next-line:no-var-keyword
+          for (var j = 0; j < zonelistObj.length; j++) {
+            zoneList.push(zonelistObj[j].ZoneKey);
+          }
+          zoneString = zoneList.join(',');
         }
-        roomtypeString = roomtypeList.join(',');
       }
-    }
-    if (this.EquipmentKey) {
-      this.eqp_key = this.EquipmentKey;
-    } else {
-      this.eqp_key = - 1;
-    }
+      // tslint:disable-next-line:no-var-keyword
+      var roomtypeString;
+      if (this.RoomTypeKey) {
+        roomtypeString = this.RoomTypeKey;
+      } else {
+        if (roomtypelistObj) {
+          // tslint:disable-next-line:no-var-keyword
+          for (var j = 0; j < roomtypelistObj.length; j++) {
+            roomtypeList.push(roomtypelistObj[j].RoomTypeKey);
+          }
+          roomtypeString = roomtypeList.join(',');
+        }
+      }
+      if (this.EquipmentKey) {
+        this.eqp_key = this.EquipmentKey;
+      } else {
+        this.eqp_key = - 1;
+      }
 
-    //        alert("equip key " + eqp_key);
+      //        alert("equip key " + eqp_key);
 
-    if (this.EmployeeKey) {
-      this.employeekey = this.EmployeeKey;
-    } else {
-      this.employeekey = - 1;
+      if (this.EmployeeKey) {
+        this.employeekey = this.EmployeeKey;
+      } else {
+        this.employeekey = - 1;
+      }
+      if (this.ZoneKey) {
+        this.zone = this.ZoneKey;
+      } else {
+        this.zone = null;
+
+      }
+
+      if (this.PriorityKey) {
+        this.priority = this.PriorityKey;
+      } else {
+        this.priority = - 1;
+      }
+      if (this.isPhotoRequired) {
+        this.is_PhotoRequired = 1;
+      } else {
+        this.is_PhotoRequired = 0;
+      }
+      if (this.isBarcodeRequired) {
+        this.is_BarcodeRequired = 1;
+      } else {
+        this.is_BarcodeRequired = 0;
+      }
+
+
+      this.isReccuring = false;
+      this.isrecurring = 0;
+
+      if (this.dateValue) {
+        this.startDT = this.convert_DT(this.dateValue);
+      } else {
+        this.startDT = this.convert_DT(new Date());
+      }
+      this.endDT = this.startDT;
     }
-    if (this.ZoneKey) {
-      this.zone = this.ZoneKey;
-    } else {
-      this.zone = null;
-
-    }
-
-    if (this.PriorityKey) {
-      this.priority = this.PriorityKey;
-    } else {
-      this.priority = - 1;
-    }
-    if (this.isPhotoRequired) {
-      this.is_PhotoRequired = 1;
-    } else {
-      this.is_PhotoRequired = 0;
-    }
-    if (this.isBarcodeRequired) {
-      this.is_BarcodeRequired = 1;
-    } else {
-      this.is_BarcodeRequired = 0;
-    }
-
-
-    this.isReccuring = false;
-    this.isrecurring = 0;
-
-    if (this.dateValue) {
-      // alert("startdate vale" + $scope.dateValue);
-      this.startDT = this.dateValue;
-      //  convert_DT($scope.dateValue);
-    } else {
-
-      //  this.startDT = this.dateValue;
-      this.startDT = this.convert_DT(new Date());
-      //                  $scope.newworkorderError = "Start date is not provided !";
-      //                   $scope.clickToOpen("Start date is not provided !");
-      //                   return;
-    }
-    this.endDT = this.startDT;
     if (this.timeValue) {
-      this.workTime = this.timeValue;
-      //                    console.log("workorder time orig  " + workTime);
-      //                    console.log("workorder time parsed  " + workTime);
+      this.workTime = this.timeValue.getHours() + ':' + this.timeValue.getMinutes();
     } else {
-      this.timeValue = new Date().getHours() + ':' + new Date().getMinutes();
-      this.workTime = '12:12:00';
-
+      this.workTime = new Date().getHours() + ':' + new Date().getMinutes();
     }
     this.workorderCreation = {
       occursontime: this.workTime,
@@ -543,11 +552,27 @@ export class EditWorkOrderComponent implements OnInit {
       occursonday: null
     };
     this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe((data: any[]) => {
-
+      alert("work-order updated successfully");
+      this.router.navigateByUrl('/ViewWorkOrder');
     });
   }
-  createWorkorder2() {
 
+createWorkorder2() {
+  if (!this.workordertypekey) {
+    alert("select work-order type!");
+  }
+  else if (!this.FacilityKey) {
+    alert("select building!");
+  }
+  else if (!this.FloorKey) {
+    alert("select floor!");
+  }
+  else if (!(this.timeValue)) {
+    alert("please provide time!");
+  } else if (this.showEqTypes == true && !(this.EquipmentTypeKey)) {
+    alert("select equipment type!");
+  }
+  else {
     var roomlistObj = [];
 
     var roomtypelistObj = [];
@@ -681,7 +706,7 @@ export class EditWorkOrderComponent implements OnInit {
         roomtypeString = roomtypeList.join(',');
       }
     }
-   
+
     if (this.EquipmentKey) {
       this.eqp_key = this.EquipmentKey;
     } else {
@@ -771,17 +796,18 @@ export class EditWorkOrderComponent implements OnInit {
       occursonday: null
     };
     this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe((data: any[]) => {
-
+      alert("work-order updated successfully");
+      this.router.navigateByUrl('/ViewWorkOrder');
     });
-
   }
-  change_values() {
-    if (this.showEqTypes == true) {
-      this.ZoneKey = -1;
-      this.RoomTypeKey = -1;
-      this.RoomKey = -1;
-    }
+}
+change_values() {
+  if (this.showEqTypes == true) {
+    this.ZoneKey = -1;
+    this.RoomTypeKey = -1;
+    this.RoomKey = -1;
   }
+}
 
 
 }

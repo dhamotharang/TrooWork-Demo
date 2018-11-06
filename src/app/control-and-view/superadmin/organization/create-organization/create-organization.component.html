@@ -7,7 +7,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <label>Organization Name*</label>
-        <input type="text" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="OrgName"
+        <input type="text" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="OrgName"
           placeholder="Organization Name">
       </div>
       <div class="form-group">
@@ -19,37 +19,40 @@
     <div class="col-md-6">
       <div class="form-group">
         <label>State</label>
-        <input type="text" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="State"
-          placeholder="Organization Name">
+        <input type="text" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="State"
+          placeholder="State">
       </div>
       <div class="form-group">
         <label>Tenant ID</label>
-        <input type="text" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="5" [(ngModel)]="tenID"
-          placeholder="Organization Name">
+        <input type="text" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="5" [(ngModel)]="tenID"
+          placeholder="Tenant ID">
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <label>Location</label>
-        <input type="text" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="Location"
-          placeholder="Organization Name">
+        <input type="text" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="Location"
+          placeholder="Location">
       </div>
       <div class="form-group">
         <label>Country</label>
-        <input type="text" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="Country"
-          placeholder="Organization Name">
+        <input type="text" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="Country"
+          placeholder="Country">
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <label>Tenant Name</label>
-        <input type="text" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="TenName"
-          placeholder="Organization Name">
+        <input type="text" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="TenName"
+          placeholder="Tenant Name">
       </div>
       <div class="form-group">
         <label>Organization Email</label>
-        <input type="text" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="OrgEmail"
-          placeholder="Organization Name">
+        <input type="text" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="OrgEmail"
+          placeholder="Organization Email" email #prmEmail="ngModel">
+        <div *ngIf="prmEmail.errors?.email" style="color: red;">
+          Email not valid.
+        </div>
       </div>
     </div>
     <div class="row col-md-12">

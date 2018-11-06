@@ -78,6 +78,18 @@ export class CreateQuickOrderComponent implements OnInit {
     }
   }
   saveQuickWorkOrder() {
+    if(!(this.EmployeeKey))
+    {
+      alert("please select employee!");
+    }else if(!(this.FacilityKey))
+    {
+      alert("please select building!")
+    }
+    else if(!(this.WorkorderNotes))
+    {
+      alert("please enter work-order notes!");
+    }else{
+
     this.wot = - 1;
     this.startDT = this.convert_DT(new Date());
     var d = new Date();
@@ -145,13 +157,16 @@ export class CreateQuickOrderComponent implements OnInit {
    
     this.WorkOrderServiceService
       .addQuickWorkOrder(this.createworkorder)
-      .subscribe(res => this.router.navigateByUrl('/ViewWorkOrder'));
+      .subscribe(res => {
+        alert("work-order created successfully");
+        this.router.navigateByUrl('/ViewWorkOrder');
+    });
+  }
     
   }
 
 
   ngOnInit() {
-
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -160,7 +175,9 @@ export class CreateQuickOrderComponent implements OnInit {
     this.name = profile.username;
     this.emp_key = profile.employeekey;
     this.org_id = profile.OrganizationID;
-
+    this.FacilityKey="";
+    this.EmployeeKey="";
+    this.PriorityKey="";
     this.WorkOrderServiceService
       .getallEmployee(this.emp_key, this.org_id)
       .subscribe((data: any[]) => {

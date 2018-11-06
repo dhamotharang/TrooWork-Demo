@@ -36,11 +36,23 @@ export class EditOrganizationComponent implements OnInit {
   }
 
   updateOrg(OName, ODesc, state, tid, loc, country, tename, email) {
-      debugger;
-    if(this.OrgDetail.OrganizationName=== ''){
-      alert('OrganizationName is not provided !');
-      return;
-    }
+      
+      if(OName &&!(OName.trim())){
+        alert('Organization Name not provided !');
+        return;
+      }
+      if(tid && !(tid.trim() ) ){
+        alert('Tenant ID not provided !');
+        return;
+      }
+      if(!(OName)){
+        alert('Organization Name not provided !');
+        return;
+      }
+      if( ! (tid) ){
+        alert('Tenant ID not provided !');
+        return;
+      }
     
 
     

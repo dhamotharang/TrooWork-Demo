@@ -45,6 +45,14 @@ export class FloorCreateComponent implements OnInit {
   }
 
   addFloor(FacilityKey, FloorName, FloorDescription) {
+    if(FloorName && !FloorName.trim()){
+      alert("Please Enter Floor Name!");
+      return;
+    }
+    if(FloorDescription && !FloorDescription.trim()){
+      alert("Please Enter Floor Description!");
+      return;
+    }
     if (!FacilityKey) {
       alert("Please select a building name!");
     } else if (!FloorName) {

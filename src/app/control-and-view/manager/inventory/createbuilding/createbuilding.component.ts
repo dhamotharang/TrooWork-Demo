@@ -46,10 +46,15 @@ export class CreatebuildingComponent implements OnInit {
 
 
   addBuilding(newbuildingName) {
+    if(newbuildingName && !newbuildingName.trim()){
+      alert("Please Enter Building Name!");
+      return;
+    }
     if (!newbuildingName) {
-      alert("Please Enter Building Name!")
+      alert("Please Enter Building Name!");
+      return;
     } else {
-
+      newbuildingName=newbuildingName.trim();
       this.CreatebuildingService.createBuildings(newbuildingName, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           alert("Building created successfully");

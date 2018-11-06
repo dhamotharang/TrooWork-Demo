@@ -656,7 +656,7 @@ const routes: Routes = [
     component: CreateWorkorderTypeComponent
   },
   {
-    path: 'setUserLoginSuper/:EmployeeKey/:str/:UserRoleTypeKey',
+    path: 'setUserLoginSuper/:EmployeeKey/:str/:UserRoleTypeKey/:Organization',
     component: SetUserLoginSuperComponent
   }
 ];

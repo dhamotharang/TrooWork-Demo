@@ -11,10 +11,10 @@
     <div class="col-md-6">
       <h1 style="text-align: right"></h1>
       <div class="form-group">
-        <label>Workorder Type</label><br>
+        <label>Workorder Type*</label><br>
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="workordertypekey"
           required>
-          <option>--Select--</option>
+          <option value="">--Select--</option>
           <option *ngFor="let e of workorderTypeList" [value]="e.WorkorderTypeKey">
             {{e.WorkorderTypeText}}
           </option>
@@ -24,7 +24,7 @@
         <label>Building*</label><br>
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey"
           (change)="getFloorDisp($event.target.value);" required>
-          <option>--Select--</option>
+          <option value="">--Select--</option>
           <option *ngFor="let b of facilitylist" [value]="b.FacilityKey">
             {{b.FacilityText}}
           </option>
@@ -35,7 +35,7 @@
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey"
           [disabled]="!FacilityKey" (change)="getZoneRoomTypeRoom($event.target.value,FacilityKey);getEquiment($event.target.value,FacilityKey);"
           required>
-          <option>--Select--</option>
+          <option value="">--Select--</option>
           <option *ngFor="let b of FloorList" [value]="b.FloorKey">
             {{b.FloorName}}
           </option>
@@ -46,7 +46,7 @@
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey"
           [disabled]="!FloorKey||(showEqTypes==true)" (change)="getRoomTypeRoom($event.target.value,FacilityKey,FloorKey);"
           required>
-          <option>--Select--</option>
+          <option value="">--Select--</option>
           <option *ngFor="let b of zonelist" [value]="b.ZoneKey">
             {{b.ZoneName}}
           </option>
@@ -57,7 +57,7 @@
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey"
           [disabled]="!FloorKey||(showEqTypes==true)" (change)="getRoom($event.target.value,ZoneKey,FacilityKey,FloorKey);"
           required>
-          <option>--Select--</option>
+          <option value="">--Select--</option>
           <option *ngFor="let b of RoomTypeList" [value]="b.RoomTypeKey">
             {{b.RoomTypeName}}
           </option>
@@ -67,7 +67,7 @@
         <label>Room</label><br>
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomKey"
           [disabled]="!FloorKey||(showEqTypes==true)" required>
-          <option>--Select--</option>
+          <option value="">--Select--</option>
           <option *ngFor="let b of RoomList" [value]="b.RoomKey">
             {{b.RoomName}}
           </option>
@@ -77,7 +77,7 @@
         <label>Priority Level</label><br>
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="PriorityKey"
           required>
-          <option>--Select--</option>
+          <option value="">--Select--</option>
           <option *ngFor="let b of priorityList" [value]="b.PriorityKey">
             {{b.PriorityText}}
           </option>
@@ -91,7 +91,7 @@
     <div class="col-md-6">
       <h1 style="text-align: right"></h1>
       <div class="form-group">
-        <label>Workorder Notes*</label>
+        <label>Workorder Notes</label>
         <textarea class="form-control rounded-0" [(ngModel)]="WorkorderNotes" rows="6" style="resize: none;"></textarea>
       </div>
       <div class="form-group">
@@ -103,7 +103,7 @@
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EquipmentTypeKey"
           [disabled]="(showEqTypes==false)" (change)="showEquipment_typechange($event.target.value,FacilityKey,FloorKey)"
           required>
-          <option>--Select--</option>
+          <option value="">--Select--</option>
           <option *ngFor="let e of EquipmentTypeList" [value]="e.EquipmentTypeKey">
             {{e.EquipmentTypeText}}
           </option>
@@ -113,17 +113,17 @@
         <label>Equipment Name</label><br>
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EquipmentKey"
           [disabled]="(showEqTypes==false)" required>{{EquipmentKey}}
-          <option>--Select--</option>
+          <option value="">--Select--</option>
           <option *ngFor="let e of EquipmentList" [value]="e.EquipmentKey">
             {{e.EquipmentName}}
           </option>
         </select>
       </div>
       <div class="form-group">
-        <label>Employee*</label><br>
+        <label>Employee</label><br>
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EmployeeKey"
           required>
-          <option>--Select--</option>
+          <option value="">--Select--</option>
           <option *ngFor="let e of EmployeeOption" [value]="e.EmployeeKey">
             {{e.EmployeeText}}
           </option>
@@ -154,15 +154,15 @@
       <div class="row col-md-12">
         <div class="col col-md-3"></div>
         <div style="text-align:left" class="col-md-3">
-          <button type="button" class="btn btn-primary" (click)=UpdateWO()>Update Work Instance</button>
+          <button type="button" class="btn btn-success" (click)=UpdateWO()><b>UPDATE</b></button>
         </div>
         <div style="text-align:left" class="col-md-3">
-          <a routerLink="/ViewWorkOrder" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Go
+          <a routerLink="/ViewWorkOrder" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
               Back
             </b>
           </a></div>
         <div style="text-align:left" class="col-md-3">
-          <button type="button" class="btn btn-danger button_style" (click)=DeleteWO()>Delete</button>
+          <button type="button" class="btn btn-danger button_style" (click)=DeleteWO()><b>DELETE</b></button>
         </div>
         <div class="col col-md-3"></div>
       </div>

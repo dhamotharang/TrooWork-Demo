@@ -49,6 +49,16 @@ export class InspectionViewComponent implements OnInit {
     }
     return window.atob(output);
   }
+  // adding properties and methods that will be used by the igxDatePicker
+
+  public date: Date = new Date(Date.now());
+
+  private dayFormatter = new Intl.DateTimeFormat('en', { weekday: 'long' });
+  private monthFormatter = new Intl.DateTimeFormat('en', { month: 'long' });
+
+  public formatter = (_: Date) => {
+    return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
+  }
 
   constructor(private router: Router, private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef) { }
 

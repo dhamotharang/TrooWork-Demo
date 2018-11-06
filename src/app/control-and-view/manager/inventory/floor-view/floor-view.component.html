@@ -1,11 +1,12 @@
 <app-manager-dash-board></app-manager-dash-board>
-<div style="width: 100%;height: 100%;">
-  <div class="bg-dark" style="width: 100%;height: 100%;">
+<!-- <div style="width: 100%;height: 100%;">
+  <div class="bg-dark" style="width: 100%;height: 100%;"> -->
+      <div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
     <br><br>
     <h4 class="refer"><b> FLOORS</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/Createfloor" class="btn btn-primary" routerLinkActive="active">Create New Floor</a></div>
+      <a routerLink="/Createfloor" class="btn btn-success" routerLinkActive="active">Create New Floor</a></div>
     <form [formGroup]="searchform">
 
       <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
@@ -15,7 +16,7 @@
       </div>
       <!-- <div *ngIf="searchform.controls.SearchFloor.errors?.minlength">Name must be at least 3 characters long.</div>  -->
     </form>
-    <div style="margin-left: 1.5rem;margin-right: 1.5rem;"></div>
+    <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="bg-info">
     <table class="table table-hover table-responsive table-bordered table">
       <thead class="tableHead">
         <!-- <tr> -->
@@ -30,8 +31,8 @@
           <td>{{ x.FacilityName }}</td>
           <td>{{ x.FloorName }}</td>
           <td>{{ x.FloorDescription }}</td>
-          <td><a routerLink="/Flooredit/{{ x.FloorKey}}/{{x.FacilityKey}}" class="btn btn-primary">Edit</a>
-            <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteFloorPass(x.FacilityKey,x.FloorKey); "
+          <td><a routerLink="/Flooredit/{{ x.FloorKey}}/{{x.FacilityKey}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+            <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteFloorPass(x.FacilityKey,x.FloorKey); "
               mdbWavesEffect>Delete</a></td>
         </tr>
         <tr *ngIf="floor?.length == 0">
@@ -62,3 +63,5 @@
     </table>
     <button class="btn btn-success" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
       <button class="btn btn-success" (click)="nextPage()" *ngIf="showHide2">Next >></button>
+    </div>
+  </div>
