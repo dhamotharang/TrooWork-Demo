@@ -81,16 +81,13 @@ export class CreateemployeeComponent implements OnInit {
   constructor(private PeopleServiceService: PeopleServiceService, private router: Router) { }
   OrganizationChanged() {
     this.PeopleServiceService.getJobTitle(this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
-      // debugger;
       this.jobtitle = data;
     });
     this.PeopleServiceService.getDepartment(this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
-      // debugger;
       this.department = data;
     });
   }
   createEmployee() {
-    debugger;
 
     if (!(this.OrganizationID) ) {
       alert("Organization Not provided !");
@@ -170,7 +167,6 @@ export class CreateemployeeComponent implements OnInit {
       else {
     this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID, this.ManagerKey, this.EmployeeNumber, this.UserRoleTypeKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.theCheckbox, this.JobTitleKey, this.DepartmentKey, this.employeekey)
       .subscribe((data: any[]) => {
-        //  debugger;
         this.temp_res = data;
         alert("Employee Created !");
         var empKey = this.temp_res.EmployeeKey;
@@ -197,8 +193,6 @@ export class CreateemployeeComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
-    // this.OrgID = 21;
     this.OrganizationID = '';
     this.UserRoleTypeKey = '';
     this.Gender = '';
@@ -219,27 +213,13 @@ export class CreateemployeeComponent implements OnInit {
     this.PeopleServiceService
       .getUserRoleTypesa(this.OrgID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.useroletypesa = data;
       });
-    // this.PeopleServiceService
-    //   .getJobTitle(this.employeekey, this.OrgID)
-    //   .subscribe((data: People[]) => {
-    //     // debugger;
-    //     this.jobtitle = data;
-    //   });
     this.PeopleServiceService
       .getOrganization(this.OrgID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.organization = data;
       });
-    // this.PeopleServiceService
-    //   .getDepartment(this.employeekey, this.OrgID)
-    //   .subscribe((data: People[]) => {
-    //     // debugger;
-    //     this.department = data;
-    //   });
     this.PeopleServiceService
       .getUserRoleType(this.OrgID)
       .subscribe((data: any[]) => {

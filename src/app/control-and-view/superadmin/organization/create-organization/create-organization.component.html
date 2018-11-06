@@ -1,54 +1,62 @@
 <app-superadmin-dashboard></app-superadmin-dashboard>
-<br><br>
-
-<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+<div class="py-5 " style="width: 100% !important; padding-left: 9rem;padding-right: 9rem; padding-top:1rem !important; padding-bottom:0rem !important;">
   <div class="row col-md-12 ">
-      
-    <h3 style="margin-left: 30rem;">CREATE NEW ORGANIZATION</h3>
-  </div><br><br>
-   <div class="row bg-info col-md-12"> 
-    <div class="col-md-6 bg-info">
+    <h3 style="margin-left: 25rem;">CREATE NEW ORGANIZATION</h3>
+  </div>
+  <div class="row bg-info col-md-12">
+    <div class="col-md-6">
       <div class="form-group">
-        <label style="margin-top: 2rem;"  class="col-sm-3 col-md-3 col-lg-3 ">Organization Name*</label>     
-        <input type="text" maxlength="40" [(ngModel)]="OrgName">        
-         </div>
-      <div class="form-group">
-        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Organization Description</label>
-        <textarea class="form-control rounded-0" maxlength="100" [(ngModel)]="OrgDesc" id="OrganizationDesc" rows="5"></textarea>
-        </div>
-      <div class="form-group">
-        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">State</label>
-        <input type="text" maxlength="40" [(ngModel)]="State">
-         </div>
-      <div class="form-group">
-        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Tenant ID</label>
-        <input type="text" maxlength="5" [(ngModel)]="tenID">   
-         </div>
-    </div>
-      <div class="col-md-6">    
-   
-        <label class="form-check-label" for="materialInline1">Location</label>
-        <input type="text" maxlength="40" [(ngModel)]="Location">
-       
-       <div class="form-group" >
-        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Country</label>
-        <input type="text" maxlength="40" [(ngModel)]="Country">   
-        </div>
-      <div class="form-group">
-        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Tenant Name</label>
-        <input type="text" maxlength="40" [(ngModel)]="TenName">   
+        <label>Organization Name*</label>
+        <input type="text" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="OrgName"
+          placeholder="Organization Name">
       </div>
       <div class="form-group">
-        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Organization Email</label>
-        <input type="text" maxlength="40" [(ngModel)]="OrgEmail">    
+        <label>Organization Description</label>
+        <textarea class="form-control rounded-0  col-sm-9 col-md-9 col-lg-9" maxlength="100" [(ngModel)]="OrgDesc"
+          placeholder="Organization Description" rows="5"></textarea>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>State</label>
+        <input type="text" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="State"
+          placeholder="Organization Name">
+      </div>
+      <div class="form-group">
+        <label>Tenant ID</label>
+        <input type="text" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="5" [(ngModel)]="tenID"
+          placeholder="Organization Name">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Location</label>
+        <input type="text" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="Location"
+          placeholder="Organization Name">
+      </div>
+      <div class="form-group">
+        <label>Country</label>
+        <input type="text" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="Country"
+          placeholder="Organization Name">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Tenant Name</label>
+        <input type="text" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="TenName"
+          placeholder="Organization Name">
+      </div>
+      <div class="form-group">
+        <label>Organization Email</label>
+        <input type="text" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="OrgEmail"
+          placeholder="Organization Name">
       </div>
     </div>
     <div class="row col-md-12">
-    <div class="col-md-6"></div>
-    <div style="text-align:center">
-    <button type="button"style="text-align:center"class="btn btn-primary"(click)="createOrg()">Create Organization</button></div>
-  </div> 
-  </div> 
+      <div>
+        <a style="margin-left: 25rem;" class="btn btn-success" (click)="createOrg()">Create
+          Organization</a>
+      </div>
+    </div>
   </div>
-  
-
+</div>

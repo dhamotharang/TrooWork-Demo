@@ -15,7 +15,11 @@ export class SchedulingViewComponent implements OnInit {
   OrganizationID: Number;
   empName: String = null;
   scheduleList;
-
+  page = 1;
+  itemsPerPage = 25;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -61,18 +65,60 @@ export class SchedulingViewComponent implements OnInit {
         .searchBatchScheduleName(SearchValue, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.scheduleList = data;
+          this.showHide2 = false;
+          this.showHide1 = false;
         });
     } else if (SearchValue.length == 0) {
-      var page = 1;
-      var itemsPerPage = 1000;
+      this.page = 1;
       this.scheduleService
-        .getAllBatchScheduleNames(page, itemsPerPage, this.employeekey, this.OrganizationID)
+        .getAllBatchScheduleNames(this.page, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.scheduleList = data;
+          if (this.scheduleList[0].totalItems > this.itemsPerPage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.scheduleList[0].totalItems <= this.itemsPerPage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
         });
     }
   };
 
+  previousPage() {
+    this.page = +this.page - 1;
+    this.scheduleService
+      .getAllBatchScheduleNames(this.page, this.itemsPerPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.scheduleList = data;
+        if (this.page == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
+  }
+
+  nextPage() {
+    this.page = +this.page + 1;
+    this.scheduleService
+      .getAllBatchScheduleNames(this.page, this.itemsPerPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.scheduleList = data;
+        this.pagination = +this.scheduleList[0].totalItems / (+this.page * (+this.itemsPerPage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
+  }
   ngOnInit() {
 
     this.searchform = this.formBuilder.group({
@@ -89,12 +135,19 @@ export class SchedulingViewComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     //token ends
-    var page = 1;
-    var itemsPerPage = 1000;
+
     this.scheduleService
-      .getAllBatchScheduleNames(page, itemsPerPage, this.employeekey, this.OrganizationID)
+      .getAllBatchScheduleNames(this.page, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.scheduleList = data;
+        if (this.scheduleList[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.scheduleList[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
       });
 
   }
