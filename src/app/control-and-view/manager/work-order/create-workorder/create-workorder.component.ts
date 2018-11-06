@@ -141,7 +141,7 @@ export class CreateWorkorderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.DailyrecurringGap=0;
+    
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -332,6 +332,9 @@ export class CreateWorkorderComponent implements OnInit {
     if (!this.WorkorderTypeKey) {
       alert("select work-order type!");
     }else if(this.newType == true && !(this.newworkordertypetext))
+    {
+      alert("enter work-order type!");
+    }else if(this.newType == true && !(this.newworkordertypetext.trim()))
     {
       alert("enter work-order type!");
     }
@@ -610,7 +613,15 @@ export class CreateWorkorderComponent implements OnInit {
         }
 
         this.workTime = timeset_corr.join(',');
+        if(!(this.DailyrecurringGap))
+        {
+          this.DailyrecurringGap=0;
+          this.rep_interval = this.DailyrecurringGap;
+        }
+        else
+        {
         this.rep_interval = this.DailyrecurringGap;
+        }
       }
       else if (this.isRecurring == true && this.weeklyrecurring == true) {
         if (this.Time_weekly) {
@@ -715,6 +726,9 @@ export class CreateWorkorderComponent implements OnInit {
     if (!this.WorkorderTypeKey) {
       alert("select work-order type!");
     }else if(this.newType == true && !(this.newworkordertypetext))
+    {
+      alert("enter work-order type!");
+    }else if(this.newType == true && !(this.newworkordertypetext.trim()))
     {
       alert("enter work-order type!");
     }
@@ -999,7 +1013,15 @@ export class CreateWorkorderComponent implements OnInit {
         }
 
         this.workTime = timeset_corr.join(',');
+        if(!(this.DailyrecurringGap))
+        {
+          this.DailyrecurringGap=0;
+          this.rep_interval = this.DailyrecurringGap;
+        }
+        else
+        {
         this.rep_interval = this.DailyrecurringGap;
+        }
       } else if (this.isRecurring == true && this.weeklyrecurring == true) {
         this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();
       } else if (this.isRecurring == true && this.monthlyrecurring == true) {

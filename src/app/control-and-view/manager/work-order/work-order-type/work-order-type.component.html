@@ -16,14 +16,14 @@
         <div *ngIf="searchform.controls.searchworkordertype.errors?.minlength">Minimum 3 characters required.</div>
       </div>
     </form>
-    <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
+    <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="bg-info">
       <table class="table table-responsive table-hover table-bordered table">
         <thead class="tableHead">
           <th> Work-Order Type </th>
           <th>Edit</th>
         </thead>
         <tbody>
-          <tr *ngFor="let x of workorderTypeList" class="r2">
+          <tr *ngFor="let x of workorderTypeList">
             <td>{{ x.WorkorderTypeName }}</td>
 
             <td>

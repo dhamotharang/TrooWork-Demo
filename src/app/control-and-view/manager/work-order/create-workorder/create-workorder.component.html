@@ -19,7 +19,7 @@
             {{e.WorkorderTypeText}}
           </option>
         </select>
-        <input type="text" *ngIf="newType" [(ngModel)]="newworkordertypetext" class="form-control" placeholder="Enter new workordertype">
+        <input type="text" maxlength="30" *ngIf="newType" [(ngModel)]="newworkordertypetext" class="form-control" placeholder="Enter new workordertype">
         <br><input type="button" style="margin-bottom:19px" *ngIf="newType"  (click)="GobacktoMenu()" class="btn btn-primary  button_style " value="Go Default"/>
       </div>
       <div class="form-group">
