@@ -60,11 +60,12 @@ export class SetLoginCredentialsForUserComponent implements OnInit {
             this.peopleService.setLoginCreds(this.username, this.password, this.empKey$, this.employeekey, this.userRoleTypeKey$, this.OrganizationID)
               .subscribe((data: any[]) => {
                 this.router.navigateByUrl('/viewEmployeeAdmin');
-                if (data[0].length > 0) {
+               
+
                   this.peopleService.getUserEmail(this.username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
                     this.managerMail = data[0].EmailID;
                     this.userMail = data[0].newmail;
-
+                    debugger;
                     if (this.userMail == null) {
                       alert("Login Credentials created for user Successfully! Mail not send , Mail-Id not found !");
                     } else {
@@ -81,7 +82,7 @@ export class SetLoginCredentialsForUserComponent implements OnInit {
                         .subscribe(res => console.log('Mail Sent Successfully...'));
                     }
                   });
-                }
+                
               });
           }
         });

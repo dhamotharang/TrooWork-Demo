@@ -43,14 +43,30 @@ export class CreateOrganizationComponent implements OnInit {
   }
 
   createOrg() {
-    if(this.OrgName=== undefined){
-      alert('Organization Name is not provided !');
+    
+    if(this.OrgName &&!(this.OrgName.trim())){
+      alert('Organization Name not provided !');
       return;
     }
+    if(this.tenID && !(this.tenID.trim() ) ){
+      alert('Tenant ID not provided !');
+      return;
+    }
+    if(!(this.OrgName)){
+      alert('Organization Name not provided !');
+      return;
+    }
+    if( ! (this.tenID) ){
+      alert('Tenant ID not provided !');
+      return;
+    }
+    this.OrgName=this.OrgName.trim();
+    this.tenID=this.tenID.trim()
     this.updatedby = this.employeekey;
     this.organizationService.checkForTenantId(this.tenID).subscribe((data: any[]) => {
       if (data[0].count == 0) {
         this.organizationService.createOrganization(this.OrgName, this.OrgDesc, this.Location, this.State, this.Country, this.updatedby, this.TenName, this.OrgEmail, this.tenID).subscribe((data: any[]) => {
+          alert('Organization Sucessfully Created !');
           this.router.navigateByUrl('/ViewOrganization');
         });
         }
