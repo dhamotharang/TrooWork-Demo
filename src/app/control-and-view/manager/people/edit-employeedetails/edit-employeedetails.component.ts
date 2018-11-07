@@ -72,8 +72,70 @@ export class EditEmployeedetailsComponent implements OnInit {
   }
 
   editEmployee(EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey) {
-    var birthdt = this.convert_DT(BD);
-    var hiredt = this.convert_DT(HD);
+    if (!(this.editempdtails.EmployeeNumber) ) {
+      alert("Employee Number Not provided !");
+      return;
+    }
+    if (!(this.editempdtails.UserRoleTypeKey ) ) {
+      alert("User Role Type Not provided !");
+      return;
+    }
+
+    if (!(this.editempdtails.FirstName ) ) {
+      alert("First Name Not provided !");
+      return;
+    }
+    if (!(this.editempdtails.LastName ) ) {
+      alert("LastName Not provided !");
+      return;
+    }
+    if (!(this.editempdtails.Gender) ) {
+      alert("Gender Not provided !");
+      return;
+    }
+    if (!(this.editempdtails.EmployeeStatusKey) ) {
+      alert("Employee Status Not provided !");
+      return;
+    }
+    if (!(this.editempdtails.PrimaryPhone) ) {
+      alert("Primary Phone Not provided !");
+      return;
+    }
+    if (!(this.HireDate) ) {
+      alert("HireDate Not provided !");
+      return;
+    }
+    if (!(this.editempdtails.JobTitleKey ) ) {
+      alert("JobTitle Not provided !");
+      return;
+    }
+    if (!(this.editempdtails.DepartmentKey) ) {
+      alert("Department Not provided !");
+      return;
+    }
+    var birthdt;
+    var currentDate=this.convert_DT(new Date());
+   
+    if (!(this.BirthDate) ) {
+      birthdt = this.convert_DT(new Date());
+    }
+    else {
+      birthdt = this.convert_DT(this.BirthDate);
+    }
+    
+    if(BD > currentDate){
+      alert("Wrong BirthDate !");
+      return;
+    }
+    if(HD >currentDate){
+      alert("Wrong HireDate !");
+      return;
+    }
+    if( HD <BD){
+      alert("HireDate must be greater than birth date !");
+      return;
+    }
+    var hiredt= this.convert_DT(this.BirthDate);
 
     this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.managerKey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey)
       .subscribe(res => this.router.navigateByUrl('/ViewEmployee'));

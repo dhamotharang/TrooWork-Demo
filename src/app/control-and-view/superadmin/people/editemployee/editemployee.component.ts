@@ -27,7 +27,10 @@ export class EditemployeeComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  useroletype;
+  roleTypeKey;
+  managerList;
+  showManager;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -91,6 +94,38 @@ export class EditemployeeComponent implements OnInit {
       .subscribe(res => this.router.navigateByUrl('/Viewemployee'));
 
   }
+  numberValid(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  charValidation(event: any) {
+    const patternChar = /[a-zA-Z ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !patternChar.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  selectUserType(userType) {
+    debugger;
+    userType;
+    if (userType == this.roleTypeKey) {
+      this.showManager = true;
+      this.PeopleServiceService
+        .getmanagersForEmp(this.employeekey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.managerList = data;
+        });
+      console.log(this.showManager);
+    } else {
+      this.showManager = false;
+      console.log(this.showManager);
+    }
+  }
   ngOnInit() {
 
     var token = localStorage.getItem('token');
@@ -105,7 +140,10 @@ export class EditemployeeComponent implements OnInit {
       this.editempdtailsbysa = data[0];
       this.BirthDate = new Date(this.editempdtailsbysa.BirthDate);
       this.HireDate = new Date(this.editempdtailsbysa.HireDate);
-
+      this.useroletype = this.editempdtailsbysa.UserRoleName;
+      if (this.useroletype == "Employee") {
+        this.showManager = true;
+      }
     });
 
     this.PeopleServiceService
@@ -116,9 +154,15 @@ export class EditemployeeComponent implements OnInit {
       });
     this.PeopleServiceService
       .getUserRoleTypesa(this.OrganizationID)
-      .subscribe((data: People[]) => {
+      // .subscribe((data: People[]) => {
        
+      .subscribe((data: any[]) => {
         this.useroletyp = data;
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].UserRoleName == "Employee") {
+            this.roleTypeKey = data[i].UserRoleTypeKey;
+          }
+        }
       });
     this.PeopleServiceService
       .getvaluesForManagerDropdowninSA(this.employeekey, this.OrganizationID)

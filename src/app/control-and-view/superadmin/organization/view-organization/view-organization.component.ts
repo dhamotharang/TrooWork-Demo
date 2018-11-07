@@ -16,7 +16,7 @@ export class ViewOrganizationComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  loading: boolean;// loading
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -37,13 +37,15 @@ export class ViewOrganizationComponent implements OnInit {
   constructor(private organizationService: OrganizationService) { }
 
   deleteOrganization() {
+    this.loading = true;
     this.organizationService
       .DeleteOrganization(this.delete_orgKey, this.employeekey).subscribe(() => {
-
+        alert("Organization deleted successfully... !");
         this.organizationService
           .getOrganization(this.pageNo, this.itemsPerPage)
           .subscribe((data: Organization[]) => {
             this.organization = data;
+            this.loading = false;
           });
 
       });
@@ -53,7 +55,7 @@ export class ViewOrganizationComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.loading = true;
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -67,6 +69,7 @@ export class ViewOrganizationComponent implements OnInit {
       .getOrganization(this.pageNo, this.itemsPerPage)
       .subscribe((data: Organization[]) => {
         this.organization = data;
+        this.loading = false;
       });
   }
 

@@ -37,15 +37,15 @@ export class ViewBatchWorkorderComponent implements OnInit {
   domain_name: string;
   workorderList;
   checkValue = [];
-  FacilityKey: number;
-  FloorKey: number;
-  ZoneKey: number;
-  RoomTypeKey: number;
-  RoomKey: number;
-  BatchScheduleNameKey: number;
-  WorkorderStatusKey: number;
-  EmployeeKey: number;
-  WorkorderTypeKey: number;
+  FacilityKey;
+  FloorKey;
+  ZoneKey;
+  RoomTypeKey;
+  RoomKey;
+  BatchScheduleNameKey;
+  WorkorderStatusKey;
+  EmployeeKey;
+  WorkorderTypeKey;
   ondate: Date;
   todate: Date;
   viewWorkOrder;
@@ -113,8 +113,15 @@ export class ViewBatchWorkorderComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-
     this.domain_name = 'workstatus';
+    this.FacilityKey="";
+    this.FloorKey="";
+    this.ZoneKey="";
+    this.RoomTypeKey="";
+    this.RoomKey="";
+    this.EmployeeKey="";
+    this.WorkorderTypeKey="";
+    this.BatchScheduleNameKey="";
     var on_date = this.convert_DT(new Date());
     this.WorkOrderServiceService
       .getallFacility(this.employeekey, this.OrganizationID)

@@ -31,22 +31,22 @@ export class ViewWorkOrdersComponent implements OnInit {
   zonelist: workorder[];
   RoomTypeList: workorder[];
   workStatusList: workorder[];
-  workorderTypeList: workorder[];
+  workorderTypeList;
   RoomList: workorder[];
   emp_key: number;
   org_id: number;
   domain_name: string;
   workorderList;
   checkValue = [];
-  FacilityKey: number;
-  FloorKey: number;
-  ZoneKey: number;
-  RoomTypeKey: number;
-  RoomKey: number;
-  BatchScheduleNameKey: number;
-  WorkorderStatusKey: number;
-  EmployeeKey: number;
-  WorkorderTypeKey: number;
+  FacilityKey;
+  FloorKey;
+  ZoneKey;
+  RoomTypeKey;
+  RoomKey;
+  BatchScheduleNameKey;
+  WorkorderStatusKey;
+  EmployeeKey;
+  WorkorderTypeKey;
   ondate: Date;
   todate: Date;
   viewWorkOrder;
@@ -105,6 +105,47 @@ export class ViewWorkOrdersComponent implements OnInit {
     }, 100)
 
   }
+  previousPage() {
+    var on_date = this.convert_DT(new Date());
+    this.pageno = +this.pageno - 1;
+    this.WorkOrderServiceService
+      .getworkorder(on_date, this.emp_key, this.pageno, this.items_perpage, this.org_id)
+      .subscribe((data: any[]) => {
+        this.workorderList = data;
+        for (var i = 0; i < this.workorderList.length; i++) {
+          this.workorderList[i].workorderCheckValue = false;
+        }
+        if (this.pageno == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
+  }
+
+  nextPage() {
+    var on_date = this.convert_DT(new Date());
+    this.pageno = +this.pageno + 1;
+    this.WorkOrderServiceService
+      .getworkorder(on_date, this.emp_key, this.pageno, this.items_perpage, this.org_id)
+      .subscribe((data: any[]) => {
+        this.workorderList = data;
+        for (var i = 0; i < this.workorderList.length; i++) {
+          this.workorderList[i].workorderCheckValue = false;
+        }
+        this.pagination = +this.workorderList[0].totalItems / (+this.pageno * (+this.items_perpage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
+  }
   ngOnInit() {
     this.loading = true;
     var token = localStorage.getItem('token');
@@ -117,6 +158,16 @@ export class ViewWorkOrdersComponent implements OnInit {
     this.org_id = profile.OrganizationID;
     this.domain_name = 'workstatus';
     var on_date = this.convert_DT(new Date());
+    this.WorkorderTypeKey = "";
+    this.FacilityKey = "";
+    this.FloorKey = "";
+    this.ZoneKey = "";
+    this.RoomTypeKey = "";
+    this.RoomKey = "";
+    this.EmployeeKey = "";
+    this.WorkorderStatusKey = "";
+    this.BatchScheduleNameKey = "";
+    this.ondate = new Date(Date.now());
     this.WorkOrderServiceService
       .getallFacility(this.emp_key, this.org_id)
       .subscribe((data: any[]) => {
@@ -146,12 +197,21 @@ export class ViewWorkOrdersComponent implements OnInit {
       .getworkorder(on_date, this.emp_key, this.pageno, this.items_perpage, this.org_id)
       .subscribe((data: any[]) => {
         this.workorderList = data;
+        this.loading = false;
         for (var i = 0; i < this.workorderList.length; i++) {
           this.workorderList[i].workorderCheckValue = false;
         }
-        this.loading = false;// loading
+        if (this.workorderList[0].totalItems > this.items_perpage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.workorderList[0].totalItems <= this.items_perpage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
+        // this.loading = false;// loading
       });
-   
+
 
     // this.searchform = this.formBuilder.group({
     //   SearchworkType_emp_room: ['', Validators.required]
@@ -170,7 +230,7 @@ export class ViewWorkOrdersComponent implements OnInit {
     }
   }
   getFloorDisp(facilityName) {
-    
+
     this.WorkOrderServiceService
       .getallFloor(facilityName, this.org_id)
       .subscribe((data: any[]) => {
@@ -214,7 +274,7 @@ export class ViewWorkOrdersComponent implements OnInit {
       });
   }
   viewWO_Filter() {
-   
+
     this.loading = true;
     if (!this.FacilityKey) {
       var fac_key = null;
@@ -312,11 +372,19 @@ export class ViewWorkOrdersComponent implements OnInit {
       .getWoFilter(this.viewWorkOrder)
       .subscribe((data: any[]) => {
         this.workorderList = data;
+        if (this.workorderList[0].totalItems > this.items_perpage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.workorderList[0].totalItems <= this.items_perpage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
         this.loading = false;
       });
   }
   checkBoxValueForDelete(index, CheckValue, WorkorderKey) {
-   
+
     this.checkValue[index] = CheckValue;
     this.workorderKey[index] = WorkorderKey;
   }
@@ -414,27 +482,35 @@ export class ViewWorkOrdersComponent implements OnInit {
       floorKey: floor_key,
       searchWO: search_value
     };
-    if(search_value.length>=3)
-    {
-    this.WorkOrderServiceService
-      .search_WO(this.searchWorkorder)
-      .subscribe((data: any[]) => {
-       
-        this.workorderList = data;
-      });
+    if (search_value.length >= 3) {
+      this.WorkOrderServiceService
+        .search_WO(this.searchWorkorder)
+        .subscribe((data: any[]) => {
+
+          this.workorderList = data;
+          this.showHide2 = false;
+          this.showHide1 = false;
+        });
     }
-    else if(search_value.length==0)
-    {
+    else if (search_value.length == 0) {
       var on_date = this.convert_DT(new Date());
       this.WorkOrderServiceService
-      .getworkorder(on_date, this.emp_key, this.pageno,this. items_perpage, this.org_id)
-      .subscribe((data: any[]) => {
-        this.workorderList = data;
-      });
+        .getworkorder(on_date, this.emp_key, this.pageno, this.items_perpage, this.org_id)
+        .subscribe((data: any[]) => {
+          this.workorderList = data;
+          if (this.workorderList[0].totalItems > this.items_perpage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.workorderList[0].totalItems <= this.items_perpage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
+        });
     }
   }
   deleteWorkOrdersPage() {
-   
+
     var deleteWorkOrderList = [];
     var deleteWorkOrderString;
 
@@ -459,6 +535,7 @@ export class ViewWorkOrdersComponent implements OnInit {
         this.workorderKey = [];
         alert("work order deleted successfully");
         this.viewWO_Filter();
+
       });
   }
 

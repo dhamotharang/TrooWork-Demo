@@ -81,81 +81,78 @@ export class CreateemployeeComponent implements OnInit {
   constructor(private PeopleServiceService: PeopleServiceService, private router: Router) { }
   OrganizationChanged() {
     this.PeopleServiceService.getJobTitle(this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
-      // debugger;
       this.jobtitle = data;
     });
     this.PeopleServiceService.getDepartment(this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
-      // debugger;
       this.department = data;
     });
   }
   createEmployee() {
-    debugger;
 
-    if (!(this.OrganizationID) ) {
+    if (!(this.OrganizationID)) {
       alert("Organization Not provided !");
       return;
     }
-    if (!(this.EmployeeNumber) ) {
+    if (!(this.EmployeeNumber)) {
       alert("Employee Number Not provided !");
       return;
     }
-    if (!(this.UserRoleTypeKey) ) {
+    if (!(this.UserRoleTypeKey)) {
       alert("User Role Type Not provided !");
       return;
     }
-    if (this.showManager === true && !(this.ManagerKey) ) {
+    if (this.showManager === true && !(this.ManagerKey)) {
       alert("Manager Not provided !");
       return;
     }
     else {
       this.ManagerKey = -1;
     }
-    if (!(this.FirstName )) {
+    if (!(this.FirstName)) {
       alert("First Name Not provided !");
       return;
     }
-    if (!(this.LastName) ) {
+    if (!(this.LastName)) {
       alert("LastName Not provided !");
       return;
     }
-    if (!(this.Gender) ) {
+    if (!(this.Gender)) {
       alert("Gender Not provided !");
       return;
     }
-    if (!(this.PrimaryPhone) ) {
+    if (!(this.PrimaryPhone)) {
       alert("Primary Phone Not provided !");
       return;
     }
-    if (!(this.HireDate) ) {
+    if (!(this.HireDate)) {
       alert("HireDate Not provided !");
       return;
     }
-    if (!(this.JobTitleKey) ) {
+    if (!(this.JobTitleKey)) {
       this.JobTitleKey = -1;
     }
-    if (!(this.DepartmentKey) ) {
+    if (!(this.DepartmentKey)) {
       this.DepartmentKey = -1;
     }
     var BD;
-    var currentDate=this.convert_DT(new Date());
-   
-    if (!(this.BirthDate) ) {
+    var currentDate = this.convert_DT(new Date());
+
+    if (!(this.BirthDate)) {
       BD = this.convert_DT(new Date());
     }
     else {
       BD = this.convert_DT(this.BirthDate);
     }
     var HD = this.convert_DT(this.HireDate);
-    if(BD > currentDate){
+    if (BD > currentDate) {
       alert("Wrong BirthDate !");
       return;
     }
-    if(HD >currentDate){
+    if (HD > currentDate) {
       alert("Wrong HireDate !");
       return;
     }
-    if( HD <BD){
+    if (HD < BD) {
       alert("HireDate must be greater than birth date !");
       return;
     }
@@ -163,21 +160,20 @@ export class CreateemployeeComponent implements OnInit {
     var str = "";
     str = this.FirstName + '' + this.LastName;
     this.PeopleServiceService.checkEmpNumber(this.EmployeeNumber, this.employeekey, this.OrganizationID)
-    .subscribe((data: any[]) => {
-      if (data[0].count > 0) {
-        alert("Employee Number already exists");
-      }
-      else {
-    this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID, this.ManagerKey, this.EmployeeNumber, this.UserRoleTypeKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.theCheckbox, this.JobTitleKey, this.DepartmentKey, this.employeekey)
       .subscribe((data: any[]) => {
-        //  debugger;
-        this.temp_res = data;
-        alert("Employee Created !");
-        var empKey = this.temp_res.EmployeeKey;
-        this.router.navigate(['/setUserLoginSuper', empKey, str, this.UserRoleTypeKey]);
+        if (data[0].count > 0) {
+          alert("Employee Number already exists");
+        }
+        else {
+          this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID, this.ManagerKey, this.EmployeeNumber, this.UserRoleTypeKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.theCheckbox, this.JobTitleKey, this.DepartmentKey, this.employeekey)
+            .subscribe((data: any[]) => {
+              this.temp_res = data;
+              alert("Employee Created !");
+              var empKey = this.temp_res.EmployeeKey;
+              this.router.navigate(['/setUserLoginSuper', empKey, str, this.UserRoleTypeKey, this.OrganizationID]);
+            });
+        }
       });
-    }
-  });
   }
 
   numberValid(event: any) {
@@ -188,7 +184,7 @@ export class CreateemployeeComponent implements OnInit {
       event.preventDefault();
     }
   }
-  charValidation(event: any){
+  charValidation(event: any) {
     const patternChar = /[a-zA-Z ]/;
     let inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !patternChar.test(inputChar)) {
@@ -197,15 +193,13 @@ export class CreateemployeeComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
-    // this.OrgID = 21;
     this.OrganizationID = '';
     this.UserRoleTypeKey = '';
     this.Gender = '';
     this.JobTitleKey = '';
     this.DepartmentKey = '';
     this.UserRoleTypeKey = '';
-    this.ManagerKey='';
+    this.ManagerKey = '';
 
 
     var token = localStorage.getItem('token');
@@ -219,27 +213,13 @@ export class CreateemployeeComponent implements OnInit {
     this.PeopleServiceService
       .getUserRoleTypesa(this.OrgID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.useroletypesa = data;
       });
-    // this.PeopleServiceService
-    //   .getJobTitle(this.employeekey, this.OrgID)
-    //   .subscribe((data: People[]) => {
-    //     // debugger;
-    //     this.jobtitle = data;
-    //   });
     this.PeopleServiceService
       .getOrganization(this.OrgID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.organization = data;
       });
-    // this.PeopleServiceService
-    //   .getDepartment(this.employeekey, this.OrgID)
-    //   .subscribe((data: People[]) => {
-    //     // debugger;
-    //     this.department = data;
-    //   });
     this.PeopleServiceService
       .getUserRoleType(this.OrgID)
       .subscribe((data: any[]) => {
@@ -261,7 +241,7 @@ export class CreateemployeeComponent implements OnInit {
     }
   }
   selectUserType(userType) {
-    debugger;
+
     userType;
     if (userType == this.roleTypeKey) {
       this.showManager = true;

@@ -36,27 +36,44 @@ export class EditOrganizationComponent implements OnInit {
   }
 
   updateOrg(OName, ODesc, state, tid, loc, country, tename, email) {
-      debugger;
-    if(this.OrgDetail.OrganizationName=== ''){
-      alert('OrganizationName is not provided !');
-      return;
-    }
+      
+      if(OName &&!(OName.trim())){
+        alert('Organization Name not provided !');
+        return;
+      }
+      if(tid && !(tid.trim() ) ){
+        alert('Tenant ID not provided !');
+        return;
+      }
+      if(!(OName)){
+        alert('Organization Name not provided !');
+        return;
+      }
+      if( ! (tid) ){
+        alert('Tenant ID not provided !');
+        return;
+      }
     
 
     
     this.updatedby = this.employeekey;
     if (tid == this.temp_TenantID) {
-      this.organizationService.UpdateOrganizationDetails(OName, ODesc, state, tid, loc, country, tename, email, this.updatedby, this.OrgId$).subscribe(res => this.router.navigateByUrl('/ViewOrganization'));
-
+      this.organizationService.UpdateOrganizationDetails(OName, ODesc, state, tid, loc, country, tename, email, this.updatedby, this.OrgId$).subscribe((data: any[]) => {
+        alert("Organization Updated !"); 
+        this.router.navigateByUrl('/ViewOrganization');
+        });
     }
     else {
       this.organizationService.checkForTenantId(tid).subscribe((data: any[]) => {
         if (data[0].count == 0) {
-          this.organizationService.UpdateOrganizationDetails(OName, ODesc, state, tid, loc, country, tename, email, this.updatedby, this.OrgId$).subscribe(res => this.router.navigateByUrl('/ViewOrganization'));
+          this.organizationService.UpdateOrganizationDetails(OName, ODesc, state, tid, loc, country, tename, email, this.updatedby, this.OrgId$).subscribe((data: any[]) => {
+            alert("Organization Updated !"); 
+            this.router.navigateByUrl('/ViewOrganization');
 
+            });
         }
         else {
-          alert("Tenant ID already present !")
+          alert("Tenant ID already present !");
           return;
         }
 

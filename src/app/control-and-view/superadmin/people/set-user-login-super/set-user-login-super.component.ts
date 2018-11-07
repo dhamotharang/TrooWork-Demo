@@ -13,6 +13,8 @@ export class SetUserLoginSuperComponent implements OnInit {
   str$: Object;
   empKey$: Object;
   userRoleTypeKey$: Object;
+  Organization$
+
   sasemail: People[];
   orgid: Number = 21;
   password: String = 'troowork';
@@ -45,6 +47,7 @@ export class SetUserLoginSuperComponent implements OnInit {
     this.route.params.subscribe(params => this.empKey$ = params.EmployeeKey);
     this.route.params.subscribe(params => this.str$ = params.str);
     this.route.params.subscribe(params => this.userRoleTypeKey$ = params.UserRoleTypeKey);
+    this.route.params.subscribe(params => this.Organization$ = params.Organization);
   }
   ngOnInit() {
     var token = localStorage.getItem('token');
@@ -67,14 +70,15 @@ export class SetUserLoginSuperComponent implements OnInit {
           if (data[0].result == 'Exists') {
             alert("UserName already exists");
           } else {
-            this.peopleService.setLoginCreds(this.username, this.password, this.empKey$, this.employeekey, this.userRoleTypeKey$, this.OrganizationID)
+            this.peopleService.setLoginCreds(this.username, this.password, this.empKey$, this.employeekey, this.userRoleTypeKey$,  this.Organization$)
               .subscribe((data: any[]) => {
                 this.router.navigateByUrl('/Viewemployee');
-                if (data[0].length > 0) {
+                
+               
                   this.peopleService.getUserEmail(this.username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
                     this.managerMail = data[0].EmailID;
                     this.userMail = data[0].newmail;
-
+                   
                     if (this.userMail == null) {
                       alert("Login Credentials created for user Successfully! Mail not send , Mail-Id not found !");
                     } else {
@@ -91,7 +95,7 @@ export class SetUserLoginSuperComponent implements OnInit {
                         .subscribe(res => console.log('Mail Sent Successfully...'));
                     }
                   });
-                }
+                
               });
           }
         });

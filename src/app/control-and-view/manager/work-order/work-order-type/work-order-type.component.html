@@ -5,7 +5,7 @@
     <h4 class="refer"><b> WORK-ORDER TYPE</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/CreateWorkorderType" class="btn btn-primary" routerLinkActive="active">Create New Work-Order Type
+      <a routerLink="/CreateWorkorderType" class="btn btn-success" routerLinkActive="active"><b>CREATE WORK-ORDER TYPE</b>
       </a>
     </div>
     <form [formGroup]="searchform">
@@ -16,20 +16,20 @@
         <div *ngIf="searchform.controls.searchworkordertype.errors?.minlength">Minimum 3 characters required.</div>
       </div>
     </form>
-    <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
+    <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="bg-info">
       <table class="table table-responsive table-hover table-bordered table">
         <thead class="tableHead">
           <th> Work-Order Type </th>
           <th>Edit</th>
         </thead>
         <tbody>
-          <tr *ngFor="let x of workorderTypeList" class="r2">
+          <tr *ngFor="let x of workorderTypeList">
             <td>{{ x.WorkorderTypeName }}</td>
 
             <td>
-              <a routerLink="/EditWorkorderType/{{ x.WorkorderTypeKey}}" class="btn btn-primary">Edit</a>
-              <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show(); passWOT(x.WorkorderTypeKey)"
-                mdbWavesEffect>Delete</a>
+              <a routerLink="/EditWorkorderType/{{ x.WorkorderTypeKey}}" class="btn btn-primary"><b>EDIT</b></a>&nbsp;&nbsp;
+              <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show(); passWOT(x.WorkorderTypeKey)"
+                mdbWavesEffect><b>DELETE</b></a>
             </td>
           </tr>
           <tr *ngIf="build?.length == 0">

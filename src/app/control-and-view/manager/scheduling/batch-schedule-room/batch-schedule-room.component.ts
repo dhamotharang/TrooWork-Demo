@@ -92,29 +92,7 @@ export class BatchScheduleRoomComponent implements OnInit {
           .subscribe(res => {
             alert("Selected Rooms Successfully added to Schedule");
             this.router.navigateByUrl('/CreateBatchSchedule');
-            // this.allroomList = data;
           });
-        // addRoomInWorkOrderService.addRoomInWorkOrder(this.PaasWork, addRoomString, this.toServeremployeekey, this.OrganizationID).then(function (response) {
-        //   if (response.message == "Failed to authenticate token.") {
-        //     $rootScope.clickToOpen1("Please Re-Login to continue !");
-        //   }
-        //   else {
-        //     this.clickToOpen("Room Successfully added to Schedule !");
-        //     $state.go('managerDashboard.batchScheduleReportCreate');
-
-        //   }
-
-        //   if (this.showRoomTable) {
-        //     this.pageChangeHandler(this.pageno);
-        //   }
-        //   else if (this.showRoomTable1) {
-        //     this.viewRoomsFilterByAllFilters(this.viewRooms);
-        //   }
-        //   else if (this.showSearchRoomTable) {
-        //     this.searchRoomTable(this.searchRoom, this.currentPage);
-        //   }
-
-        // });
       }
     }
     else {
