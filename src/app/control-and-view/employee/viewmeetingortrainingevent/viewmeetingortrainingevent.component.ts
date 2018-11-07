@@ -62,11 +62,20 @@ export class ViewmeetingortrainingeventComponent implements OnInit {
   }
   searchMeeting(SearchValue) {
     var curr_date = this.convert_DT(new Date());
+    if (SearchValue.length >= 3){
     this.PeopleServiceService
       .SearchMeetingviewforemployee(SearchValue, this.toServeremployeekey, this.OrganizationID, curr_date).subscribe((data: People[]) => {
         this.viewmeeting = data;
-
+      
       });
+    }
+    else if (SearchValue.length == 0){
+      this.PeopleServiceService
+      .getMeetingTrainingViewforemployee(this.page, this.count, curr_date, this.toServeremployeekey, this.OrganizationID)
+      .subscribe((data: People[]) => {
+        this.viewmeeting = data;
+      });
+    }
 
   };
   ngOnInit() {

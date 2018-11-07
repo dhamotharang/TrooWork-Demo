@@ -37,7 +37,7 @@ export class DocumentsUploadComponent implements OnInit {
   }
 
   documentsList: Documents[];
-  FormtypeId: number;
+  FormtypeId;
   DescName: any;
   addUrl;
 
@@ -56,6 +56,8 @@ export class DocumentsUploadComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
+
+    this.FormtypeId="";
 
     this.documentService
       .getDocumentFolderNamesfordropdown(this.employeekey, this.OrganizationID)

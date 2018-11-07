@@ -40,10 +40,10 @@ export class ViewworkordersforemployeeComponent implements OnInit {
   toServeremployeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-  FacilityKey: Number;
-  FloorKey: Number;
-  RoomTypeKey: Number;
-  ZoneKey: Number;
+  FacilityKey;
+  FloorKey;
+  RoomTypeKey;
+  ZoneKey;
   fileName;
   result;
   submitFlag;
@@ -122,7 +122,6 @@ export class ViewworkordersforemployeeComponent implements OnInit {
   }
 
   selectFloorfromBuildings(facKey) {
-    //debugger;
     this.facikey = facKey;
     this.WorkOrderServiceService
       .getallFloorNames(facKey, this.OrganizationID)
@@ -135,13 +134,11 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     this.WorkOrderServiceService
       .getallZones(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: any[]) => {
-        // debugger;
         this.zoneList = data;
       });
     this.WorkOrderServiceService
       .getallRoomType(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: any[]) => {
-        // debugger;
         this.roomtypeList = data;
       });
   }
@@ -179,7 +176,6 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 
   }
   viewEmployeeWorkorderByFilter() {
-    // debugger;
     if (!this.WorkorderDate) {
       var date1 = this.convert_DT(new Date());
     }
@@ -195,13 +191,11 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     this.WorkOrderServiceService
       .getworkOrderTablewithOnDateOnly(this.pageNo,this.itemsPerPage,date1, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
-        // debugger;
         this.WorkorderDetTable = data;
       });
     this.WorkOrderServiceService
       .getworkOrderTablewithOnDateandToDateFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
       .subscribe((data: any[]) => {
-        // debugger;
         this.WorkorderDetTable = data;
         for (var i = 0; i < this.WorkorderDetTable.length; i++) {
           this.FinishButton[i] = true;
@@ -216,7 +210,6 @@ export class ViewworkordersforemployeeComponent implements OnInit {
   }
 
   workorderCompleted(i, barcodeRequired, photoRequired, workorderkey, file) {
-    //debugger;    
     this.countCancel = 1;
     this.countCancel1 = this.countCancel;
 
@@ -238,7 +231,6 @@ export class ViewworkordersforemployeeComponent implements OnInit {
       this.WorkOrderServiceService
         .UpdatewobyPhotoForEmployee(this.fileName, this.toServeremployeekey, workorderkey, this.OrganizationID)
         .subscribe((data: any[]) => {
-          //debugger;
         });
     }
     if (photoRequired !== 1 && barcodeRequired !== 1) {
@@ -260,7 +252,6 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     }
   };
   FileSelected(WorkorderKey) {
-    // debugger;
     this.addUrl = '?Workorderkey=' + WorkorderKey + '&EmployeeKey=' + this.toServeremployeekey + '&OrganizationID=' + this.OrganizationID;
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
@@ -268,7 +259,6 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     }
   }
   workorderFinish(i) {
-    // debugger;
     if (this.RowIndex || this.RowIndex === 0) {
       this.showbutton[this.RowIndex] = false;
     }
@@ -286,7 +276,6 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     }
   };
   cancelWorkorderSubmission(i) {
-    //debugger;
     if (this.RowIndex || this.RowIndex === 0) {
       //                var identity1 = "showbutton";
       this.showbutton[this.RowIndex] = false;
@@ -319,6 +308,11 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 
     //token ends
 
+    this.FacilityKey="";
+    this.FloorKey="";
+    this.ZoneKey="";
+    this.RoomTypeKey="";
+    this.WorkorderDate = new Date();
     var curr_date = this.convert_DT(new Date());
     this.WorkOrderServiceService
       .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
@@ -341,7 +335,6 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      //debugger;
 
       console.log('ImageUpload:uploaded:', item, status, response);
       this.fileName = item.file.name;

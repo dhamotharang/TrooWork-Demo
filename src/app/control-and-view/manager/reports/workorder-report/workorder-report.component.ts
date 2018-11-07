@@ -148,7 +148,6 @@ export class WorkorderReportComponent implements OnInit {
   }
 
   generateWorkOrderReport(from_date, to_date, FacilityKey, FloorKey, RoomTypeKey, ZoneKey, RoomKey, EmployeeKey, WorkorderStatusKey) {
-   // debugger;
     if (!(this.todate) ) {
      
        var date1 = this.convert_DT(this.fromdate);

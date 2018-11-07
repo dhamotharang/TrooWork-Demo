@@ -50,14 +50,13 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
     this.route.params.subscribe(params => this.userRoleTypeKey$ = params.UserRoleTypeKey);
    }
 
-   setUsernamePassword(){
-     debugger;
+   setUsernamePassword(){    
     if (!this.username) {
       alert("UserName can't be empty");
     } else {
       this.peopleService.checkUserName(this.username, this.empKey$, this.OrganizationID)
         .subscribe((data: any[]) => {
-          debugger;
+        
           if (data[0].result == 'Exists') {
             alert("UserName already exists");
             return;
@@ -69,7 +68,7 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
                   this.peopleService.getUserEmail(this.username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
                     this.managerMail = data[0].EmailID;
                     this.userMail = data[0].newmail;
-                    debugger;
+                   
                     if (this.userMail == null) {
                       alert("Login Credentials created for user Successfully! Mail not send , Mail-Id not found !");
                     } else {
@@ -109,7 +108,7 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
     this.username=this.str$;
     this.peopleService.getuserNamePasswordforsaveandSendemail(this.page, this.count, this.empKey$,this.orgid).subscribe((data: People[]) => {
       this.sasemail = data;
-      // debugger;
+     
     });
   }
 

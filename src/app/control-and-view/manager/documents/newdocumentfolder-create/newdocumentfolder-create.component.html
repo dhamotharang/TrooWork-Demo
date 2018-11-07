@@ -1,5 +1,4 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
   <br><br>
   <div style="text-align:center">
@@ -11,17 +10,16 @@
     <div class="row col-md-12">
       <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building" >Document Folder Name </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
-        <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"  [(ngModel)]="DocFolderName">
+        <input type="text" maxlength="25" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"  [(ngModel)]="DocFolderName">
       </div>
       <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
       <div class="col col-md-3"></div>
-      <div style="text-align:right" class="col-md-6"><a style="color:white !important" routerLink="/DocumentfolderView" class="btn btn-success"
-          routerLinkActive="active" (click)="addDocFold()"><b>Create New Document Folder</b>
-        </a></div>
+      <div style="text-align:right" class="col-md-6"><button style="color:white !important" class="btn btn-success" (click)="addDocFold()"><b>Create New Document Folder</b>
+      </button></div>
       <div style="text-align:left" class="col-md-3">
-        <a routerLink="/DocumentfolderView" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Go
+        <a routerLink="/DocumentfolderView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
             Back
           </b>
         </a></div>

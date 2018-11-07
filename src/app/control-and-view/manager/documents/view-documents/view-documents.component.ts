@@ -21,6 +21,7 @@ export class ViewDocumentsComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+  FormtypeId;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -68,11 +69,21 @@ export class ViewDocumentsComponent implements OnInit {
       });
   }
   searchFNDN(SearchValue) {
+    if (SearchValue.length >= 3){
     this.documentService
       .SearchFileNameandDescName(this.OrganizationID, SearchValue).subscribe((data: Documents[]) => {
         this.viewFolderDescriptionTable = data;
 
       });
+    }
+    else if (SearchValue.length == 0){
+      var formtype;
+      this.documentService
+      .getFileDetailsTablewithDropdown(formtype, this.employeekey, this.OrganizationID).subscribe((data: Documents[]) => {
+        this.searchFlag = true;
+        this.viewFolderDescriptionTable = data;
+      });
+    }
   }
   showFileDetailsTablebydropdown(formtype) {
     this.documentService
@@ -121,6 +132,7 @@ export class ViewDocumentsComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
+    this.FormtypeId="";
     this.documentService
       .getDocumentFolderNamesfordropdown(this.employeekey, this.OrganizationID)
       .subscribe((data: Documents[]) => {

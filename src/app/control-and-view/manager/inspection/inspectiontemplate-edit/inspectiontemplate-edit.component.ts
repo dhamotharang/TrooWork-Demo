@@ -61,7 +61,6 @@ export class InspectiontemplateEditComponent implements OnInit {
     }, 100)
   }
   deleteTemplate() {
-    // debugger;
     this.inspectionService
       .DeleteTemplate(this.delete_tempid, this.employeekey, this.OrganizationID).subscribe(() => {
         this.inspectionService
@@ -74,15 +73,22 @@ export class InspectiontemplateEditComponent implements OnInit {
 
   deleteTemplatePass(TemplateID) {
     this.delete_tempid = TemplateID;
-    // debugger;
   }
   searchTemplate(SearchValue) {
+    if (SearchValue.length >= 3){
     this.inspectionService
       .SearchTemplate(SearchValue, this.OrganizationID).subscribe((data: Inspection[]) => {
         this.inspectiontemplate = data;
-
       });
-
+    }
+    else if (SearchValue.length == 0)
+    {
+      this.inspectionService
+      .getInspectionTemplateDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: Inspection[]) => {
+        this.inspectiontemplate = data;
+      });
+    }
   };
   ngOnInit() {
 
@@ -98,7 +104,6 @@ export class InspectiontemplateEditComponent implements OnInit {
     this.inspectionService
       .getInspectionTemplateDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.inspectiontemplate = data;
       });
     this.searchform = this.formBuilder.group({

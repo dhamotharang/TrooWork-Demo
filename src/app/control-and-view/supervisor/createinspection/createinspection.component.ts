@@ -61,7 +61,7 @@ export class CreateinspectionComponent implements OnInit {
   private monthFormatter = new Intl.DateTimeFormat('en', { month: 'long' });
 
   public formatter = (_: Date) => {
-    return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
+    return `${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
   }
   convert_DT(str) {
     var date = new Date(str),
@@ -78,7 +78,7 @@ export class CreateinspectionComponent implements OnInit {
     this.inspectionService
       .getallFloorNames(facKey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
+       
         this.floors = data;
       });
   }
@@ -86,19 +86,19 @@ export class CreateinspectionComponent implements OnInit {
     this.inspectionService
       .getallZones(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
+      
         this.zone = data;
       });
     this.inspectionService
       .getallRooms(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
+       
         this.room = data;
       });
     this.inspectionService
       .getallRoomType(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
+     
         this.roomtype = data;
       });
   }
@@ -183,26 +183,26 @@ export class CreateinspectionComponent implements OnInit {
     this.inspectionService
       .getTemplateName(this.employeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
+      
         this.templateName = data;
       });
     this.inspectionService
       .getAuditorName(this.employeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
+      
         this.auditor = data;
         this.SupervisorKey = this.employeekey;
       });
     this.inspectionService
       .getEmployeeName(this.employeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
+     
         this.employee = data;
       });
     this.inspectionService
       .getBuildingName(this.employeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
+
         this.building = data;
       });
   }

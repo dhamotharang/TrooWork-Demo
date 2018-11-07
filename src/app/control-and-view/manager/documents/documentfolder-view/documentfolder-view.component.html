@@ -1,11 +1,11 @@
 <app-manager-dash-board></app-manager-dash-board>
-<div style="width: 100%;height: 100%;">
-  <div class="bg-dark" style="width: 100%;height: 100%;">
-    <br><br>
+<!-- <div style="width: 100%;height: 100%;">
+  <div class="bg-dark" style="width: 100%;height: 100%;"> -->
+    <div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
     <h4 class="refer"><b>DOCUMENT FOLDER</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/NewdocumentfolderCreate" class="btn btn-primary" routerLinkActive="active">Create New Document
+      <a routerLink="/NewdocumentfolderCreate" class="btn btn-success" routerLinkActive="active">Create New Document
         Folder
       </a>
     </div>
@@ -17,19 +17,19 @@
         <div *ngIf="searchform.controls.SearchDocFol.errors?.minlength">Minimum 3 characters required.</div>
       </div>
     </form>
-    <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
+    <div style="margin-left: 1.5rem;margin-right: 1.5rem;"class="bg-info">
       <table class="table table-responsive table-hover table-bordered table">
         <thead class="tableHead">
           <th> Document Folders </th>
           <th>Edit</th>
         </thead>
         <tbody>
-          <tr *ngFor="let d of documents" class="r2">
+          <tr *ngFor="let d of documents">
             <td>{{ d.FormType }}</td>
 
             <td>
-              <a routerLink="/DocumentfolderEdit/{{d.FormtypeId}}" class="btn btn-primary">Edit</a>
-              <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteFolderPass(d.FormtypeId); "
+              <a routerLink="/DocumentfolderEdit/{{d.FormtypeId}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+              <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteFolderPass(d.FormtypeId); "
                 mdbWavesEffect>Delete</a>
             </td>
           </tr>
@@ -64,4 +64,4 @@
       <button class="btn btn-success" (click)="nextPage()" *ngIf="showHide2">Next >></button>
     </div>
   </div>
-</div>
+

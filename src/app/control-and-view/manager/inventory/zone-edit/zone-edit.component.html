@@ -1,5 +1,4 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
   <br><br>
   <div style="text-align:center">
@@ -9,7 +8,7 @@
   <br>
   <div class="col-md-12">
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building">Building </label></h5>
+      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building">Building* </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="zoneEditValues.FacilityKey"
           (change)="selectFloorfromBuildings($event.target.value)">
@@ -22,7 +21,7 @@
       <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
-      <h5 style="text-align:right" class="col-md-4"><label for="floorname">Floor Name </label></h5>
+      <h5 style="text-align:right" class="col-md-4"><label for="floorname">Floor Name* </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="zoneEditValues.FloorKey">
           <option *ngFor="let f of floorList" [value]="f.FloorKey">
@@ -33,9 +32,9 @@
       <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
-      <h5 style="text-align:right" class="col-md-4"><label for="building">Zone Name </label></h5>
+      <h5 style="text-align:right" class="col-md-4"><label for="building">Zone Name* </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
-        <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="zoneEditValues.ZoneName">
+        <input type="text" maxlength="20" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="zoneEditValues.ZoneName">
       </div>
       <div class="col col-md-5"></div>
     </div>
@@ -50,7 +49,7 @@
       </button>
       </div>
       <div style="text-align:left" class="col-md-3">
-        <a routerLink="/Zoneview" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Go
+        <a routerLink="/Zoneview" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
             Back</b></a></div>
       <div class="col col-md-3"></div>
     </div>

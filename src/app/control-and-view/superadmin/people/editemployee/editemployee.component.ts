@@ -74,14 +74,14 @@ export class EditemployeeComponent implements OnInit {
 
   }
   deleteEmployee() {
-    debugger;
+   
 
     this.PeopleServiceService
       .DeleteEmployeeDetailsbySuperadmin(this.delete_EmpKey, this.OrganizationID, this.employeekey).subscribe(res => this.router.navigateByUrl('/Viewemployee'));
   }
   deleteEmpPass(empk$) {
     this.delete_EmpKey = empk$;
-    debugger;
+   
   }
   editEmployee(OrganizationID, UserRoleTypeKey, EmployeeNumber, ManagerKey, FirstName, LastName, MiddleName, BD, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, IsSupervisor, JobTitleKey, DepartmentKey, Gender) {
     var birthdt = this.convert_DT(BD);
@@ -111,37 +111,37 @@ export class EditemployeeComponent implements OnInit {
     this.PeopleServiceService
       .getOrganizationDDforSuprAdmin(this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
+       
         this.organization = data;
       });
     this.PeopleServiceService
       .getUserRoleTypesa(this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
+       
         this.useroletyp = data;
       });
     this.PeopleServiceService
       .getvaluesForManagerDropdowninSA(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
+        
         this.manager = data;
       });
     this.PeopleServiceService
       .getDepartmentforddinSuperadmin(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
+     
         this.department = data;
       });
     this.PeopleServiceService
       .getEmployeeStatusListforDropdowninSuperadmin(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
+   
         this.employeestatus = data;
       });
     this.PeopleServiceService
       .getjobTitleforDropdowninSuperadmin(this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
+       
         this.jobtitle = data;
       });
   }

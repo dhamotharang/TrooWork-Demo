@@ -1,5 +1,4 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
   <br><br>
   <div style="text-align:center">
@@ -35,7 +34,7 @@
     <div class="row col-md-12">
         <h5 style="text-align:right" class="col-md-4"><label for="building" >Zone Name* </label></h5>
         <div class="md-form col-md-3" style="text-align:left">
-            <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"  [(ngModel)]="ZoneName">
+            <input type="text" maxlength="20" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"  [(ngModel)]="ZoneName">
         </div>
         <div class="col col-md-5"></div>
       </div>
@@ -43,10 +42,10 @@
     <div class="row col-md-12">
       <div class="col col-md-3"></div>
       <div style="text-align:right" class="col-md-3"><button style="color:white !important"  class="btn btn-success"
-         (click)="addZone(FacilityKey,FloorName,ZoneName)"><b>Add New Zone</b>
+         (click)="addZone(FacilityKey,FloorName,ZoneName,FloorKey)"><b>ADD NEW ZONE</b>
       </button></div>
       <div style="text-align:left" class="col-md-3">
-        <a routerLink="/Zoneview" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Go
+        <a routerLink="/Zoneview" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
             Back
           </b>
         </a></div>

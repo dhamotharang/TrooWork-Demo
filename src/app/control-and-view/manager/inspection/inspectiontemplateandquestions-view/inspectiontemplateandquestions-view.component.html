@@ -1,7 +1,6 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
+<!-- <div *ngIf="!loading" class="py-5 " style="padding-left: 9rem;padding-right: 9rem;"> -->
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
-  <br><br>
   <div style="text-align:center">
     <h3 style="color: #174a5e;"><strong>INSPECTION TEMPLATES AND QUESTIONS</strong></h3>
   </div>
@@ -10,7 +9,7 @@
         <div class="col-md-6 ">
       <div class="md-form col-md-3" style="text-align:left">
           <select style="background-color: #D4F4FF !important;width: 29rem" class="form-control" [(ngModel)]="TemplateID" (change)="showInspectionTemplateTable($event.target.value)">
-              <option >--Choose a Template--</option>             
+              <option value="" >--Choose a Template--</option>             
               <option *ngFor="let t of template" [value]="t.TemplateID">
                   {{t.TemplateName}}
               </option>
@@ -23,18 +22,19 @@
   </div>
 </div>
   <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
+  <div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
  <div *ngIf='searchFlag'>
   <form [formGroup]="searchform" >
     <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
       <input class="form-control" name="searchtemplatenameandquestion" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
-        placeholder="Search Template Name,Template Question" aria-label="Search" [(ngmodel)]="searchTemplateNameAndQuestion" formControlName="searchTemplateNameAndQuestion"
+        placeholder="Search Template Name" aria-label="Search" [(ngmodel)]="searchTemplateNameAndQuestion" formControlName="searchTemplateNameAndQuestion"
         (input)="searchTNandTQ($event.target.value,TemplateID);" style="width: 100%;">
       <div *ngIf="searchform.controls.searchTemplateNameAndQuestion.errors?.minlength">Minimum 3 characters required.</div>
     </div>
   </form>
 </div>
-  <table *ngIf='viewinspectionTemplate' id="inspectemplate" class="table table-hover table-responsive table-bordered table">
-    
+<div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="bg-info">
+  <table *ngIf='viewinspectionTemplate' id="inspectemplate" class="table table-hover table-responsive table-bordered table">  
     <thead class="tableHead">
       <th> Template Name </th>
       <th> Template Question </th>
@@ -46,9 +46,12 @@
           <td>{{v.TemplateName}}</td>
           <td>{{v.Question}}</td>
           <td>{{v.ScoreName}}</td>
-          <td> <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteInspTemplatePass(v.TemplateID,v.TemplateQuestionID);"
+          <td> <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteInspTemplatePass(v.TemplateID,v.TemplateQuestionID);"
             mdbWavesEffect>Delete</a></td>
         </tr>
+        <tr *ngIf="viewinspectionTemplate?.length == 0">
+            <td colspan="2" class="no-data-available">No records found</td>
+          </tr>
         <div mdbModal #basicModal="mdbModal" class="modal fade" role="dialog" aria-labelledby="myBasicModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -73,3 +76,5 @@
       </div>
     </tbody>
 </table>
+</div>
+</div>

@@ -28,7 +28,7 @@ export class InspectionViewComponent implements OnInit {
   //Variables for pagination
 
   pageNo: Number = 1;
-  itemsPerPage: Number = 5;
+  itemsPerPage: Number = 25;
   showHide1: boolean;
   showHide2: boolean;
   pagination: Number;
@@ -92,7 +92,6 @@ export class InspectionViewComponent implements OnInit {
     this.inspectionService
     .getInspectionOrderTablewithFromCurrentDateFilter(curr_date, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
     .subscribe((data: Inspection[]) => {
-      // debugger;
       this.inspectionordertable = data;
         this.pagination = +this.inspectionordertable[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
         if (this.pagination > 1) {
@@ -111,7 +110,6 @@ export class InspectionViewComponent implements OnInit {
     this.inspectionService
     .getInspectionOrderTablewithFromCurrentDateFilter(curr_date, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
     .subscribe((data: Inspection[]) => {
-      // debugger;
       this.inspectionordertable = data;
         if (this.pageNo == 1) {
           this.showHide2 = true;
@@ -126,6 +124,15 @@ export class InspectionViewComponent implements OnInit {
   //functions for pagination 
 
   filteringInspectionManagerByDate() {
+   
+    // var fromdate = this.convert_DT(from_date);
+    // var todate = this.convert_DT(to_date);
+    if (this.todate && this.fromdate > this.todate) {
+      this.todate = null;
+      alert("Please check your Start Date!");
+      return;
+    }
+
     this.loading = true;// loading
     if (!this.fromdate) {
       var date1 = this.convert_DT(new Date());
@@ -148,7 +155,6 @@ export class InspectionViewComponent implements OnInit {
     this.inspectionService
       .getInspectionOrderTablewithFromDateandToDateFilter(date1, date2, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.inspectionordertable = data;
         this.loading = false;// loading
       });
@@ -156,7 +162,6 @@ export class InspectionViewComponent implements OnInit {
   }
   searchTL(SearchValue) {
     // var curr_date;
-    // debugger;
     if (!this.fromdate) {
       var date1 = this.convert_DT(new Date());
     }
@@ -181,7 +186,6 @@ export class InspectionViewComponent implements OnInit {
       this.inspectionService
       .getInspectionOrderTablewithFromCurrentDateFilter(curr_date, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.inspectionordertable = data;
         // this.loading = false;// loading
       });
@@ -208,7 +212,6 @@ export class InspectionViewComponent implements OnInit {
     this.inspectionService
       .getInspectionOrderTablewithFromCurrentDateFilter(curr_date, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.inspectionordertable = data;
         if (this.inspectionordertable[0].totalItems > this.itemsPerPage) {
           this.showHide2 = true;

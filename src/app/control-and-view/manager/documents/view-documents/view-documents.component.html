@@ -1,5 +1,4 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
   <br><br>
   <div style="text-align:center">
@@ -12,7 +11,7 @@
           <div class="form-group">
         <label> Document Folder</label><br>
           <select style="background-color: #D4F4FF !important;width: 29rem" class="form-control" [(ngModel)]="FormtypeId" (change)="showFileDetailsTablebydropdown($event.target.value)">
-              <option >--Select--</option>             
+              <option value="">--Select--</option>             
               <option *ngFor="let d of documentsList" [value]="d.FormtypeId">
                   {{d.FormType}}
               </option>
@@ -25,6 +24,7 @@
   </div>
 </div>
   <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
+  <div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
  <div *ngIf='searchFlag'>
   <form [formGroup]="searchform" >
     <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
@@ -35,6 +35,7 @@
     </div>
   </form>
 </div>
+<div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="bg-info">
   <table *ngIf='viewFolderDescriptionTable' id="viewfilesinfolders" class="table table-hover table-responsive table-bordered table">
     
     <thead class="tableHead">
@@ -53,5 +54,10 @@
             return false;"><button type="button" mdbBtn color="primary" class="relative waves-light"
             mdbWavesEffect>View</button></a></td>
         </tr>
+        <tr *ngIf="viewFolderDescriptionTable?.length == 0">
+          <td colspan="2" class="no-data-available">No records found</td>
+        </tr>
     </tbody>
 </table>
+</div>
+</div>

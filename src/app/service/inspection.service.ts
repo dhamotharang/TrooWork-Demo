@@ -32,7 +32,6 @@ export class InspectionService {
       .get('http://localhost:3000/api/domainvaluesByKey?domain=facilityOnly' + '&key=' + key + '&OrganizationID=' + orgID);
   }
   getallZones(fkey, flkey, orgID) {
-    // debugger;
     return this
       .http
       .get('http://localhost:3000/api/zoneByFacility_Floor?fkey=' + fkey + '&floorkey=' + flkey + '&OrganizationID=' + orgID);
@@ -63,7 +62,7 @@ export class InspectionService {
     };
     return this
       .http
-      .post(url, obj).subscribe(res => console.log('Done'));
+      .post(url, obj);
   }
   createInspections(TemplateID, SupervisorKey, fromdate, todate, theCheckbox, time, RoomKey, employee, empKey, orgID) {
     const url = 'http://localhost:3000/api/addInspectionOrderwithRecurring';
@@ -245,6 +244,11 @@ export class InspectionService {
       .http
       .get('http://localhost:3000/api/getSupervisorInspectionView?to_date=' + curr_date + '&employeekey=' + toservempkey + '&OrganizationID=' + orgid);
 
+  }
+  checkforTemplate(InspTempName,OrganizationID){
+    return this
+    .http
+    .get('http://localhost:3000/api/checkForTemplate?templateName='+InspTempName+'&OrganizationID='+OrganizationID);
   }
 }
 

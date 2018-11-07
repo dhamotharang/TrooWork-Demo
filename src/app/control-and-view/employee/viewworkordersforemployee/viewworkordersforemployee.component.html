@@ -1,7 +1,7 @@
 <app-employee-dashboard></app-employee-dashboard>
-<div style="width: 100%;height: 100%;">
-    <div class="bg-dark" style="width: 100%;height: 100%;">
-        <br><br>
+<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+<!-- <div style="width: 100%;height: 100%;">
+    <div class="bg-dark" style="width: 100%;height: 100%;"> -->
         <h4 class="refer"><b>SEARCH WORK ORDER BY</b> </h4>
         <br>
 
@@ -22,7 +22,7 @@
                 <label class="col-sm-2 col-md-2 col-lg-2  control-label">Building*</label>
                 <div class="col-sm-3 col-md-2 col-lg-2">
                     <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="FacilityKey" class="form-control" (change)="selectFloorfromBuildings($event.target.value);viewEmployeeWorkorderByFilter()" >
-                        <option>--Select--</option>
+                        <option value="">--Select--</option>
                         <option *ngFor="let z of facilityList" [value]="z.FacilityKey">
                             {{z.FacilityText}}
                         </option>
@@ -32,8 +32,8 @@
                 <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xs-12">
                     <label class="col-sm-2 col-md-2 col-lg-2 control-label">Floor*</label>
                     <div class="col-sm-2 col-md-2 col-lg-2">
-                        <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="FloorKey" class="form-control" (change)="selectZoneRoomtypefromFloor($event.target.value);viewEmployeeWorkorderByFilter()" >
-                            <option>--Select--</option>
+                        <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="FloorKey" [disabled]="!FacilityKey" class="form-control" (change)="selectZoneRoomtypefromFloor($event.target.value);viewEmployeeWorkorderByFilter()" >
+                            <option value="">--Select--</option>
                             <option *ngFor="let z of floorList" [value]="z.FloorKey">
                                 {{z.FloorName}}
                             </option>
@@ -43,8 +43,8 @@
                     <!-- <div class = "col-sm-4 col-md-4 col-lg-4"> -->
                     <label class="col-sm-2 col-md-2 col-lg-2  control-label">Zone</label>
                     <div class="col-sm-2 col-md-2 col-lg-2">
-                        <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="ZoneKey" class="form-control" (change)="viewEmployeeWorkorderByFilter()">
-                            <option>--Select--</option>
+                        <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="ZoneKey"  [disabled]="!FloorKey" class="form-control" (change)="viewEmployeeWorkorderByFilter()">
+                            <option value="">--Select--</option>
                             <option *ngFor="let z of zoneList" [value]="z.ZoneKey">
                                 {{z.ZoneName}}
                             </option>
@@ -52,8 +52,8 @@
                     </div>
                     <label class="col-sm-2 col-md-2 col-lg-2  control-label">Room Type</label>
                     <div class="col-sm-2 col-md-2 col-lg-2">
-                        <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="RoomTypeKey" class="form-control">
-                            <option>--Select--</option>
+                        <select style="background-color: #d4f4ff !important;width: 50%;" [disabled]="!FloorKey" [(ngModel)]="RoomTypeKey" class="form-control">
+                            <option value="">--Select--</option>
                             <option *ngFor="let z of roomtypeList" [value]="z.RoomTypeKey">
                                 {{z.RoomTypeName}}
                             </option>
@@ -73,7 +73,7 @@
                 </div>
             </form>
             <!-- </div> -->
-            <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
+            <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="bg-info">
                 <table class="table table-responsive table-hover table-bordered table">
                     <thead class="tableHead">
                         <th> Workorder Type Name </th>
@@ -124,6 +124,9 @@
                                 </div>
                             </td>
                         </tr>
+                        <tr *ngIf="WorkorderDetTable?.length == 0">
+                                <td colspan="2" class="no-data-available">No records found</td>
+                              </tr>
                     </tbody>
                 </table>
             </div>

@@ -13,6 +13,9 @@ export class InspectiontemplateCreateComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+  ScoreTypeKey;
+  InspTempName;
+  
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -45,7 +48,26 @@ export class InspectiontemplateCreateComponent implements OnInit {
     this.fieldArray.splice(index, 1);
   }
   valuesSave(ScoreTypeKey, InspTempName) {
-    debugger;
+   
+    var ScoringTypeKey;
+    var TemplateID;
+    var templatename;
+    if (ScoreTypeKey) {
+      ScoringTypeKey = this.ScoreTypeKey;
+      }
+      else {
+      ScoringTypeKey = null;
+              alert("Scoring Type is not provided !");
+              return;
+      }
+      if (InspTempName) {
+        templatename = this.InspTempName;
+        }
+        else {
+        templatename = null;
+            alert("Inspection Template Name is not provided !");
+                return;
+        }
     var arr = [];
     var t1;
     for (var i in this.fieldArray) {
@@ -62,7 +84,29 @@ export class InspectiontemplateCreateComponent implements OnInit {
     }
     QustArry = TempQustArry.join(',');
     // QustArry=TempQustArry;
-    this.inspectionService.createInspectionTemplate(ScoreTypeKey, InspTempName, QustArry, this.employeekey, this.OrganizationID);
+    if (QustArry === ''){
+      QustArry = null;
+              alert(" Questions are not provided !");
+              return;
+      }
+      this.inspectionService.checkforTemplate(InspTempName,this.OrganizationID).subscribe(res => {
+        if (res[0].count == 0){
+    this.inspectionService.createInspectionTemplate(ScoreTypeKey, InspTempName, QustArry, this.employeekey, this.OrganizationID).subscribe(res => {
+    
+      this.ScoreTypeKey = null;
+    this.InspTempName = null;
+    this.newAttribute.question=[];
+    alert("Inspection Template Added !");
+  });
+  }
+  else{
+   
+    this.ScoreTypeKey = null;
+    this.InspTempName = null; 
+    this.newAttribute.question=[];
+     alert("Template Name already exists !");
+}
+  });
   }
   ngOnInit() {
 
@@ -79,7 +123,6 @@ export class InspectiontemplateCreateComponent implements OnInit {
     this.inspectionService
       .getScoreTypeList(this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.scores = data;
       });
   }

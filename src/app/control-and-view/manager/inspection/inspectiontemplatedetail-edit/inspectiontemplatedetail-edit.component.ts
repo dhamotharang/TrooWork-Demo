@@ -82,7 +82,6 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
     this.newAttribute.push('');
   }
   addtempId(tempKeys) {
-    debugger;
     this.temparray.push(tempKeys);
   }
   deleteFieldValue(TemplateQuestionID) {
@@ -99,7 +98,6 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
     this.newAttribute.splice(index, 1);
   }
   savetemplate() {
-    debugger;
     var temp_updateArry = this.fieldArray;
     var temp_insertArry = this.newAttribute;
     var temp_TemplateQuestionID;
@@ -141,6 +139,7 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
     }
     this.inspectionService
       .updateTemplateDetails(this.TemplateEditDetails.TemplateName, this.tempID, this.OrganizationID, this.TemplateEditDetails.ScoreTypeKey).subscribe(() => {
+        alert("Successfully Updated");
         this.router.navigateByUrl('InspectiontemplateEdit');
       });
 

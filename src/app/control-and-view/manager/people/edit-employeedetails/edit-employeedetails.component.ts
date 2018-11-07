@@ -81,14 +81,11 @@ export class EditEmployeedetailsComponent implements OnInit {
   }
 
   deleteEmployee() {
-    debugger;
-
     this.PeopleServiceService
       .DeleteEmployeeDetailsbyManager(this.delete_EmpKey, this.OrganizationID, this.updatedby).subscribe(res => this.router.navigateByUrl('/ViewEmployee'));
   }
   deleteEmpPass(empk$) {
     this.delete_EmpKey = empk$;
-    debugger;
   }
   ngOnInit() {
 

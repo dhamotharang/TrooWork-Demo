@@ -1,11 +1,11 @@
 <app-manager-dash-board></app-manager-dash-board>
-<div style="width: 100%;height: 100%;">
-  <div class="bg-dark" style="width: 100%;height: 100%;">
-    <br><br>
+<!-- <div style="width: 100%;height: 100%;">
+  <div class="bg-dark" style="width: 100%;height: 100%;"> -->
+      <div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
     <h4 class="refer"><b> ZONE</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/Createzone" class="btn btn-primary" routerLinkActive="active">Create New Zone</a></div>
+      <a routerLink="/Createzone" class="btn btn-success" routerLinkActive="active">Create New Zone</a></div>
     <form [formGroup]="searchform">
       <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
         <input class="form-control" name="searchzoneview" type="text" maxlength="20" specialIsAlphaNumeric minlength="3"
@@ -14,7 +14,7 @@
         <div *ngIf="searchform.controls.SearchZone.errors?.minlength">Minimum 3 characters required.</div>
       </div>
     </form>
-    <div style="margin-left: 1.5rem;margin-right: 1.5rem;"></div>
+    <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="bg-info">
     <table class="table table-hover table-responsive table-bordered table">
       <thead class="tableHead">
         <!-- <tr> -->
@@ -29,8 +29,8 @@
           <td>{{ x.FacilityName }}</td>
           <td>{{ x.FloorName }}</td>
           <td>{{ x.ZoneName }}</td>
-          <td><a routerLink="/Zonedit/{{ x.FloorKey}}/{{x.FacilityKey}}/{{x.ZoneKey}}" class="btn btn-primary">Edit</a>
-            <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteZoneValuePass(x.FacilityKey,x.FloorKey,x.ZoneKey); "
+          <td><a routerLink="/Zonedit/{{ x.FloorKey}}/{{x.FacilityKey}}/{{x.ZoneKey}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+            <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteZoneValuePass(x.FacilityKey,x.FloorKey,x.ZoneKey); "
               mdbWavesEffect>Delete</a></td>
         </tr>
         <tr *ngIf="zone?.length == 0">
@@ -63,3 +63,5 @@
     </table>
     <button class="btn btn-success" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
     <button class="btn btn-success" (click)="nextPage()" *ngIf="showHide2">Next >></button>
+  </div>
+  </div>

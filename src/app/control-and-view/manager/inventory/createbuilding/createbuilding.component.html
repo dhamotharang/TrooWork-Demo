@@ -1,5 +1,4 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
   <br><br>
   <div style="text-align:center">
@@ -11,7 +10,7 @@
     <div class="row col-md-12">
       <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building" >Building Name* </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
-        <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" mdbInputDirective [(ngModel)]="BuildingName">
+        <input type="text" maxlength="19"style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="BuildingName">
       </div>
       <div class="col col-md-5"></div>
     </div>

@@ -17,7 +17,7 @@ export class ViewEmployeeComponent implements OnInit {
   showHide1: boolean;
   showHide2: boolean;
   pagination: Number;
-
+  JobTitleKey;
   role: String;
   name: String;
   employeekey: Number;
@@ -104,6 +104,7 @@ export class ViewEmployeeComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
+    this.JobTitleKey="";
     this.PeopleServiceService
       .getJobTitle(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {

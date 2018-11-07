@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class DocumentfolderEditComponent implements OnInit {
   folder;
   folder$: Object;
-
+  // folder.FormType;
   role: String;
   name: String;
   employeekey: Number;
@@ -40,7 +40,20 @@ export class DocumentfolderEditComponent implements OnInit {
   }
 
   updateFolderName() {
-    this.documentService.UpdateDocumentFolderName(this.folder$, this.folder.FormType, this.employeekey, this.OrganizationID).subscribe(res => console.log('Done'));
+    if(this.folder.FormType && !this.folder.FormType.trim()){
+      alert("Please Enter Document Folder Name!");
+      return;
+    }
+    if(!this.folder.FormType){
+      alert("Document Folder Name not provided");
+      return;
+    }
+    else{
+    this.documentService.UpdateDocumentFolderName(this.folder$, this.folder.FormType, this.employeekey, this.OrganizationID).subscribe((data: Documents[])=> {
+      alert("Successfully Updated");
+      this.router.navigateByUrl('/DocumentfolderView');
+    });
+  }
   }
 
   ngOnInit() {

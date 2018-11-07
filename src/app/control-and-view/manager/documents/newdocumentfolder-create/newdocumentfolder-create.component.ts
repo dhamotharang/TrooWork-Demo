@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { DocumentserviceService } from '../../../../service/documentservice.service';
 import { Documents } from '../../../../model-class/Documents';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-newdocumentfolder-create',
   templateUrl: './newdocumentfolder-create.component.html',
   styleUrls: ['./newdocumentfolder-create.component.scss']
 })
 export class NewdocumentfolderCreateComponent implements OnInit {
+ 
   DocFolderName: any;
 
   role: String;
@@ -32,13 +34,24 @@ export class NewdocumentfolderCreateComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private documentService: DocumentserviceService) { }
+  constructor(private documentService: DocumentserviceService,private router: Router) { }
 
   addDocFold() {
-    debugger;
-
-    this.documentService.CreateNewDocumentFolder(this.DocFolderName, this.employeekey, this.OrganizationID).subscribe(res => console.log('Done'));
-  }
+    if(this.DocFolderName && !this.DocFolderName.trim()){
+      alert("Please Enter Document Folder Name!");
+      return;
+    }
+    if(!this.DocFolderName){
+      alert("Document Folder Name not provided");
+      return;
+    }
+     else{
+    this.documentService.CreateNewDocumentFolder(this.DocFolderName, this.employeekey, this.OrganizationID).subscribe((data: Documents[]) => {
+      alert("Successfully Added");
+      this.router.navigateByUrl('/DocumentfolderView');
+    });
+   }
+}
   ngOnInit() {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];

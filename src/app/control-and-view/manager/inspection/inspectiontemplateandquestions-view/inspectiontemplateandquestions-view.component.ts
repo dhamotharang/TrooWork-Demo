@@ -14,6 +14,7 @@ export class InspectiontemplateandquestionsViewComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+  TemplateID;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -63,13 +64,11 @@ export class InspectiontemplateandquestionsViewComponent implements OnInit {
     this.inspectionService
       .getInspectionTemplateTable(tempKey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.searchFlag = true;
         this.viewinspectionTemplate = data;
       });
   }
   deleteInspTemplate() {
-    debugger;
     this.inspectionService
       .DeleteInspectionTemplate(this.delete_tempId, this.templateQuestionID, this.employeekey, this.OrganizationID).subscribe(() => {
         this.inspectionService
@@ -83,14 +82,24 @@ export class InspectiontemplateandquestionsViewComponent implements OnInit {
   deleteInspTemplatePass(templateID, templateQuestionID) {
     this.delete_tempId = templateID;
     this.templateQuestionID = templateQuestionID;
-    debugger;
   }
   searchTNandTQ(SearchValue, TemplateID) {
+    if (SearchValue.length >= 3){
     this.inspectionService
       .SearchTempNameandQuestion(SearchValue, TemplateID, this.OrganizationID).subscribe((data: Inspection[]) => {
         this.viewinspectionTemplate = data;
 
       });
+    }
+    else if (SearchValue.length == 0) {
+      var tempKey;
+      this.inspectionService
+      .getInspectionTemplateTable(tempKey, this.OrganizationID)
+      .subscribe((data: Inspection[]) => {
+        this.searchFlag = true;
+        this.viewinspectionTemplate = data;
+      });
+    }
   }
   ngOnInit() {
 
@@ -104,10 +113,10 @@ export class InspectiontemplateandquestionsViewComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.searchFlag = false;
+    this.TemplateID = "";
     this.inspectionService
       .getTemplateNameList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.template = data;
       });
     this.searchform = this.formBuilder.group({

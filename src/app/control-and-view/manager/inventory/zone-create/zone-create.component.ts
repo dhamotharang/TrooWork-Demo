@@ -35,7 +35,19 @@ export class ZoneCreateComponent implements OnInit {
   }
   constructor(private inventoryService: InventoryService, private router: Router) { }
 
-  addZone(FacilityKey, FloorName, ZoneName) {
+  addZone(FacilityKey, FloorName, ZoneName,FloorKey) {
+    if(FacilityKey=="--Select--"){
+      alert("Please Choose Building!");
+      return;
+    }
+    if(FloorKey=="--Select--"){
+      alert("Please Choose Floor!");
+      return;
+    } 
+    else if(ZoneName && !ZoneName.trim()){
+      alert("Please Enter Zone Name!");
+      return;
+    }
     if (!FacilityKey) {
       alert("Please select a building!");
     } else if (!FloorName) {

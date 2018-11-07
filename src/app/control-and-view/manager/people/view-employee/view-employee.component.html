@@ -1,6 +1,4 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
-
 <div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
   <div class="row col-md-12 ">
@@ -17,7 +15,7 @@
           <div class="md-form col-md-10" style="text-align:left">
             <select [(ngModel)]="JobTitleKey" style="width: 31.5rem; background-color: #d4f4ff;" class="form-control"
               (change)="getempdettablewithselectedJobtitle($event.target.value)">
-              <option value="" selected>--Select--</option>
+              <option value="" >--Select--</option>
               <option *ngFor="let j of jobtitle" [value]="j.JobTitleKey">
                 {{j.JobTitleText}}
               </option>

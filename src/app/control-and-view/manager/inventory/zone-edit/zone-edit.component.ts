@@ -60,7 +60,12 @@ export class ZoneEditComponent implements OnInit {
   }
 
   updateZone(FacilityKey, FacilityName, FloorName, FloorKey, ZoneKey, ZoneName) {
-    debugger;
+    //debugger;
+   
+   if(ZoneName && !ZoneName.trim()){
+      alert("Please Enter Zone Name!");
+      return;
+    }
     if (!FacilityKey) {
       FacilityKey = null;
       alert("Building name is not provided !");

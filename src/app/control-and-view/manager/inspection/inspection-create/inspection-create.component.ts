@@ -14,6 +14,11 @@ export class InspectionCreateComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+  Building;
+  Floor;
+  Zone;
+  Employee;
+  RoomType;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -51,11 +56,7 @@ export class InspectionCreateComponent implements OnInit {
   RoomKey;
   emp_key: Number;
   org_id: Number;
-  Building;
-  Floor;
-  Zone;
-  Employee;
-  RoomType;
+  
 
   // adding properties and methods that will be used by the igxDatePicker
 
@@ -65,7 +66,7 @@ export class InspectionCreateComponent implements OnInit {
   private monthFormatter = new Intl.DateTimeFormat('en', { month: 'long' });
 
   public formatter = (_: Date) => {
-    return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
+    return ` ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
   }
   convert_DT(str) {
     var date = new Date(str),
@@ -75,12 +76,12 @@ export class InspectionCreateComponent implements OnInit {
   };
 
   constructor(private inspectionService: InspectionService) { }
+  
   selectFloorfromBuildings(facKey) {
     this.facikey = facKey;
     this.inspectionService
       .getallFloorNames(facKey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.floors = data;
       });
   }
@@ -88,19 +89,16 @@ export class InspectionCreateComponent implements OnInit {
     this.inspectionService
       .getallZones(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.zone = data;
       });
     this.inspectionService
       .getallRooms(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.room = data;
       });
     this.inspectionService
       .getallRoomType(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.roomtype = data;
       });
   }
@@ -124,7 +122,6 @@ export class InspectionCreateComponent implements OnInit {
     if (!this.Employee) {
       this.Employee = - 1;
     }
-    // debugger;
     console.log(this.fromdate);
     console.log(this.todate);
     if (!this.fromdate) {
@@ -186,26 +183,22 @@ export class InspectionCreateComponent implements OnInit {
     this.inspectionService
       .getTemplateName(this.employeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.templateName = data;
       });
     this.inspectionService
       .getAuditorName(this.employeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.auditor = data;
         this.SupervisorKey = this.employeekey;
       });
     this.inspectionService
       .getEmployeeName(this.employeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.employee = data;
       });
     this.inspectionService
       .getBuildingName(this.employeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.building = data;
       });
   }
