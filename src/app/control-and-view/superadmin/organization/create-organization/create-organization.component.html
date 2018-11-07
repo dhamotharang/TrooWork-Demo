@@ -6,14 +6,14 @@
   <div class="row bg-info col-md-12">
     <div class="col-md-6">
       <div class="form-group">
-        <label>Organization Name*</label>
+        <label>Name*</label>
         <input type="text" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="OrgName"
-          placeholder="Organization Name">
+          placeholder=" Name">
       </div>
       <div class="form-group">
-        <label>Organization Description</label>
+        <label>Description</label>
         <textarea class="form-control rounded-0  col-sm-9 col-md-9 col-lg-9" maxlength="100" [(ngModel)]="OrgDesc"
-          placeholder="Organization Description" rows="5"></textarea>
+          placeholder=" Description" rows="5"></textarea>
       </div>
     </div>
     <div class="col-md-6">
@@ -23,7 +23,7 @@
           placeholder="State">
       </div>
       <div class="form-group">
-        <label>Tenant ID</label>
+        <label>Tenant ID*</label>
         <input type="text" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="5" [(ngModel)]="tenID"
           placeholder="Tenant ID">
       </div>
@@ -47,9 +47,9 @@
           placeholder="Tenant Name">
       </div>
       <div class="form-group">
-        <label>Organization Email</label>
+        <label>Email</label>
         <input type="text" class="form-control  col-sm-9 col-md-9 col-lg-9" maxlength="40" [(ngModel)]="OrgEmail"
-          placeholder="Organization Email" email #prmEmail="ngModel">
+          placeholder=" Email" email #prmEmail="ngModel">
         <div *ngIf="prmEmail.errors?.email" style="color: red;">
           Email not valid.
         </div>
@@ -58,7 +58,7 @@
     <div class="row col-md-12">
       <div>
         <a style="margin-left: 25rem;" class="btn btn-success" (click)="createOrg()">Create
-          Organization</a>
+          </a>
       </div>
     </div>
   </div>

@@ -1,10 +1,6 @@
 <app-superadmin-dashboard></app-superadmin-dashboard>
-<<<<<<< HEAD
-<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
-=======
 
 <div class="py-5 " style="padding-left: 9rem;padding-right: 9rem; padding-top:0rem !important; padding-bottom:0rem !important;">
->>>>>>> 6d30df59762b62d946748c5bc0f6342128229709
   <div class="row col-md-12 ">
     <h1 style="margin-left: 25rem;">EDIT EMPLOYEE INFORMATION</h1>
   </div><br>
@@ -231,29 +227,7 @@
         </b>
       </a>
     </div>
-    <div class="col-md-12" style="margin-bottom: 2rem;">
-        <div class="col-md-6">
-          <div class="form-group" style="margin-left:-1rem;">
-            <label>Gender*</label><br>
-            <select *ngIf="editempdtailsbysa" name="Gender" [(ngModel)]="editempdtailsbysa.Gender" style="width: 80%; background-color: #d4f4ff;">
-              <option value="">--Select--</option>
-              <option value="Male">MALE</option>
-              <option value="Female">FEMALE</option>
-              <option value="Other">OTHER</option>
-            </select>
-  </div>
-  <br><br>
-  <br><br>
-  <div class="row col-md-12">
-    <div class="col-md-6"></div>
-   <button type="button" style="text-align:center" class="btn btn-success" (click)="editEmployee(editempdtailsbysa.OrganizationID,editempdtailsbysa.UserRoleTypeKey,editempdtailsbysa.EmployeeNumber,editempdtailsbysa.ManagerKey,editempdtailsbysa.FirstName,editempdtailsbysa.LastName,editempdtailsbysa.MiddleName,BirthDate,editempdtailsbysa.AddressLine1,editempdtailsbysa.City,editempdtailsbysa.AddressLine2,editempdtailsbysa.State,editempdtailsbysa.Country,editempdtailsbysa.PrimaryPhone,editempdtailsbysa.ZipCode,editempdtailsbysa.AlternatePhone,editempdtailsbysa.EmailID,editempdtailsbysa.EmployeeStatusKey,HireDate,editempdtailsbysa.IsSupervisor,editempdtailsbysa.JobTitleKey,editempdtailsbysa.DepartmentKey,editempdtailsbysa.Gender)">UPDATE</button> 
-   <a button type="button" mdbBtn color="danger" class="relative waves-light"(click)="basicModal.show();deleteEmpPass(empk$); "
-                  mdbWavesEffect>Delete</a>
-    <a routerLink="/Viewemployee" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
-      Back
-    </b>
-  </a>
-  </div>
+  
   <div mdbModal #basicModal="mdbModal" class="modal fade" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

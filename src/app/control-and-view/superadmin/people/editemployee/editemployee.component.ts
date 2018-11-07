@@ -87,11 +87,76 @@ export class EditemployeeComponent implements OnInit {
    
   }
   editEmployee(OrganizationID, UserRoleTypeKey, EmployeeNumber, ManagerKey, FirstName, LastName, MiddleName, BD, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, IsSupervisor, JobTitleKey, DepartmentKey, Gender) {
-    var birthdt = this.convert_DT(BD);
-    var hiredt = this.convert_DT(HD);
+    if (!(EmployeeNumber) ) {
+      alert("Employee Number Not provided !");
+      return;
+    }
+    if (!(UserRoleTypeKey ) ) {
+      alert("User Role Type Not provided !");
+      return;
+    }
+
+    if (!(FirstName ) ) {
+      alert("First Name Not provided !");
+      return;
+    }
+    if (!(LastName ) ) {
+      alert("LastName Not provided !");
+      return;
+    }
+    if (!(Gender) ) {
+      alert("Gender Not provided !");
+      return;
+    }
+    if (!(EmployeeStatusKey) ) {
+      alert("Employee Status Not provided !");
+      return;
+    }
+    if (!(PrimaryPhone) ) {
+      alert("Primary Phone Not provided !");
+      return;
+    }
+    if (!(HD) ) {
+      alert("HireDate Not provided !");
+      return;
+    }
+    if (!(JobTitleKey ) ) {
+      alert("JobTitle Not provided !");
+      return;
+    }
+    if (!(DepartmentKey) ) {
+      alert("Department Not provided !");
+      return;
+    }
+    var birthdt;
+    var currentDate=this.convert_DT(new Date());
+   
+    if (!(this.BirthDate) ) {
+      birthdt = this.convert_DT(new Date());
+    }
+    else {
+      birthdt = this.convert_DT(this.BirthDate);
+    }
+    var hiredt= this.convert_DT(HD)
+    if(birthdt > currentDate){
+      alert("Wrong BirthDate !");
+      return;
+    }
+    if(hiredt >currentDate){
+      alert("Wrong HireDate !");
+      return;
+    }
+    if( HD <BD){
+      alert("HireDate must be greater than birth date !");
+      return;
+    }
+   
 
     this.PeopleServiceService.UpdateEmployeeDetailsbySa(this.managerKey, this.empk$, this.OrganizationID, UserRoleTypeKey, EmployeeNumber, FirstName, LastName, MiddleName, birthdt, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, JobTitleKey, DepartmentKey, Gender)
-      .subscribe(res => this.router.navigateByUrl('/Viewemployee'));
+    .subscribe((data: any[]) => {
+      alert("Sucessfully Updated !");
+         this.router.navigateByUrl('/Viewemployee')
+        });
 
   }
   numberValid(event: any) {

@@ -116,18 +116,18 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
     var birthdt;
     var currentDate=this.convert_DT(new Date());
    
-    if (!(this.BirthDate) ) {
+    if (!(BD) ) {
       birthdt = this.convert_DT(new Date());
     }
     else {
-      birthdt = this.convert_DT(this.BirthDate);
+      birthdt = this.convert_DT(BD);
     }
-    
-    if(BD > currentDate){
+    var hiredt= this.convert_DT(HD)
+    if(birthdt > currentDate){
       alert("Wrong BirthDate !");
       return;
     }
-    if(HD >currentDate){
+    if(hiredt >currentDate){
       alert("Wrong HireDate !");
       return;
     }
@@ -135,7 +135,7 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
       alert("HireDate must be greater than birth date !");
       return;
     }
-    var hiredt= this.convert_DT(this.BirthDate)
+    
     this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.managerKey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey)
     .subscribe((data: Array<any>) => { 
       alert("Employee Updated !");
