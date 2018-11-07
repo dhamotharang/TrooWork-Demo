@@ -127,9 +127,6 @@ export class InspectionViewComponent implements OnInit {
   //functions for pagination 
 
   filteringInspectionManagerByDate() {
-
-    // var fromdate = this.convert_DT(from_date);
-    // var todate = this.convert_DT(to_date);
     if (this.todate && this.fromdate > this.todate) {
       this.todate = null;
       alert("Please check your Start Date!");
@@ -164,7 +161,6 @@ export class InspectionViewComponent implements OnInit {
 
   }
   searchTL(SearchValue) {
-    // var curr_date;
     if (!this.fromdate) {
       var date1 = this.convert_DT(new Date());
     }

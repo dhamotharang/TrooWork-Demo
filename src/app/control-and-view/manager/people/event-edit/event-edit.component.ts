@@ -11,7 +11,6 @@ import { PeopleServiceService } from '../../../../service/people-service.service
 export class EventEditComponent implements OnInit {
   actionKey$: Object;
   actionTypeKey$: Object;
-  //dept: Inventory[];
   dept: Array<any>;
   role: String;
   name: String;
@@ -44,7 +43,7 @@ export class EventEditComponent implements OnInit {
   }
 
   updateEventType(type, name, desc) {
-    debugger;
+ 
     this.peopleServ.UpdateEventType(type, name, desc, this.actionKey$, this.actionTypeKey$, this.employeekey, this.OrganizationID).subscribe(res => this.router.navigateByUrl('/EventView'));
 
   }
@@ -60,7 +59,6 @@ export class EventEditComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.peopleServ.getEventTypeDetails(this.actionKey$, this.actionTypeKey$, this.employeekey, this.OrganizationID).subscribe((data: Array<any>) => {
-      debugger;
       this.dept = data[0];
     });
   }

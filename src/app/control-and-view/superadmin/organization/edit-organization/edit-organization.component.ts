@@ -84,9 +84,6 @@ export class EditOrganizationComponent implements OnInit {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-    // this.role = profile.role;
-    // this.IsSupervisor = profile.IsSupervisor;
-    // this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrgID = profile.OrganizationID;
 

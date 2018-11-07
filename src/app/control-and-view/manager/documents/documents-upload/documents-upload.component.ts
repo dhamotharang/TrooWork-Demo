@@ -71,9 +71,6 @@ export class DocumentsUploadComponent implements OnInit {
       alert('File uploaded successfully');
     };
   }
-  // sub(){
-  //   this.addUrl='?formtypeId=' + this.FormtypeId + '&formDesc=' + this.DescName +'&empkey='+this.empkey+'&OrganizationID='+ this.orgID;
-  // }
   FileSelected() {
     this.addUrl = '?formtypeId=' + this.FormtypeId + '&formDesc=' + this.DescName + '&empkey=' + this.employeekey + '&OrganizationID=' + this.OrganizationID;
     this.uploader.onBeforeUploadItem = (item) => {

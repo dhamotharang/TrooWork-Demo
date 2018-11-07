@@ -120,7 +120,7 @@ export class RoomEditComponent implements OnInit {
       this.inventoryService
         .checkUniqueBarcode_Updation(Barcode, this.roomkey, this.employeekey, this.OrganizationID)
         .subscribe((data: any[]) => {
-          debugger;
+ 
           this.unqBar = data;
           if (this.unqBar.Barcode!=0) {
             alert("Barcode already exists !");

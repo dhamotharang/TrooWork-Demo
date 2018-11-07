@@ -9,7 +9,6 @@ export class SchedulingService {
   constructor(private http: HttpClient) { }
 
   getAllSchedulingNames(empkey, orgID) {
-    debugger;
     return this
       .http
       .get(`http://localhost:3000/api/getBatchScheduleName?empkey=` + empkey + '&OrganizationID=' + orgID);

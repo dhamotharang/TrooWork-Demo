@@ -55,12 +55,10 @@ export class ZoneEditComponent implements OnInit {
       .getallFloorList(facKey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floorList = data;
-        // this.zoneEditValues[0].FloorKey=null;
       });
   }
 
   updateZone(FacilityKey, FacilityName, FloorName, FloorKey, ZoneKey, ZoneName) {
-    //debugger;
    
    if(ZoneName && !ZoneName.trim()){
       alert("Please Enter Zone Name!");
@@ -126,7 +124,6 @@ export class ZoneEditComponent implements OnInit {
     this.inventoryService
       .EditZoneAutoGenerate(this.zoneKey$, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
-        debugger;
         this.zoneEditValues = data;
       });
   }

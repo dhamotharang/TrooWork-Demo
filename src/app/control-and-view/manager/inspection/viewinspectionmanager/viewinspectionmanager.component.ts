@@ -50,7 +50,6 @@ export class ViewinspectionmanagerComponent implements OnInit {
     this.inspectionService
       .getViewInspectionManager(this.ioKey$, this.OrgId)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.inspectioneddetails = data;
       });
 

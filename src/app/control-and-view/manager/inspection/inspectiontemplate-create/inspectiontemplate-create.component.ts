@@ -83,7 +83,6 @@ export class InspectiontemplateCreateComponent implements OnInit {
       TempQustArry.push(arr[j].question);
     }
     QustArry = TempQustArry.join(',');
-    // QustArry=TempQustArry;
     if (QustArry === ''){
       QustArry = null;
               alert(" Questions are not provided !");

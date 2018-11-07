@@ -9,7 +9,6 @@ import { InventoryService } from '../../../../service/inventory.service';
 })
 export class DepartmentEditComponent implements OnInit {
   deptKey$: Object;
-  //dept: Inventory[];
   dept: Array<any>;
 
 
@@ -41,12 +40,11 @@ export class DepartmentEditComponent implements OnInit {
   }
 
   updateDepartment(DepartmentName) {
-    debugger;
+
     if (!DepartmentName) {
       alert("Please provide a Department Name");
     } else {
       this.inventoryService.checkForNewDepartment(DepartmentName, this.employeekey, this.OrganizationID).subscribe((data: Array<any>) => {
-        // this.dept = data;
         if (data.length > 0) {
           alert("Department already present");
         }
@@ -72,7 +70,7 @@ export class DepartmentEditComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.inventoryService.EditDepartment(this.deptKey$, this.OrganizationID).subscribe((data: Array<any>) => {
-      debugger;
+
       this.dept = data[0];
     });
   }

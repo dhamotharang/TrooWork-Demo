@@ -32,8 +32,8 @@ export class PeopleServiceService {
       userloginid: userLoginId,
       OrganizationID: OrgID
     };
-    
-      return this.http.post(uri, obj);
+
+    return this.http.post(uri, obj);
   }
 
   getUserEmail(username, empKey, OrgID) {
@@ -58,11 +58,10 @@ export class PeopleServiceService {
 
   }
 
-  gettodaysMeeting(today, empKey, OrgID) {
-    debugger;
+  gettodaysMeeting(page, count, today, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/gettodaysMeeting?ondate=' + today + '&employeekey=' + empKey + '&pageno=' + 1 + '&itemsPerPage=' + 1000 + '&OrganizationID=' + OrgID);
+      .get('http://localhost:3000/api/gettodaysMeeting?ondate=' + today + '&employeekey=' + empKey + '&pageno=' + page + '&itemsPerPage=' + count + '&OrganizationID=' + OrgID);
 
   }
 
@@ -393,7 +392,7 @@ export class PeopleServiceService {
       .get('http://localhost:3000/api/editviewJobTitle?JobTitleKey=' + JobTitleKey + '&OrganizationID=' + OrgID);
   }
   // ****@Pooja's Code Starts here****
-  createEmployeebySuperAdmin(OrgID,  ManagerKey,EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, theCheckbox, JobTitleKey, DepartmentKey, empKey) {
+  createEmployeebySuperAdmin(OrgID, ManagerKey, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, theCheckbox, JobTitleKey, DepartmentKey, empKey) {
     const url = "http://localhost:3000/api/addemp";
     const obj = {
       employeenumber: EmployeeNumber,
@@ -432,15 +431,15 @@ export class PeopleServiceService {
       .http
       .get('http://localhost:3000/api/getAllUserRoleType_SuperAdmin?OrganizationID=' + OrgID);
   }
-  getAllEmployeeDetailswithjobtitledropdownsa(orgid, empkey, jobtikey, mankey) {
+  getAllEmployeeDetailswithjobtitledropdownsa(orgid, empkey, jobtikey, mankey, page, count) {
     const url = "http://localhost:3000/api/employeeByAllFilter";
     const obj = {
       JobTitleKey: jobtikey,
       ManagerKey: mankey,
       employeekey: empkey,
       OrganizationID: orgid,
-      pagenumber: 1,
-      itemsPerPage: 25
+      pagenumber: page,
+      itemsPerPage: count
     };
     return this
       .http.post(url, obj);
@@ -631,14 +630,14 @@ export class PeopleServiceService {
     return this.http.post(uri, obj);
   }
 
-  getEmployeeByFilters(jobtKey, managerKey, empKey, orgID) {
+  getEmployeeByFilters(page,count,jobtKey, managerKey, empKey, orgID) {
     const uri = "http://localhost:3000/api/employeeByAllFilter";
     const obj = {
       JobTitleKey: jobtKey,
       ManagerKey: managerKey,
       employeekey: empKey,
-      pagenumber: 1,
-      itemsPerPage: 25,
+      pagenumber: page,
+      itemsPerPage: count,
       OrganizationID: orgID
     };
     return this.http.post(uri, obj);
@@ -649,7 +648,7 @@ export class PeopleServiceService {
       .get('http://localhost:3000/api/JobtitleForSuperAdmin?OrganizationID=' + OrganizationID);
 
   }
-  addMeetinTraingByNewEvent(obj){
+  addMeetinTraingByNewEvent(obj) {
     const uri = "http://localhost:3000/api/addMeetinTraingByNewEvent";
     return this.http.post(uri, obj);
   }

@@ -15,7 +15,6 @@ export class SetUsnamepaswdbySAComponent implements OnInit {
   sasemail: People[];
   empKey$: Object;
   userRoleTypeKey$: Object;
-  orgid: Number = 21;
   password: String = 'troowork';
   reEnterPassword: String = 'troowork';
   username: any;
@@ -105,7 +104,6 @@ export class SetUsnamepaswdbySAComponent implements OnInit {
     this.username = this.str$;
     this.peopleService.getuserNamePasswordforsaveandSendemail(this.page, this.count, this.empKey$, this.OrganizationID).subscribe((data: People[]) => {
       this.sasemail = data;
-      // debugger;
     });
   }
 

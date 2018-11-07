@@ -146,7 +146,6 @@ export class ViewWorkOrderComponent implements OnInit {
       });
   }
   workorderCompleted(i, barcodeRequired, photoRequired, workorderkey, file) {
-    //debugger;    
     this.countCancel = 1;
     this.countCancel1 = this.countCancel;
 
@@ -168,7 +167,6 @@ export class ViewWorkOrderComponent implements OnInit {
       this.WorkOrderServiceService
         .UpdatewobyPhotoForEmployee(this.fileName, this.toServeremployeekey, workorderkey, this.OrganizationID)
         .subscribe((data: any[]) => {
-          //debugger;
         });
     }
     if (photoRequired !== 1 && barcodeRequired !== 1) {
@@ -190,7 +188,6 @@ export class ViewWorkOrderComponent implements OnInit {
     }
   };
   FileSelected(WorkorderKey) {
-    // debugger;
     this.addUrl = '?Workorderkey=' + WorkorderKey + '&EmployeeKey=' + this.toServeremployeekey + '&OrganizationID=' + this.OrganizationID;
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
@@ -198,9 +195,7 @@ export class ViewWorkOrderComponent implements OnInit {
     }
   }
   cancelWorkorderSubmission(i) {
-    //debugger;
     if (this.RowIndex || this.RowIndex === 0) {
-      //                var identity1 = "showbutton";
       this.showbutton[this.RowIndex] = false;
     }
     if (this.countCancel1 == true) {
@@ -218,7 +213,6 @@ export class ViewWorkOrderComponent implements OnInit {
     this.showbutton[i] = false;
   };
   workorderFinish(i) {
-    // debugger;
     if (this.RowIndex || this.RowIndex === 0) {
       this.showbutton[this.RowIndex] = false;
     }
@@ -236,7 +230,6 @@ export class ViewWorkOrderComponent implements OnInit {
     }
   };
   tFloorfromBuildings(facKey) {
-    //debugger;
     this.facikey = facKey;
     this.WorkOrderServiceService
       .getallFloorNames(facKey, this.OrganizationID)
@@ -250,14 +243,12 @@ export class ViewWorkOrderComponent implements OnInit {
     this.WorkOrderServiceService
       .getallZones(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: any[]) => {
-        // debugger;
         this.zoneList = data;
         this.ZoneKey="";
       });
     this.WorkOrderServiceService
       .getallRoomType(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: any[]) => {
-        // debugger;
         this.roomtypeList = data;
         this.RoomTypeKey="";
       });

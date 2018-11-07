@@ -241,8 +241,6 @@ export class CreateemployeeComponent implements OnInit {
     }
   }
   selectUserType(userType) {
-
-    userType;
     if (userType == this.roleTypeKey) {
       this.showManager = true;
       this.PeopleServiceService

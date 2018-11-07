@@ -156,7 +156,6 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
 
   }
   exportToExcel(): void {
-    //this.excelarray.push({AssignmentArea:this.ScheduleName})
     for (var i = 0; i < this.reportarray.length; i++) {
       var buildingname = this.reportarray[i].FacilityName;
       var floorname = this.reportarray[i].FloorName;

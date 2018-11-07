@@ -47,7 +47,6 @@ export class CreateBatchScheduleComponent implements OnInit {
   batchFlag: number = 0;
   executeFlag: number = 0;
   wotypeFlag: number = 0;
-  // editedData: boolean;
   //for table view..... ends......
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -392,7 +391,6 @@ export class CreateBatchScheduleComponent implements OnInit {
   }
 
   createBatchReport() {
-    debugger;
     this.wotypeFlag = 0;
     if (this.workScheduleStartDate) {
       this.startDT = this.convert_DT(this.workScheduleStartDate);
@@ -451,7 +449,7 @@ export class CreateBatchScheduleComponent implements OnInit {
         var workorderroomstring1;
 
         for (var j = 0; j < this.roomList.length; j++) {
-          debugger;
+
           workorderroomobj1.push(this.roomList[j].WorkOrderScheduleRoomID);
           workorderkeyobj1.push(this.roomList[j].WorkorderTypeKey);
           roomList1.push(this.roomList[j].RoomKey);
@@ -766,13 +764,11 @@ export class CreateBatchScheduleComponent implements OnInit {
     //token ends
 
     this.allViews = { day: false, month: true, year: true };
-    debugger;
     this.scheduleService
       .getAllSchedulingNames(this.employeekey, this.OrganizationID)
       .subscribe((data: Scheduling[]) => {
         this.scheduleNameList = data;
       });
-    debugger;
 
   }
 }

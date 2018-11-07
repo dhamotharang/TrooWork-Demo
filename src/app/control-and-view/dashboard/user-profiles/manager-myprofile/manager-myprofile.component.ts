@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../../../service/login.service';
 import { Login } from '../../../../model-class/login';
-// model-class/Inventory';
-// import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 
 @Component({
   selector: 'app-manager-myprofile',
@@ -32,10 +30,10 @@ export class ManagerMyprofileComponent implements OnInit {
       default:
         throw 'Illegal base64url string!';
     }
-    return window.atob(output); //polifyll https://github.com/davidchambers/Base64.js
+    return window.atob(output); 
   }
   constructor(private loginService: LoginService) { }
-  // private formBuilder: FormBuilder,, private el: ElementRef
+
 
 
   ngOnInit() {

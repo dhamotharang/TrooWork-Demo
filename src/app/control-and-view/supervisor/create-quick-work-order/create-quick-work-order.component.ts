@@ -83,7 +83,6 @@ export class CreateQuickWorkOrderComponent implements OnInit {
     }
   }
   saveQuickWorkOrder() {
-    debugger;
     this.wot = - 1;
     this.startDT = this.convert_DT(new Date());
     var d = new Date();

@@ -10,7 +10,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class DocumentfolderEditComponent implements OnInit {
   folder;
   folder$: Object;
-  // folder.FormType;
   role: String;
   name: String;
   employeekey: Number;

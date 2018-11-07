@@ -122,8 +122,6 @@ export class InspectionCreateComponent implements OnInit {
     if (!this.Employee) {
       this.Employee = - 1;
     }
-    console.log(this.fromdate);
-    console.log(this.todate);
     if (!this.fromdate) {
       var dateFrom = this.convert_DT(new Date());
     }

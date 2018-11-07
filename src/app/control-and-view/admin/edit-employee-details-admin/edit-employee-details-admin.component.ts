@@ -145,7 +145,6 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
   }
 
   deleteEmployee() {
-    debugger;
 
     this.PeopleServiceService
       .DeleteEmployeeDetailsbyManager(this.delete_EmpKey, this.OrganizationID, this.employeekey)
@@ -156,7 +155,6 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
   }
   deleteEmpPass(empk$) {
     this.delete_EmpKey = empk$;
-    debugger;
   }
   ngOnInit() {
 
@@ -215,7 +213,6 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
     this.PeopleServiceService
       .getUserRoleTypesa(this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.useroletyp = data;
       });
   }

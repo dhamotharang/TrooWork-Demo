@@ -114,7 +114,6 @@ export class InspectiontemplateEditComponent implements OnInit {
     this.inspectionService.checkforInspectionOnTemplate(TemplateID, this.OrganizationID).subscribe((data: any[]) => {
 
       if (data[0].count == 0) {
-        // this.router.navigateByUrl('InspectiontemplatedetailEdit/'TemplateID);
         this.router.navigate(['/InspectiontemplatedetailEdit', TemplateID]);
       } else {
         this.editQuestions = index;

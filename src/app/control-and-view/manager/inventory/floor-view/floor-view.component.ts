@@ -122,7 +122,6 @@ export class FloorViewComponent implements OnInit {
   }
 
   searchFloor(SearchValue) {
-    //  debugger;
     if (SearchValue.length >= 3) {
       this.inventoryService
         .SearchFloor(SearchValue, this.OrganizationID).subscribe((data: Inventory[]) => {

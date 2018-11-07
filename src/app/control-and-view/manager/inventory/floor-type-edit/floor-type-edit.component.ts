@@ -10,8 +10,6 @@ import { InventoryService } from '../../../../service/inventory.service';
 export class FloorTypeEDitComponent implements OnInit {
   flrTypeKey$: Object;
   flrType: Array<any>;
-
-
   role: String;
   name: String;
   employeekey: Number;
@@ -40,7 +38,6 @@ export class FloorTypeEDitComponent implements OnInit {
   }
 
   updateFloorType(FloorTypeName) {
-    debugger;
     if (!FloorTypeName) {
       alert("Please provide a FloorType Name");
     } else {

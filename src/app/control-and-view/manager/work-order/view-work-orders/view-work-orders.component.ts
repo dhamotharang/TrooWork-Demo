@@ -327,7 +327,6 @@ export class ViewWorkOrdersComponent implements OnInit {
     else {
       WOS_key = this.WorkorderStatusKey
     }
-    debugger;
     if (!this.EmployeeKey) {
       em_key = null;
 
@@ -375,14 +374,8 @@ export class ViewWorkOrdersComponent implements OnInit {
       .getWoFilter(this.viewWorkOrder)
       .subscribe((data: any[]) => {
         this.workorderList = data;
-        // if (this.workorderList[0].totalItems > this.items_perpage) {
-        //   this.showHide2 = true;
-        //   this.showHide1 = false;
-        // }
-        // else if (this.workorderList[0].totalItems <= this.items_perpage) {
         this.showHide2 = false;
         this.showHide1 = false;
-        // }
         this.loading = false;
       });
   }

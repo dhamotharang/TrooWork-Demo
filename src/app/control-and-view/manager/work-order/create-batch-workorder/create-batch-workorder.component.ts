@@ -71,7 +71,6 @@ export class CreateBatchWorkorderComponent implements OnInit {
   monthlyreccradio1;
   monthlyreccradio2;
   newType = false;
-  //
   //recurr variables
   monthlyDays = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
   recurringFrequency = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
@@ -181,7 +180,6 @@ export class CreateBatchWorkorderComponent implements OnInit {
         var newArray = data.slice(0); //clone the array, or you'll end up with a new "None" option added to your "values" array on every digest cycle.
         newArray.unshift({ WorkorderTypeText: "Create New", WorkorderTypeKey: "-99" });
         this.workorderTypeList = newArray;
-        // this.workorderTypeList = data;
       });
     this.WorkOrderServiceService
       .getallPriority(this.org_id)

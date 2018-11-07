@@ -54,7 +54,6 @@ export class ReportServiceService {
       .post(url, obj);
   }
   getvaluesfilterbypie(dateTemp_1, dateTemp_2, em_Key, Workorder_TypeKey, org_id, Manager) {
-    debugger;
     const url = 'http://localhost:3000/api/workorderByfilterPie';
     const obj = {
       manager: Manager,

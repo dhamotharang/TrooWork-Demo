@@ -43,7 +43,6 @@ export class CreateBatchWorkComponent implements OnInit {
   }
 
   createScheduleName() {
-    debugger;
     if (!this.scheduleName) {
       alert("BatchSchduleName is not provided !");
     } else if (!this.scheduleDescription) {

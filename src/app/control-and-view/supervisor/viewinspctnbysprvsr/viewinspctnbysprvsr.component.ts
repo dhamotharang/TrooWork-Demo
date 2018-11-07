@@ -88,13 +88,10 @@ pagination: Number;
     else if (SearchValue.length == 0) {
       var curr_date = new Date(Date.now());
       var newdate = this.convert_DT(curr_date);
-      //var curr_date = this.convert_DT(Date.now());
       this.inspectionService
         .getInspectionOrderTablewithCurrentDatefrsprvsr(newdate, this.toServeremployeekey, this.OrganizationID)
         .subscribe((data: Inspection[]) => {
-          // debugger;
           this.inspectionordertable = data;
-          // this.loading = false;// loading
         });
     }
 

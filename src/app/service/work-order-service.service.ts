@@ -162,7 +162,6 @@ export class WorkOrderServiceService {
       .post(url, obj);
   }
   createWOT(obj) {
-    debugger;
     const url = 'http://localhost:3000/api/addNewWorkordertype';
     return this
       .http

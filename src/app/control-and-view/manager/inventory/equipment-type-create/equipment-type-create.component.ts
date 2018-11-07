@@ -11,7 +11,6 @@ import { Router } from "@angular/router";
 })
 export class EquipmentTypeCreateComponent implements OnInit {
   dept: Inventory[];
-  // createbuilding: FormGroup;
   EquipmentTypeName: String;
   EquipmentTypeDescription: String;
 

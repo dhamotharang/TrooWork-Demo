@@ -51,9 +51,7 @@ export class ResetpasswordforsamoduleComponent implements OnInit {
     });
 
     if (this.build.length > 0) { // resetUserPassword returns username. just to make sure that the reset action was done properly, we are returnig the username
-      //debugger;
       this.peopleService.getUserEmail(username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
-        debugger;
         this.managerMail = data[0].EmailID;
         this.userMail = data[0].newmail;
 
@@ -91,7 +89,6 @@ export class ResetpasswordforsamoduleComponent implements OnInit {
 
     this.peopleService.getLoginDetailsByEmpKey(this.empKey$, this.OrganizationID).subscribe((data: People[]) => {
       this.build = data;
-      // debugger;
     });
 
   }

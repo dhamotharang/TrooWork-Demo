@@ -365,7 +365,6 @@ export class ViewworkordersforemployeeComponent implements OnInit {
   };
   cancelWorkorderSubmission(i) {
     if (this.RowIndex || this.RowIndex === 0) {
-      //                var identity1 = "showbutton";
       this.showbutton[this.RowIndex] = false;
     }
     if (this.countCancel1 == true) {

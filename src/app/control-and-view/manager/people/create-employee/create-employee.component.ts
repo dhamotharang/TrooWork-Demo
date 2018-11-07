@@ -98,7 +98,6 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   createEmployee() {
-    debugger;
     if (!(this.EmployeeNumber) ) {
       alert("Employee Number Not provided !");
       return;
@@ -163,7 +162,6 @@ export class CreateEmployeeComponent implements OnInit {
     this.PeopleServiceService.checkEmpNumber(this.EmployeeNumber, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
       if (data[0].count == 0) {
         this.PeopleServiceService.createEmployeebyManager(this.EmployeeNumber, this.UserRoleTypeKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.theCheckbox, this.JobTitleKey, this.SupervisorKey, this.DepartmentKey, this.employeekey, this.OrganizationID).subscribe((data22: any[]) => {
-          //  debugger;
           this.temp_res = data22;
           alert("Employee Created !");
           var empKey = this.temp_res.EmployeeKey;
@@ -193,34 +191,27 @@ export class CreateEmployeeComponent implements OnInit {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-    // this.role = profile.role;
-    // this.IsSupervisor = profile.IsSupervisor;
-    // this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
     this.PeopleServiceService
       .getUserRoleType(this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.useroletype = data;
       });
     this.PeopleServiceService
       .getJobTitle(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.jobtitle = data;
       });
     this.PeopleServiceService
       .getSuperVisor(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.supervisor = data;
       });
     this.PeopleServiceService
       .getDepartment(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.department = data;
       });
   }
@@ -231,6 +222,5 @@ export class CreateEmployeeComponent implements OnInit {
     } else {
       this.marked = true;
     }
-    // this.marked = e.target.checked;
   }
 }

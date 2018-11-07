@@ -1,6 +1,3 @@
-// *****Inspection template detail*****
-
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { InspectionService } from '../../../../service/inspection.service';

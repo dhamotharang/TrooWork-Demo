@@ -331,8 +331,6 @@ export class EditBatchWorkorderComponent implements OnInit {
             }
           }
 
-          // var dt1=this.DT_Format(this.WOEditList.ScheduleStartDate);
-          // var dt2=this.DT_Format(this.WOEditList.ScheduleEndDate);
           this.WorkorderStartDate = new Date(this.WOEditList.WorkorderDate);
           this.WorkorderEndDate = new Date(this.WOEditList.WorkorderEndDate);
           var cur_time = new Date(Date.now());
@@ -637,11 +635,6 @@ withoutequip_wo()
     var zoneList = [];
     var floorList = [];
     facilitylistObj = this.facilitylist;
-    // facilityList = [];
-    // roomList = [];
-    // roomtypeList = [];
-    // zoneList = [];
-    // floorList = [];
     floorlistObj = this.FloorList;
     zonelistObj = this.zonelist;
     roomtypelistObj = this.RoomTypeList;
@@ -985,12 +978,6 @@ withoutequip_wo()
     var floorList = [];
     var equList = [];
     facilitylistObj = this.facilitylist;
-    // facilityList = [];
-    // roomList = [];
-    // roomtypeList = [];
-    // zoneList = [];
-    // floorList = [];
-    // equList = [];
     floorlistObj = this.FloorList;
     zonelistObj = this.zonelist;
     roomtypelistObj = this.RoomTypeList;

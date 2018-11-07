@@ -34,7 +34,6 @@ export class InspectiontemplateandquestionsViewComponent implements OnInit {
   }
 
   searchform: FormGroup;
-  // searchTemplateNameAndQuestion:Inspection[];
   template: Inspection[];
   viewinspectionTemplate: Inspection[];
   delete_tempId: number;

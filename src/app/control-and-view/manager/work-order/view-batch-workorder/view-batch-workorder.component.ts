@@ -83,8 +83,6 @@ export class ViewBatchWorkorderComponent implements OnInit {
     return window.atob(output);
   }
 
-  // workorderCheckValue=false;
-  //validation min3_alphanumeric
   searchform: FormGroup;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
@@ -207,11 +205,6 @@ export class ViewBatchWorkorderComponent implements OnInit {
         }
       });
    
-
-    // this.searchform = this.formBuilder.group({
-    //   SearchworkType_emp_room: ['', Validators.required]
-    // }); 
-
     this.searchform = this.formBuilder.group({
       SearchWo: ['', Validators.required]
     });

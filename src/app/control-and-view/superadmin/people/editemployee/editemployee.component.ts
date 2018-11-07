@@ -176,8 +176,6 @@ export class EditemployeeComponent implements OnInit {
   }
 
   selectUserType(userType) {
-    debugger;
-    userType;
     if (userType == this.roleTypeKey) {
       this.showManager = true;
       this.PeopleServiceService
@@ -218,9 +216,7 @@ export class EditemployeeComponent implements OnInit {
         this.organization = data;
       });
     this.PeopleServiceService
-      .getUserRoleTypesa(this.OrganizationID)
-      // .subscribe((data: People[]) => {
-       
+      .getUserRoleTypesa(this.OrganizationID)       
       .subscribe((data: any[]) => {
         this.useroletyp = data;
         for (var i = 0; i < data.length; i++) {

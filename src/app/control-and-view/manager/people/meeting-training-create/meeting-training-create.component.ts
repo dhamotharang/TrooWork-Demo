@@ -81,32 +81,9 @@ export class MeetingTrainingCreateComponent implements OnInit {
     return tokens[1] + ':' + tokens[2];
   }
 
-  //validation starts ..... @rodney
-  // regexStr = '^[a-zA-Z0-9_ ]*$';
-  // @Input() isAlphaNumeric: boolean;
   constructor(private peopleServ: PeopleServiceService, private router: Router) { }
 
-  // constructor(private formBuilder: FormBuilder, private peopleServ: PeopleServiceService, private el: ElementRef) { }
-  // @HostListener('keypress', ['$event']) onKeyPress(event) {
-  //   return new RegExp(this.regexStr).test(event.key);
-  // }
-
-  // @HostListener('paste', ['$event']) blockPaste(event: KeyboardEvent) {
-  //   this.validateFields(event);
-  // }
-
-  // validateFields(event) {
-  //   setTimeout(() => {
-
-  //     this.el.nativeElement.value = this.el.nativeElement.value.replace(/[^A-Za-z ]/g, '').replace(/\s/g, '');
-  //     event.preventDefault();
-
-  //   }, 100)
-  // }
-
-  //validation ends ..... @rodney
   selectEmpsDropDown() {
-    console.log("inside select....");
     if ((this.jobTleKey > 0) && (this.superVsrKey > 0)) {
       this.peopleServ
         .getSupervisorJobtitleEmployeesList(this.jobTleKey, this.superVsrKey, this.employeekey, this.OrganizationID)
@@ -135,16 +112,13 @@ export class MeetingTrainingCreateComponent implements OnInit {
 
   selectEmpOfJobTitle(jobKey) {
     this.jobTleKey = jobKey;
-    console.log(this.jobTleKey + "jobTleKey");
     this.selectEmpsDropDown();
   }
   selectEmpOfSupervisor(supervisorKey) {
     this.superVsrKey = supervisorKey;
-    console.log(this.superVsrKey + "supervisorKey");
     this.selectEmpsDropDown();
   }
   addMeetingTrainingEvent() {
-    debugger;
     if (!this.time1) {
       alert("Start Time is not provided");
     }
