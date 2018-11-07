@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { workorder } from '../../../../model-class/work-order';
 import { WorkOrderServiceService } from '../../../../service/work-order-service.service';
 import { ActivatedRoute, Router } from "@angular/router";
+import { ENGINE_METHOD_PKEY_ASN1_METHS } from 'constants';
 @Component({
   selector: 'app-edit-work-order',
   templateUrl: './edit-work-order.component.html',
@@ -83,7 +84,7 @@ export class EditWorkOrderComponent implements OnInit {
   intervaltype;
   repeatinterval;
   occursonday;
-
+  emp_key;
   workorderCreation;
   timetable = { times: [] };
   count = 0;
@@ -125,7 +126,7 @@ export class EditWorkOrderComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-
+    
     this.WorkOrderServiceService
       .getWO_edit(this.WO_Key, this.OrganizationID)
       .subscribe((data: any[]) => {
@@ -317,7 +318,7 @@ export class EditWorkOrderComponent implements OnInit {
       .deleteCurrent_WO(this.deleteWO)
       .subscribe((data: any[]) => {
         alert("work-order deleted successfully");
-        this.router.navigateByUrl('/ViewBatchWorkorder');
+        this.router.navigateByUrl('/ViewWorkOrder');
       });
   }
   UpdateWO() {
@@ -485,9 +486,9 @@ export class EditWorkOrderComponent implements OnInit {
       //        alert("equip key " + eqp_key);
 
       if (this.EmployeeKey) {
-        this.employeekey = this.EmployeeKey;
+        this.emp_key = this.EmployeeKey;
       } else {
-        this.employeekey = - 1;
+        this.emp_key = - 1;
       }
       if (this.ZoneKey) {
         this.zone = this.ZoneKey;
@@ -539,14 +540,14 @@ export class EditWorkOrderComponent implements OnInit {
       floorkeys: floorString,
       zonekeys: zoneString,
       roomtypekeys: roomtypeString,
-      employeekey: this.employeekey,
+      employeekey: this.emp_key,
       priority: this.priority,
       fromdate: this.startDT,
       todate: this.endDT,
       isbar: this.is_BarcodeRequired,
       isphoto: this.is_PhotoRequired,
-      metaupdatedby: 2861,
-      OrganizationID: 21,
+      metaupdatedby: this.employeekey,
+      OrganizationID: this.OrganizationID,
       intervaltype: '0', // char(1),/*d for day, w for week, m for month*/
       repeatinterval: 1,
       occursonday: null
@@ -729,9 +730,9 @@ createWorkorder2() {
     //        alert("equip key " + eqp_key);
 
     if (this.EmployeeKey) {
-      this.employeekey = this.EmployeeKey;
+      this.emp_key = this.EmployeeKey;
     } else {
-      this.employeekey = - 1;
+      this.emp_key = - 1;
     }
     if (this.ZoneKey) {
       this.zone = this.ZoneKey;
@@ -783,14 +784,14 @@ createWorkorder2() {
       floorkeys: floorString,
       zonekeys: zoneString,
       roomtypekeys: roomtypeString,
-      employeekey: this.employeekey,
+      employeekey: this.emp_key,
       priority: this.priority,
       fromdate: this.startDT,
       todate: this.endDT,
       isbar: this.is_BarcodeRequired,
       isphoto: this.is_PhotoRequired,
-      metaupdatedby: 2861,
-      OrganizationID: 21,
+      metaupdatedby: this.employeekey,
+      OrganizationID: this.OrganizationID,
       intervaltype: '0', // char(1),/*d for day, w for week, m for month*/
       repeatinterval: 1,
       occursonday: null

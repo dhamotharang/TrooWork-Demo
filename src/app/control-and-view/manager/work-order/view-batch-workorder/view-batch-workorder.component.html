@@ -1,7 +1,6 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
-
-<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+<img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
+<div class="py-5 " *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">VIEW BATCH WORK ORDER</h3>
@@ -135,4 +134,6 @@
       </tbody>
     </table>
   </div>
+  <button class="btn btn-success" style="float:left" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
+    <button class="btn btn-success" (click)="nextPage()" style="float:right" *ngIf="showHide2">Next >></button>
 </div>

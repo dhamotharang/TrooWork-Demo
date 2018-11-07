@@ -15,6 +15,8 @@ export class InspectionReportComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+  SupervisorKey;
+  loading: boolean;// loading
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -85,7 +87,7 @@ export class InspectionReportComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.SupervisorKey=""
     this.fromdate = new Date();
 
     var token = localStorage.getItem('token');
@@ -106,6 +108,7 @@ export class InspectionReportComponent implements OnInit {
   }
 
   generateInspectionReport(from_date, to_date, SupervisorKey) {
+    this.loading = true;
     if (!from_date) {
       var fromdate = this.convert_DT(new Date());
 
@@ -131,6 +134,7 @@ export class InspectionReportComponent implements OnInit {
         .getinspectionreport_bydate(fromdate, todate, this.employeekey, this.OrganizationID)
         .subscribe((data: Reports[]) => {
           this.viewinspectionReport = data;
+          this.loading = false;
         });
     }
     else {
@@ -138,6 +142,7 @@ export class InspectionReportComponent implements OnInit {
         .getinspectionreport(fromdate, todate, SupervisorKey, this.OrganizationID)
         .subscribe((data: Reports[]) => {
           this.viewinspectionReport = data;
+          this.loading = false;
         });
     }
   }

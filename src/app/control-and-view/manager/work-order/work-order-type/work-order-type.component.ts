@@ -20,6 +20,7 @@ export class WorkOrderTypeComponent implements OnInit {
   showHide1: boolean;
   showHide2: boolean;
   pagination: Number;
+  loading: boolean;// loading
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -93,6 +94,7 @@ export class WorkOrderTypeComponent implements OnInit {
       });
   }
   ngOnInit() {
+    this.loading = true;
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -105,6 +107,7 @@ export class WorkOrderTypeComponent implements OnInit {
       .getall_workordertype(this.pageno, this.items_perpage, this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.workorderTypeList = data;
+        this.loading = false;
         if (this.workorderTypeList[0].totalItems > this.items_perpage) {
           this.showHide2 = true;
           this.showHide1 = false;
@@ -151,6 +154,7 @@ export class WorkOrderTypeComponent implements OnInit {
     this.wot_key = key;
   }
   deleteWOType() {
+    this.loading = true;
     this.delete_WOType = {
       WorkorderTypeKey: this.wot_key,
       OrganizationID: this.OrganizationID
@@ -162,6 +166,7 @@ export class WorkOrderTypeComponent implements OnInit {
           .getall_workordertype(this.pageno, this.items_perpage, this.employeekey, this.OrganizationID)
           .subscribe((data: any[]) => {
             this.workorderTypeList = data;
+            this.loading = false;
             if (this.workorderTypeList[0].totalItems > this.items_perpage) {
               this.showHide2 = true;
               this.showHide1 = false;

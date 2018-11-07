@@ -58,7 +58,8 @@ export class UpdateRecurWorkorderComponent implements OnInit {
   is_PhotoRequired;
   is_BarcodeRequired;
   occurenceinstance;
-
+  Times;
+  RoomNameList;
   intervaltype;
   repeatinterval;
   occursonday;
@@ -96,7 +97,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
   monthlyrecurring;
   monthlyreccradio1;
   monthlyreccradio2;
-
+  emp_key;
 
   role: String;
   name: String;
@@ -154,6 +155,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
     this.IsSupervisor = profile.IsSupervisor;
     this.name = profile.username;
     this.employeekey = profile.employeekey;
+   
     this.OrganizationID = profile.OrganizationID;
     this.FacilityKey = "";
     this.FloorKey = "";
@@ -174,6 +176,8 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       .getWO_edit(this.WO_Key, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.WOEditList = data[0];
+        this.RoomNameList=this.WOEditList.RoomText;
+        this.Times=this.WOEditList.WorkorderTimes;
         this.WorkOrderServiceService
           .getallFloor(this.WOEditList.FacilityKey, this.OrganizationID)
           .subscribe((data: any[]) => {
@@ -504,6 +508,8 @@ export class UpdateRecurWorkorderComponent implements OnInit {
     this.WorkOrderServiceService
       .deleteCurrent_WO(this.deleteWO)
       .subscribe((data: any[]) => {
+        alert("work-order deleted successfully");
+        this.router.navigateByUrl('/ViewWorkOrder');
       });
   }
   dailyrecurringChange() {
@@ -669,7 +675,11 @@ export class UpdateRecurWorkorderComponent implements OnInit {
     var roomsString;
     if (this.RoomKey) {
       roomsString = this.RoomKey;
-    } else {
+    }
+    else if (this.RoomNameList) {
+      roomsString = this.RoomNameList;
+    }
+       else {
       if (roomlistObj) {
         for (var j = 0; j < roomlistObj.length; j++) {
           roomList.push(roomlistObj[j].RoomKey);
@@ -716,7 +726,10 @@ export class UpdateRecurWorkorderComponent implements OnInit {
     var roomtypeString;
     if (this.RoomTypeKey) {
       roomtypeString = this.RoomTypeKey;
-    } else {
+    }
+    else if (this.RoomNameList) {
+      roomsString = this.RoomNameList;
+     } else {
       if (roomtypelistObj) {
         for (var j = 0; j < roomtypelistObj.length; j++) {
           roomtypeList.push(roomtypelistObj[j].RoomTypeKey);
@@ -730,9 +743,9 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       this.eqp_key = - 1;
     }
     if (this.EmployeeKey) {
-      this.employeekey = this.EmployeeKey;
+      this.emp_key= this.EmployeeKey;
     } else {
-      this.employeekey = - 1;
+      this.emp_key = - 1;
     }
     if (this.ZoneKey) {
       this.zone = this.ZoneKey;
@@ -888,14 +901,14 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       floorkeys: floorString,
       zonekeys: zoneString,
       roomtypekeys: roomtypeString,
-      employeekey: this.employeekey,
+      employeekey: this.emp_key,
       priority: this.priority,
       fromdate: this.startDT,
       todate: this.endDT,
       isbar: this.is_BarcodeRequired,
       isphoto: this.is_PhotoRequired,
-      metaupdatedby: 2861,
-      OrganizationID: 21,
+      metaupdatedby: this.employeekey,
+      OrganizationID: this.OrganizationID,
       intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
       repeatinterval: this.rep_interval,
       occursonday: this.occurs_on,
@@ -1109,9 +1122,9 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       }
     }
     if (this.EmployeeKey) {
-      this.employeekey = this.EmployeeKey;
+      this. emp_key = this.EmployeeKey;
     } else {
-      this.employeekey = - 1;
+      this. emp_key= - 1;
     }
     if (this.ZoneKey) {
       this.zone = this.ZoneKey;
@@ -1250,14 +1263,14 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       floorkeys: floorString,
       zonekeys: zoneString,
       roomtypekeys: roomtypeString,
-      employeekey: this.employeekey,
+      employeekey: this. emp_key,
       priority: this.priority,
       fromdate: this.startDT,
       todate: this.endDT,
       isbar: this.is_BarcodeRequired,
       isphoto: this.is_PhotoRequired,
-      metaupdatedby: 2861,
-      OrganizationID: 21,
+      metaupdatedby: this.employeekey,
+      OrganizationID: this.OrganizationID,
       intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
       repeatinterval: this.rep_interval,
       occursonday: this.occurs_on,

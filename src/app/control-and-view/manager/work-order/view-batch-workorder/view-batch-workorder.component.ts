@@ -25,6 +25,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
     return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
 
   }
+  loading: boolean;// loading
   EmployeeOption: workorder[];
   facilitylist: workorder[];
   scheduleList: workorder[];
@@ -104,7 +105,49 @@ export class ViewBatchWorkorderComponent implements OnInit {
     }, 100)
 
   }
+  previousPage() {
+    var on_date = this.convert_DT(new Date());
+    this.pageno = +this.pageno - 1;
+    this.WorkOrderServiceService
+      .getworkorder(on_date, this.employeekey, this.pageno, this.items_perpage, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.workorderList = data;
+        for (var i = 0; i < this.workorderList.length; i++) {
+          this.workorderList[i].workorderCheckValue = false;
+        }
+        if (this.pageno == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
+  }
+
+  nextPage() {
+    var on_date = this.convert_DT(new Date());
+    this.pageno = +this.pageno + 1;
+    this.WorkOrderServiceService
+      .getworkorder(on_date, this.employeekey, this.pageno, this.items_perpage, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.workorderList = data;
+        for (var i = 0; i < this.workorderList.length; i++) {
+          this.workorderList[i].workorderCheckValue = false;
+        }
+        this.pagination = +this.workorderList[0].totalItems / (+this.pageno * (+this.items_perpage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
+  }
   ngOnInit() {
+    this.loading = true;
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -122,6 +165,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
     this.EmployeeKey="";
     this.WorkorderTypeKey="";
     this.BatchScheduleNameKey="";
+    
     var on_date = this.convert_DT(new Date());
     this.WorkOrderServiceService
       .getallFacility(this.employeekey, this.OrganizationID)
@@ -152,6 +196,15 @@ export class ViewBatchWorkorderComponent implements OnInit {
       .getBatchworkorder(on_date, this.employeekey, this.pageno, this.items_perpage, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.workorderList = data;
+        this.loading = false;
+        if (this.workorderList[0].totalItems > this.items_perpage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.workorderList[0].totalItems <= this.items_perpage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
       });
    
 
@@ -216,86 +269,96 @@ export class ViewBatchWorkorderComponent implements OnInit {
       });
   }
   viewWO_Filter() {
-   
+    var fac_key;
+    var floor_key;
+    var zone_key;
+    var roomtype_key;
+    var room_key;
+    var WOS_key;
+    var batch_key ;
+    var em_key;
+    var wot_key;
+    var from_date;
+    var to_date;
     if (!this.FacilityKey) {
-      var fac_key = null;
+      fac_key = null;
 
     }
     else {
       fac_key = this.FacilityKey
     }
     if (!this.FloorKey) {
-      var floor_key = null;
+      floor_key = null;
 
     }
     else {
       floor_key = this.FloorKey
     }
     if (!this.ZoneKey) {
-      var zone_key = null;
+      zone_key = null;
 
     }
     else {
       zone_key = this.ZoneKey
     }
     if (!this.RoomTypeKey) {
-      var roomtype_key = null;
+       roomtype_key = null;
 
     }
     else {
       roomtype_key = this.RoomTypeKey
     }
     if (!this.RoomKey) {
-      var room_key = null;
+     room_key = null;
 
     }
     else {
       room_key = this.RoomKey
     }
     if (!this.BatchScheduleNameKey) {
-      var batch_key = null;
+       batch_key = null;
 
     }
     else {
       batch_key = this.BatchScheduleNameKey
     }
     if (!this.WorkorderStatusKey) {
-      var WOS_key = null;
+       WOS_key = null;
 
     }
     else {
       WOS_key = this.WorkorderStatusKey
     }
     if (!this.EmployeeKey) {
-      var em_key = null;
+       em_key = null;
 
     }
     else {
-      em_key = this.EmployeeKey;
+      em_key = parseInt(this.EmployeeKey);
     }
     if (!this.WorkorderTypeKey) {
-      var wot_key = null;
+       wot_key = null;
 
     }
     else {
       wot_key = this.WorkorderTypeKey;
     }
     if (!this.ondate) {
-      var from_date = this.convert_DT(new Date());
+       from_date = this.convert_DT(new Date());
 
     }
     else {
       from_date = this.convert_DT(this.ondate);
     }
     if (!this.todate) {
-      var to_date = this.convert_DT(new Date());
+       to_date = this.convert_DT(new Date());
 
     }
     else {
       to_date = this.convert_DT(this.todate);
     }
     this.viewWorkOrder = {
-      manager: 2861,
+      manager: this.employeekey,
       workorderStatusKey: WOS_key,
       workorderDate: from_date,
       workorderDate2: to_date,
@@ -303,7 +366,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
       roomTypeKey: roomtype_key,
       roomKey: room_key,
       zoneKey: zone_key,
-      employeekey: em_key,
+      employeeKey: em_key,
       workorderTypeKey: wot_key,
       BatchScheduleNameKey: batch_key,
       OrganizationID: this.OrganizationID,
@@ -313,88 +376,100 @@ export class ViewBatchWorkorderComponent implements OnInit {
       .getBatchWoFilter(this.viewWorkOrder)
       .subscribe((data: any[]) => {
         this.workorderList = data;
+       
       });
   }
   searchBatchWo(search_value) {
+    var fac_key;
+    var floor_key;
+    var zone_key;
+    var roomtype_key;
+    var room_key;
+    var WOS_key;
+    var batch_key ;
+    var em_key;
+    var wot_key;
+    var from_date;
+    var to_date;
     if (!this.FacilityKey) {
-      var fac_key = null;
+      fac_key = null;
 
     }
     else {
       fac_key = this.FacilityKey
     }
     if (!this.FloorKey) {
-      var floor_key = null;
+      floor_key = null;
 
     }
     else {
       floor_key = this.FloorKey
     }
     if (!this.ZoneKey) {
-      var zone_key = null;
+       zone_key = null;
 
     }
     else {
       zone_key = this.ZoneKey
     }
     if (!this.RoomTypeKey) {
-      var roomtype_key = null;
+       roomtype_key = null;
 
     }
     else {
       roomtype_key = this.RoomTypeKey
     }
     if (!this.RoomKey) {
-      var room_key = null;
+       room_key = null;
 
     }
     else {
       room_key = this.RoomKey
     }
     if (!this.BatchScheduleNameKey) {
-      var batch_key = null;
+       batch_key = null;
 
     }
     else {
       batch_key = this.BatchScheduleNameKey
     }
     if (!this.WorkorderStatusKey) {
-      var WOS_key = null;
+      WOS_key = null;
 
     }
     else {
       WOS_key = this.WorkorderStatusKey
     }
     if (!this.EmployeeKey) {
-      var em_key = null;
+       em_key = null;
 
     }
     else {
       em_key = this.EmployeeKey;
     }
     if (!this.WorkorderTypeKey) {
-      var wot_key = null;
+       wot_key = null;
 
     }
     else {
       wot_key = this.WorkorderTypeKey;
     }
     if (!this.ondate) {
-      var from_date = this.convert_DT(new Date());
+       from_date = this.convert_DT(new Date());
 
     }
     else {
       from_date = this.convert_DT(this.ondate);
     }
     if (!this.todate) {
-      var to_date = this.convert_DT(new Date());
+       to_date = this.convert_DT(new Date());
 
     }
     else {
       to_date = this.convert_DT(this.todate);
     }
     this.searchWorkorder = {
-      manager: 2861,
+      manager: this.employeekey,
       workorderStatusKey: WOS_key,
       workorderDate: from_date,
       workorderDate2: to_date,
@@ -416,6 +491,8 @@ export class ViewBatchWorkorderComponent implements OnInit {
       .subscribe((data: any[]) => {
       
         this.workorderList = data;
+        this.showHide2 = false;
+          this.showHide1 = false;
       });
     }
     else if(search_value.length==0)
@@ -425,6 +502,14 @@ export class ViewBatchWorkorderComponent implements OnInit {
       .getBatchworkorder(on_date, this.employeekey, this.pageno, this.items_perpage, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.workorderList = data;
+        if (this.workorderList[0].totalItems > this.items_perpage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.workorderList[0].totalItems <= this.items_perpage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
       });
     }
   }

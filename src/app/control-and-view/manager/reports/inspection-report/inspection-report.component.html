@@ -1,7 +1,6 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
-
-<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+<img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
+<div class="py-5 " *ngIf="!loading"  style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">REPORTS ON INSPECTION</h3>
@@ -37,13 +36,13 @@
     <div class="row col-md-12">
       <div class="col-md-6"></div>
       <div style="text-align:center">
-        <button type="button" class="btn btn-primary" (click)=generateInspectionReport(fromdate,todate,SupervisorKey)>Generate</button>
+        <button type="button" class="btn btn-success" (click)=generateInspectionReport(fromdate,todate,SupervisorKey)><b>GENERATE</b></button>
         <br><br>
       </div>
     </div>
     <br>
   </div>
-  <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="bg-info">
   <table *ngIf='viewinspectionReport' id="reportexport" class="table table-hover table-responsive table-bordered table">
     <thead class="tableHead">
       <!-- <tr> -->
@@ -70,9 +69,10 @@
       </tr>
     </tbody>
   </table>
+  </div>
   <br>
   <br>
   <div style="text-align:center" *ngIf="viewinspectionReport?.length> 0">
-    <button type="button" class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
+    <button type="button" class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>
   </div>
 </div>

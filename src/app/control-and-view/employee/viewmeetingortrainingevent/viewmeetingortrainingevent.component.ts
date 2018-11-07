@@ -20,6 +20,16 @@ export class ViewmeetingortrainingeventComponent implements OnInit {
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
 
+  loading: boolean;// loading
+
+  //Variables for pagination
+
+  pageNo: Number = 1;
+  itemsPerPage: Number = 25;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
+
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -60,6 +70,50 @@ export class ViewmeetingortrainingeventComponent implements OnInit {
 
     }, 100)
   }
+
+    //functions for pagination
+
+    nextPage() {
+      this.loading = true;// loading
+      this.pageNo = +this.pageNo + 1;
+      var curr_date = this.convert_DT(new Date());
+      this.PeopleServiceService
+      .getMeetingTrainingViewforemployee(this.page, this.count, curr_date, this.toServeremployeekey, this.OrganizationID)
+      .subscribe((data: People[]) => {
+        this.viewmeeting = data;
+           this.loading = false;// loading
+          this.pagination = +this.viewmeeting[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+          if (this.pagination > 1) {
+            this.showHide2 = true;
+            this.showHide1 = true;
+          }
+          else {
+            this.showHide2 = false;
+            this.showHide1 = true;
+          }
+        });
+    }
+    previousPage() {
+    this.loading = false;// loading
+      var curr_date = this.convert_DT(new Date());
+      this.pageNo = +this.pageNo - 1;
+      this.PeopleServiceService
+      .getMeetingTrainingViewforemployee(this.page, this.count, curr_date, this.toServeremployeekey, this.OrganizationID)
+      .subscribe((data: People[]) => {
+        this.viewmeeting = data;
+          this.loading = false;// loading
+          if (this.pageNo == 1) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          } else {
+            this.showHide2 = true;
+            this.showHide1 = true;
+          }
+        });
+    }
+  
+    //functions for pagination 
+
   searchMeeting(SearchValue) {
     var curr_date = this.convert_DT(new Date());
     if (SearchValue.length >= 3){
@@ -70,10 +124,12 @@ export class ViewmeetingortrainingeventComponent implements OnInit {
       });
     }
     else if (SearchValue.length == 0){
+      this.loading = true;// loading
       this.PeopleServiceService
       .getMeetingTrainingViewforemployee(this.page, this.count, curr_date, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.viewmeeting = data;
+        this.loading = false;// loading
       });
     }
 
@@ -91,11 +147,21 @@ export class ViewmeetingortrainingeventComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     //token ends
+    this.loading = true;// loading
     var curr_date = this.convert_DT(new Date());
     this.PeopleServiceService
       .getMeetingTrainingViewforemployee(this.page, this.count, curr_date, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.viewmeeting = data;
+        this.loading = false;// loading
+        if (this.viewmeeting[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.viewmeeting[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
       });
 
     this.searchform = this.formBuilder.group({

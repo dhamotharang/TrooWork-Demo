@@ -14,7 +14,7 @@ declare var google: any;
   styleUrls: ['./dashboard-report.component.scss']
 })
 export class DashboardReportComponent implements OnInit {
-
+  loading: boolean;// loading
   role: String;
   name: String;
   employeekey: Number;
@@ -107,6 +107,7 @@ export class DashboardReportComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
     this.EmployeeKey = "";
     this.fromdate = new Date();
 
@@ -153,6 +154,7 @@ export class DashboardReportComponent implements OnInit {
       .getpievalues(dateTemp_1, this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.pievalues = data;
+        this.loading = false;
         if (this.pievalues.length > 0) {
           this.sampledata1 = [['WorkorderStatus', 'count']];
 
@@ -183,6 +185,7 @@ export class DashboardReportComponent implements OnInit {
   }
 
   dashboardreportbyfilter() {
+    this.loading = true;
 
     if (!this.EmployeeKey) {
       this.em_Key = null;
@@ -237,7 +240,7 @@ export class DashboardReportComponent implements OnInit {
       .getvaluesfilterbypie(date1, date2, this.em_Key, workordertypeString, this.OrganizationID, this.employeekey)
       .subscribe((data: Reports[]) => {
         this.pievalues = data;
-
+        this.loading = false;
         this.sampledata2 = [['WorkorderStatus', 'count']];
 
         for (var i = 0; i < this.pievalues.length; i++) {

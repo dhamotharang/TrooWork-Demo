@@ -1,7 +1,6 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
-
-<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+<img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
+<div class="py-5 " *ngIf="!loading"  style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">BATCH SCHEDULE ASSIGNMENT REPORT</h3>
@@ -16,7 +15,7 @@
         <div class="md-form col-md-3" style="text-align:left">
           <select [(ngModel)]="BatchScheduleNameKey" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
             (change)="getBatchSchedule($event.target.value)">
-            <option value="" selected>--Select--</option>
+            <option value="">--Select--</option>
             <option *ngFor="let s of bacthschedules" [value]="s.BatchScheduleNameKey">
               {{s.ScheduleName}}
             </option>
@@ -33,7 +32,7 @@
       </div>
     </div>
     </div>
-    <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
+    <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="bg-info">
     <table *ngIf='reportarray' class="table table-hover table-responsive table-bordered table">
       <thead class="tableHead">
         <th>Building</th>
@@ -106,8 +105,9 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <br>
     <div style="text-align:center" *ngIf="reportarray?.length> 0">
-      <button type="button" class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
+      <button type="button" class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>
     </div>
   

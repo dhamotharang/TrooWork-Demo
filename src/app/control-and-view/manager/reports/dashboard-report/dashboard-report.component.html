@@ -1,7 +1,6 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
-
-<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+<img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
+<div class="py-5 " *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">DASHBOARD REPORT</h3>
@@ -95,7 +94,7 @@
           <strong>Convert to Pdf</strong>  
       </div>   -->
     <div style="text-align:center" *ngIf="reporttable?.length> 0">
-      <input type="button" class="btn btn-primary" value="CONVERT TO PDF" (click)="captureScreen()" />
+      <input type="button" style="float:right" class="btn btn-success" value="CONVERT TO PDF" (click)="captureScreen()" />
     </div>
   </div>
 </div>
