@@ -9,6 +9,7 @@ import { ExcelserviceService } from '../../../../service/excelservice.service';
   styleUrls: ['./batch-work-order-report.component.scss']
 })
 export class BatchWorkOrderReportComponent implements OnInit {
+  loading: boolean;// loading
   bacthschedules: Reports[];
   reportarray: Reports[];
   dailyFrequency: number;
@@ -27,6 +28,7 @@ export class BatchWorkOrderReportComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+  BatchScheduleNameKey;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -58,7 +60,7 @@ export class BatchWorkOrderReportComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.BatchScheduleNameKey="";
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -75,11 +77,12 @@ export class BatchWorkOrderReportComponent implements OnInit {
       });
   }
   getBatchSchedule(Workorder_ScheduleKey) {
-
+    this.loading = true;
     this.ReportServiceService
       .getbatchschedulereport(Workorder_ScheduleKey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.reportarray = data;
+        this.loading = false;
         this.totalMonTime = 0;
         this.totalTuesTime = 0;
         this.totalWedTime = 0;

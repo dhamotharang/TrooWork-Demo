@@ -107,7 +107,7 @@ export class EditBatchWorkorderComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  emp_key;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -532,6 +532,8 @@ export class EditBatchWorkorderComponent implements OnInit {
     this.WorkOrderServiceService
       .deleteCurrent_BatchWO(this.deleteWO)
       .subscribe((data: any[]) => {
+        alert("work-order deleted successfully"); 
+        this.router.navigateByUrl('/ViewBatchWorkorder')
       });
   }
   UpdateWO() {
@@ -730,9 +732,9 @@ withoutequip_wo()
       this.eqp_key = - 1;
     }
     if (this.EmployeeKey) {
-      this.employeekey = this.EmployeeKey;
+      this. emp_key = this.EmployeeKey;
     } else {
-      this.employeekey = - 1;
+      this. emp_key = - 1;
     }
     if (this.ZoneKey) {
       this.zone = this.ZoneKey;
@@ -869,20 +871,23 @@ withoutequip_wo()
       floorkeys: floorString,
       zonekeys: zoneString,
       roomtypekeys: roomtypeString,
-      employeekey: this.employeekey,
+      employeekey: this. emp_key,
       priority: this.priority,
       fromdate: this.startDT,
       todate: this.endDT,
       isbar: this.is_BarcodeRequired,
       isphoto: this.is_PhotoRequired,
-      metaupdatedby: 2861,
-      OrganizationID: 21,
+      metaupdatedby: this.employeekey,
+      OrganizationID: this.OrganizationID,
       intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
       repeatinterval: this.rep_interval,
       occursonday: this.occurs_on,
       occurstype: this.occurs_type
     };
-    this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => this.router.navigateByUrl('/ViewBatchWorkorder'));
+    this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => {
+      alert("work-order updated successfully"); 
+      this.router.navigateByUrl('/ViewBatchWorkorder');
+    });
   }
   createWorkorder2() {
 
@@ -1079,9 +1084,9 @@ withoutequip_wo()
       }
     }
     if (this.EmployeeKey) {
-      this.employeekey = this.EmployeeKey;
+      this. emp_key = this.EmployeeKey;
     } else {
-      this.employeekey = - 1;
+      this. emp_key = - 1;
     }
     if (this.ZoneKey) {
       this.zone = this.ZoneKey;
@@ -1206,20 +1211,23 @@ withoutequip_wo()
       floorkeys: floorString,
       zonekeys: zoneString,
       roomtypekeys: roomtypeString,
-      employeekey: this.employeekey,
+      employeekey: this. emp_key,
       priority: this.priority,
       fromdate: this.startDT,
       todate: this.endDT,
       isbar: this.is_BarcodeRequired,
       isphoto: this.is_PhotoRequired,
-      metaupdatedby: 2861,
-      OrganizationID: 21,
+      metaupdatedby: this.employeekey,
+      OrganizationID: this.OrganizationID,
       intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
       repeatinterval: this.rep_interval,
       occursonday: this.occurs_on,
       occurstype: this.occurs_type
     };
-    this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res => this.router.navigateByUrl('/ViewBatchWorkorder'));
+    this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res => {
+      alert("work-order updated successfully"); 
+      this.router.navigateByUrl('/ViewBatchWorkorder');
+    });
 
   }
   addFormField() {

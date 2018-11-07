@@ -11,6 +11,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   styleUrls: ['./batch-schedule-assignment-report.component.scss']
 })
 export class BatchScheduleAssignmentReportComponent implements OnInit {
+  loading: boolean;// loading
   bacthschedules: Reports[];
   reportarray: Reports[];
   ScheduleName: string;
@@ -23,7 +24,7 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
   totalSatTime: number;
   totalSunTime: number;
   workorderNotes: string;
-
+  BatchScheduleNameKey;
   role: String;
   name: String;
   employeekey: Number;
@@ -59,7 +60,7 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
     });
   }
   ngOnInit() {
-
+    this.BatchScheduleNameKey="";
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -68,7 +69,6 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-
     this.ReportServiceService
       .getallbatchschedules(this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
@@ -76,10 +76,12 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
       });
   }
   getBatchSchedule(Workorder_ScheduleKey) {
+    this.loading = true;
     this.ReportServiceService
       .getScheduleAssignReport(Workorder_ScheduleKey, this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.reportarray = data;
+        this.loading = false;
         this.totalMonTime = 0;
         this.totalTuesTime = 0;
         this.totalWedTime = 0;
