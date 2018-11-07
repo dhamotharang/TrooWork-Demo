@@ -9,8 +9,10 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ['./viewinspctnbysprvsr.component.scss']
 })
 export class ViewinspctnbysprvsrComponent implements OnInit {
+  
+  loading: boolean;// loading
 
-  inspectionordertable: Inspection[];
+  inspectionordertable;
   searchform: FormGroup;
   fromdate: Date;
   todate: Date;
@@ -22,6 +24,14 @@ export class ViewinspctnbysprvsrComponent implements OnInit {
   toServeremployeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+
+  //Variables for pagination
+
+pageNo: Number = 1;
+itemsPerPage: Number = 25;
+showHide1: boolean;
+showHide2: boolean;
+pagination: Number;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -89,6 +99,48 @@ export class ViewinspctnbysprvsrComponent implements OnInit {
     }
 
   }
+   //functions for pagination
+
+   nextPage() {
+    this.loading = true;// loading
+    var curr_date = this.convert_DT(Date.now());
+    this.pageNo = +this.pageNo + 1;
+    this.inspectionService
+      .getInspectionOrderTablewithCurrentDatefrsprvsr(curr_date, this.toServeremployeekey, this.OrganizationID)
+      .subscribe((data: Inspection[]) => {
+        this.inspectionordertable = data;
+         this.loading = false;// loading
+        this.pagination = +this.inspectionordertable[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
+  }
+  previousPage() {
+  this.loading = false;// loading
+    var curr_date = this.convert_DT(new Date());
+    this.pageNo = +this.pageNo - 1;
+    this.inspectionService
+    .getInspectionOrderTablewithCurrentDatefrsprvsr(curr_date, this.toServeremployeekey, this.OrganizationID)
+    .subscribe((data: Inspection[]) => {
+      this.inspectionordertable = data;
+        this.loading = false;// loading
+        if (this.pageNo == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
+  }
+
+  //functions for pagination 
 
   ngOnInit() {
 
@@ -108,7 +160,6 @@ export class ViewinspctnbysprvsrComponent implements OnInit {
     this.inspectionService
       .getInspectionOrderTablewithCurrentDatefrsprvsr(curr_date, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        // debugger;
         this.inspectionordertable = data;
       });
     this.searchform = this.formBuilder.group({

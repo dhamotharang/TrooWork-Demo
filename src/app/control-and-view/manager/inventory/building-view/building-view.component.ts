@@ -97,7 +97,6 @@ export class BuildingViewComponent implements OnInit {
       });
   }
   deleteFacility() {
-    //debugger;
     this.inventoryService
       .DeleteBuilding(this.delete_faciKey, this.employeekey, this.OrganizationID).subscribe(() => {
 
@@ -146,10 +145,9 @@ export class BuildingViewComponent implements OnInit {
     }
   };
 
-
   deleteFacPass(FacilityKey) {
     this.delete_faciKey = FacilityKey;
-    //debugger;
+
   }
   ngOnInit() {
     var token = localStorage.getItem('token');
