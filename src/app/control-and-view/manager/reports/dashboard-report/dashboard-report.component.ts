@@ -94,8 +94,6 @@ export class DashboardReportComponent implements OnInit {
   Workorder_TypeKey: string;
   date1: string;
   date2: string;
-  org_id: number;
-  manager: string;
   EmployeeKey;
   fromdate: Date;
   todate: Date;
@@ -209,9 +207,7 @@ export class DashboardReportComponent implements OnInit {
       return;
     }
     console.log(date2 + " ... after date formatting");
-    this.org_id = 21;
     this.WorkorderTypeKey;
-    this.manager = "2861";
     if (this.WorkorderTypeKey.length == 0) {
       workordertypeString = null;
     }
@@ -238,7 +234,7 @@ export class DashboardReportComponent implements OnInit {
     console.log(this.date2 + " ... before calling service");
 
     this.ReportServiceService
-      .getvaluesfilterbypie(date1, date2, this.em_Key, workordertypeString, this.org_id, this.manager)
+      .getvaluesfilterbypie(date1, date2, this.em_Key, workordertypeString, this.OrganizationID, this.employeekey)
       .subscribe((data: Reports[]) => {
         this.pievalues = data;
 

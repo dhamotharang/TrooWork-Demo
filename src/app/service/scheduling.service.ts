@@ -144,4 +144,36 @@ export class SchedulingService {
     }
     return this.http.post(uri, obj);
   }
+
+  getfloorType_facilityfloor(floor, building, zone, roomtype, OrgID) {
+
+    const uri = "http://localhost:3000/api/getfloorTypeValue";
+    const obj = {
+      FacilityKey: building,
+      FloorKey: floor,
+      ZoneKey: zone,
+      RoomTypeKey: roomtype,
+      OrganizationID: OrgID
+    }
+    return this.http.post(uri, obj);
+  }
+
+  getAllRoomFilterList(BatchScheduleNameKey, OrgID,
+    bldgKey, flrKey, zKey, rTypeKey, rKey, flrTypeKey) {
+
+    const uri = "http://localhost:3000/api/viewFilterRoomsforScheduleroom";
+    const obj = {
+      batchschedulenamekey: BatchScheduleNameKey,
+      searchtype: 'filter',
+      searchname: null,
+      facilitykey: bldgKey,
+      floorkey: flrKey,
+      zonekey: zKey,
+      roomkey: rKey,
+      roomTypeKey: rTypeKey,
+      floortypekey: flrTypeKey,
+      OrganizationID: OrgID
+    }
+    return this.http.post(uri, obj);
+  }
 }

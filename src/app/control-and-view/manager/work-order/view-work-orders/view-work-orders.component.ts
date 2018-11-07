@@ -64,8 +64,6 @@ export class ViewWorkOrdersComponent implements OnInit {
   showHide1: boolean;
   showHide2: boolean;
   pagination: Number;
-  // workorderCheckValue=false;
-  //validation min3_alphanumeric
   searchform: FormGroup;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
@@ -209,13 +207,7 @@ export class ViewWorkOrdersComponent implements OnInit {
           this.showHide2 = false;
           this.showHide1 = false;
         }
-        // this.loading = false;// loading
       });
-
-
-    // this.searchform = this.formBuilder.group({
-    //   SearchworkType_emp_room: ['', Validators.required]
-    // }); 
 
     this.searchform = this.formBuilder.group({
       SearchWo: ['', Validators.required]
@@ -372,14 +364,14 @@ export class ViewWorkOrdersComponent implements OnInit {
       .getWoFilter(this.viewWorkOrder)
       .subscribe((data: any[]) => {
         this.workorderList = data;
-        if (this.workorderList[0].totalItems > this.items_perpage) {
-          this.showHide2 = true;
-          this.showHide1 = false;
-        }
-        else if (this.workorderList[0].totalItems <= this.items_perpage) {
+        // if (this.workorderList[0].totalItems > this.items_perpage) {
+        //   this.showHide2 = true;
+        //   this.showHide1 = false;
+        // }
+        // else if (this.workorderList[0].totalItems <= this.items_perpage) {
           this.showHide2 = false;
           this.showHide1 = false;
-        }
+        // }
         this.loading = false;
       });
   }
@@ -529,7 +521,6 @@ export class ViewWorkOrdersComponent implements OnInit {
     this.WorkOrderServiceService
       .delete_WO(this.deleteWO)
       .subscribe((data: any[]) => {
-        // this.DeleteWOList = data; 
         this.workorderList.workorderCheckValue = false;
         this.checkValue = [];
         this.workorderKey = [];

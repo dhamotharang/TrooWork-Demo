@@ -142,21 +142,6 @@ export class ReportServiceService {
       .post(url, obj);
 
   }
-  // generateBarcodeByEqupiment(EquipmentKey, EquipmentTypeKey, empKey, orgID) {
-  //   const url = 'http://localhost:3000/api/barcodeReportByEquipment';
-  //   const obj = {
-  //     OrganizationID: orgID,
-  //     employeekey: empKey,
-  //     EquipmentTypeKey: EquipmentTypeKey,
-  //     EquipmentKey: EquipmentKey
-
-
-  //   };
-  //   return this
-  //     .http
-  //     .post(url, obj);
-  // }
-
   //services for workorder reporting
   getEmployee(empKey, orgID) {
     return this
@@ -176,23 +161,6 @@ export class ReportServiceService {
       .get('http://localhost:3000/api/roomByFacility_Floor_zone?fkey=' + fkey + '&floorkey=' + floorkey + '&zonekey=' + zonekey + '&OrganizationID=' + orgID);
   }
 
-  // generateWorkOrderReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, fromdate, todate, RoomKey, EmployeeKey, WorkorderStatusKey, empKey, orgID) {
-  //   const url = 'http://localhost:3000/api/workorderReportByallFilters';
-  //   const obj = {
-  //     OrganizationID: 21,
-  //     manager: 2861,
-  //     facilitykey: FacilityKey,
-  //     floorKey: FloorKey,
-  //     roomTypeKey: RoomTypeKey,
-  //     zoneKey: ZoneKey
-
-
-  //   };
-  //   return this
-  //     .http
-  //     .post(url, obj);
-
-  // }
   generateBarcodeByEqupimenttype(EquipmentKey, EquipmentTypeKey, employeekey, OrganizationID) {
     const url = 'http://localhost:3000/api/barcodeReportByEquipment';
     const obj = {
@@ -250,30 +218,9 @@ export class ReportServiceService {
 
 
   }
-  
-  //Pooja's code ends here
 
-  //services for workorder reporting
-  // getEmployee() {
-  //   return this
-  //     .http
-  //     .get('http://localhost:3000/api/getAllValueByDomain?domainName=employees&empkey' + 2861 + '&OrganizationID=' + 21);
-  // }
-
-  // getWorkstatus() {
-  //   return this
-  //     .http
-  //     .get('http://localhost:3000/api/getAllValueByDomain?domainName=workstatus&empkey' + 2861 + '&OrganizationID=' + 21);
-  // }
-
-  // getRooms(fkey, floorkey, zonekey) {
-  //   return this
-  //     .http
-  //     .get('http://localhost:3000/api/roomByFacility_Floor_zone?fkey=' + fkey + '&floorkey=' + floorkey + '&zonekey=' + zonekey + '&OrganizationID=' + 21);
-  // }
 
   generateWorkOrderReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, fromdate, todate, RoomKey, EmployeeKey, WorkorderStatusKey, empKey, orgID) {
-    // debugger;
     const url = 'http://localhost:3000/api/workorderReportByallFilters';
     const obj = {
       OrganizationID: orgID,
