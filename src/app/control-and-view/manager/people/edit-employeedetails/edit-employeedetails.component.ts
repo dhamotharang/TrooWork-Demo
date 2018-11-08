@@ -9,6 +9,7 @@ import { PeopleServiceService } from '../../../../service/people-service.service
 })
 export class EditEmployeedetailsComponent implements OnInit {
   marked = true;
+  // promoted= false;
   firstName: Array<any>;
   lastName: Array<any>;
   MiddleName: Array<any>;
@@ -131,6 +132,7 @@ export class EditEmployeedetailsComponent implements OnInit {
       alert("HireDate must be greater than birth date !");
       return;
     }
+   
     var hiredt = this.convert_DT(this.BirthDate);
 
     this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.employeekey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey)
@@ -185,6 +187,7 @@ export class EditEmployeedetailsComponent implements OnInit {
         this.supervisor = data;
       });
   }
+
   toggleVisibility(e) {
     if (e.target.checked) {
       this.marked = false;
@@ -192,4 +195,5 @@ export class EditEmployeedetailsComponent implements OnInit {
       this.marked = true;
     }
   }
+  
 }

@@ -4,29 +4,30 @@
   <div class="row col-md-12 ">
     <h1 style="margin-left: 30rem;">Employee Form</h1>
   </div><br><br>
-  <div class="form-row col-md-12">
-    <div class="col-md-6 bg-dark">
-      <div class="form-group bg-dark">
-        <label>Employee Number*</label>
-        <!-- <div class="col-md-6 mb-2"> -->
-        <input type="text" name="EmployeeNumber"  maxlength="15" (keypress)="numberValid($event)" class="form-control" placeholder="Employee Number" [(ngModel)]="EmployeeNumber">
-        <!-- </div> -->
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group ">
-        <label>User Role Type*</label><br>
-        <select name="userroletype" style="width: 77%; background-color: #d4f4ff;" class="form-control" [(ngModel)]="UserRoleTypeKey">
-          <option value="" placeholder>--Select--</option>
-          <option *ngFor="let u of useroletype" [value]="u.UserRoleTypeKey">
-            {{u.UserRoleName}}
-          </option>
-        </select>
-      </div>
-    </div>
-  </div>
+  <!-- <div class="form-row col-md-12"> -->
+   
+  <!-- </div> -->
 
   <div class="row bg-info col-md-12">
+      <div class="col-md-6">
+          <div class="form-group ">
+            <label>Employee Number*</label>
+            <!-- <div class="col-md-6 mb-2"> -->
+            <input type="text" name="EmployeeNumber"  maxlength="15" (keypress)="numberValid($event)" class="form-control" placeholder="Employee Number" [(ngModel)]="EmployeeNumber">
+            <!-- </div> -->
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group ">
+            <label>User Role Type*</label><br>
+            <select name="userroletype" style="width: 77%; background-color: #d4f4ff;" class="form-control" [(ngModel)]="UserRoleTypeKey">
+              <option value="" placeholder>--Select--</option>
+              <option *ngFor="let u of useroletype" [value]="u.UserRoleTypeKey">
+                {{u.UserRoleName}}
+              </option>
+            </select>
+          </div>
+        </div>
     <h1 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Personal
       Information</h1>
     <div class="col-md-6">

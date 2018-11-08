@@ -10,13 +10,21 @@ import { Router } from '@angular/router';
 })
 export class InspectiontemplateEditComponent implements OnInit {
 
+  loading: boolean;// loading
+
   role: String;
   name: String;
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+
+ //Variables for pagination
+
   pageNo: Number = 1;
   itemsPerPage: Number = 25;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -35,7 +43,7 @@ export class InspectiontemplateEditComponent implements OnInit {
     return window.atob(output);
   }
 
-  inspectiontemplate: Inspection[];
+  inspectiontemplate;
   searchform: FormGroup;
   delete_tempid: number;
   regexStr = '^[a-zA-Z0-9_ ]*$';
@@ -61,12 +69,14 @@ export class InspectiontemplateEditComponent implements OnInit {
     }, 100)
   }
   deleteTemplate() {
+    this.loading = true;// loading
     this.inspectionService
       .DeleteTemplate(this.delete_tempid, this.employeekey, this.OrganizationID).subscribe(() => {
         this.inspectionService
           .getInspectionTemplateDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Inspection[]) => {
             this.inspectiontemplate = data;
+            this.loading = false;// loading
           });
       });
   }
@@ -90,6 +100,47 @@ export class InspectiontemplateEditComponent implements OnInit {
       });
     }
   };
+
+    //functions for pagination
+
+    nextPage() {
+      this.loading = true;// loading
+      this.pageNo = +this.pageNo + 1;
+      this.inspectionService
+      .getInspectionTemplateDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: Inspection[]) => {
+        this.inspectiontemplate = data;
+           this.loading = false;// loading
+          this.pagination = +this.inspectiontemplate[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+          if (this.pagination > 1) {
+            this.showHide2 = true;
+            this.showHide1 = true;
+          }
+          else {
+            this.showHide2 = false;
+            this.showHide1 = true;
+          }
+        });
+    }
+    previousPage() {
+    this.loading = true;// loading
+      this.pageNo = +this.pageNo - 1;
+      this.inspectionService
+      .getInspectionTemplateDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: Inspection[]) => {
+        this.inspectiontemplate = data;
+           this.loading = false;// loading
+          if (this.pageNo == 1) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          } else {
+            this.showHide2 = true;
+            this.showHide1 = true;
+          }
+        });
+    }
+  
+    //functions for pagination 
   ngOnInit() {
 
     var token = localStorage.getItem('token');
@@ -101,10 +152,21 @@ export class InspectiontemplateEditComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
+    this.loading = true;// loading
+
     this.inspectionService
       .getInspectionTemplateDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
         this.inspectiontemplate = data;
+        this.loading = false;// loading
+        if (this.inspectiontemplate[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.inspectiontemplate[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
       });
     this.searchform = this.formBuilder.group({
       SearchTemplate: ['', Validators.required]
