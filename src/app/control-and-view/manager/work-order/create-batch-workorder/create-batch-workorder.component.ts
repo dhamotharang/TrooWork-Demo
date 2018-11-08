@@ -337,6 +337,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
     }
   }
   createWorkorder1() {
+    debugger;
     if (!(this.BatchScheduleNameKey)) {
       alert("select schedule name!");
     }
@@ -360,7 +361,10 @@ export class CreateBatchWorkorderComponent implements OnInit {
       alert("provide work-order start date!");
     }
     else if (!(this.WorkorderEndDate)) {
-      alert("provide work-order end date!")
+      alert("provide work-order end date!");
+    }else if(this.WorkorderStartDate>this.WorkorderEndDate)
+    {
+      alert("please check your start date");
     }
     else if (this.dailyrecurring == false && this.weeklyrecurring == false && this.monthlyrecurring == false) {
       alert("Recurring Period is not provided !");
