@@ -65,7 +65,7 @@ export class SetLoginCredentialsForUserComponent implements OnInit {
                   this.peopleService.getUserEmail(this.username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
                     this.managerMail = data[0].EmailID;
                     this.userMail = data[0].newmail;
-                    debugger;
+
                     if (this.userMail == null) {
                       alert("Login Credentials created for user Successfully! Mail not send , Mail-Id not found !");
                     } else {

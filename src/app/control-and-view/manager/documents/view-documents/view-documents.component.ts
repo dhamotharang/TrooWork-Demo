@@ -15,7 +15,8 @@ export class ViewDocumentsComponent implements OnInit {
   documentsList: Documents[];
   viewFolderDescriptionTable: Documents[];
   searchFlag: any;
-
+  page: Number = 1;
+  count: Number = 25;
   role: String;
   name: String;
   employeekey: Number;
@@ -62,27 +63,27 @@ export class ViewDocumentsComponent implements OnInit {
   }
   RecentUpdates() {
     this.documentService
-      .getRecentUploads(this.employeekey, this.OrganizationID)
+      .getRecentUploads(this.page, this.count, this.employeekey, this.OrganizationID)
       .subscribe((data: Documents[]) => {
         this.searchFlag = true;
         this.viewFolderDescriptionTable = data;
       });
   }
   searchFNDN(SearchValue) {
-    if (SearchValue.length >= 3){
-    this.documentService
-      .SearchFileNameandDescName(this.OrganizationID, SearchValue).subscribe((data: Documents[]) => {
-        this.viewFolderDescriptionTable = data;
+    if (SearchValue.length >= 3) {
+      this.documentService
+        .SearchFileNameandDescName(this.OrganizationID, SearchValue).subscribe((data: Documents[]) => {
+          this.viewFolderDescriptionTable = data;
 
-      });
+        });
     }
-    else if (SearchValue.length == 0){
+    else if (SearchValue.length == 0) {
       var formtype;
       this.documentService
-      .getFileDetailsTablewithDropdown(formtype, this.employeekey, this.OrganizationID).subscribe((data: Documents[]) => {
-        this.searchFlag = true;
-        this.viewFolderDescriptionTable = data;
-      });
+        .getFileDetailsTablewithDropdown(formtype, this.employeekey, this.OrganizationID).subscribe((data: Documents[]) => {
+          this.searchFlag = true;
+          this.viewFolderDescriptionTable = data;
+        });
     }
   }
   showFileDetailsTablebydropdown(formtype) {
@@ -132,7 +133,7 @@ export class ViewDocumentsComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
-    this.FormtypeId="";
+    this.FormtypeId = "";
     this.documentService
       .getDocumentFolderNamesfordropdown(this.employeekey, this.OrganizationID)
       .subscribe((data: Documents[]) => {

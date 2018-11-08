@@ -16,7 +16,6 @@ export class SetUserLoginSuperComponent implements OnInit {
   Organization$
 
   sasemail: People[];
-  orgid: Number = 21;
   password: String = 'troowork';
   reEnterPassword: String = 'troowork';
   username: any;
@@ -70,32 +69,32 @@ export class SetUserLoginSuperComponent implements OnInit {
           if (data[0].result == 'Exists') {
             alert("UserName already exists");
           } else {
-            this.peopleService.setLoginCreds(this.username, this.password, this.empKey$, this.employeekey, this.userRoleTypeKey$,  this.Organization$)
+            this.peopleService.setLoginCreds(this.username, this.password, this.empKey$, this.employeekey, this.userRoleTypeKey$, this.Organization$)
               .subscribe((data: any[]) => {
                 this.router.navigateByUrl('/Viewemployee');
-                
-               
-                  this.peopleService.getUserEmail(this.username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
-                    this.managerMail = data[0].EmailID;
-                    this.userMail = data[0].newmail;
-                   
-                    if (this.userMail == null) {
-                      alert("Login Credentials created for user Successfully! Mail not send , Mail-Id not found !");
-                    } else {
-                      var message = 'Your Username is ' + this.username + ' and ' + 'Your Password is ' + this.password + "                https://troowork.azurewebsites.net";
-                      console.log(message);
-                      const obj = {
-                        from: this.managerMail,
-                        to: this.userMail,
-                        subject: 'Login Credentials',
-                        text: message
-                      };
-                      const uri = "http://localhost:3000/api/sendmail";
-                      return this.http.post(uri, obj)
-                        .subscribe(res => console.log('Mail Sent Successfully...'));
-                    }
-                  });
-                
+
+
+                this.peopleService.getUserEmail(this.username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+                  this.managerMail = data[0].EmailID;
+                  this.userMail = data[0].newmail;
+
+                  if (this.userMail == null) {
+                    alert("Login Credentials created for user Successfully! Mail not send , Mail-Id not found !");
+                  } else {
+                    var message = 'Your Username is ' + this.username + ' and ' + 'Your Password is ' + this.password + "                https://troowork.azurewebsites.net";
+                    console.log(message);
+                    const obj = {
+                      from: this.managerMail,
+                      to: this.userMail,
+                      subject: 'Login Credentials',
+                      text: message
+                    };
+                    const uri = "http://localhost:3000/api/sendmail";
+                    return this.http.post(uri, obj)
+                      .subscribe(res => console.log('Mail Sent Successfully...'));
+                  }
+                });
+
               });
           }
         });

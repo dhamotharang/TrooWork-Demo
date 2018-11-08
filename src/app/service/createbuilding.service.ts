@@ -16,11 +16,5 @@ export class CreatebuildingService {
     return this
       .http
       .post (url,obj);
-
-
-    // return this
-    //   .http
-    //   .get('http://localhost:3000/api/addfacility?fac=' + createbuilding + '&employeekey=' + 2861 + '&OrganizationID=' + 21)
-    //   .subscribe(res => console.log('Done'));
   }
 }

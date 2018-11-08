@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       default:
         throw 'Illegal base64url string!';
     }
-    return window.atob(output); //polifyll https://github.com/davidchambers/Base64.js
+    return window.atob(output);
   }
   
   loginForm: FormGroup; constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {
@@ -55,10 +55,9 @@ export class LoginComponent implements OnInit {
     else {
       this.loginService
         .login(userName, passWord, tenantID)
-        // .subscribe(res => {
         .subscribe((data: any[]) => {
           this.tokenobj = data;
-          debugger;
+ 
           if (this.tokenobj.token == null || this.tokenobj.token == "" || data.length == 0) {
             this.isAuthenticated = false;
             window.localStorage.clear();
@@ -69,7 +68,6 @@ export class LoginComponent implements OnInit {
             this.isAuthenticated = true;
             localStorage.setItem('token', this.tokenobj.token);
             window.sessionStorage.token = this.tokenobj.token;
-            // $http.defaults.headers.common['Authorization'] = $window.sessionStorage.token;
             window.localStorage['token'] = this.tokenobj.token;
             var encodedProfile = this.tokenobj.token.split('.')[1];
             var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -96,19 +94,14 @@ export class LoginComponent implements OnInit {
               this.router.navigateByUrl('/welcomeEmployee');
             }
           }
-          // window.localStorage.clear();
 
 
         },
 
           res => {
-            debugger;
-            // var test = res;
-            // alert("hi...");
             if (res.error.text === "Wrong user or password") {
               alert("Invalid login credentials. Please enter correct credentials to login...");
             }
-            // alert("bye...");
           });
     }
   }

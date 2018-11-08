@@ -30,10 +30,10 @@ export class EmployeeProfileComponent implements OnInit {
       default:
         throw 'Illegal base64url string!';
     }
-    return window.atob(output); //polifyll https://github.com/davidchambers/Base64.js
+    return window.atob(output); 
   }
   constructor(private loginService: LoginService) { }
-  // private formBuilder: FormBuilder,, private el: ElementRef
+
 
 
   ngOnInit() {

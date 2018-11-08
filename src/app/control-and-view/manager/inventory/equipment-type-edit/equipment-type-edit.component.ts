@@ -10,7 +10,6 @@ import { Inventory } from '../../../../model-class/Inventory';
 })
 export class EquipmentTypeEditComponent implements OnInit {
   equipTypeKey$: Object;
-  // equipType: Inventory[];
   equipType: Array<any>;
 
   role: String;
@@ -41,7 +40,7 @@ export class EquipmentTypeEditComponent implements OnInit {
   }
 
   updateEquipmentType(equipTypeKey, equipType, equipTypeDesc) {
-    debugger;
+
     if (!equipType) {
       alert("Please provide a Equipment Type");
     } else if (!equipTypeDesc) {
@@ -75,7 +74,7 @@ export class EquipmentTypeEditComponent implements OnInit {
 
     this.inventoryService.getEquipmentTypeListEdit(this.equipTypeKey$, this.OrganizationID).subscribe((data: Array<any>) => {
       console.log(this.equipTypeKey$);
-      debugger;
+  
       this.equipType = data[0];
       console.log(data.length);
     });

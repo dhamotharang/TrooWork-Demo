@@ -1,9 +1,78 @@
 <app-manager-dash-board></app-manager-dash-board>
-<div style="width: 100%;height: 100%;">
+<img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
+<div *ngIf="!loading" style="width: 100%;height: 100%;">
   <div class="bg-dark" style="width: 100%;height: 100%;">
     <br><br>
     <h4 class="refer"><b> ROOM</b> </h4>
     <br>
+    <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
+      <!-- <div class="col-md-6"> -->
+      <div class="form-group col-md-6">
+        <label>Building*</label><br>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey"
+          (change)="getFloorDisp($event.target.value);" [disabled]="!BatchScheduleNameKey" required>
+          <option value="">--Select--</option>
+          <option *ngFor="let b of building" [value]="b.FacilityKey">
+            {{b.FacilityText}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label>Floor*</label><br>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey"
+          [disabled]="!FacilityKey" (change)="getZoneRoomTypeRoom($event.target.value,FacilityKey);viewRooms_Filter();"
+          required>
+          <option value="">--Select--</option>
+          <option *ngFor="let b of FloorList" [value]="b.FloorKey">
+            {{b.FloorName}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label>Zone</label><br>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey"
+          [disabled]="!FloorKey" (change)="getRoomTypeRoom($event.target.value,FacilityKey,FloorKey);viewRooms_Filter();"
+          required>
+          <option value="">--Select--</option>
+          <option *ngFor="let b of zonelist" [value]="b.ZoneKey">
+            {{b.ZoneName}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label>Room Type</label><br>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey"
+          [disabled]="!FloorKey" (change)="getRoom($event.target.value,ZoneKey,FacilityKey,FloorKey);viewRooms_Filter();"
+          required>
+          <option value="">--Select--</option>
+          <option *ngFor="let b of RoomTypeList" [value]="b.RoomTypeKey">
+            {{b.RoomTypeName}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label>Floor Type</label><br>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorTypeKey"
+          [disabled]="!FloorKey" (change)="getRoom($event.target.value,ZoneKey,FacilityKey,FloorKey);setFlrTypeKey($event.target.value);viewRooms_Filter();"
+          required>
+          <option value="">--Select--</option>
+          <option *ngFor="let b of floorTypeList" [value]="b.FloorTypeKey">
+            {{b.FloorTypeName}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label>Room</label><br>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomKey"
+          [disabled]="!FloorKey" (change)="viewRooms_Filter();setRoomKey($event.target.value);" required>
+          <option value="">--Select--</option>
+          <option *ngFor="let b of RoomList" [value]="b.RoomKey">
+            {{b.RoomName}}
+          </option>
+        </select>
+      </div>
+      <!-- </div> -->
+    </div>
     <div class="row col-md-12">
       <h5 style="margin-top: 2rem;" class="col-md-2"><label for="scheduling">Batch Schedule Name: </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
@@ -61,3 +130,7 @@
         </tr>
       </tbody>
     </table>
+    <button class="btn btn-success" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
+    <button class="btn btn-success" (click)="nextPage()" *ngIf="showHide2">Next >></button>
+  </div>
+</div>

@@ -84,7 +84,6 @@ export class AddEmployeeComponent implements OnInit {
   constructor(private route: ActivatedRoute, private PeopleServiceService: PeopleServiceService, private router: Router) { }
 
   createEmployee() {
-    debugger;
     
     if (!(this.EmployeeNumber) ) {
       alert("Employee Number Not provided !");
@@ -237,7 +236,6 @@ export class AddEmployeeComponent implements OnInit {
     }
   }
   selectUserType(userType) {
-    debugger;
     userType;
     if (userType == this.roleTypeKey) {
       this.showManager = true;

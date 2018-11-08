@@ -46,7 +46,7 @@ export class RoomTypeUpdateComponent implements OnInit {
 
 
   updateRoomType(RoomTypeName, MetricTypeValue) {
-    debugger;
+
     if (!this.metricType) {
       this.metricType = null;
       alert("Select a metric type !");
@@ -93,7 +93,7 @@ export class RoomTypeUpdateComponent implements OnInit {
       .EditRoomtTypeAutoGenerate(this.rTypeKey$, this.OrganizationID)
       .subscribe((data: Array<any>) => {
         this.roomTypeList = data[0];
-        debugger;
+
         this.metricType = data[0].MetricType;
         this.inventoryService
           .getMetricValues(this.OrganizationID)

@@ -64,8 +64,6 @@ export class ViewWorkOrdersComponent implements OnInit {
   showHide1: boolean;
   showHide2: boolean;
   pagination: Number;
-  // workorderCheckValue=false;
-  //validation min3_alphanumeric
   searchform: FormGroup;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
@@ -209,13 +207,7 @@ export class ViewWorkOrdersComponent implements OnInit {
           this.showHide2 = false;
           this.showHide1 = false;
         }
-        // this.loading = false;// loading
       });
-
-
-    // this.searchform = this.formBuilder.group({
-    //   SearchworkType_emp_room: ['', Validators.required]
-    // }); 
 
     this.searchform = this.formBuilder.group({
       SearchWo: ['', Validators.required]
@@ -276,7 +268,7 @@ export class ViewWorkOrdersComponent implements OnInit {
   viewWO_Filter() {
     var fac_key;
     var floor_key;
-    var zone_key; 
+    var zone_key;
     var roomtype_key;
     var room_key;
     var batch_key;
@@ -329,13 +321,12 @@ export class ViewWorkOrdersComponent implements OnInit {
       batch_key = this.BatchScheduleNameKey
     }
     if (!this.WorkorderStatusKey) {
-       WOS_key = null;
+      WOS_key = null;
 
     }
     else {
       WOS_key = this.WorkorderStatusKey
     }
-    debugger;
     if (!this.EmployeeKey) {
       em_key = null;
 
@@ -351,14 +342,14 @@ export class ViewWorkOrdersComponent implements OnInit {
       wot_key = this.WorkorderTypeKey;
     }
     if (!this.ondate) {
-       from_date = this.convert_DT(new Date());
+      from_date = this.convert_DT(new Date());
 
     }
     else {
       from_date = this.convert_DT(this.ondate);
     }
     if (!this.todate) {
-       to_date = this.convert_DT(new Date());
+      to_date = this.convert_DT(new Date());
 
     }
     else {
@@ -383,6 +374,8 @@ export class ViewWorkOrdersComponent implements OnInit {
       .getWoFilter(this.viewWorkOrder)
       .subscribe((data: any[]) => {
         this.workorderList = data;
+        this.showHide2 = false;
+        this.showHide1 = false;
         this.loading = false;
       });
   }
@@ -394,7 +387,7 @@ export class ViewWorkOrdersComponent implements OnInit {
   searchworkType_emp_room(search_value) {
     var fac_key;
     var floor_key;
-    var zone_key; 
+    var zone_key;
     var roomtype_key;
     var room_key;
     var batch_key;
@@ -543,7 +536,6 @@ export class ViewWorkOrdersComponent implements OnInit {
     this.WorkOrderServiceService
       .delete_WO(this.deleteWO)
       .subscribe((data: any[]) => {
-        // this.DeleteWOList = data; 
         this.workorderList.workorderCheckValue = false;
         this.checkValue = [];
         this.workorderKey = [];

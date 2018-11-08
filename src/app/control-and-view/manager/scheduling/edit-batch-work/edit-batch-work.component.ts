@@ -20,7 +20,6 @@ export class EditBatchWorkComponent implements OnInit {
   scheduleDescription;
   scheduleNameKey$: Object;
   scheduleDetails;
-  // checkBoxValue: boolean;
   schName: String;
 
   url_base64_decode(str) {

@@ -78,7 +78,6 @@ export class MeetingTrainingEditComponent implements OnInit {
     this.ActionKey = actionKey;
   }
   selectEmpsDropDown() {
-    console.log("inside select....");
     if ((this.jobTleKey > 0) && (this.superVsrKey > 0)) {
       this.peopleServ
         .getSupervisorJobtitleEmployeesList(this.jobTleKey, this.superVsrKey, this.employeekey, this.OrganizationID)
@@ -117,7 +116,6 @@ export class MeetingTrainingEditComponent implements OnInit {
   }
 
   updateMeetingTrainingEvent(ActionKey, Eventhost, Venue, MeetingNotes) {
-    debugger;
     if (!this.time1) {
       alert("Start Time is not provided");
     }
@@ -226,8 +224,6 @@ export class MeetingTrainingEditComponent implements OnInit {
       .getMeetingTrainingDetails(this.eventKey$, this.actionKey$, this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.mtngDetails = data[0];
-        // var currentDate = this.convert_DT(this.mtngDetails.MeetingDate);
-        debugger;
       });
 
     this.peopleServ

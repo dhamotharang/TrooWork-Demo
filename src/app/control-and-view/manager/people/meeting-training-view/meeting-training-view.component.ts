@@ -28,7 +28,8 @@ export class MeetingTrainingViewComponent implements OnInit {
   dropdownSettings1 = {};
   JobTitleKey = [];
   EmployeeKey = [];
-
+  page: Number = 1;
+  count: Number = 25;
   role: String;
   name: String;
   employeekey: Number;
@@ -55,8 +56,6 @@ export class MeetingTrainingViewComponent implements OnInit {
 
   fromdate: Date;
   todate: Date;
-  // filterList: People[];
-
   //validation starts ..... @rodney
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
@@ -81,8 +80,6 @@ export class MeetingTrainingViewComponent implements OnInit {
   //validation ends ..... @rodney
 
   filterMtngTrainingList() {
-    debugger;
-
     var JobTitleString;
     if (this.JobTitleKey.length == 0) {
       JobTitleString = null;
@@ -232,7 +229,7 @@ export class MeetingTrainingViewComponent implements OnInit {
 
     this.todayDt = this.convert_DT(this.date1);
     this.peopleServ
-      .gettodaysMeeting(this.todayDt, this.employeekey, this.OrganizationID)
+      .gettodaysMeeting(this.page, this.count, this.todayDt, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.meetingTraining = data;
       });

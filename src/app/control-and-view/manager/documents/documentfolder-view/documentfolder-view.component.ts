@@ -94,7 +94,6 @@ export class DocumentfolderViewComponent implements OnInit {
   }
   deleteFolderPass(FormtypeId) {
     this.delete_foldKey = FormtypeId;
-    debugger;
   }
   ngOnInit() {
     var token = localStorage.getItem('token');

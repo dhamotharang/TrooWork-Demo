@@ -9063,3 +9063,20 @@
   .dropdown-content a:hover {background-color: #ddd;}
   
   .dropdown:hover .dropdown-content {display: block;}
+ 
+  .button-brown-true {
+    background-color:rgb(255, 42, 66);
+    width: 86px;
+    /*height: 30px;*/
+}  
+
+.button-brown-false {
+    background-color: rgb(255, 255, 85);
+    width: 86px;
+    /*height: 30px;*/
+}  
+
+.valid_text{
+    color: red;
+    font-weight: bold;
+}

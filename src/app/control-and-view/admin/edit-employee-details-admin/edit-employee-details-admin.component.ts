@@ -21,12 +21,12 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
   empk$: Object;
   BirthDate: Date;
   HireDate: Date;
-  managerKey: Number = 2861;
+  managerKey: Number;
   delete_EmpKey: Number;
   employeedetailstable: People[];
   managerList;
   useroletyp;
-  
+
   role: String;
   name: String;
   employeekey: Number;
@@ -72,91 +72,89 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
   }
 
   editEmployee(EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey) {
-    if (!(this.editempdtails.EmployeeNumber) ) {
+    if (!(this.editempdtails.EmployeeNumber)) {
       alert("Employee Number Not provided !");
       return;
     }
-    if (!(this.editempdtails.UserRoleTypeKey ) ) {
+    if (!(this.editempdtails.UserRoleTypeKey)) {
       alert("User Role Type Not provided !");
       return;
     }
 
-    if (!(this.editempdtails.FirstName ) ) {
+    if (!(this.editempdtails.FirstName)) {
       alert("First Name Not provided !");
       return;
     }
-    if (!(this.editempdtails.LastName ) ) {
+    if (!(this.editempdtails.LastName)) {
       alert("LastName Not provided !");
       return;
     }
-    if (!(this.editempdtails.Gender) ) {
+    if (!(this.editempdtails.Gender)) {
       alert("Gender Not provided !");
       return;
     }
-    if (!(this.editempdtails.EmployeeStatusKey) ) {
+    if (!(this.editempdtails.EmployeeStatusKey)) {
       alert("Employee Status Not provided !");
       return;
     }
-    if (!(this.editempdtails.PrimaryPhone) ) {
+    if (!(this.editempdtails.PrimaryPhone)) {
       alert("Primary Phone Not provided !");
       return;
     }
-    if (!(this.HireDate) ) {
+    if (!(this.HireDate)) {
       alert("HireDate Not provided !");
       return;
     }
-    if (!(this.editempdtails.JobTitleKey ) ) {
+    if (!(this.editempdtails.JobTitleKey)) {
       alert("JobTitle Not provided !");
       return;
     }
-    if (!(this.editempdtails.DepartmentKey) ) {
+    if (!(this.editempdtails.DepartmentKey)) {
       alert("Department Not provided !");
       return;
     }
     var birthdt;
-    var currentDate=this.convert_DT(new Date());
-   
-    if (!(BD) ) {
+    var currentDate = this.convert_DT(new Date());
+
+    if (!(BD)) {
       birthdt = this.convert_DT(new Date());
     }
     else {
       birthdt = this.convert_DT(BD);
     }
-    var hiredt= this.convert_DT(HD)
-    if(birthdt > currentDate){
+    var hiredt = this.convert_DT(HD)
+    if (birthdt > currentDate) {
       alert("Wrong BirthDate !");
       return;
     }
-    if(hiredt >currentDate){
+    if (hiredt > currentDate) {
       alert("Wrong HireDate !");
       return;
     }
-    if( HD <BD){
+    if (HD < BD) {
       alert("HireDate must be greater than birth date !");
       return;
     }
-    
+
     this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.managerKey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey)
-    .subscribe((data: Array<any>) => { 
-      alert("Employee Updated !");
+      .subscribe((data: Array<any>) => {
+        alert("Employee Updated !");
         this.router.navigateByUrl('/ViewEmployee');
       });
 
   }
 
   deleteEmployee() {
-    debugger;
 
     this.PeopleServiceService
       .DeleteEmployeeDetailsbyManager(this.delete_EmpKey, this.OrganizationID, this.employeekey)
       .subscribe((data: Array<any>) => {
         alert("Employee Deleted !");
-         this.router.navigateByUrl('/ViewEmployee')
-        });
+        this.router.navigateByUrl('/ViewEmployee')
+      });
   }
   deleteEmpPass(empk$) {
     this.delete_EmpKey = empk$;
-    debugger;
   }
   ngOnInit() {
 
@@ -182,7 +180,7 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
       this.editempdtails = data[0];
       this.BirthDate = new Date(this.editempdtails.BirthDate);
       this.HireDate = new Date(this.editempdtails.HireDate);
-
+      this.managerKey = this.editempdtails.ManagerKey;
     });
 
     this.PeopleServiceService
@@ -212,10 +210,9 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.managerList = data;
       });
-      this.PeopleServiceService
+    this.PeopleServiceService
       .getUserRoleTypesa(this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.useroletyp = data;
       });
   }

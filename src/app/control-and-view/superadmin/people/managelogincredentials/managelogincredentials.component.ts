@@ -10,7 +10,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 export class ManagelogincredentialsComponent implements OnInit {
   loginCreds;
   pageNo: Number = 1;
-  itemsPerPage: Number = 10;
+  itemsPerPage: Number = 25;
   showHide1: boolean;
   showHide2: boolean;
   pagination: Number;

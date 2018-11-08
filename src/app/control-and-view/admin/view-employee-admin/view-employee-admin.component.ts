@@ -61,7 +61,7 @@ export class ViewEmployeeAdminComponent implements OnInit {
 
   getempdettablewithselectedJobtitle() {
     this.PeopleServiceService
-      .getEmployeeByFilters(this.JobTitleKey, this.ManagerKey, this.employeekey, this.OrganizationID)
+      .getEmployeeByFilters(this.pageNo, this.itemsCount, this.JobTitleKey, this.ManagerKey, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.employeedetailstable = data;
       });

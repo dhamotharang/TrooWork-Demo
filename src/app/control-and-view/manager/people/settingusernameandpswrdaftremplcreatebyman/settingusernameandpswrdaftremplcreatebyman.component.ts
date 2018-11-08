@@ -14,7 +14,6 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
   sasemail:People[];
   empKey$:Object;
   userRoleTypeKey$: Object;
-  orgid:Number=21;
   password:String='troowork';
   reEnterPassword:String='troowork';
   username:any;
@@ -106,7 +105,7 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
 
 
     this.username=this.str$;
-    this.peopleService.getuserNamePasswordforsaveandSendemail(this.page, this.count, this.empKey$,this.orgid).subscribe((data: People[]) => {
+    this.peopleService.getuserNamePasswordforsaveandSendemail(this.page, this.count, this.empKey$,this.OrganizationID).subscribe((data: People[]) => {
       this.sasemail = data;
      
     });

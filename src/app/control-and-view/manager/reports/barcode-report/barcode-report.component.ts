@@ -45,17 +45,6 @@ export class BarcodeReportComponent implements OnInit {
     return window.atob(output);
   }
 
-
-  // Roomflag:any;
-  // Equipmentflag:any;
-  // facilitylist:Reports[];
-  // equipmenttypelist:Reports[];
-  // equipment:Reports[];
-  // floor:Reports[];
-  // zoneroom:Reports[];
-  // room:Reports[];
-  // viewBarcodeReport:Reports[];
-  // viewBarcodeEquipment:Reports[];
   FacilityKey;
   FloorKey;
   ZoneKey;
@@ -111,7 +100,6 @@ export class BarcodeReportComponent implements OnInit {
       .subscribe((data: Reports[]) => {
         this.newArray = data.slice(0); //clone the array, or you'll end up with a new "None" option added to your "values" array on every digest cycle.
         this.newArray.unshift({ EquipmentTypeText: "Select All", EquipmentTypeKey: "-99" });
-        // this.equipmenttypelist = data;
         this.equipmenttypelist = this.newArray;
 
       });
@@ -190,8 +178,6 @@ export class BarcodeReportComponent implements OnInit {
   exportToExcel(): void {
     //export room table to excel
     if (this.viewBarcodeReport) {
-      // this. Roomflag=true;
-      // this.Equipmentflag=false;
       for (var i = 0; i < this.viewBarcodeReport.length; i++) {
         this.reportarray.splice(i, 1);
         var room_id = (this.viewBarcodeReport[i].RoomId);

@@ -68,30 +68,6 @@ export class RoomCreateComponent implements OnInit {
       });
   }
   addRoom(FacilityKey, FloorKey, FloorTypeKey, ZoneKey, RoomTypeKey, RoomName, SquareFoot, Barcode) {
-    // if(FacilityKey&& FloorKey&& FloorTypeKey&& ZoneKey&& RoomTypeKey&& RoomName)
-    // {
-    //   this.inventoryService
-    //   .checkNewRoom(FacilityKey, FloorKey, FloorTypeKey, ZoneKey, RoomTypeKey, RoomName)
-    //   .subscribe((data: Inventory[]) => {
-    //     var temp1=data;
-    //   });
-    // }
-    // if(Barcode)
-    // {
-    //   this.inventoryService
-    //           .checkRoomBarcode(Barcode)
-    //           .subscribe((data: Inventory[]) => {
-    //             var temp2=data;
-    //           });
-    // }
-    // if(RoomName)
-    // {
-    //   this.inventoryService
-    //                 .checkRoomName(RoomName)
-    //                 .subscribe((data: Inventory[]) => {
-    //                   var temp3=data;
-    //                 }); 
-    // }
 
     if (!FacilityKey) {
       FacilityKey = null;

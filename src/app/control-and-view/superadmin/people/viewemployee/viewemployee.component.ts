@@ -16,7 +16,6 @@ export class ViewemployeeComponent implements OnInit {
   ManagerKey: Number;
   JobTitleKey: Number;
   manager: People[];
-  //  seljobtitlevalue:any;
 
   //for pagination
   pageNo: Number = 1;
@@ -25,7 +24,8 @@ export class ViewemployeeComponent implements OnInit {
   showHide2: boolean;
   pagination: Number;
 
-
+  page: Number = 1;
+  count: Number = 25;
   role: String;
   name: String;
   employeekey: Number;
@@ -71,7 +71,7 @@ export class ViewemployeeComponent implements OnInit {
   }
   getempdettablewithselectedddvsa() {
     this.PeopleServiceService
-      .getAllEmployeeDetailswithjobtitledropdownsa(this.OrganizationID, this.employeekey, this.JobTitleKey, this.ManagerKey)
+      .getAllEmployeeDetailswithjobtitledropdownsa(this.OrganizationID, this.employeekey, this.JobTitleKey, this.ManagerKey, this.page, this.count)
       .subscribe((data: People[]) => {
         this.employeedetailstable = data;
         this.showHide2 = false;
@@ -122,13 +122,11 @@ export class ViewemployeeComponent implements OnInit {
     this.PeopleServiceService
       .getJobTitle(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.jobtitle = data;
       });
     this.PeopleServiceService
       .getvaluesForManagerDropdowninSA(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
-        // debugger;
         this.manager = data;
       });
 

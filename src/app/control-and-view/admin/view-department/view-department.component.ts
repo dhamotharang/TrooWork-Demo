@@ -40,7 +40,6 @@ export class ViewDepartmentComponent implements OnInit {
     return window.atob(output);
   }
 
-  //validation starts ..... @rodney
   previousPage() {
     this.pageNo = +this.pageNo - 1;
     this.inventoryService
@@ -74,6 +73,7 @@ export class ViewDepartmentComponent implements OnInit {
         }
       });
   }
+  //validation starts ..... @rodney
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
   constructor(private formBuilder: FormBuilder, private inventoryService: InventoryService, private el: ElementRef) { }

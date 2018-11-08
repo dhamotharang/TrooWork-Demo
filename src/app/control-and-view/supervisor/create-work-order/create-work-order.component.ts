@@ -69,7 +69,6 @@ export class CreateWorkOrderComponent implements OnInit {
   monthlyreccradio1;
   monthlyreccradio2;
   newType = false;
-  //
   //recurr variables
   monthlyDays = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
   recurringFrequency = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
@@ -249,7 +248,6 @@ export class CreateWorkOrderComponent implements OnInit {
       });
   }
   getFloorDisp(facilityName) {
-    debugger;
     this.WorkOrderServiceService
       .getallFloor(facilityName, this.org_id)
       .subscribe((data: any[]) => {
@@ -501,7 +499,6 @@ export class CreateWorkOrderComponent implements OnInit {
         this.endDT = this.convert_DT(new Date());
       }
     }
-    debugger;
     if (this.isRecurring == false) {
       console.log(this.timeValue);
       if (this.timeValue) {
@@ -639,7 +636,6 @@ export class CreateWorkOrderComponent implements OnInit {
       else
       {
 
-    debugger;
     var roomlistObj = [];
     var roomtypelistObj = [];
     var zonelistObj = [];
@@ -922,7 +918,6 @@ export class CreateWorkOrderComponent implements OnInit {
   }
 }
   addFormField() {
-    debugger;
     this.timetable.times = [];
     for (var i = 0; i < this.dailyFrequency; i++) {
       this.timetable.times.push('');

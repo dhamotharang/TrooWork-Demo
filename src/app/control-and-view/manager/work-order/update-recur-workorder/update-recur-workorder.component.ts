@@ -134,12 +134,6 @@ export class UpdateRecurWorkorderComponent implements OnInit {
   public formatter = (_: Date) => {
     return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
   }
-  // DT_Format(str) {
-  //   var date = new Date(str),
-  //           mnth = ("0" + (date.getMonth() + 1)).slice( - 2),
-  //           day = ("0" + date.getDate()).slice( - 2);
-  //           return [date.getFullYear(), mnth, day].join("-");
-  //   }
   convert_DT(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(- 2),
@@ -261,7 +255,6 @@ export class UpdateRecurWorkorderComponent implements OnInit {
               for (var i = 0; i < count.length; i++) {
                 this.timetable.times.push('');
                 var test = count[i].split(":");
-                // // console.log(test[0]+" .... "+test[1]);
                 var cur_time = new Date(Date.now());
                 var today = new Date(cur_time.getFullYear(), cur_time.getMonth(), cur_time.getDate(), test[0], test[1], 0);
 
@@ -299,8 +292,6 @@ export class UpdateRecurWorkorderComponent implements OnInit {
               }
             }
             
-            // var dt1=this.DT_Format(this.WOEditList.ScheduleStartDate);
-            // var dt2=this.DT_Format(this.WOEditList.ScheduleEndDate);
             this.WorkorderStartDate = new Date(this.WOEditList.WorkorderDate);
             this.WorkorderEndDate = new Date(this.WOEditList.WorkorderEndDate);
             var cur_time = new Date(Date.now());
@@ -379,9 +370,6 @@ export class UpdateRecurWorkorderComponent implements OnInit {
 
           }
         }
-        // this.dateValue=new Date(this.WOEditList.WorkorderDate);
-        // var date_time=this.dateValue;
-        //this.timeValue=new Date(this.WOEditList.WorkorderTime);
 
         this.workordertypekey = this.WOEditList.WorkorderTypeKey;
         this.FacilityKey = this.WOEditList.FacilityKey;
@@ -392,25 +380,6 @@ export class UpdateRecurWorkorderComponent implements OnInit {
         this.PriorityKey = this.WOEditList.PriorityKey;
         this.WorkorderNotes = this.WOEditList.WorkorderNotes;
         this.EmployeeKey = this.WOEditList.EmployeeKey;
-
-        // var cur_time = new Date(Date.now());
-
-        // // var timeValue1=this.WOEditList.WorkorderTime;
-        // // var time1=timeValue1.split(",");
-        // // for(var i=0;i<time1.length;i++)
-        // // {
-        // // var test=time1[i].split(":");
-        // // console.log(test[0]+" .... "+test[1]);
-        // //  var today=new Date(cur_time.getFullYear(),cur_time.getMonth(),cur_time.getDate(),test[0],test[1],0);
-
-        // //   this.timetable.times = [];
-        // //   this.timetable.times.push(today);
-
-        // // }
-        // var timeValue1=this.WOEditList.WorkorderTime;
-        // var test=timeValue1.split(":");
-        //  var today=new Date(cur_time.getFullYear(),cur_time.getMonth(),cur_time.getDate(),test[0],test[1],0);
-        //   this.timeValue=today;
       });
 
     this.WorkOrderServiceService
@@ -644,11 +613,6 @@ export class UpdateRecurWorkorderComponent implements OnInit {
     var zoneList = [];
     var floorList = [];
     facilitylistObj = this.facilitylist;
-    // facilityList = [];
-    // roomList = [];
-    // roomtypeList = [];
-    // zoneList = [];
-    // floorList = [];
     floorlistObj = this.FloorList;
     zonelistObj = this.zonelist;
     roomtypelistObj = this.RoomTypeList;
@@ -1025,12 +989,6 @@ export class UpdateRecurWorkorderComponent implements OnInit {
     var floorList = [];
     var equList = [];
     facilitylistObj = this.facilitylist;
-    // facilityList = [];
-    // roomList = [];
-    // roomtypeList = [];
-    // zoneList = [];
-    // floorList = [];
-    // equList = [];
     floorlistObj = this.FloorList;
     zonelistObj = this.zonelist;
     roomtypelistObj = this.RoomTypeList;

@@ -48,14 +48,10 @@ export class ManagerinspectiontemplateComponent implements OnInit {
   TemplateDetails;
   lastIndexValue;
 
-  // for star rating 
-  // starList5: boolean[] = [true,true,true,true,true]; 
-  // starList3: boolean[] = [true,true,true];
   starList: boolean[];
   rating: number;
 
   setStar3(data: any) {
-    //debugger;
     this.rating = data + 1;
     for (var i = 0; i <= 2; i++) {
       if (i <= data) {
@@ -67,7 +63,6 @@ export class ManagerinspectiontemplateComponent implements OnInit {
     }
   }
   setStar(data: any) {
-    //debugger;
     this.rating = data + 1;
     for (var i = 0; i <= 4; i++) {
       if (i <= data) {
@@ -100,7 +95,6 @@ export class ManagerinspectiontemplateComponent implements OnInit {
   };
 
   lastIndex(array, val) {
-    // debugger;
     var a = [];
     a = array;
     var b = val;
@@ -117,7 +111,6 @@ export class ManagerinspectiontemplateComponent implements OnInit {
   today_DT = this.convert_DT(new Date());
   count = 0;
   saveInspection = {};
-  //this.questionsCount=0;
 
   constructor(private inspectionService: InspectionService, private route: ActivatedRoute,private router: Router) {
     this.route.params.subscribe(params => this.inspKey$ = params.InspectionOrderKey);
@@ -136,11 +129,9 @@ export class ManagerinspectiontemplateComponent implements OnInit {
 
     this.inspectionService.InspectionDetails(this.inspKey$, this.OrganizationID).subscribe((data: any[]) => {
       this.viewEmpInspectionDetails = data;
-      //debugger;
       this.questionsCount = this.viewEmpInspectionDetails.length;
       this.val = data;
       if (this.viewEmpInspectionDetails[0].ScoreName === 'Yes/No') {
-        // debugger;
         this.names = ['Yes', 'No'];
         this.ScoreName = this.viewEmpInspectionDetails[0].ScoreName;
       }
@@ -158,24 +149,18 @@ export class ManagerinspectiontemplateComponent implements OnInit {
       this.inspectionService
         .templateQuestionService(this.viewEmpInspectionDetails[0].TemplateID, this.OrganizationID).subscribe((data: any[]) => {
           this.TemplateDetails = data;
-          // this.questionsCount=this.TemplateDetails.length;
 
         });
     });
   }
   saveRatings(TemplateQuestionID, ScoreName) {
 
-    //debugger;
     if (ScoreName === 'Yes/No' || ScoreName === 'Pass/Fail') {
-      // console.log($scope.Scoringtype);
       var length = Object.keys(this.Scoringtype.rating_yn).length;
       var arrayLength = this.Scoringtype.rating_yn.length;
       var value = this.Scoringtype.rating_yn[arrayLength - 1];
       this.Scoringtype.ratingValue.push({ rating: value, questionID: TemplateQuestionID });
     }
-    // else{
-    //   this.Scoringtype.ratingValue.push({rating:this.rating,questionID:TemplateQuestionID});
-    // }
     else if (ScoreName === '5 Star') {
       this.Scoringtype.ratingValue.push({ rating: this.rating, questionID: TemplateQuestionID });
     }
@@ -185,12 +170,10 @@ export class ManagerinspectiontemplateComponent implements OnInit {
     console.log(this.Scoringtype);
   }
   inspectionCompleted() {
-    //debugger;
     var temp = [];
     var choices1 = [];
     choices1[0] = this.Scoringtype;
     console.log(choices1);
-    // console.log("qstn length "+$scope.questionsCount);
     var totalQuestions = this.questionsCount;
     var indexObj = [];
     var ratingIndexlist = [];
@@ -203,20 +186,16 @@ export class ManagerinspectiontemplateComponent implements OnInit {
       ratingIndexlist = Object.keys(this.Scoringtype.rating_yn);
       noteIndexList = Object.keys(this.Scoringtype.inspectionNotes);
       questionidList = this.arrayUnique(ratingIndexlist.concat(temp));
-      // console.log(questionidList);
     }
     else {
       noteIndexList = Object.keys(this.Scoringtype.inspectionNotes);
       indexObj = this.Scoringtype.ratingValue;
       if (indexObj) {
         for (var j = 0; j < indexObj.length; j++) {
-          // if(indexObj[j].rating == 0)
           ratingIndexlist.push("" + indexObj[j].questionID);
         }
       }
-      // console.log("We go the notes in index "+noteIndexList+" and value "+$scope.Scoringtype.inspectionNotes[noteIndexList]);
       questionidList = this.arrayUnique(noteIndexList.concat(ratingIndexlist));
-      // console.log(questionidList);
     }
 
     if (questionidList.length === totalQuestions && this.ScoreName === 'Pass/Fail') {
@@ -235,14 +214,12 @@ export class ManagerinspectiontemplateComponent implements OnInit {
         for (j = 0; j < noteIndexList.length; j++) {
           if (noteIndexList[j] === questionid) {
             notes = this.Scoringtype.inspectionNotes[questionid];
-            // console.log("Aneesh got note inside if as " + notes + " " + questionid + " " + " questionidList" + questionidList.length + $scope.Scoringtype.inspectionNotes);
             break;
           }
 
         }
 
         for (var k = 0; k < ratingIndexlist.length; k++) {
-          // var lastIndexValue =any;
           if (ratingIndexlist[k] === questionid) {
             this.lastIndexValue = this.lastIndex(ratingIndexlist, questionidList[i]);
             console.log("last indexfor " + ratingIndexlist[k] + " is " + this.lastIndexValue);
@@ -267,15 +244,8 @@ export class ManagerinspectiontemplateComponent implements OnInit {
             questionid: questionid,
 
           };
-        //debugger;
         this.inspectionService
           .InspectionSaveService(this.inspectionDetail)
-
-        //   var alertPopup = $ionicPopup.alert({
-        //     title: 'Inspection',
-        // template: 'Inspection Submitted Successfully!'
-        // });
-
       }
       this.inspectionDetail1 =
         {
@@ -299,7 +269,6 @@ export class ManagerinspectiontemplateComponent implements OnInit {
       var j = 0;
       var k = 0;
 
-      //debugger;
       for (i = i; i < questionidList.length; i++) {// includes actual qn ids
         questionValues = null;
         notes = null;
@@ -307,7 +276,6 @@ export class ManagerinspectiontemplateComponent implements OnInit {
         for (j = 0; j < noteIndexList.length; j++) {
           if (noteIndexList[j] === questionid) {
             notes = this.Scoringtype.inspectionNotes[questionid];
-            // console.log("Aneesh got note inside if as "+notes+" "+questionid+" "+" questionidList"+questionidList.length+$scope.Scoringtype.inspectionNotes);
             break;
           }
         }
@@ -315,7 +283,6 @@ export class ManagerinspectiontemplateComponent implements OnInit {
           this.lastIndexValue = 0;
           if (ratingIndexlist[k] === questionid) {
             this.lastIndexValue = this.lastIndex(ratingIndexlist, questionidList[i]);
-            // console.log("last indexfor "+ratingIndexlist[k] +" is " + lastIndexValue);
             var x = this.lastIndexValue.length - ratingIndexlist.length;
             if (this.lastIndexValue != null) {
               questionValues = this.Scoringtype.ratingValue[this.lastIndexValue].rating;
@@ -338,15 +305,8 @@ export class ManagerinspectiontemplateComponent implements OnInit {
             questionid: questionid,
 
           };
-        //debugger;
         this.inspectionService
           .InspectionSaveService(this.inspectionDetail)
-
-        //   var alertPopup = $ionicPopup.alert({
-        //     title: 'Inspection',
-        // template: 'Inspection Submitted Successfully!'
-        // });
-
       }
       this.inspectionDetail1 =
         {

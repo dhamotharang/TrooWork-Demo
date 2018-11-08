@@ -12,12 +12,19 @@ const URL = 'http://localhost:3000/api/upload_test';
   styleUrls: ['./viewworkordersforemployee.component.scss']
 })
 export class ViewworkordersforemployeeComponent implements OnInit {
+  
+  loading: boolean;// loading
+
   pageNo: Number = 1;
   itemsPerPage: Number = 25;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
+
   searchform: FormGroup;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
-  WorkorderDetTable: workorder[];
+  WorkorderDetTable;
   facilityList: workorder[];
   floorList: workorder[];
   facikey: Number;
@@ -103,6 +110,42 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 
     }, 100)
   }
+
+  previousPage() {
+    this.pageNo = +this.pageNo - 1;
+    var curr_date = this.convert_DT(new Date());
+    this.WorkOrderServiceService
+    .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.WorkorderDetTable = data;
+        if (this.pageNo == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
+  }
+
+  nextPage() {
+    this.pageNo = +this.pageNo + 1;
+    var curr_date = this.convert_DT(new Date());
+    this.WorkOrderServiceService
+    .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.WorkorderDetTable = data;
+        this.pagination = +this.WorkorderDetTable[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
+  }
   checktoshowFinish(i) {
     if (this.showbutton[i] == true) {
       this.showbutton[i] = true;
@@ -155,6 +198,10 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     else {
       date2 = this.convert_DT(this.WorkorderDate2);
     }
+    this.FacilityKey=null;
+    this.FloorKey=null;
+    this.RoomTypeKey=null;
+    this.ZoneKey=null;
     if (SearchValue.length >= 3) {
       this.WorkOrderServiceService
         .SearchwoByEmployee(SearchValue, date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey).subscribe((data: any[]) => {
@@ -168,6 +215,14 @@ export class ViewworkordersforemployeeComponent implements OnInit {
         .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.WorkorderDetTable = data;
+          if (this.WorkorderDetTable[0].totalItems > this.itemsPerPage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.WorkorderDetTable[0].totalItems <= this.itemsPerPage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
           for (var i = 0; i < this.WorkorderDetTable.length; i++) {
             this.FinishButton[i] = true;
           }
@@ -193,6 +248,10 @@ export class ViewworkordersforemployeeComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
       });
+      this.FacilityKey=null;
+      this.FloorKey=null;
+      this.RoomTypeKey=null;
+      this.ZoneKey=null;
     this.WorkOrderServiceService
       .getworkOrderTablewithOnDateandToDateFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
       .subscribe((data: any[]) => {
@@ -212,8 +271,12 @@ export class ViewworkordersforemployeeComponent implements OnInit {
   workorderCompleted(i, barcodeRequired, photoRequired, workorderkey, file) {
     this.countCancel = 1;
     this.countCancel1 = this.countCancel;
-
-    if (this.BarcodeValue && barcodeRequired === 1) {
+    if (!this.BarcodeValue && barcodeRequired === 1) {
+      this.BarcodeValue = null;
+             alert("Barcode is not provided !");
+              return;
+      }
+    else if (this.BarcodeValue && barcodeRequired === 1) {
       this.WorkOrderServiceService
         .BarcodeRoomCheck(this.BarcodeValue, workorderkey, this.OrganizationID)
         .subscribe((data: any[]) => {
@@ -223,11 +286,17 @@ export class ViewworkordersforemployeeComponent implements OnInit {
             this.WorkOrderServiceService
               .BarcodeRoom(this.BarcodeValue, this.toServeremployeekey, workorderkey, type, this.OrganizationID)
               .subscribe((data: any[]) => {
+
               });
           }
         });
     }
-    if (this.fileName && photoRequired === 1) {
+    if (!this.fileName && photoRequired === 1) {
+      this.fileName = null;
+              alert("Photo is not provided !");
+              return;
+      }
+   else if (this.fileName && photoRequired === 1) {
       this.WorkOrderServiceService
         .UpdatewobyPhotoForEmployee(this.fileName, this.toServeremployeekey, workorderkey, this.OrganizationID)
         .subscribe((data: any[]) => {
@@ -240,6 +309,8 @@ export class ViewworkordersforemployeeComponent implements OnInit {
           this.FinishButton[i] = true;
         });
     }
+
+
     this.FinishButton[i] = true;
     this.showbutton[i] = false;
     this.submitFlag = false;
@@ -250,6 +321,23 @@ export class ViewworkordersforemployeeComponent implements OnInit {
       this.showbutton[i] = false;
 
     }
+    var curr_date = this.convert_DT(new Date());
+    this.WorkOrderServiceService
+      .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.WorkorderDetTable = data;
+        if (this.WorkorderDetTable[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.WorkorderDetTable[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
+        for (var i = 0; i < this.WorkorderDetTable.length; i++) {
+          this.FinishButton[i] = true;
+        }
+      });
   };
   FileSelected(WorkorderKey) {
     this.addUrl = '?Workorderkey=' + WorkorderKey + '&EmployeeKey=' + this.toServeremployeekey + '&OrganizationID=' + this.OrganizationID;
@@ -277,7 +365,6 @@ export class ViewworkordersforemployeeComponent implements OnInit {
   };
   cancelWorkorderSubmission(i) {
     if (this.RowIndex || this.RowIndex === 0) {
-      //                var identity1 = "showbutton";
       this.showbutton[this.RowIndex] = false;
     }
     if (this.countCancel1 == true) {
@@ -294,6 +381,8 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     this.FinishButton[i] = true;
     this.showbutton[i] = false;
   };
+
+  
   ngOnInit() {
 
     //token starts....
@@ -308,6 +397,8 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 
     //token ends
 
+    this.loading = true;// loading
+
     this.FacilityKey="";
     this.FloorKey="";
     this.ZoneKey="";
@@ -318,6 +409,15 @@ export class ViewworkordersforemployeeComponent implements OnInit {
       .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
+        this.loading = false;// loading
+        if (this.WorkorderDetTable[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.WorkorderDetTable[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
         for (var i = 0; i < this.WorkorderDetTable.length; i++) {
           this.FinishButton[i] = true;
         }
