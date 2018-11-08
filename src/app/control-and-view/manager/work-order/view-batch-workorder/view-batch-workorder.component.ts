@@ -218,14 +218,22 @@ export class ViewBatchWorkorderComponent implements OnInit {
     }
   }
   getFloorDisp(facilityName) {
-  
+    if(facilityName)
+   {
     this.WorkOrderServiceService
       .getallFloor(facilityName, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.FloorList = data;
       });
+    }
+    else
+    {
+      this.FloorKey="";
+    }
   }
   getZoneRoomTypeRoom(floor, facility) {
+    if(floor&&facility)
+    {
     this.WorkOrderServiceService
       .getzone_facilityfloor(floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
@@ -241,8 +249,17 @@ export class ViewBatchWorkorderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
+    }
+    else
+    {
+      this.ZoneKey="";
+      this.RoomTypeKey="";
+      this.RoomKey="";
+    }
   }
   getRoomTypeRoom(zone, facility, floor) {
+    if(zone&&facility&&floor)
+    {
     this.WorkOrderServiceService
       .getRoomtype_zone_facilityfloor(zone, floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
@@ -253,13 +270,26 @@ export class ViewBatchWorkorderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
+    }
+    else
+    {
+      this.RoomTypeKey="";
+      this.RoomKey="";
+    }
   }
   getRoom(roomtype, zone, facility, floor) {
+    if(roomtype && zone && facility && floor)
+    {
     this.WorkOrderServiceService
       .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
+    }
+    else
+    {
+      this.RoomKey="";
+    }
   }
   viewWO_Filter() {
     var fac_key;

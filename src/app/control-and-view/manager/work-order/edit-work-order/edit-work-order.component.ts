@@ -155,10 +155,12 @@ export class EditWorkOrderComponent implements OnInit {
           this.showEqTypes = false;
           this.FloorKey = this.WOEditList.FloorKey;
           this.RoomTypeKey = this.WOEditList.RoomTypeKey;
+          this.ZoneKey = this.WOEditList.ZoneKey;
+          this.RoomKey = this.WOEditList.RoomKey;
         }
         else {
           this.showEqTypes = true;
-          this.RoomTypeKey = null;
+          this.RoomTypeKey = "";
 
           this.WorkOrderServiceService
             .getFloor(this.WO_Key, this.OrganizationID)
@@ -171,11 +173,10 @@ export class EditWorkOrderComponent implements OnInit {
                 .subscribe((data: any[]) => {
                   this.EquipmentTypeList = data;
                   this.EquipmentList = data;
-                  this.EquipmentTypeKey = this.WOEditList.EquipmentTypeKey;
-                  this.EquipmentKey = this.WOEditList.EquipmentKey;
                 });
             });
-
+            this.EquipmentTypeKey = this.WOEditList.EquipmentTypeKey;
+            this.EquipmentKey = this.WOEditList.EquipmentKey;
         }
         if (this.WOEditList.IsPhotoRequired == 1) {
           this.isPhotoRequired = true;
@@ -194,8 +195,6 @@ export class EditWorkOrderComponent implements OnInit {
 
         this.workordertypekey = this.WOEditList.WorkorderTypeKey;
         this.FacilityKey = this.WOEditList.FacilityKey;
-        this.ZoneKey = this.WOEditList.ZoneKey;
-        this.RoomKey = this.WOEditList.RoomKey;
         this.PriorityKey = this.WOEditList.PriorityKey;
         this.WorkorderNotes = this.WOEditList.WorkorderNotes;
         this.EmployeeKey = this.WOEditList.EmployeeKey;
@@ -237,14 +236,22 @@ export class EditWorkOrderComponent implements OnInit {
     }
   }
   getFloorDisp(facilityName) {
-
+    if(facilityName)
+   {
     this.WorkOrderServiceService
       .getallFloor(facilityName, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.FloorList = data;
       });
+    }
+    else
+    {
+      this.FloorKey="";
+    }
   }
   getZoneRoomTypeRoom(floor, facility) {
+    if(floor&&facility)
+    {
     this.WorkOrderServiceService
       .getzone_facilityfloor(floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
@@ -260,8 +267,17 @@ export class EditWorkOrderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
+    }
+    else
+    {
+      this.ZoneKey="";
+      this.RoomTypeKey="";
+      this.RoomKey="";
+    }
   }
   getRoomTypeRoom(zone, facility, floor) {
+    if(zone&&facility&&floor)
+    {
     this.WorkOrderServiceService
       .getRoomtype_zone_facilityfloor(zone, floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
@@ -272,28 +288,56 @@ export class EditWorkOrderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
+    }
+    else
+    {
+      this.RoomTypeKey="";
+      this.RoomKey="";
+    }
   }
   getRoom(roomtype, zone, facility, floor) {
+    if(roomtype && zone && facility && floor)
+    {
     this.WorkOrderServiceService
       .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
+    }
+    else
+    {
+      this.RoomKey="";
+    }
   }
   showEquipment_typechange(equip_type, facility, floor) {
+    if(equip_type&&facility&&floor)
+    {
     this.WorkOrderServiceService
       .getEquipment_typechange(equip_type, facility, floor, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.EquipmentList = data;
       });
+    }
+    else
+    {
+      this.EquipmentKey="";
+    }
   }
   getEquiment(floor_key, facility_key) {
+    if(floor_key&&facility_key)
+    {
     this.WorkOrderServiceService
       .getallEquipment(facility_key, floor_key, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.EquipmentTypeList = data;
         this.EquipmentList = data;
       });
+    }
+    else
+    {
+      this.EquipmentKey="";
+      this.EquipmentTypeKey="";
+    }
   }
   DeleteWO() {
     this.deleteWO = {
