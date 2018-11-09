@@ -67,6 +67,22 @@ export class EditEmployeedetailsComponent implements OnInit {
     this.route.params.subscribe(params => this.empk$ = params.EmployeeKey);
   }
 
+  numberValid(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  charValidation(event: any) {
+    const patternChar = /[a-zA-Z ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !patternChar.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
   editEmployee(EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey) {
     if (!(this.editempdtails.EmployeeNumber)) {
       alert("Employee Number Not provided !");

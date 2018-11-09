@@ -5,6 +5,24 @@
     <br><br>
     <h4 class="refer"><b> ROOM</b> </h4>
     <br>
+    <div class="row col-md-12">
+      <h5 style="margin-top: 2rem;" class="col-md-2"><label for="scheduling">Batch Schedule Name: </label></h5>
+      <div class="md-form col-md-3" style="text-align:left">
+        <select style="background-color: #D4F4FF !important;width: 20rem" class="form-control" [(ngModel)]="BatchScheduleNameKey"
+          (change)="getScheduleRoomDetails($event.target.value)">
+          <option>--Select--</option>
+          <option *ngFor="let f of scheduleNameList" [value]="f.BatchScheduleNameKey">
+            {{f.ScheduleName}}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-1"></div>
+      <div class="md-form col-md-5" *ngIf="BatchScheduleNameKey">
+        <a style="color:white !important" class="btn btn-success" (click)="addRoomToSchedule()">
+          <b>Add</b>
+        </a>
+      </div>
+    </div>
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
       <!-- <div class="col-md-6"> -->
       <div class="form-group col-md-6">
@@ -73,24 +91,7 @@
       </div>
       <!-- </div> -->
     </div>
-    <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;" class="col-md-2"><label for="scheduling">Batch Schedule Name: </label></h5>
-      <div class="md-form col-md-3" style="text-align:left">
-        <select style="background-color: #D4F4FF !important;width: 20rem" class="form-control" [(ngModel)]="BatchScheduleNameKey"
-          (change)="getScheduleRoomDetails($event.target.value)">
-          <option>--Select--</option>
-          <option *ngFor="let f of scheduleNameList" [value]="f.BatchScheduleNameKey">
-            {{f.ScheduleName}}
-          </option>
-        </select>
-      </div>
-      <div class="col-md-1"></div>
-      <div class="md-form col-md-5">
-        <a style="color:white !important" class="btn btn-success" (click)="addRoomToSchedule()">
-          <b>Add</b>
-        </a>
-      </div>
-    </div>
+
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;"></div>
     <table class="table table-hover table-responsive table-bordered table">
       <thead class="tableHead">

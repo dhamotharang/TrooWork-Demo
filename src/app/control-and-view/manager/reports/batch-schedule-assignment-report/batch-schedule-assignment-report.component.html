@@ -1,6 +1,6 @@
 <app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
-<div class="py-5 " *ngIf="!loading"  style="padding-left: 9rem;padding-right: 9rem;">
+<div class="py-5 " *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">BATCH SCHEDULE ASSIGNMENT REPORT</h3>
@@ -8,9 +8,11 @@
   <br><br>
 
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
+    <br>
     <h1 style="text-align: right"></h1>
     <div class="form-group">
       <div class="row col-md-12">
+        <br>
         <h5 style="text-align:right" class="col-md-4"><label for="building">Schedule Name </label></h5>
         <div class="md-form col-md-3" style="text-align:left">
           <select [(ngModel)]="BatchScheduleNameKey" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
@@ -24,16 +26,17 @@
         <div class="row col-md-12" *ngIf="workorderNotes">
           <h5 style="text-align:right" class="col-md-4"><label for="building">WorkOrder Notes </label></h5>
           <div class="form-group" style="text-align:left">
-            <textarea class="form-control rounded-0"  [(ngModel)]="workorderNotes" rows="6" style="resize: none;"></textarea>
+            <textarea class="form-control rounded-0" [(ngModel)]="workorderNotes" rows="6" style="resize: none;"></textarea>
           </div>
           <div class="col col-md-5"></div>
         </div>
         <div class="col col-md-5"></div>
       </div>
     </div>
-    </div>
-    <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="bg-info">
-    <table *ngIf='reportarray' class="table table-hover table-responsive table-bordered table">
+  </div>
+  <br>
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
+    <table *ngIf='reportarray' class="table table-hover table-responsive table-bordered table" style="background-color: white">
       <thead class="tableHead">
         <th>Building</th>
         <th>Floor</th>
@@ -105,9 +108,8 @@
         </tr>
       </tbody>
     </table>
-    </div>
-    <br>
-    <div style="text-align:center" *ngIf="reportarray?.length> 0">
-      <button type="button" class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>
-    </div>
-  
+  </div>
+  <br>
+  <div style="text-align:center" *ngIf="reportarray?.length> 0">
+    <button type="button" class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>
+  </div>

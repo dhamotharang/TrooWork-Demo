@@ -20,26 +20,28 @@
 
       <div class="form-group">
         <label>Building</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey" (change)="getFloorDisp($event.target.value)" >
-          <option value="" >--Select--</option>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey"
+          (change)="getFloorDisp($event.target.value)">
+          <option value="">--Select--</option>
           <option *ngFor="let b of facilitylist" [value]="b.FacilityKey">
-              {{b.FacilityText}}
+            {{b.FacilityText}}
           </option>
         </select>
-        </div>
-
-
-        <div class="form-group">
-          <label>Floor</label><br>
-
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey" (change)="getZoneRoom($event.target.value,FacilityKey)" [disabled]="!FacilityKey">
-          <option value="" >--Select--</option>
-          <option *ngFor="let f of floor" [value]="f.FloorKey">
-              {{f.FloorName}}
-          </option>
-      </select> 
       </div>
-      
+
+
+      <div class="form-group">
+        <label>Floor</label><br>
+
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey"
+          (change)="getZoneRoom($event.target.value,FacilityKey)" [disabled]="!FacilityKey">
+          <option value="">--Select--</option>
+          <option *ngFor="let f of floor" [value]="f.FloorKey">
+            {{f.FloorName}}
+          </option>
+        </select>
+      </div>
+
 
       <div class="form-group">
         <label>Zone</label><br>
@@ -48,12 +50,13 @@
           <option value="">Z1</option>
           <option value="">z2</option>
         </select> -->
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey" (change)="getRoomsName($event.target.value,FacilityKey,FloorKey)" [disabled]="!FloorKey">
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey"
+          (change)="getRoomsName($event.target.value,FacilityKey,FloorKey)" [disabled]="!FloorKey">
           <option value="">--Select--</option>
           <option *ngFor="let z of zoneroom" [value]="z.ZoneKey">
-              {{z.ZoneName}}
+            {{z.ZoneName}}
           </option>
-      </select> 
+        </select>
       </div>
 
       <div class="form-group">
@@ -64,12 +67,13 @@
           <option value="">r2</option>
         </select> -->
 
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey" [disabled]="!FloorKey">
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey"
+          [disabled]="!FloorKey">
           <option value="">--Select--</option>
           <option *ngFor="let r of room" [value]="r.RoomTypeKey">
-              {{r.RoomTypeName}}
+            {{r.RoomTypeName}}
           </option>
-      </select> 
+        </select>
       </div>
 
       <div class="form-group">
@@ -80,16 +84,17 @@
           <option value="">r2</option>
         </select> -->
 
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomKey" [disabled]="!FloorKey">
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomKey"
+          [disabled]="!FloorKey">
           <option value="">--Select--</option>
           <option *ngFor="let r of rooms" [value]="r.RoomKey">
-              {{r.RoomName}}
+            {{r.RoomName}}
           </option>
-      </select> 
+        </select>
       </div>
 
-              
-              
+
+
 
     </div>
     <div class="col-md-6">
@@ -98,29 +103,29 @@
         <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">To Date</label>
         <igx-datePicker [value]="date" [(ngModel)]="todate"></igx-datePicker>
       </div>
-   
 
 
-    <div class="form-group">
-      <label>Employee</label><br>
-    <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EmployeeKey" >
-      <option value="" >--Select--</option>
-      <option *ngFor="let e of emp" [value]="e.EmployeeKey">
-          {{e.EmployeeText}}
-      </option>
-  </select> 
-  </div>
 
-  <div class="form-group">
-    <label>WorkStatus</label><br>
-  <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WorkorderStatusKey" >
-    <option value="" >--Select--</option>
-    <option *ngFor="let w of workstatus" [value]="w.WorkorderStatusKey">
-        {{w.WorkorderStatus}}
-    </option>
-</select> 
-</div>
-</div>
+      <div class="form-group">
+        <label>Employee</label><br>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EmployeeKey">
+          <option value="">--Select--</option>
+          <option *ngFor="let e of emp" [value]="e.EmployeeKey">
+            {{e.EmployeeText}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>WorkStatus</label><br>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WorkorderStatusKey">
+          <option value="">--Select--</option>
+          <option *ngFor="let w of workstatus" [value]="w.WorkorderStatusKey">
+            {{w.WorkorderStatus}}
+          </option>
+        </select>
+      </div>
+    </div>
 
     <div class="row col-md-12">
       <div class="col-md-6"></div>
@@ -132,47 +137,50 @@
     <br>
   </div>
   <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
-  <table *ngIf='viewWorkorderReport' id="reportexport" class="table table-hover table-responsive table-bordered table">
-    <thead class="tableHead">
-      <!-- <tr> -->
-      <th> Work-Order Type Name </th>
-      <th> Date and Time </th>
-      <th> Status</th>
-      <th>Employee</th>
-      <th> Room</th>
-      <th>Equipment</th>
-      <th>Check-In Time</th>
-      <th>Check-Out Time</th>
-      <th>Duration</th>
-      <th>Delay Time</th>
-      <th>Notes</th>
-      <!-- </tr> -->
-    </thead>
-    <tbody>
-      <tr *ngFor="let x of viewWorkorderReport" >
+  <div class="bg-info" style="margin-left: 1.5rem;width: 100%">
+    <table *ngIf='viewWorkorderReport' id="reportexport" class="table table-hover table-responsive table-bordered table">
+      <thead class="tableHead">
+        <!-- <tr> -->
+        <th> Work-Order Type Name </th>
+        <th> Date and Time </th>
+        <th> Status</th>
+        <th>Employee</th>
+        <th> Room</th>
+        <th>Equipment</th>
+        <th>Check-In Time</th>
+        <th>Check-Out Time</th>
+        <th>Duration</th>
+        <th>Delay Time</th>
+        <th>Notes</th>
+        <!-- </tr> -->
+      </thead>
+      <tbody>
+        <tr *ngFor="let x of viewWorkorderReport">
 
-        
-          <td >{{x.WorkorderTypeName}} </td>
+
+          <td>{{x.WorkorderTypeName}} </td>
           <td>{{x.WorkorderDate}} {{x.WorkorderTime}}</td>
-          <td >{{x.WorkorderStatus}}</td>
-          <td >{{x.LastName}},{{x.FirstName}}</td>
-          <td >{{x.RoomId}}</td>
-          <td id="tooltip">{{x.EquipmentName}}<span id="tooltip-span" style="position:absolute;color: white;">{{x.EquipmentType}}</span> </td>
-           <td>{{x.checkin}}</td>
-           <td>{{x.checkout}}</td>
-           <td>{{x.duration}}</td>
-           <td>{{x.DelayTime}}</td>
-          <td>{{x.WorkorderNotes}}</td> 
-                      
+          <td>{{x.WorkorderStatus}}</td>
+          <td>{{x.LastName}},{{x.FirstName}}</td>
+          <td>{{x.RoomId}}</td>
+          <td id="tooltip">{{x.EquipmentName}}<span id="tooltip-span" style="position:absolute;color: white;">{{x.EquipmentType}}</span>
+          </td>
+          <td>{{x.checkin}}</td>
+          <td>{{x.checkout}}</td>
+          <td>{{x.duration}}</td>
+          <td>{{x.DelayTime}}</td>
+          <td>{{x.WorkorderNotes}}</td>
 
 
 
-              </tr>
-      <tr *ngIf="viewWorkorderReport?.length == 0">
-        <td colspan="12" class="no-data-available">No records found</td>
-      </tr>
-    </tbody>
-  </table>
+
+        </tr>
+        <tr *ngIf="viewWorkorderReport?.length == 0">
+          <td colspan="12" class="no-data-available">No records found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <br>
   <br>
   <div style="text-align:center" *ngIf="viewWorkorderReport?.length> 0">

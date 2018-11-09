@@ -2,47 +2,61 @@
 <div style="width: 100%;height: 100%;">
   <div class="bg-dark" style="width: 100%;height: 100%;">
     <br><br>
-    <h4 class="refer"><b> SEARCH MEETING/TRAINING/EVENT BY </b> </h4>
+    <div style="text-align:center">
+      <h4 class="refer"><b> SEARCH MEETING/TRAINING/EVENT BY </b> </h4>
+    </div>
     <br>
     <div style="text-align:center">
       <a routerLink="/EventView" class="btn btn-primary" routerLinkActive="active">View / Edit
         Meeting/Training/Event</a>
     </div>
     <br>
-    <div class="col-md-12">
-      <div class="col-md-6">
-        <label for="building">Job Title </label>
-        <ng-multiselect-dropdown [placeholder]="'Selectjobtitle'" [data]="jobTitle" [(ngModel)]="JobTitleKey"
-          [textField]="'JobTitleText'" [valueField]="'JobTitleKey'" [settings]="dropdownSettings" (onSelect)="filterMtngTrainingList()"
-          (onSelectAll)="filterMtngTrainingList()">
-        </ng-multiselect-dropdown>
-        <label for="building">Employee </label>
-        <ng-multiselect-dropdown [placeholder]="'Selectemployee'" [data]="empList" [(ngModel)]="EmployeeKey"
-          [textField]="'EmployeeText'" [valueField]="'EmployeeKey'" [settings]="dropdownSettings1" (onSelect)="filterMtngTrainingList()"
-          (onSelectAll)="filterMtngTrainingList()">
-        </ng-multiselect-dropdown>
+    <div class="form-row col-md-12">
+      <div class="col-md-6 ">
+        <div class="form-group" style="margin-left: 0.7rem;">
+          <label for="people">Job Title</label>
+          <ng-multiselect-dropdown [placeholder]="'Selectjobtitle'" [data]="jobTitle" [(ngModel)]="JobTitleKey" class="col-sm-9 col-md-9 col-lg-9"
+            [textField]="'JobTitleText'" [valueField]="'JobTitleKey'" [settings]="dropdownSettings" (onSelect)="filterMtngTrainingList()"
+            (onSelectAll)="filterMtngTrainingList()">
+          </ng-multiselect-dropdown>
+        </div>
       </div>
       <div class="col-md-6">
-        <label for="building">From Date </label>
-        <igx-datePicker [value]="date1" [(ngModel)]="fromdate" (onSelection)="filterMtngTrainingList()"></igx-datePicker>
-        <br>
-        <label for="building">To Date </label>
-        <igx-datePicker [value]="date1" [(ngModel)]="todate" (onSelection)="filterMtngTrainingList()"></igx-datePicker>
-        <br>
+        <div class="form-group " style="margin-left: 0.7rem;">
+          <label for="people">Employee</label>
+          <ng-multiselect-dropdown [placeholder]="'Selectemployee'" [data]="empList" [(ngModel)]="EmployeeKey" class="col-sm-9 col-md-9 col-lg-9"
+            [textField]="'EmployeeText'" [valueField]="'EmployeeKey'" [settings]="dropdownSettings1" (onSelect)="filterMtngTrainingList()"
+            (onSelectAll)="filterMtngTrainingList()">
+          </ng-multiselect-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="form-row col-md-12">
+      <div class="col-md-6 ">
+        <div class="form-group" style="margin-left: 0.7rem;">
+          <label for="people">From Date </label>
+          <igx-datePicker [value]="date1" [(ngModel)]="fromdate" (onSelection)="filterMtngTrainingList()"></igx-datePicker>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group " style="margin-left: 0.7rem;">
+          <label for="people">To Date </label>
+          <igx-datePicker [value]="date1" [(ngModel)]="todate" (onSelection)="filterMtngTrainingList()"></igx-datePicker>
+        </div>
       </div>
     </div>
 
     <form [formGroup]="searchform">
       <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
         <input class="form-control" name="searchMeetingview" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
-          placeholder="Search Action Name, Event Venue,Event Host" aria-label="Search" [(ngmodel)]="SearchMeetingTraining" formControlName="SearchMeetingTraining"
-          (input)="searchMeetingTraining($event.target.value);" style="width: 100%;" >
+          placeholder="Search Action Name, Event Venue,Event Host" aria-label="Search" [(ngmodel)]="SearchMeetingTraining"
+          formControlName="SearchMeetingTraining" (input)="searchMeetingTraining($event.target.value);" style="width: 100%;">
         <div *ngIf="searchform.controls.SearchMeetingTraining.errors?.minlength">Minimum 3 characters required.</div>
       </div>
     </form>
 
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
-      <table class="table table-responsive table-hover table-bordered table">
+      <table class="table table-responsive table-hover table-bordered">
         <thead class="tableHead">
           <th> Action Name </th>
           <th> Event Venue </th>

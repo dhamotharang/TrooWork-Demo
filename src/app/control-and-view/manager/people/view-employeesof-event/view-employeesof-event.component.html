@@ -2,50 +2,15 @@
 <div style="width: 100%;height: 100%;">
   <div class="bg-dark" style="width: 100%;height: 100%;">
     <br><br>
-    <h4 class="refer"><b> SEARCH MEETING/TRAINING/EVENT BY </b> </h4>
+    <div style="text-align:center">
+      <h4 class="refer"><b> SEARCH MEETING/TRAINING/EVENT BY </b> </h4>
+    </div>
     <br>
     <div style="text-align:center">
       <a routerLink="/EventView" class="btn btn-primary" routerLinkActive="active">View / Edit
         Meeting/Training/Event</a>
     </div>
     <br>
-    <!-- <div>
-      <div>
-        <label for="building">Job Title </label>
-
-        <ng-multiselect-dropdown [placeholder]="'Selectjobtitle'" [data]="jobTitle" [(ngModel)]="JobTitleKey"
-          [textField]="'JobTitleText'" [valueField]="'JobTitleKey'" [settings]="dropdownSettings" (onSelect)="filterMtngTrainingList()"
-          (onSelectAll)="filterMtngTrainingList()">
-        </ng-multiselect-dropdown>
-
-        <br>
-
-        <label for="building">Employee </label>
-
-        <ng-multiselect-dropdown [placeholder]="'Selectemployee'" [data]="empList" [(ngModel)]="EmployeeKey"
-          [textField]="'EmployeeText'" [valueField]="'EmployeeKey'" [settings]="dropdownSettings1" (onSelect)="filterMtngTrainingList()"
-          (onSelectAll)="filterMtngTrainingList()">
-        </ng-multiselect-dropdown>
-        <br>
-      </div>
-      <div>
-        <label for="building">From Date </label>
-        <igx-datePicker [value]="date1" [(ngModel)]="fromdate" (onSelection)="filterMtngTrainingList()"></igx-datePicker>
-        <br>
-        <label for="building">To Date </label>
-        <igx-datePicker [value]="date1" [(ngModel)]="todate" (onSelection)="filterMtngTrainingList()"></igx-datePicker>
-        <br>
-      </div>
-    </div>
-
-    <form [formGroup]="searchform">
-      <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
-        <input class="form-control" name="searchMeetingview" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
-          placeholder="Search" aria-label="Search" [(ngmodel)]="SearchMeetingTraining" formControlName="SearchMeetingTraining"
-          (input)="searchMeetingTraining($event.target.value);" style="width: 100%;">
-        <div *ngIf="searchform.controls.SearchMeetingTraining.errors?.minlength">Minimum 3 characters required.</div>
-      </div>
-    </form> -->
 
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
       <table class="table table-responsive table-hover table-bordered table">
@@ -74,14 +39,13 @@
             <td>
               <a routerLink="/MeetingTrainingEdit/{{ x.EventKey}}/{{x.ActionKey}}" *ngIf="x.HasAttended == 0" class="btn btn-primary">Edit</a>
 
-              <a button type="button" mdbBtn color="primary" *ngIf="x.HasAttended == 0" class="relative waves-light"
-                (click)="basicModal.show();deleteMeetingPass(x.EventKey); " mdbWavesEffect>Delete</a>
+              <a button type="button" mdbBtn color="danger" *ngIf="x.HasAttended == 0" class="relative waves-light"
+                style="margin-left: 0.4rem;" (click)="basicModal.show();deleteMeetingPass(x.EventKey); " mdbWavesEffect>Delete</a>
 
-              <button (click)="markAttended(x.EmployeeKey, x.HasAttended, x.EventKey)" *ngIf="x.HasAttended == 0" class="btn btn-primary">Mark
+              <button (click)="markAttended(x.EmployeeKey, x.HasAttended, x.EventKey)" *ngIf="x.HasAttended == 0" class="btn btn-success">Mark
                 as Attended</button>
               <button (click)="markUnAttended(x.EmployeeKey, x.HasAttended, x.EventKey)" *ngIf="x.HasAttended == 1"
-                class="btn btn-primary">Mark
-                as UnAttended</button>
+                class="btn btn-danger">Mark as UnAttended</button>
 
             </td>
           </tr>

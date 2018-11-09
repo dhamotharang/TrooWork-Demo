@@ -19,7 +19,7 @@ export class MeetingTrainingEditComponent implements OnInit {
   Employee = [];
   superVsrKey: Number = 0;
   jobTleKey: Number = 0;
-  mtngDetails: Array<any>;
+  mtngDetails;
   Empselected: People[];
   ActionKey: Number;
   mtngDate: Date;
@@ -31,7 +31,8 @@ export class MeetingTrainingEditComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  timeValue1;
+  timeValue2;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -224,6 +225,16 @@ export class MeetingTrainingEditComponent implements OnInit {
       .getMeetingTrainingDetails(this.eventKey$, this.actionKey$, this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.mtngDetails = data[0];
+        this.mtngDate = new Date(this.mtngDetails.MeetingDate);
+        var cur_time = new Date(Date.now());
+        var timeValue1 = this.mtngDetails.StartTime;
+        var timeValue2 = this.mtngDetails.EndTime;
+        var test1 = timeValue1.split(":");
+        var test2 = timeValue2.split(":");
+        var start = new Date(cur_time.getFullYear(), cur_time.getMonth(), cur_time.getDate(), test1[0], test1[1], 0);
+        var end = new Date(cur_time.getFullYear(), cur_time.getMonth(), cur_time.getDate(), test2[0], test2[1], 0);
+        this.timeValue1 = start;
+        this.timeValue2 = end;
       });
 
     this.peopleServ
