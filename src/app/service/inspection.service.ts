@@ -250,5 +250,64 @@ export class InspectionService {
     .http
     .get('http://localhost:3000/api/checkForTemplate?templateName='+InspTempName+'&OrganizationID='+OrganizationID);
   }
+  roomByFacility_Floor_Zone_RoomType(fac_key,floor,zone,roomtype,Oid)
+  {
+    return this
+      .http
+      // tslint:disable-next-line:max-line-length
+      .get('http://localhost:3000/api/roomByFacility_Floor_Zone_RoomType?fkey=' + fac_key + "&floorkey=" + floor + "&zonekey=" + zone + "&roomtype=" + roomtype +"&OrganizationID="+Oid);
+  }
+  roomByFacility_Floor_RoomType(fac_key,floor,roomtype,Oid)
+  {
+    return this
+      .http
+      // tslint:disable-next-line:max-line-length
+      .get('http://localhost:3000/api/roomByFacility_Floor_RoomType?fkey=' + fac_key + "&floorkey=" + floor + "&roomtype=" + roomtype +"&OrganizationID="+Oid);
+  }
+  roomByFacility_Zone_RoomType(fac_key,zone,roomtype,Oid)
+  {
+    return this
+    .http
+    // tslint:disable-next-line:max-line-length
+    .get('http://localhost:3000/api/roomByFacility_Zone_RoomType?fkey=' + fac_key + "&zonekey=" + zone + "&roomtype=" + roomtype +"&OrganizationID="+Oid);
+
+  }
+  roomByFacility_RoomType(fac_key,roomtype,Oid)
+  {
+    return this
+    .http
+    // tslint:disable-next-line:max-line-length
+    .get('http://localhost:3000/api/roomByFacility_RoomType?fkey='+ fac_key + "&roomtype=" + roomtype +"&OrganizationID="+Oid);
+
+  }
+  roomtypeByFacility_Floor_zone(fac_key, floor_key, zonekey,Oid) {
+    return this
+      .http
+      // tslint:disable-next-line:whitespace
+      // tslint:disable-next-line:max-line-length
+      .get('http://localhost:3000/api/roomtypeByFacility_Floor_zone?fkey=' + fac_key + '&floorkey=' + floor_key + ' &zonekey=' + zonekey + ' &OrganizationID= ' + Oid);
+  }
+  roomByFacility_Floor_zone(fac_key, floor_key, zonekey,Oid) {
+    return this
+      .http
+      // tslint:disable-next-line:max-line-length
+      .get('http://localhost:3000/api/roomByFacility_Floor_zone?fkey=' + fac_key + '&floorkey=' + floor_key + '&zonekey=' + zonekey + '&OrganizationID=' + Oid);
+
+  }
+  roomtypeByFacility_Zone(fac_key,zonekey,Oid) {
+    return this
+      .http
+      // tslint:disable-next-line:max-line-length
+      .get('http://localhost:3000/api/roomtypeByFacility_Zone?fkey=' + fac_key + '&zonekey=' + zonekey + '&OrganizationID=' + Oid);
+
+  }
+  roomByFacility_Zone(fac_key,zonekey,Oid)
+  {
+    return this
+    .http
+    // tslint:disable-next-line:max-line-length
+    .get('http://localhost:3000/api/roomByFacility_Zone?fkey=' + fac_key + "&zonekey=" + zonekey +"&OrganizationID="+Oid);
+
+  }
 }
 

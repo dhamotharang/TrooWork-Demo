@@ -12,11 +12,15 @@ const URL = 'http://localhost:3000/api/upload_test';
   styleUrls: ['./view-work-order.component.scss']
 })
 export class ViewWorkOrderComponent implements OnInit {
+  
+  loading: boolean;// loading
+
   pageNo: Number = 1;
   itemsPerPage: Number = 25;
   showHide1: boolean;
   showHide2: boolean;
   pagination: Number;
+
   searchform: FormGroup;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
@@ -30,27 +34,29 @@ export class ViewWorkOrderComponent implements OnInit {
   FinishButton = [];
   RowIndex;
   countCancel1;
-  myworkorder = {};
+  myworkorder;
   countCancel;
   barcodeValue = {};
   addUrl;
   wokey: Number;
   emp: Number;
+  WorkorderDate: Date;
+  WorkorderDate2: Date;
   role: String;
   name: String;
   toServeremployeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-  WorkorderDate;
-  WorkorderDate2;
   FacilityKey;
   FloorKey;
   RoomTypeKey;
   ZoneKey;
+  fileName;
+  result;
   submitFlag;
   BarcodeValue;
-  result;
-  fileName;
+
+
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -104,16 +110,14 @@ export class ViewWorkOrderComponent implements OnInit {
 
     }, 100)
   }
+
   previousPage() {
-    var curr_date = this.convert_DT(new Date());
     this.pageNo = +this.pageNo - 1;
+    var curr_date = this.convert_DT(new Date());
     this.WorkOrderServiceService
     .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
     .subscribe((data: any[]) => {
       this.WorkorderDetTable = data;
-      for (var i = 0; i < this.WorkorderDetTable.length; i++) {
-        this.FinishButton[i] = true;
-      }
         if (this.pageNo == 1) {
           this.showHide2 = true;
           this.showHide1 = false;
@@ -125,15 +129,12 @@ export class ViewWorkOrderComponent implements OnInit {
   }
 
   nextPage() {
-    var curr_date = this.convert_DT(new Date());
     this.pageNo = +this.pageNo + 1;
+    var curr_date = this.convert_DT(new Date());
     this.WorkOrderServiceService
       .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
-        for (var i = 0; i < this.WorkorderDetTable.length; i++) {
-          this.FinishButton[i] = true;
-        }
         this.pagination = +this.WorkorderDetTable[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
         if (this.pagination > 1) {
           this.showHide2 = true;
@@ -144,164 +145,6 @@ export class ViewWorkOrderComponent implements OnInit {
           this.showHide1 = true;
         }
       });
-  }
-  workorderCompleted(i, barcodeRequired, photoRequired, workorderkey, file) {
-    this.countCancel = 1;
-    this.countCancel1 = this.countCancel;
-
-    if (this.BarcodeValue && barcodeRequired === 1) {
-      this.WorkOrderServiceService
-        .BarcodeRoomCheck(this.BarcodeValue, workorderkey, this.OrganizationID)
-        .subscribe((data: any[]) => {
-          this.result = data;
-          if (this.result === 1) {
-            var type = 'manual';
-            this.WorkOrderServiceService
-              .BarcodeRoom(this.BarcodeValue, this.toServeremployeekey, workorderkey, type, this.OrganizationID)
-              .subscribe((data: any[]) => {
-              });
-          }
-        });
-    }
-    if (this.fileName && photoRequired === 1) {
-      this.WorkOrderServiceService
-        .UpdatewobyPhotoForEmployee(this.fileName, this.toServeremployeekey, workorderkey, this.OrganizationID)
-        .subscribe((data: any[]) => {
-        });
-    }
-    if (photoRequired !== 1 && barcodeRequired !== 1) {
-      this.WorkOrderServiceService
-        .CompletewoByempWithoutPhotoandBarcd(this.toServeremployeekey, workorderkey, this.OrganizationID)
-        .subscribe((data: any[]) => {
-          this.FinishButton[i] = true;
-        });
-    }
-    this.FinishButton[i] = true;
-    this.showbutton[i] = false;
-    this.submitFlag = false;
-    this.countCancel1 = false;
-    for (var j; j < this.FinishButton.length; j++) {
-
-      this.FinishButton[i] = true;
-      this.showbutton[i] = false;
-
-    }
-  };
-  FileSelected(WorkorderKey) {
-    this.addUrl = '?Workorderkey=' + WorkorderKey + '&EmployeeKey=' + this.toServeremployeekey + '&OrganizationID=' + this.OrganizationID;
-    this.uploader.onBeforeUploadItem = (item) => {
-      item.withCredentials = false;
-      item.url = URL + this.addUrl;
-    }
-  }
-  cancelWorkorderSubmission(i) {
-    if (this.RowIndex || this.RowIndex === 0) {
-      this.showbutton[this.RowIndex] = false;
-    }
-    if (this.countCancel1 == true) {
-      this.countCancel1 = false;
-      var curr_date = this.convert_DT(new Date());
-      this.WorkOrderServiceService
-        .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
-        .subscribe((data: any[]) => {
-          this.WorkorderDetTable = data;
-        });
-
-    }
-    this.submitFlag = false;
-    this.FinishButton[i] = true;
-    this.showbutton[i] = false;
-  };
-  workorderFinish(i) {
-    if (this.RowIndex || this.RowIndex === 0) {
-      this.showbutton[this.RowIndex] = false;
-    }
-    var RowIndex;
-    RowIndex = i;
-    this.showbutton[RowIndex] = true;
-    this.FinishButton[RowIndex] = false;
-    this.countCancel1 = true;
-    this.submitFlag = true;
-    for (var j; j < this.FinishButton.length; j++) {
-      if (i !== j) {
-        this.FinishButton[i] = false;
-        this.showbutton[i] = false;
-      }
-    }
-  };
-  tFloorfromBuildings(facKey) {
-    this.facikey = facKey;
-    this.WorkOrderServiceService
-      .getallFloorNames(facKey, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.floorList = data;
-        this.FloorKey="";
-      });
-  }
-
-  selectZoneRoomtypefromFloor(flkey) {
-    this.WorkOrderServiceService
-      .getallZones(this.facikey, flkey, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.zoneList = data;
-        this.ZoneKey="";
-      });
-    this.WorkOrderServiceService
-      .getallRoomType(this.facikey, flkey, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.roomtypeList = data;
-        this.RoomTypeKey="";
-      });
-  }
-  searchWO(SearchValue) {
-    if (!this.WorkorderDate) {
-      var date1 = this.convert_DT(new Date());
-    }
-    else {
-      date1 = this.convert_DT(this.WorkorderDate);
-    }
-    if (!this.WorkorderDate2) {
-      var date2 = date1;
-    }
-    else {
-      date2 = this.convert_DT(this.WorkorderDate2);
-    }
-    if (SearchValue.length >= 3) {
-      if(this.FacilityKey=="")
-      {
-        this.FacilityKey=undefined;
-      }
-      this.WorkOrderServiceService
-        .SearchwoByEmployee(SearchValue, date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey).subscribe((data: any[]) => {
-          this.WorkorderDetTable = data;
-          this.FacilityKey="";
-          for (var i = 0; i < this.WorkorderDetTable.length; i++) {
-            this.FinishButton[i] = true;
-          }
-          this.showHide2 = false;
-          this.showHide1 = false;
-        });
-    }
-    else if (SearchValue.length == 0) {
-      var curr_date = this.convert_DT(new Date());
-      this.WorkOrderServiceService
-        .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
-        .subscribe((data: any[]) => {
-          this.WorkorderDetTable = data;
-          for (var i = 0; i < this.WorkorderDetTable.length; i++) {
-            this.FinishButton[i] = true;
-          }
-            if (this.WorkorderDetTable[0].totalItems > this.itemsPerPage) {
-              this.showHide2 = true;
-              this.showHide1 = false;
-            }
-            else if (this.WorkorderDetTable[0].totalItems <= this.itemsPerPage) {
-              this.showHide2 = false;
-              this.showHide1 = false;
-            }
-         
-        });
-    }
   }
   checktoshowFinish(i) {
     if (this.showbutton[i] == true) {
@@ -321,9 +164,232 @@ export class ViewWorkOrderComponent implements OnInit {
     }
   }
 
+  selectFloorfromBuildings(facKey) {
+    this.facikey = facKey;
+    this.WorkOrderServiceService
+      .getallFloorNames(facKey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.floorList = data;
+      });
+  }
+
+  selectZoneRoomtypefromFloor(flkey) {
+    this.WorkOrderServiceService
+      .getallZones(this.facikey, flkey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.zoneList = data;
+      });
+    this.WorkOrderServiceService
+      .getallRoomType(this.facikey, flkey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.roomtypeList = data;
+      });
+  }
+  searchWO(SearchValue) {
+    if (!this.WorkorderDate) {
+      var date1 = this.convert_DT(new Date());
+    }
+    else {
+      date1 = this.convert_DT(this.WorkorderDate);
+    }
+    if (!this.WorkorderDate2) {
+      var date2 = date1;
+    }
+    else {
+      date2 = this.convert_DT(this.WorkorderDate2);
+    }
+    this.FacilityKey=null;
+    this.FloorKey=null;
+    this.RoomTypeKey=null;
+    this.ZoneKey=null;
+    if (SearchValue.length >= 3) {
+      this.WorkOrderServiceService
+        .SearchwoByEmployee(SearchValue, date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey).subscribe((data: any[]) => {
+          this.WorkorderDetTable = data;
+
+        });
+    }
+    else if (SearchValue.length == 0) {
+      var curr_date = this.convert_DT(new Date());
+      this.WorkOrderServiceService
+        .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.WorkorderDetTable = data;
+          if (this.WorkorderDetTable[0].totalItems > this.itemsPerPage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.WorkorderDetTable[0].totalItems <= this.itemsPerPage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
+          for (var i = 0; i < this.WorkorderDetTable.length; i++) {
+            this.FinishButton[i] = true;
+          }
+        });
+    }
+
+  }
+  viewEmployeeWorkorderByFilter() {
+    this.loading = true;
+    if (!this.WorkorderDate) {
+      var date1 = this.convert_DT(new Date());
+    }
+    else {
+      date1 = this.convert_DT(this.WorkorderDate);
+    }
+    if (!this.WorkorderDate2) {
+      var date2 = date1;
+    }
+    else {
+      date2 = this.convert_DT(this.WorkorderDate2);
+    }
+    this.WorkOrderServiceService
+      .getworkOrderTablewithOnDateOnly(this.pageNo,this.itemsPerPage,date1, this.toServeremployeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.WorkorderDetTable = data;
+        this.loading = false;
+      });
+      this.FacilityKey=null;
+      this.FloorKey=null;
+      this.RoomTypeKey=null;
+      this.ZoneKey=null;
+    this.WorkOrderServiceService
+      .getworkOrderTablewithOnDateandToDateFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
+      .subscribe((data: any[]) => {
+        this.WorkorderDetTable = data;
+        this.loading = false;
+        for (var i = 0; i < this.WorkorderDetTable.length; i++) {
+          this.FinishButton[i] = true;
+        }
+      });
+    this.WorkOrderServiceService
+      .getworkOrderTablewithbuildingFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
+      .subscribe((data: any[]) => {
+        this.WorkorderDetTable = data;
+        this.loading = false;
+      });
+
+  }
+
+  workorderCompleted(i, barcodeRequired, photoRequired, workorderkey, file) {
+    this.countCancel = 1;
+    this.countCancel1 = this.countCancel;
+    if (!this.BarcodeValue && barcodeRequired === 1) {
+      this.BarcodeValue = null;
+             alert("Barcode is not provided !");
+              return;
+      }
+    else if (this.BarcodeValue && barcodeRequired === 1) {
+      this.WorkOrderServiceService
+        .BarcodeRoomCheck(this.BarcodeValue, workorderkey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.result = data;
+          if (this.result === 1) {
+            var type = 'manual';
+            this.WorkOrderServiceService
+              .BarcodeRoom(this.BarcodeValue, this.toServeremployeekey, workorderkey, type, this.OrganizationID)
+              .subscribe((data: any[]) => {
+
+              });
+          }
+        });
+    }
+    if (!this.fileName && photoRequired === 1) {
+      this.fileName = null;
+              alert("Photo is not provided !");
+              return;
+      }
+   else if (this.fileName && photoRequired === 1) {
+      this.WorkOrderServiceService
+        .UpdatewobyPhotoForEmployee(this.fileName, this.toServeremployeekey, workorderkey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+        });
+    }
+    if (photoRequired !== 1 && barcodeRequired !== 1) {
+      this.WorkOrderServiceService
+        .CompletewoByempWithoutPhotoandBarcd(this.toServeremployeekey, workorderkey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.FinishButton[i] = true;
+        });
+    }
+
+
+    this.FinishButton[i] = true;
+    this.showbutton[i] = false;
+    this.submitFlag = false;
+    this.countCancel1 = false;
+    for (var j; j < this.FinishButton.length; j++) {
+
+      this.FinishButton[i] = true;
+      this.showbutton[i] = false;
+
+    }
+    var curr_date = this.convert_DT(new Date());
+    this.WorkOrderServiceService
+      .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.WorkorderDetTable = data;
+        if (this.WorkorderDetTable[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.WorkorderDetTable[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
+        for (var i = 0; i < this.WorkorderDetTable.length; i++) {
+          this.FinishButton[i] = true;
+        }
+      });
+  };
+  FileSelected(WorkorderKey) {
+    this.addUrl = '?Workorderkey=' + WorkorderKey + '&EmployeeKey=' + this.toServeremployeekey + '&OrganizationID=' + this.OrganizationID;
+    this.uploader.onBeforeUploadItem = (item) => {
+      item.withCredentials = false;
+      item.url = URL + this.addUrl;
+    }
+  }
+  workorderFinish(i) {
+    if (this.RowIndex || this.RowIndex === 0) {
+      this.showbutton[this.RowIndex] = false;
+    }
+    var RowIndex;
+    RowIndex = i;
+    this.showbutton[RowIndex] = true;
+    this.FinishButton[RowIndex] = false;
+    this.countCancel1 = true;
+    this.submitFlag = true;
+    for (var j; j < this.FinishButton.length; j++) {
+      if (i !== j) {
+        this.FinishButton[i] = false;
+        this.showbutton[i] = false;
+      }
+    }
+  };
+  cancelWorkorderSubmission(i) {
+    if (this.RowIndex || this.RowIndex === 0) {
+      this.showbutton[this.RowIndex] = false;
+    }
+    if (this.countCancel1 == true) {
+      this.countCancel1 = false;
+      var curr_date = this.convert_DT(new Date());
+      this.WorkOrderServiceService
+        .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.WorkorderDetTable = data;
+        });
+         
+  }
+    this.submitFlag = false;
+    this.FinishButton[i] = true;
+      this.showbutton[i] = false;
+  };
+
+
   ngOnInit() {
+
     //token starts....
-    
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -334,16 +400,20 @@ export class ViewWorkOrderComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     //token ends
+
+    this.loading = true;// loading
+
     this.FacilityKey="";
-   
+    this.FloorKey="";
+    this.ZoneKey="";
+    this.RoomTypeKey="";
+    this.WorkorderDate = new Date();
     var curr_date = this.convert_DT(new Date());
     this.WorkOrderServiceService
       .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
-        for (var i = 0; i < this.WorkorderDetTable.length; i++) {
-          this.FinishButton[i] = true;
-        }
+        this.loading = false;// loading
         if (this.WorkorderDetTable[0].totalItems > this.itemsPerPage) {
           this.showHide2 = true;
           this.showHide1 = false;
@@ -351,6 +421,9 @@ export class ViewWorkOrderComponent implements OnInit {
         else if (this.WorkorderDetTable[0].totalItems <= this.itemsPerPage) {
           this.showHide2 = false;
           this.showHide1 = false;
+        }
+        for (var i = 0; i < this.WorkorderDetTable.length; i++) {
+          this.FinishButton[i] = true;
         }
       });
 
@@ -366,7 +439,10 @@ export class ViewWorkOrderComponent implements OnInit {
 
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+
       console.log('ImageUpload:uploaded:', item, status, response);
+      this.fileName = item.file.name;
+
       alert('File uploaded successfully');
     };
   }

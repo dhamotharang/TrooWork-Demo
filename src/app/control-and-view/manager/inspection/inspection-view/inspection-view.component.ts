@@ -127,13 +127,12 @@ export class InspectionViewComponent implements OnInit {
   //functions for pagination 
 
   filteringInspectionManagerByDate() {
+    this.loading = true;// loading
     if (this.todate && this.fromdate > this.todate) {
       this.todate = null;
       alert("Please check your Start Date!");
       return;
     }
-
-    this.loading = true;// loading
     if (!this.fromdate) {
       var date1 = this.convert_DT(new Date());
     }

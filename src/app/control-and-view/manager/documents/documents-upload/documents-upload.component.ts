@@ -68,15 +68,25 @@ export class DocumentsUploadComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       console.log('ImageUpload:uploaded:', item, status, response);
+      // if(!(this.FormtypeId) )
+      // {
+      //   return;
+      // }
       alert('File uploaded successfully');
     };
   }
   FileSelected() {
+    if(!(this.FormtypeId) )
+    {
+      alert("Please choose Document Folder");
+      return;
+  }   
+
     this.addUrl = '?formtypeId=' + this.FormtypeId + '&formDesc=' + this.DescName + '&empkey=' + this.employeekey + '&OrganizationID=' + this.OrganizationID;
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
       item.url = URL + this.addUrl;
-
     }
+    this.uploader.uploadAll();
   }
 }
