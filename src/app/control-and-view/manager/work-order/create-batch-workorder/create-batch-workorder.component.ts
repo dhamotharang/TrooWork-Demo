@@ -32,7 +32,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
   EquipmentTypeKey;
   EquipmentKey;
   PriorityKey;
-  EmployeeKey: number;
+  EmployeeKey;
   BatchScheduleNameKey;
   timeValue: any;
   dateValue: any;
@@ -258,22 +258,38 @@ export class CreateBatchWorkorderComponent implements OnInit {
     this.monthlyreccradio2 = true;
   }
   getEquiment(floor_key, facility_key) {
+    if(floor_key&&facility_key)
+    {
     this.WorkOrderServiceService
       .getallEquipment(facility_key, floor_key, this.org_id)
       .subscribe((data: any[]) => {
         this.EquipmentTypeList = data;
         this.EquipmentList = data;
       });
+    }
+    else
+    {
+      this.EquipmentKey="";
+      this.EquipmentTypeKey="";
+    }
   }
   getFloorDisp(facilityName) {
-
+    if(facilityName)
+   {
     this.WorkOrderServiceService
       .getallFloor(facilityName, this.org_id)
       .subscribe((data: any[]) => {
         this.FloorList = data;
       });
+    }
+    else
+    {
+      this.FloorKey="";
+    }
   }
   getZoneRoomTypeRoom(floor, facility) {
+    if(floor&&facility)
+    {
     this.WorkOrderServiceService
       .getzone_facilityfloor(floor, facility, this.org_id)
       .subscribe((data: any[]) => {
@@ -289,8 +305,17 @@ export class CreateBatchWorkorderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
+    }
+    else
+    {
+      this.ZoneKey="";
+      this.RoomTypeKey="";
+      this.RoomKey="";
+    }
   }
   getRoomTypeRoom(zone, facility, floor) {
+    if(zone&&facility&&floor)
+    {
     this.WorkOrderServiceService
       .getRoomtype_zone_facilityfloor(zone, floor, facility, this.org_id)
       .subscribe((data: any[]) => {
@@ -301,28 +326,54 @@ export class CreateBatchWorkorderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
+    }
+    else
+    {
+      this.RoomTypeKey="";
+      this.RoomKey="";
+    }
   }
   getRoom(roomtype, zone, facility, floor) {
+    if(roomtype && zone && facility && floor)
+    {
     this.WorkOrderServiceService
       .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.org_id)
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
+    }
+    else
+    {
+      this.RoomKey="";
+    }
   }
   showEquipment_typechange(equip_type, facility, floor) {
+    if(equip_type&&facility&&floor)
+    {
     this.WorkOrderServiceService
       .getEquipment_typechange(equip_type, facility, floor, this.org_id)
       .subscribe((data: any[]) => {
         this.EquipmentList = data;
       });
-
+    }
+    else
+    {
+      this.EquipmentKey="";
+    }
   }
   getEmployee(schedulename) {
+    if(schedulename)
+    {
     this.WorkOrderServiceService
       .getEmployee_scheduleNamae(schedulename, this.org_id)
       .subscribe((data: any[]) => {
         this.EmployeeKey = data[0].EmployeeKey;
       });
+    }
+    else 
+    {
+      this.EmployeeKey="   ";
+    }
   }
   createWorkOrder() {
     if (this.showEqTypes === false) {
@@ -662,12 +713,42 @@ export class CreateBatchWorkorderComponent implements OnInit {
                 .AddnewWOT(this.addWOT)
                 .subscribe((data: any[]) => {
                   this.wot = data[0].WorkOrderTypeKey;
+                  this.workorderCreation = {
+                    scheduleKey: this.BatchScheduleNameKey,
+                    occursontime: this.workTime,
+                    workorderkey: - 99,
+                    workordertypekey: this.wot,
+                    workordernote: this.notes,
+                    equipmentkey: this.eqp_key,
+                    roomkeys: roomsString,
+                    facilitykeys: facilityString,
+                    floorkeys: floorString,
+                    zonekeys: zoneString,
+                    roomtypekeys: roomtypeString,
+                    employeekey: this.employeekey,
+                    priority: this.priority,
+                    fromdate: this.startDT,
+                    todate: this.endDT,
+                    isbar: this.is_BarcodeRequired,
+                    isphoto: this.is_PhotoRequired,
+                    metaupdatedby: this.emp_key,
+                    OrganizationID: this.org_id,
+                    intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
+                    repeatinterval: this.rep_interval,
+                    occursonday: this.occurs_on,
+                    occurstype: this.occurs_type
+                  };
+                  this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => {
+                    alert("work-order created successfully");
+                    this.router.navigateByUrl('/ViewBatchWorkorder')});
                 });
-            }
+              }
           });
       }
 
     }
+    else
+    {
     this.workorderCreation = {
       scheduleKey: this.BatchScheduleNameKey,
       occursontime: this.workTime,
@@ -696,6 +777,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
     this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => {
       alert("work-order created successfully");
       this.router.navigateByUrl('/ViewBatchWorkorder')});
+    }
   }
   createWorkorder2() {
     if (!(this.BatchScheduleNameKey)) {
@@ -1020,12 +1102,43 @@ export class CreateBatchWorkorderComponent implements OnInit {
                 .AddnewWOT(this.addWOT)
                 .subscribe((data: any[]) => {
                   this.wot = data[0].WorkOrderTypeKey;
+                  this.workorderCreation = {
+                    scheduleKey: this.BatchScheduleNameKey,
+                    occursontime: this.workTime,
+                    workorderkey: - 99,
+                    workordertypekey: this.wot,
+                    workordernote: this.notes,
+                    equipmentkey: this.eqp_key,
+                    roomkeys: roomsString,
+                    facilitykeys: facilityString,
+                    floorkeys: floorString,
+                    zonekeys: zoneString,
+                    roomtypekeys: roomtypeString,
+                    employeekey: this.employeekey,
+                    priority: this.priority,
+                    fromdate: this.startDT,
+                    todate: this.endDT,
+                    isbar: this.is_BarcodeRequired,
+                    isphoto: this.is_PhotoRequired,
+                    metaupdatedby: this.emp_key,
+                    OrganizationID: this.org_id,
+                    intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
+                    repeatinterval: this.rep_interval,
+                    occursonday: this.occurs_on,
+                    occurstype: this.occurs_type
+                  };
+                  this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res =>{
+                    alert("work-order created successfully"); 
+                    this.router.navigateByUrl('/ViewBatchWorkorder')
+                    });
                 });
             }
           });
       }
 
     }
+    else
+    {
     this.workorderCreation = {
       scheduleKey: this.BatchScheduleNameKey,
       occursontime: this.workTime,
@@ -1055,6 +1168,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
       alert("work-order created successfully"); 
       this.router.navigateByUrl('/ViewBatchWorkorder')
       });
+    }
 
   }
   addFormField() {

@@ -231,6 +231,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 
   }
   viewEmployeeWorkorderByFilter() {
+    this.loading = true;
     if (!this.WorkorderDate) {
       var date1 = this.convert_DT(new Date());
     }
@@ -247,6 +248,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
       .getworkOrderTablewithOnDateOnly(this.pageNo,this.itemsPerPage,date1, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
+        this.loading = false;
       });
       this.FacilityKey=null;
       this.FloorKey=null;
@@ -256,6 +258,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
       .getworkOrderTablewithOnDateandToDateFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
+        this.loading = false;
         for (var i = 0; i < this.WorkorderDetTable.length; i++) {
           this.FinishButton[i] = true;
         }
@@ -264,6 +267,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
       .getworkOrderTablewithbuildingFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
+        this.loading = false;
       });
 
   }

@@ -256,22 +256,38 @@ export class CreateWorkorderComponent implements OnInit {
     this.monthlyreccradio2 = true;
   }
   getEquiment(floor_key, facility_key) {
+    if(floor_key&&facility_key)
+    {
     this.WorkOrderServiceService
       .getallEquipment(facility_key, floor_key, this.org_id)
       .subscribe((data: any[]) => {
         this.EquipmentTypeList = data;
         this.EquipmentList = data;
       });
+    }
+    else
+    {
+      this.EquipmentKey="";
+      this.EquipmentTypeKey="";
+    }
   }
   getFloorDisp(facilityName) {
-   
+    if(facilityName)
+   {
     this.WorkOrderServiceService
       .getallFloor(facilityName, this.org_id)
       .subscribe((data: any[]) => {
         this.FloorList = data;
       });
+    }
+    else
+    {
+      this.FloorKey="";
+    }
   }
   getZoneRoomTypeRoom(floor, facility) {
+    if(floor&&facility)
+    {
     this.WorkOrderServiceService
       .getzone_facilityfloor(floor, facility, this.org_id)
       .subscribe((data: any[]) => {
@@ -287,8 +303,17 @@ export class CreateWorkorderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
+    }
+    else
+    {
+      this.ZoneKey="";
+      this.RoomTypeKey="";
+      this.RoomKey="";
+    }
   }
   getRoomTypeRoom(zone, facility, floor) {
+    if(zone&&facility&&floor)
+    {
     this.WorkOrderServiceService
       .getRoomtype_zone_facilityfloor(zone, floor, facility, this.org_id)
       .subscribe((data: any[]) => {
@@ -299,20 +324,40 @@ export class CreateWorkorderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
+    }
+    else
+    {
+      this.RoomTypeKey="";
+      this.RoomKey="";
+    }
   }
   getRoom(roomtype, zone, facility, floor) {
+    if(roomtype && zone && facility && floor)
+    {
     this.WorkOrderServiceService
       .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.org_id)
       .subscribe((data: any[]) => {
         this.RoomList = data;
       });
+    }
+    else
+    {
+      this.RoomKey="";
+    }
   }
   showEquipment_typechange(equip_type, facility, floor) {
+    if(equip_type&&facility&&floor)
+    {
     this.WorkOrderServiceService
       .getEquipment_typechange(equip_type, facility, floor, this.org_id)
       .subscribe((data: any[]) => {
         this.EquipmentList = data;
       });
+    }
+    else
+    {
+      this.EquipmentKey="";
+    }
   }
   createWorkOrder() {
    
@@ -684,12 +729,43 @@ export class CreateWorkorderComponent implements OnInit {
                   .AddnewWOT(this.addWOT)
                   .subscribe((data: any[]) => {
                     this.wot = data[0].WorkOrderTypeKey;
+                    this.workorderCreation = {
+                      occursontime: this.workTime,
+                      workorderkey: - 99,
+                      workordertypekey: this.wot,
+                      workordernote: this.notes,
+                      equipmentkey: this.eqp_key,
+                      roomkeys: roomsString,
+                      facilitykeys: facilityString,
+                      floorkeys: floorString,
+                      zonekeys: zoneString,
+                      roomtypekeys: roomtypeString,
+                      employeekey: this.emp_key,
+                      priority: this.priority,
+                      fromdate: this.startDT,
+                      todate: this.endDT,
+                      isbar: this.is_BarcodeRequired,
+                      isphoto: this.is_PhotoRequired,
+                      metaupdatedby: this.employeeKey,
+                      OrganizationID: this.org_id,
+                      intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
+                      repeatinterval: this.rep_interval,
+                      occursonday: this.occurs_on,
+                      occurstype: this.occurs_type
+                    };
+                    this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => {
+                      alert("work-order created successfully");
+                      this.router.navigateByUrl('/ViewWorkOrder');
+                    });
                   });
               }
+
             });
         }
 
       }
+      else
+      {
       this.workorderCreation = {
         occursontime: this.workTime,
         workorderkey: - 99,
@@ -719,6 +795,7 @@ export class CreateWorkorderComponent implements OnInit {
         this.router.navigateByUrl('/ViewWorkOrder');
       });
     }
+  }
   }
   createWorkorder2() {
     if (!this.WorkorderTypeKey) {
@@ -1072,12 +1149,42 @@ export class CreateWorkorderComponent implements OnInit {
                   .AddnewWOT(this.addWOT)
                   .subscribe((data: any[]) => {
                     this.wot = data[0].WorkOrderTypeKey;
+                    this.workorderCreation = {
+                      occursontime: this.workTime,
+                      workorderkey: - 99,
+                      workordertypekey: this.wot,
+                      workordernote: this.notes,
+                      equipmentkey: this.eqp_key,
+                      roomkeys: roomsString,
+                      facilitykeys: facilityString,
+                      floorkeys: floorString,
+                      zonekeys: zoneString,
+                      roomtypekeys: roomtypeString,
+                      employeekey: this.emp_key,
+                      priority: this.priority,
+                      fromdate: this.startDT,
+                      todate: this.endDT,
+                      isbar: this.is_BarcodeRequired,
+                      isphoto: this.is_PhotoRequired,
+                      metaupdatedby: this.employeeKey,
+                      OrganizationID: this.org_id,
+                      intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
+                      repeatinterval: this.rep_interval,
+                      occursonday: this.occurs_on,
+                      occurstype: this.occurs_type
+                    };
+                    this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => {
+                      alert("work-order created successfully");
+                      this.router.navigateByUrl('/ViewWorkOrder');
+                    });
                   });
               }
             });
         }
 
       }
+      else
+      {
       this.workorderCreation = {
         occursontime: this.workTime,
         workorderkey: - 99,
@@ -1106,6 +1213,7 @@ export class CreateWorkorderComponent implements OnInit {
         alert("work-order created successfully");
         this.router.navigateByUrl('/ViewWorkOrder');
       });
+    }
     }
   }
   withequip_wo()
@@ -1354,12 +1462,43 @@ export class CreateWorkorderComponent implements OnInit {
                 .AddnewWOT(this.addWOT)
                 .subscribe((data: any[]) => {
                   this.wot = data[0].WorkOrderTypeKey;
+                  this.workorderCreation = {
+                    occursontime: this.workTime,
+                    workorderkey: - 99,
+                    workordertypekey: this.wot,
+                    workordernote: this.notes,
+                    equipmentkey: this.eqp_key,
+                    roomkeys: roomsString,
+                    facilitykeys: facilityString,
+                    floorkeys: floorString,
+                    zonekeys: zoneString,
+                    roomtypekeys: roomtypeString,
+                    employeekey: this.emp_key,
+                    priority: this.priority,
+                    fromdate: this.startDT,
+                    todate: this.endDT,
+                    isbar: this.is_BarcodeRequired,
+                    isphoto: this.is_PhotoRequired,
+                    metaupdatedby: this.employeeKey,
+                    OrganizationID: this.org_id,
+                    intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
+                    repeatinterval: this.rep_interval,
+                    occursonday: this.occurs_on,
+                    occurstype: this.occurs_type
+                  };
+                  this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => {
+                    alert("work-order created successfully");
+                    this.router.navigateByUrl('/ViewWorkOrder');
+                  });
+                
                 });
             }
           });
       }
 
     }
+    else
+    {
     this.workorderCreation = {
       occursontime: this.workTime,
       workorderkey: - 99,
@@ -1388,6 +1527,7 @@ export class CreateWorkorderComponent implements OnInit {
       alert("work-order created successfully");
       this.router.navigateByUrl('/ViewWorkOrder');
     });
+  }
   
   }
   addFormField() {
@@ -1669,12 +1809,42 @@ export class CreateWorkorderComponent implements OnInit {
                 .AddnewWOT(this.addWOT)
                 .subscribe((data: any[]) => {
                   this.wot = data[0].WorkOrderTypeKey;
+                  this.workorderCreation = {
+                    occursontime: this.workTime,
+                    workorderkey: - 99,
+                    workordertypekey: this.wot,
+                    workordernote: this.notes,
+                    equipmentkey: this.eqp_key,
+                    roomkeys: roomsString,
+                    facilitykeys: facilityString,
+                    floorkeys: floorString,
+                    zonekeys: zoneString,
+                    roomtypekeys: roomtypeString,
+                    employeekey: this.emp_key,
+                    priority: this.priority,
+                    fromdate: this.startDT,
+                    todate: this.endDT,
+                    isbar: this.is_BarcodeRequired,
+                    isphoto: this.is_PhotoRequired,
+                    metaupdatedby: this.employeeKey,
+                    OrganizationID: this.org_id,
+                    intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
+                    repeatinterval: this.rep_interval,
+                    occursonday: this.occurs_on,
+                    occurstype: this.occurs_type
+                  };
+                  this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => {
+                    alert("work-order created successfully");
+                    this.router.navigateByUrl('/ViewWorkOrder');
+                  });
                 });
             }
           });
       }
 
     }
+    else
+    {
     this.workorderCreation = {
       occursontime: this.workTime,
       workorderkey: - 99,
@@ -1703,5 +1873,6 @@ export class CreateWorkorderComponent implements OnInit {
       alert("work-order created successfully");
       this.router.navigateByUrl('/ViewWorkOrder');
     });
+  }
   }
 }

@@ -45,6 +45,10 @@ export class FloorCreateComponent implements OnInit {
   }
 
   addFloor(FacilityKey, FloorName, FloorDescription) {
+    if(FacilityKey=="--Select--"){
+      alert("Please Choose Building!");
+      return;
+    } 
     if(FloorName && !FloorName.trim()){
       alert("Please Enter Floor Name!");
       return;
