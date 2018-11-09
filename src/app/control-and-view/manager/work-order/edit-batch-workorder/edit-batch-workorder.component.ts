@@ -606,6 +606,10 @@ export class EditBatchWorkorderComponent implements OnInit {
     else if (!(this.WorkorderEndDate)) {
       alert("provide work-order end date!")
     }
+    else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
+      alert("check your startdate!");
+
+    }
     else if (this.dailyrecurring == false && this.weeklyrecurring == false && this.monthlyrecurring == false) {
       alert("Recurring Period is not provided !");
     }
@@ -944,6 +948,10 @@ withoutequip_wo()
     }
     else if (!(this.WorkorderEndDate)) {
       alert("provide work-order end date!")
+    }
+    else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
+      alert("check your startdate!");
+
     }
     else if(this.showEqTypes==true && !(this.EquipmentTypeKey))
     {

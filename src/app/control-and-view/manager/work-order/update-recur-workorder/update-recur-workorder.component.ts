@@ -567,6 +567,10 @@ export class UpdateRecurWorkorderComponent implements OnInit {
     else if (!this.FloorKey) {
       alert("select floor!");
     }
+    else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
+      alert("check your startdate!");
+
+    }
     else if (this.isRecurring == true) 
     {
       if(this.dailyrecurring==false && this.weeklyrecurring==false && this.monthlyrecurring==false)
@@ -939,6 +943,10 @@ export class UpdateRecurWorkorderComponent implements OnInit {
    else if(this.showEqTypes==true && !(this.EquipmentTypeKey))
     {
       alert("select equipment type!");
+    }
+    else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
+      alert("check your startdate!");
+
     }
     else if (this.isRecurring == true) 
     {

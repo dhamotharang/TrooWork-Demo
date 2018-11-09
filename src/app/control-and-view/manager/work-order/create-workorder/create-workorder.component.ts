@@ -389,6 +389,10 @@ export class CreateWorkorderComponent implements OnInit {
     }
     else if ( (!(this.timeValue)) && (this.isRecurring==false) ) {
       alert("please provide time!");
+      debugger;
+    }else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
+      alert("check your startdate!");
+
     }
     else if (this.isRecurring == true) 
     {
@@ -812,6 +816,10 @@ export class CreateWorkorderComponent implements OnInit {
     }
     else if (!this.FloorKey) {
       alert("select floor!");
+    }
+    else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
+      alert("check your startdate!");
+
     }
     else if ( (!(this.timeValue)) && (this.isRecurring==false) ) {
       alert("please provide time!");
@@ -1553,6 +1561,7 @@ export class CreateWorkorderComponent implements OnInit {
   }
   GobacktoMenu() {
     this.newType = false;
+    this.WorkorderTypeKey="";
   }
   withoutequip_wo()
   {    var roomlistObj = [];

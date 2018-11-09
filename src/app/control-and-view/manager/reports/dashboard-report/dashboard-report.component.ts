@@ -7,7 +7,6 @@ import { GooglePieChartService } from '../../../../extra-files/piechart-file/Ser
 declare var google: any;
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
-declare var google: any;
 @Component({
   selector: 'app-dashboard-report',
   templateUrl: './dashboard-report.component.html',
@@ -85,7 +84,7 @@ export class DashboardReportComponent implements OnInit {
   data3: any[];
   sampledata1: any[];
   sampledata2: any[];
-  data2: any[];
+  data4: any[];
   finalStringForPie: String;
   config1: PieChartConfig;
   elementId1: String;
@@ -158,24 +157,7 @@ export class DashboardReportComponent implements OnInit {
       .subscribe((data: Reports[]) => {
         this.pievalues = data;
         debugger;
-        if (this.pievalues.length > 0) {
-          this.sampledata1 = [['WorkorderStatus', 'count']];
-
-          for (var i = 0; i < this.pievalues.length; i++) {
-
-            var status = this.pievalues[i].WorkorderStatus;
-            var num = this.pievalues[i].totalItems;
-            this.data2 = ([status, num]);
-            this.sampledata1.push(this.data2);
-
-          }
-          this.data1 = this.sampledata1;
-          this.config1 = new PieChartConfig(' ', 0.4);
-          this.elementId1 = 'piechart';
-          if (this.data1.length > 1) {
-            this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
-          }
-        }
+          this.buildchart();       
       });
   }
   onItemSelect(item: any) {
@@ -263,6 +245,25 @@ export class DashboardReportComponent implements OnInit {
           this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
         }
       });
+  }
+  buildchart()
+  {
+    this.sampledata1 = [['WorkorderStatus', 'count']];
+
+    for (var i = 0; i < this.pievalues.length; i++) {
+
+      var status = this.pievalues[i].WorkorderStatus;
+      var num = this.pievalues[i].totalItems;
+      this.data4 = ([status, num]);
+      this.sampledata1.push(this.data4);
+
+    }
+    this.data1 = this.sampledata1;
+    this.config1 = new PieChartConfig(' ', 0.4);
+    this.elementId1 = 'piechart';
+    if (this.data1.length > 1) {
+      this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
+    }
   }
 }
 

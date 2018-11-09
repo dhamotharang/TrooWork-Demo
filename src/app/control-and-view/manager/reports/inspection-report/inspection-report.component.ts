@@ -129,7 +129,7 @@ export class InspectionReportComponent implements OnInit {
       alert("Please check your Start Date!");
       return;
     }
-    if (SupervisorKey == undefined) {
+    if (!SupervisorKey) {
       this.ReportServiceService
         .getinspectionreport_bydate(fromdate, todate, this.employeekey, this.OrganizationID)
         .subscribe((data: Reports[]) => {
