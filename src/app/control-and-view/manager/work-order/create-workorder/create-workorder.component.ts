@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Pipe,PipeTransform } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { workorder } from '../../../../model-class/work-order';
 import { WorkOrderServiceService } from '../../../../service/work-order-service.service';
 import { Router } from "@angular/router";
-
 @Component({
   selector: 'app-create-workorder',
   templateUrl: './create-workorder.component.html',
@@ -389,7 +388,6 @@ export class CreateWorkorderComponent implements OnInit {
     }
     else if ( (!(this.timeValue)) && (this.isRecurring==false) ) {
       alert("please provide time!");
-      debugger;
     }else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
       alert("check your startdate!");
 

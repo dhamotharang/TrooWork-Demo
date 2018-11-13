@@ -386,7 +386,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
     }
   }
   createWorkorder1() {
-    debugger;
+   
     if (!(this.BatchScheduleNameKey)) {
       alert("select schedule name!");
     }

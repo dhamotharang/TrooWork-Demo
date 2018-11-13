@@ -1907,8 +1907,8 @@ app.post(securedpath + '/deleteDepartment', function (req, res) {
 });
 app.post(securedpath + '/deleteWorkOrderType', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
-    var WorkorderTypeKey = url.parse(req.url, true).query['WorkorderTypeKey'];
-    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    var WorkorderTypeKey = req.body.WorkorderTypeKey;
+    var OrganizationID = req.body.OrganizationID;
 //   var DepartmentKey = req.body.DepartmentKey;
     pool.getConnection(function (err, connection) {
         if (err) {
@@ -1922,7 +1922,7 @@ app.post(securedpath + '/deleteWorkOrderType', function (req, res) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
-                    console.log("deleteForm  is  " + JSON.stringify(rows[1]));
+                    console.log("deleteForm  is  " + JSON.stringify(rows[2]));
 
                     res.end(JSON.stringify(rows[1]));
                 }
@@ -2329,13 +2329,13 @@ app.post(securedpath + '/editSelectedWorkordertype', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
 //    var employeeCalendar_Id = url.parse(req.url, true).query['employeeCalendar_Id'];
 //    var jobtittlekey = url.parse(req.url, true).query['jobtittlekey'];
-    var WorkorderTypeKey = url.parse(req.url, true).query['WorkorderTypeKey'];
-    var WorkorderTypeName = url.parse(req.url, true).query['WorkorderTypeName'];
-    var RoomTypeKey = url.parse(req.url, true).query['RoomTypeKey'];
-    var Frequency = url.parse(req.url, true).query['Frequency'];
-    var Repeatable = url.parse(req.url, true).query['Repeatable'];
-    var WorkorderTime = url.parse(req.url, true).query['WorkorderTime'];
-     var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    var WorkorderTypeKey = req.body.WorkorderTypeKey;
+    var WorkorderTypeName = req.body.WorkorderTypeName;
+    var RoomTypeKey = req.body.RoomTypeKey;
+    var Frequency = req.body.Frequency;
+    var Repeatable = req.body.Repeatable;
+    var WorkorderTime = req.body.WorkorderTime;
+     var OrganizationID = req.body.OrganizationID;
 //    var jobtittlekey = req.body.JobTitleKey;
 //    var jobtittle = req.body.JobTitle;
 //    var jobdescription = req.body.JobTitleDescription;
@@ -13344,10 +13344,10 @@ app.get(securedpath + '/getRoomTypeListForRoomEdit', function (req, res) {
     });
 });
 
-app.get(securedpath + '/deleteWorkOrderBatchSchedule', function (req, res) {
+app.post(securedpath + '/deleteWorkOrderBatchSchedule', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
-    var workschedulekey = url.parse(req.url, true).query['workorderSchedulekey'];
-   var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    var workschedulekey = req.body.workorderSchedulekey;
+   var OrganizationID = req.body.OrganizationID;
     
   
   pool.getConnection(function (err, connection) {

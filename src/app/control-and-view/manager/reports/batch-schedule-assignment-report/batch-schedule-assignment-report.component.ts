@@ -76,6 +76,12 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
       });
   }
   getBatchSchedule(Workorder_ScheduleKey) {
+    if(!Workorder_ScheduleKey)
+    {
+      alert("select schedule name");
+    }
+ else
+ {
     this.loading = true;
     this.ReportServiceService
       .getScheduleAssignReport(Workorder_ScheduleKey, this.employeekey, this.OrganizationID)
@@ -153,7 +159,7 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
           }
         }
       });
-
+    }
   }
   exportToExcel(): void {
     for (var i = 0; i < this.reportarray.length; i++) {
@@ -237,6 +243,7 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
     newarr.push(this.excelarray);
     this.excelService.exportAsExcelFile(this.excelarray, 'sample');
   }
+
 }
 
 

@@ -12,11 +12,11 @@ declare var google: any;
 })
 export class PiechartComponent implements OnInit {
 
-  @Input() data: any[];
-    @Input() config: PieChartConfig;
-    @Input() elementId: String;
+  // @Input() data: any[];
+  //   @Input() config: PieChartConfig;
+  //   @Input() elementId: String;
 
-    constructor(private _pieChartService: GooglePieChartService) {}
+  //   constructor(private _pieChartService: GooglePieChartService) {}
 
     ngOnInit(): void {
         // this._pieChartService.BuildPieChart(this.elementId, this.data, this.config); 

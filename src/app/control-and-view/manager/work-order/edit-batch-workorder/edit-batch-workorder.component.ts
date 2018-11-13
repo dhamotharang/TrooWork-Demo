@@ -177,7 +177,10 @@ export class EditBatchWorkorderComponent implements OnInit {
 
         this.workordertypekey = this.WOEditList.WorkorderTypeKey;
         this.FacilityKey = this.WOEditList.FacilityKey;
+        if(this.WOEditList.PriorityKey)
+        {
         this.PriorityKey = this.WOEditList.PriorityKey;
+        }
         this.WorkorderNotes = this.WOEditList.WorkorderNotes;
         this.EmployeeKey = this.WOEditList.EmployeeKey;
         this.BatchScheduleNameKey = this.WOEditList.BatchScheduleNameKey;
@@ -275,6 +278,10 @@ export class EditBatchWorkorderComponent implements OnInit {
           this.monthlyrecurring = false;
           this.weeklyrecurring = false;
           this.DailyrecurringGap = this.WOEditList.OccurrenceInterval;
+          if( this.DailyrecurringGap==0)
+            {
+              this.DailyrecurringGap="";
+            }
           this.WorkorderStartDate = new Date(this.WOEditList.WorkorderDate);
           this.WorkorderEndDate = new Date(this.WOEditList.WorkorderEndDate);
           var count = [];
@@ -898,7 +905,7 @@ withoutequip_wo()
         }
       }
     }
-
+    
     this.workorderCreation = {
       scheduleKey: this.BatchScheduleNameKey,
       occursontime: this.workTime,
@@ -925,9 +932,17 @@ withoutequip_wo()
       occurstype: this.occurs_type
     };
     this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => {
+      this.deleteWO = {
+        workorderSchedulekey: this.BatchWO_Key,
+        OrganizationID: this.OrganizationID
+      };
+      this.WorkOrderServiceService
+      .deleteCurrent_BatchWO(this.deleteWO)
+      .subscribe((data: any[]) => {
       alert("work-order updated successfully"); 
       this.router.navigateByUrl('/ViewBatchWorkorder');
     });
+  });
   }
   createWorkorder2() {
 
@@ -1263,10 +1278,17 @@ withoutequip_wo()
       occurstype: this.occurs_type
     };
     this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res => {
+      this.deleteWO = {
+        workorderSchedulekey: this.BatchWO_Key,
+        OrganizationID: this.OrganizationID
+      };
+      this.WorkOrderServiceService
+      .deleteCurrent_BatchWO(this.deleteWO)
+      .subscribe((data: any[]) => {
       alert("work-order updated successfully"); 
       this.router.navigateByUrl('/ViewBatchWorkorder');
     });
-
+  });
   }
   addFormField() {
    

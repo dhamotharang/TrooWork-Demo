@@ -77,6 +77,12 @@ export class BatchWorkOrderReportComponent implements OnInit {
       });
   }
   getBatchSchedule(Workorder_ScheduleKey) {
+    if(!Workorder_ScheduleKey)
+    {
+      alert("select schedule name!");
+    }
+    else
+    {
     this.loading = true;
     this.ReportServiceService
       .getbatchschedulereport(Workorder_ScheduleKey, this.OrganizationID)
@@ -155,7 +161,7 @@ export class BatchWorkOrderReportComponent implements OnInit {
           }
         }
       });
-
+    }
   }
   exportToExcel(): void {
     for (var i = 0; i < this.reportarray.length; i++) {

@@ -107,7 +107,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
     var on_date = this.convert_DT(new Date());
     this.pageno = +this.pageno - 1;
     this.WorkOrderServiceService
-      .getworkorder(on_date, this.employeekey, this.pageno, this.items_perpage, this.OrganizationID)
+      .getBatchworkorder(on_date, this.employeekey, this.pageno, this.items_perpage, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.workorderList = data;
         for (var i = 0; i < this.workorderList.length; i++) {
@@ -127,7 +127,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
     var on_date = this.convert_DT(new Date());
     this.pageno = +this.pageno + 1;
     this.WorkOrderServiceService
-      .getworkorder(on_date, this.employeekey, this.pageno, this.items_perpage, this.OrganizationID)
+      .getBatchworkorder(on_date, this.employeekey, this.pageno, this.items_perpage, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.workorderList = data;
         for (var i = 0; i < this.workorderList.length; i++) {
@@ -155,15 +155,15 @@ export class ViewBatchWorkorderComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
     this.domain_name = 'workstatus';
-    this.FacilityKey="";
-    this.FloorKey="";
-    this.ZoneKey="";
-    this.RoomTypeKey="";
-    this.RoomKey="";
-    this.EmployeeKey="";
-    this.WorkorderTypeKey="";
-    this.BatchScheduleNameKey="";
-    
+    this.FacilityKey = "";
+    this.FloorKey = "";
+    this.ZoneKey = "";
+    this.RoomTypeKey = "";
+    this.RoomKey = "";
+    this.EmployeeKey = "";
+    this.WorkorderTypeKey = "";
+    this.BatchScheduleNameKey = "";
+
     var on_date = this.convert_DT(new Date());
     this.WorkOrderServiceService
       .getallFacility(this.employeekey, this.OrganizationID)
@@ -204,7 +204,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
           this.showHide1 = false;
         }
       });
-   
+
     this.searchform = this.formBuilder.group({
       SearchWo: ['', Validators.required]
     });
@@ -218,77 +218,69 @@ export class ViewBatchWorkorderComponent implements OnInit {
     }
   }
   getFloorDisp(facilityName) {
-    if(facilityName)
-   {
-    this.WorkOrderServiceService
-      .getallFloor(facilityName, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.FloorList = data;
-      });
+    if (facilityName) {
+      this.WorkOrderServiceService
+        .getallFloor(facilityName, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.FloorList = data;
+        });
     }
-    else
-    {
-      this.FloorKey="";
+    else {
+      this.FloorKey = "";
     }
   }
   getZoneRoomTypeRoom(floor, facility) {
-    if(floor&&facility)
-    {
-    this.WorkOrderServiceService
-      .getzone_facilityfloor(floor, facility, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.zonelist = data;
-      });
-    this.WorkOrderServiceService
-      .getroomType_facilityfloor(floor, facility, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.RoomTypeList = data;
-      });
-    this.WorkOrderServiceService
-      .getRoom_facilityfloor(floor, facility, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.RoomList = data;
-      });
+    if (floor && facility) {
+      this.WorkOrderServiceService
+        .getzone_facilityfloor(floor, facility, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.zonelist = data;
+        });
+      this.WorkOrderServiceService
+        .getroomType_facilityfloor(floor, facility, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.RoomTypeList = data;
+        });
+      this.WorkOrderServiceService
+        .getRoom_facilityfloor(floor, facility, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.RoomList = data;
+        });
     }
-    else
-    {
-      this.ZoneKey="";
-      this.RoomTypeKey="";
-      this.RoomKey="";
+    else {
+      this.ZoneKey = "";
+      this.RoomTypeKey = "";
+      this.RoomKey = "";
     }
   }
   getRoomTypeRoom(zone, facility, floor) {
-    if(zone&&facility&&floor)
-    {
-    this.WorkOrderServiceService
-      .getRoomtype_zone_facilityfloor(zone, floor, facility, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.RoomTypeList = data;
-      });
-    this.WorkOrderServiceService
-      .getRoom_zone_facilityfloor(zone, floor, facility, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.RoomList = data;
-      });
+    if (zone && facility && floor) {
+      this.WorkOrderServiceService
+        .getRoomtype_zone_facilityfloor(zone, floor, facility, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.RoomTypeList = data;
+        });
+      this.WorkOrderServiceService
+        .getRoom_zone_facilityfloor(zone, floor, facility, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.RoomList = data;
+        });
     }
-    else
-    {
-      this.RoomTypeKey="";
-      this.RoomKey="";
+    else {
+      this.RoomTypeKey = "";
+      this.RoomKey = "";
     }
   }
   getRoom(roomtype, zone, facility, floor) {
-    if(roomtype && zone && facility && floor)
-    {
-    this.WorkOrderServiceService
-      .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.RoomList = data;
-      });
+    if (roomtype && zone && facility && floor) {
+      this.WorkOrderServiceService
+        .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.RoomList = data;
+        });
     }
-    else
-    {
-      this.RoomKey="";
+    else {
+      this.RoomKey = "";
     }
   }
   viewWO_Filter() {
@@ -298,7 +290,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
     var roomtype_key;
     var room_key;
     var WOS_key;
-    var batch_key ;
+    var batch_key;
     var em_key;
     var wot_key;
     var from_date;
@@ -325,56 +317,56 @@ export class ViewBatchWorkorderComponent implements OnInit {
       zone_key = this.ZoneKey
     }
     if (!this.RoomTypeKey) {
-       roomtype_key = null;
+      roomtype_key = null;
 
     }
     else {
       roomtype_key = this.RoomTypeKey
     }
     if (!this.RoomKey) {
-     room_key = null;
+      room_key = null;
 
     }
     else {
       room_key = this.RoomKey
     }
     if (!this.BatchScheduleNameKey) {
-       batch_key = null;
+      batch_key = null;
 
     }
     else {
       batch_key = this.BatchScheduleNameKey
     }
     if (!this.WorkorderStatusKey) {
-       WOS_key = null;
+      WOS_key = null;
 
     }
     else {
       WOS_key = this.WorkorderStatusKey
     }
     if (!this.EmployeeKey) {
-       em_key = null;
+      em_key = null;
 
     }
     else {
       em_key = parseInt(this.EmployeeKey);
     }
     if (!this.WorkorderTypeKey) {
-       wot_key = null;
+      wot_key = null;
 
     }
     else {
       wot_key = this.WorkorderTypeKey;
     }
     if (!this.ondate) {
-       from_date = this.convert_DT(new Date());
+      from_date = this.convert_DT(new Date());
 
     }
     else {
       from_date = this.convert_DT(this.ondate);
     }
     if (!this.todate) {
-       to_date = this.convert_DT(new Date());
+      to_date = this.convert_DT(new Date());
 
     }
     else {
@@ -399,7 +391,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
       .getBatchWoFilter(this.viewWorkOrder)
       .subscribe((data: any[]) => {
         this.workorderList = data;
-       
+
       });
   }
   searchBatchWo(search_value) {
@@ -409,7 +401,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
     var roomtype_key;
     var room_key;
     var WOS_key;
-    var batch_key ;
+    var batch_key;
     var em_key;
     var wot_key;
     var from_date;
@@ -429,28 +421,28 @@ export class ViewBatchWorkorderComponent implements OnInit {
       floor_key = this.FloorKey
     }
     if (!this.ZoneKey) {
-       zone_key = null;
+      zone_key = null;
 
     }
     else {
       zone_key = this.ZoneKey
     }
     if (!this.RoomTypeKey) {
-       roomtype_key = null;
+      roomtype_key = null;
 
     }
     else {
       roomtype_key = this.RoomTypeKey
     }
     if (!this.RoomKey) {
-       room_key = null;
+      room_key = null;
 
     }
     else {
       room_key = this.RoomKey
     }
     if (!this.BatchScheduleNameKey) {
-       batch_key = null;
+      batch_key = null;
 
     }
     else {
@@ -464,28 +456,28 @@ export class ViewBatchWorkorderComponent implements OnInit {
       WOS_key = this.WorkorderStatusKey
     }
     if (!this.EmployeeKey) {
-       em_key = null;
+      em_key = null;
 
     }
     else {
       em_key = this.EmployeeKey;
     }
     if (!this.WorkorderTypeKey) {
-       wot_key = null;
+      wot_key = null;
 
     }
     else {
       wot_key = this.WorkorderTypeKey;
     }
     if (!this.ondate) {
-       from_date = this.convert_DT(new Date());
+      from_date = this.convert_DT(new Date());
 
     }
     else {
       from_date = this.convert_DT(this.ondate);
     }
     if (!this.todate) {
-       to_date = this.convert_DT(new Date());
+      to_date = this.convert_DT(new Date());
 
     }
     else {
@@ -507,34 +499,31 @@ export class ViewBatchWorkorderComponent implements OnInit {
       floorKey: floor_key,
       searchWO: search_value
     };
-    if(search_value.length>=3)
-    {
-    this.WorkOrderServiceService
-      .search_Batch_WO(this.searchWorkorder)
-      .subscribe((data: any[]) => {
-      
-        this.workorderList = data;
-        this.showHide2 = false;
-          this.showHide1 = false;
-      });
-    }
-    else if(search_value.length==0)
-    {
-      var on_date = this.convert_DT(new Date());
+    if (search_value.length >= 3) {
       this.WorkOrderServiceService
-      .getBatchworkorder(on_date, this.employeekey, this.pageno, this.items_perpage, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.workorderList = data;
-        if (this.workorderList[0].totalItems > this.items_perpage) {
-          this.showHide2 = true;
-          this.showHide1 = false;
-        }
-        else if (this.workorderList[0].totalItems <= this.items_perpage) {
+        .search_Batch_WO(this.searchWorkorder)
+        .subscribe((data: any[]) => {
+          this.workorderList = data;
           this.showHide2 = false;
           this.showHide1 = false;
-        }
-      });
+        });
     }
-  }
+    else if (search_value.length == 0) {
+      var on_date = this.convert_DT(new Date());
+      this.WorkOrderServiceService
+        .getBatchworkorder(on_date, this.employeekey, this.pageno, this.items_perpage, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.workorderList = data;
+          if (this.workorderList[0].totalItems > this.items_perpage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.workorderList[0].totalItems <= this.items_perpage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
+        });
+    }
 
+  }
 }

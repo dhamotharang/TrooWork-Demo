@@ -241,6 +241,10 @@ export class UpdateRecurWorkorderComponent implements OnInit {
             this.monthlyrecurring = false;
             this.weeklyrecurring = false;
             this.DailyrecurringGap = this.WOEditList.OccurrenceInterval;
+            if( this.DailyrecurringGap==0)
+            {
+              this.DailyrecurringGap="";
+            }
             this.WorkorderStartDate = new Date(this.WOEditList.WorkorderDate);
             this.WorkorderEndDate = new Date(this.WOEditList.WorkorderEndDate);
             var count = [];
@@ -375,9 +379,19 @@ export class UpdateRecurWorkorderComponent implements OnInit {
 
         this.workordertypekey = this.WOEditList.WorkorderTypeKey;
         this.FacilityKey = this.WOEditList.FacilityKey;
+        if(this.WOEditList.PriorityKey)
+        {
         this.PriorityKey = this.WOEditList.PriorityKey;
+        }
         this.WorkorderNotes = this.WOEditList.WorkorderNotes;
+        if(this.WOEditList.EmployeeKey)
+        {
         this.EmployeeKey = this.WOEditList.EmployeeKey;
+        }
+        if(this.EmployeeKey==-1)
+        {
+          this.EmployeeKey="";
+        }
       });
 
     this.WorkOrderServiceService
@@ -926,9 +940,17 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       occurstype: this.occurs_type
     };
     this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe((data: any[]) => {
+      this.deleteWO = {
+        workorderkey: this.WO_Key,
+        OrganizationID: this.OrganizationID
+      };
+      this.WorkOrderServiceService
+      .deleteCurrent_WO(this.deleteWO)
+      .subscribe((data: any[]) => {
       alert("work-order updated successfully");
       this.router.navigateByUrl('/ViewWorkOrder');
      });
+    });
   }
   createWorkorder2() {
     if (!this.workordertypekey) {
@@ -1286,10 +1308,17 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       occurstype: this.occurs_type
     };
     this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe((data: any[]) => {
+      this.deleteWO = {
+        workorderkey: this.WO_Key,
+        OrganizationID: this.OrganizationID
+      };
+      this.WorkOrderServiceService
+      .deleteCurrent_WO(this.deleteWO)
+      .subscribe((data: any[]) => {
       alert("work-order updated successfully");
       this.router.navigateByUrl('/ViewWorkOrder');
     });
-
+  });
   }
   addFormField() {
   

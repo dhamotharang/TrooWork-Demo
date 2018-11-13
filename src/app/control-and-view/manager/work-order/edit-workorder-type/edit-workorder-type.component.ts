@@ -85,9 +85,13 @@ export class EditWorkorderTypeComponent implements OnInit {
           this.WorkOrderServiceService
             .UpdateWOT(this.update_WO)
             .subscribe((data: any[]) => {
+              this.WorkOrderServiceService
+            .view_wotype(WOTKey,this.OrganizationID)
+            .subscribe((data: any[]) => {
               alert("work-order type updated successfully");
               this.router.navigateByUrl('/WorkOrderType');
             });
+          });
         }
       });
     }

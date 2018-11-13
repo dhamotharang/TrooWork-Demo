@@ -161,6 +161,12 @@ export class WorkOrderServiceService {
       .http
       .post(url, obj);
   }
+  view_wotype(WOTKey,OrganizationID)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/editviewWorkOrderType?WorkorderTypeKey='+WOTKey+'&OrganizationID='+OrganizationID);
+  }
   createWOT(obj) {
     const url = 'http://localhost:3000/api/addNewWorkordertype';
     return this
