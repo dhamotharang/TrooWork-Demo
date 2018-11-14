@@ -1560,6 +1560,7 @@ export class CreateWorkorderComponent implements OnInit {
   GobacktoMenu() {
     this.newType = false;
     this.WorkorderTypeKey="";
+    this.newworkordertypetext=null;
   }
   withoutequip_wo()
   {    var roomlistObj = [];

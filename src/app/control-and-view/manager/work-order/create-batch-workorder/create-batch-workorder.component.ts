@@ -1199,5 +1199,6 @@ export class CreateBatchWorkorderComponent implements OnInit {
   GobacktoMenu() {
     this.newType = false;
     this.WorkorderTypeKey="";
+    this.newworkordertypetext=null;
   }
 }

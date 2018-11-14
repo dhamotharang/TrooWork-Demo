@@ -184,12 +184,14 @@ export class EditBatchWorkorderComponent implements OnInit {
         this.WorkorderNotes = this.WOEditList.WorkorderNotes;
         this.EmployeeKey = this.WOEditList.EmployeeKey;
         this.BatchScheduleNameKey = this.WOEditList.BatchScheduleNameKey;
+        if (this.WOEditList.EquipmentKey == -1)
+        {
         this.WorkOrderServiceService
           .getRoomList(this.WOEditList.RoomKeyList, this.OrganizationID)
-          .subscribe((data: any[]) => {
-           
+          .subscribe((data: any[]) => { 
             this.RoomNameList = data[0].RoomText;
           });
+        }
         this.WorkOrderServiceService
           .getEquipmentNameList(this.WOEditList.WorkorderScheduleKey, this.OrganizationID)
           .subscribe((data: any[]) => {
@@ -854,7 +856,7 @@ withoutequip_wo()
         this.rep_interval = this.DailyrecurringGap;
       }
       else {
-        this.rep_interval = this.DailyrecurringGap;
+        this.rep_interval = (parseInt(this.DailyrecurringGap)+1);
       }
     }
     else if (this.weeklyrecurring == true) {
@@ -1213,7 +1215,7 @@ withoutequip_wo()
         this.rep_interval = this.DailyrecurringGap;
       }
       else {
-        this.rep_interval = this.DailyrecurringGap;
+        this.rep_interval = (parseInt(this.DailyrecurringGap)+1);
       }
     } else if (this.weeklyrecurring == true) {
       this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();

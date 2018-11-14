@@ -170,7 +170,6 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       .getWO_edit(this.WO_Key, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.WOEditList = data[0];
-        this.RoomNameList=this.WOEditList.RoomText;
         this.Times=this.WOEditList.WorkorderTimes;
         this.WorkOrderServiceService
           .getallFloor(this.WOEditList.FacilityKey, this.OrganizationID)
@@ -199,6 +198,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
           this.RoomTypeKey = this.WOEditList.RoomTypeKey;
           this.ZoneKey = this.WOEditList.ZoneKey;
           this.RoomKey = this.WOEditList.RoomKey;
+          this.RoomNameList=this.WOEditList.RoomText;
         }
         else {
           this.showEqTypes = true;
@@ -864,7 +864,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
         this.rep_interval = this.DailyrecurringGap;
       }
       else {
-        this.rep_interval = this.DailyrecurringGap;
+        this.rep_interval = (parseInt(this.DailyrecurringGap)+1);
       }
     }
     else if (this.isRecurring == true && this.weeklyrecurring == true) {
@@ -1244,7 +1244,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
         this.rep_interval = this.DailyrecurringGap;
       }
       else {
-        this.rep_interval = this.DailyrecurringGap;
+        this.rep_interval = (parseInt(this.DailyrecurringGap)+1);
       }
     } else if (this.isRecurring == true && this.weeklyrecurring == true) {
       this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();

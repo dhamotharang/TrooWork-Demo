@@ -372,7 +372,7 @@ export class ViewWorkOrdersComponent implements OnInit {
       from_date = this.convert_DT(this.ondate);
     }
     if (!this.todate) {
-      to_date = this.convert_DT(new Date());
+      to_date = from_date;
 
     }
     else {
@@ -491,7 +491,7 @@ export class ViewWorkOrdersComponent implements OnInit {
       from_date = this.convert_DT(this.ondate);
     }
     if (!this.todate) {
-      to_date = this.convert_DT(new Date());
+      to_date = from_date;
 
     }
     else {

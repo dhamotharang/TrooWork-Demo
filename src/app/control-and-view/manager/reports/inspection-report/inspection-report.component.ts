@@ -117,7 +117,7 @@ export class InspectionReportComponent implements OnInit {
       fromdate = this.convert_DT(from_date);
     }
     if (!to_date) {
-      var todate = this.convert_DT(new Date());
+      var todate = fromdate;
 
     }
     else {
