@@ -261,11 +261,11 @@ export class DashboardReportComponent implements OnInit {
         console.log(this.data1.length);
         this.config1 = new PieChartConfig(' ', 0.4);
         this.elementId1 = 'piechart';
-        setTimeout(() => { 
+     
         if (this.reporttable) {
           this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
         }
-      },500)
+     
       });
     }
   
