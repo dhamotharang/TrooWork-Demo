@@ -55,10 +55,10 @@ export class EditBatchWorkComponent implements OnInit {
     } else if (!this.empKey) {
       alert("Employee Name is not provided !");
     } else {
-      alert(this.scheduleDetails.checkBoxValue);
       if (this.scheduleDetails.checkBoxValue == true) {
+        var scheduleDT = new Date();
         this.scheduleService
-          .assignChangesForWO(this.employeekey, this.OrganizationID, this.empKey, this.scheduleNameKey$, this.scheduleDetails.ScheduleDescription)
+          .assignChangesForWO(scheduleDT,this.employeekey, this.OrganizationID, this.empKey, this.scheduleNameKey$, this.scheduleDetails.ScheduleDescription)
           .subscribe();
       }
       if (this.scheduleDetails.BatchSchduleName != this.schName) {

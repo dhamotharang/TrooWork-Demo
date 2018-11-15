@@ -142,6 +142,7 @@ import { WorkOrderTypeComponent } from './control-and-view/manager/work-order/wo
 import { EditWorkorderTypeComponent } from './control-and-view/manager/work-order/edit-workorder-type/edit-workorder-type.component';
 import { CreateWorkorderTypeComponent } from './control-and-view/manager/work-order/create-workorder-type/create-workorder-type.component';
 import { SetUserLoginSuperComponent } from '../app/control-and-view/superadmin/people/set-user-login-super/set-user-login-super.component';
+import { EditAssignmentScheduleForReportComponent } from './control-and-view/manager/scheduling/edit-assignment-schedule-for-report/edit-assignment-schedule-for-report.component';
 
 const routes: Routes = [
   {
@@ -646,7 +647,7 @@ const routes: Routes = [
     path: 'ViewBatchWorkorder',
     component: ViewBatchWorkorderComponent
   },
- 
+
   {
     path: 'WorkOrderType',
     component: WorkOrderTypeComponent
@@ -658,6 +659,10 @@ const routes: Routes = [
   {
     path: 'setUserLoginSuper/:EmployeeKey/:str/:UserRoleTypeKey/:Organization',
     component: SetUserLoginSuperComponent
+  },
+  {
+    path: 'editScheduleForReport/:scheduleKey',
+    component: EditAssignmentScheduleForReportComponent
   }
 ];
 

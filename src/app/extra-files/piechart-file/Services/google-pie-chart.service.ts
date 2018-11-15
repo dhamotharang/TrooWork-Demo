@@ -13,6 +13,7 @@ export class GooglePieChartService extends GoogleChartsBaseService {
     var chartFunc = () => { return new google.visualization.PieChart(document.getElementById(<string>elementId1)); };
     var options = {
             title: config1.title,
+            sliceVisibilityThreshold:0.000000000000001,
             pieHole: config1.pieHole,
             'backgroundColor': 'transparent',
             'chartArea': {'width': '100%', 'height': '80%'},
