@@ -127,6 +127,15 @@ export class BarcodeReportComponent implements OnInit {
     }
 
     if (FacilityKey) {
+      if (!FloorKey) {
+        FloorKey = null;
+      }
+      if (!RoomTypeKey) {
+        RoomTypeKey = null;
+      }
+      if (!ZoneKey) {
+        ZoneKey = null;
+      }
       this.ReportServiceService
         .generateBarcodeReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, this.employeekey, this.OrganizationID)
         .subscribe((data: Reports[]) => {
@@ -165,7 +174,7 @@ export class BarcodeReportComponent implements OnInit {
       });
 
     this.ReportServiceService
-      .getRoom(fkey, floorkey, this.OrganizationID)
+      .getRoomtype(fkey, floorkey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.room = data;
       });

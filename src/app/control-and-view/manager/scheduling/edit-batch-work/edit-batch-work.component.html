@@ -3,65 +3,45 @@
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
   <br><br>
   <div style="text-align:center">
-    <h3 style="color: #174a5e;"><strong>UPDATE BATCH WORK ORDER NAME</strong></h3>
+    <h3 style="color: #174a5e;"><strong>EDIT ASSIGNMENT NAME</strong></h3>
   </div>
 
   <br>
   <div class="col-md-12">
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scheduling">Schedule Name: </label></h5>
-      <div class="md-form col-md-3" style="text-align:left">
-        <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="scheduleDetails.BatchSchduleName">
-      </div>
+      <h5 style="text-align:right" class="col-md-4"><label for="scheduling">Assignment Name: </label></h5>
+      <input type="text" style="background-color: #D4F4FF !important;" class="form-control col-md-8 col-lg-8 col-sm-8"
+        [(ngModel)]="scheduleDetails.BatchSchduleName">
     </div>
-
-    <div class="col-md-12">
-      <div class="row col-md-12">
-        <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scheduling">Schedule Description:
-          </label></h5>
-        <div class="md-form col-md-3" style="text-align:left">
-          <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="scheduleDetails.ScheduleDescription">
-        </div>
-      </div>
-
-      <div class="col-md-12">
-        <div class="row col-md-12">
-          <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scheduling">Employee: </label></h5>
-          <div class="md-form col-md-3" style="text-align:left">
-            <select style="background-color: #D4F4FF !important;width: 30rem" (change)="setEmployeeForbatchSchedule($event.target.value)"
-              class="form-control" [(ngModel)]="scheduleDetails.EmployeeKey">
-              <option>--Select--</option>
-              <option *ngFor="let f of empList" [value]="f.EmployeeKey">
-                {{f.EmployeeText}}
-              </option>
-            </select>
-          </div>
-        </div>
-
-
-        <div class="text-center ">
-          <label>Apply Changes For All Workorders</label>
-          <input type="checkbox" [(ngModel)]="scheduleDetails.checkBoxValue" [value]=scheduleDetails.checkBoxValue>
-        </div>
-        <br>
-      </div>
-      <div class="row col-md-12">
-        <div class="col-md-6 text-center">
-          <a style="color:white !important" (click)="updateScheduleName()" class="btn btn-success">Update</a>
-        </div>
-
-
-        <div style="text-align:left" style="height:100px; width:100px" class="col-md-3">
-          <a routerLink="/SchedulingView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
-              Back
-
-            </b>
-
-          </a>
-        </div>
-        <div class="col col-md-3"></div>
-      </div>
-
+    <br>
+    <div class="row col-md-12">
+      <h5 style="text-align:right" class="col-md-4"><label for="scheduling">Assignment Description:
+        </label></h5>
+      <input type="text" style="background-color: #D4F4FF !important;" class="form-control col-md-8 col-lg-8 col-sm-8"
+        [(ngModel)]="scheduleDetails.ScheduleDescription">
     </div>
-
+    <br>
+    <div class="row col-md-12">
+      <h5 style="text-align:right" class="col-md-4"><label for="scheduling">Employee: </label></h5>
+      <select style="background-color: #D4F4FF !important;" (change)="setEmployeeForbatchSchedule($event.target.value)"
+        class="form-control col-md-8 col-lg-8 col-sm-8" [(ngModel)]="scheduleDetails.EmployeeKey">
+        <option>--Select--</option>
+        <option *ngFor="let f of empList" [value]="f.EmployeeKey">
+          {{f.EmployeeText}}
+        </option>
+      </select>
+    </div>
+    <br>
+    <div class="text-center col-md-12">
+      <label>Apply Changes For All Workorders</label>
+      <input type="checkbox" [(ngModel)]="scheduleDetails.checkBoxValue" [value]=scheduleDetails.checkBoxValue>
+    </div>
+    <br>
+    <div class="row col-md-12" style="margin-left: 15rem;">
+      <a style="color:white !important" (click)="updateScheduleName()" class="btn btn-success">Update</a>
+      <a routerLink="/SchedulingView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
+          Back </b>
+      </a>
+    </div>
   </div>
+</div>

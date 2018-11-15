@@ -164,6 +164,8 @@ import { WorkOrderTypeComponent } from './control-and-view/manager/work-order/wo
 import { EditWorkorderTypeComponent } from './control-and-view/manager/work-order/edit-workorder-type/edit-workorder-type.component';
 import { CreateWorkorderTypeComponent } from './control-and-view/manager/work-order/create-workorder-type/create-workorder-type.component';
 import { SetUserLoginSuperComponent } from '../app/control-and-view/superadmin/people/set-user-login-super/set-user-login-super.component';
+import { EditAssignmentScheduleForReportComponent } from './control-and-view/manager/scheduling/edit-assignment-schedule-for-report/edit-assignment-schedule-for-report.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -294,12 +296,13 @@ import { SetUserLoginSuperComponent } from '../app/control-and-view/superadmin/p
     EditEmployeeDetailsAdminComponent,
     CreateBatchWorkorderComponent,
     ViewBatchWorkorderComponent,
-    
+
     EditBatchWorkorderComponent,
     WorkOrderTypeComponent,
     EditWorkorderTypeComponent,
     CreateWorkorderTypeComponent,
-    SetUserLoginSuperComponent
+    SetUserLoginSuperComponent,
+    EditAssignmentScheduleForReportComponent
   ],
   imports: [
     BrowserModule,

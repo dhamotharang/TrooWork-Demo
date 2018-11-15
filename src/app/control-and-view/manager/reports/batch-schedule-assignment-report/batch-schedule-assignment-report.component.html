@@ -3,18 +3,19 @@
 <div class="py-5 " *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
   <div class="row col-md-12 ">
-    <h3 style="margin-left: 25rem;">BATCH SCHEDULE ASSIGNMENT REPORT</h3>
+    <h3 style="margin-left: 30rem;">BATCH SCHEDULE ASSIGNMENT REPORT</h3>
   </div>
   <br><br>
 
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
     <br>
-    <h1 style="text-align: right"></h1>
+    <h3 style="text-align: right"></h3>
     <div class="form-group">
       <div class="row col-md-12">
         <br>
         <h5 style="text-align:right" class="col-md-4"><label for="building">Schedule Name </label></h5>
         <div class="md-form col-md-3" style="text-align:left">
+          <br>
           <select [(ngModel)]="BatchScheduleNameKey" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
             (change)="getBatchSchedule($event.target.value)">
             <option value="">--Select--</option>

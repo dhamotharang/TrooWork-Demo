@@ -9,44 +9,43 @@
   <div class="col-md-12">
     <div class="row col-md-12">
       <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building">Building* </label></h5>
-      <div class="md-form col-md-3" style="text-align:left">
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="zoneEditValues.FacilityKey"
+      <div class="md-form col-md-8 col-lg-8 col-sm-8" style="text-align:left">
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="zoneEditValues.FacilityKey"
           (change)="selectFloorfromBuildings($event.target.value)">
-          <!-- <option>--Select--</option> -->
           <option *ngFor="let f of buildingList" [value]="f.FacilityKey">
             {{f.FacilityText}}
           </option>
         </select>
       </div>
-      <div class="col col-md-5"></div>
+
     </div>
     <div class="row col-md-12">
       <h5 style="text-align:right" class="col-md-4"><label for="floorname">Floor Name* </label></h5>
-      <div class="md-form col-md-3" style="text-align:left">
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="zoneEditValues.FloorKey">
+      <div class="md-form col-md-8 col-lg-8 col-sm-8" style="text-align:left">
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="zoneEditValues.FloorKey">
           <option *ngFor="let f of floorList" [value]="f.FloorKey">
             {{f.FloorName}}
           </option>
         </select>
       </div>
-      <div class="col col-md-5"></div>
+
     </div>
     <div class="row col-md-12">
       <h5 style="text-align:right" class="col-md-4"><label for="building">Zone Name* </label></h5>
-      <div class="md-form col-md-3" style="text-align:left">
-        <input type="text" maxlength="20" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="zoneEditValues.ZoneName">
+      <div class="md-form col-md-8 col-lg-8 col-sm-8" style="text-align:left">
+        <input type="text" maxlength="20" style="background-color: #D4F4FF !important;" class="form-control"
+          [(ngModel)]="zoneEditValues.ZoneName">
       </div>
-      <div class="col col-md-5"></div>
+
     </div>
 
     <div class="row col-md-12">
       <div class="col col-md-3"></div>
       <div style="text-align:right" class="col-md-3">
-        <button style="color:white !important" class="btn btn-success" 
-          (click)="updateZone(zoneEditValues.FacilityKey,zoneEditValues.FacilityName,zoneEditValues.FloorName,
+        <a style="color:white !important" class="btn btn-success" (click)="updateZone(zoneEditValues.FacilityKey,zoneEditValues.FacilityName,zoneEditValues.FloorName,
         zoneEditValues.FloorKey,zoneEditValues.ZoneKey,zoneEditValues.ZoneName)">
           <b>UPDATE</b>
-      </button>
+        </a>
       </div>
       <div style="text-align:left" class="col-md-3">
         <a routerLink="/Zoneview" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
@@ -54,5 +53,4 @@
       <div class="col col-md-3"></div>
     </div>
   </div>
-  <br><br>
 </div>

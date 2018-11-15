@@ -7,7 +7,6 @@ import { GooglePieChartService } from '../../../../extra-files/piechart-file/Ser
 declare var google: any;
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
-declare var google: any;
 @Component({
   selector: 'app-dashboard-report',
   templateUrl: './dashboard-report.component.html',
