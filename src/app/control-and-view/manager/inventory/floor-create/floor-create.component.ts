@@ -65,14 +65,19 @@ export class FloorCreateComponent implements OnInit {
     else if (!FloorDescription) {
       alert("Enter floor description!");
     }
+    this.inventoryService.CheckNewFloor(FacilityKey,FloorName,this.employeekey, this.OrganizationID) .subscribe((data: Inventory[]) =>{
+      if(data[0].count > 0){
+        alert("Floor already present !");
+      return;
+      }
     else {
-
       this.inventoryService.createFloors(FacilityKey, FloorName, FloorDescription, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           alert("Floor created successfully");
           this.router.navigateByUrl('/Floorview');
         });
     }
+  });
   }
 
   ngOnInit() {

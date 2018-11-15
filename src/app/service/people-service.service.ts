@@ -540,6 +540,12 @@ export class PeopleServiceService {
       .http
       .get('http://localhost:3000/api/getLoginDetailsForAllUsers?pageno=' + page + '&itemsperpage=' + count + '&employeekey=' + empKey + '&OrganizationID=' + orgid);
   }
+  CheckForEmployeenumber(EmployeeNumber,employeekey,OrganizationID)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/checkforEmployeeNumber?Employeenumber='+EmployeeNumber+'&employeekey='+employeekey+'&OrganizationID='+OrganizationID);
+  }
   // ****@Pooja's Code Ends here****
   updateEditJobtitle(JobTitle_Key, jobtitleName, jobTitleDescription, empKey, OrgID) {
 

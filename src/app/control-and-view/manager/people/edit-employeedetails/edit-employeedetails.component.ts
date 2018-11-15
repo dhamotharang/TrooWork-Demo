@@ -29,6 +29,7 @@ export class EditEmployeedetailsComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+  empNum;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -148,12 +149,34 @@ export class EditEmployeedetailsComponent implements OnInit {
       alert("HireDate must be greater than birth date !");
       return;
     }
-   
+    // var empNum ;
+    debugger;
+   if(this.empNum==this.editempdtails.EmployeeNumber)
+   {
     var hiredt = this.convert_DT(this.BirthDate);
-
     this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.employeekey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey)
-      .subscribe(res => this.router.navigateByUrl('/ViewEmployee'));
-
+    .subscribe((data: People[]) => {
+    alert("Updated Successfully!");
+    this.router.navigateByUrl('/ViewEmployee');
+  });
+   }
+   else{
+    this.PeopleServiceService.CheckForEmployeenumber(this.editempdtails.EmployeeNumber,this.employeekey,this.OrganizationID).subscribe((data: any[]) =>{
+      if(data[0].count==0){
+        debugger;
+      var hiredt = this.convert_DT(this.BirthDate);
+    this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.employeekey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey)
+      .subscribe((data: People[]) => {
+      alert("Updated Successfully!");
+      this.router.navigateByUrl('/ViewEmployee');
+    });
+    }
+    else
+    {
+      alert("Employee Number already exist !");
+    }
+    });
+  }
   }
 
   deleteEmployee() {
@@ -178,6 +201,8 @@ export class EditEmployeedetailsComponent implements OnInit {
       this.editempdtails = data[0];
       this.BirthDate = new Date(this.editempdtails.BirthDate);
       this.HireDate = new Date(this.editempdtails.HireDate);
+    this.empNum = this.editempdtails.EmployeeNumber;
+
 
     });
 
