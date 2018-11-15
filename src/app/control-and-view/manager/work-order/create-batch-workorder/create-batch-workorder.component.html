@@ -139,7 +139,7 @@
       <div class="col-md-6">
           <div class="form-group">
             <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">From When*</label>
-            <igx-datePicker [value]="date" [(ngModel)]="WorkorderStartDate" class="col-sm-3 col-md-3 col-lg-3 "></igx-datePicker>
+            <igx-datePicker [value]="date" [(ngModel)]="WorkorderStartDate"></igx-datePicker>
           </div>
           <div class="form-group">
             <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Daily</label>
@@ -175,7 +175,7 @@
               </option>
             </select>
           </div>
-          <div class="form-group" *ngIf="dailyFrequency">
+          <div class="form-group" *ngIf="((dailyrecurring==true)&&(dailyFrequency))">
             <p-calendar [(ngModel)]="timetable.times[i]" *ngFor=" let field of timetable.times;let i = index"
               [timeOnly]="true" hourFormat="12" required>{{index+' '+field}}</p-calendar>
           </div>
@@ -252,7 +252,7 @@
     <div class="row col-md-12">
       <div class="form-group" *ngIf="(dailyrecurring==true||weeklyrecurring==true||monthlyrecurring==true)">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">End Date*</label>
-        <igx-datePicker [value]="date" [(ngModel)]="WorkorderEndDate" class="col-sm-3 col-md-3 col-lg-3 "></igx-datePicker>
+        <igx-datePicker [value]="date" [(ngModel)]="WorkorderEndDate" ></igx-datePicker>
       </div>
     </div>
     <div class="row col-md-12">

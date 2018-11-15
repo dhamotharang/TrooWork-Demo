@@ -11,12 +11,13 @@ import { EditBatchWorkorderComponent } from './edit-batch-workorder/edit-batch-w
 import { WorkOrderTypeComponent } from './work-order-type/work-order-type.component';
 import { EditWorkorderTypeComponent } from './edit-workorder-type/edit-workorder-type.component';
 import { CreateWorkorderTypeComponent } from './create-workorder-type/create-workorder-type.component';
+import { FilterPipePipe } from './filter-pipe.pipe';
 
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [CreateQuickOrderComponent, ViewWorkOrdersComponent, CreateWorkorderComponent, EditWorkOrderComponent, UpdateRecurWorkorderComponent, CreateBatchWorkorderComponent, ViewBatchWorkorderComponent, EditBatchWorkorderComponent, WorkOrderTypeComponent, EditWorkorderTypeComponent, CreateWorkorderTypeComponent]
+  declarations: [CreateQuickOrderComponent, ViewWorkOrdersComponent, CreateWorkorderComponent, EditWorkOrderComponent, UpdateRecurWorkorderComponent, CreateBatchWorkorderComponent, ViewBatchWorkorderComponent, EditBatchWorkorderComponent, WorkOrderTypeComponent, EditWorkorderTypeComponent, CreateWorkorderTypeComponent, FilterPipePipe]
 })
 export class WorkOrderModule { }

@@ -74,7 +74,7 @@ export class ZoneEditComponent implements OnInit {
     }
     else if (!ZoneName) {
       ZoneName = null;
-      alert("ZoneName is not provided !");
+      alert("Zone Name is not provided !");
     }
     else {
 

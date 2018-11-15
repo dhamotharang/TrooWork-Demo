@@ -9,17 +9,18 @@ export class GooglePieChartService extends GoogleChartsBaseService {
 
   constructor() { super(); }
 
-  public BuildPieChart(elementId: String, data: any[], config: PieChartConfig) : void {  
-    var chartFunc = () => { return new google.visualization.PieChart(document.getElementById(<string>elementId)); };
+  public BuildPieChart(elementId1: String, data1: any[], config1: PieChartConfig) : void {  
+    var chartFunc = () => { return new google.visualization.PieChart(document.getElementById(<string>elementId1)); };
     var options = {
-            title: config.title,
-            pieHole: config.pieHole,
+            title: config1.title,
+            sliceVisibilityThreshold:0.000000000000001,
+            pieHole: config1.pieHole,
             'backgroundColor': 'transparent',
             'chartArea': {'width': '100%', 'height': '80%'},
             'colors': ['#ef0404', '#3552e0', '#9823a3', '#f9f502', '#0ab223','#efab34']
             //legend: { position: 'bottom', alignment: 'end',textStyle: {fontSize: 11} }
       };
 
-    this.buildChart(data, chartFunc, options);
+    this.buildChart(data1, chartFunc, options);
   }
 }

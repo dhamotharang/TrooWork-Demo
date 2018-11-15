@@ -140,7 +140,17 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       day = ("0" + date.getDate()).slice(- 2);
     return [date.getFullYear(), mnth, day].join("-");
   };
-
+  tConvert (time) {
+    // Check correct time format and split into components
+    time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+  
+    if (time.length > 1) { // If time format correct
+      time = time.slice (1);  // Remove full string match value
+      time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+      time[0] = +time[0] % 12 || 12; // Adjust hours
+    }
+    return time.join (''); // return adjusted time or original string
+  }
   ngOnInit() {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
@@ -170,8 +180,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       .getWO_edit(this.WO_Key, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.WOEditList = data[0];
-        this.RoomNameList=this.WOEditList.RoomText;
-        this.Times=this.WOEditList.WorkorderTimes;
+        this.Times=this.tConvert(this.WOEditList.WorkorderTimes);
         this.WorkOrderServiceService
           .getallFloor(this.WOEditList.FacilityKey, this.OrganizationID)
           .subscribe((data: any[]) => {
@@ -199,6 +208,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
           this.RoomTypeKey = this.WOEditList.RoomTypeKey;
           this.ZoneKey = this.WOEditList.ZoneKey;
           this.RoomKey = this.WOEditList.RoomKey;
+          this.RoomNameList=this.WOEditList.RoomText;
         }
         else {
           this.showEqTypes = true;
@@ -241,6 +251,10 @@ export class UpdateRecurWorkorderComponent implements OnInit {
             this.monthlyrecurring = false;
             this.weeklyrecurring = false;
             this.DailyrecurringGap = this.WOEditList.OccurrenceInterval;
+            if( this.DailyrecurringGap==0)
+            {
+              this.DailyrecurringGap="";
+            }
             this.WorkorderStartDate = new Date(this.WOEditList.WorkorderDate);
             this.WorkorderEndDate = new Date(this.WOEditList.WorkorderEndDate);
             var count = [];
@@ -375,9 +389,19 @@ export class UpdateRecurWorkorderComponent implements OnInit {
 
         this.workordertypekey = this.WOEditList.WorkorderTypeKey;
         this.FacilityKey = this.WOEditList.FacilityKey;
+        if(this.WOEditList.PriorityKey)
+        {
         this.PriorityKey = this.WOEditList.PriorityKey;
+        }
         this.WorkorderNotes = this.WOEditList.WorkorderNotes;
+        if(this.WOEditList.EmployeeKey)
+        {
         this.EmployeeKey = this.WOEditList.EmployeeKey;
+        }
+        if(this.EmployeeKey==-1)
+        {
+          this.EmployeeKey="";
+        }
       });
 
     this.WorkOrderServiceService
@@ -566,6 +590,10 @@ export class UpdateRecurWorkorderComponent implements OnInit {
     }
     else if (!this.FloorKey) {
       alert("select floor!");
+    }
+    else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
+      alert("check your startdate!");
+
     }
     else if (this.isRecurring == true) 
     {
@@ -846,7 +874,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
         this.rep_interval = this.DailyrecurringGap;
       }
       else {
-        this.rep_interval = this.DailyrecurringGap;
+        this.rep_interval = (parseInt(this.DailyrecurringGap)+1);
       }
     }
     else if (this.isRecurring == true && this.weeklyrecurring == true) {
@@ -922,9 +950,17 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       occurstype: this.occurs_type
     };
     this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe((data: any[]) => {
+      this.deleteWO = {
+        workorderkey: this.WO_Key,
+        OrganizationID: this.OrganizationID
+      };
+      this.WorkOrderServiceService
+      .deleteCurrent_WO(this.deleteWO)
+      .subscribe((data: any[]) => {
       alert("work-order updated successfully");
       this.router.navigateByUrl('/ViewWorkOrder');
      });
+    });
   }
   createWorkorder2() {
     if (!this.workordertypekey) {
@@ -939,6 +975,10 @@ export class UpdateRecurWorkorderComponent implements OnInit {
    else if(this.showEqTypes==true && !(this.EquipmentTypeKey))
     {
       alert("select equipment type!");
+    }
+    else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
+      alert("check your startdate!");
+
     }
     else if (this.isRecurring == true) 
     {
@@ -1214,7 +1254,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
         this.rep_interval = this.DailyrecurringGap;
       }
       else {
-        this.rep_interval = this.DailyrecurringGap;
+        this.rep_interval = (parseInt(this.DailyrecurringGap)+1);
       }
     } else if (this.isRecurring == true && this.weeklyrecurring == true) {
       this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();
@@ -1278,10 +1318,17 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       occurstype: this.occurs_type
     };
     this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe((data: any[]) => {
+      this.deleteWO = {
+        workorderkey: this.WO_Key,
+        OrganizationID: this.OrganizationID
+      };
+      this.WorkOrderServiceService
+      .deleteCurrent_WO(this.deleteWO)
+      .subscribe((data: any[]) => {
       alert("work-order updated successfully");
       this.router.navigateByUrl('/ViewWorkOrder');
     });
-
+  });
   }
   addFormField() {
   

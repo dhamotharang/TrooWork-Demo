@@ -150,7 +150,8 @@
           <td>{{x.WorkorderTime}}</td>
           <td> {{x.WorkorderStatus}}</td>
           <td>{{x.LastName}},{{x.FirstName}}</td>
-          <td>{{x.RoomId}}</td>
+          <td *ngIf="x.RoomId==='Dummy'">Refer notes</td>
+          <td *ngIf="x.RoomId!=='Dummy'">{{x.RoomId}}</td>
           <td>{{x.EquipmentName}}
           </td>
           <td *ngIf="x.IsReccurring === 1 && x.IsSchedule === 0">YES</td>
@@ -170,7 +171,7 @@
           <td *ngIf="x.WorkorderStatus !== 'Scheduled'"></td>
           <td *ngIf="x.WorkorderStatus === 'Scheduled'"> <input type="checkbox" [(ngModel)]="x.workorderCheckValue"
               (change)="toggleVisibility($event);checkBoxValueForDelete(i,x.workorderCheckValue, x.WorkorderKey);"></td>
-          <td *ngIf="x.IsReccurring === 0"><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}" class="btn btn-primary"
+          <td *ngIf="((x.IsReccurring === 0) && ( x.WorkorderTypeKey !== -1))"><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}" class="btn btn-primary"
               style="color:white !important" routerLinkActive="active"><b>Instance
               </b>
             </a></td>

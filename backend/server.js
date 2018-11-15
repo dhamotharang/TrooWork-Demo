@@ -1833,9 +1833,9 @@ app.post(securedpath + '/deleteDepartment', function (req, res) {
 });
 app.post(securedpath + '/deleteWorkOrderType', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
-    var WorkorderTypeKey = url.parse(req.url, true).query['WorkorderTypeKey'];
-    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
-    //   var DepartmentKey = req.body.DepartmentKey;
+    var WorkorderTypeKey = req.body.WorkorderTypeKey;
+    var OrganizationID = req.body.OrganizationID;
+//   var DepartmentKey = req.body.DepartmentKey;
     pool.getConnection(function (err, connection) {
         if (err) {
 
@@ -1848,7 +1848,7 @@ app.post(securedpath + '/deleteWorkOrderType', function (req, res) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
-                    console.log("deleteForm  is  " + JSON.stringify(rows[1]));
+                    console.log("deleteForm  is  " + JSON.stringify(rows[2]));
 
                     res.end(JSON.stringify(rows[1]));
                 }
@@ -2238,18 +2238,18 @@ app.post(securedpath + '/updateSelectedJobTitle', function (req, res) {
 
 app.post(securedpath + '/editSelectedWorkordertype', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
-    //    var employeeCalendar_Id = url.parse(req.url, true).query['employeeCalendar_Id'];
-    //    var jobtittlekey = url.parse(req.url, true).query['jobtittlekey'];
-    var WorkorderTypeKey = url.parse(req.url, true).query['WorkorderTypeKey'];
-    var WorkorderTypeName = url.parse(req.url, true).query['WorkorderTypeName'];
-    var RoomTypeKey = url.parse(req.url, true).query['RoomTypeKey'];
-    var Frequency = url.parse(req.url, true).query['Frequency'];
-    var Repeatable = url.parse(req.url, true).query['Repeatable'];
-    var WorkorderTime = url.parse(req.url, true).query['WorkorderTime'];
-    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
-    //    var jobtittlekey = req.body.JobTitleKey;
-    //    var jobtittle = req.body.JobTitle;
-    //    var jobdescription = req.body.JobTitleDescription;
+//    var employeeCalendar_Id = url.parse(req.url, true).query['employeeCalendar_Id'];
+//    var jobtittlekey = url.parse(req.url, true).query['jobtittlekey'];
+    var WorkorderTypeKey = req.body.WorkorderTypeKey;
+    var WorkorderTypeName = req.body.WorkorderTypeName;
+    var RoomTypeKey = req.body.RoomTypeKey;
+    var Frequency = req.body.Frequency;
+    var Repeatable = req.body.Repeatable;
+    var WorkorderTime = req.body.WorkorderTime;
+     var OrganizationID = req.body.OrganizationID;
+//    var jobtittlekey = req.body.JobTitleKey;
+//    var jobtittle = req.body.JobTitle;
+//    var jobdescription = req.body.JobTitleDescription;
     console.log(" INSIDE UPDATING JOBTITLE " + WorkorderTypeKey + " " + WorkorderTypeName + " " + RoomTypeKey + " " + Frequency + " " + Repeatable + " " + WorkorderTime);
     pool.getConnection(function (err, connection) {
         if (err) {
@@ -6837,14 +6837,19 @@ app.post(securedpath + '/addworkorderSchedule', supportCrossOriginScript, functi
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @scheduleKey=?; set @workorderkey=?;set @workordertypekey=?;set @equipmentkey=?;set @roomkeys=?; set @employeekey=?; set @priority=?; set @fromdate=?; set @todate=?;set @intervaltype=?; set @repeatinterval=?;set @occursonday =?;set @occursontime =?;set @occurstype =?; set @workordernotes =?;set @isbar=?;set @isphoto=?;set @metaupdatedby=?; set @facilitykeys=?; set @floorkeys=?; set @zonekeys=?; set @roomtypekeys=?;set @OrganizationID=?; call usp_BatchScheduleAdd(@scheduleKey,@workorderkey,@workordertypekey,@equipmentkey,@roomkeys,@employeekey,@priority,@fromdate,@todate,@intervaltype,@repeatinterval,@occursonday,@occursontime,@occurstype,@workordernotes,@isbar,@isphoto,@metaupdatedby,@facilitykeys,@floorkeys,@zonekeys,@roomtypekeys,@OrganizationID) ', [scheduleKey, workorderkey, workordertypekey, equipmentkey, roomkeys, employeekey, priority, fromdate, todate, intervaltype, repeatinterval, occursonday, occursontime, occurstype, workordernote, isbar, isphoto, metaupdatedby, facilitykeys, floorkeys, zonekeys, roomtypekeys, OrganizationID], function (err, res) {
-                if (err) {
-                    console.log(err);
-                }
-                // console.log(JSON.stringify(res));
-            });
-            res.end("success");
+            connection.query('set @scheduleKey=?; set @workorderkey=?;set @workordertypekey=?;set @equipmentkey=?;set @roomkeys=?; set @employeekey=?; set @priority=?; set @fromdate=?; set @todate=?;set @intervaltype=?; set @repeatinterval=?;set @occursonday =?;set @occursontime =?;set @occurstype =?; set @workordernotes =?;set @isbar=?;set @isphoto=?;set @metaupdatedby=?; set @facilitykeys=?; set @floorkeys=?; set @zonekeys=?; set @roomtypekeys=?;set @OrganizationID=?; call usp_BatchScheduleAdd(@scheduleKey,@workorderkey,@workordertypekey,@equipmentkey,@roomkeys,@employeekey,@priority,@fromdate,@todate,@intervaltype,@repeatinterval,@occursonday,@occursontime,@occurstype,@workordernotes,@isbar,@isphoto,@metaupdatedby,@facilitykeys,@floorkeys,@zonekeys,@roomtypekeys,@OrganizationID) ', [scheduleKey,workorderkey, workordertypekey, equipmentkey, roomkeys, employeekey, priority, fromdate, todate, intervaltype, repeatinterval, occursonday, occursontime, occurstype, workordernote, isbar, isphoto, metaupdatedby, facilitykeys, floorkeys, zonekeys, roomtypekeys,OrganizationID], function (err, rows)
+    {
+        if (err) {
+            console.log(err);
         }
+        else
+        {
+            res.end(JSON.stringify(rows[23])); 
+        }
+        // console.log(JSON.stringify(res));
+    });
+    // res.end("success");
+    }
         connection.release();
     });
 
@@ -6969,14 +6974,19 @@ app.post(securedpath + '/addworkorderSchedulewithEquipment', supportCrossOriginS
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @scheduleKey=?; set @workorderkey=?;set @workordertypekey=?;set @equipmentkey=?;set @roomkeys=?; set @employeekey=?; set @priority=?; set @fromdate=?; set @todate=?;set @intervaltype=?; set @repeatinterval=?;set @occursonday =?;set @occursontime =?;set @occurstype =?; set @workordernotes =?;set @isbar=?;set @isphoto=?;set @metaupdatedby=?; set @facilitykeys=?; set @floorkeys=?; set @zonekeys=?; set @roomtypekeys=?;set @OrganizationID=?; call usp_addworkorderSchedulewithEquipment(@scheduleKey,@workorderkey,@workordertypekey,@equipmentkey,@roomkeys,@employeekey,@priority,@fromdate,@todate,@intervaltype,@repeatinterval,@occursonday,@occursontime,@occurstype,@workordernotes,@isbar,@isphoto,@metaupdatedby,@facilitykeys,@floorkeys,@zonekeys,@roomtypekeys,@OrganizationID) ', [scheduleKey, workorderkey, workordertypekey, equipmentkey, roomkeys, employeekey, priority, fromdate, todate, intervaltype, repeatinterval, occursonday, occursontime, occurstype, workordernote, isbar, isphoto, metaupdatedby, facilitykeys, floorkeys, zonekeys, roomtypekeys, OrganizationID], function (err, res) {
-                if (err) {
-                    console.log(err);
-                }
-                // console.log(JSON.stringify(res));
-            });
-            res.end("success");
+            connection.query('set @scheduleKey=?; set @workorderkey=?;set @workordertypekey=?;set @equipmentkey=?;set @roomkeys=?; set @employeekey=?; set @priority=?; set @fromdate=?; set @todate=?;set @intervaltype=?; set @repeatinterval=?;set @occursonday =?;set @occursontime =?;set @occurstype =?; set @workordernotes =?;set @isbar=?;set @isphoto=?;set @metaupdatedby=?; set @facilitykeys=?; set @floorkeys=?; set @zonekeys=?; set @roomtypekeys=?;set @OrganizationID=?; call usp_addworkorderSchedulewithEquipment(@scheduleKey,@workorderkey,@workordertypekey,@equipmentkey,@roomkeys,@employeekey,@priority,@fromdate,@todate,@intervaltype,@repeatinterval,@occursonday,@occursontime,@occurstype,@workordernotes,@isbar,@isphoto,@metaupdatedby,@facilitykeys,@floorkeys,@zonekeys,@roomtypekeys,@OrganizationID) ', [scheduleKey,workorderkey, workordertypekey, equipmentkey, roomkeys, employeekey, priority, fromdate, todate, intervaltype, repeatinterval, occursonday, occursontime, occurstype, workordernote, isbar, isphoto, metaupdatedby, facilitykeys, floorkeys, zonekeys, roomtypekeys,OrganizationID], function (err, rows)
+    {
+        if (err) {
+            console.log(err);
         }
+        else
+        {
+            res.end(JSON.stringify(rows[23]));
+        }
+        // console.log(JSON.stringify(res));
+    });
+    // res.end("success");
+    }
         connection.release();
     });
 
@@ -12550,14 +12560,14 @@ app.get(securedpath + '/getRoomTypeListForRoomEdit', function (req, res) {
     });
 });
 
-app.get(securedpath + '/deleteWorkOrderBatchSchedule', function (req, res) {
+app.post(securedpath + '/deleteWorkOrderBatchSchedule', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
-    var workschedulekey = url.parse(req.url, true).query['workorderSchedulekey'];
-    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
-
-
-    pool.getConnection(function (err, connection) {
-        if (err) {
+    var workschedulekey = req.body.workorderSchedulekey;
+   var OrganizationID = req.body.OrganizationID;
+    
+  
+  pool.getConnection(function (err, connection) {
+     if (err) {
 
             console.log("Failed! Connection with Database spicnspan via connection pool failed");
         } else {

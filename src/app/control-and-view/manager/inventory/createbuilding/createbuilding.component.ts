@@ -21,6 +21,8 @@ export class CreatebuildingComponent implements OnInit {
   IsSupervisor: Number;
   OrganizationID: Number;
 
+  BuildingName;
+
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -43,8 +45,6 @@ export class CreatebuildingComponent implements OnInit {
       newbuildingName: ['', Validators.required]
     });
   }
-
-
   addBuilding(newbuildingName) {
     if(newbuildingName && !newbuildingName.trim()){
       alert("Please Enter Building Name!");
@@ -53,7 +53,14 @@ export class CreatebuildingComponent implements OnInit {
     if (!newbuildingName) {
       alert("Please Enter Building Name!");
       return;
-    } else {
+    } 
+    this.CreatebuildingService.checkNewBuilding(this.BuildingName,'facility',this.employeekey,this.OrganizationID).subscribe((data: Inventory[]) =>{
+      if (data.length > 0) {
+        alert("Building name already present !"); 
+         return;
+     }
+    else 
+    {
       newbuildingName=newbuildingName.trim();
       this.CreatebuildingService.createBuildings(newbuildingName, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
@@ -61,6 +68,7 @@ export class CreatebuildingComponent implements OnInit {
           this.router.navigateByUrl('/Buildview');
         });
     }
+  });
   }
 
 

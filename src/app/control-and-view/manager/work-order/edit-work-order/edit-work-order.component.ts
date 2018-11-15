@@ -14,7 +14,7 @@ export class EditWorkOrderComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  delete_curwo;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -195,9 +195,18 @@ export class EditWorkOrderComponent implements OnInit {
 
         this.workordertypekey = this.WOEditList.WorkorderTypeKey;
         this.FacilityKey = this.WOEditList.FacilityKey;
+        if(this.WOEditList.PriorityKey)
+        {
         this.PriorityKey = this.WOEditList.PriorityKey;
+        }
         this.WorkorderNotes = this.WOEditList.WorkorderNotes;
+        
         this.EmployeeKey = this.WOEditList.EmployeeKey;
+        if(this.EmployeeKey==-1)
+        {
+          this.EmployeeKey = "";
+        }
+
         var cur_time = new Date(Date.now());
 
         var timeValue1 = this.WOEditList.WorkorderTime;
@@ -536,6 +545,7 @@ export class EditWorkOrderComponent implements OnInit {
     } else {
       this.workTime = new Date().getHours() + ':' + new Date().getMinutes();
     }
+    
     this.workorderCreation = {
       occursontime: this.workTime,
       workorderkey: - 99,
@@ -560,9 +570,17 @@ export class EditWorkOrderComponent implements OnInit {
       occursonday: null
     };
     this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe((data: any[]) => {
+      this.deleteWO = {
+        workorderkey: this.WO_Key,
+        OrganizationID: this.OrganizationID
+      };
+      this.WorkOrderServiceService
+      .deleteCurrent_WO(this.deleteWO)
+      .subscribe((data: any[]) => {
       alert("work-order updated successfully");
       this.router.navigateByUrl('/ViewWorkOrder');
     });
+  });
   }
 
   createWorkorder2() {
@@ -763,6 +781,7 @@ export class EditWorkOrderComponent implements OnInit {
       } else {
         this.workTime = new Date().getHours() + ':' + new Date().getMinutes();
       }
+     
       this.workorderCreation = {
         occursontime: this.workTime,
         workorderkey: - 99,
@@ -787,9 +806,17 @@ export class EditWorkOrderComponent implements OnInit {
         occursonday: null
       };
       this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe((data: any[]) => {
+        this.deleteWO = {
+          workorderkey: this.WO_Key,
+          OrganizationID: this.OrganizationID
+        };
+        this.WorkOrderServiceService
+      .deleteCurrent_WO(this.deleteWO)
+      .subscribe((data: any[]) => {
         alert("work-order updated successfully");
         this.router.navigateByUrl('/ViewWorkOrder');
       });
+    });
     }
   }
   change_values() {

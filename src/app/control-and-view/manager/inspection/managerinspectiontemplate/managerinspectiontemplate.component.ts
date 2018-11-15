@@ -47,7 +47,7 @@ export class ManagerinspectiontemplateComponent implements OnInit {
   ind = 0;
   TemplateDetails;
   lastIndexValue;
-
+  
   starList: boolean[];
   rating: number;
 

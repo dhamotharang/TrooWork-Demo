@@ -143,7 +143,18 @@ export class EditBatchWorkorderComponent implements OnInit {
       day = ("0" + date.getDate()).slice(- 2);
     return [date.getFullYear(), mnth, day].join("-");
   };
-
+  tConvert (time) {
+    // Check correct time format and split into components
+    time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+  
+    if (time.length > 1) { // If time format correct
+      time = time.slice (1);  // Remove full string match value
+      time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+      time[0] = +time[0] % 12 || 12; // Adjust hours
+    }
+    return time.join (''); // return adjusted time or original string
+  }
+  
   ngOnInit() {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
@@ -177,22 +188,27 @@ export class EditBatchWorkorderComponent implements OnInit {
 
         this.workordertypekey = this.WOEditList.WorkorderTypeKey;
         this.FacilityKey = this.WOEditList.FacilityKey;
+        if(this.WOEditList.PriorityKey)
+        {
         this.PriorityKey = this.WOEditList.PriorityKey;
+        }
         this.WorkorderNotes = this.WOEditList.WorkorderNotes;
         this.EmployeeKey = this.WOEditList.EmployeeKey;
         this.BatchScheduleNameKey = this.WOEditList.BatchScheduleNameKey;
+        if (this.WOEditList.EquipmentKey == -1)
+        {
         this.WorkOrderServiceService
           .getRoomList(this.WOEditList.RoomKeyList, this.OrganizationID)
-          .subscribe((data: any[]) => {
-           
+          .subscribe((data: any[]) => { 
             this.RoomNameList = data[0].RoomText;
           });
+        }
         this.WorkOrderServiceService
           .getEquipmentNameList(this.WOEditList.WorkorderScheduleKey, this.OrganizationID)
           .subscribe((data: any[]) => {
             this.EquipmentNameList = data[0].EquipmentName;
           });
-        this.Times = this.WOEditList.WorkorderTime;
+        this.Times = this.tConvert(this.WOEditList.WorkorderTime);
         this.WorkOrderServiceService
           .getallFloor(this.WOEditList.FacilityKey, this.OrganizationID)
           .subscribe((data: any[]) => {
@@ -275,6 +291,10 @@ export class EditBatchWorkorderComponent implements OnInit {
           this.monthlyrecurring = false;
           this.weeklyrecurring = false;
           this.DailyrecurringGap = this.WOEditList.OccurrenceInterval;
+          if( this.DailyrecurringGap==0)
+            {
+              this.DailyrecurringGap="";
+            }
           this.WorkorderStartDate = new Date(this.WOEditList.WorkorderDate);
           this.WorkorderEndDate = new Date(this.WOEditList.WorkorderEndDate);
           var count = [];
@@ -606,6 +626,10 @@ export class EditBatchWorkorderComponent implements OnInit {
     else if (!(this.WorkorderEndDate)) {
       alert("provide work-order end date!")
     }
+    else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
+      alert("check your startdate!");
+
+    }
     else if (this.dailyrecurring == false && this.weeklyrecurring == false && this.monthlyrecurring == false) {
       alert("Recurring Period is not provided !");
     }
@@ -843,7 +867,7 @@ withoutequip_wo()
         this.rep_interval = this.DailyrecurringGap;
       }
       else {
-        this.rep_interval = this.DailyrecurringGap;
+        this.rep_interval = (parseInt(this.DailyrecurringGap)+1);
       }
     }
     else if (this.weeklyrecurring == true) {
@@ -894,7 +918,7 @@ withoutequip_wo()
         }
       }
     }
-
+    
     this.workorderCreation = {
       scheduleKey: this.BatchScheduleNameKey,
       occursontime: this.workTime,
@@ -921,9 +945,17 @@ withoutequip_wo()
       occurstype: this.occurs_type
     };
     this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => {
+      this.deleteWO = {
+        workorderSchedulekey: this.BatchWO_Key,
+        OrganizationID: this.OrganizationID
+      };
+      this.WorkOrderServiceService
+      .deleteCurrent_BatchWO(this.deleteWO)
+      .subscribe((data: any[]) => {
       alert("work-order updated successfully"); 
       this.router.navigateByUrl('/ViewBatchWorkorder');
     });
+  });
   }
   createWorkorder2() {
 
@@ -944,6 +976,10 @@ withoutequip_wo()
     }
     else if (!(this.WorkorderEndDate)) {
       alert("provide work-order end date!")
+    }
+    else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
+      alert("check your startdate!");
+
     }
     else if(this.showEqTypes==true && !(this.EquipmentTypeKey))
     {
@@ -1190,7 +1226,7 @@ withoutequip_wo()
         this.rep_interval = this.DailyrecurringGap;
       }
       else {
-        this.rep_interval = this.DailyrecurringGap;
+        this.rep_interval = (parseInt(this.DailyrecurringGap)+1);
       }
     } else if (this.weeklyrecurring == true) {
       this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();
@@ -1255,10 +1291,17 @@ withoutequip_wo()
       occurstype: this.occurs_type
     };
     this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res => {
+      this.deleteWO = {
+        workorderSchedulekey: this.BatchWO_Key,
+        OrganizationID: this.OrganizationID
+      };
+      this.WorkOrderServiceService
+      .deleteCurrent_BatchWO(this.deleteWO)
+      .subscribe((data: any[]) => {
       alert("work-order updated successfully"); 
       this.router.navigateByUrl('/ViewBatchWorkorder');
     });
-
+  });
   }
   addFormField() {
    

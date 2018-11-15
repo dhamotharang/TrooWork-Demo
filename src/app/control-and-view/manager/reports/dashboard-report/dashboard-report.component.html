@@ -27,7 +27,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Workorder Type</label>
-        <ng-multiselect-dropdown (change)="dashboardreportbyfilter()" [placeholder]="'Selectworkorder'" [data]="workordertypeoption"
+        <ng-multiselect-dropdown (change)="dashboardreportbyfilter()" [placeholder]="'Select'" [data]="workordertypeoption"
           [(ngModel)]="WorkorderTypeKey" [textField]="'WorkorderTypeText'" [valueField]="'WorkorderTypeKey'" [settings]="dropdownSettings"
           (onSelect)="dashboardreportbyfilter()" (onSelectAll)="dashboardreportbyfilter()">
         </ng-multiselect-dropdown>
@@ -46,17 +46,12 @@
     </div>
   </div>
 </div>
-<div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12" *ngIf="reporttable?.length> 0" id="contentToConvert">
+<div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12" *ngIf="((reporttable?.length> 0)&&(!loading))" id="contentToConvert">
   <div class="col-md-6" *ngIf="reporttable?.length> 0" style="border: 0px !important">
-    <div class="divTable">
-      <div class="divTableBody">
-        <div class="divTableRow">
-          <div class="divTableCell">
-            <pie-chart [data]="data1" [config]="config1" [elementId]="elementId1"></pie-chart>
-          </div>
-        </div>
-      </div>
-    </div>
+   
+              <div id="{{elementId1}}" style="width: 800px; height: 400px;"></div>
+            <!-- <app-dashboard-report [data]="data1" [config]="config1" [elementId]="elementId1"></app-dashboard-report> -->
+          
   </div>
   <div class="col-md-6">
     <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
@@ -85,7 +80,7 @@
     </table>
   </div>
 </div>
-<div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12" *ngIf="reporttable?.length== 0">
+<div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12" *ngIf="((reporttable?.length== 0)&&(!loading))">
   <span style="margin-left: 35rem;"><b>No Records Found</b></span>
 </div>
 <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12">
@@ -93,8 +88,8 @@
     <!-- <div class="alert alert-info">  
           <strong>Convert to Pdf</strong>  
       </div>   -->
-    <div style="text-align:center" *ngIf="reporttable?.length> 0">
-      <input type="button" style="float:right" class="btn btn-success" value="CONVERT TO PDF" (click)="captureScreen()" />
+    <div style="text-align:center;margin-left: 35rem;" *ngIf="((reporttable?.length> 0)&&(!loading))">
+      <input style="margin-left: 35rem;" type="button" style="float:right" class="btn btn-success" value="CONVERT TO PDF" (click)="captureScreen()" />
     </div>
   </div>
 </div>

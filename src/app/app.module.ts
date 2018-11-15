@@ -38,7 +38,7 @@ import { IgxDatePickerModule } from 'igniteui-angular';
 import { InspectionReportComponent } from './control-and-view/manager/reports/inspection-report/inspection-report.component';
 import { DashboardReportComponent } from './control-and-view/manager/reports/dashboard-report/dashboard-report.component';
 import { GooglePieChartService } from './extra-files/piechart-file/Services/google-pie-chart.service';
-import { PieChartComponent } from './extra-files/piechart-file/Dashboard/Charts/piechart.component';
+// import { PieChartComponent } from './extra-files/piechart-file/Dashboard/Charts/piechart.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 import { BarcodeReportComponent } from './control-and-view/manager/reports/barcode-report/barcode-report.component';
@@ -165,7 +165,7 @@ import { EditWorkorderTypeComponent } from './control-and-view/manager/work-orde
 import { CreateWorkorderTypeComponent } from './control-and-view/manager/work-order/create-workorder-type/create-workorder-type.component';
 import { SetUserLoginSuperComponent } from '../app/control-and-view/superadmin/people/set-user-login-super/set-user-login-super.component';
 import { EditAssignmentScheduleForReportComponent } from './control-and-view/manager/scheduling/edit-assignment-schedule-for-report/edit-assignment-schedule-for-report.component';
-
+import { FilterPipePipe } from './control-and-view/manager/work-order/filter-pipe.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -189,7 +189,7 @@ import { EditAssignmentScheduleForReportComponent } from './control-and-view/man
     InspectionReportComponent,
     BarcodeReportComponent,
     DashboardReportComponent,
-    PieChartComponent,
+    // PieChartComponent,
     DepartmentCreateComponent,
     DepartmentEditComponent,
     DepartmentViewComponent,
@@ -302,7 +302,8 @@ import { EditAssignmentScheduleForReportComponent } from './control-and-view/man
     EditWorkorderTypeComponent,
     CreateWorkorderTypeComponent,
     SetUserLoginSuperComponent,
-    EditAssignmentScheduleForReportComponent
+    EditAssignmentScheduleForReportComponent,
+    FilterPipePipe
   ],
   imports: [
     BrowserModule,

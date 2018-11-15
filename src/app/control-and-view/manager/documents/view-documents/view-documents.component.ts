@@ -87,6 +87,15 @@ export class ViewDocumentsComponent implements OnInit {
     }
   }
   showFileDetailsTablebydropdown(formtype) {
+    if(!(this.FormtypeId))
+    {
+      this.documentService
+      .getRecentUploads(this.page, this.count, this.employeekey, this.OrganizationID)
+      .subscribe((data: Documents[]) => {
+        this.searchFlag = true;
+        this.viewFolderDescriptionTable = data;
+      });
+    }
     this.documentService
       .getFileDetailsTablewithDropdown(formtype, this.employeekey, this.OrganizationID).subscribe((data: Documents[]) => {
         this.searchFlag = true;

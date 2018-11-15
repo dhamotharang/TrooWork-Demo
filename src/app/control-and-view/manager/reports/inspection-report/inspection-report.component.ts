@@ -117,7 +117,7 @@ export class InspectionReportComponent implements OnInit {
       fromdate = this.convert_DT(from_date);
     }
     if (!to_date) {
-      var todate = this.convert_DT(new Date());
+      var todate = fromdate;
 
     }
     else {
@@ -129,7 +129,7 @@ export class InspectionReportComponent implements OnInit {
       alert("Please check your Start Date!");
       return;
     }
-    if (SupervisorKey == undefined) {
+    if (!SupervisorKey) {
       this.ReportServiceService
         .getinspectionreport_bydate(fromdate, todate, this.employeekey, this.OrganizationID)
         .subscribe((data: Reports[]) => {

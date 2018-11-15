@@ -52,6 +52,10 @@ export class InspectiontemplateCreateComponent implements OnInit {
     var ScoringTypeKey;
     var TemplateID;
     var templatename;
+    if(InspTempName && !InspTempName.trim()){
+      alert("Please Enter Inspection Template Name!");
+      return;
+    }
     if (ScoreTypeKey) {
       ScoringTypeKey = this.ScoreTypeKey;
       }
@@ -73,6 +77,10 @@ export class InspectiontemplateCreateComponent implements OnInit {
     for (var i in this.fieldArray) {
       arr.push(this.fieldArray[i]);
     }
+    if(this.newAttribute.question && !this.newAttribute.question.trim()){
+      alert("Please Enter Question!");
+      return;
+    }
     t1 = this.newAttribute;
     arr[arr.length] = t1;
     arr;
@@ -87,6 +95,10 @@ export class InspectiontemplateCreateComponent implements OnInit {
       QustArry = null;
               alert(" Questions are not provided !");
               return;
+      }
+      if(QustArry && !QustArry.trim()){
+        alert("Please Enter Question!");
+        return;
       }
       this.inspectionService.checkforTemplate(InspTempName,this.OrganizationID).subscribe(res => {
         if (res[0].count == 0){

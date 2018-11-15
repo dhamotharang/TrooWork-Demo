@@ -102,6 +102,97 @@ export class InspectionCreateComponent implements OnInit {
         this.roomtype = data;
       });
   }
+  
+selectroomfromRoomtype(RoomType,ZoneKey)
+{
+
+ if(RoomType)
+    {
+
+        if(this.Floor)
+        {
+          if(ZoneKey)
+          {
+            this.inspectionService.roomByFacility_Floor_Zone_RoomType(this.Building,this.Floor,ZoneKey,RoomType,this.OrganizationID).subscribe((data: any[]) => 
+            {
+              this.room = data;
+            });
+
+          }
+          else
+          {
+            this.inspectionService.roomByFacility_Floor_RoomType(this.Building,this.Floor,RoomType,this.OrganizationID).subscribe((data: any[]) => 
+            {
+              this.room = data;
+            });
+
+          }
+        }
+        else if(ZoneKey)
+        {
+          this.inspectionService.roomByFacility_Zone_RoomType(this.Building,ZoneKey,RoomType,this.OrganizationID).subscribe((data: any[]) => 
+          {
+            this.room = data;
+          });
+        }
+        else
+        {
+          this.inspectionService.roomByFacility_RoomType(this.Building,RoomType,this.OrganizationID).subscribe((data: any[]) => 
+          {
+            this.room = data;
+          });
+
+        }
+
+    }
+  
+  // this.inspectionServiceService
+  // .getallRooms(this.FacilityKey,this.FloorKey,zonekey,RoomTypeKey)
+  // .subscribe((data: any[]) => {
+  // // debugger;
+  //   this.rooms = data;
+  // });
+
+
+}
+selectroomtypefromZone(Zone,Floor)
+{
+  // debugger;
+  if(Zone)
+  {
+    if(Floor)
+    {
+      this.inspectionService
+      .roomtypeByFacility_Floor_zone(this.Building, Floor, Zone,this.OrganizationID).subscribe((data: any[]) => {
+        this.roomtype = data;
+      });
+      this.inspectionService
+      .roomByFacility_Floor_zone(this.Building,  Floor, Zone,this.OrganizationID).subscribe((data: any[]) => {
+        this.room = data;
+      });
+
+    }
+    else
+    {
+     this.inspectionService.roomtypeByFacility_Zone(this.Building,Zone,this.OrganizationID).subscribe((data: any[]) => {
+       this.roomtype = data;
+
+     });
+     this.inspectionService.roomByFacility_Zone(this.Building, Zone,this.OrganizationID).subscribe((data: any[]) => {
+       this.room = data;
+
+     });
+   }
+
+  }
+  // this.inspectionServiceService
+  // .getallRoomTypes(this.FacilityKey,flrkey,zoneKey)
+  // .subscribe((data:any []) => {
+  // // debugger;
+  //   this.room = data;
+  // });
+}
+
 
   createInspection() {
     if (!this.TemplateID) {
@@ -138,6 +229,37 @@ export class InspectionCreateComponent implements OnInit {
     var q = this.time1.getHours();
     var q1 = this.time1.getMinutes();
     var newTime = q + ":" + q1;
+    
+    var roomlistObj = [];
+    var roomlist = [];
+            // debugger;
+ roomlistObj = this.room;
+ var roomString;
+  if(this.RoomKey)
+  {
+    roomString = this.RoomKey;
+  }
+   else
+   {
+      if(roomlistObj)
+      {
+          for(var j = 0; j<roomlistObj.length; j++)
+          {
+                 roomlist.push(roomlistObj[j].RoomKey);
+          }
+                roomString = roomlist.join(',');
+       }
+       else{
+       alert('Room has no value');
+        return;
+    }
+  }
+  this.RoomKey = roomString;
+  if(roomlistObj.length === 0 ){
+    alert('Room is not provided');
+      return;
+  }
+
 
     this.inspectionService.createInspections(this.TemplateID, this.SupervisorKey, dateFrom, date2, this.theCheckbox, newTime, this.RoomKey, this.Employee, this.employeekey, this.OrganizationID).subscribe(res => {
       alert("Successfully Added");

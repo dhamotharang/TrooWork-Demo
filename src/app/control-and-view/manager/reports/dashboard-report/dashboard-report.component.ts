@@ -13,6 +13,9 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./dashboard-report.component.scss']
 })
 export class DashboardReportComponent implements OnInit {
+  // @Input() data1: any[];
+  // @Input() config1: PieChartConfig;
+  // @Input() elementId1: String;
   loading: boolean;// loading
   role: String;
   name: String;
@@ -84,7 +87,7 @@ export class DashboardReportComponent implements OnInit {
   data3: any[];
   sampledata1: any[];
   sampledata2: any[];
-  data2: any[];
+  data4: any[];
   finalStringForPie: String;
   config1: PieChartConfig;
   elementId1: String;
@@ -149,32 +152,32 @@ export class DashboardReportComponent implements OnInit {
       .getdashboardreport(dateTemp_1, dateTemp_2, this.em_Key, this.Workorder_TypeKey, this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.reporttable = data;
-        this.loading = false;
       });
 
     this.ReportServiceService
       .getpievalues(dateTemp_1, this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.pievalues = data;
-        debugger;
-        if (this.pievalues.length > 0) {
-          this.sampledata1 = [['WorkorderStatus', 'count']];
+        this.loading = false;
+        this.sampledata1 = [['WorkorderStatus', 'count']];
 
-          for (var i = 0; i < this.pievalues.length; i++) {
+        for (var i = 0; i < this.pievalues.length; i++) {
 
-            var status = this.pievalues[i].WorkorderStatus;
-            var num = this.pievalues[i].totalItems;
-            this.data2 = ([status, num]);
-            this.sampledata1.push(this.data2);
+          var status = this.pievalues[i].WorkorderStatus;
+          var num = this.pievalues[i].totalItems;
+          this.data4 = ([status, num]);
+          this.sampledata1.push(this.data4);
 
-          }
-          this.data1 = this.sampledata1;
-          this.config1 = new PieChartConfig(' ', 0.4);
-          this.elementId1 = 'piechart';
-          if (this.data1.length > 1) {
+        }
+        this.data1 = this.sampledata1;
+        this.config1 = new PieChartConfig(' ', 0.4);
+        this.elementId1 = 'piechart';
+        setTimeout(() => {
+          if (this.reporttable.length > 0) {
             this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
           }
-        }
+        }, 1000)
+
       });
   }
   onItemSelect(item: any) {
@@ -187,6 +190,8 @@ export class DashboardReportComponent implements OnInit {
   }
 
   dashboardreportbyfilter() {
+    this.pievalues = [];
+    this.reporttable = [];
     this.loading = true;
 
     if (!this.EmployeeKey) {
@@ -202,17 +207,15 @@ export class DashboardReportComponent implements OnInit {
       date1 = this.convert_DT(this.fromdate);
     }
     if (!this.todate) {
-      var date2 = this.convert_DT(new Date());
+      var date2 = date1;
     }
     else {
       date2 = this.convert_DT(this.todate);
     }
     if (date2 && date1 > date2) {
       alert("Please check your Start Date!");
-      return;
     }
-    console.log(date2 + " ... after date formatting");
-    this.WorkorderTypeKey;
+
     this.manager = this.employeekey;
     if (this.WorkorderTypeKey.length == 0) {
       workordertypeString = null;
@@ -231,38 +234,36 @@ export class DashboardReportComponent implements OnInit {
         workordertypeString = workordertypeList.join(',');
       }
     }
-
     this.ReportServiceService
-      .getdashboardreport(date1, date2, this.em_Key, workordertypeString, this.employeekey, this.OrganizationID)
-      .subscribe((data: Reports[]) => {
-        this.reporttable = data;
-      });
-    console.log(this.date2 + " ... before calling service");
+    .getdashboardreport(date1, date2, this.em_Key, workordertypeString, this.employeekey, this.OrganizationID)
+    .subscribe((data: Reports[]) => {
+      this.reporttable = data;
+      this.loading = false;
+    });
 
     this.ReportServiceService
       .getvaluesfilterbypie(date1, date2, this.em_Key, workordertypeString, this.OrganizationID, this.employeekey)
       .subscribe((data: Reports[]) => {
         this.pievalues = data;
-        this.loading = false;
         this.sampledata2 = [['WorkorderStatus', 'count']];
-
         for (var i = 0; i < this.pievalues.length; i++) {
 
           var status = this.pievalues[i].WorkorderStatus;
           var num = this.pievalues[i].totalItems;
           this.data3 = ([status, num]);
           this.sampledata2.push(this.data3);
-
         }
-        this.data1 = this.sampledata2;
-        console.log(this.data1.length);
-        this.config1 = new PieChartConfig(' ', 0.4);
-        this.elementId1 = 'piechart';
-        if (this.data1.length > 1) {
+        if ((this.reporttable.length > 0) && (this.pievalues.length > 0)) {
+          this.data1 = this.sampledata2;
+          this.config1 = new PieChartConfig(' ', 0.4);
+          this.elementId1 = 'piechart';
           this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
         }
+     
       });
   }
+
+
 }
 
 

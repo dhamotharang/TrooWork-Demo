@@ -223,77 +223,69 @@ export class ViewWorkOrdersComponent implements OnInit {
   }
   getFloorDisp(facilityName) {
 
-    if(facilityName)
-   {
-    this.WorkOrderServiceService
-      .getallFloor(facilityName, this.org_id)
-      .subscribe((data: any[]) => {
-        this.FloorList = data;
-      });
+    if (facilityName) {
+      this.WorkOrderServiceService
+        .getallFloor(facilityName, this.org_id)
+        .subscribe((data: any[]) => {
+          this.FloorList = data;
+        });
     }
-    else
-    {
-      this.FloorKey="";
+    else {
+      this.FloorKey = "";
     }
   }
   getZoneRoomTypeRoom(floor, facility) {
-    if(floor&&facility)
-    {
-    this.WorkOrderServiceService
-      .getzone_facilityfloor(floor, facility, this.org_id)
-      .subscribe((data: any[]) => {
-        this.zonelist = data;
-      });
-    this.WorkOrderServiceService
-      .getroomType_facilityfloor(floor, facility, this.org_id)
-      .subscribe((data: any[]) => {
-        this.RoomTypeList = data;
-      });
-    this.WorkOrderServiceService
-      .getRoom_facilityfloor(floor, facility, this.org_id)
-      .subscribe((data: any[]) => {
-        this.RoomList = data;
-      });
+    if (floor && facility) {
+      this.WorkOrderServiceService
+        .getzone_facilityfloor(floor, facility, this.org_id)
+        .subscribe((data: any[]) => {
+          this.zonelist = data;
+        });
+      this.WorkOrderServiceService
+        .getroomType_facilityfloor(floor, facility, this.org_id)
+        .subscribe((data: any[]) => {
+          this.RoomTypeList = data;
+        });
+      this.WorkOrderServiceService
+        .getRoom_facilityfloor(floor, facility, this.org_id)
+        .subscribe((data: any[]) => {
+          this.RoomList = data;
+        });
     }
-    else
-    {
-      this.ZoneKey="";
-      this.RoomTypeKey="";
-      this.RoomKey="";
+    else {
+      this.ZoneKey = "";
+      this.RoomTypeKey = "";
+      this.RoomKey = "";
     }
   }
   getRoomTypeRoom(zone, facility, floor) {
-    if(zone&&facility&&floor)
-    {
-    this.WorkOrderServiceService
-      .getRoomtype_zone_facilityfloor(zone, floor, facility, this.org_id)
-      .subscribe((data: any[]) => {
-        this.RoomTypeList = data;
-      });
-    this.WorkOrderServiceService
-      .getRoom_zone_facilityfloor(zone, floor, facility, this.org_id)
-      .subscribe((data: any[]) => {
-        this.RoomList = data;
-      });
+    if (zone && facility && floor) {
+      this.WorkOrderServiceService
+        .getRoomtype_zone_facilityfloor(zone, floor, facility, this.org_id)
+        .subscribe((data: any[]) => {
+          this.RoomTypeList = data;
+        });
+      this.WorkOrderServiceService
+        .getRoom_zone_facilityfloor(zone, floor, facility, this.org_id)
+        .subscribe((data: any[]) => {
+          this.RoomList = data;
+        });
     }
-    else
-    {
-      this.RoomTypeKey="";
-      this.RoomKey="";
+    else {
+      this.RoomTypeKey = "";
+      this.RoomKey = "";
     }
   }
   getRoom(roomtype, zone, facility, floor) {
-    if(roomtype && zone && facility && floor)
-    {
-    this.WorkOrderServiceService
-      .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.org_id)
-      .subscribe((data: any[]) => {
-        this.RoomList = data;
-      });
+    if (roomtype && zone && facility && floor) {
+      this.WorkOrderServiceService
+        .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.org_id)
+        .subscribe((data: any[]) => {
+          this.RoomList = data;
+        });
     }
-    else
-    {
-      this.RoomKey="";
+    else {
+      this.RoomKey = "";
     }
   }
   viewWO_Filter() {
@@ -380,7 +372,7 @@ export class ViewWorkOrdersComponent implements OnInit {
       from_date = this.convert_DT(this.ondate);
     }
     if (!this.todate) {
-      to_date = this.convert_DT(new Date());
+      to_date = from_date;
 
     }
     else {
@@ -416,6 +408,7 @@ export class ViewWorkOrdersComponent implements OnInit {
     this.workorderKey[index] = WorkorderKey;
   }
   searchworkType_emp_room(search_value) {
+
     var fac_key;
     var floor_key;
     var zone_key;
@@ -498,12 +491,13 @@ export class ViewWorkOrdersComponent implements OnInit {
       from_date = this.convert_DT(this.ondate);
     }
     if (!this.todate) {
-      to_date = this.convert_DT(new Date());
+      to_date = from_date;
 
     }
     else {
       to_date = this.convert_DT(this.todate);
     }
+
     this.searchWorkorder = {
       manager: this.emp_key,
       workorderStatusKey: WOS_key,
@@ -545,6 +539,7 @@ export class ViewWorkOrdersComponent implements OnInit {
             this.showHide1 = false;
           }
         });
+
     }
   }
   deleteWorkOrdersPage() {

@@ -114,7 +114,12 @@ export class InventoryService {
       .http
       .post(url, obj);
   }
-
+  CheckNewFloor(FacilityKey,FloorName,employeekey,OrganizationID)
+  {
+    return this
+      .http
+      .get('http://localhost:3000/api/checkForNewFloor?FacilityKey='+FacilityKey+'&FloorName='+FloorName+'&employeekey='+employeekey+'&OrganizationID='+OrganizationID);
+  }
   getallBuildingList(empKey, OrgID) {
     return this
       .http

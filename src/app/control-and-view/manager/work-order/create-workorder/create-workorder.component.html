@@ -1,5 +1,5 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
+
 
 <div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
@@ -183,7 +183,7 @@
               </option>
             </select>
           </div>
-          <div class="form-group" *ngIf="dailyFrequency">
+          <div class="form-group" *ngIf="((dailyrecurring==true)&&(dailyFrequency))">
             <p-calendar [(ngModel)]="timetable.times[i]" *ngFor=" let field of timetable.times;let i = index"
               [timeOnly]="true" hourFormat="12" required>{{index+' '+field}}</p-calendar>
           </div>

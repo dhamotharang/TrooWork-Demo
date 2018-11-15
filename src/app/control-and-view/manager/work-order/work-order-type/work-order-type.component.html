@@ -33,7 +33,7 @@
                 mdbWavesEffect><b>DELETE</b></a>
             </td>
           </tr>
-          <tr *ngIf="build?.length == 0">
+          <tr *ngIf="workorderTypeList?.length == 0">
             <td colspan="2" class="no-data-available">No records found</td>
           </tr>
           <div mdbModal #basicModal="mdbModal" class="modal fade" role="dialog" aria-labelledby="myBasicModalLabel"
@@ -60,8 +60,8 @@
           </div>
         </tbody>
       </table>
-      <button class="btn btn-success" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
-      <button class="btn btn-success" (click)="nextPage()" *ngIf="showHide2">Next >></button>
+      <button class="btn btn-success" style="float:left" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
+      <button class="btn btn-success" style="float:right;"(click)="nextPage()" *ngIf="showHide2">Next >></button>
     </div>
   </div>
 </div>

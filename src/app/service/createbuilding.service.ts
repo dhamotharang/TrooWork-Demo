@@ -17,4 +17,11 @@ export class CreatebuildingService {
       .http
       .post (url,obj);
   }
+  checkNewBuilding(BuildingName,facility,employeekey,OrganizationID)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/checkForNewInventory?checkValue='+BuildingName+'&type='+facility+'&employeekey='+employeekey+'&OrganizationID='+OrganizationID);
+  }
+
 }

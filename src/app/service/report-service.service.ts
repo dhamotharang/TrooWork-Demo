@@ -59,7 +59,7 @@ export class ReportServiceService {
       manager: Manager,
       workorderDate: dateTemp_1,
       workorderDate2: dateTemp_2,
-      employeekey: em_Key,
+      employeeKey: em_Key,
       workorderTypeKey: Workorder_TypeKey,
       OrganizationID: org_id
     };
