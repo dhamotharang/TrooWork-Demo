@@ -161,24 +161,23 @@ export class DashboardReportComponent implements OnInit {
         this.loading = false;
         this.sampledata1 = [['WorkorderStatus', 'count']];
 
-    for (var i = 0; i < this.pievalues.length; i++) {
+        for (var i = 0; i < this.pievalues.length; i++) {
 
-      var status = this.pievalues[i].WorkorderStatus;
-      var num = this.pievalues[i].totalItems;
-      this.data4 = ([status, num]);
-      this.sampledata1.push(this.data4);
+          var status = this.pievalues[i].WorkorderStatus;
+          var num = this.pievalues[i].totalItems;
+          this.data4 = ([status, num]);
+          this.sampledata1.push(this.data4);
 
-    }
-    this.data1 = this.sampledata1;
-    this.config1 = new PieChartConfig(' ', 0.4);
-    this.elementId1 = 'piechart'; 
-    setTimeout(() => { 
-    if(this.reporttable.length>0)
-    {   
-      this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
-    }
-  },1000)
-      
+        }
+        this.data1 = this.sampledata1;
+        this.config1 = new PieChartConfig(' ', 0.4);
+        this.elementId1 = 'piechart';
+        setTimeout(() => {
+          if (this.reporttable.length > 0) {
+            this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
+          }
+        }, 1000)
+
       });
   }
   onItemSelect(item: any) {
@@ -191,8 +190,8 @@ export class DashboardReportComponent implements OnInit {
   }
 
   dashboardreportbyfilter() {
-    this.pievalues=[];
-    this.reporttable=[];
+    this.pievalues = [];
+    this.reporttable = [];
     this.loading = true;
 
     if (!this.EmployeeKey) {
@@ -208,7 +207,7 @@ export class DashboardReportComponent implements OnInit {
       date1 = this.convert_DT(this.fromdate);
     }
     if (!this.todate) {
-      var date2 =  date1;
+      var date2 = date1;
     }
     else {
       date2 = this.convert_DT(this.todate);
@@ -216,13 +215,13 @@ export class DashboardReportComponent implements OnInit {
     if (date2 && date1 > date2) {
       alert("Please check your Start Date!");
     }
-   
+
     this.manager = this.employeekey;
     if (this.WorkorderTypeKey.length == 0) {
       workordertypeString = null;
     }
     else {
-     
+
       var workordertypeList = [];
       var workordertypeListObj = this.WorkorderTypeKey;
       var workordertypeString;
@@ -235,39 +234,35 @@ export class DashboardReportComponent implements OnInit {
         workordertypeString = workordertypeList.join(',');
       }
     }
-
     this.ReportServiceService
-      .getdashboardreport(date1, date2, this.em_Key, workordertypeString, this.employeekey, this.OrganizationID)
-      .subscribe((data: Reports[]) => {
-        this.reporttable = data;
-        this.loading = false;
-      });
-    console.log(this.date2 + " ... before calling service");
+    .getdashboardreport(date1, date2, this.em_Key, workordertypeString, this.employeekey, this.OrganizationID)
+    .subscribe((data: Reports[]) => {
+      this.reporttable = data;
+      this.loading = false;
+    });
 
     this.ReportServiceService
       .getvaluesfilterbypie(date1, date2, this.em_Key, workordertypeString, this.OrganizationID, this.employeekey)
       .subscribe((data: Reports[]) => {
         this.pievalues = data;
-        
         this.sampledata2 = [['WorkorderStatus', 'count']];
-
         for (var i = 0; i < this.pievalues.length; i++) {
-          
+
           var status = this.pievalues[i].WorkorderStatus;
           var num = this.pievalues[i].totalItems;
           this.data3 = ([status, num]);
           this.sampledata2.push(this.data3);
-        } 
-        if ((this.reporttable.length>0) && (this.pievalues.length>0)) {
+        }
+        if ((this.reporttable.length > 0) && (this.pievalues.length > 0)) {
           this.data1 = this.sampledata2;
-          console.log(this.data1.length);
           this.config1 = new PieChartConfig(' ', 0.4);
           this.elementId1 = 'piechart';
           this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
         }
+     
       });
-    }
-  
+  }
+
 
 }
 

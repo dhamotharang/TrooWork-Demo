@@ -26,7 +26,7 @@
         <div class="row col-md-12" *ngIf="workorderNotes">
           <h5 style="text-align:right" class="col-md-4"><label for="building">WorkOrder Notes </label></h5>
           <div class="form-group" style="text-align:left">
-            <textarea class="form-control rounded-0" [(ngModel)]="workorderNotes" rows="6" style="resize: none;"></textarea>
+            <textarea class="form-control rounded-0" [disabled]="true" [(ngModel)]="workorderNotes" rows="6" style="resize: none;"></textarea>
           </div>
           <div class="col col-md-5"></div>
         </div>
