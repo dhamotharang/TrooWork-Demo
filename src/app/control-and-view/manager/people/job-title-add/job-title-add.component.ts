@@ -36,12 +36,22 @@ export class JobTitleAddComponent implements OnInit {
   constructor(private peopleServiceService: PeopleServiceService, private router: Router) { }
 
   addNewJobtitle(JobtitleName, JobTitleDescription) {
-    if(!JobtitleName.trim()){
-      alert('JobtitleName not provided !');
+   if(!JobtitleName)
+   {
+    alert('Job title is not provided !');
+    return;
+   }
+   if(!JobTitleDescription)
+   {
+    alert('Job title description is not provided !');
+    return;
+   }
+    if(JobtitleName && !JobtitleName.trim()){
+      alert('Jobtitle is not provided !');
       return;
     }
-    if(!JobTitleDescription.trim()){
-      alert('JobTitleDescription not provided !');
+    if(JobTitleDescription && !JobTitleDescription.trim()){
+      alert('Job Title Description is not provided !');
       return;
     }
     this.peopleServiceService.addJobtitle(JobtitleName, JobTitleDescription, this.employeekey, this.OrganizationID)
