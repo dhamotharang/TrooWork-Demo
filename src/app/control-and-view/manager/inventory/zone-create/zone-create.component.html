@@ -8,42 +8,42 @@
   <br>
   <div class="col-md-12">
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building" >Building* </label></h5>
-      <div class="md-form col-md-3" style="text-align:left">
-          <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey" (change)="selectFloorfromBuildings($event.target.value)">
-              <option >--Select--</option>
-              <option *ngFor="let b of building" [value]="b.FacilityKey">
-                  {{b.FacilityText}}
-              </option>
-          </select>
+      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building">Building* </label></h5>
+      <div class="md-form col-md-8 col-lg-8 col-sm-8" style="text-align:left">
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FacilityKey" (change)="selectFloorfromBuildings($event.target.value)">
+          <option value="">--Select--</option>
+          <option *ngFor="let b of building" [value]="b.FacilityKey">
+            {{b.FacilityText}}
+          </option>
+        </select>
       </div>
-      <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
-        <h5 style="text-align:right" class="col-md-4"><label for="floorname">Floor Name* </label></h5>
-        <div class="md-form col-md-3" style="text-align:left">
-          <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorName">
-            <option >--Select--</option>
-            <option *ngFor="let f of floorName" [value]="f.FloorKey">
-                {{f.FloorName}}
-            </option>
-        </select> 
-          </div>
-        <div class="col col-md-5"></div>
+      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="floorname">Floor Name* </label></h5>
+      <div class="md-form col-md-8 col-lg-8 col-sm-8" style="text-align:left">
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FloorName">
+          <option value="">--Select--</option>
+          <option *ngFor="let f of floorName" [value]="f.FloorKey">
+            {{f.FloorName}}
+          </option>
+        </select>
       </div>
+    </div>
     <div class="row col-md-12">
-        <h5 style="text-align:right" class="col-md-4"><label for="building" >Zone Name* </label></h5>
-        <div class="md-form col-md-3" style="text-align:left">
-            <input type="text" maxlength="20" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"  [(ngModel)]="ZoneName">
-        </div>
-        <div class="col col-md-5"></div>
+      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building">Zone Name* </label></h5>
+      <div class="md-form col-md-8 col-lg-8 col-sm-8" style="text-align:left">
+        <input type="text" maxlength="20" style="background-color: #D4F4FF !important;" class="form-control"
+          [(ngModel)]="ZoneName">
       </div>
-      
+    </div>
+
     <div class="row col-md-12">
       <div class="col col-md-3"></div>
-      <div style="text-align:right" class="col-md-3"><button style="color:white !important"  class="btn btn-success"
-         (click)="addZone(FacilityKey,FloorName,ZoneName,FloorKey)"><b>ADD NEW ZONE</b>
-      </button></div>
+      <div style="text-align:right" class="col-md-3">
+        <a style="color:white !important" class="btn btn-success" (click)="addZone(FacilityKey,FloorName,ZoneName,FloorKey)"><b>ADD
+            NEW ZONE</b>
+        </a>
+      </div>
       <div style="text-align:left" class="col-md-3">
         <a routerLink="/Zoneview" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
             Back
@@ -52,5 +52,4 @@
       <div class="col col-md-3"></div>
     </div>
   </div>
-  <br><br>
 </div>

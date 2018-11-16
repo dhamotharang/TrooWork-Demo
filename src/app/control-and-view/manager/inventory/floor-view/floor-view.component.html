@@ -1,21 +1,22 @@
 <app-manager-dash-board></app-manager-dash-board>
 <!-- <div style="width: 100%;height: 100%;">
   <div class="bg-dark" style="width: 100%;height: 100%;"> -->
-      <div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
-    <h4 class="refer"><b> FLOORS</b> </h4>
-    <br>
-    <div style="text-align:center">
-      <a routerLink="/Createfloor" class="btn btn-success" routerLinkActive="active">Create New Floor</a></div>
-    <form [formGroup]="searchform">
+<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <h4 class="refer"><b> FLOORS</b> </h4>
+  <br>
+  <div style="text-align:center">
+    <a routerLink="/Createfloor" class="btn btn-success" routerLinkActive="active">Create New Floor</a></div>
+  <form [formGroup]="searchform">
 
-      <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
-        <input class="form-control" name="searchfloorview" type="text" maxlength="20" specialIsAlphaNumeric minlength="3" placeholder="Search Building,Floor" aria-label="Search"
-          [(ngmodel)]="SearchFloor" formControlName="SearchFloor" (input)="searchFloor($event.target.value);" style="width: 100%;">
-        <div *ngIf="searchform.controls.SearchFloor.errors?.minlength">Minimum 3 characters required.</div>
-      </div>
-      <!-- <div *ngIf="searchform.controls.SearchFloor.errors?.minlength">Name must be at least 3 characters long.</div>  -->
-    </form>
-    <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="bg-info">
+    <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
+      <input class="form-control" name="searchfloorview" type="text" maxlength="20" specialIsAlphaNumeric minlength="3"
+        placeholder="Search Building,Floor" aria-label="Search" [(ngmodel)]="SearchFloor" formControlName="SearchFloor"
+        (input)="searchFloor($event.target.value);" style="width: 100%;">
+      <div *ngIf="searchform.controls.SearchFloor.errors?.minlength">Minimum 3 characters required.</div>
+    </div>
+    <!-- <div *ngIf="searchform.controls.SearchFloor.errors?.minlength">Name must be at least 3 characters long.</div>  -->
+  </form>
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
     <table class="table table-hover table-responsive table-bordered table">
       <thead class="tableHead">
         <!-- <tr> -->
@@ -36,8 +37,9 @@
         </tr>
         <tr *ngIf="floor?.length == 0">
           <td colspan="4" class="no-data-available">No records found</td>
-    </tr>
-        <div mdbModal #basicModal="mdbModal" class="modal fade" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+        </tr>
+        <div mdbModal #basicModal="mdbModal" class="modal fade" role="dialog" aria-labelledby="myBasicModalLabel"
+          aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -52,7 +54,8 @@
               <div class="modal-footer">
                 <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide(); deleteFloor()"
                   mdbWavesEffect>Yes</button>
-                <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.hide()" mdbWavesEffect>No</button>
+                <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.hide()"
+                  mdbWavesEffect>No</button>
               </div>
             </div>
           </div>
@@ -61,6 +64,6 @@
       </tbody>
     </table>
     <button class="btn btn-success" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
-      <button class="btn btn-success" (click)="nextPage()" *ngIf="showHide2">Next >></button>
-    </div>
+    <button class="btn btn-success" (click)="nextPage()" *ngIf="showHide2">Next >></button>
   </div>
+</div>

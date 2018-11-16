@@ -39,8 +39,12 @@ export class FloorTypeCreateComponent implements OnInit {
   }
 
   addFloorType(FloorTypeName) {
+    if(FloorTypeName && !FloorTypeName.trim()){
+      alert("Please Enter Floor Type Name!");
+      return;
+    }
     if (!FloorTypeName) {
-      alert("Please provide a Department Name");
+      alert("Please provide a Floor Type Name");
     } else {
       this.inventoryServ.checkForNewFloorType(FloorTypeName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
         this.flrType = data;

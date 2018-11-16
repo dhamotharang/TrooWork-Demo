@@ -1,7 +1,7 @@
 <app-manager-dash-board></app-manager-dash-board>
 <div class="py-5 " style="padding-left: 9rem;padding-right: 9rem; padding-top:0rem !important; padding-bottom:0rem !important;">
   <div class="row col-md-12 ">
-    <h1 style="margin-left: 25rem;">Employee Form</h1>
+    <h3 style="margin-left: 25rem;">Employee Form</h3>
   </div><br>
   <div class="row bg-info col-md-12">
     <br>
@@ -12,7 +12,6 @@
           (keypress)="numberValid($event)" placeholder="Employee Number" [(ngModel)]="EmployeeNumber" style="margin-left: 1rem;">
       </div>
     </div>
-    <!-- </div> -->
 
     <div class="col-md-6 ">
       <div class="form-group">
@@ -29,27 +28,8 @@
   </div>
   <br>
   <div class="row bg-info col-md-12">
-      <div class="col-md-6">
-          <div class="form-group ">
-            <label>Employee Number*</label>
-            <!-- <div class="col-md-6 mb-2"> -->
-            <input type="text" name="EmployeeNumber"  maxlength="15" (keypress)="numberValid($event)" class="form-control" placeholder="Employee Number" [(ngModel)]="EmployeeNumber">
-            <!-- </div> -->
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group ">
-            <label>User Role Type*</label><br>
-            <select name="userroletype" style="width: 77%; background-color: #d4f4ff;" class="form-control" [(ngModel)]="UserRoleTypeKey">
-              <option value="" placeholder>--Select--</option>
-              <option *ngFor="let u of useroletype" [value]="u.UserRoleTypeKey">
-                {{u.UserRoleName}}
-              </option>
-            </select>
-          </div>
-        </div>
-    <h1 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Personal
-      Information</h1>
+    <h3 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Personal
+      Information</h3>
     <div class="col-md-6">
       <div class="form-group">
         <label>First Name*</label>
@@ -60,7 +40,6 @@
         <label>Last Name*</label>
         <input type="text" name="LastName" class="form-control  col-sm-9 col-md-9 col-lg-9" (keypress)="charValidation($event)"
           maxlength="19" placeholder="Last Name" [(ngModel)]="LastName"> </div>
-      <!-- </form> -->
     </div>
     <div class="col-md-6">
       <div class="form-group">
@@ -92,8 +71,8 @@
 
   <br>
   <div class="row bg-info col-md-12">
-    <h1 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Contact
-      Information</h1>
+    <h3 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Contact
+      Information</h3>
     <div class="col-md-6">
       <div class="form-group">
         <label>Address Line 1</label>
@@ -160,8 +139,8 @@
     </div>
     <br><br>
     <div class="row bg-info col-md-12">
-      <h1 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Other
-        Information</h1>
+      <h3 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Other
+        Information</h3>
       <div class="col-md-6">
         <div class="form-group">
           <label>Hire Date*</label>

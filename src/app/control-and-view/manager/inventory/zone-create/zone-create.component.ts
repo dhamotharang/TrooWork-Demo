@@ -10,7 +10,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class ZoneCreateComponent implements OnInit {
   building: Inventory[];
   floorName: Inventory[];
-
+  FacilityKey;
+  FloorName;
   role: String;
   name: String;
   employeekey: Number;
@@ -89,6 +90,8 @@ export class ZoneCreateComponent implements OnInit {
       .getallBuildingList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.building = data;
+        this.FloorName="";
+        this.FacilityKey="";
       });
 
 

@@ -118,10 +118,10 @@ export class SchedulingService {
       .get(`http://localhost:3000/api/getScheduleById?bkey=` + scheduleKey + '&OrganizationID=' + orgID);
   }
 
-  assignChangesForWO(employeekey, orgID, EmpKey, scheduleNameKey, ScheduleDescription) {
+  assignChangesForWO(scheduleDT, employeekey, orgID, EmpKey, scheduleNameKey, ScheduleDescription) {
     return this
       .http
-      .get(`http://localhost:3000/api/assignChangesForWork?managerkey=` + employeekey + '&empkey=' + EmpKey + '&batchkey=' + scheduleNameKey + '&batchdesp=' + ScheduleDescription + '&OrganizationID=' + orgID);
+      .get(`http://localhost:3000/api/assignChangesForWork?managerkey=` + employeekey + '&empkey=' + EmpKey + '&batchkey=' + scheduleNameKey + '&batchdesp=' + ScheduleDescription + '&OrganizationID=' + orgID + '&date1=' + scheduleDT);
   }
 
   checkForNewScheduleName(EmpKey, orgID, BatchSchduleName) {
