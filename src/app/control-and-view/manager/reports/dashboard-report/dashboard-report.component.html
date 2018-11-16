@@ -8,7 +8,7 @@
   <br><br>
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
     <div class="col-md-6">
-      <h1 style="text-align: right"></h1>
+      <h3 style="text-align: right"></h3>
       <!-- <form class="" method="post" action="https://formspree.io/"> -->
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Employee</label>
@@ -21,7 +21,7 @@
       </div>
       <div class="form-group" style="width: 25rem;">
         <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">From Date</label>
-        <igx-datePicker [value]="date" [(ngModel)]="fromdate" (onSelection)="dashboardreportbyfilter()"></igx-datePicker>
+        <igx-datePicker [(ngModel)]="fromdate" (onSelection)="dashboardreportbyfilter()"></igx-datePicker>
       </div>
     </div>
     <div class="col-md-6">

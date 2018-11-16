@@ -206,11 +206,16 @@ export class InspectionService {
 
   }
   deleteSelectedTemplateQuestion(templateID, OrganizationID) {
-    return this
-      .http
-      .get('http://localhost:3000/api/deleteSelectedTemplateQuestion?templateID=' + templateID + '&OrganizationID=' + OrganizationID);
-
-  }
+    
+      const url = 'http://localhost:3000/api/deleteSelectedTemplateQuestion';
+      const obj={
+        templateID:templateID,
+        OrganizationID:OrganizationID
+      }
+      return this
+        .http
+        .post(url, obj);
+    }
   getTemplateEditDetails(templateid, OrganizationID) {
     return this
       .http

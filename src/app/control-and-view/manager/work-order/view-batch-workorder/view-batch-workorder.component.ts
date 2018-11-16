@@ -383,7 +383,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
       zoneKey: zone_key,
       employeeKey: em_key,
       workorderTypeKey: wot_key,
-      BatchScheduleNameKey: batch_key,
+      batchScheduleNameKey: batch_key,
       OrganizationID: this.OrganizationID,
       floorKey: floor_key
     };

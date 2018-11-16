@@ -6,11 +6,10 @@
   </div>
   <br>
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
-    <br>
     <div class="col-md-12">
-      <div class="form-group">
+      <div class="form-group" style="margin-top: 2rem">
         <div class="row col-md-12">
-          <h5 style="text-align:right" class="col-md-4"><label for="building">Schedule Name* </label></h5>
+          <h5 style="text-align:right;margin-top: 1.5rem;" class="col-md-4"><label for="building">Schedule Name </label></h5>
           <div class="md-form col-md-3" style="text-align:left">
             <select [(ngModel)]="BatchScheduleNameKey" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
               (change)="getBatchSchedule($event.target.value)">
@@ -25,7 +24,7 @@
     </div>
   </div>
   <br>
-  <div class="bg-info">
+  <div style="margin-left: 1.4rem;width: 100.2%;background-color: white;">
     <table *ngIf='reportarray' class="table table-hover table-responsive table-bordered table">
       <thead class="tableHead">
         <th>Building</th>
@@ -54,8 +53,6 @@
           <td>{{x.RoomType}}</td>
           <td *ngIf="x.MetricType === 'Minutes Per'">{{x.MetricValue}}</td>
           <td *ngIf="x.MetricType != 'Minutes Per'">{{x.MetricValue * x.Area}}</td>
-
-          <!--<span id="tooltip-span" style="position:absolute;margin-bottom:-166">{{x.EquipmentType}}</span> </td>-->
           <td>{{x.dailyFrequency}}</td>
           <td *ngIf="x.mon==1">x</td>
           <td *ngIf="x.mon !=1"></td>
@@ -71,8 +68,6 @@
           <td *ngIf="x.sat!=1"></td>
           <td *ngIf="x.sun==1">x</td>
           <td *ngIf="x.sun!=1"></td>
-          <!--                            <td >{{x.SwipIn}}</td>
-              <td >{{x.SwipOut}}</td>-->
         </tr>
         <tr *ngIf="reportarray?.length> 0">
           <td colspan="8">Total Assigned daily minutes</td>

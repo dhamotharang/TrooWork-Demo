@@ -17,7 +17,7 @@ export class FloorCreateComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  FacilityKey;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -95,6 +95,7 @@ export class FloorCreateComponent implements OnInit {
       .getallBuildingList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.flooroptions = data;
+        this.FacilityKey=""
       });
   }
 

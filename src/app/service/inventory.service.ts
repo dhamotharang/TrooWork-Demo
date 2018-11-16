@@ -399,7 +399,7 @@ export class InventoryService {
     return this.http.post(uri, obj);
   }
 
-  getRoomList(page, itemsCount,empKey, OrgID) {
+  getRoomList(page, itemsCount, empKey, OrgID) {
     return this
       .http
       .get('http://localhost:3000/api/getAllRooms?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
@@ -563,19 +563,18 @@ export class InventoryService {
       .get('http://localhost:3000/api/getRoomById?roomKey=' + RoomKey + '&OrganizationID=' + OrgID);
 
   }
-  checkUniqueBarcode_Updation(Barcode,roomkey,employeekey,OrganizationID) {
+  checkUniqueBarcode_Updation(Barcode, roomkey, employeekey, OrganizationID) {
 
     return this
       .http
-      .get('http://localhost:3000/api/checkUniqueBarcode_Updation?barcode='+Barcode+'&roomkey='+roomkey+'&employeekey='+employeekey+'&OrganizationID='+OrganizationID);
+      .get('http://localhost:3000/api/checkUniqueBarcode_Updation?barcode=' + Barcode + '&roomkey=' + roomkey + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
 
   }
-  updateRoom(obj)
-  {
+  updateRoom(obj) {
     const url = 'http://localhost:3000/api/updateRoom';
     return this
       .http
-      .post (url, obj);
+      .post(url, obj);
   }
 
   checkForNewFloorType(FloorTypeName, empKey, OrgID) {
@@ -627,7 +626,7 @@ export class InventoryService {
       BarcodeINT: equipmentBarcode
     };
     return this.http.post(uri, obj);
-    
+
   }
 
   checkEditedRoomName(facKey, roomName, RoomKey, empKey, OrgID) {
@@ -635,6 +634,22 @@ export class InventoryService {
       .http
       .get('http://localhost:3000/api/checkForEditedRoomName?roomKey=' + RoomKey + '&RoomName=' + roomName + '&FacilityKey=' + facKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
 
+  }
+
+  getAllRoomFilterList(OrgID, bldgKey, flrKey, zKey, rTypeKey, rKey, flrTypeKey, empKey) {
+    console.log("service... org" + OrgID + " ..... bldg " + bldgKey + " .....flr " + flrKey + " .....zone " + zKey + " .....rtype " + rTypeKey + " .....room " + rKey + " .....flrtype " + flrTypeKey + " .....emp " + empKey);
+    const uri = "http://localhost:3000/api/viewRoomsByallFilters";
+    const obj = {
+      manager: empKey,
+      facilitykey: bldgKey,
+      floorKey: flrKey,
+      zoneKey: zKey,
+      roomKey: rKey,
+      roomTypeKey: rTypeKey,
+      floorTypeKey: flrTypeKey,
+      OrganizationID: OrgID
+    }
+    return this.http.post(uri, obj);
   }
   // @rodney ends....
 }
