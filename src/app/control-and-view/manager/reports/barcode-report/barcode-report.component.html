@@ -1,158 +1,164 @@
 <app-manager-dash-board></app-manager-dash-board>
 <br><br>
-
-<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+<img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
+<div class="py-5 " *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
-    <div class="row bg-info col-md-12">
-      <h1 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Reports 
-        on Barcode</h1>
-       
-        
-
-        <div class="col-md-6">
-          
-          <!-- <form class="" method="post" action="https://formspree.io/"> -->
-          <div class="form-group">
-            <label>Building*</label><br>
-              <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey" (change)="getFloorDisp($event.target.value)" (change)='EquipmentKey=null;EquipmentTypeKey=null;'>
-              <option value="">--Select--</option>
-              <option *ngFor="let b of facilitylist" [value]="b.FacilityKey">
-                  {{b.FacilityText}}
-              </option>
-            </select>
-          
-         
-          </div>
-          
+  <div class="row bg-info col-md-12">
+    <h1 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Reports
+      on Barcode</h1>
 
 
-        
-            <div class="form-group">
-              <label>Floor*</label><br>
 
-            <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey" (change)="getZoneRoom($event.target.value,FacilityKey)"[disabled]="!FacilityKey">
-              <option value="" >--Select--</option>
-              <option *ngFor="let f of floor" [value]="f.FloorKey">
-                  {{f.FloorName}}
-              </option>
-          </select> 
-          </div>
+    <div class="col-md-6">
 
-         
-              <div class="form-group">
-                <label>Zone</label><br>
-                <!-- <select name="zone" style="width: 80%; background-color: #d4f4ff;" disabled>
+      <!-- <form class="" method="post" action="https://formspree.io/"> -->
+      <div class="form-group">
+        <label>Building*</label><br>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey"
+          (change)="getFloorDisp($event.target.value)" (change)='EquipmentKey=null;EquipmentTypeKey=null;'>
+          <option value="">--Select--</option>
+          <option *ngFor="let b of facilitylist" [value]="b.FacilityKey">
+            {{b.FacilityText}}
+          </option>
+        </select>
+
+
+      </div>
+
+
+
+
+      <div class="form-group">
+        <label>Floor*</label><br>
+
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey"
+          (change)="getZoneRoom($event.target.value,FacilityKey)" [disabled]="!FacilityKey">
+          <option value="">--Select--</option>
+          <option *ngFor="let f of floor" [value]="f.FloorKey">
+            {{f.FloorName}}
+          </option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label>Zone</label><br>
+        <!-- <select name="zone" style="width: 80%; background-color: #d4f4ff;" disabled>
                   <option value="">--Select--</option>
                   <option value="">Z1</option>
                   <option value="">z2</option>
                 </select> -->
-                <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey" [disabled]="!FloorKey">
-                  <option value="" >--Select--</option>
-                  <option *ngFor="let z of zoneroom" [value]="z.ZoneKey">
-                      {{z.ZoneName}}
-                  </option>
-              </select> 
-              </div>
-              
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey"
+          [disabled]="!FloorKey">
+          <option value="">--Select--</option>
+          <option *ngFor="let z of zoneroom" [value]="z.ZoneKey">
+            {{z.ZoneName}}
+          </option>
+        </select>
+      </div>
 
-              
-                <div class="form-group">
-                  <label>Room Type</label><br>
-                  <!-- <select name="rtype" style="width: 80%; background-color: #d4f4ff;" disabled>
+
+
+      <div class="form-group">
+        <label>Room Type</label><br>
+        <!-- <select name="rtype" style="width: 80%; background-color: #d4f4ff;" disabled>
                     <option value="">--Select--</option>
                     <option value="">r1</option>
                     <option value="">r2</option>
                   </select> -->
 
-                  <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey" [disabled]="!FloorKey">
-                    <option value="">--Select--</option>
-                    <option *ngFor="let r of room" [value]="r.RoomTypeKey">
-                        {{r.RoomTypeName}}
-                    </option>
-                </select> 
-                </div>
- </div>      
- 
-        <div class="col-md-6">
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey"
+          [disabled]="!FloorKey">
+          <option value="">--Select--</option>
+          <option *ngFor="let r of room" [value]="r.RoomTypeKey">
+            {{r.RoomTypeName}}
+          </option>
+        </select>
+      </div>
+    </div>
 
-            <div class="form-group">
-                <label>Equipment Type</label><br>
-                <!-- <select name="etype" style="width: 80%; background-color: #d4f4ff;">
+    <div class="col-md-6">
+
+      <div class="form-group">
+        <label>Equipment Type</label><br>
+        <!-- <select name="etype" style="width: 80%; background-color: #d4f4ff;">
                   <option value="">--Select--</option>
                   <option value="">e1</option>
                   <option value="">e2</option>
                 </select> -->
 
-                <select  style="background-color: #D4F4FF !important;width: 30rem" class="form-control" (change)='FacilityKey=null;FloorKey=null;ZoneKey=null;RoomTypeKey=null;'  [(ngModel)]="EquipmentTypeKey">
-                    <option value="">--Select--</option>
-                    
-                    <option *ngFor="let f of equipmenttypelist" [value]="f.EquipmentTypeKey">
-                        {{f.EquipmentTypeText}}
-                    </option>
-                </select>
-              
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" (change)='FacilityKey=null;FloorKey=null;ZoneKey=null;RoomTypeKey=null;getequipments($event.target.value);'
+          [(ngModel)]="EquipmentTypeKey">
+          <option value="">--Select--</option>
 
-              </div>
+          <option *ngFor="let f of equipmenttypelist" [value]="f.EquipmentTypeKey">
+            {{f.EquipmentTypeText}}
+          </option>
+        </select>
 
-              <div class="form-group">
-                  <label>Equpiment</label><br>
-                   <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EquipmentKey">
-                      <option value="">--Select--</option>
-                       <option *ngFor="let f of equipment" [value]="f.EquipmentKey">
-                          {{f.EquipmentName}}
-                      </option>
-                  </select>
-                
-  
-                </div>
-        </div>
 
-        <div class="row col-md-12">
-          <div class="col-md-6"></div>
-           <div style="text-align:center">
-        <button type="button"  class="btn btn-primary" (click)=generateBarcodeReport(FacilityKey,FloorKey,RoomTypeKey,ZoneKey,EquipmentTypeKey,EquipmentKey)>Generate</button>
-        </div>
-        
-</div>
+      </div>
+
+      <div class="form-group">
+        <label>Equipment</label><br>
+        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EquipmentKey">
+          <option value="">--Select--</option>
+          <option *ngFor="let f of equipment" [value]="f.EquipmentKey">
+            {{f.EquipmentName}}
+          </option>
+        </select>
+
+
+      </div>
+    </div>
+
+    <div class="row col-md-12">
+      <div class="col-md-6"></div>
+      <div style="text-align:center">
+        <button type="button" class="btn btn-success" (click)=generateBarcodeReport(FacilityKey,FloorKey,RoomTypeKey,ZoneKey,EquipmentTypeKey,EquipmentKey)>Generate</button>
+      </div>
+
+    </div>
+    <br>
+  </div>
 <br>
-</div>
+  <!-- <div style="margin-left: 1.5rem;margin-right: 1.5rem;    margin-top: 40px;"></div> -->
 
-<!-- <div style="margin-left: 1.5rem;margin-right: 1.5rem;    margin-top: 40px;"></div> -->
-
-<!-- Table for generating barcode for rooms -->
-<table *ngIf='Roomflag' id="reportexport" class="table table-hover table-responsive table-bordered table">
-  <thead class="tableHead">
-    <!-- <tr> -->
-    <th> Room Name </th>
-    <th> Barcode </th>
-    <th> Building</th>
-    <th>Floor</th>
-    <th> Zone</th>
-    <th>Roomtype</th>
-    <!-- </tr> -->
-  </thead>
-  <tbody>
-    <tr *ngFor="let x of viewBarcodeReport" >
-      <td>{{x.RoomId}}</td>
-      <td>{{x.Barcode1}}</td>
-      <td>{{x.FacilityName}}</td>
-      <td>{{x.FloorName}}</td>
-      <td>{{x.ZoneName}}</td>
-      <td>{{x.RoomType}}</td>
-    </tr>
-    <tr *ngIf="viewBarcodeReport?.length == 0">
-      <td colspan="6" class="no-data-available">No records found</td>
-    </tr>
-  </tbody>
-</table>
-<br>
-<br>
-
+  <!-- Table for generating barcode for rooms -->
+  <div style="margin-left: 1.5rem;width: 100%" class="bg-info">
+    <table *ngIf='Roomflag' id="reportexport" class="table table-hover table-responsive table-bordered table">
+      <thead class="tableHead">
+        <!-- <tr> -->
+        <th> Room Name </th>
+        <th> Barcode </th>
+        <th> Building</th>
+        <th>Floor</th>
+        <th> Zone</th>
+        <th>Roomtype</th>
+        <!-- </tr> -->
+      </thead>
+      <tbody>
+        <tr *ngFor="let x of viewBarcodeReport">
+          <td>{{x.RoomId}}</td>
+          <td>{{x.Barcode1}}</td>
+          <td>{{x.FacilityName}}</td>
+          <td>{{x.FloorName}}</td>
+          <td>{{x.ZoneName}}</td>
+          <td>{{x.RoomType}}</td>
+        </tr>
+        <tr *ngIf="viewBarcodeReport?.length == 0">
+          <td colspan="6" class="no-data-available">No records found</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+  </div>
 </div>
 
 <div style="text-align:center">
-  <button type="button" *ngIf='Roomflag?.length> 0'  class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
-  </div>
+  <button type="button" *ngIf='Roomflag?.length> 0' class="btn btn-success" (click)="exportToExcel()">Export To Excel</button>
+</div>
 
 <!-- Table for generating barcode for Equipments -->
 <table *ngIf='Equipmentflag' id="reportexport" class="table table-hover table-responsive table-bordered table">
@@ -161,17 +167,17 @@
     <th> Equpiment Name </th>
     <th> Barcode </th>
     <th> Equipment Type</th>
-    
+
     <!-- </tr> -->
   </thead>
   <tbody>
-    <tr *ngFor="let x of viewBarcodeEquipment" >
+    <tr *ngFor="let x of viewBarcodeEquipment">
       <td>{{x.EquipmentName}}</td>
       <td>{{x.Barcode1}}</td>
       <td>{{x.EquipmentType}}</td>
-      
-      
-     
+
+
+
     </tr>
   </tbody>
 </table>
@@ -182,9 +188,6 @@
 
 
 <div style="text-align:center">
-  <button type="button" *ngIf='Equipmentflag?.length> 0'  class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
-  </div>
-
-
-
-        
+  <button type="button" *ngIf='Equipmentflag?.length> 0' class="btn btn-primary" (click)="exportToExcel()">Export To
+    Excel</button>
+</div>

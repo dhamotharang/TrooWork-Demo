@@ -263,6 +263,8 @@ export class CreateWorkOrderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.EquipmentTypeList = data;
         this.EquipmentList = data;
+        this.EquipmentKey="";
+        this.EquipmentTypeKey="";
       });
     }
     else
@@ -389,7 +391,6 @@ export class CreateWorkOrderComponent implements OnInit {
     }
     else if ( (!(this.timeValue)) && (this.isRecurring==false) ) {
       alert("please provide time!");
-      debugger;
     }else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
       alert("check your startdate!");
 
@@ -1562,6 +1563,7 @@ export class CreateWorkOrderComponent implements OnInit {
   GobacktoMenu() {
     this.newType = false;
     this.WorkorderTypeKey="";
+    this.newworkordertypetext=null;
   }
   withoutequip_wo()
   {    var roomlistObj = [];

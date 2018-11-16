@@ -265,6 +265,8 @@ export class CreateBatchWorkorderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.EquipmentTypeList = data;
         this.EquipmentList = data;
+        this.EquipmentKey="";
+         this.EquipmentTypeKey="";
       });
     }
     else

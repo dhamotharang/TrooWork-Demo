@@ -1,7 +1,7 @@
 <app-manager-dash-board></app-manager-dash-board>
 <br><br>
-
-<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+<img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
+<div class="py-5 " *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">REPORTS ON WORKORDERS</h3>
@@ -130,7 +130,7 @@
     <div class="row col-md-12">
       <div class="col-md-6"></div>
       <div style="text-align:center">
-        <button type="button" class="btn btn-primary" (click)=generateWorkOrderReport(fromdate,todate,FacilityKey,FloorKey,RoomTypeKey,ZoneKey,RoomKey,EmployeeKey,WorkorderStatusKey)>Generate</button>
+        <button type="button" class="btn btn-success" (click)=generateWorkOrderReport(fromdate,todate,FacilityKey,FloorKey,RoomTypeKey,ZoneKey,RoomKey,EmployeeKey,WorkorderStatusKey)>Generate</button>
         <br><br>
       </div>
     </div>
@@ -163,7 +163,7 @@
           <td>{{x.WorkorderStatus}}</td>
           <td>{{x.LastName}},{{x.FirstName}}</td>
           <td>{{x.RoomId}}</td>
-          <td id="tooltip">{{x.EquipmentName}}<span id="tooltip-span" style="position:absolute;color: white;">{{x.EquipmentType}}</span>
+          <td>{{x.EquipmentName}}
           </td>
           <td>{{x.checkin}}</td>
           <td>{{x.checkout}}</td>
@@ -184,6 +184,6 @@
   <br>
   <br>
   <div style="text-align:center" *ngIf="viewWorkorderReport?.length> 0">
-    <button type="button" class="btn btn-primary" (click)="exportToExcel()">Export To Excel</button>
+    <button type="button" class="btn btn-success" (click)="exportToExcel()">Export To Excel</button>
   </div>
 </div>

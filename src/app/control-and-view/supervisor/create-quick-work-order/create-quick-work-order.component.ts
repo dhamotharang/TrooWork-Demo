@@ -11,6 +11,8 @@ import { Router } from "@angular/router";
 export class CreateQuickWorkOrderComponent implements OnInit {
   EmployeeOption: workorder[];
   facilitylist: workorder[];
+  emp_key: number;
+  org_id: number;
   marked = false;
   prioritylist: workorder[];
   EmployeeKey;
@@ -41,13 +43,9 @@ export class CreateQuickWorkOrderComponent implements OnInit {
   occursonday;
 
   workorderCreation;
-
   role: String;
   name: String;
-  employeekey: Number;
   IsSupervisor: Number;
-  OrganizationID: Number;
-  emp_key;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -64,8 +62,6 @@ export class CreateQuickWorkOrderComponent implements OnInit {
     }
     return window.atob(output);
   }
-
-
   constructor(private router: Router, private WorkOrderServiceService: WorkOrderServiceService) { }
 
   convert_DT(str) {
@@ -83,6 +79,18 @@ export class CreateQuickWorkOrderComponent implements OnInit {
     }
   }
   saveQuickWorkOrder() {
+    if(!(this.EmployeeKey))
+    {
+      alert("please select employee!");
+    }else if(!(this.FacilityKey))
+    {
+      alert("please select building!")
+    }
+    else if(!(this.WorkorderNotes))
+    {
+      alert("please enter work-order notes!");
+    }else{
+
     this.wot = - 1;
     this.startDT = this.convert_DT(new Date());
     var d = new Date();
@@ -90,71 +98,74 @@ export class CreateQuickWorkOrderComponent implements OnInit {
     datetext = datetext.split(' ')[0];
     this.workTime = datetext;
     this.is_BarcodeRequired = 0;
-    var facilityString;
-    if(!this.EmployeeKey)
-    {
-      alert("select an employee!");
-    }
-    else if (!this.FacilityKey) {
-      alert("Building is not provided !");
-    } else
-    if (!this.WorkorderNotes) {
-      alert("Work Order Notes is not provided !");
-    } 
-    else {
+
+    if (this.WorkorderNotes) {
       this.notes = this.WorkorderNotes;
-      facilityString = this.FacilityKey;
-      if (this.EmployeeKey) {
-        this.emp_key = this.EmployeeKey;
-      } else {
-        this.emp_key = - 1;
-      }
-
-      if (this.PriorityKey) {
-        this.priority = this.PriorityKey;
-      } else {
-        this.priority = - 1;
-      }
-
-      if (this.isPhotoRequired) {
-        this.is_PhotoRequired = 1;
-      } else {
-        this.is_PhotoRequired = 0;
-      }
-      this.createworkorder = {
-        workorderkey: - 99,
-        workordertypekey: - 1,
-        equipmentkey: - 1,
-        roomkeys: '-1',
-        facilitykeys: facilityString,
-        floorkeys: '-1',
-        zonekeys: '-1',
-        roomtypekeys: '-1',
-        employeekey: this.emp_key,
-        priority: this.priority,
-        fromdate: this.startDT,
-        todate: this.startDT,
-        intervaltype: '0',
-        repeatinterval: 1,
-        occursonday: null,
-        occursontime: this.workTime,
-        occurstype: null,
-        workordernote: this.notes,
-        isbar: this.is_BarcodeRequired,
-        isphoto: this.is_PhotoRequired,
-        metaupdatedby: this.employeekey,
-        OrganizationID: this.OrganizationID
-      };
-     
-      this.WorkOrderServiceService
-        .addQuickWorkOrder(this.createworkorder)
-        .subscribe(res => {
-          
-          alert("work-order created successfully");
-          this.router.navigateByUrl('/viewWorkOrderSupervisor');
-        });
+    } else {
+      this.notes = null;
     }
+
+
+    var facilityString;
+    if (this.FacilityKey) {
+      facilityString = this.FacilityKey;
+    }
+
+    if (this.EmployeeKey) {
+      this.emp_key = this.EmployeeKey;
+    } else {
+      this.emp_key = - 1;
+    }
+
+
+    if (this.PriorityKey) {
+      this.priority = this.PriorityKey;
+    } else {
+      this.priority = - 1;
+    }
+    if (this.isPhotoRequired) {
+      this.is_PhotoRequired = 1;
+    } else {
+      this.is_PhotoRequired = 0;
+    }
+
+    this.createworkorder = {
+
+      workorderkey: - 99,
+      workordertypekey: - 1,
+      equipmentkey: - 1,
+      roomkeys: '-1',
+      facilitykeys: facilityString,
+      floorkeys: '-1',
+      zonekeys: '-1',
+      roomtypekeys: '-1',
+      employeekey: this.emp_key,
+      priority: this.priority,
+      fromdate: this.startDT,
+      todate: this.startDT,
+      intervaltype: '0',
+      repeatinterval: 1,
+      occursonday: null,
+      occursontime: this.workTime,
+      occurstype: null,
+      workordernote: this.notes,
+      isbar: this.is_BarcodeRequired,
+      isphoto: this.is_PhotoRequired,
+      metaupdatedby: this.emp_key,
+      OrganizationID: this.org_id
+
+    };
+   
+    this.WorkOrderServiceService
+      .addQuickWorkOrder(this.createworkorder)
+      .subscribe(res => {
+        alert("work-order created successfully");
+        this.router.navigateByUrl('/viewWorkOrderSupervisor');
+    });
   }
+    
+  }
+
 
   ngOnInit() {
     var token = localStorage.getItem('token');
@@ -163,24 +174,25 @@ export class CreateQuickWorkOrderComponent implements OnInit {
     this.role = profile.role;
     this.IsSupervisor = profile.IsSupervisor;
     this.name = profile.username;
-    this.employeekey = profile.employeekey;
-    this.OrganizationID = profile.OrganizationID;
-
+    this.emp_key = profile.employeekey;
+    this.org_id = profile.OrganizationID;
+    this.FacilityKey="";
+    this.EmployeeKey="";
+    this.PriorityKey="";
     this.WorkOrderServiceService
-      .getallEmployee(this.employeekey, this.OrganizationID)
+      .getallEmployee(this.emp_key, this.org_id)
       .subscribe((data: any[]) => {
         this.EmployeeOption = data;
       });
     this.WorkOrderServiceService
-      .getallFacility(this.employeekey, this.OrganizationID)
+      .getallFacility(this.emp_key, this.org_id)
       .subscribe((data: any[]) => {
         this.facilitylist = data;
       });
     this.WorkOrderServiceService
-      .getallPriority(this.OrganizationID)
+      .getallPriority(this.org_id)
       .subscribe((data: any[]) => {
         this.prioritylist = data;
       });
   }
-
 }

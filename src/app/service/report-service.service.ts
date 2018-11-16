@@ -111,6 +111,12 @@ export class ReportServiceService {
       .http
       .get('http://localhost:3000/api/domainvaluesByKey?domain=facilityOnly&key=' + key + '&OrganizationID=' + orgID);
   }
+  geteq_values(dom,eqtypekey, OrganizationID)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/domainvaluesByKey?domain='+dom+'&key='+eqtypekey+'&OrganizationID='+OrganizationID);
+  }
   getZone(fkey, floorkey, orgID) {
     return this
       .http
