@@ -115,10 +115,10 @@
           placeholder="Alternative Phone Number"> </div>
 
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" *ngIf="editempdtails">
       <div class="form-group">
         <label>Email</label><br>
-        <input *ngIf="editempdtails" type="text" name="EmailID" maxlength="40" [(ngModel)]="editempdtails.EmailID" class="form-control"
+        <input  type="text" name="EmailID" maxlength="40" [(ngModel)]="editempdtails.EmailID" class="form-control"
           placeholder="Email" email #prmEmail="ngModel">
           <div *ngIf="prmEmail.errors?.email" style="color: red;"> 
             Email not valid.
