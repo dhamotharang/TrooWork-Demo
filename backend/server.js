@@ -5134,7 +5134,7 @@ app.post(securedpath + '/updateEquipment', supportCrossOriginScript, function (r
                 }
                 else {
 
-                    res.end("success");
+                    res.end(JSON.stringify(rows[11]));
 
                 }
             });
@@ -9144,9 +9144,11 @@ app.post(securedpath + '/deleteInspectionTemplate', supportCrossOriginScript, fu
 app.options('/deleteSelectedTemplateQuestion', supportCrossOriginScript);
 app.post(securedpath + '/deleteSelectedTemplateQuestion', supportCrossOriginScript, function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
-    var templateID = url.parse(req.url, true).query['templateID'];
-    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
-    //    var updatedBy = url.parse(req.url, true).query['updatedBy'];
+    // var templateID = url.parse(req.url, true).query['templateID'];
+    // var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+      var templateID = req.body.templateID;
+    var OrganizationID = req.body.OrganizationID;
+//    var updatedBy = url.parse(req.url, true).query['updatedBy'];
     pool.getConnection(function (err, connection) {
         if (err) {
 

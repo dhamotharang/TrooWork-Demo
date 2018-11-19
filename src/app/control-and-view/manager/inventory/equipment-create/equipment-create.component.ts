@@ -58,9 +58,16 @@ export class EquipmentCreateComponent implements OnInit {
     this.FloorKey = floorKey;
   }
   addEquipment(EquipmentName, EquipmentDescription, barcode, EquipmentTypeKey) {
-
+    if(EquipmentName && !EquipmentName.trim()){
+      alert("Please Enter Equipment Name!");
+      return;
+    }
+    if (EquipmentTypeKey=='--Select--') {
+      alert("Equipment Type Name is not provided");
+      return;
+    } 
     if (!EquipmentTypeKey) {
-      alert("Equipment Type is not provided");
+      alert("Equipment Type Name is not provided");
     } else if (!EquipmentName) {
       alert("Equipment Name is not provided");
     } else if (!barcode) {

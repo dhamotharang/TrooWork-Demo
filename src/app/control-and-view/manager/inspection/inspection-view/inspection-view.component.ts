@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class InspectionViewComponent implements OnInit {
 
   loading: boolean;// loading
-  
+
   inspectionordertable: any;
   searchform: FormGroup;
   fromdate: Date;
@@ -94,7 +94,8 @@ export class InspectionViewComponent implements OnInit {
     this.inspectionService
       .getInspectionOrderTablewithFromCurrentDateFilter(curr_date, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        this.inspectionordertable = data; this.loading = false;// loading
+        this.inspectionordertable = data;
+        this.loading = false;// loading
         this.pagination = +this.inspectionordertable[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
         if (this.pagination > 1) {
           this.showHide2 = true;
@@ -107,13 +108,14 @@ export class InspectionViewComponent implements OnInit {
       });
   }
   previousPage() {
-  this.loading = false;// loading
+    this.loading = true;// loading
     var curr_date = this.convert_DT(new Date());
     this.pageNo = +this.pageNo - 1;
     this.inspectionService
       .getInspectionOrderTablewithFromCurrentDateFilter(curr_date, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-        this.inspectionordertable = data; this.loading = false;// loading
+        this.inspectionordertable = data;
+        this.loading = false;// loading
         if (this.pageNo == 1) {
           this.showHide2 = true;
           this.showHide1 = false;
@@ -149,7 +151,9 @@ export class InspectionViewComponent implements OnInit {
       .getInspectionOrderTablewithFromDateOnly(date1, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
         this.inspectionordertable = data;
-        this.loading = false;// loading
+        if (!this.todate) {
+          this.loading = false;// loading
+        }
       });
     this.inspectionService
       .getInspectionOrderTablewithFromDateandToDateFilter(date1, date2, this.toServeremployeekey, this.OrganizationID)
@@ -180,7 +184,7 @@ export class InspectionViewComponent implements OnInit {
         });
     }
     else if (SearchValue.length == 0) {
-    this.loading = true;// loading
+      this.loading = true;// loading
       var curr_date = this.convert_DT(new Date());
       this.inspectionService
         .getInspectionOrderTablewithFromCurrentDateFilter(curr_date, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)

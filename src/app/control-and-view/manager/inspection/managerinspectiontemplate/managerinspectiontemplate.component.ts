@@ -179,6 +179,10 @@ export class ManagerinspectiontemplateComponent implements OnInit {
     var ratingIndexlist = [];
     var noteIndexList = [];
     var questionidList = [];
+    // if(!(this.Scoringtype.rating_yn[item.TemplateQuestionID]))
+    // {
+    //  alert("Score is not provided");
+    // }
     if (this.ScoreName === 'Yes/No' || this.ScoreName === 'Pass/Fail') {
       for (var j = 0; j < this.val.length; j++) {
         temp.push("" + this.val[j].TemplateQuestionID);

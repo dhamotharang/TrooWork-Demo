@@ -11,6 +11,7 @@ import { ExcelserviceService } from '../../../../service/excelservice.service';
   styleUrls: ['./barcode-report.component.scss']
 })
 export class BarcodeReportComponent implements OnInit {
+  loading: boolean;// loading
   Roomflag: any;
   Equipmentflag: any;
   facilitylist: Reports[];
@@ -101,13 +102,14 @@ export class BarcodeReportComponent implements OnInit {
         this.newArray = data.slice(0); //clone the array, or you'll end up with a new "None" option added to your "values" array on every digest cycle.
         this.newArray.unshift({ EquipmentTypeText: "Select All", EquipmentTypeKey: "-99" });
         this.equipmenttypelist = this.newArray;
-
+        this.EquipmentTypeKey = "";
       });
 
     this.ReportServiceService
       .getEquipment(this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.equipment = data;
+        this.EquipmentKey = "";
       });
 
 
@@ -121,11 +123,19 @@ export class BarcodeReportComponent implements OnInit {
         this.floor = data;
       });
   }
+  getequipments(eqtypekey)
+  {
+    this.ReportServiceService.geteq_values('equipments',eqtypekey, this.OrganizationID)
+    .subscribe((data: Reports[]) => {
+      this.equipment = data;
+      this.EquipmentKey="";
+    });
+  }
   generateBarcodeReport(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, EquipmentTypeKey, EquipmentKey) {
     if (!this.FacilityKey && !this.EquipmentTypeKey && !this.EquipmentKey) {
       alert("Please choose any filter");
     }
-
+    this.loading = true;
     if (FacilityKey) {
       if (!FloorKey) {
         FloorKey = null;
@@ -142,6 +152,7 @@ export class BarcodeReportComponent implements OnInit {
           this.Roomflag = true;
           this.Equipmentflag = false;
           this.viewBarcodeReport = data;
+          this.loading = false;
         });
     }
     if (EquipmentTypeKey) {
@@ -151,6 +162,7 @@ export class BarcodeReportComponent implements OnInit {
           this.Roomflag = false;
           this.Equipmentflag = true;
           this.viewBarcodeEquipment = data;
+          this.loading = false;
         });
     }
 
@@ -161,6 +173,7 @@ export class BarcodeReportComponent implements OnInit {
           this.Roomflag = false;
           this.Equipmentflag = true;
           this.viewBarcodeEquipment = data;
+          this.loading = false;
         });
     }
   }
@@ -173,7 +186,7 @@ export class BarcodeReportComponent implements OnInit {
         this.zoneroom = data;
       });
 
-    this.ReportServiceService
+      this.ReportServiceService
       .getRoomtype(fkey, floorkey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.room = data;

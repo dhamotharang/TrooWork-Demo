@@ -39,12 +39,12 @@
                 </td>
               </tr>
           <!-- new space to enter values -->
-              <tr *ngFor="let f of newAttribute; let k = index">
+              <tr *ngFor="let f of newAttribute; let k = index;trackBy:customTrackBy">
                 <td>
-                  <input class="form-control" type="text" id="newAttributeCode" [(ngModel)]="newAttribute[k]" name="newAttributeCode" />
+                  <input class="form-control" type="text"  [(ngModel)]="newAttribute[k]"   />
                 </td>
                 <td>
-                  <button class="btn btn-default" type="button" (click)="deleteNewFieldValue(k)">DELETE QUESTION</button>
+                  <button  class="btn btn-danger" type="button" (click)="deleteNewFieldValue(k)">DELETE QUESTION</button>
                 </td>
                 
               </tr>
