@@ -22,7 +22,7 @@ export class BuildingViewComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  loading: boolean;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -64,11 +64,13 @@ export class BuildingViewComponent implements OnInit {
 
   //validation ends ..... @rodney
   previousPage() {
+    this.loading = true;
     this.pageNo = +this.pageNo - 1;
     this.inventoryService
       .getBuildings(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.build = data;
+        this.loading = false;
         if (this.pageNo == 1) {
           this.showHide2 = true;
           this.showHide1 = false;
@@ -80,11 +82,13 @@ export class BuildingViewComponent implements OnInit {
   }
 
   nextPage() {
+    this.loading = true;
     this.pageNo = +this.pageNo + 1;
     this.inventoryService
       .getBuildings(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.build = data;
+        this.loading = false;
         this.pagination = +this.build[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
         if (this.pagination > 1) {
           this.showHide2 = true;
@@ -99,11 +103,13 @@ export class BuildingViewComponent implements OnInit {
   deleteFacility() {
     this.inventoryService
       .DeleteBuilding(this.delete_faciKey, this.employeekey, this.OrganizationID).subscribe(() => {
-
+        alert("Building deleted successfully");
+        this.loading = true;
         this.inventoryService
           .getBuildings(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.build = data;
+            this.loading = false;
             if (this.build[0].totalItems > this.itemsPerPage) {
               this.showHide2 = true;
               this.showHide1 = false;
@@ -129,10 +135,12 @@ export class BuildingViewComponent implements OnInit {
         });
     }
     else if (SearchValue.length == 0) {
+      this.loading = true;
       this.inventoryService
         .getBuildings(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.build = data;
+          this.loading = false;
           if (this.build[0].totalItems > this.itemsPerPage) {
             this.showHide2 = true;
             this.showHide1 = false;
@@ -158,11 +166,12 @@ export class BuildingViewComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-
+    this.loading = true;
     this.inventoryService
       .getBuildings(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.build = data;
+        this.loading = false;
         if (this.build[0].totalItems > this.itemsPerPage) {
           this.showHide2 = true;
           this.showHide1 = false;

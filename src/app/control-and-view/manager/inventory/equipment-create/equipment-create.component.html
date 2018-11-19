@@ -1,75 +1,70 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
-<div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
-  <br><br>
-  <div style="text-align:center">
-    <h3 style="color: #174a5e;"><strong>CREATE NEW EQUIPMENT</strong></h3>
-  </div>
-
+<div class="py-5 bg-info" style="padding-left: 9rem; padding-top:0rem !important; padding-bottom:0rem !important;margin-left: 2rem">
   <br>
-  <div class="col-md-12">
-    <div class=" col-md-6">
-      <label for="Equipmentname">Equipment Type name*</label>
-      <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EquipmentTypeKey">
-        <option>--Select--</option>
-        <option *ngFor="let b of equipmentType" [value]="b.EquipmentTypeKey">
-          {{b.EquipmentTypeText}}
-        </option>
-      </select>
-    </div>
-    <div class=" col-md-6">
-      <label for="equipmentname">Equipment name*</label>
-      <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EquipmentName">
-    </div>
-    <!-- </div> -->
-    <br><br><br>
-    <!-- <div class=" col-lg-12 col-md-12 col-sm-12 "> -->
-    <label for="EquipmentDescription">Equipment Description</label>
-    <div>
-      <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EquipmentDescription">
-    </div>
-    <label for="EquipmentBarcode">Equipment Barcode*</label>
-    <div>
-      <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="barcode.barcode">
-    </div>
+  <div class="row col-md-12 ">
+    <h3 style="margin-left: 25rem;">CREATE NEW EQUIPMENT</h3>
+  </div><br>
 
-    <br><br><br>
-    <label for="EquipmentDescription">Building*</label>
-    <div>
-      <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey"
-        (change)="selectFloorfromBuildings($event.target.value)">
-        <option>--Select--</option>
-        <option *ngFor="let b of buildings" [value]="b.FacilityKey">
-          {{b.FacilityText}}
-        </option>
-      </select>
+  <div class="row bg-info col-md-12">
+    <br>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Equipment Type name*</label>
+        <select style="background-color: #d4f4ff;" class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="EquipmentTypeKey">
+          <option value="">--Select--</option>
+          <option *ngFor="let b of equipmentType" [value]="b.EquipmentTypeKey">
+            {{b.EquipmentTypeText}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Equipment Description</label>
+        <input type="text" style="background-color: #D4F4FF !important;" class="form-control col-sm-9 col-md-9 col-lg-9"
+          [(ngModel)]="EquipmentDescription">
+      </div>
+      <div class="form-group">
+        <label>Building*</label>
+        <select style="background-color: #d4f4ff;" class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="FacilityKey"
+          (change)="selectFloorfromBuildings($event.target.value)">
+          <option value="">--Select--</option>
+          <option *ngFor="let b of buildings" [value]="b.FacilityKey">
+            {{b.FacilityText}}
+          </option>
+        </select>
+      </div>
     </div>
-
-    <label for="EquipmentBarcode">Floor*</label>
-    <div>
-      <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey" (change)="floorValueSet($event.target.value)">
-        <!-- <span *ngIf="floors"> -->
-          <option>--Select--</option>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Equipment name*</label>
+        <input type="text" style="background-color: #D4F4FF !important;" class="form-control col-sm-9 col-md-9 col-lg-9"
+          [(ngModel)]="EquipmentName">
+      </div>
+      <div class="form-group">
+        <label>Equipment Barcode*</label>
+        <input type="text" style="background-color: #D4F4FF !important;" class="form-control col-sm-9 col-md-9 col-lg-9"
+          [(ngModel)]="barcode.barcode">
+      </div>
+      <div class="form-group">
+        <label>Floor*</label>
+        <select style="background-color: #d4f4ff;" class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="FloorKey"
+          (change)="floorValueSet($event.target.value)">
+          <option value="">--Select--</option>
           <option *ngFor="let b of floors" [value]="b.FloorKey">
             {{b.FloorName}}
           </option>
-        <!-- </span> -->
-      </select>
-    </div>
-    <!-- </div> -->
-    <div class="row col-md-12">
-      <div class="col col-md-3"></div>
-      <div style="text-align:right">
-        <a style="color:white !important" class="btn btn-success" (click)="addEquipment(EquipmentName,EquipmentDescription,barcode.barcode,EquipmentTypeKey)"><b>Create
-            Equipment</b>
-        </a></div>
-      <div style="text-align:left">
-        <a routerLink="/EquipmentView" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Go
-            Back
-          </b>
-        </a></div>
-      <div class="col col-md-3"></div>
+        </select>
+      </div>
     </div>
   </div>
-  <br><br>
+  <br>
+  <div class="row col-md-12" style="margin-left: 20rem">
+    <div>
+      <a style="color:white !important" class="btn btn-success" (click)="addEquipment(EquipmentName,EquipmentDescription,barcode.barcode,EquipmentTypeKey)"><b>Create
+          Equipment</b>
+      </a>
+      <a routerLink="/EquipmentView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
+          Back</b>
+      </a>
+    </div>
+  </div>
 </div>

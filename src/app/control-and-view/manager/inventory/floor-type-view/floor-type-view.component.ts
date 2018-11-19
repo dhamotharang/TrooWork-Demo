@@ -17,7 +17,7 @@ export class FloorTypeViewComponent implements OnInit {
   floorType: Inventory[];
   delete_FloorTypeKey: number;
   searchform: FormGroup;
-
+  loading: boolean;
   role: String;
   name: String;
   employeekey: Number;
@@ -65,11 +65,13 @@ export class FloorTypeViewComponent implements OnInit {
   //validation ends ..... @rodney
 
   previousPage() {
+    this.loading = true;
     this.pageNo = +this.pageNo - 1;
     this.inventoryService
       .getFloorTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floorType = data;
+        this.loading = false;
         if (this.pageNo == 1) {
           this.showHide2 = true;
           this.showHide1 = false;
@@ -81,11 +83,13 @@ export class FloorTypeViewComponent implements OnInit {
   }
 
   nextPage() {
+    this.loading = true;
     this.pageNo = +this.pageNo + 1;
     this.inventoryService
       .getFloorTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floorType = data;
+        this.loading = false;
         this.pagination = +this.floorType[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
         if (this.pagination > 1) {
           this.showHide2 = true;
@@ -107,10 +111,12 @@ export class FloorTypeViewComponent implements OnInit {
           this.showHide1 = false;
         });
     } else if (SearchValue.length == 0) {
+      this.loading = true;
       this.inventoryService
         .getFloorTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.floorType = data;
+          this.loading = false;
           if (this.floorType[0].totalItems > this.itemsPerPage) {
             this.showHide2 = true;
             this.showHide1 = false;
@@ -130,10 +136,13 @@ export class FloorTypeViewComponent implements OnInit {
   deleteFloorType() {
     this.inventoryService
       .DeleteFloorType(this.delete_FloorTypeKey, this.employeekey, this.OrganizationID).subscribe(() => {
+        alert("Floor Type deleted successfully...");
+        this.loading = true;
         this.inventoryService
           .getFloorTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.floorType = data;
+            this.loading = false;
             if (this.floorType[0].totalItems > this.itemsPerPage) {
               this.showHide2 = true;
               this.showHide1 = false;
@@ -155,11 +164,12 @@ export class FloorTypeViewComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-
+    this.loading = true;
     this.inventoryService
       .getFloorTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floorType = data;
+        this.loading = false;
         if (this.floorType[0].totalItems > this.itemsPerPage) {
           this.showHide2 = true;
           this.showHide1 = false;

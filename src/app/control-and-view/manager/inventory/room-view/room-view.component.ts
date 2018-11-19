@@ -44,7 +44,6 @@ export class RoomViewComponent implements OnInit {
   RoomTypeKey;
   RoomKey;
   FacilityKey;
-
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -85,13 +84,13 @@ export class RoomViewComponent implements OnInit {
 
   //validation ends ..... @rodney
   previousPage() {
-    this.loading = true;
+    this.loading=true;
     this.pageNo = +this.pageNo - 1;
     this.inventoryService
       .getRoomList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.rooms = data;
-        this.loading = false;
+        this.loading=false;
         if (this.pageNo == 1) {
           this.showHide2 = true;
           this.showHide1 = false;
@@ -103,13 +102,13 @@ export class RoomViewComponent implements OnInit {
   }
 
   nextPage() {
-    this.loading = true;
+    this.loading=true;
     this.pageNo = +this.pageNo + 1;
     this.inventoryService
       .getRoomList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.rooms = data;
-        this.loading = false;
+        this.loading=false;
         this.pagination = +this.rooms[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
         if (this.pagination > 1) {
           this.showHide2 = true;
@@ -124,11 +123,9 @@ export class RoomViewComponent implements OnInit {
 
   searchRoom(SearchValue) {
     if (SearchValue.length >= 3) {
-      this.loading = true;
       this.inventoryService
         .SearchRoom(SearchValue, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.rooms = data;
-          this.loading = false;
           this.showHide2 = false;
           this.showHide1 = false;
         });
@@ -158,6 +155,7 @@ export class RoomViewComponent implements OnInit {
   deleteRoom() {
     this.inventoryService
       .DeleteRoom(this.delete_roomKey, this.employeekey, this.OrganizationID).subscribe(() => {
+        alert(" Room deleted succesfully");
         this.loading = true;
         this.inventoryService
           .getRoomList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
@@ -178,7 +176,7 @@ export class RoomViewComponent implements OnInit {
 
   rooms_Filter() {
     this.loading = true;
-    console.log("rooms filter... org" + this.OrganizationID + " ..... bldg" + this.bldgKey + " ..... flr" + this.flrKey + " ..... zone" + this.zoneKey + " ..... rtype" + this.rTypeKey + " ..... room" + this.rKey + " ..... flrtype" + this.flrTypeKey + " ..... emp" + this.employeekey);
+    // console.log("rooms filter... org" + this.OrganizationID + " ..... bldg" + this.bldgKey + " ..... flr" + this.flrKey + " ..... zone" + this.zoneKey + " ..... rtype" + this.rTypeKey + " ..... room" + this.rKey + " ..... flrtype" + this.flrTypeKey + " ..... emp" + this.employeekey);
     this.inventoryService
       .getAllRoomFilterList(this.OrganizationID, this.bldgKey, this.flrKey, this.zoneKey, this.rTypeKey, this.rKey, this.flrTypeKey, this.employeekey)
       .subscribe((data: any[]) => {

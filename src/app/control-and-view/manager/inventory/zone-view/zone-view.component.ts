@@ -14,7 +14,7 @@ export class ZoneViewComponent implements OnInit {
   pagination: Number;
   zone: Inventory[];
   searchform: FormGroup;
-
+  loading: boolean;
   delete_faciKey: number;
   delete_floorKey: number;
   delete_zoneKey: number;
@@ -64,11 +64,13 @@ export class ZoneViewComponent implements OnInit {
   }
   //validation ends ..... @rodney
   previousPage() {
+    this.loading = true;
     this.pageNo = +this.pageNo - 1;
     this.inventoryService
       .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.zone = data;
+        this.loading = false;
         if (this.pageNo == 1) {
           this.showHide2 = true;
           this.showHide1 = false;
@@ -80,11 +82,13 @@ export class ZoneViewComponent implements OnInit {
   }
 
   nextPage() {
+    this.loading = true;
     this.pageNo = +this.pageNo + 1;
     this.inventoryService
       .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.zone = data;
+        this.loading = false;
         this.pagination = +this.zone[0].totalItems / (+this.pageNo * (+this.itemsperPage));
         if (this.pagination > 1) {
           this.showHide2 = true;
@@ -107,10 +111,12 @@ export class ZoneViewComponent implements OnInit {
           this.showHide1 = false;
         });
     } else if (SearchValue.length == 0) {
+      this.loading = true;
       this.inventoryService
         .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.zone = data;
+          this.loading = false;
           if (this.zone[0].totalItems > this.itemsperPage) {
             this.showHide2 = true;
             this.showHide1 = false;
@@ -132,10 +138,13 @@ export class ZoneViewComponent implements OnInit {
   deleteZone() {
     this.inventoryService
       .DeleteZone(this.delete_faciKey, this.delete_floorKey, this.delete_zoneKey, this.employeekey, this.OrganizationID).subscribe(res => {
+        alert("Zone deleted successfully");
+        this.loading = true;
         this.inventoryService
           .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.zone = data;
+            this.loading=false;
             if (this.zone[0].totalItems > this.itemsperPage) {
               this.showHide2 = true;
               this.showHide1 = false;
@@ -159,11 +168,12 @@ export class ZoneViewComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-
+    this.loading = true;
     this.inventoryService
       .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.zone = data;
+        this.loading = false;
         if (this.zone[0].totalItems > this.itemsperPage) {
           this.showHide2 = true;
           this.showHide1 = false;
