@@ -112,7 +112,7 @@
       <div class="form-group">
         <label>Equipment Name</label><br>
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EquipmentKey"
-          [disabled]="(showEqTypes==false)" required>{{EquipmentKey}}
+        [disabled]="(!(showEqTypes&&EquipmentTypeKey))" required>{{EquipmentKey}}
           <option value="">--Select--</option>
           <option *ngFor="let e of EquipmentList" [value]="e.EquipmentKey">
             {{e.EquipmentName}}

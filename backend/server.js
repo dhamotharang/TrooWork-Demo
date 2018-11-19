@@ -5134,7 +5134,7 @@ app.post(securedpath + '/updateEquipment', supportCrossOriginScript, function (r
                 }
                 else {
 
-                    res.end("success");
+                    res.end(JSON.stringify(rows[11]));
 
                 }
             });

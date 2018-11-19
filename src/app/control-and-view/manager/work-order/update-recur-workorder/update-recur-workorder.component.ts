@@ -224,8 +224,12 @@ export class UpdateRecurWorkorderComponent implements OnInit {
                 .getallEquipment(this.WOEditList.FacilityKey, this.floorvalue, this.OrganizationID)
                 .subscribe((data: any[]) => {
                   this.EquipmentTypeList = data;
-                  this.EquipmentList = data;
                   this.EquipmentTypeKey = this.WOEditList.EquipmentTypeKey;
+                });
+                this.WorkOrderServiceService
+                .getEquipment_typechange(this.WOEditList.EquipmentTypeKey, this.WOEditList.FacilityKey, this.floorvalue, this.OrganizationID)
+                .subscribe((data: any[]) => {
+                  this.EquipmentList = data;
                   this.EquipmentKey = this.WOEditList.EquipmentKey;
                 });
             });
@@ -440,6 +444,8 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.EquipmentTypeList = data;
         this.EquipmentList = data;
+        this.EquipmentKey="";
+        this.EquipmentTypeKey=""
       });
     }
     else

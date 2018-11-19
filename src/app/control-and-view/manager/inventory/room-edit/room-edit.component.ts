@@ -112,7 +112,7 @@ export class RoomEditComponent implements OnInit {
     } else if (!RoomName) {
       alert("Room name is not provided !");
     } else if (!SquareFoot) {
-      alert("Area is not provided !");
+      alert("Square foot is not provided !");
     } else if (!Barcode) {
       alert("Barcode is not provided !");
     }

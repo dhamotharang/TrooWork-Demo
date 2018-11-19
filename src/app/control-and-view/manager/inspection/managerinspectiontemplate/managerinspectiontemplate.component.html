@@ -65,6 +65,8 @@
         </a>
       </div>
     </li>
+    <!-- <table>  
+    <tr *ngFor="let record of recordList">  -->
     <li class="col-sm-offset-4 col-sm-10" *ngIf="item.ScoreName ==='5 Star'">
       <div class="list inspectionPadding">
         <a class="item item-text-wrap">
@@ -72,6 +74,9 @@
           <div class="col-md-6">
             <div>
               <br>
+              <!-- <a *ngFor="let item of record.myList; let i=index " (click)="setStarTable(record,i);saveRatings(item.TemplateQuestionID,item.ScoreName)">  
+                <i class="fa" [ngClass]="{'fa-star-o':item,'fa-star':!item}"></i>  
+              </a>   -->
                 <a *ngFor="let x of  starList; let i=index " (click)="setStar(i);saveRatings(item.TemplateQuestionID,item.ScoreName)">  
                     <i *ngIf="x" class="fa fa-star-o"></i>    
                     <i *ngIf="!x" class="fa fa-star"></i>     
@@ -85,7 +90,8 @@
         </a>
       </div>
     </li>
-
+  <!-- </tr> 
+</table> -->
     <li class="col-sm-offset-4 col-sm-10" *ngIf="item.ScoreName ==='3 Star'">
       <div class="list inspectionPadding">
         <a class="item item-text-wrap">

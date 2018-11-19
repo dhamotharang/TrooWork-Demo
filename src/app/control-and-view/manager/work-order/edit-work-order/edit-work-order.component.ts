@@ -172,6 +172,10 @@ export class EditWorkOrderComponent implements OnInit {
                 .getallEquipment(this.WOEditList.FacilityKey, this.floorvalue, this.OrganizationID)
                 .subscribe((data: any[]) => {
                   this.EquipmentTypeList = data;
+                });
+                this.WorkOrderServiceService
+                .getEquipment_typechange(this.WOEditList.EquipmentTypeKey, this.WOEditList.FacilityKey, this.floorvalue, this.OrganizationID)
+                .subscribe((data: any[]) => {
                   this.EquipmentList = data;
                 });
             });
@@ -340,6 +344,8 @@ export class EditWorkOrderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.EquipmentTypeList = data;
         this.EquipmentList = data;
+        this.EquipmentKey="";
+        this.EquipmentTypeKey="";
       });
     }
     else

@@ -11,7 +11,7 @@ import { ExcelserviceService } from '../../../../service/excelservice.service';
   styleUrls: ['./workorder-report.component.scss']
 })
 export class WorkorderReportComponent implements OnInit {
-
+  loading: boolean;// loading
   role: String;
   name: String;
   employeekey: Number;
@@ -148,55 +148,76 @@ export class WorkorderReportComponent implements OnInit {
   }
 
   generateWorkOrderReport(from_date, to_date, FacilityKey, FloorKey, RoomTypeKey, ZoneKey, RoomKey, EmployeeKey, WorkorderStatusKey) {
-    if (!(this.todate) ) {
-     
-       var date1 = this.convert_DT(this.fromdate);
-       if(!FacilityKey){
-        FacilityKey=null;
-       }
-       if(!FloorKey){
-        FloorKey=null;
-       }
-       if(!RoomTypeKey){
-        RoomTypeKey=null;
-       }
-       if(!ZoneKey){
-        ZoneKey=null;
-       }
-       if(!RoomTypeKey){
-        RoomTypeKey=null;
-       }
-       if(!RoomKey){
-        RoomKey=null;
-       }
-       if(!EmployeeKey){
-        EmployeeKey=null;
-       }
-       if(!WorkorderStatusKey){
-        WorkorderStatusKey=null;
-       }
-       var fromdate = this.convert_DT(from_date);
-       this.ReportServiceService
-      .generateWorkOrderReportServicewithdate(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, fromdate, date1, RoomKey, EmployeeKey, WorkorderStatusKey, this.employeekey, this.OrganizationID)
-      .subscribe((data: Reports[]) => {
-        this.viewWorkorderReport = data;
-      });
-    }
-
-    var fromdate = this.convert_DT(from_date);
-    var todate = this.convert_DT(to_date);
-    if (todate && fromdate > todate) {
+    if (to_date && from_date > to_date) {
       todate = null;
       alert("Please check your Start Date!");
       return;
     }
-else{
-    this.ReportServiceService
+    else
+    {
+      var fromdate;
+    this.loading = true;
+    if(!FacilityKey){
+      FacilityKey=null;
+     }
+     if(!FloorKey){
+      FloorKey=null;
+     }
+     if(!RoomTypeKey){
+      RoomTypeKey=null;
+     }
+     if(!ZoneKey){
+      ZoneKey=null;
+     }
+     if(!RoomTypeKey){
+      RoomTypeKey=null;
+     }
+     if(!RoomKey){
+      RoomKey=null;
+     }
+     if(!EmployeeKey){
+      EmployeeKey=null;
+     }
+     if(!WorkorderStatusKey){
+      WorkorderStatusKey=null;
+     }
+//     if (!(this.todate) ) {
+     
+//        var date1 = this.convert_DT(this.fromdate);
+//        fromdate = this.convert_DT(from_date);
+//        this.ReportServiceService
+//       .generateWorkOrderReportServicewithdate(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, fromdate, date1, RoomKey, EmployeeKey, WorkorderStatusKey, this.employeekey, this.OrganizationID)
+//       .subscribe((data: Reports[]) => {
+//         this.viewWorkorderReport = data;
+//         this.loading = false;
+//       });
+//     }
+// else{
+      var todate;
+      if(!from_date)
+      {
+        fromdate = this.convert_DT(new Date());
+      }
+      else
+      {
+        fromdate = this.convert_DT(from_date);
+      }
+      if(!to_date)
+      {
+        todate=fromdate;
+      }
+      else
+      {
+        todate = this.convert_DT(to_date);
+      }
+       this.ReportServiceService
       .generateWorkOrderReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, fromdate, todate, RoomKey, EmployeeKey, WorkorderStatusKey, this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.viewWorkorderReport = data;
+        this.loading = false;
       });
   }
+  // }
   }
   //export to excel 
   exportToExcel(): void {

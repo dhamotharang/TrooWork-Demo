@@ -42,8 +42,7 @@
       </div>
       <div class="form-group">
         <label>Zone Name*</label>
-        <select style="background-color: #d4f4ff;" class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="room.ZoneKey"
-          (change)="setZoneName($event.target.value)">
+        <select style="background-color: #d4f4ff;" class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="room.ZoneKey" (change)="setZoneName($event.target.value)">
           <option value="">--Select--</option>
           <option *ngFor="let f of zone" [value]="f.ZoneKey">
             {{f.ZoneName}}
@@ -66,20 +65,17 @@
       </div>
       <div class="form-group">
         <label>Room Name*</label>
-        <input type="text" style="background-color: #D4F4FF !important;" class="form-control col-sm-9 col-md-9 col-lg-9"
-          [(ngModel)]="room.RoomName">
+        <input type="text" style="background-color: #D4F4FF !important;" class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="room.RoomName">
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <label>Square Foot* </label>
-        <input type="text" style="background-color: #D4F4FF !important;" class="form-control col-sm-9 col-md-9 col-lg-9"
-          [(ngModel)]="room.Area">
+        <input type="text" style="background-color: #D4F4FF !important;" class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="room.Area">
       </div>
       <div class="form-group">
         <label>Barcode* </label>
-        <input type="text" style="background-color: #D4F4FF !important;" class="form-control col-sm-9 col-md-9 col-lg-9"
-          [(ngModel)]="room.Barcode">
+        <input type="text" style="background-color: #D4F4FF !important;" class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="room.Barcode">
       </div>
 
     </div>
@@ -88,10 +84,11 @@
   <div class="row col-md-12" style="margin-left: 19rem">
     <div>
       <a style="color:white !important" class="btn btn-success" (click)="updateRoom(room.FacilityKey,room.FloorKey,room.FloorTypeKey,room.ZoneKey,room.RoomTypeKey,room.RoomName,room.Area,room.Barcode)"><b>Save
-          Room</b>
+          Room
+        </b>
       </a>
-      <a routerLink="/roomView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
-          Back</b>
+      <a routerLink="/roomView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go Back
+        </b>
       </a>
     </div>
   </div>

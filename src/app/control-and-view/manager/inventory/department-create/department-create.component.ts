@@ -39,6 +39,11 @@ export class DepartmentCreateComponent implements OnInit {
   constructor(private fb: FormBuilder, private inventoryServ: InventoryService, private router: Router) { }
 
   addDepartment(DepartmentName) {
+    if(DepartmentName && !DepartmentName.trim())
+    {
+      alert("Please provide a Department Name");
+      return;
+    }
     if (!DepartmentName) {
       alert("Please provide a Department Name");
     } else {
