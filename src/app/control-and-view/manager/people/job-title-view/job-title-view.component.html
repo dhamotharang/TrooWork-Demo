@@ -5,7 +5,7 @@
     <h4 class="refer"><b> JOB-TITLE</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/JobTitleAdd" class="btn btn-primary" routerLinkActive="active">Create New JobTitle
+      <a routerLink="/JobTitleAdd" class="btn btn-success" routerLinkActive="active"><b>Create New JobTitle</b>
       </a>
     </div>
     <form [formGroup]="searchform">
@@ -30,9 +30,9 @@
             <td>{{ x.JobTitleDescription }}</td>
 
             <td>
-              <a routerLink="/JobTitleEdit/{{ x.JobTitleKey}}" class="btn btn-primary">Edit</a>
-              <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteJobPass(x.JobTitleKey); "
-                mdbWavesEffect>Delete</a>
+              <a routerLink="/JobTitleEdit/{{ x.JobTitleKey}}" class="btn btn-primary"><b>Edit</b></a>
+              <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteJobPass(x.JobTitleKey); "
+                mdbWavesEffect><b>Delete</b></a>
             </td>
           </tr>
           <tr *ngIf="jobView?.length == 0">
