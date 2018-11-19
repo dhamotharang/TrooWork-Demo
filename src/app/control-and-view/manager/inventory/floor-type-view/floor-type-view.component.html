@@ -1,11 +1,13 @@
 <app-manager-dash-board></app-manager-dash-board>
-<div style="width: 100%;height: 100%;">
+<img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
+
+<div *ngIf="!loading" style="width: 100%;height: 100%;">
   <div class="bg-dark" style="width: 100%;height: 100%;">
-    <br><br>
+    <br>
     <h4 class="refer"><b> FLOOR TYPE</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/FloorTypeCreate" class="btn btn-primary" routerLinkActive="active">Create New Floor Type
+      <a routerLink="/FloorTypeCreate" class="btn btn-success" routerLinkActive="active">Create New Floor Type
       </a>
     </div>
     <form [formGroup]="searchform">
@@ -17,17 +19,17 @@
       </div>
     </form>
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
-      <table class="table table-responsive table-hover table-bordered table">
+      <table class="table table-responsive table-hover table-bordered table bg-info">
         <thead class="tableHead">
           <th> Floor Type </th>
           <th>Edit</th>
         </thead>
         <tbody>
-          <tr *ngFor="let x of floorType" class="r2">
+          <tr *ngFor="let x of floorType">
             <td>{{ x.FloorTypeName }}</td>
             <td>
-              <a routerLink="/FloorTypeEdit/{{ x.FloorTypeKey}}" class="btn btn-primary">Edit</a>
-              <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteFloorTypePass(x.FloorTypeKey); "
+              <a routerLink="/FloorTypeEdit/{{ x.FloorTypeKey}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+              <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteFloorTypePass(x.FloorTypeKey); "
                 mdbWavesEffect>Delete</a>
             </td>
           </tr>
@@ -58,8 +60,8 @@
           </div>
         </tbody>
       </table>
-      <button class="btn btn-success" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
-      <button class="btn btn-success" (click)="nextPage()" *ngIf="showHide2">Next >></button>
+      <button class="btn btn-success" style="float: left;" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
+      <button class="btn btn-success" style="float: right;" (click)="nextPage()" *ngIf="showHide2">Next >></button>
     </div>
 
   </div>

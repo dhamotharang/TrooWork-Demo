@@ -1,7 +1,6 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
-  <br><br>
+  <br>
   <div style="text-align:center">
     <h3 style="color: #174a5e;"><strong>UPDATE EQUIPMENT TYPE</strong></h3>
   </div>
@@ -9,34 +8,31 @@
   <br>
   <div class="col-md-12">
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="EquipmentType">Equipment Type Name:
+      <h5 style="margin-top: 2rem;" class="col-md-5"><label for="EquipmentType">Equipment Type Name:
         </label></h5>
-      <div class="md-form col-md-3" style="text-align:left">
-        <input *ngIf="equipType" type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
+      <div class="md-form col-md-7">
+        <input *ngIf="equipType" type="text" style="background-color: #D4F4FF !important; margin-left: -3rem;" class="form-control"
           id="EquipmentType" [(ngModel)]="equipType.EquipmentType">
       </div>
-      <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="EquipmentTypeDescription">Equipment
+      <h5 style="margin-top: 2rem;" class="col-md-5"><label for="EquipmentTypeDescription">Equipment
           Type Description: </label></h5>
-      <div class="md-form col-md-3" style="text-align:left">
-        <input *ngIf="equipType" type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
+      <div class="md-form col-md-7">
+        <input *ngIf="equipType" type="text" style="background-color: #D4F4FF !important;margin-left: -3rem;" class="form-control"
           id="EquipmentTypeDescription" [(ngModel)]="equipType.EquipmentTypeDescription">
       </div>
-      <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
       <div class="col col-md-3"></div>
-      <div style="text-align:right" class="col-md-3">
+      <div class="col-md-9">
         <a style="color:white !important" class="btn btn-success" (click)="updateEquipmentType(equipType.EquipmentTypeKey,equipType.EquipmentType,equipType.EquipmentTypeDescription)"><b>Update</b>
-        </a></div>
-      <div style="text-align:left" class="col-md-3">
-        <a routerLink="/EquipmentTypeView" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Go
+        </a>
+        <a routerLink="/EquipmentTypeView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
             Back
           </b>
-        </a></div>
-      <div class="col col-md-3"></div>
+        </a>
+      </div>
     </div>
   </div>
   <br><br>

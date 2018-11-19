@@ -19,6 +19,7 @@ export class JobTitleViewAdminComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+  loading: boolean;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -61,6 +62,7 @@ export class JobTitleViewAdminComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -71,6 +73,7 @@ export class JobTitleViewAdminComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.peopleServiceService.getJobtitleView(this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+      this.loading = false;
       this.jobView = data;
 
     });

@@ -22,7 +22,7 @@ export class EquipmentTypeViewComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  loading: boolean;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -63,11 +63,13 @@ export class EquipmentTypeViewComponent implements OnInit {
 
   //validation ends ..... @rodney
   previousPage() {
+    this.loading = true;
     this.pageNo = +this.pageNo - 1;
     this.inventoryService
       .getEquipmentTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.equipmentType = data;
+        this.loading = false;
         if (this.pageNo == 1) {
           this.showHide2 = true;
           this.showHide1 = false;
@@ -79,11 +81,13 @@ export class EquipmentTypeViewComponent implements OnInit {
   }
 
   nextPage() {
+    this.loading = true;
     this.pageNo = +this.pageNo + 1;
     this.inventoryService
       .getEquipmentTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.equipmentType = data;
+        this.loading = false;
         this.pagination = +this.equipmentType[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
         if (this.pagination > 1) {
           this.showHide2 = true;
@@ -105,10 +109,12 @@ export class EquipmentTypeViewComponent implements OnInit {
           this.showHide1 = false;
         });
     } else if (SearchValue.length == 0) {
+      this.loading = true;
       this.inventoryService
         .getEquipmentTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.equipmentType = data;
+          this.loading = false;
           if (this.equipmentType[0].totalItems > this.itemsPerPage) {
             this.showHide2 = true;
             this.showHide1 = false;
@@ -128,10 +134,13 @@ export class EquipmentTypeViewComponent implements OnInit {
   deleteEquipmentType() {
     this.inventoryService
       .DeleteEquipmentType(this.delete_EquipTypeKey, this.employeekey, this.OrganizationID).subscribe(() => {
+        alert("Equipment Type deleted successfully...");
+        this.loading = true;
         this.inventoryService
           .getEquipmentTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.equipmentType = data;
+            this.loading = false;
             if (this.equipmentType[0].totalItems > this.itemsPerPage) {
               this.showHide2 = true;
               this.showHide1 = false;
@@ -153,11 +162,12 @@ export class EquipmentTypeViewComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-
+    this.loading = true;
     this.inventoryService
       .getEquipmentTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.equipmentType = data;
+        this.loading = false;
         if (this.equipmentType[0].totalItems > this.itemsPerPage) {
           this.showHide2 = true;
           this.showHide1 = false;

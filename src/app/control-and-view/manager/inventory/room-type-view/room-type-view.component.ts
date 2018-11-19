@@ -17,7 +17,7 @@ export class RoomTypeViewComponent implements OnInit {
   roomTypes: Inventory[];
   delete_RoomTypeKey: number;
   searchform: FormGroup;
-
+  loading: boolean;
   role: String;
   name: String;
   employeekey: Number;
@@ -64,10 +64,12 @@ export class RoomTypeViewComponent implements OnInit {
 
   //validation ends ..... @rodney
   previousPage() {
+    this.loading = true;
     this.inventoryService
       .getRoomTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.roomTypes = data;
+        this.loading = false;
         if (this.pageNo == 1) {
           this.showHide2 = true;
           this.showHide1 = false;
@@ -79,11 +81,13 @@ export class RoomTypeViewComponent implements OnInit {
   }
 
   nextPage() {
+    this.loading = true;
     this.pageNo = +this.pageNo + 1;
     this.inventoryService
       .getRoomTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.roomTypes = data;
+        this.loading = false;
         this.pagination = +this.roomTypes[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
         if (this.pagination > 1) {
           this.showHide2 = true;
@@ -106,10 +110,12 @@ export class RoomTypeViewComponent implements OnInit {
           this.showHide1 = false;
         });
     } else if (SearchValue.length == 0) {
+      this.loading = true;
       this.inventoryService
         .getRoomTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.roomTypes = data;
+          this.loading = false;
           if (this.roomTypes[0].totalItems > this.itemsPerPage) {
             this.showHide2 = true;
             this.showHide1 = false;
@@ -129,10 +135,13 @@ export class RoomTypeViewComponent implements OnInit {
   deleteRoomType() {
     this.inventoryService
       .DeleteRoomType(this.delete_RoomTypeKey, this.employeekey, this.OrganizationID).subscribe(() => {
+        alert("Room Type deleted successfully");
+        this.loading=true;
         this.inventoryService
           .getRoomTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.roomTypes = data;
+            this.loading = false;
             if (this.roomTypes[0].totalItems > this.itemsPerPage) {
               this.showHide2 = true;
               this.showHide1 = false;
@@ -154,11 +163,12 @@ export class RoomTypeViewComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-
+    this.loading = true;
     this.inventoryService
       .getRoomTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.roomTypes = data;
+        this.loading = false;
         if (this.roomTypes[0].totalItems > this.itemsPerPage) {
           this.showHide2 = true;
           this.showHide1 = false;

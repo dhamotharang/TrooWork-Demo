@@ -23,7 +23,7 @@ export class FloorViewComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  loading: boolean;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -64,11 +64,13 @@ export class FloorViewComponent implements OnInit {
 
   //validation ends ..... @pooja
   previousPage() {
+    this.loading = true;
     this.pageNo = +this.pageNo - 1;
     this.inventoryService
       .getFloors(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floor = data;
+        this.loading = false;
         if (this.pageNo == 1) {
           this.showHide2 = true;
           this.showHide1 = false;
@@ -80,11 +82,13 @@ export class FloorViewComponent implements OnInit {
   }
 
   nextPage() {
+    this.loading = true;
     this.pageNo = +this.pageNo + 1;
     this.inventoryService
       .getFloors(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floor = data;
+        this.loading = false;
         this.pagination = +this.floor[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
         if (this.pagination > 1) {
           this.showHide2 = true;
@@ -101,10 +105,13 @@ export class FloorViewComponent implements OnInit {
   deleteFloor() {
     this.inventoryService
       .DeleteFloor(this.delete_faciKey, this.delete_floorKey, this.employeekey, this.OrganizationID).subscribe(res => {
+        alert("Floor deleted successfully");
+        this.loading = true;
         this.inventoryService
           .getFloors(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.floor = data;
+            this.loading = false;
             if (this.floor[0].totalItems > this.itemsPerPage) {
               this.showHide2 = true;
               this.showHide1 = false;
@@ -131,10 +138,12 @@ export class FloorViewComponent implements OnInit {
 
         });
     } else if (SearchValue.length == 0) {
+      this.loading = true;
       this.inventoryService
         .getFloors(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.floor = data;
+          this.loading = false;
           if (this.floor[0].totalItems > this.itemsPerPage) {
             this.showHide2 = true;
             this.showHide1 = false;
@@ -157,11 +166,12 @@ export class FloorViewComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-
+    this.loading = true;
     this.inventoryService
       .getFloors(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floor = data;
+        this.loading = false;
         if (this.floor[0].totalItems > this.itemsPerPage) {
           this.showHide2 = true;
           this.showHide1 = false;

@@ -38,7 +38,7 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
   fieldArray;
   scores;
   TemplateEditDetails;
-  newAttribute = [];
+  newAttribute= [];
   temparray = [];
   insertObj;
 
@@ -46,6 +46,9 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
     this.route.params.subscribe(params => this.tempID = params.TemplateID);
   }
 
+  customTrackBy(index: number, obj: any): any {
+    return index;
+}
   ngOnInit() {
     //token starts....
     var token = localStorage.getItem('token');
@@ -95,6 +98,7 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
     this.newAttribute.splice(index, 1);
   }
   savetemplate() {
+    debugger;
     var temp_updateArry = this.fieldArray;
     var temp_insertArry = this.newAttribute;
     var temp_TemplateQuestionID;
