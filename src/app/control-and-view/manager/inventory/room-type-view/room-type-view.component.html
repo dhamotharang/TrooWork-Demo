@@ -7,7 +7,7 @@
     <h4 class="refer"><b> ROOM TYPE</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/roomTypeCreate" class="btn btn-success" routerLinkActive="active">Create Room Type
+      <a routerLink="/roomTypeCreate" class="btn btn-success" routerLinkActive="active"><b>Create Room Type</b>
       </a>
     </div>
     <form [formGroup]="searchform">
@@ -28,9 +28,9 @@
           <tr *ngFor="let x of roomTypes">
             <td>{{ x.RoomType }}</td>
             <td>
-              <a routerLink="/roomTypeEdit/{{ x.RoomTypeKey}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+              <a routerLink="/roomTypeEdit/{{ x.RoomTypeKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
               <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteRoomTypePass(x.RoomTypeKey); "
-                mdbWavesEffect>Delete</a>
+                mdbWavesEffect><b>Delete</b></a>
             </td>
           </tr>
           <tr *ngIf="roomTypes?.length == 0">
@@ -63,6 +63,9 @@
       <button class="btn btn-success" style="float: left;" (click)="previousPage()" *ngIf="showHide1">&#60;&#60;
         Previous</button>
       <button class="btn btn-success" style="float: right;" (click)="nextPage()" *ngIf="showHide2">Next >></button>
+      <a routerLink="/roomView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
+        Back</b>
+    </a>
     </div>
 
   </div>

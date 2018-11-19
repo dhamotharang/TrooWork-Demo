@@ -27,11 +27,11 @@
             <td>{{ i.ScoreName }} </td>
             <td>
               <!-- <a routerLink="/InspectiontemplatedetailEdit/{{i.TemplateID}}" class="btn btn-primary">Edit</a> -->
-              <a *ngIf='!(k===editQuestions)' class="btn btn-primary" (click)='editTemplateDetails(k, i.TemplateID)'>Edit</a>&nbsp;&nbsp;
-              <a *ngIf='(k===editQuestions)' class="btn btn-success" (click)='submiteditInspectionTemplate(i.TemplateName,i.TemplateID,i.ScoreTypeKey)'>Update</a>
+              <a *ngIf='!(k===editQuestions)' class="btn btn-primary" (click)='editTemplateDetails(k, i.TemplateID)'><b>Edit</b></a>&nbsp;&nbsp;
+              <a *ngIf='(k===editQuestions)' class="btn btn-success" (click)='submiteditInspectionTemplate(i.TemplateName,i.TemplateID,i.ScoreTypeKey)'><b>Update</b></a>
               <a *ngIf='!(k===editQuestions)' button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteTemplatePass(i.TemplateID); "
-                mdbWavesEffect>Delete</a>
-                <a *ngIf='(k===editQuestions)' class="btn btn-warning" (click)='cancelTemplateDetails()'>Cancel</a>
+                mdbWavesEffect><b>Delete</b></a>
+                <a *ngIf='(k===editQuestions)' class="btn btn-warning" (click)='cancelTemplateDetails()'><b>Cancel</b></a>
             </td>
           </tr>
           <tr *ngIf="inspectiontemplate?.length == 0">

@@ -100,10 +100,10 @@
                             <td>{{w.WorkorderNotes}}</td>
                             <td>
                                  <div *ngIf="FinishButton[i] == true "> 
-                                    <button type="button" class="btn btn-xs button-brown-{{w.WorkorderStatus !== 'Completed'}}" (click)="workorderFinish(i)">Finish</button>
+                                    <button type="button" class="btn btn-xs button-brown-{{w.WorkorderStatus !== 'Completed'}}" (click)="workorderFinish(i)"><b>FINISH</b></button>
                                  </div> 
                                 <div *ngIf="showbutton[i] == true && showbutton[i] !== false">
-                                    <button type="button" *ngIf="countCancel1" class="btn btn-warning" (click)="cancelWorkorderSubmission(i)">Cancel</button>
+                                    <button type="button" *ngIf="countCancel1" class="btn btn-warning" (click)="cancelWorkorderSubmission(i)"><b>CANCEL</b></button>
                                   
                                     <div *ngIf="w.IsBarcodeRequired == 1">
                                         <label for = "barcode" class = "col-sm-3 control-label">Barcode</label>
@@ -121,7 +121,7 @@
                                     </div>
                                     <!-- <div> -->
                                     <button type="submit" *ngIf="submitFlag" class="btn btn-success" (click)="workorderCompleted(i,w.IsBarcodeRequired,w.IsPhotoRequired,w.WorkorderKey,file)"
-                                        style="width:86px;margin-top: 7px;margin-left: -2px">SUBMIT</button>
+                                        style="width:86px;margin-top: 7px;margin-left: -2px"><b>SUBMIT</b></button>
                                 </div>
                             </td>
                         </tr>

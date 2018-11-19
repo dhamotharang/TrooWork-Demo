@@ -6,7 +6,7 @@
     <h4 class="refer"><b> DEPARTMENT</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/createDepartment" class="btn btn-success" routerLinkActive="active">Create New Department
+      <a routerLink="/createDepartment" class="btn btn-success" routerLinkActive="active"><b>Create New Department</b>
       </a>
     </div>
     <form [formGroup]="searchform">
@@ -27,9 +27,9 @@
           <tr *ngFor="let x of departments">
             <td>{{ x.DepartmentName }}</td>
             <td>
-              <a routerLink="/departmentEdit/{{ x.DepartmentKey}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+              <a routerLink="/departmentEdit/{{ x.DepartmentKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
               <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteDeptPass(x.DepartmentKey); "
-                mdbWavesEffect>Delete</a>
+                mdbWavesEffect><b>Delete</b></a>
             </td>
           </tr>
           <tr *ngIf="departments?.length == 0">

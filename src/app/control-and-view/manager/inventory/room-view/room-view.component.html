@@ -7,11 +7,11 @@
     <h4 class="refer"><b> ROOM</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/roomCreate" style="width: 13.5rem" class="btn btn-success" routerLinkActive="active">Create Room
+      <a routerLink="/roomCreate" style="width: 13.5rem" class="btn btn-success" routerLinkActive="active"><b>Create Room</b>
       </a><br>
-      <a routerLink="/roomTypeView" class="btn btn-success" routerLinkActive="active">Create/View Room Type
+      <a routerLink="/roomTypeView" class="btn btn-success" routerLinkActive="active"><b>Create/View Room Type</b>
       </a><br>
-      <a routerLink="/FloorTypeView" class="btn btn-success" routerLinkActive="active">Create/View FloorType
+      <a routerLink="/FloorTypeView" class="btn btn-success" routerLinkActive="active"><b>Create/View FloorType</b>
       </a>
     </div>
     <br>
@@ -108,9 +108,9 @@
             <td>{{ x.RoomTypeText }}</td>
             <td>{{ x.RoomName }}</td>
             <td>
-              <a routerLink="/RoomEdit/{{ x.RoomKey}}" class="btn btn-primary">Edit</a>&nbsp;
+              <a routerLink="/RoomEdit/{{ x.RoomKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;
               <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteRoomPass(x.RoomKey); "
-                mdbWavesEffect>Delete</a>
+                mdbWavesEffect><b>Delete</b></a>
             </td>
           </tr>
           <tr *ngIf="rooms?.length == 0">

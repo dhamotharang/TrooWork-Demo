@@ -17,7 +17,7 @@
       </div>
     </div>  
     <div class="col-md-6 text-center">      
-    <a routerLink="/InspectiontemplateEdit" class="btn btn-primary" >Edit Inspection Template</a>
+    <a routerLink="/InspectiontemplateEdit" class="btn btn-primary" ><b>Edit Inspection Template</b></a>
   </div>
   </div>
 </div>
@@ -47,7 +47,7 @@
           <td>{{v.Question}}</td>
           <td>{{v.ScoreName}}</td>
           <td> <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteInspTemplatePass(v.TemplateID,v.TemplateQuestionID);"
-            mdbWavesEffect>Delete</a></td>
+            mdbWavesEffect><b>Delete</b></a></td>
         </tr>
         <tr *ngIf="viewinspectionTemplate?.length == 0">
             <td colspan="2" class="no-data-available">No records found</td>

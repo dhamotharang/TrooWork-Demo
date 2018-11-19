@@ -7,10 +7,10 @@
     <h4 class="refer"><b> EQUIPMENTS</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/EquipmentCreate" class="btn btn-success" routerLinkActive="active">Create New Equipment
+      <a routerLink="/EquipmentCreate" class="btn btn-success" routerLinkActive="active"><b>Create New Equipment</b>
       </a><br>
-      <a routerLink="/EquipmentTypeView" class="btn btn-success" style="width: 13.5rem;" routerLinkActive="active">View
-        Equipment Type
+      <a routerLink="/EquipmentTypeView" class="btn btn-success" style="width: 13.5rem;" routerLinkActive="active"><b>View
+        Equipment Type</b>
       </a>
     </div>
     <form [formGroup]="searchform">
@@ -35,9 +35,9 @@
             <td>{{ x.EquipmentName }}</td>
             <td>{{ x.EquipmentDescription }}</td>
             <td>
-              <a routerLink="/EquipmentEdit/{{ x.EquipmentKey}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+              <a routerLink="/EquipmentEdit/{{ x.EquipmentKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
               <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteEquipPass(x.EquipmentKey); "
-                mdbWavesEffect>Delete</a>
+                mdbWavesEffect><b>Delete</b></a>
             </td>
           </tr>
           <tr *ngIf="equipments?.length == 0">

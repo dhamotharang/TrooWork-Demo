@@ -30,7 +30,7 @@
             <td>{{ x.JobTitleDescription }}</td>
 
             <td>
-              <a routerLink="/JobTitleEdit/{{ x.JobTitleKey}}" class="btn btn-primary"><b>Edit</b></a>
+              <a routerLink="/JobTitleEdit/{{ x.JobTitleKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
               <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteJobPass(x.JobTitleKey); "
                 mdbWavesEffect><b>Delete</b></a>
             </td>

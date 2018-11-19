@@ -7,7 +7,7 @@
     <h4 class="refer"><b> EQUIPMENT TYPE</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/EquipmentTypeCreate" class="btn btn-success" routerLinkActive="active">Create New Equipment Type
+      <a routerLink="/EquipmentTypeCreate" class="btn btn-success" routerLinkActive="active"><b>Create New Equipment Type</b>
       </a>
     </div>
     <form [formGroup]="searchform">
@@ -30,9 +30,9 @@
             <td>{{ x.EquipmentType }}</td>
             <td>{{ x.EquipmentTypeDescription }}</td>
             <td>
-              <a routerLink="/EquipmentTypeEdit/{{ x.EquipmentTypeKey}}" class="btn btn-primary">Edit</a> &nbsp;&nbsp;
+              <a routerLink="/EquipmentTypeEdit/{{ x.EquipmentTypeKey}}" class="btn btn-primary"><b>Edit</b></a> &nbsp;&nbsp;
               <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteEquipTypePass(x.EquipmentTypeKey); "
-                mdbWavesEffect>Delete</a>
+                mdbWavesEffect><b>Delete</b></a>
             </td>
           </tr>
           <tr *ngIf="equipmentType?.length == 0">
@@ -65,6 +65,9 @@
       <button class="btn btn-success" style="float: left;" (click)="previousPage()" *ngIf="showHide1">&#60;&#60;
         Previous</button>
       <button class="btn btn-success" style="float: right;" (click)="nextPage()" *ngIf="showHide2">Next >></button>
+      <a routerLink="/EquipmentView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
+        Back</b>
+    </a>
     </div>
 
   </div>

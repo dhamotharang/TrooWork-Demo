@@ -7,7 +7,7 @@
     <h4 class="refer"><b> FLOOR TYPE</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/FloorTypeCreate" class="btn btn-success" routerLinkActive="active">Create New Floor Type
+      <a routerLink="/FloorTypeCreate" class="btn btn-success" routerLinkActive="active"><b>Create New Floor Type</b>
       </a>
     </div>
     <form [formGroup]="searchform">
@@ -28,9 +28,9 @@
           <tr *ngFor="let x of floorType">
             <td>{{ x.FloorTypeName }}</td>
             <td>
-              <a routerLink="/FloorTypeEdit/{{ x.FloorTypeKey}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+              <a routerLink="/FloorTypeEdit/{{ x.FloorTypeKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
               <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteFloorTypePass(x.FloorTypeKey); "
-                mdbWavesEffect>Delete</a>
+                mdbWavesEffect><b>Delete</b></a>
             </td>
           </tr>
           <tr *ngIf="floorType?.length == 0">
@@ -62,6 +62,9 @@
       </table>
       <button class="btn btn-success" style="float: left;" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
       <button class="btn btn-success" style="float: right;" (click)="nextPage()" *ngIf="showHide2">Next >></button>
+      <a routerLink="/roomView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
+        Back</b>
+    </a>
     </div>
 
   </div>

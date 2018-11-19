@@ -19,7 +19,7 @@
       </div>
     </div>  
     <div class="col-md-6 text-center">      
-    <button type ="button" class="btn btn-primary" (click)="RecentUpdates()" >Show Recent Uploads</button>
+    <button type ="button" class="btn btn-primary" (click)="RecentUpdates()" ><b>SHOW RECENT UPLOADS</b></button>
   </div>
   </div>
 </div>
@@ -49,10 +49,10 @@
           <td>{{v.FileName}}</td>
           <td>{{v.FormDesc}}</td>
           <td><a target="_self" href="./uploads/{{v.FileName}}" download="{{v.FileName}}"><button type="button" mdbBtn color="primary" class="relative waves-light" (click)="downloadFile()"
-            mdbWavesEffect><i class="fa fa-file-pdf-o"></i>Download</button></a></td>
+            mdbWavesEffect><i class="fa fa-file-pdf-o"></i><b>DOWNLOAD</b></button></a></td>
           <td> <a href="./uploads/{{v.FileName}}"  target="_self"  onclick="window.open(this.href, 'popup', 'width=600,height=600,scrollbars=no,resizable=no');
             return false;"><button type="button" mdbBtn color="primary" class="relative waves-light"
-            mdbWavesEffect>View</button></a></td>
+            mdbWavesEffect><b>VIEW</b></button></a></td>
         </tr>
         <tr *ngIf="viewFolderDescriptionTable?.length == 0">
           <td colspan="2" class="no-data-available">No records found</td>
