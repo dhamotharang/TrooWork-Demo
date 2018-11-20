@@ -116,7 +116,15 @@ export class RoomCreateComponent implements OnInit {
                         this.inventoryService.addRoom(FacilityKey, FloorKey, FloorTypeKey, ZoneKey, RoomTypeKey, RoomName, SquareFoot, Barcode, this.employeekey, this.OrganizationID)
                           .subscribe(res => {
                             alert("Room created successfully");
-                            this.router.navigateByUrl('/roomView');
+                            this.inventoryService
+                            .getBarcodeForRoom(this.employeekey, this.OrganizationID)
+                            .subscribe((data: Array<any>) => {
+                              this.Barcode = data[0];
+                              this.temp_barcode = data[0];
+                              this.RoomName=null;
+                            });
+                         
+                         
                           });
                       }
                     });
