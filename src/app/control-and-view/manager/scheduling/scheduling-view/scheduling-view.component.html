@@ -5,7 +5,7 @@
     <h4 class="refer"><b> ASSIGNMENT LIST</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/CreateBatchWork" class="btn btn-primary" routerLinkActive="active">Create Assignmanet Name
+      <a routerLink="/CreateBatchWork" class="btn btn-success" routerLinkActive="active"><b>Create Assignment Name</b>
       </a>
     </div>
     <form [formGroup]="searchform">
@@ -32,7 +32,7 @@
             <td>{{z.EmployeeText}}</td>
             <td>
               <div style="text-align:center">
-                <a routerLink="/EditBatchWork/{{z.BatchScheduleNameKey}}" class="btn btn-primary" routerLinkActive="active">Edit</a>
+                <a routerLink="/EditBatchWork/{{z.BatchScheduleNameKey}}" class="btn btn-primary" routerLinkActive="active"><b>Edit</b></a>
               </div>
             </td>
           </tr>

@@ -1,7 +1,6 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
-  <br><br>
+  <br>
   <div style="text-align:center">
     <h3 style="color: #174a5e;"><strong>CREATE NEW ROOM TYPE</strong></h3>
   </div>
@@ -13,7 +12,6 @@
       <div class="md-form col-md-3" style="text-align:left">
         <input type="text" placeholder="RoomType Name" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeName">
       </div>
-      <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
       <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="Department">MetricType Name*: </label></h5>
@@ -26,7 +24,6 @@
           </option>
         </select>
       </div>
-      <div class="col col-md-5"></div>
     </div>
 
     <div class="row col-md-12" *ngIf="MetricKey" >
@@ -53,10 +50,10 @@
       <div class="col col-md-3"></div>
       <div style="text-align:right" class="col-md-3">
         <a style="color:white !important" class="btn btn-success" (click)="addRoomType(MetricKey,RoomTypeName,MetricTypeValue)"><b>Create
-            Room Type</b>
+          </b>
         </a></div>
       <div style="text-align:left" class="col-md-3">
-        <a routerLink="/roomTypeView" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Go
+        <a routerLink="/roomTypeView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
             Back
           </b>
         </a></div>

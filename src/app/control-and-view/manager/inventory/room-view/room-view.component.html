@@ -1,17 +1,17 @@
 <app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 
-<div *ngIf="!loading" style="width: 100%;height: 100%;">
-  <div class="bg-dark" style="width: 100%;height: 100%;">
+<div *ngIf="!loading" class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <!-- <div class="bg-dark" style="width: 100%;height: 100%;"> -->
     <br><br>
     <h4 class="refer"><b> ROOM</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/roomCreate" style="width: 13.5rem" class="btn btn-success" routerLinkActive="active">Create Room
+      <a routerLink="/roomCreate" style="width: 13.5rem" class="btn btn-success" routerLinkActive="active"><b>Create Room</b>
       </a><br>
-      <a routerLink="/roomTypeView" class="btn btn-success" routerLinkActive="active">Create/View Room Type
+      <a routerLink="/roomTypeView" class="btn btn-success" routerLinkActive="active"><b>Create/View Room Type</b>
       </a><br>
-      <a routerLink="/FloorTypeView" class="btn btn-success" routerLinkActive="active">Create/View FloorType
+      <a routerLink="/FloorTypeView" class="btn btn-success" routerLinkActive="active"><b>Create/View FloorType</b>
       </a>
     </div>
     <br>
@@ -100,7 +100,7 @@
           <th>Edit</th>
         </thead>
         <tbody>
-          <tr *ngFor="let x of rooms">
+          <tr *ngFor="let x of rooms" class="r2">
             <td>{{ x.FacilityName }}</td>
             <td>{{ x.FloorName }}</td>
             <td>{{ x.FloorTypeName }}</td>
@@ -108,9 +108,9 @@
             <td>{{ x.RoomTypeText }}</td>
             <td>{{ x.RoomName }}</td>
             <td>
-              <a routerLink="/RoomEdit/{{ x.RoomKey}}" class="btn btn-primary">Edit</a>&nbsp;
+              <a routerLink="/RoomEdit/{{ x.RoomKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;
               <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteRoomPass(x.RoomKey); "
-                mdbWavesEffect>Delete</a>
+                mdbWavesEffect><b>Delete</b></a>
             </td>
           </tr>
           <tr *ngIf="rooms?.length == 0">
@@ -144,5 +144,5 @@
         Previous</button>
       <button class="btn btn-success" style="float: right;" (click)="nextPage()" *ngIf="showHide2">Next >></button>
     </div>
-  </div>
+  <!-- </div> -->
 </div>

@@ -10,23 +10,20 @@
   <div class="col-md-12">
     <div class="row col-md-12">
       <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="department">Department Name: </label></h5>
-      <div class="md-form col-md-3" style="text-align:left">
-        <input *ngIf="dept" type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
-          id="Department" [(ngModel)]="dept.DepartmentName">
+      <div class="md-form col-md-8" style="text-align:left">
+        <input *ngIf="dept" type="text" style="background-color: #D4F4FF !important;" class="form-control" id="Department"
+          [(ngModel)]="dept.DepartmentName">
       </div>
-      <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
       <div class="col col-md-3"></div>
-      <div style="text-align:right" class="col-md-3">
+      <div class="col-md-9">
         <a style="color:white !important" class="btn btn-success" (click)="updateDepartment(dept.DepartmentName)"><b>Update</b>
-        </a></div>
-      <div style="text-align:left" class="col-md-3">
-        <a routerLink="/DepartmentView" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Go
+        </a>
+        <a routerLink="/DepartmentView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
             Back
           </b>
         </a></div>
-      <div class="col col-md-3"></div>
     </div>
   </div>
   <br><br>

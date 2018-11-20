@@ -12,11 +12,17 @@ export class ViewEmployeeAdminComponent implements OnInit {
   jobtitle: People[];
   employeedetailstable: People[];
   searchform: FormGroup;
-  JobTitleKey: Number;
+  JobTitleKey;
   managerList;
-  ManagerKey: Number;
+  ManagerKey;
+
   pageNo: Number = 1;
-  itemsCount: Number = 25;
+  itemsPerPage: Number = 25;
+  showHide1: boolean;
+  showHide2: boolean;
+  pagination: Number;
+
+  loading: boolean;// loading
   role: String;
   name: String;
   employeekey: Number;
@@ -60,22 +66,69 @@ export class ViewEmployeeAdminComponent implements OnInit {
   }
 
   getempdettablewithselectedJobtitle() {
-    this.PeopleServiceService
-      .getEmployeeByFilters(this.pageNo, this.itemsCount, this.JobTitleKey, this.ManagerKey, this.employeekey, this.OrganizationID)
+
+    if( !(this.JobTitleKey) && !(this.ManagerKey) ){
+      this.PeopleServiceService
+      .getAllEmployeeDetails(1, 25, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.employeedetailstable = data;
+        this.loading = false;
+        if (this.employeedetailstable[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.employeedetailstable[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
       });
 
+    }
+    else{
+      if( !(this.JobTitleKey)){
+        this.JobTitleKey=null;
+      }
+      if( !(this.ManagerKey)){
+        this.ManagerKey=null;
+      }
+    this.PeopleServiceService
+      .getEmployeeByFilters(this.pageNo, this.itemsPerPage, this.JobTitleKey,parseInt( this.ManagerKey), this.employeekey, this.OrganizationID)
+      .subscribe((data: People[]) => {
+        this.employeedetailstable = data;
+        this.showHide2 = false;
+        this.showHide1 = false;
+      });
+    }
   }
   searchEmployeeDetails(SearchValue) {
+    
     this.PeopleServiceService
-      .searchResultOfEmployeedetailsTable(SearchValue, this.pageNo, this.itemsCount, this.employeekey, this.OrganizationID)
+      .searchResultOfEmployeedetailsTable(SearchValue, this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.employeedetailstable = data;
+        this.showHide2 = false;
+          this.showHide1 = false;
       });
+      if(SearchValue.length==0){
+        this.PeopleServiceService
+      .getAllEmployeeDetails(1, 25, this.employeekey, this.OrganizationID)
+      .subscribe((data: People[]) => {
+        this.employeedetailstable = data;
+        this.loading = false;
+        if (this.employeedetailstable[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.employeedetailstable[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
+      });
+      }
   }
   ngOnInit() {
-
+    this.JobTitleKey='';
+    this.ManagerKey='';
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -94,6 +147,15 @@ export class ViewEmployeeAdminComponent implements OnInit {
       .getAllEmployeeDetails(1, 25, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.employeedetailstable = data;
+        this.loading = false;
+        if (this.employeedetailstable[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.employeedetailstable[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
       });
     this.searchform = this.formBuilder.group({
       SearchEmpDetails: ['', Validators.required]
@@ -103,6 +165,43 @@ export class ViewEmployeeAdminComponent implements OnInit {
       .getmanagersForEmp(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.managerList = data;
+      });
+  }
+
+  previousPage() {
+    this.loading = true;
+    this.pageNo = +this.pageNo - 1;
+    this.PeopleServiceService
+      .getAllEmployeeDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: People[]) => {
+        this.employeedetailstable = data;
+        this.loading = false;
+        if (this.pageNo == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
+  }
+  nextPage() {
+    this.loading = true;
+    this.pageNo = +this.pageNo + 1;
+    this.PeopleServiceService
+      .getAllEmployeeDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: People[]) => {
+        this.employeedetailstable = data;
+        this.loading = false;
+        this.pagination = + this.employeedetailstable[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
       });
   }
 

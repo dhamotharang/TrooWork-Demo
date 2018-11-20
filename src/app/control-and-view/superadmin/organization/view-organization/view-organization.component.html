@@ -21,9 +21,9 @@
             <td>{{ o.State }}</td>
             <td>{{ o.Country }}</td>
             <td>
-              <a routerLink="/Orgedit/{{ o.OrganizationID }}" class="btn btn-primary">Edit</a> &nbsp;
+              <a routerLink="/Orgedit/{{ o.OrganizationID }}" class="btn btn-primary"><b>Edit</b></a> &nbsp;
               <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteOrgPass(o.OrganizationID); "
-                mdbWavesEffect>Delete</a>
+                mdbWavesEffect><b>Delete</b></a>
             </td>
           </tr>
           <tr *ngIf="build?.length == 0">

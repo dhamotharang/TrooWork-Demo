@@ -31,7 +31,7 @@
     </div>
   </div>
   <br>
-  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12">
     <br>
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
       <table class="table table-responsive table-hover table-bordered table">
@@ -44,16 +44,16 @@
           <th>Status</th>
         </thead>
         <tbody>
-          <tr *ngFor="let i of inspectionordertable">
+          <tr *ngFor="let i of inspectionordertable" class="r2">
             <td>{{i.TemplateName}} </td>
             <td>{{i.FacilityName}}-{{i.RoomId}} </td>
             <td>{{i.Inspectiondate}} {{i.InspectionTime}}</td>
             <td>{{i.LastName}},{{i.FirstName}} </td>
             <td>{{i.EmployeeName}}</td>
             <td *ngIf="i.InspectionCompletedBy !== null"> <a routerLink="/ViewInspectionManager/{{i.InspectionOrderKey}}"
-                class="btn btn-primary">Inspection Completed </a></td>
+                class="btn btn-primary"><b>Inspection Completed </b></a></td>
             <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey === toServeremployeekey)"> <a routerLink="/Managerinspectiontemplate/{{i.InspectionOrderKey}}"
-                class="btn btn-primary">Inspect</a></td>
+                class="btn btn-primary"><b>Inspect</b></a></td>
             <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey !== toServeremployeekey)">Scheduled</td>
           </tr>
           <tr *ngIf="inspectionordertable?.length == 0">

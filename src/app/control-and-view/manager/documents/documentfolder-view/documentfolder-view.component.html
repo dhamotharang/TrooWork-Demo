@@ -5,8 +5,8 @@
     <h4 class="refer"><b>DOCUMENT FOLDER</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/NewdocumentfolderCreate" class="btn btn-success" routerLinkActive="active">Create New Document
-        Folder
+      <a routerLink="/NewdocumentfolderCreate" class="btn btn-success" routerLinkActive="active"><b>Create New Document
+        Folder</b>
       </a>
     </div>
     <form [formGroup]="searchform">
@@ -28,9 +28,9 @@
             <td>{{ d.FormType }}</td>
 
             <td>
-              <a routerLink="/DocumentfolderEdit/{{d.FormtypeId}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+              <a routerLink="/DocumentfolderEdit/{{d.FormtypeId}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
               <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteFolderPass(d.FormtypeId); "
-                mdbWavesEffect>Delete</a>
+                mdbWavesEffect><b>Delete</b></a>
             </td>
           </tr>
           <tr *ngIf="documents?.length == 0">

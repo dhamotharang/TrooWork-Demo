@@ -1,11 +1,11 @@
 <app-manager-dash-board></app-manager-dash-board>
-<!-- <div style="width: 100%;height: 100%;"> -->
-<!-- <div class="bg-dark" style="width: 100%;height: 100%;"> -->
-<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+<img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
+
+<div *ngIf="!loading" class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
   <h4 class="refer"><b> BUILDINGS</b> </h4>
   <br>
   <div style="text-align:center">
-    <a routerLink="/Createbuilding" class="btn btn-success" routerLinkActive="active">Create New Building
+    <a routerLink="/Createbuilding" class="btn btn-success" routerLinkActive="active"><b>Create New Building</b>
     </a>
   </div>
   <form [formGroup]="searchform">
@@ -16,20 +16,20 @@
       <div *ngIf="searchform.controls.SearchFacility.errors?.minlength">Minimum 3 characters required.</div>
     </div>
   </form>
-  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="bg-info">
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" >
     <table class="table table-responsive table-hover table-bordered table">
       <thead class="tableHead">
         <th> Buildings </th>
         <th>Edit</th>
       </thead>
       <tbody>
-        <tr *ngFor="let x of build">
+        <tr *ngFor="let x of build" class="r2">
           <td>{{ x.FacilityName }}</td>
 
           <td>
-            <a routerLink="/Buildedit/{{ x.FacilityKey}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+            <a routerLink="/Buildedit/{{ x.FacilityKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
             <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteFacPass(x.FacilityKey); "
-              mdbWavesEffect>Delete</a>
+              mdbWavesEffect><b>Delete</b></a>
           </td>
         </tr>
         <tr *ngIf="build?.length == 0">
@@ -57,9 +57,7 @@
         </div>
       </tbody>
     </table>
-    <button class="btn btn-success" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
-    <button class="btn btn-success" (click)="nextPage()" *ngIf="showHide2">Next >></button>
+    <button class="btn btn-success" style="float: left;" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
+    <button class="btn btn-success" style="float: right;" (click)="nextPage()" *ngIf="showHide2">Next >></button>
   </div>
-  <!-- </div> -->
-  <!-- </div> -->
 </div>

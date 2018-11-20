@@ -1,7 +1,6 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
-  <br><br>
+  <br>
   <div style="text-align:center">
     <h3 style="color: #174a5e;"><strong>UPDATE FLOOR TYPE</strong></h3>
   </div>
@@ -14,7 +13,6 @@
         <input *ngIf="flrType" type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" maxlength="40"
           id="FloorType" [(ngModel)]="flrType.FloorTypeName">
       </div>
-      <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
       <div class="col col-md-3"></div>
@@ -22,7 +20,7 @@
         <a style="color:white !important" class="btn btn-success" (click)="updateFloorType(flrType.FloorTypeName)"><b>Update</b>
         </a></div>
       <div style="text-align:left" class="col-md-3">
-        <a routerLink="/FloorTypeView" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Go
+        <a routerLink="/FloorTypeView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
             Back
           </b>
         </a></div>

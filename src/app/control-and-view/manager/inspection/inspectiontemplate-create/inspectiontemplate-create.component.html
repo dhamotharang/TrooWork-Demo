@@ -35,7 +35,7 @@
                   <input [(ngModel)]="field.question" class="form-control" type="text" value="{{field.question}}" />
                 </td>
                 <td>
-                  <button class="btn btn-danger" type="button" (click)="deleteFieldValue(i)">DELETE QUESTION</button>
+                  <button class="btn btn-danger" type="button" (click)="deleteFieldValue(i)"><b>DELETE QUESTION</b></button>
                 </td>
               </tr>
           <!-- new space to enter values -->
@@ -44,10 +44,10 @@
                   <input class="form-control" placeholder="Enter the Question,Don't copy paste" maxlength="80" type="text" id="newAttributeCode" [(ngModel)]="newAttribute.question" name="newAttributeCode" />
                 </td>
                 <td>
-                  <button class="btn btn-success" type="button" (click)="addFieldValue()">ADD QUESTION</button>
+                  <button class="btn btn-success" type="button" (click)="addFieldValue()"><b>ADD QUESTION</b></button>
                 </td>
               </tr>
-              <button class="btn btn-success" type="button" (click)="valuesSave(ScoreTypeKey,InspTempName)">SAVE</button>
+              <button class="btn btn-success" type="button" (click)="valuesSave(ScoreTypeKey,InspTempName)"><b>SAVE</b></button>
             </tbody>
           </table>
   </div>

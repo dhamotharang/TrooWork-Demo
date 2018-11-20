@@ -248,7 +248,9 @@ export class ViewWorkOrderComponent implements OnInit {
       .getworkOrderTablewithOnDateOnly(this.pageNo,this.itemsPerPage,date1, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
-        this.loading = false;
+        if(!this.WorkorderDate2){
+          this.loading = false;
+          }
       });
       this.FacilityKey=null;
       this.FloorKey=null;

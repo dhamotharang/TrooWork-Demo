@@ -17,11 +17,11 @@
           <td><input type="text"  class="form-control" [disabled]='!(k===editQuestions)' [(ngModel)]=" x.ActionType"></td>
           <td><input type="text"  class="form-control" [disabled]='!(k===editQuestions)' [(ngModel)]="x.Action"></td>
           <td><input type="text"  class="form-control" [disabled]='!(k===editQuestions)' [(ngModel)]="x.Description"></td>
-          <td><a *ngIf='!(k===editQuestions)' class="btn btn-primary" (click)='editQuestions=k;' class="btn btn-primary">Edit</a>
-            <a *ngIf='(k===editQuestions)' class="btn btn-primary" (click)='UpdateEventDetais(x.ActionType,x.Action,x.Description,x.ActionKey,x.ActionTypeKey)'>Update</a>
-            <a *ngIf='!(k===editQuestions)' button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteEventValuePass(x.ActionKey,x.ActionTypeKey); "
-              mdbWavesEffect>Delete</a>
-              <a *ngIf='(k===editQuestions)' class="btn btn-primary" (click)='cancelTemplateDetails()'>Cancel</a>  
+          <td><a *ngIf='!(k===editQuestions)' class="btn btn-primary" (click)='editQuestions=k;' class="btn btn-primary"><b>Edit</b></a>
+            <a *ngIf='(k===editQuestions)' class="btn btn-success" (click)='UpdateEventDetais(x.ActionType,x.Action,x.Description,x.ActionKey,x.ActionTypeKey)'><b>Update</b></a>
+            <a *ngIf='!(k===editQuestions)' button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteEventValuePass(x.ActionKey,x.ActionTypeKey); "
+              mdbWavesEffect><b>Delete</b></a>
+              <a *ngIf='(k===editQuestions)' class="btn btn-warning" (click)='cancelTemplateDetails()'><b>Cancel</b></a>  
             </td>
         </tr>
         <tr *ngIf="eventType?.length == 0">

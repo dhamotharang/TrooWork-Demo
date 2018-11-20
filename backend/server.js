@@ -6112,7 +6112,7 @@ app.get(securedpath + '/checkUniqueBarcode_Updation', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @roomkey=?; set @barcode=?; set @empkey=?;set @OrganizationID=?; call usp_checkingForUniqueBarcode_update(@roomkey,@barcode,@empkey,@OrganizationID)', [roomkey, barcode, empkey, OrganizationID], function (err, rows) {
+            connection.query('set @roomkey=?; set @barcode=?; set @empkey=?;set @OrganizationID=?; call usp_checkingForUniqueBarcode_update_Ang6(@roomkey,@barcode,@empkey,@OrganizationID)', [roomkey, barcode, empkey, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -8282,7 +8282,7 @@ app.get(securedpath + '/workorderDetails', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @workorderKey=?; set @OrganizationID=?;call usp_workorderViewByWorkOrderKey(@workorderKey,@OrganizationID)', [workorderKey, OrganizationID], function (err, rows) {
+            connection.query('set @workorderKey=?; set @OrganizationID=?;call usp_workorderViewByWorkOrderKey_Ang6(@workorderKey,@OrganizationID)', [workorderKey, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -13633,7 +13633,7 @@ app.get(securedpath + '/getEquipmentBuildFloor', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @FacilityKey=?;set @FloorKey=?;set @OrganizationID=?; call usp_getEquipmentBuildFloor(@FacilityKey,@FloorKey,@OrganizationID)', [FacilityKey, FloorKey, OrganizationID], function (err, rows) {
+            connection.query('set @FacilityKey=?;set @FloorKey=?;set @OrganizationID=?; call usp_getEquipmentBuildFloor_Ang6(@FacilityKey,@FloorKey,@OrganizationID)', [FacilityKey, FloorKey, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
