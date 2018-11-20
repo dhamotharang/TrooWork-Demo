@@ -1,7 +1,7 @@
 <app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
-<div *ngIf="!loading" style="width: 100%;height: 100%;">
-  <div class="bg-dark" style="width: 100%;height: 100%;">
+<div *ngIf="!loading" class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <!-- <div class="bg-dark" style="width: 100%;height: 100%;"> -->
     <br><br>
     <h4 class="refer"><b> DEPARTMENT</b> </h4>
     <br>
@@ -18,7 +18,7 @@
       </div>
     </form>
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
-      <table class="table table-responsive table-hover table-bordered table bg-info">
+      <table class="table table-responsive table-hover table-bordered table">
         <thead class="tableHead">
           <th> Department Name </th>
           <th>Edit</th>
@@ -64,5 +64,5 @@
       <button class="btn btn-success" style="float: right;" (click)="nextPage()" *ngIf="showHide2">Next >></button>
     </div>
 
-  </div>
+  <!-- </div> -->
 </div>

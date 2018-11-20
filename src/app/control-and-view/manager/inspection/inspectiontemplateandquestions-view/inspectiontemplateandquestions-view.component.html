@@ -1,4 +1,5 @@
 <app-manager-dash-board></app-manager-dash-board>
+<img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <!-- <div *ngIf="!loading" class="py-5 " style="padding-left: 9rem;padding-right: 9rem;"> -->
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
   <div style="text-align:center">
@@ -33,7 +34,7 @@
     </div>
   </form>
 </div>
-<div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="bg-info">
+<div style="margin-left: 1.5rem;margin-right: 1.5rem;">
   <table *ngIf='viewinspectionTemplate' id="inspectemplate" class="table table-hover table-responsive table-bordered table">  
     <thead class="tableHead">
       <th> Template Name </th>
@@ -42,7 +43,7 @@
       <th>Action</th>   
     </thead>
     <tbody>
-        <tr *ngFor="let v of viewinspectionTemplate" >
+        <tr *ngFor="let v of viewinspectionTemplate">
           <td>{{v.TemplateName}}</td>
           <td>{{v.Question}}</td>
           <td>{{v.ScoreName}}</td>
@@ -78,3 +79,4 @@
 </table>
 </div>
 </div>
+<!-- </div> -->

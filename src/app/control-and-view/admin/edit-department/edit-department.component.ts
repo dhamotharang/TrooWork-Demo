@@ -39,6 +39,10 @@ export class EditDepartmentComponent implements OnInit {
   }
 
   updateDepartment(DepartmentName) {
+    if(DepartmentName && !DepartmentName.trim()){
+      alert("Please Enter Department Name!");
+      return;
+    }
     if (!DepartmentName) {
       alert("Please provide a Department Name");
     } else {

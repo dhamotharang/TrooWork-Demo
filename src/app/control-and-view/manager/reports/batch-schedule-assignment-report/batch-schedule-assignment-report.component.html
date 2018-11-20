@@ -37,7 +37,7 @@
   </div>
   <br>
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
-    <table *ngIf='reportarray' class="table table-hover table-responsive table-bordered table" style="background-color: white">
+    <table *ngIf='reportarray' class="table table-hover table-responsive table-bordered table">
       <thead class="tableHead">
         <th>Building</th>
         <th>Floor</th>
@@ -114,3 +114,4 @@
   <div style="text-align:center" *ngIf="reportarray?.length> 0">
     <button type="button" class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>
   </div>
+</div>

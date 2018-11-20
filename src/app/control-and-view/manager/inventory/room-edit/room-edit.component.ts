@@ -16,7 +16,7 @@ export class RoomEditComponent implements OnInit {
   roomType: Inventory[];
   floor: Inventory[];
   zone: Inventory[];
-  room: Array<any>;
+  room;
   facKey: Number;
   floorKey: Number;
   zoneKey: Number;
@@ -90,7 +90,7 @@ export class RoomEditComponent implements OnInit {
       FloorTypeKey: FloorTypeKey,
       ZoneKey: ZoneKey,
       RoomTypeKey: RoomTypeKey,
-      RoomKey: this.roomkey,
+      RoomKey: this.roomKey$,
       area: SquareFoot,
       RoomName: RoomName,
       Barcode: Barcode,
@@ -118,11 +118,11 @@ export class RoomEditComponent implements OnInit {
     }
     else {
       this.inventoryService
-        .checkUniqueBarcode_Updation(Barcode, this.roomkey, this.employeekey, this.OrganizationID)
+        .checkUniqueBarcode_Updation(Barcode, this.roomKey$, this.employeekey, this.OrganizationID)
         .subscribe((data: any[]) => {
- 
+
           this.unqBar = data;
-          if (this.unqBar.Barcode!=0) {
+          if (this.unqBar.Barcode != 0) {
             alert("Barcode already exists !");
           }
           else {
@@ -152,18 +152,13 @@ export class RoomEditComponent implements OnInit {
       .getRoomDetailsList(this.roomKey$, this.OrganizationID)
       .subscribe((data: Array<any>) => {
         this.room = data[0];
-        this.facKey = data[0].FacilityKey;
-        this.floorKey = data[0].FloorKey;
-        this.zoneKey = data[0].FloorKey;
-        this.roomkey = data[0].RoomKey;
-
         this.inventoryService
-          .getallFloorList(this.facKey, this.OrganizationID)
+          .getallFloorList(this.room.FacilityKey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.floor = data;
           });
         this.inventoryService
-          .getallZoneList(this.facKey, this.floorKey, this.OrganizationID)
+          .getallZoneList(this.room.FacilityKey, this.room.FloorKey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             this.zone = data;
           });
@@ -186,5 +181,6 @@ export class RoomEditComponent implements OnInit {
       .subscribe((data: Inventory[]) => {
         this.roomType = data;
       });
+
   }
 }
