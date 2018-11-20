@@ -22,7 +22,7 @@
           <th>Action</th>
         </thead>
         <tbody>
-          <tr *ngFor="let i of inspectiontemplate;let k = index" class="r2">
+          <tr *ngFor="let i of inspectiontemplate;let k = index" >
             <td><input type="text"  class="form-control" [disabled]='!(k===editQuestions)' [(ngModel)]=" i.TemplateName"></td>
             <td>{{ i.ScoreName }} </td>
             <td>

@@ -78,6 +78,30 @@ export class LoginComponent implements OnInit {
             this.OrganizationID = profile.OrganizationID;
             console.log("login successfull");
 
+            if(passWord=='troowork')
+            {
+              if (profile.role === 'Admin')
+              {
+                this.router.navigate(['/changePasswordAdmin',this.employeekey, this.role, this.IsSupervisor]);
+              }
+              else if (profile.role === 'SuperAdmin')
+              {
+                this.router.navigate(['/changePasswordSuperAdmin',this.employeekey, this.role, this.IsSupervisor]);
+              }
+              else if (profile.role === 'Manager')
+              {
+                this.router.navigate(['/changePasswordManager',this.employeekey, this.role, this.IsSupervisor]);
+              }
+              else if (profile.role === 'Employee' && this.IsSupervisor === 1)
+              {
+                this.router.navigate(['/changePasswordSupervisor',this.employeekey, this.role, this.IsSupervisor]);
+              }
+              else if (profile.role === 'Employee' && this.IsSupervisor === 0)
+              {
+                this.router.navigate(['/changePasswordEmployee',this.employeekey, this.role, this.IsSupervisor]);
+              }
+            }
+            else{
             if (profile.role === 'SuperAdmin' && this.isAuthenticated) {
               this.router.navigateByUrl('/welcomeSuperAdmin');
             }
@@ -94,7 +118,7 @@ export class LoginComponent implements OnInit {
               this.router.navigateByUrl('/welcomeEmployee');
             }
           }
-
+        }
 
         },
 

@@ -1,6 +1,6 @@
 <app-supervisor-dashboard></app-supervisor-dashboard>
-<div style="width: 100%;height: 100%;">
-  <div class="bg-dark" style="width: 100%;height: 100%;">
+<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <!-- <div class="bg-dark" style="width: 100%;height: 100%;"> -->
     <br><br>
     <h4 class="refer"><b> MEETING/TRAINING/EVENT</b> </h4>
     <br>
@@ -23,7 +23,7 @@
           <th>Status</th>
         </thead>
         <tbody>
-          <tr *ngFor="let v of viewmeeting" class="r2">
+          <tr *ngFor="let v of viewmeeting">
             <td>{{ v.ActionType }}-{{ v.Action }}</td>
              <td>{{ v.EventVenue }}</td>
              <td>{{ v.EventHost }}</td>
@@ -38,5 +38,5 @@
         </tbody>
       </table>
     </div>
-  </div>
+  <!-- </div> -->
 </div>

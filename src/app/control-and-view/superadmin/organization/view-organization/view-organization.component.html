@@ -1,11 +1,11 @@
 <app-superadmin-dashboard></app-superadmin-dashboard>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
-<div style="width: 100%;height: 100%;" *ngIf="!loading">
-  <div class="bg-dark" style="width: 100%;height: 100%;">
+<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;" *ngIf="!loading">
+  <!-- <div class="bg-dark" style="width: 100%;height: 100%;"> -->
     <br><br>
     <h4 class="refer"><b> VIEW ORGANIZATION</b> </h4>
     <br>
-    <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="bg-info">
+    <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
       <table class="table table-responsive table-hover table-bordered table">
         <thead class="tableHead">
           <th> Organization Name </th>
@@ -15,7 +15,7 @@
           <th>Action</th>
         </thead>
         <tbody>
-          <tr *ngFor="let o of organization" class="r2">
+          <tr *ngFor="let o of organization">
             <td>{{ o.OrganizationName }}</td>
             <td>{{ o.Location }}</td>
             <td>{{ o.State }}</td>
@@ -54,5 +54,5 @@
         </tbody>
       </table>
     </div>
-  </div>
+  <!-- </div> -->
 </div>

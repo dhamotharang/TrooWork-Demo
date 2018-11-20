@@ -18,7 +18,7 @@
            </div> 
           </form> 
          <!-- </div> -->
-         <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
+         <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12">
           <table class="table table-responsive table-hover table-bordered table">
             <thead class="tableHead">
               <th> Template </th>
@@ -35,7 +35,7 @@
                 <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey !== toServeremployeekey)">Scheduled</td> --> 
               </tr>
               <tr *ngIf="inspectionordertable?.length == 0">
-                <td colspan="2" class="no-data-available">No records found</td>
+                <td colspan="3" class="no-data-available">No records found</td>
               </tr>
             </tbody>
             </table>
