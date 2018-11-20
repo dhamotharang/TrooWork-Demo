@@ -25,7 +25,7 @@
           <th>Edit</th>
         </thead>
         <tbody>
-          <tr *ngFor="let x of floorType" class="r2">
+          <tr *ngFor="let x of floorType">
             <td>{{ x.FloorTypeName }}</td>
             <td>
               <a routerLink="/FloorTypeEdit/{{ x.FloorTypeKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;

@@ -1,6 +1,6 @@
 <app-manager-dash-board></app-manager-dash-board>
-<div style="width: 100%;height: 100%;">
-  <div class="bg-dark" style="width: 100%;height: 100%;">
+<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <!-- <div class="bg-dark" style="width: 100%;height: 100%;"> -->
     <br><br>
     <h4 class="refer"><b> ASSIGNMENT LIST</b> </h4>
     <br>
@@ -18,7 +18,7 @@
     </form>
 
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
-      <table class="table table-responsive table-hover table-bordered table bg-info">
+      <table class="table table-responsive table-hover table-bordered table">
         <thead class="tableHead">
           <th> Assignment  Name </th>
           <th> Assignment  Description</th>
@@ -26,7 +26,7 @@
           <th> Edit </th>
         </thead>
         <tbody>
-          <tr *ngFor="let z of scheduleList">
+          <tr *ngFor="let z of scheduleList" >
             <td>{{z.BatchSchduleName}}</td>
             <td>{{z.ScheduleDescription}}</td>
             <td>{{z.EmployeeText}}</td>
@@ -45,5 +45,5 @@
         Previous</button>
       <button class="btn btn-success" style="float: right;" (click)="nextPage()" *ngIf="showHide2">Next >></button>
     </div>
-  </div>
+  <!-- </div> -->
 </div>

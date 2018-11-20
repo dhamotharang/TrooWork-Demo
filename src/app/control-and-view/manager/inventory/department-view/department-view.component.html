@@ -24,7 +24,7 @@
           <th>Edit</th>
         </thead>
         <tbody>
-          <tr *ngFor="let x of departments" class="r2">
+          <tr *ngFor="let x of departments">
             <td>{{ x.DepartmentName }}</td>
             <td>
               <a routerLink="/departmentEdit/{{ x.DepartmentKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;

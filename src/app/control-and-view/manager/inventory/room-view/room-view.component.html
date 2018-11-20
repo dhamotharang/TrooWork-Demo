@@ -89,7 +89,7 @@
       </div>
     </form>
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
-      <table class="table table-responsive table-hover table-bordered table bg-info">
+      <table class="table table-responsive table-hover table-bordered table">
         <thead class="tableHead">
           <th> Building </th>
           <th> Floor </th>
@@ -100,7 +100,7 @@
           <th>Edit</th>
         </thead>
         <tbody>
-          <tr *ngFor="let x of rooms" class="r2">
+          <tr *ngFor="let x of rooms">
             <td>{{ x.FacilityName }}</td>
             <td>{{ x.FloorName }}</td>
             <td>{{ x.FloorTypeName }}</td>

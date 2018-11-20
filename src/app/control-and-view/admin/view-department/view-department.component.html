@@ -1,6 +1,6 @@
 <app-admin-dashboard></app-admin-dashboard>
-<div style="width: 100%;height: 100%;">
-  <div class="bg-dark" style="width: 100%;height: 100%;">
+<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <!-- <div class="bg-dark" style="width: 100%;height: 100%;"> -->
     <br><br>
     <h4 class="refer"><b> DEPARTMENT</b> </h4>
     <br>
@@ -23,7 +23,7 @@
           <th>Edit</th>
         </thead>
         <tbody>
-          <tr *ngFor="let x of departments" class="r2">
+          <tr *ngFor="let x of departments">
             <td>{{ x.DepartmentName }}</td>
             <td>
               <a routerLink="/EditDepartment/{{ x.DepartmentKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
@@ -62,5 +62,5 @@
       <button class="btn btn-success" (click)="nextPage()" *ngIf="showHide2">Next >></button>
     </div>
 
-  </div>
+  <!-- </div> -->
 </div>
