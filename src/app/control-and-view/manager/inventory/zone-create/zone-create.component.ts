@@ -52,7 +52,7 @@ export class ZoneCreateComponent implements OnInit {
     if (!FacilityKey) {
       alert("Please select a building!");
     } else if (!FloorName) {
-      alert("Enter floor name!");
+      alert("select floor name!");
     }
     else if (!ZoneName) {
       alert("Enter zone name!");

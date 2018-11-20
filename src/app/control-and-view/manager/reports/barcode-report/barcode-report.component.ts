@@ -121,62 +121,69 @@ export class BarcodeReportComponent implements OnInit {
     this.ReportServiceService.getFloor(key, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.floor = data;
+        this.FloorKey = "";
       });
   }
-  getequipments(eqtypekey)
-  {
-    this.ReportServiceService.geteq_values('equipments',eqtypekey, this.OrganizationID)
-    .subscribe((data: Reports[]) => {
-      this.equipment = data;
-      this.EquipmentKey="";
-    });
+  getequipments(eqtypekey) {
+    this.ReportServiceService.geteq_values('equipments', eqtypekey, this.OrganizationID)
+      .subscribe((data: Reports[]) => {
+        this.equipment = data;
+        this.EquipmentKey = "";
+      });
   }
   generateBarcodeReport(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, EquipmentTypeKey, EquipmentKey) {
     if (!this.FacilityKey && !this.EquipmentTypeKey && !this.EquipmentKey) {
       alert("Please choose any filter");
     }
-    this.loading = true;
-    if (FacilityKey) {
-      if (!FloorKey) {
-        FloorKey = null;
-      }
-      if (!RoomTypeKey) {
-        RoomTypeKey = null;
-      }
-      if (!ZoneKey) {
-        ZoneKey = null;
-      }
-      this.ReportServiceService
-        .generateBarcodeReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, this.employeekey, this.OrganizationID)
-        .subscribe((data: Reports[]) => {
-          this.Roomflag = true;
-          this.Equipmentflag = false;
-          this.viewBarcodeReport = data;
-          this.loading = false;
-        });
-    }
-    if (EquipmentTypeKey) {
-      this.ReportServiceService
-        .generateBarcodeByEqupimenttype(EquipmentKey, EquipmentTypeKey, this.employeekey, this.OrganizationID)
-        .subscribe((data: Reports[]) => {
-          this.Roomflag = false;
-          this.Equipmentflag = true;
-          this.viewBarcodeEquipment = data;
-          this.loading = false;
-        });
-    }
+    else {
+      this.loading = true;
+      if (FacilityKey) {
+        if (!FloorKey) {
+          FloorKey = null;
+        }
+        if (!RoomTypeKey) {
+          RoomTypeKey = null;
+        }
+        if (!ZoneKey) {
+          ZoneKey = null;
+        }
 
-    if (EquipmentKey) {
-      this.ReportServiceService
-        .generateBarcodeByEqupiment(EquipmentKey, EquipmentTypeKey, this.employeekey, this.OrganizationID)
-        .subscribe((data: Reports[]) => {
-          this.Roomflag = false;
-          this.Equipmentflag = true;
-          this.viewBarcodeEquipment = data;
-          this.loading = false;
-        });
+        this.ReportServiceService
+          .generateBarcodeReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, this.employeekey, this.OrganizationID)
+          .subscribe((data: Reports[]) => {
+            this.Roomflag = true;
+            this.Equipmentflag = false;
+            this.viewBarcodeReport = data;
+            this.loading = false;
+          });
+      }
+      if (EquipmentTypeKey) {
+        if (!EquipmentKey) {
+          EquipmentKey = null;
+        }
+        this.ReportServiceService
+          .generateBarcodeByEqupimenttype(EquipmentKey, EquipmentTypeKey, this.employeekey, this.OrganizationID)
+          .subscribe((data: Reports[]) => {
+            this.Roomflag = false;
+            this.Equipmentflag = true;
+            this.viewBarcodeEquipment = data;
+            this.loading = false;
+          });
+      }
+
+      if (EquipmentKey) {
+        this.ReportServiceService
+          .generateBarcodeByEqupiment(EquipmentKey, EquipmentTypeKey, this.employeekey, this.OrganizationID)
+          .subscribe((data: Reports[]) => {
+            this.Roomflag = false;
+            this.Equipmentflag = true;
+            this.viewBarcodeEquipment = data;
+            this.loading = false;
+          });
+      }
     }
   }
+
 
   getZoneRoom(floorkey, fkey) {
 
@@ -184,16 +191,19 @@ export class BarcodeReportComponent implements OnInit {
       .getZone(fkey, floorkey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.zoneroom = data;
+        this.ZoneKey = "";
       });
 
-      this.ReportServiceService
+    this.ReportServiceService
       .getRoomtype(fkey, floorkey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.room = data;
+        this.RoomTypeKey = "";
       });
 
 
   }
+
 
 
   //export to excel 

@@ -232,6 +232,9 @@ export class ViewWorkOrdersComponent implements OnInit {
     }
     else {
       this.FloorKey = "";
+      this.ZoneKey="";
+      this.RoomTypeKey="";
+      this.RoomKey="";
     }
   }
   getZoneRoomTypeRoom(floor, facility) {
