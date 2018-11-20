@@ -16,14 +16,14 @@
       <div *ngIf="searchform.controls.SearchFacility.errors?.minlength">Minimum 3 characters required.</div>
     </div>
   </form>
-  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="bg-info">
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" >
     <table class="table table-responsive table-hover table-bordered table">
       <thead class="tableHead">
         <th> Buildings </th>
         <th>Edit</th>
       </thead>
       <tbody>
-        <tr *ngFor="let x of build">
+        <tr *ngFor="let x of build" class="r2">
           <td>{{ x.FacilityName }}</td>
 
           <td>

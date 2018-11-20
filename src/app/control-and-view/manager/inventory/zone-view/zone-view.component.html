@@ -14,7 +14,7 @@
       <div *ngIf="searchform.controls.SearchZone.errors?.minlength">Minimum 3 characters required.</div>
     </div>
   </form>
-  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="bg-info">
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
     <table class="table table-hover table-responsive table-bordered table">
       <thead class="tableHead">
         <!-- <tr> -->
@@ -25,7 +25,7 @@
         <!-- </tr> -->
       </thead>
       <tbody>
-        <tr *ngFor="let x of zone">
+        <tr *ngFor="let x of zone" class="r2">
           <td>{{ x.FacilityName }}</td>
           <td>{{ x.FloorName }}</td>
           <td>{{ x.ZoneName }}</td>
