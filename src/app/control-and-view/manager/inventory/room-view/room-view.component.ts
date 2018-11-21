@@ -175,10 +175,64 @@ export class RoomViewComponent implements OnInit {
   }
 
   rooms_Filter() {
+    var building;
+    var floor;
+    var floortype;
+    var zone;
+    var room;
+    var roomtype;
+
+    if(!(this.FacilityKey))
+    {
+      building=null;
+    }
+    else 
+    {
+      building=this.FacilityKey;
+    }
+    if(!(this.FloorKey))
+    {
+      floor=null;
+    }
+    else
+    {
+     floor= this.FloorKey
+    }
+    if(!(this.ZoneKey))
+    {
+      zone=null;
+    }
+    else
+    {
+     zone= this.ZoneKey;
+    }
+    if(!(this.RoomTypeKey))
+    {
+      roomtype=null;
+    }
+    else{
+      roomtype=this.RoomTypeKey;
+    }
+    if(!(this.RoomKey))
+    {
+      room=null;
+    }
+    else
+    {
+     room= this.RoomKey;
+    }
+    if(!(this.FloorTypeKey))
+    {
+      floortype=null;
+    }
+    else
+    {
+      floortype=this.FloorTypeKey
+    }
     this.loading = true;
     // console.log("rooms filter... org" + this.OrganizationID + " ..... bldg" + this.bldgKey + " ..... flr" + this.flrKey + " ..... zone" + this.zoneKey + " ..... rtype" + this.rTypeKey + " ..... room" + this.rKey + " ..... flrtype" + this.flrTypeKey + " ..... emp" + this.employeekey);
     this.inventoryService
-      .getAllRoomFilterList(this.OrganizationID, this.bldgKey, this.flrKey, this.zoneKey, this.rTypeKey, this.rKey, this.flrTypeKey, this.employeekey)
+      .getAllRoomFilterList(this.OrganizationID, building, floor, zone, roomtype, room, floortype, this.employeekey)
       .subscribe((data: any[]) => {
         this.rooms = data;
         this.loading = false;
@@ -291,6 +345,11 @@ export class RoomViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.FloorKey="";
+    this.ZoneKey="";
+    this.FloorTypeKey="";
+    this.RoomKey="";
+    this.RoomTypeKey="";
     this.loading = true;
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];

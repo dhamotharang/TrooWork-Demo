@@ -31,6 +31,7 @@ export class RoomEditComponent implements OnInit {
   OrganizationID: Number;
   update_Room;
   unqBar;
+  temp_room;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -120,12 +121,29 @@ export class RoomEditComponent implements OnInit {
       this.inventoryService
         .checkUniqueBarcode_Updation(Barcode, this.roomKey$, this.employeekey, this.OrganizationID)
         .subscribe((data: any[]) => {
-
           this.unqBar = data;
           if (this.unqBar.Barcode != 0) {
             alert("Barcode already exists !");
           }
-          else {
+          else if(this.temp_room!=RoomName)
+          {
+            this.inventoryService
+            .checkRoomName(RoomName, this.OrganizationID)
+            .subscribe((data: Inventory[]) => {
+              if (data[0].count > 0) {
+                alert("Room Name already exists !");
+              }
+              else
+              {
+                this.inventoryService.updateRoom(this.update_Room)
+              .subscribe(res => {
+                alert("Room updated successfully");
+                this.router.navigateByUrl('/roomView');
+              });
+              }
+            });
+          }
+          else  {
             this.inventoryService.updateRoom(this.update_Room)
               .subscribe(res => {
                 alert("Room updated successfully");
@@ -152,6 +170,7 @@ export class RoomEditComponent implements OnInit {
       .getRoomDetailsList(this.roomKey$, this.OrganizationID)
       .subscribe((data: Array<any>) => {
         this.room = data[0];
+        this.temp_room=this.room.RoomName;
         this.inventoryService
           .getallFloorList(this.room.FacilityKey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {

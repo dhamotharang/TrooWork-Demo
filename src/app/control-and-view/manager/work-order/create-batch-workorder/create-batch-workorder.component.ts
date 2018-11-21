@@ -282,6 +282,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
       .getallFloor(facilityName, this.org_id)
       .subscribe((data: any[]) => {
         this.FloorList = data;
+        this.FloorKey="";
       });
     }
     else
@@ -299,16 +300,19 @@ export class CreateBatchWorkorderComponent implements OnInit {
       .getzone_facilityfloor(floor, facility, this.org_id)
       .subscribe((data: any[]) => {
         this.zonelist = data;
+        this.ZoneKey="";
       });
     this.WorkOrderServiceService
       .getroomType_facilityfloor(floor, facility, this.org_id)
       .subscribe((data: any[]) => {
         this.RoomTypeList = data;
+        this.RoomTypeKey="";
       });
     this.WorkOrderServiceService
       .getRoom_facilityfloor(floor, facility, this.org_id)
       .subscribe((data: any[]) => {
         this.RoomList = data;
+        this.RoomKey="";
       });
     }
     else
@@ -325,11 +329,13 @@ export class CreateBatchWorkorderComponent implements OnInit {
       .getRoomtype_zone_facilityfloor(zone, floor, facility, this.org_id)
       .subscribe((data: any[]) => {
         this.RoomTypeList = data;
+        this.RoomTypeKey="";
       });
     this.WorkOrderServiceService
       .getRoom_zone_facilityfloor(zone, floor, facility, this.org_id)
       .subscribe((data: any[]) => {
         this.RoomList = data;
+        this.RoomKey="";
       });
     }
     else
@@ -345,6 +351,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
       .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.org_id)
       .subscribe((data: any[]) => {
         this.RoomList = data;
+        this.RoomKey="";
       });
     }
     else
@@ -359,6 +366,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
       .getEquipment_typechange(equip_type, facility, floor, this.org_id)
       .subscribe((data: any[]) => {
         this.EquipmentList = data;
+        this.EquipmentKey="";
       });
     }
     else
@@ -377,7 +385,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
     }
     else 
     {
-      this.EmployeeKey="   ";
+      this.EmployeeKey="  ";
     }
   }
   createWorkOrder() {
