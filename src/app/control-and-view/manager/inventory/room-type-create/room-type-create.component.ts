@@ -15,7 +15,6 @@ export class RoomTypeCreateComponent implements OnInit {
   MetricTypeValue;
   MetricKey;
   x: Array<any>;
-  MetricKey;
   role: String;
   name: String;
   employeekey: Number;
