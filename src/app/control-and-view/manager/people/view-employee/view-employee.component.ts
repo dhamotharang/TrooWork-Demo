@@ -123,7 +123,7 @@ export class ViewEmployeeComponent implements OnInit {
 
     this.JobTitleKey="";
     this.PeopleServiceService
-      .getJobTitle(this.employeekey, this.OrganizationID)
+      .getJobTitleforadmindd(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.jobtitle = data;
       });

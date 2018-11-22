@@ -45,6 +45,7 @@ export class CreateemployeeComponent implements OnInit {
   role;
   marked = true;
   temp_res;
+  
 
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
@@ -80,7 +81,7 @@ export class CreateemployeeComponent implements OnInit {
   }
   constructor(private PeopleServiceService: PeopleServiceService, private router: Router) { }
   OrganizationChanged() {
-    this.PeopleServiceService.getJobTitle(this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+    this.PeopleServiceService.getJobTitleforadmindd(this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.jobtitle = data;
     });
     this.PeopleServiceService.getDepartment(this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
@@ -210,6 +211,7 @@ export class CreateemployeeComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrgID = profile.OrganizationID;
+  
     this.PeopleServiceService
       .getUserRoleTypesa(this.OrgID)
       .subscribe((data: People[]) => {
@@ -241,10 +243,21 @@ export class CreateemployeeComponent implements OnInit {
     }
   }
   selectUserType(userType) {
+    if(!(this.OrganizationID)){
+     alert("Please provide Organization!");
+     this.UserRoleTypeKey=null;
+      return;
+  }
+//   if(this.UserRoleTypeKey=='Employee'){
+//     this.PeopleServiceService.getManagerForEmployeeForSuperAdmin(this.OrgID).subscribe((data: any[]) => {
+//         this.managerList = data;
+//     this.showManager = true;
+//     });
+// }
     if (userType == this.roleTypeKey) {
       this.showManager = true;
       this.PeopleServiceService
-        .getmanagersForEmp(this.employeekey, this.OrgID)
+        .getManagerForEmployeeForSuperAdmin(this.OrganizationID)
         .subscribe((data: any[]) => {
           this.managerList = data;
         });

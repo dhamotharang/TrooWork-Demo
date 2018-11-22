@@ -205,7 +205,7 @@ export class AddEmployeeComponent implements OnInit {
 
       });
     this.PeopleServiceService
-      .getJobTitle(this.employeekey, this.OrganizationID)
+      .getJobTitleforadmindd(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.jobtitle = data;
       });
