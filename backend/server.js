@@ -5612,6 +5612,38 @@ app.get(securedpath + '/barcodeRoom', function (req, res) {
     });
 });
 
+app.get(securedpath + '/barcodeRoom_Ang', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var barcode = url.parse(req.url, true).query['barcode'];
+    //    var employeekey = url.parse(req.url, true).query['empkey'];
+    var workorderkey = url.parse(req.url, true).query['wkey'];
+    var updatetype = url.parse(req.url, true).query['updatetype'];
+    var employeekey = url.parse(req.url, true).query['employeekey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    var complete_Time = url.parse(req.url, true).query['complete_Time'];
+    // console.log("barcodeRoom scan : WD=" + workorderkey + "..." + barcode + "..." + employeekey + "..." + updatetype);
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("set @workdetail =?;set @barcode=?; set @empkey=?; set @updatetype=?; set @OrganizationID=?;set @complete_Time=?;call usp_WorkorderStatusUpdateByBarcode_Ang6(@workdetail,@barcode,@empkey,@updatetype,@OrganizationID,@complete_Time)", [workorderkey, barcode, employeekey, updatetype, OrganizationID,complete_Time], function (err, rows) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    //  console.log("Printing rows....  " + JSON.stringify(rows[2][0]));
+                    //              console.log("ROWS " + JSON.stringify(rows[4][0]));
+                    res.end(JSON.stringify(rows[5][0]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
 app.get(securedpath + '/getScheduleDescription', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     var key = url.parse(req.url, true).query['key'];
@@ -5693,6 +5725,34 @@ app.get(securedpath + '/workCompleted', function (req, res) {
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
             connection.query("set @workdetail =?; set @employeekey=?; set @OrganizationID=?;call usp_WorkorderStatusUpdate(@workdetail,@employeekey,@OrganizationID)", [work_det_key, employeekey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    //            console.log("workCompleted " + JSON.stringify(rows[2][0]));
+                    res.end(JSON.stringify(rows[3][0]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.get(securedpath + '/workCompleted_Ang6', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var employeekey = url.parse(req.url, true).query['employeekey'];
+    var work_det_key = url.parse(req.url, true).query['wkey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+      var complete_Time = url.parse(req.url, true).query['complete_Time'];
+    // console.log("work completed=" + work_det_key + "..." + employeekey);
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("set @workdetail =?; set @employeekey=?; set @OrganizationID=?;set @complete_Time=?;call usp_WorkorderStatusUpdate_Ang6(@workdetail,@employeekey,@OrganizationID,@complete_Time)", [work_det_key, employeekey,OrganizationID,complete_Time], function (err, rows) {
                 if (err) {
                     console.log(err);
                 }
@@ -10696,7 +10756,35 @@ app.post(securedpath + '/pho1', supportCrossOriginScript, function (req, res) {
     });
 });
 
+app.options('/pho1_Ang6', supportCrossOriginScript);
+app.post(securedpath + '/pho1', supportCrossOriginScript, function (req, res) {
+    var pho = req.body.Filename;
+    var wdkey = req.body.Workorderkey;
+    var employeekey = req.body.EmployeeKey;
+    var OrganizationID = req.body.OrganizationID;
+    var newPath = pho;
+    console.log("pho" + pho + " wdkey " + wdkey + " employeekey " + employeekey);
+    pool.getConnection(function (err, connection) {
+        if (err) {
 
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query(" set @wdk=?;set @imgname=?; set @employeekey=?; set @OrganizationID=?;  call usp_WorkorderStatusUpdateByPhoto_Ang6(@wdk,@imgname,@employeekey,@OrganizationID)", [wdkey, newPath, employeekey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    // console.log("pho1 " + JSON.stringify(rows[3][0].WorkorderStatus));
+                    res.end(JSON.stringify(rows[4][0].WorkorderStatus));
+                }
+
+            });
+        }
+        connection.release();
+    });
+});
 app.options('/uploadImageFromSmallDevices', supportCrossOriginScript);
 app.post(securedpath + '/uploadImageFromSmallDevices', supportCrossOriginScript, function (req, res) {
     //    console.log('hit post ');
