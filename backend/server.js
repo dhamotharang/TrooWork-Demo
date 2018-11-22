@@ -14935,6 +14935,42 @@ scheduler.scheduleJob(rule, function () {
     });
 });
 
+var rule1 = new scheduler.RecurrenceRule();
+rule1.hour = 10;
+rule1.minute = 00;
+rule1.second = 00;
+rule1.dayOfWeek = new scheduler.Range(0, 6);
+//                        var dailyJob = scheduler.scheduleJob(date, function(){
+//                         console.log('I run on days at 12:01 pm');
+//                        });
+scheduler.scheduleJob(rule1, function() {
+//var j = schedule.scheduleJob(rule, function(){
+
+    pool.getConnection(function(err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        } else {
+//            console.log("WoooooW!!!!****************************Scheduler Works");
+            connection.query('call usp_workOrdersBatchAddByEvent_CST()', [], function(err, rows) {
+//                                    connection.query('insert into trooworkdb.a_test_table (Roomkey)values(1001); ', [], function (err, rows) {
+
+                if (err)
+                {
+                    console.log("Problem with MySQL" + err);
+                }
+                else
+                {
+                    console.log("Scheduler...from server..");
+//                    res.end(JSON.stringify(rows[0]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+
 //                    var rule1 = new scheduler.RecurrenceRule();
 //                        rule1.hour = [02,04,06,08,10,12,14,16,18,20,22,00];
 //                        rule1.minute = 00;

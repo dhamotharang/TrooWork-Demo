@@ -20,8 +20,8 @@
                 </div>
                 <!-- </div>   -->
                 <!-- <div class = "col-sm-4 col-md-4 col-lg-4"> -->
-                <label class="col-sm-2 col-md-2 col-lg-2  control-label">Building*</label>
-                <div class="col-sm-3 col-md-2 col-lg-2">
+                <label>Building*</label>
+                <div class="form-group">
                     <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="FacilityKey" class="form-control" (change)="selectFloorfromBuildings($event.target.value);viewEmployeeWorkorderByFilter()" >
                         <option value="">--Select--</option>
                         <option *ngFor="let z of facilityList" [value]="z.FacilityKey">
@@ -30,9 +30,8 @@
                     </select>
                 </div>
                 <!-- </div> -->
-                <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xs-12">
-                    <label class="col-sm-2 col-md-2 col-lg-2 control-label">Floor*</label>
-                    <div class="col-sm-2 col-md-2 col-lg-2">
+                    <label>Floor*</label>
+                    <div class="form-group">
                         <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="FloorKey" class="form-control" (change)="selectZoneRoomtypefromFloor($event.target.value);viewEmployeeWorkorderByFilter()" >
                             <option value="">--Select--</option>
                             <option *ngFor="let z of floorList" [value]="z.FloorKey">
@@ -42,8 +41,8 @@
                         <!-- </div> -->
                     </div>
                     <!-- <div class = "col-sm-4 col-md-4 col-lg-4"> -->
-                    <label class="col-sm-2 col-md-2 col-lg-2  control-label">Zone</label>
-                    <div class="col-sm-2 col-md-2 col-lg-2">
+                    <label>Zone</label>
+                    <div class="form-group">
                         <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]="ZoneKey" class="form-control" (change)="viewEmployeeWorkorderByFilter()">
                             <option value="">--Select--</option>
                             <option *ngFor="let z of zoneList" [value]="z.ZoneKey">
@@ -51,9 +50,9 @@
                             </option>
                         </select>
                     </div>
-                    <label class="col-sm-2 col-md-2 col-lg-2  control-label">Room Type</label>
-                    <div class="col-sm-2 col-md-2 col-lg-2">
-                        <select style="background-color: #d4f4ff !important;width: 50%;"  [(ngModel)]="RoomTypeKey" class="form-control">
+                    <label>Room Type</label>
+                    <div class="form-group">
+                        <select style="background-color: #d4f4ff !important;width: 50%;"  [(ngModel)]="RoomTypeKey" class="form-control" (change)="viewEmployeeWorkorderByFilter()">
                             <option value="">--Select--</option>
                             <option *ngFor="let z of roomtypeList" [value]="z.RoomTypeKey">
                                 {{z.RoomTypeName}}
@@ -63,7 +62,6 @@
                     <!-- </div> -->
                 </div>
             </div>
-        </div>
         <div class="col-md-12">
             <form [formGroup]="searchform">
                 <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
@@ -92,7 +90,8 @@
                             <td>{{w.WorkorderTypeName}} </td>
                             <td>{{w.WorkorderStatus}}</td>
                             <td>{{w.LastName}},{{w.FirstName}}</td>
-                            <td>{{w.RoomId}}</td>
+                            <td *ngIf="w.RoomId==='Dummy'">Refer notes</td>
+                            <td *ngIf="w.RoomId!=='Dummy'">{{w.RoomId}}</td>
                             <td>{{w.EquipmentType}}</td>
                             <td>{{w.WorkorderTime}}</td>
                             <td (click)="viewWorkForEdit(w.WorkorderKey)" *ngIf="w.IsReccurring === 1 ">YES</td>
@@ -100,7 +99,7 @@
                             <td>{{w.WorkorderNotes}}</td>
                             <td>
                                  <div *ngIf="FinishButton[i] == true "> 
-                                    <button type="button" class="btn btn-xs button-brown-{{w.WorkorderStatus !== 'Completed'}}" (click)="workorderFinish(i)">Finish</button>
+                                    <button type="button" class="btn btn-xs button-brown-{{w.WorkorderStatus !== 'Completed'}}" (click)="workorderFinish(i)"><b>Finish</b></button>
                                  </div> 
                                 <div *ngIf="showbutton[i] == true && showbutton[i] !== false">
                                     <button type="button" *ngIf="countCancel1" class="btn btn-warning" (click)="cancelWorkorderSubmission(i)">Cancel</button>
@@ -135,3 +134,4 @@
             </div>
         </div>
     </div>
+    <!-- </div> -->

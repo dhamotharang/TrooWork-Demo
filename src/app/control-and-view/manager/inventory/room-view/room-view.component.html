@@ -19,7 +19,7 @@
 
       <div class="form-group col-md-6">
         <label>Building*</label><br>
-        <select style="background-color: #D4F4FF ;width: 30rem" class="form-control" [(ngModel)]="FacilityKey" (change)="getFloorDisp($event.target.value);"
+        <select style="background-color: #D4F4FF ;width: 30rem" class="form-control" [(ngModel)]="FacilityKey" (change)="getFloorDisp($event.target.value);rooms_Filter();"
           required>
           <option value="">--Select--</option>
           <option *ngFor="let b of building" [value]="b.FacilityKey">
@@ -71,7 +71,7 @@
       <div class="form-group col-md-6">
         <label>Room</label><br>
         <select style="background-color: #D4F4FF ;width: 30rem" class="form-control" [(ngModel)]="RoomKey" [disabled]="!FloorKey"
-          (change)="setRoomKey($event.target.value);rooms_Filter();" required>
+          (change)="rooms_Filter();" required>
           <option value="">--Select--</option>
           <option *ngFor="let b of RoomList" [value]="b.RoomKey">
             {{b.RoomName}}

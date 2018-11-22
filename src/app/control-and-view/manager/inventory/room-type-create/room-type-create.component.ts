@@ -15,7 +15,6 @@ export class RoomTypeCreateComponent implements OnInit {
   MetricTypeValue;
   MetricKey;
   x: Array<any>;
-  MetricKey;
   role: String;
   name: String;
   employeekey: Number;
@@ -94,8 +93,6 @@ export class RoomTypeCreateComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-
-    this.MetricKey=0;
     this.inventoryService
       .getMetricValues(this.OrganizationID)
       .subscribe((data: Inventory[]) => {

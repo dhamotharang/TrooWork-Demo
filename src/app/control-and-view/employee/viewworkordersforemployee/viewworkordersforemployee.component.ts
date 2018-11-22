@@ -198,10 +198,18 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     else {
       date2 = this.convert_DT(this.WorkorderDate2);
     }
-    this.FacilityKey=null;
-    this.FloorKey=null;
-    this.RoomTypeKey=null;
-    this.ZoneKey=null;
+    if(!(this.FacilityKey)){
+      this.FacilityKey=null;
+    }
+    if(!(this.FloorKey)){
+      this.FloorKey=null;
+    }
+    if(!(this.ZoneKey)){
+      this.ZoneKey=null;
+    }
+    if(!(this.RoomTypeKey)){
+      this.RoomTypeKey=null;
+    }
     if (SearchValue.length >= 3) {
       this.WorkOrderServiceService
         .SearchwoByEmployee(SearchValue, date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey).subscribe((data: any[]) => {
@@ -210,11 +218,13 @@ export class ViewworkordersforemployeeComponent implements OnInit {
         });
     }
     else if (SearchValue.length == 0) {
+      this.loading = true;
       var curr_date = this.convert_DT(new Date());
       this.WorkOrderServiceService
         .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.WorkorderDetTable = data;
+          this.loading = false;
           if (this.WorkorderDetTable[0].totalItems > this.itemsPerPage) {
             this.showHide2 = true;
             this.showHide1 = false;
@@ -244,6 +254,18 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     else {
       date2 = this.convert_DT(this.WorkorderDate2);
     }
+    if(!(this.FacilityKey)){
+      this.FacilityKey=null;
+    }
+    if(!(this.FloorKey)){
+      this.FloorKey=null;
+    }
+    if(!(this.ZoneKey)){
+      this.ZoneKey=null;
+    }
+    if(!(this.RoomTypeKey)){
+      this.RoomTypeKey=null;
+    }
     this.WorkOrderServiceService
       .getworkOrderTablewithOnDateOnly(this.pageNo,this.itemsPerPage,date1, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
@@ -252,10 +274,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
         this.loading = false;
         }
       });
-      this.FacilityKey=null;
-      this.FloorKey=null;
-      this.RoomTypeKey=null;
-      this.ZoneKey=null;
+      
     this.WorkOrderServiceService
       .getworkOrderTablewithOnDateandToDateFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
       .subscribe((data: any[]) => {
