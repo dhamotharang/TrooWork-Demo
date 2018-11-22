@@ -18,7 +18,7 @@ export class CreateBatchWorkComponent implements OnInit {
   empKey: Number;
   scheduleName;
   scheduleDescription;
-
+  employee_Key;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -43,8 +43,18 @@ export class CreateBatchWorkComponent implements OnInit {
   }
 
   createScheduleName() {
-    if (!this.scheduleName) {
-      alert("BatchSchduleName is not provided !");
+    if(this.scheduleName && !this.scheduleName.trim())
+    {
+      alert("Please provide a BatchScheduleName");
+      return;
+    }
+    else  if(this.scheduleDescription && !this.scheduleDescription.trim())
+    {
+      alert("ScheduleDescription is not provided!");
+      return;
+    }
+    else if (!this.scheduleName) {
+      alert("BatchScheduleName is not provided !");
     } else if (!this.scheduleDescription) {
       alert("ScheduleDescription is not provided!");
     }
@@ -78,7 +88,7 @@ export class CreateBatchWorkComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     //token ends
-
+    this.employee_Key="";
     this.scheduleService
       .getAllEmpList(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {

@@ -10,14 +10,14 @@
   <div class="col-md-12">
     <div class="row col-md-12">
       <h5 style="text-align:right" class="col-md-4"><label for="scheduling">Assignment Name: </label></h5>
-      <input type="text" style="background-color: #D4F4FF !important;" class="form-control col-md-8 col-lg-8 col-sm-8"
+      <input type="text" maxlength="30" style="background-color: #D4F4FF !important;" class="form-control col-md-8 col-lg-8 col-sm-8"
         [(ngModel)]="scheduleDetails.BatchSchduleName">
     </div>
     <br>
     <div class="row col-md-12">
       <h5 style="text-align:right" class="col-md-4"><label for="scheduling">Assignment Description:
         </label></h5>
-      <input type="text" style="background-color: #D4F4FF !important;" class="form-control col-md-8 col-lg-8 col-sm-8"
+      <input type="text" maxlength="45" style="background-color: #D4F4FF !important;" class="form-control col-md-8 col-lg-8 col-sm-8"
         [(ngModel)]="scheduleDetails.ScheduleDescription">
     </div>
     <br>
