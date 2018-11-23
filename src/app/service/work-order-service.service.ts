@@ -332,20 +332,20 @@ export class WorkOrderServiceService {
       .http
       .get('http://localhost:3000/api/barcodeRoom_check?barcode=' + BarcodeValue + "&wkey=" + workorderkey + "&OrganizationID=" + OrganizationID);
   }
-  BarcodeRoom(BarcodeValue, toServeremployeekey, workorderkey, type, OrganizationID) {
+  BarcodeRoom(BarcodeValue, toServeremployeekey, workorderkey, type, OrganizationID,complete_Time) {
     return this
       .http
-      .get('http://localhost:3000/api/barcodeRoom?barcode=' + BarcodeValue + "&employeekey=" + toServeremployeekey + "&wkey=" + workorderkey + "&updatetype=" + type + "&OrganizationID=" + OrganizationID);
+      .get('http://localhost:3000/api/barcodeRoom_Ang?barcode=' + BarcodeValue + "&employeekey=" + toServeremployeekey + "&wkey=" + workorderkey + "&updatetype=" + type + "&OrganizationID=" + OrganizationID + "&complete_Time=" + complete_Time);
   }
-  UpdatewobyPhotoForEmployee(fileName, toServeremployeekey, workorderkey, orgid) {
+  UpdatewobyPhotoForEmployee(fileName, toServeremployeekey, workorderkey, orgid,complete_Time) {
     return this
       .http
-      .get('http://localhost:3000/api/updateWorkorderByPhoto?pho=' + fileName + "&employeekey=" + toServeremployeekey + "&wkey=" + workorderkey + "&OrganizationID=" + orgid);
+      .get('http://localhost:3000/api/updateWorkorderByPhoto_Ang6?pho=' + fileName + "&employeekey=" + toServeremployeekey + "&wkey=" + workorderkey + "&OrganizationID=" + orgid+ "&complete_Time=" + complete_Time);
   }
-  CompletewoByempWithoutPhotoandBarcd(toServeremployeekey, workorderkey, OrganizationID) {
+  CompletewoByempWithoutPhotoandBarcd(toServeremployeekey, workorderkey, OrganizationID,complete_Time) {
     return this
       .http
-      .get('http://localhost:3000/api/workCompleted?employeekey=' + toServeremployeekey + "&wkey=" + workorderkey + "&OrganizationID=" + OrganizationID);
+      .get('http://localhost:3000/api/workCompleted?employeekey=' + toServeremployeekey + "&wkey=" + workorderkey + "&OrganizationID=" + OrganizationID + "&complete_Time=" + complete_Time);
   }
   getworkOrderTablewithbuildingFilter(date1, date2, tosrvempky, orgid, FacKey, Flrky, RmTypKy, ZnKy) {
     const url = 'http://localhost:3000/api/workorderEmployeeByallFilters';

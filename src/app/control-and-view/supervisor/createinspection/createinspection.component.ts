@@ -104,6 +104,22 @@ export class CreateinspectionComponent implements OnInit {
   }
 
   createInspection() {
+
+    
+  var t=new Date();
+  var t=new Date();
+  var y=t.getFullYear();
+  var m=t.getMonth();
+  var d=t.getDate();
+  var h=t.getHours();
+  var mi=t.getMinutes();
+  var s=t.getSeconds();
+ 
+       var today_DT = this.convert_DT(new Date());
+    //  this.Timetemp= new Date().getHours() + ':' + new Date().getMinutes();
+  var p="";
+  p=today_DT+" "+h+":"+mi+":"+s;
+  
     if (!this.TemplateID) {
       alert("Template Name is not provided");
     }
@@ -141,7 +157,7 @@ export class CreateinspectionComponent implements OnInit {
     var q1 = this.time1.getMinutes();
     var newTime = q + ":" + q1;
 
-    this.inspectionService.createInspections(this.TemplateID, this.SupervisorKey, dateFrom, date2, this.theCheckbox, newTime, this.RoomKey, this.Employee, this.employeekey, this.OrganizationID).subscribe(res => {
+    this.inspectionService.createInspections(this.TemplateID, this.SupervisorKey, dateFrom, date2, this.theCheckbox, newTime, this.RoomKey, this.Employee, this.employeekey, this.OrganizationID,p).subscribe(res => {
       alert("Successfully Added");
       this.TemplateID = "";
       this.fromdate = null;

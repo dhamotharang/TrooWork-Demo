@@ -5812,6 +5812,37 @@ app.get(securedpath + '/updateWorkorderByPhoto', function (req, res) {
     });
 });
 
+app.get(securedpath + '/updateWorkorderByPhoto_Ang6', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var pho = url.parse(req.url, true).query['pho'];
+    var wdkey = url.parse(req.url, true).query['wkey'];
+    //    var imagename = url.parse(req.url, true).query['imagename'];
+    //     var imageBuffer = decodeBase64Image(imagename);
+    // console.log("inside server photodate = " + imagename);
+    var employeekey = url.parse(req.url, true).query['employeekey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    var complete_Time = url.parse(req.url, true).query['complete_Time'];
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query(" set @wdk=?;set @imgname=?; set @employeekey=?; set @OrganizationID=?;set @complete_Time=?;call usp_WorkorderStatusUpdateByPhoto(@wdk,@imgname,@employeekey,@OrganizationID,@complete_Time)", [wdkey, pho, employeekey, OrganizationID,complete_Time], function (err, rows) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    // console.log("pho1 " + JSON.stringify(rows));
+                    res.end(JSON.stringify(rows[3][0]));
+                }
+
+            });
+        }
+        connection.release();
+    });
+});
 //Photo upload ends
 app.options('/saveinspectedQuestions', supportCrossOriginScript);
 app.post(securedpath + '/saveinspectedQuestions', supportCrossOriginScript, function (req, res) {
@@ -10756,13 +10787,15 @@ app.post(securedpath + '/pho1', supportCrossOriginScript, function (req, res) {
     });
 });
 
-app.options('/pho1_Ang6', supportCrossOriginScript);
+app.options('/pho1', supportCrossOriginScript);
 app.post(securedpath + '/pho1', supportCrossOriginScript, function (req, res) {
     var pho = req.body.Filename;
     var wdkey = req.body.Workorderkey;
     var employeekey = req.body.EmployeeKey;
     var OrganizationID = req.body.OrganizationID;
     var newPath = pho;
+    // var complete_Time = url.parse(req.url, true).query['complete_Time'];
+
     console.log("pho" + pho + " wdkey " + wdkey + " employeekey " + employeekey);
     pool.getConnection(function (err, connection) {
         if (err) {
@@ -10771,7 +10804,7 @@ app.post(securedpath + '/pho1', supportCrossOriginScript, function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query(" set @wdk=?;set @imgname=?; set @employeekey=?; set @OrganizationID=?;  call usp_WorkorderStatusUpdateByPhoto_Ang6(@wdk,@imgname,@employeekey,@OrganizationID)", [wdkey, newPath, employeekey, OrganizationID], function (err, rows) {
+            connection.query(" set @wdk=?;set @imgname=?; set @employeekey=?; set @OrganizationID=?; call usp_WorkorderStatusUpdateByPhoto_Ang6(@wdk,@imgname,@employeekey,@OrganizationID)", [wdkey, newPath, employeekey, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log(err);
                 }

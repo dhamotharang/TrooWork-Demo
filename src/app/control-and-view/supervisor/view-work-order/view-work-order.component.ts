@@ -309,6 +309,23 @@ export class ViewWorkOrderComponent implements OnInit {
   }
 
   workorderCompleted(i, barcodeRequired, photoRequired, workorderkey, file) {
+
+    var t=new Date();
+    var t=new Date();
+    var y=t.getFullYear();
+    var m=t.getMonth();
+    var d=t.getDate();
+    var h=t.getHours();
+    var mi=t.getMinutes();
+    var s=t.getSeconds();
+   
+         var today_DT = this.convert_DT(new Date());
+      //  this.Timetemp= new Date().getHours() + ':' + new Date().getMinutes();
+                   
+   
+    var p="";
+    p=today_DT+" "+h+":"+mi+":"+s;
+
     this.countCancel = 1;
     this.countCancel1 = this.countCancel;
     if (!this.BarcodeValue && barcodeRequired === 1) {
@@ -324,27 +341,27 @@ export class ViewWorkOrderComponent implements OnInit {
           if (this.result === 1) {
             var type = 'manual';
             this.WorkOrderServiceService
-              .BarcodeRoom(this.BarcodeValue, this.toServeremployeekey, workorderkey, type, this.OrganizationID)
+              .BarcodeRoom(this.BarcodeValue, this.toServeremployeekey, workorderkey, type, this.OrganizationID,p)
               .subscribe((data: any[]) => {
 
               });
           }
         });
     }
-    if (!(this.fileName && photoRequired === 1)) {
+    if (!(this.fileName) && photoRequired === 1) {
       this.fileName = null;
               alert("Photo is not provided !");
               return;
       }
    else if (this.fileName && photoRequired === 1) {
       this.WorkOrderServiceService
-        .UpdatewobyPhotoForEmployee(this.fileName, this.toServeremployeekey, workorderkey, this.OrganizationID)
+        .UpdatewobyPhotoForEmployee(this.fileName, this.toServeremployeekey, workorderkey, this.OrganizationID,p)
         .subscribe((data: any[]) => {
         });
     }
     if (photoRequired !== 1 && barcodeRequired !== 1) {
       this.WorkOrderServiceService
-        .CompletewoByempWithoutPhotoandBarcd(this.toServeremployeekey, workorderkey, this.OrganizationID)
+        .CompletewoByempWithoutPhotoandBarcd(this.toServeremployeekey, workorderkey, this.OrganizationID,p)
         .subscribe((data: any[]) => {
           this.FinishButton[i] = true;
         });
