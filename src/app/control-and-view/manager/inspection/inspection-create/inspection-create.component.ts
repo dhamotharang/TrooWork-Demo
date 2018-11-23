@@ -195,6 +195,21 @@ selectroomtypefromZone(Zone,Floor)
 
 
   createInspection() {
+
+  var t=new Date();
+  var t=new Date();
+  var y=t.getFullYear();
+  var m=t.getMonth();
+  var d=t.getDate();
+  var h=t.getHours();
+  var mi=t.getMinutes();
+  var s=t.getSeconds();
+ 
+       var today_DT = this.convert_DT(new Date());
+    //  this.Timetemp= new Date().getHours() + ':' + new Date().getMinutes();
+  var p="";
+  p=today_DT+" "+h+":"+mi+":"+s;
+  
     if (!this.TemplateID) {
       alert("Template Name is not provided");
     }
@@ -206,6 +221,7 @@ selectroomtypefromZone(Zone,Floor)
     }
     else if (!this.RoomKey && !this.RoomType) {
       alert("Room or Room Type should be provided");
+      return;
     }
     else if (!this.time1) {
       alert("Time should be provided");
@@ -261,7 +277,7 @@ selectroomtypefromZone(Zone,Floor)
   }
 
 
-    this.inspectionService.createInspections(this.TemplateID, this.SupervisorKey, dateFrom, date2, this.theCheckbox, newTime, this.RoomKey, this.Employee, this.employeekey, this.OrganizationID).subscribe(res => {
+    this.inspectionService.createInspections(this.TemplateID, this.SupervisorKey, dateFrom, date2, this.theCheckbox, newTime, this.RoomKey, this.Employee, this.employeekey, this.OrganizationID,p).subscribe(res => {
       alert("Successfully Added");
       this.TemplateID = "";
       this.fromdate = null;

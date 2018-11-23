@@ -64,7 +64,7 @@ export class InspectionService {
       .http
       .post(url, obj);
   }
-  createInspections(TemplateID, SupervisorKey, fromdate, todate, theCheckbox, time, RoomKey, employee, empKey, orgID) {
+  createInspections(TemplateID, SupervisorKey, fromdate, todate, theCheckbox, time, RoomKey, employee, empKey, orgID,full_time) {
     const url = 'http://localhost:3000/api/addInspectionOrderwithRecurring';
     const obj = {
       templateID: TemplateID,
@@ -77,7 +77,7 @@ export class InspectionService {
       OrganizationID: orgID,
       empkey: employee,
       metaUpdatedBy: empKey,
-      fulltime: fromdate + " " + time
+      fulltime:  full_time
     };
     return this
       .http
