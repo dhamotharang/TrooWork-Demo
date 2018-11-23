@@ -7,8 +7,8 @@
     </div>
     <br>
     <div style="text-align:center">
-      <a routerLink="/EventView" class="btn btn-primary" routerLinkActive="active">View / Edit
-        Meeting/Training/Event</a>
+      <a routerLink="/EventView" class="btn btn-primary" routerLinkActive="active"><b>View / Edit
+        Meeting/Training/Event</b></a>
     </div>
     <br>
     <div class="form-row col-md-12">
@@ -67,7 +67,7 @@
           <th> Notes </th>
         </thead>
         <tbody>
-          <tr *ngFor="let x of meetingTraining" class="r2" routerLink="/viewEventEmployees/{{ x.EventKey}}">
+          <tr *ngFor="let x of meetingTraining" routerLink="/viewEventEmployees/{{ x.EventKey}}">
             <td>{{x.ActionType}} - {{x.Action}}</td>
             <td>{{x.EventVenue}}</td>
             <td>{{x.EventHost}}</td>

@@ -5,7 +5,7 @@
   <h4 class="refer"><b> ZONE</b> </h4>
   <br>
   <div style="text-align:center">
-    <a routerLink="/Createzone" class="btn btn-success" routerLinkActive="active">Create New Zone</a></div>
+    <a routerLink="/Createzone" class="btn btn-success" routerLinkActive="active"><b>Create New Zone</b></a></div>
   <form [formGroup]="searchform">
     <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
       <input class="form-control" name="searchzoneview" type="text" maxlength="20" specialIsAlphaNumeric minlength="3"
@@ -14,7 +14,7 @@
       <div *ngIf="searchform.controls.SearchZone.errors?.minlength">Minimum 3 characters required.</div>
     </div>
   </form>
-  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="bg-info">
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
     <table class="table table-hover table-responsive table-bordered table" style="display: inline-table">
       <thead class="tableHead">
         <!-- <tr> -->
@@ -29,9 +29,9 @@
           <td>{{ x.FacilityName }}</td>
           <td>{{ x.FloorName }}</td>
           <td>{{ x.ZoneName }}</td>
-          <td><a routerLink="/Zonedit/{{ x.FloorKey}}/{{x.FacilityKey}}/{{x.ZoneKey}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+          <td><a routerLink="/Zonedit/{{ x.FloorKey}}/{{x.FacilityKey}}/{{x.ZoneKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
             <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteZoneValuePass(x.FacilityKey,x.FloorKey,x.ZoneKey); "
-              mdbWavesEffect>Delete</a></td>
+              mdbWavesEffect><b>Delete</b></a></td>
         </tr>
         <tr *ngIf="zone?.length == 0">
           <td colspan="4" class="no-data-available">No records found</td>

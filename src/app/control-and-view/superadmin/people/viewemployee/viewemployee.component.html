@@ -10,7 +10,7 @@
         <h5><label for="people">Job Title</label></h5>
         <select [(ngModel)]="JobTitleKey" style="width: 20rem; background-color: #d4f4ff;" class="form-control col-sm-9 col-md-9 col-lg-9"
           (change)="getempdettablewithselectedddvsa()">
-          <option value="" selected>--Select--</option>
+          <option value="">--Select--</option>
           <option *ngFor="let j of jobtitle" [value]="j.JobTitleKey">
             {{j.JobTitleText}}
           </option>
@@ -22,7 +22,7 @@
         <h5><label for="people">Managers</label></h5>
         <select [(ngModel)]="ManagerKey" style="width: 20rem; background-color: #d4f4ff;" class="form-control col-sm-9 col-md-9 col-lg-9"
           (change)="getempdettablewithselectedddvsa()">
-          <option value="" selected>--Select--</option>
+          <option value="">--Select--</option>
           <option *ngFor="let m of manager" [value]="m.ManagerKey">
             {{m.ManagerName}}
           </option>

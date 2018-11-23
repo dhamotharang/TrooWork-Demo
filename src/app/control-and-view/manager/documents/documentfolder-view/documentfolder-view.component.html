@@ -5,8 +5,8 @@
     <h4 class="refer"><b>DOCUMENT FOLDER</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/NewdocumentfolderCreate" class="btn btn-success" routerLinkActive="active">Create New Document
-        Folder
+      <a routerLink="/NewdocumentfolderCreate" class="btn btn-success" routerLinkActive="active"><b>Create New Document
+        Folder</b>
       </a>
     </div>
     <form [formGroup]="searchform">
@@ -17,7 +17,7 @@
         <div *ngIf="searchform.controls.SearchDocFol.errors?.minlength">Minimum 3 characters required.</div>
       </div>
     </form>
-    <div style="margin-left: 1.5rem;margin-right: 1.5rem;"class="bg-info">
+    <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
       <table class="table table-responsive table-hover table-bordered table">
         <thead class="tableHead">
           <th> Document Folders </th>
@@ -28,9 +28,9 @@
             <td>{{ d.FormType }}</td>
 
             <td>
-              <a routerLink="/DocumentfolderEdit/{{d.FormtypeId}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+              <a routerLink="/DocumentfolderEdit/{{d.FormtypeId}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
               <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteFolderPass(d.FormtypeId); "
-                mdbWavesEffect>Delete</a>
+                mdbWavesEffect><b>Delete</b></a>
             </td>
           </tr>
           <tr *ngIf="documents?.length == 0">

@@ -45,15 +45,15 @@ export class FloorEditComponent implements OnInit {
   }
 
   updateFloor(FacilityKey, FloorKey, FloorName, FloorDescription) {
-    if(FacilityKey=="--Select--"){
+    if (FacilityKey == "--Select--") {
       alert("Please Choose Building!");
       return;
     }
-    else if(FloorName && !FloorName.trim()){
+    else if (FloorName && !FloorName.trim()) {
       alert("Please Enter Floor Name!");
       return;
     }
-    else if(FloorDescription && !FloorDescription.trim()){
+    else if (FloorDescription && !FloorDescription.trim()) {
       alert("Please Enter Floor Description!");
       return;
     }
@@ -66,12 +66,20 @@ export class FloorEditComponent implements OnInit {
     else if (!FloorDescription) {
       alert("Enter floor description!");
     }
-    else{
-    this.inventoryService
-      .UpdateFloor(FacilityKey, FloorKey, FloorName, FloorDescription, this.employeekey, this.OrganizationID)
-      .subscribe((data: Inventory[]) => {
-        alert("Floor updated successfully");
-        this.router.navigateByUrl('/Floorview');
+    else {
+      this.inventoryService.CheckNewFloor(FacilityKey, FloorName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
+        if (data[0].count > 0) {
+          alert("Floor already present !");
+          return;
+        }
+        else {
+          this.inventoryService
+            .UpdateFloor(FacilityKey, FloorKey, FloorName, FloorDescription, this.employeekey, this.OrganizationID)
+            .subscribe((data: Inventory[]) => {
+              alert("Floor updated successfully");
+              this.router.navigateByUrl('/Floorview');
+            });
+        }
       });
     }
   }
@@ -92,7 +100,7 @@ export class FloorEditComponent implements OnInit {
       });
     this.inventoryService.EditFloorAutoGenerate(this.floorKey$, this.facKey$, this.OrganizationID).subscribe((data: Inventory[]) => {
       this.flooroptions = data;
-      
+
     });
   }
 

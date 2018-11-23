@@ -130,14 +130,14 @@
     <div class="row col-md-12">
       <div class="col-md-6"></div>
       <div style="text-align:center">
-        <button type="button" class="btn btn-success" (click)=generateWorkOrderReport(fromdate,todate,FacilityKey,FloorKey,RoomTypeKey,ZoneKey,RoomKey,EmployeeKey,WorkorderStatusKey)>Generate</button>
+        <button type="button" class="btn btn-success" (click)=generateWorkOrderReport(fromdate,todate,FacilityKey,FloorKey,RoomTypeKey,ZoneKey,RoomKey,EmployeeKey,WorkorderStatusKey)><b>GENERATE</b></button>
         <br><br>
       </div>
     </div>
     <br>
   </div>
-  <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
-  <div class="bg-info" style="margin-left: 1.5rem;width: 100%">
+  <div style="margin-left:1.5rem; margin-right: 1.5rem; margin-top: 40px;"></div>
+  <div style="margin-left: 1.5rem;width: 100%">
     <table *ngIf='viewWorkorderReport' id="reportexport" class="table table-hover table-responsive table-bordered table">
       <thead class="tableHead">
         <!-- <tr> -->
@@ -184,6 +184,6 @@
   <br>
   <br>
   <div style="text-align:center" *ngIf="viewWorkorderReport?.length> 0">
-    <button type="button" class="btn btn-success" (click)="exportToExcel()">Export To Excel</button>
+    <button type="button" class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>
   </div>
 </div>

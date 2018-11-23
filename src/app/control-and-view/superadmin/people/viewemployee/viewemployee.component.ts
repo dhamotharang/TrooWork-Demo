@@ -13,8 +13,8 @@ export class ViewemployeeComponent implements OnInit {
   employeedetailstable: People[];
   searchform: FormGroup;
   loading: boolean;// loading
-  ManagerKey: Number;
-  JobTitleKey: Number;
+  ManagerKey;
+  JobTitleKey;
   manager: People[];
 
   //for pagination
@@ -70,6 +70,14 @@ export class ViewemployeeComponent implements OnInit {
     }, 100)
   }
   getempdettablewithselectedddvsa() {
+    if(!(this.ManagerKey))
+    {
+      this.ManagerKey=null;
+    }
+    if(!(this.JobTitleKey))
+    {
+      this.JobTitleKey=null;
+    }
     this.PeopleServiceService
       .getAllEmployeeDetailswithjobtitledropdownsa(this.OrganizationID, this.employeekey, this.JobTitleKey, this.ManagerKey, this.page, this.count)
       .subscribe((data: People[]) => {
@@ -96,7 +104,7 @@ export class ViewemployeeComponent implements OnInit {
         .searchResultOfEmployeedetailsTable(SearchValue, this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: People[]) => {
           this.employeedetailstable = data;
-          this.loading = true;
+          this.loading = false;
           if (this.employeedetailstable[0].totalItems > this.itemsPerPage) {
             this.showHide2 = true;
             this.showHide1 = false;
@@ -119,8 +127,11 @@ export class ViewemployeeComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
+    this.ManagerKey="";
+    this.JobTitleKey="";
+
     this.PeopleServiceService
-      .getJobTitle(this.employeekey, this.OrganizationID)
+      .getJobTitle(this.OrganizationID)
       .subscribe((data: People[]) => {
         this.jobtitle = data;
       });

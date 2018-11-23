@@ -1,8 +1,8 @@
 <app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 
-<div *ngIf="!loading" style="width: 100%;height: 100%;">
-  <div class="bg-dark" style="width: 100%;height: 100%;">
+<div *ngIf="!loading" class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <!-- <div class="bg-dark" style="width: 100%;height: 100%;"> -->
     <br><br>
     <h4 class="refer"><b> ROOM</b> </h4>
     <br>
@@ -19,7 +19,7 @@
 
       <div class="form-group col-md-6">
         <label>Building*</label><br>
-        <select style="background-color: #D4F4FF ;width: 30rem" class="form-control" [(ngModel)]="FacilityKey" (change)="getFloorDisp($event.target.value);"
+        <select style="background-color: #D4F4FF ;width: 30rem" class="form-control" [(ngModel)]="FacilityKey" (change)="getFloorDisp($event.target.value);rooms_Filter();"
           required>
           <option value="">--Select--</option>
           <option *ngFor="let b of building" [value]="b.FacilityKey">
@@ -71,7 +71,7 @@
       <div class="form-group col-md-6">
         <label>Room</label><br>
         <select style="background-color: #D4F4FF ;width: 30rem" class="form-control" [(ngModel)]="RoomKey" [disabled]="!FloorKey"
-          (change)="setRoomKey($event.target.value);rooms_Filter();" required>
+          (change)="rooms_Filter();" required>
           <option value="">--Select--</option>
           <option *ngFor="let b of RoomList" [value]="b.RoomKey">
             {{b.RoomName}}
@@ -89,7 +89,7 @@
       </div>
     </form>
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
-      <table class="table table-responsive table-hover table-bordered table bg-info" style="display: inline-table">
+      <table class="table table-responsive table-hover table-bordered table" style="display: inline-table">
         <thead class="tableHead">
           <th> Building </th>
           <th> Floor </th>
@@ -108,9 +108,9 @@
             <td>{{ x.RoomTypeText }}</td>
             <td>{{ x.RoomName }}</td>
             <td>
-              <a routerLink="/RoomEdit/{{ x.RoomKey}}" class="btn btn-primary">Edit</a>&nbsp;
+              <a routerLink="/RoomEdit/{{ x.RoomKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;
               <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteRoomPass(x.RoomKey); "
-                mdbWavesEffect>Delete</a>
+                mdbWavesEffect><b>Delete</b></a>
             </td>
           </tr>
           <tr *ngIf="rooms?.length == 0">
@@ -144,5 +144,5 @@
         Previous</button>
       <button class="btn btn-success" style="float: right;" (click)="nextPage()" *ngIf="showHide2">Next >></button>
     </div>
-  </div>
+  <!-- </div> -->
 </div>

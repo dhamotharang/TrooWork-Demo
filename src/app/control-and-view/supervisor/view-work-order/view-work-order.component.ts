@@ -198,10 +198,18 @@ export class ViewWorkOrderComponent implements OnInit {
     else {
       date2 = this.convert_DT(this.WorkorderDate2);
     }
-    this.FacilityKey=null;
-    this.FloorKey=null;
-    this.RoomTypeKey=null;
-    this.ZoneKey=null;
+    if(!(this.FacilityKey)){
+      this.FacilityKey=null;
+    }
+    if(!(this.FloorKey)){
+      this.FloorKey=null;
+    }
+    if(!(this.ZoneKey)){
+      this.ZoneKey=null;
+    }
+    if(!(this.RoomTypeKey)){
+      this.RoomTypeKey=null;
+    }
     if (SearchValue.length >= 3) {
       this.WorkOrderServiceService
         .SearchwoByEmployee(SearchValue, date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey).subscribe((data: any[]) => {
@@ -210,11 +218,13 @@ export class ViewWorkOrderComponent implements OnInit {
         });
     }
     else if (SearchValue.length == 0) {
+      this.loading = true;
       var curr_date = this.convert_DT(new Date());
       this.WorkOrderServiceService
         .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.WorkorderDetTable = data;
+          this.loading = false;
           if (this.WorkorderDetTable[0].totalItems > this.itemsPerPage) {
             this.showHide2 = true;
             this.showHide1 = false;
@@ -244,16 +254,29 @@ export class ViewWorkOrderComponent implements OnInit {
     else {
       date2 = this.convert_DT(this.WorkorderDate2);
     }
-    this.WorkOrderServiceService
-      .getworkOrderTablewithOnDateOnly(this.pageNo,this.itemsPerPage,date1, this.toServeremployeekey, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.WorkorderDetTable = data;
-        this.loading = false;
-      });
+    if(!(this.FacilityKey)){
       this.FacilityKey=null;
+    }
+    if(!(this.FloorKey)){
       this.FloorKey=null;
-      this.RoomTypeKey=null;
+    }
+    if(!(this.ZoneKey)){
       this.ZoneKey=null;
+    }
+    if(!(this.RoomTypeKey)){
+      this.RoomTypeKey=null;
+    }
+    // if(this.WorkorderDate){
+    // this.WorkOrderServiceService
+    //   .getworkOrderTablewithOnDateOnly(this.pageNo,this.itemsPerPage,date1, this.toServeremployeekey, this.OrganizationID)
+    //   .subscribe((data: any[]) => {
+    //     this.WorkorderDetTable = data;
+    //     if(!this.WorkorderDate2){
+    //       this.loading = false;
+    //       }
+    //   });
+    // }
+    // else{
     this.WorkOrderServiceService
       .getworkOrderTablewithOnDateandToDateFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
       .subscribe((data: any[]) => {
@@ -263,13 +286,26 @@ export class ViewWorkOrderComponent implements OnInit {
           this.FinishButton[i] = true;
         }
       });
-    this.WorkOrderServiceService
-      .getworkOrderTablewithbuildingFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
-      .subscribe((data: any[]) => {
-        this.WorkorderDetTable = data;
-        this.loading = false;
-      });
-
+    // }
+    // else if(this.WorkorderDate && this.WorkorderDate2 && this.FacilityKey ){
+    //   this.WorkOrderServiceService
+    //     .getworkOrderTablewithOnDateandToDateFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
+    //     .subscribe((data: any[]) => {
+    //       this.WorkorderDetTable = data;
+    //       this.loading = false;
+    //       for (var i = 0; i < this.WorkorderDetTable.length; i++) {
+    //         this.FinishButton[i] = true;
+    //       }
+    //     });
+    //   }
+    // if(this.FacilityKey){
+    // this.WorkOrderServiceService
+    //   .getworkOrderTablewithbuildingFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
+    //   .subscribe((data: any[]) => {
+    //     this.WorkorderDetTable = data;
+    //     this.loading = false;
+    //   });
+    // }
   }
 
   workorderCompleted(i, barcodeRequired, photoRequired, workorderkey, file) {
@@ -295,7 +331,7 @@ export class ViewWorkOrderComponent implements OnInit {
           }
         });
     }
-    if (!this.fileName && photoRequired === 1) {
+    if (!(this.fileName && photoRequired === 1)) {
       this.fileName = null;
               alert("Photo is not provided !");
               return;

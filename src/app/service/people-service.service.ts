@@ -240,16 +240,29 @@ export class PeopleServiceService {
   }
   // ****@Pooja's Code Starts here****
 
+  getManagerForEmployeeForSuperAdmin(OrgID)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/getManagerForEmployeeForSuperAdmin?OrganizationID='+ OrgID);
+  }
   getUserRoleType(OrgID) {
     return this
       .http
       .get('http://localhost:3000/api/getAllUserRoleType_Admin?OrganizationID=' + OrgID);
   }
-  getJobTitle(empKey, OrgID) {
+  getJobTitle(OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/selectJobtitle?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get('http://localhost:3000/api/JobtitleForSuperAdmin?OrganizationID='+OrgID);
   }
+  getJobTitleforadmindd(employeekey,OrganizationID)
+  {
+    return this
+      .http
+      .get('http://localhost:3000/api/selectJobtitle?empkey='+employeekey+'&OrganizationID='+OrganizationID);
+  }
+  
   getSuperVisor(empKey, OrgID) {
     return this
       .http

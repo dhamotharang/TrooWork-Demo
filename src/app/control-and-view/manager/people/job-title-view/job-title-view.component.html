@@ -1,11 +1,11 @@
 <app-manager-dash-board></app-manager-dash-board>
-<div style="width: 100%;height: 100%;">
-  <div class="bg-dark" style="width: 100%;height: 100%;">
+<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <!-- <div class="bg-dark" style="width: 100%;height: 100%;"> -->
     <br><br>
     <h4 class="refer"><b> JOB-TITLE</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/JobTitleAdd" class="btn btn-primary" routerLinkActive="active">Create New JobTitle
+      <a routerLink="/JobTitleAdd" class="btn btn-success" routerLinkActive="active"><b>Create New JobTitle</b>
       </a>
     </div>
     <form [formGroup]="searchform">
@@ -25,14 +25,14 @@
           <th>Action</th>
         </thead>
         <tbody>
-          <tr *ngFor="let x of jobView" class="r2">
+          <tr *ngFor="let x of jobView">
             <td>{{ x.JobTitle }}</td>
             <td>{{ x.JobTitleDescription }}</td>
 
             <td>
-              <a routerLink="/JobTitleEdit/{{ x.JobTitleKey}}" class="btn btn-primary">Edit</a>
-              <a button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show();deleteJobPass(x.JobTitleKey); "
-                mdbWavesEffect>Delete</a>
+              <a routerLink="/JobTitleEdit/{{ x.JobTitleKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
+              <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteJobPass(x.JobTitleKey); "
+                mdbWavesEffect><b>Delete</b></a>
             </td>
           </tr>
           <tr *ngIf="jobView?.length == 0">

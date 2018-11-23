@@ -54,7 +54,7 @@ export class JobTitleAddAdminComponent implements OnInit {
     }
     this.peopleServiceService.addJobtitle(JobtitleName, JobTitleDescription, this.employeekey, this.OrganizationID)
     .subscribe((data: any[]) => {
-        alert('New job title  successfully created !');
+        alert('Job title successfully created !');
         this.router.navigateByUrl('/JobTitleViewAdmin');
 
     });

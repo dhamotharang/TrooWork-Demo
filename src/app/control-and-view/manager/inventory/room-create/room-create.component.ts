@@ -11,7 +11,7 @@ import { Router } from "@angular/router";
 export class RoomCreateComponent implements OnInit {
   building: Inventory[];
   FaciKey: Number;
-  FloorKey: Number;
+  FloorKey;
   floor: Inventory[];
   zone: Inventory[];
   floorType: Inventory[];
@@ -116,7 +116,15 @@ export class RoomCreateComponent implements OnInit {
                         this.inventoryService.addRoom(FacilityKey, FloorKey, FloorTypeKey, ZoneKey, RoomTypeKey, RoomName, SquareFoot, Barcode, this.employeekey, this.OrganizationID)
                           .subscribe(res => {
                             alert("Room created successfully");
-                            this.router.navigateByUrl('/roomView');
+                            this.inventoryService
+                            .getBarcodeForRoom(this.employeekey, this.OrganizationID)
+                            .subscribe((data: Array<any>) => {
+                              this.Barcode = data[0];
+                              this.temp_barcode = data[0];
+                              this.RoomName=null;
+                            });
+                         
+                         
                           });
                       }
                     });
@@ -129,6 +137,11 @@ export class RoomCreateComponent implements OnInit {
 
   }
   ngOnInit() {
+    this.FacilityKey="";
+    this.FloorTypeKey="";
+    this.FloorKey="";
+    this.RoomTypeKey="";
+    this.ZoneKey="";
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));

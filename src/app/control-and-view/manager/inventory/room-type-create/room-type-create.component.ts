@@ -12,8 +12,9 @@ export class RoomTypeCreateComponent implements OnInit {
   metricValues: Inventory[];
   showField1: boolean = false;
   showField2: boolean = false;
-  x: Array<any>;
+  MetricTypeValue;
   MetricKey;
+  x: Array<any>;
   role: String;
   name: String;
   employeekey: Number;
@@ -45,12 +46,15 @@ export class RoomTypeCreateComponent implements OnInit {
         this.showField1 = false;
         this.showField2 = false;
       } else if (metricType === 'Default') {
+        this.MetricTypeValue=1;
         this.showField1 = false;
         this.showField2 = true;
       } else if (metricType === 'Custom') {
+        this.MetricTypeValue=null;
         this.showField1 = false;
         this.showField2 = true;
       } else if (metricType === 'Minutes Per') {
+        this.MetricTypeValue=null;
         this.showField1 = false;
         this.showField2 = true;
       }
@@ -80,6 +84,7 @@ export class RoomTypeCreateComponent implements OnInit {
       });
   }
   ngOnInit() {
+    this.MetricKey="";
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -88,8 +93,6 @@ export class RoomTypeCreateComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-
-    this.MetricKey=0;
     this.inventoryService
       .getMetricValues(this.OrganizationID)
       .subscribe((data: Inventory[]) => {

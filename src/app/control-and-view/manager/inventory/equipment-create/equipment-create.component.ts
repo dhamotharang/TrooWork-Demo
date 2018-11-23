@@ -17,13 +17,14 @@ export class EquipmentCreateComponent implements OnInit {
   FacKey: Number;
   EquipmentTypeDescription: String;
   barcode: Array<Inventory>;
-  FloorKey: Number;
-
+  FloorKey;
+  FacilityKey;
   role: String;
   name: String;
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+  EquipmentTypeKey;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -101,6 +102,9 @@ export class EquipmentCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.EquipmentTypeKey="";
+    this.FacilityKey="";
+    this.FloorKey="";
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));

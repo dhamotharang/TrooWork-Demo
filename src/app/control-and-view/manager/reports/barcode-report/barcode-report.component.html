@@ -110,7 +110,7 @@
     <div class="row col-md-12">
       <div class="col-md-6"></div>
       <div style="text-align:center">
-        <button type="button" class="btn btn-success" (click)=generateBarcodeReport(FacilityKey,FloorKey,RoomTypeKey,ZoneKey,EquipmentTypeKey,EquipmentKey)>Generate</button>
+        <button type="button" class="btn btn-success" (click)=generateBarcodeReport(FacilityKey,FloorKey,RoomTypeKey,ZoneKey,EquipmentTypeKey,EquipmentKey)><b>GENERATE</b></button>
       </div>
 
     </div>
@@ -120,7 +120,7 @@
   <!-- <div style="margin-left: 1.5rem;margin-right: 1.5rem;    margin-top: 40px;"></div> -->
 
   <!-- Table for generating barcode for rooms -->
-  <div style="margin-left: 1.5rem;width: 100%" class="bg-info">
+  <div style="margin-left: 1.5rem;width: 100%">
     <table *ngIf='Roomflag' id="reportexport" class="table table-hover table-responsive table-bordered table">
       <thead class="tableHead">
         <!-- <tr> -->
@@ -149,10 +149,9 @@
     <br>
     <br>
   </div>
-</div>
 
-<div style="text-align:center">
-  <button type="button" *ngIf='Roomflag?.length> 0' class="btn btn-success" (click)="exportToExcel()">Export To Excel</button>
+<div style="text-align:center" *ngIf="!loading">
+  <button type="button" *ngIf='((Roomflag==true) && (viewBarcodeReport?.length > 0))' class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>
 </div>
 
 <!-- Table for generating barcode for Equipments -->
@@ -178,7 +177,6 @@
 </table>
 <br>
 <br>
-<div style="text-align:center">
-  <button type="button" *ngIf='Equipmentflag?.length> 0' class="btn btn-primary" (click)="exportToExcel()">Export To
-    Excel</button>
+<div style="text-align:center" *ngIf="!loading">
+  <button type="button" *ngIf='((Equipmentflag==true ) && (viewBarcodeEquipment?.length >0))' class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>
 </div>

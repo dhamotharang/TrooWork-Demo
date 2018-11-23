@@ -5,7 +5,7 @@
   <h4 class="refer"><b> FLOORS</b> </h4>
   <br>
   <div style="text-align:center">
-    <a routerLink="/Createfloor" class="btn btn-success" routerLinkActive="active">Create New Floor</a></div>
+    <a routerLink="/Createfloor" class="btn btn-success" routerLinkActive="active"><b>Create New Floor</b></a></div>
   <form [formGroup]="searchform">
 
     <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
@@ -28,9 +28,9 @@
           <td>{{ x.FacilityName }}</td>
           <td>{{ x.FloorName }}</td>
           <td>{{ x.FloorDescription }}</td>
-          <td><a routerLink="/Flooredit/{{ x.FloorKey}}/{{x.FacilityKey}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+          <td><a routerLink="/Flooredit/{{ x.FloorKey}}/{{x.FacilityKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
             <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteFloorPass(x.FacilityKey,x.FloorKey); "
-              mdbWavesEffect>Delete</a></td>
+              mdbWavesEffect><b>Delete</b></a></td>
         </tr>
         <tr *ngIf="floor?.length == 0">
           <td colspan="4" class="no-data-available">No records found</td>

@@ -11,7 +11,6 @@ export class FilterPipePipe implements PipeTransform {
     }
     else
     {
-      debugger;
     const curr = items.map(data => data.i.EquipmentTypeText);
 
     // Unique currencies

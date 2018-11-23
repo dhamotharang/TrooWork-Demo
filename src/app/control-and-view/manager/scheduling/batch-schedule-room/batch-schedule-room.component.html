@@ -1,7 +1,7 @@
 <app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
-<div *ngIf="!loading" style="width: 100%;height: 100%;">
-  <div class="bg-dark" style="width: 100%;height: 100%;">
+<div *ngIf="!loading" class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <!-- <div class="bg-dark" style="width: 100%;height: 100%;"> -->
     <br><br>
     <div style="text-align:center">
       <h4 class="refer"><b> CREATE ASSIGNMENT LIST </b> </h4>
@@ -12,7 +12,7 @@
       <div class="md-form col-sm-5 col-md-5 col-lg-5" style="margin-left: -5rem">
         <select style="background-color: #D4F4FF !important;" class="form-control " [(ngModel)]="BatchScheduleNameKey"
           (change)="getScheduleRoomDetails($event.target.value)">
-          <option>--Select--</option>
+          <option value="">--Select--</option>
           <option *ngFor="let f of scheduleNameList" [value]="f.BatchScheduleNameKey">
             {{f.ScheduleName}}
           </option>
@@ -71,7 +71,7 @@
       <div class="form-group col-md-6">
         <label>Floor Type</label><br>
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorTypeKey"
-          [disabled]="!FloorKey" (change)="getRoom($event.target.value,ZoneKey,FacilityKey,FloorKey);setFlrTypeKey($event.target.value);viewRooms_Filter();"
+          [disabled]="!FloorKey" (change)="setFlrTypeKey($event.target.value);viewRooms_Filter();"
           required>
           <option value="">--Select--</option>
           <option *ngFor="let b of floorTypeList" [value]="b.FloorTypeKey">
@@ -112,7 +112,7 @@
             <td>{{item.RoomTypeText}}</td>
             <td>{{item.RoomName}}</td>
             <td>
-              <a style="color:white !important" routerLink="/roomView" class="btn btn-success" routerLinkActive="active">
+              <a style="color:white !important" routerLink="/roomView" class="btn btn-danger" routerLinkActive="active">
                 <b>Remove</b>
               </a>
             </td>
@@ -129,10 +129,13 @@
               <input type="checkbox" [value]=x.roomCheck [(ngModel)]="x.roomCheck" (change)="checkBoxValueForRoom(x.roomCheck, x.RoomKey);">
             </td>
           </tr>
+          <tr *ngIf="((allroomList?.length == 0)&&(scheduledroomList?.length == 0))">
+            <td colspan="7" class="no-data-available">No records found</td>
+          </tr>
         </tbody>
       </table>
     </div>
     <button class="btn btn-success" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
     <button class="btn btn-success" (click)="nextPage()" *ngIf="showHide2">Next >></button>
-  </div>
+  <!-- </div> -->
 </div>

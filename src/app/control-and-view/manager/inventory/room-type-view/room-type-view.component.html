@@ -1,25 +1,25 @@
 <app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 
-<div *ngIf="!loading" style="width: 100%;height: 100%;">
-  <div class="bg-dark" style="width: 100%;height: 100%;">
+<div *ngIf="!loading" class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+  <!-- <div class="bg-dark" style="width: 100%;height: 100%;"> -->
     <br>
     <h4 class="refer"><b> ROOM TYPE</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/roomTypeCreate" class="btn btn-success" routerLinkActive="active">Create Room Type
+      <a routerLink="/roomTypeCreate" class="btn btn-success" routerLinkActive="active"><b>Create Room Type</b>
       </a>
     </div>
     <form [formGroup]="searchform">
       <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
         <input class="form-control" name="searchroomtypeview" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
-          placeholder="Search" aria-label="Search" [(ngmodel)]="SearchRoomType" formControlName="SearchRoomType"
+          placeholder="Search Room Type" aria-label="Search" [(ngmodel)]="SearchRoomType" formControlName="SearchRoomType"
           (input)="searchRoomType($event.target.value);" style="width: 100%;">
         <div *ngIf="searchform.controls.SearchRoomType.errors?.minlength">Minimum 3 characters required.</div>
       </div>
     </form>
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
-      <table class="table table-responsive table-hover table-bordered table bg-info" style="display: inline-table;">
+      <table class="table table-responsive table-hover table-bordered table" style="display: inline-table;">
         <thead class="tableHead">
           <th> Room Type </th>
           <th>Edit</th>
@@ -28,9 +28,9 @@
           <tr *ngFor="let x of roomTypes">
             <td>{{ x.RoomType }}</td>
             <td>
-              <a routerLink="/roomTypeEdit/{{ x.RoomTypeKey}}" class="btn btn-primary">Edit</a>&nbsp;&nbsp;
+              <a routerLink="/roomTypeEdit/{{ x.RoomTypeKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
               <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteRoomTypePass(x.RoomTypeKey); "
-                mdbWavesEffect>Delete</a>
+                mdbWavesEffect><b>Delete</b></a>
             </td>
           </tr>
           <tr *ngIf="roomTypes?.length == 0">
@@ -63,7 +63,10 @@
       <button class="btn btn-success" style="float: left;" (click)="previousPage()" *ngIf="showHide1">&#60;&#60;
         Previous</button>
       <button class="btn btn-success" style="float: right;" (click)="nextPage()" *ngIf="showHide2">Next >></button>
+      <a routerLink="/roomView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
+        Back</b>
+    </a>
     </div>
 
-  </div>
+  <!-- </div> -->
 </div>
