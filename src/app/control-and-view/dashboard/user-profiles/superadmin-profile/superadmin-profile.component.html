@@ -24,15 +24,16 @@
           <section class="imageSection">
             <img src="assets/img/userIcon.jpg" style="width: 12rem;" class="img-responsive">
             <div class='buttonDiv'>
-              <button class="btn btn-warning" routerLink="/changePasswordSuperAdmin/{{profile.EmployeeKey}}/{{profile.UserRoleName}}/{{profile.IsSupervisor}}"
+              <button style="margin-top: 12rem;width: 1rem;" class="btn btn-primary" routerLink="/changePasswordSuperAdmin/{{profile.EmployeeKey}}/{{profile.UserRoleName}}/{{profile.IsSupervisor}}"
                 routerLinkActive="active">
-                <span>Change Password</span></button>
+                <span><b>CHANGE PASSWORD</b></span></button>
             </div>
           </section>
         </div>
         <div style="margin-left: 15rem; margin-top: -16rem; background-color: white !important">
           <div class="form-group" style="margin-left: 9rem;padding-top: 5rem;padding-bottom: 3rem;">
             <section class="infoSection ">
+              <h5><b>Organizational Information</b></h5>
               <div style="margin-left: 2rem;">
                 <div *ngIf="profile.Organization">
                   <span class="col-md-6"><b>Organization :</b> </span>
@@ -53,19 +54,19 @@
                   <span class="col-md-6"><b>Position :</b></span>
 
                   <span style="margin-left: 8.2rem;" *ngIf="profile.IsSupervisor === 1 && profile.UserRoleName==='Employee'">
-                   Supervisor
+                    Supervisor
                   </span>
                   <span style="margin-left: 8.2rem;" *ngIf="profile.IsSupervisor === 0 && profile.UserRoleName==='Employee'">
-                   Employee
+                    Employee
                   </span>
                   <span style="margin-left: 8.2rem;" *ngIf="profile.UserRoleName==='Manager'">
-                   Manager
+                    Manager
                   </span>
                   <span style="margin-left: 7.5rem;" *ngIf="profile.UserRoleName==='SuperAdmin'">
-                   Super Admin
+                    Super Admin
                   </span>
                   <span style="margin-left: 8.2rem;" *ngIf="profile.UserRoleName==='Admin'">
-                   Admin
+                    Admin
                   </span>
                 </div>
                 <div *ngIf="profile.DepartmentName">

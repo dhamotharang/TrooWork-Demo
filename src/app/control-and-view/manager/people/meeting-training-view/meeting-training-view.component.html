@@ -35,13 +35,13 @@
       <div class="col-md-6 ">
         <div class="form-group" style="margin-left: 0.7rem;">
           <label for="people">From Date </label>
-          <igx-datePicker [value]="date1" [(ngModel)]="fromdate" (onSelection)="filterMtngTrainingList()"></igx-datePicker>
+          <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date1" [(ngModel)]="fromdate" (onSelection)="filterMtngTrainingList()"></igx-datePicker>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group " style="margin-left: 0.7rem;">
           <label for="people">To Date </label>
-          <igx-datePicker [value]="date1" [(ngModel)]="todate" (onSelection)="filterMtngTrainingList()"></igx-datePicker>
+          <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date1" [(ngModel)]="todate" (onSelection)="filterMtngTrainingList()"></igx-datePicker>
         </div>
       </div>
     </div>

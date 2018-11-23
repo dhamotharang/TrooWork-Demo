@@ -17,7 +17,7 @@
     <div class="row col-md-12">
       <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="Department">MetricType Name* : </label></h5>
       <div class="md-form col-md-8" style="text-align:left">
-        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="MetricKey" (change)=showFields($event.target.value)>
+        <select style="background-color: #D4F4FF !important; width: 30rem" class="form-control" [(ngModel)]="MetricKey" (change)=showFields($event.target.value)>
           <option value="0">--Select--</option>
           <option *ngFor="let f of metricValues" [value]="f.MetricType">
             {{f.MetricType}}

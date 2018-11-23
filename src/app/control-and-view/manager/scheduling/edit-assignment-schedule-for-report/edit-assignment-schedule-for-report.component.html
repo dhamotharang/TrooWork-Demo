@@ -40,14 +40,14 @@
     <div class="row col-md-12">
       <h5 style="margin-top: 2rem;" class="col-md-2"><label for="scheduling">Start Date: </label></h5>
       <div class="md-form col-md-3" style="text-align:left">
-        <igx-datePicker [(ngModel)]="workScheduleStartDate" label="" cancelButtonLabel="cancel" todayButtonLabel="today">
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [(ngModel)]="workScheduleStartDate" label="" cancelButtonLabel="cancel" todayButtonLabel="today">
 
         </igx-datePicker>
       </div>
       <div class="col-md-1"></div>
       <h5 style="margin-top: 2rem;" class="col-md-2"><label for="scheduling">End Date: </label></h5>
       <div class="md-form col-md-3">
-        <igx-datePicker item-width="25%" label="" cancelButtonLabel="cancel" todayButtonLabel="today" [(ngModel)]="workScheduleEndDate"
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" item-width="25%" label="" cancelButtonLabel="cancel" todayButtonLabel="today" [(ngModel)]="workScheduleEndDate"
           [formatter]="formatter"></igx-datePicker>
       </div>
     </div>

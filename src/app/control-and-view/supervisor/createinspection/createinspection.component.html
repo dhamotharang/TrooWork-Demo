@@ -17,7 +17,7 @@
          </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 "> Date</label>
-        <igx-datePicker item-width="25%" [value]="date" [(ngModel)]="fromdate"[formatter]="formatter"></igx-datePicker>
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" item-width="25%" [value]="date" [(ngModel)]="fromdate"[formatter]="formatter"></igx-datePicker>
         </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Auditor*</label>
@@ -72,7 +72,7 @@
        </div>
        <div class="form-group" *ngIf="marked">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">To Date</label>
-        <igx-datePicker item-width="25%" [value]="date"[(ngModel)]="todate"[formatter]="formatter"></igx-datePicker>
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" item-width="25%" [value]="date"[(ngModel)]="todate"[formatter]="formatter"></igx-datePicker>
         </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Time*</label>

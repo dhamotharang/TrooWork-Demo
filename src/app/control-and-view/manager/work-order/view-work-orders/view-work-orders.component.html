@@ -75,11 +75,11 @@
     <div class="col-md-6">
       <div class="form-group">
         <label>On Date</label><br>
-        <igx-datePicker [value]="date" [(ngModel)]="ondate" (onSelection)="viewWO_Filter();"></igx-datePicker>
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date" [(ngModel)]="ondate" (onSelection)="viewWO_Filter();"></igx-datePicker>
       </div>
       <div class="form-group">
         <label>To Date</label><br>
-        <igx-datePicker [value]="date" [(ngModel)]="todate" (onSelection)="viewWO_Filter();"></igx-datePicker>
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date" [(ngModel)]="todate" (onSelection)="viewWO_Filter();"></igx-datePicker>
       </div>
       <div class="form-group">
         <label>Work Status</label><br>
