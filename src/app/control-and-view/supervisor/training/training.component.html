@@ -1,5 +1,6 @@
 <app-supervisor-dashboard></app-supervisor-dashboard>
-<div  style="padding-left: 9rem;padding-right: 9rem;">
+<img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
+<div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="bg-dark" style="width: 100%;height: 100%;"> -->
     <br><br>
     <h4 class="refer"><b> MEETING/TRAINING/EVENT</b> </h4>
@@ -37,6 +38,8 @@
           </tr>
         </tbody>
       </table>
+      <button class="btn btn-success" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
+      <button class="btn btn-success" (click)="nextPage()" *ngIf="showHide2">Next >></button>
     </div>
   <!-- </div> -->
 </div>

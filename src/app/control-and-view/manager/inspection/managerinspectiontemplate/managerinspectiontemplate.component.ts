@@ -47,7 +47,8 @@ export class ManagerinspectiontemplateComponent implements OnInit {
   ind = 0;
   TemplateDetails;
   lastIndexValue;
-  
+  rating_yn;
+
   starList: boolean[];
   rating: number;
 
@@ -126,6 +127,8 @@ export class ManagerinspectiontemplateComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
+
+    // this.rating_yn ="Pass";
 
     this.inspectionService.InspectionDetails(this.inspKey$, this.OrganizationID).subscribe((data: any[]) => {
       this.viewEmpInspectionDetails = data;

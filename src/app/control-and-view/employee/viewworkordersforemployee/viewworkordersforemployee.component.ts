@@ -186,6 +186,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
       });
   }
   searchWO(SearchValue) {
+    var value=SearchValue.trim();
     if (!this.WorkorderDate) {
       var date1 = this.convert_DT(new Date());
     }
@@ -210,15 +211,18 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     if(!(this.RoomTypeKey)){
       this.RoomTypeKey=null;
     }
-    if (SearchValue.length >= 3) {
+    if (value.length >= 3) {
       this.WorkOrderServiceService
-        .SearchwoByEmployee(SearchValue, date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey).subscribe((data: any[]) => {
+        .SearchwoByEmployee(value, date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey).subscribe((data: any[]) => {
           this.WorkorderDetTable = data;
 
         });
     }
-    else if (SearchValue.length == 0) {
-      this.loading = true;
+    else if (value.length == 0) {
+      if((value.length == 0) &&(SearchValue.length == 0) )
+    {
+   this.loading = true;
+    }
       var curr_date = this.convert_DT(new Date());
       this.WorkOrderServiceService
         .getWOdetailsForEmployee(this.pageNo,this.itemsPerPage,curr_date, this.toServeremployeekey, this.OrganizationID)

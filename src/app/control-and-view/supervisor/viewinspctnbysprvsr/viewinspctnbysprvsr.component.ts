@@ -75,23 +75,30 @@ pagination: Number;
   }
   searchTL(SearchValue) {
 
-    if (SearchValue.length > 2) {
+    var value=SearchValue.trim();
+
+    if (value.length > 2) {
       var curr_date = new Date(Date.now());
       var newdate = this.convert_DT(curr_date);
       this.inspectionService
-        .SearchTemplateandLocationbysuprvsr(SearchValue, this.OrganizationID, this.toServeremployeekey, newdate).subscribe((data: Inspection[]) => {
+        .SearchTemplateandLocationbysuprvsr(value, this.OrganizationID, this.toServeremployeekey, newdate).subscribe((data: Inspection[]) => {
           this.inspectionordertable = data;
 
         });
     }
 
-    else if (SearchValue.length == 0) {
+    else if (value.length == 0) {
+      if((value.length == 0) &&(SearchValue.length == 0) )
+      {
+     this.loading = true;
+      }
       var curr_date = new Date(Date.now());
       var newdate = this.convert_DT(curr_date);
       this.inspectionService
         .getInspectionOrderTablewithCurrentDatefrsprvsr(newdate, this.toServeremployeekey, this.OrganizationID)
         .subscribe((data: Inspection[]) => {
           this.inspectionordertable = data;
+          this.loading = false;
         });
     }
 
