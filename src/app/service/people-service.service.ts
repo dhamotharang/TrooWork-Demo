@@ -537,6 +537,12 @@ export class PeopleServiceService {
     return this
       .http.post(url, obj);
   }
+  getMeetingTrainingViewforemployees(curr_date,toServeremployeekey,OrganizationID)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/viewEmployeeMeetingTraining?meetingDate='+curr_date+'&employeekey='+toServeremployeekey+'&OrganizationID='+OrganizationID);
+  }
   getMeetingTrainingViewforemployee(page, count, curr_date, empKey, orgID) {
     return this
       .http

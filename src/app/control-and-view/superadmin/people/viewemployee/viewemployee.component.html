@@ -64,6 +64,9 @@
           <td>{{ e.JobTitle }}</td>
           <td>{{ e.PrimaryPhone }}</td>
         </tr>
+        <tr *ngIf="employeedetailstable?.length == 0">
+          <td colspan="8" class="no-data-available">No records found</td>
+        </tr>
       </tbody>
     </table>
     <button class="btn btn-success" style="float: left;" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
