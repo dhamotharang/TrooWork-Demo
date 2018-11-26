@@ -275,6 +275,31 @@ export class MeetingTrainingCreateComponent implements OnInit {
 
   }
   addNewMeeting(){
+    var eventType;
+    if (this.Event_Type){
+     eventType = this.Event_Type;
+      }
+      else{
+      eventType = null;
+              alert("Event Type is not provided !");
+              return;
+      }
+      var eventName;
+      if (this.Event_Name){
+        eventName = this.Event_Name;
+        }
+        else{
+          eventName = null;
+                alert("Event Name is not provided !");
+                return;
+        }
+        var eventDescription;
+        if (this.Description){
+          eventDescription = this.Description;
+          }
+          else{
+            eventDescription = null;
+          }
 
 this.addnewEvent={
     ActionKey: null,
@@ -291,6 +316,10 @@ this.addnewEvent={
       .addMeetinTraingByNewEvent(this.addnewEvent)
       .subscribe((data: People[]) => {
         this.event = data;
+        alert("New Event is Successfully created")
+        this.Event_Name=null;
+        this.Event_Type=null;
+        this.Description=null;
       });
   }
 

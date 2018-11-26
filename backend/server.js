@@ -14659,12 +14659,12 @@ app.get(securedpath + '/getScheduleRoomslistByBatchScheduleNamekey', function (r
 });
 
 
-app.get(securedpath + '/deleteScheduledRoomslistbyscheduleroomid', function (req, res) {
+app.post(securedpath + '/deleteScheduledRoomslistbyscheduleroomid', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
 
-    var workorderscheduleroomid = url.parse(req.url, true).query['workorderscheduleroomid'];
-    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
-    var employeekey = url.parse(req.url, true).query['employeekey'];
+    var workorderscheduleroomid = req.body.workorderscheduleroomid;
+    var OrganizationID = req.body.OrganizationID;
+    var employeekey = req.body.employeekey;
     pool.getConnection(function (err, connection) {
 
         if (err) {

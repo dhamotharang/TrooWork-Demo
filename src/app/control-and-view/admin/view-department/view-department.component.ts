@@ -22,7 +22,7 @@ export class ViewDepartmentComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  loading: boolean;// loading
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -97,18 +97,23 @@ export class ViewDepartmentComponent implements OnInit {
   //validation ends ..... @rodney
 
   searchDepartment(SearchValue) {
-    if (SearchValue.length >= 3) {
+    var value = SearchValue.trim();
+    if (value.length >= 3) {
       this.inventoryService
-        .SearchDepartment(SearchValue, this.OrganizationID).subscribe((data: Inventory[]) => {
+        .SearchDepartment(value, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.departments = data;
           this.showHide2 = false;
           this.showHide1 = false;
         });
-    } else if (SearchValue.length == 0) {
+    } else if (value.length == 0) {
+      if ((value.length == 0) && (SearchValue.length == 0)) {
+        this.loading = true;
+      }
       this.inventoryService
         .getDepartmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.departments = data;
+          this.loading=false;
           if (this.departments[0].totalItems > this.itemsPerPage) {
             this.showHide2 = true;
             this.showHide1 = false;
@@ -154,11 +159,12 @@ export class ViewDepartmentComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-
+    this.loading=true;
     this.inventoryService
       .getDepartmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.departments = data;
+        this.loading=false;
         if (this.departments[0].totalItems > this.itemsPerPage) {
           this.showHide2 = true;
           this.showHide1 = false;

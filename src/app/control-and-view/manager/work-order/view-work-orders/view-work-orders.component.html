@@ -178,7 +178,7 @@
           <td *ngIf="x.IsReccurring === 1 && x.IsSchedule === 0 "><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}" class="btn btn-success"
               style="color:white !important" routerLinkActive="active"><b>INSTANCE
               </b>
-            </a><a routerLink="/UpdateRecurWorkorder/{{x.WorkorderKey}}" class="btn btn-primary" style="color:white !important"
+            </a><a *ngIf="x.WorkorderStatus==='Scheduled'" routerLink="/UpdateRecurWorkorder/{{x.WorkorderKey}}" class="btn btn-primary" style="color:white !important"
               routerLinkActive="active"><b>RECURRING
               </b>
             </a></td>

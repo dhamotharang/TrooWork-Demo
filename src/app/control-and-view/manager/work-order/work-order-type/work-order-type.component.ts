@@ -122,22 +122,27 @@ export class WorkOrderTypeComponent implements OnInit {
     });
   }
   searchWOType(key) {
-    if(key.length>=3)
+    var value = key.trim();
+    if(value.length>=3)
     {
     this.WorkOrderServiceService
-      .search_workordertype(this.OrganizationID, key)
+      .search_workordertype(this.OrganizationID, value)
       .subscribe((data: any[]) => {
         this.workorderTypeList = data;
         this.showHide2 = false;
           this.showHide1 = false;
       });
     }
-    else if(key.length==0)
+    else if(value.length==0)
     {
+      if ((value.length == 0) && (key.length == 0)) {
+        this.loading = true;
+      }
       this.WorkOrderServiceService
       .getall_workordertype(this.pageno, this.items_perpage, this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.workorderTypeList = data;
+        this.loading=false;
         if (this.workorderTypeList[0].totalItems > this.items_perpage) {
           this.showHide2 = true;
           this.showHide1 = false;

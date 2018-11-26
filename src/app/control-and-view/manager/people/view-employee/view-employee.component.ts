@@ -23,7 +23,7 @@ export class ViewEmployeeComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-  
+  loading: boolean;// loading
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -88,17 +88,22 @@ export class ViewEmployeeComponent implements OnInit {
     }
   }
   searchEmployeeDetails(SearchValue) {
-    
-      if (SearchValue.length >= 3) {
+    var value = SearchValue.trim();
+      if (value.length >= 3) {
         this.PeopleServiceService
-        .searchResultOfEmployeedetailsTable(SearchValue, this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+        .searchResultOfEmployeedetailsTable(value, this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
           this.employeedetailstable = data;
           this.showHide2 = false;
           this.showHide1 = false;
         });
-      } else if (SearchValue.length == 0) {
+      } else if (value.length == 0) {
+        
+      if ((value.length == 0) && (SearchValue.length == 0)) {
+        this.loading = true;
+      }
         this.PeopleServiceService.getAllEmployeeDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
           this.employeedetailstable = data;
+          this.loading=false;
           if (this.employeedetailstable[0].totalItems > this.itemsPerPage) {
             this.showHide2 = true;
             this.showHide1 = false;

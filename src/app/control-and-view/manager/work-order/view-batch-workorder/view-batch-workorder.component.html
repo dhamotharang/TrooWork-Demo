@@ -111,6 +111,7 @@
     <table *ngIf='workorderList' class="table table-hover table-responsive table-bordered table">
       <thead class="tableHead">
         <th>Schedule Name</th>
+        <th>Work Order Type</th>
         <th>Start Date</th>
         <th>end Date</th>
         <th>Employee</th>
@@ -120,6 +121,7 @@
       <tbody>
         <tr *ngFor="let x of workorderList; let i=index">
           <td>{{x.ScheduleName}}</td>
+          <td>{{x.WorkorderTypeName}}</td>
           <td>{{x.WorkorderTime}}</td>
           <td>{{x.EndDate}}</td>
           <td> {{x.LastName}},{{x.FirstName}}</td>

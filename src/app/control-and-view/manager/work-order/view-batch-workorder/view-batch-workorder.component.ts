@@ -54,7 +54,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
   marked = false;
   workorderKey = [];
   searchWorkorder;
-
+  
   role: String;
   name: String;
   employeekey: Number;
@@ -228,9 +228,9 @@ export class ViewBatchWorkorderComponent implements OnInit {
     }
     else {
       this.FloorKey = "";
-      this.ZoneKey="";
-      this.RoomTypeKey="";
-      this.RoomKey="";
+      this.ZoneKey = "";
+      this.RoomTypeKey = "";
+      this.RoomKey = "";
     }
   }
   getZoneRoomTypeRoom(floor, facility) {
@@ -239,19 +239,19 @@ export class ViewBatchWorkorderComponent implements OnInit {
         .getzone_facilityfloor(floor, facility, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.zonelist = data;
-          this.ZoneKey="";
+          this.ZoneKey = "";
         });
       this.WorkOrderServiceService
         .getroomType_facilityfloor(floor, facility, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.RoomTypeList = data;
-          this.RoomTypeKey="";
+          this.RoomTypeKey = "";
         });
       this.WorkOrderServiceService
         .getRoom_facilityfloor(floor, facility, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.RoomList = data;
-          this.RoomKey="";
+          this.RoomKey = "";
         });
     }
     else {
@@ -266,13 +266,13 @@ export class ViewBatchWorkorderComponent implements OnInit {
         .getRoomtype_zone_facilityfloor(zone, floor, facility, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.RoomTypeList = data;
-          this.RoomTypeKey="";
+          this.RoomTypeKey = "";
         });
       this.WorkOrderServiceService
         .getRoom_zone_facilityfloor(zone, floor, facility, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.RoomList = data;
-          this.RoomKey="";
+          this.RoomKey = "";
         });
     }
     else {
@@ -286,7 +286,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
         .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.RoomList = data;
-          this.RoomKey="";
+          this.RoomKey = "";
         });
     }
     else {
@@ -405,6 +405,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
       });
   }
   searchBatchWo(search_value) {
+    var value = search_value.trim();
     var fac_key;
     var floor_key;
     var zone_key;
@@ -507,9 +508,9 @@ export class ViewBatchWorkorderComponent implements OnInit {
       BatchScheduleNameKey: batch_key,
       OrganizationID: this.OrganizationID,
       floorKey: floor_key,
-      searchWO: search_value
+      searchWO: value
     };
-    if (search_value.length >= 3) {
+    if (value.length >= 3) {
       this.WorkOrderServiceService
         .search_Batch_WO(this.searchWorkorder)
         .subscribe((data: any[]) => {
@@ -518,12 +519,16 @@ export class ViewBatchWorkorderComponent implements OnInit {
           this.showHide1 = false;
         });
     }
-    else if (search_value.length == 0) {
+    else if (value.length == 0) {
+      if ((value.length == 0) && (search_value.length == 0)) {
+        this.loading = true;
+      }
       var on_date = this.convert_DT(new Date());
       this.WorkOrderServiceService
         .getBatchworkorder(on_date, this.employeekey, this.pageno, this.items_perpage, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.workorderList = data;
+          this.loading = false;
           if (this.workorderList[0].totalItems > this.items_perpage) {
             this.showHide2 = true;
             this.showHide1 = false;
@@ -534,6 +539,5 @@ export class ViewBatchWorkorderComponent implements OnInit {
           }
         });
     }
-
   }
 }

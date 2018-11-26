@@ -13,13 +13,13 @@ export class DocumentfolderViewComponent implements OnInit {
   showHide1: boolean;
   showHide2: boolean;
   pagination: Number;
-
+  loading: boolean;
   role: String;
   name: String;
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -64,17 +64,22 @@ export class DocumentfolderViewComponent implements OnInit {
   //validation ends ..... @Pooja
 
   searchDocumentFolder(SearchValue) {
-    if (SearchValue.length >= 3) {
+    var value=SearchValue.trim();
+    if (value.length >= 3) {
     this.documentService
-      .SearchDocFolder(this.OrganizationID, SearchValue).subscribe((data: Documents[]) => {
+      .SearchDocFolder(this.OrganizationID, value).subscribe((data: Documents[]) => {
         this.documents = data;
       });
     }
-    else if (SearchValue.length == 0) {
+    else if (value.length == 0) {
+      if ((value.length == 0) && (SearchValue.length == 0)) {
+        this.loading = true;
+      }
       this.documentService
       .getDocumentFoldersDataTable(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Documents[]) => {
         this.documents = data;
+        this.loading=false;
       });
 
     }

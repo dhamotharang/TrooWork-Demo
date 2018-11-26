@@ -15,6 +15,7 @@ export class InspectiontemplateCreateComponent implements OnInit {
   OrganizationID: Number;
   ScoreTypeKey;
   InspTempName;
+  field;
   
 
   url_base64_decode(str) {
@@ -48,7 +49,7 @@ export class InspectiontemplateCreateComponent implements OnInit {
     this.fieldArray.splice(index, 1);
   }
   valuesSave(ScoreTypeKey, InspTempName) {
-   
+ 
     var ScoringTypeKey;
     var TemplateID;
     var templatename;
@@ -103,10 +104,11 @@ export class InspectiontemplateCreateComponent implements OnInit {
       this.inspectionService.checkforTemplate(InspTempName,this.OrganizationID).subscribe(res => {
         if (res[0].count == 0){
     this.inspectionService.createInspectionTemplate(ScoreTypeKey, InspTempName, QustArry, this.employeekey, this.OrganizationID).subscribe(res => {
-    
+      // debugger;
       this.ScoreTypeKey = null;
     this.InspTempName = null;
     this.newAttribute.question=[];
+    // this.field.question=[];
     alert("Inspection Template Added !");
   });
   }

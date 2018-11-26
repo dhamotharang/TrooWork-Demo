@@ -13,7 +13,13 @@ export class SchedulingService {
       .http
       .get(`http://localhost:3000/api/getBatchScheduleName?empkey=` + empkey + '&OrganizationID=' + orgID);
   }
-
+  deleteScheduledRoomslist( delete_scheduledroom)
+  {
+    const url = 'http://localhost:3000/api/deleteScheduledRoomslistbyscheduleroomid';
+    return this
+      .http
+      .post(url, delete_scheduledroom);
+  }
   getSchedulingDetails(scheduleKey, empkey, orgID) {
     return this
       .http
