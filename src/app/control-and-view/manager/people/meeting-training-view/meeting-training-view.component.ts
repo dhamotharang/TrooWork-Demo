@@ -23,7 +23,7 @@ export class MeetingTrainingViewComponent implements OnInit {
   todayDt: String;
   jobTitle: People[];
   empList: People[];
-
+  loading: boolean;// loading
   dropdownSettings = {};
   dropdownSettings1 = {};
   JobTitleKey = [];
@@ -182,19 +182,22 @@ export class MeetingTrainingViewComponent implements OnInit {
         EmployeeKeyString = employeeKeList.join(',');
       }
     }
-
-    if (SearchValue.length >= 3) {
+    var value = SearchValue.trim();
+    if (value.length >= 3) {
 
       this.peopleServ
-        .SearchmeetingTraining(dateFrom, date2, JobTitleString, EmployeeKeyString, SearchValue, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+        .SearchmeetingTraining(dateFrom, date2, JobTitleString, EmployeeKeyString, value, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
           this.meetingTraining = data;
         });
-    } else if (SearchValue.length == 0) {
-
+    } else if (value.length == 0) {
+      if ((value.length == 0) && (SearchValue.length == 0)) {
+        this.loading = true;
+      }
       this.peopleServ
         .viewMtngTrainingbyFilter(dateFrom, date2, JobTitleString, EmployeeKeyString, this.employeekey, this.OrganizationID)
         .subscribe((data: People[]) => {
           this.meetingTraining = data;
+          this.loading=false;
         });
     }
   }
@@ -226,12 +229,13 @@ export class MeetingTrainingViewComponent implements OnInit {
       .subscribe((data: People[]) => {
         this.empList = data;
       });
-
+    this.loading=true;
     this.todayDt = this.convert_DT(this.date1);
     this.peopleServ
       .gettodaysMeeting(this.page, this.count, this.todayDt, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.meetingTraining = data;
+        this.loading=false;
       });
     // multi select starts....
     this.dropdownSettings = {

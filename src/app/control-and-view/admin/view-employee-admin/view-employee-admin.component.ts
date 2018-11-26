@@ -67,68 +67,73 @@ export class ViewEmployeeAdminComponent implements OnInit {
 
   getempdettablewithselectedJobtitle() {
 
-    if( !(this.JobTitleKey) && !(this.ManagerKey) ){
+    if (!(this.JobTitleKey) && !(this.ManagerKey)) {
       this.PeopleServiceService
-      .getAllEmployeeDetails(1, 25, this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        this.employeedetailstable = data;
-        this.loading = false;
-        if (this.employeedetailstable[0].totalItems > this.itemsPerPage) {
-          this.showHide2 = true;
-          this.showHide1 = false;
-        }
-        else if (this.employeedetailstable[0].totalItems <= this.itemsPerPage) {
-          this.showHide2 = false;
-          this.showHide1 = false;
-        }
-      });
+        .getAllEmployeeDetails(1, 25, this.employeekey, this.OrganizationID)
+        .subscribe((data: People[]) => {
+          this.employeedetailstable = data;
+          this.loading = false;
+          if (this.employeedetailstable[0].totalItems > this.itemsPerPage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.employeedetailstable[0].totalItems <= this.itemsPerPage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
+        });
 
     }
-    else{
-      if( !(this.JobTitleKey)){
-        this.JobTitleKey=null;
+    else {
+      if (!(this.JobTitleKey)) {
+        this.JobTitleKey = null;
       }
-      if( !(this.ManagerKey)){
-        this.ManagerKey=null;
+      if (!(this.ManagerKey)) {
+        this.ManagerKey = null;
       }
-    this.PeopleServiceService
-      .getEmployeeByFilters(this.pageNo, this.itemsPerPage, this.JobTitleKey,parseInt( this.ManagerKey), this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        this.employeedetailstable = data;
-        this.showHide2 = false;
-        this.showHide1 = false;
-      });
+      this.PeopleServiceService
+        .getEmployeeByFilters(this.pageNo, this.itemsPerPage, this.JobTitleKey, parseInt(this.ManagerKey), this.employeekey, this.OrganizationID)
+        .subscribe((data: People[]) => {
+          this.employeedetailstable = data;
+          this.showHide2 = false;
+          this.showHide1 = false;
+        });
     }
   }
   searchEmployeeDetails(SearchValue) {
-    
-    this.PeopleServiceService
-      .searchResultOfEmployeedetailsTable(SearchValue, this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        this.employeedetailstable = data;
-        this.showHide2 = false;
-          this.showHide1 = false;
-      });
-      if(SearchValue.length==0){
-        this.PeopleServiceService
-      .getAllEmployeeDetails(1, 25, this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        this.employeedetailstable = data;
-        this.loading = false;
-        if (this.employeedetailstable[0].totalItems > this.itemsPerPage) {
-          this.showHide2 = true;
-          this.showHide1 = false;
-        }
-        else if (this.employeedetailstable[0].totalItems <= this.itemsPerPage) {
+    var value = SearchValue.trim();
+    if (value.length >= 3) {
+      this.PeopleServiceService
+        .searchResultOfEmployeedetailsTable(value, this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+        .subscribe((data: People[]) => {
+          this.employeedetailstable = data;
           this.showHide2 = false;
           this.showHide1 = false;
-        }
-      });
+        });
+    }
+    else if (value.length == 0) {
+      if ((value.length == 0) && (SearchValue.length == 0)) {
+        this.loading = true;
       }
+      this.PeopleServiceService
+        .getAllEmployeeDetails(1, 25, this.employeekey, this.OrganizationID)
+        .subscribe((data: People[]) => {
+          this.employeedetailstable = data;
+          this.loading = false;
+          if (this.employeedetailstable[0].totalItems > this.itemsPerPage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.employeedetailstable[0].totalItems <= this.itemsPerPage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
+        });
+    }
   }
   ngOnInit() {
-    this.JobTitleKey='';
-    this.ManagerKey='';
+    this.JobTitleKey = '';
+    this.ManagerKey = '';
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -137,7 +142,7 @@ export class ViewEmployeeAdminComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-
+    this.loading = true;
     this.PeopleServiceService
       .getJobTitleforadmindd(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {

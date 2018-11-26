@@ -36,28 +36,36 @@ export class JobTitleAddAdminComponent implements OnInit {
   constructor(private peopleServiceService: PeopleServiceService, private router: Router) { }
 
   addNewJobtitle(JobtitleName, JobTitleDescription) {
-    if(JobtitleName &&!JobtitleName.trim()){
+    if (JobtitleName && !JobtitleName.trim()) {
       alert('JobtitleName not provided !');
       return;
     }
-    if(JobTitleDescription && !JobTitleDescription.trim()){
+    if (JobTitleDescription && !JobTitleDescription.trim()) {
       alert('JobTitleDescription not provided !');
       return;
     }
-    if(!JobtitleName){
+    if (!JobtitleName) {
       alert('JobtitleName not provided !');
       return;
     }
-    if( !JobTitleDescription){
+    if (!JobTitleDescription) {
       alert('JobTitleDescription not provided !');
       return;
     }
-    this.peopleServiceService.addJobtitle(JobtitleName, JobTitleDescription, this.employeekey, this.OrganizationID)
-    .subscribe((data: any[]) => {
-        alert('Job title successfully created !');
-        this.router.navigateByUrl('/JobTitleViewAdmin');
+    this.peopleServiceService.checkfor_jobtitle(JobtitleName, this.employeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        if (data[0].count != 0) {
+          alert('Job title already exists !');
+        }
+        else {
+          this.peopleServiceService.addJobtitle(JobtitleName, JobTitleDescription, this.employeekey, this.OrganizationID)
+            .subscribe((data: any[]) => {
+              alert('Job title successfully created !');
+              this.router.navigateByUrl('/JobTitleViewAdmin');
 
-    });
+            });
+        }
+      });
 
   }
 
