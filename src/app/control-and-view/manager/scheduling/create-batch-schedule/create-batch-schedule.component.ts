@@ -25,7 +25,7 @@ export class CreateBatchScheduleComponent implements OnInit {
   workScheduleStartDate: Date = null;
   workScheduleEndDate: Date = null;
   dt: Date;
-  BatchScheduleNameKey: Number;
+  BatchScheduleNameKey;
   startDT: any;
   endDT: any;
 
@@ -762,7 +762,7 @@ export class CreateBatchScheduleComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     //token ends
-
+    this.BatchScheduleNameKey="";
     this.allViews = { day: false, month: true, year: true };
     this.scheduleService
       .getAllSchedulingNames(this.employeekey, this.OrganizationID)

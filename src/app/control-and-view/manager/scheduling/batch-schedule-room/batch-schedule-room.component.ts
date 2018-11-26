@@ -36,7 +36,7 @@ export class BatchScheduleRoomComponent implements OnInit {
   showHide2: boolean;
   pagination: Number;
   loading: boolean;
-
+    deletekey;
   bldgKey = null;
   flrKey = null;
   zoneKey = null;
@@ -49,6 +49,7 @@ export class BatchScheduleRoomComponent implements OnInit {
   RoomTypeKey;
   FloorTypeKey;
   RoomKey;
+  delete_scheduledroom;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -331,6 +332,32 @@ export class BatchScheduleRoomComponent implements OnInit {
     //   .subscribe((data: any[]) => {
     //     this.floorTypeList = data;
     //   });
+  }
+  deletekeypass(key)
+  {
+    this.deletekey=key;
+  }
+  delete_room()
+  {
+    this.delete_scheduledroom={
+      workorderscheduleroomid:this.deletekey,
+      OrganizationID:this.OrganizationID,
+      employeekey:this.employeekey
+    };
+    this.scheduleServ
+    .deleteScheduledRoomslist( this.delete_scheduledroom)
+    .subscribe((data: Scheduling[]) => {
+      this.scheduleServ
+      .getSchedulingRoomList(this.BatchScheduleNameKey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.scheduledroomList = data;
+      });
+      this.scheduleServ
+      .getAllOtherRoomList(this.BatchScheduleNameKey, this.OrganizationID, this.pageno, this.itemsPerPage)
+      .subscribe((data: any[]) => {
+        this.allroomList = data;
+      });
+    });
   }
   ngOnInit() {
     //token starts....

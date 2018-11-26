@@ -1,6 +1,6 @@
 <app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
-<div *ngIf="!loading" class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+<div *ngIf="!loading"  style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="bg-dark" style="width: 100%;height: 100%;"> -->
     <br><br>
     <div style="text-align:center">
@@ -112,9 +112,10 @@
             <td>{{item.RoomTypeText}}</td>
             <td>{{item.RoomName}}</td>
             <td>
-              <a style="color:white !important" routerLink="/roomView" class="btn btn-danger" routerLinkActive="active">
+              <button type="button"  style="color:white !important"  class="btn btn-danger" (click)="basicModal.show();deletekeypass(item.WorkOrderScheduleRoomID); "
+              mdbWavesEffect>
                 <b>Remove</b>
-              </a>
+              </button>
             </td>
           </tr>
 
@@ -132,6 +133,26 @@
           <tr *ngIf="((allroomList?.length == 0)&&(scheduledroomList?.length == 0))">
             <td colspan="7" class="no-data-available">No records found</td>
           </tr>
+          <div mdbModal #basicModal="mdbModal" class="modal fade" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                  <h4 class="modal-title w-100" id="myModalLabel"></h4>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to delete this?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide(); delete_room()"
+                    mdbWavesEffect>Yes</button>
+                  <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.hide()" mdbWavesEffect>No</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </tbody>
       </table>
     </div>

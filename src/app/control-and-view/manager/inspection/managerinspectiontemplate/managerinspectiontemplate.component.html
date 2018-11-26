@@ -1,10 +1,11 @@
 <app-manager-dash-board></app-manager-dash-board>
-<div class="py-5 " style="padding-left: 9rem;padding-right: 9rem;">
+<div  style="padding-left: 9rem;padding-right: 9rem;">
   <div style="text-align:center">
-    <h5 style="text-align:center">{{viewEmpInspectionDetails[0].TemplateName}}</h5>
-    <h5>{{viewEmpInspectionDetails[0].FacilityName}}{{viewEmpInspectionDetails[0].FloorName}}{{viewEmpInspectionDetails[0].RoomId}}
-    </h5>
-  </div><br><br>
+    <h5 style="text-align:center"><b>{{viewEmpInspectionDetails[0].TemplateName}}</b></h5>
+    <h5><span style="color: red">{{viewEmpInspectionDetails[0].FacilityName}} </span> - <span style="color: blue">{{viewEmpInspectionDetails[0].FloorName}}</span>
+      -
+      {{viewEmpInspectionDetails[0].RoomId}} </h5>
+  </div><br>
   <div style="background-color: white !important; padding-bottom: 2rem;padding-top: 2rem">
     <ul id="menu" *ngFor="let item of viewEmpInspectionDetails;let i = index" class="form-group">
       <li class="col-sm-offset-4 col-sm-10" *ngIf="item.ScoreName === 'Yes/No'">
@@ -13,8 +14,8 @@
           <div class="row col-md-12">
             <div class="col-md-6 ">
               <div class="form-group">
-                <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Score</label>
-                <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]='Scoringtype.rating_yn[item.TemplateQuestionID]'
+                <label style="margin-top: 2rem; margin-left: -1rem;" class="col-sm-3 col-md-3 col-lg-3 ">Score</label>
+                <select class="form-control col-sm-9 col-md-9 col-lg-9 " style="background-color: #d4f4ff !important;" [(ngModel)]='Scoringtype.rating_yn[item.TemplateQuestionID]'
                   (change)="saveRatings(item.TemplateQuestionID,item.ScoreName)">
                   <option>--Select--</option>
                   <option *ngFor="let w of names" [value]="w">
@@ -25,7 +26,7 @@
             </div>
             <div class="col-md-6">
               <div>
-                <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Notes</label>
+                <label style="margin-top: 2rem; margin-left: -1rem;" class="col-sm-3 col-md-3 col-lg-3 ">Notes</label>
                 <textarea class="form-control rounded-0" [(ngModel)]="Scoringtype.inspectionNotes[item.TemplateQuestionID]"
                   rows="3"></textarea>
               </div>
@@ -41,8 +42,8 @@
           <div class="row col-md-12">
             <div class="col-md-6 ">
               <div class="form-group">
-                <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Score</label>
-                <select style="background-color: #d4f4ff !important;width: 50%;" [(ngModel)]='Scoringtype.rating_yn[item.TemplateQuestionID]'
+                <label style="margin-top: 2rem; margin-left: -1rem;" class="col-sm-3 col-md-3 col-lg-3 ">Score</label>
+                <select class="form-control col-sm-9 col-md-9 col-lg-9 " style="background-color: #d4f4ff !important;" [(ngModel)]='Scoringtype.rating_yn[item.TemplateQuestionID]'
                   (change)="saveRatings(item.TemplateQuestionID,item.ScoreName)">
                   <option [value]="Pass">Pass</option>
                   <option *ngFor="let w of names" [value]="w">
@@ -53,7 +54,7 @@
             </div>
             <div class="col-md-6">
               <div>
-                <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Notes</label>
+                <label style="margin-top: 2rem; margin-left: -1rem;" class="col-sm-3 col-md-3 col-lg-3 ">Notes</label>
                 <textarea class="form-control rounded-0" rows="3" [(ngModel)]="Scoringtype.inspectionNotes[item.TemplateQuestionID]"></textarea>
               </div>
             </div>
@@ -66,7 +67,7 @@
           <div class="col-md-6">
             <div>
               <br>
-              <a *ngFor="let x of  starList; let i=index " (click)="setStar(i);saveRatings(item.TemplateQuestionID,item.ScoreName)">
+              <a *ngFor="let x of  starList; let j=index " (click)="setStar(j);saveRatings(item.TemplateQuestionID,item.ScoreName)">
                 <i *ngIf="x" class="fa fa-star-o"></i>
                 <i *ngIf="!x" class="fa fa-star"></i>
               </a>
@@ -84,7 +85,7 @@
           <div class="col-md-6">
             <div>
               <br>
-              <a *ngFor="let x of starList; let i=index " (click)="setStar3(i);saveRatings(item.TemplateQuestionID,item.ScoreName)">
+              <a *ngFor="let x of starList; let j=index " (click)="setStar3(j);saveRatings(item.TemplateQuestionID,item.ScoreName)">
                 <i *ngIf="x" class="fa fa-star-o"></i>
                 <i *ngIf="!x" class="fa fa-star"></i>
               </a>
@@ -101,7 +102,6 @@
   <div class="row col-md-12">
     <div style="text-align:center">
       <button type="button" style="text-align:center" class="btn btn-success" (click)="inspectionCompleted()"><b>SAVE</b></button></div>
-    <!-- <button type="button" style="text-align:center" class="btn btn-primary">Back</button> -->
     <a routerLink="/InspectionView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>
         GO BACK</b></a>
   </div>

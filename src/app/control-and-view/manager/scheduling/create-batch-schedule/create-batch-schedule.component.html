@@ -13,7 +13,7 @@
       <div class="md-form col-md-4" style="text-align:left">
         <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="BatchScheduleNameKey"
           (change)="getScheduleDetails($event.target.value)">
-          <option>--Select--</option>
+          <option value="">--Select--</option>
           <option *ngFor="let f of scheduleNameList" [value]="f.BatchScheduleNameKey">
             {{f.ScheduleName}}
           </option>

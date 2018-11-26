@@ -1,6 +1,6 @@
 <app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
-<div class="py-5 " *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
+<div  *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">VIEW BATCH WORK ORDER</h3>
@@ -111,6 +111,7 @@
     <table *ngIf='workorderList' class="table table-hover table-responsive table-bordered table">
       <thead class="tableHead">
         <th>Schedule Name</th>
+        <th>Work Order Type</th>
         <th>Start Date</th>
         <th>end Date</th>
         <th>Employee</th>
@@ -120,6 +121,7 @@
       <tbody>
         <tr *ngFor="let x of workorderList; let i=index">
           <td>{{x.ScheduleName}}</td>
+          <td>{{x.WorkorderTypeName}}</td>
           <td>{{x.WorkorderTime}}</td>
           <td>{{x.EndDate}}</td>
           <td> {{x.LastName}},{{x.FirstName}}</td>
