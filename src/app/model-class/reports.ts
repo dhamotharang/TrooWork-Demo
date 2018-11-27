@@ -4,7 +4,7 @@ export interface Reports {
     SupervisorKey: number;
     SupervisorText: String;
 
-   
+    reportpietext:String;
     InspectionOrderKey: number;
     TemplateId: number;
     TemplateName: string;
