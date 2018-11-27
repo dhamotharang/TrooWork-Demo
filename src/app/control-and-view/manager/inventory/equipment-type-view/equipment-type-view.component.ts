@@ -101,15 +101,21 @@ export class EquipmentTypeViewComponent implements OnInit {
   }
 
   searchEquipmentType(SearchValue) {
-    if (SearchValue.length >= 3) {
+
+    var value=SearchValue.trim();
+
+    if (value.length >= 3) {
       this.inventoryService
-        .SearchEquipmentType(SearchValue, this.OrganizationID).subscribe((data: Inventory[]) => {
+        .SearchEquipmentType(value, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.equipmentType = data;
           this.showHide2 = false;
           this.showHide1 = false;
         });
-    } else if (SearchValue.length == 0) {
-      this.loading = true;
+    } else if (value.length == 0) {
+      if((value.length == 0) &&(SearchValue.length == 0) )
+      {
+     this.loading = true;
+      }
       this.inventoryService
         .getEquipmentTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {

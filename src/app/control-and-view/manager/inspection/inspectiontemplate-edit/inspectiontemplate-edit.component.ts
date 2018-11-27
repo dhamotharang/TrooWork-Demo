@@ -85,13 +85,16 @@ export class InspectiontemplateEditComponent implements OnInit {
     this.delete_tempid = TemplateID;
   }
   searchTemplate(SearchValue) {
-    if (SearchValue.length >= 3){
+
+    var value=SearchValue.trim();
+
+    if (value.length >= 3){
     this.inspectionService
-      .SearchTemplate(SearchValue, this.OrganizationID).subscribe((data: Inspection[]) => {
+      .SearchTemplate(value, this.OrganizationID).subscribe((data: Inspection[]) => {
         this.inspectiontemplate = data;
       });
     }
-    else if (SearchValue.length == 0)
+    else if (value.length == 0)
     {
       this.inspectionService
       .getInspectionTemplateDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
