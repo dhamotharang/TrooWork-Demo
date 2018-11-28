@@ -11,7 +11,7 @@
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 form-group">
             <select name="eventtype" style="background-color: #d4f4ff;" class="form-control" [(ngModel)]="EventType">
-                <option value="" placeholder>--Select--</option>
+                <option value="">--Select--</option>
                 <option *ngFor="let b of event" [value]="b.ActionKey">
                     {{b.ActionType}} - {{b.Action}}
                 </option>
@@ -67,7 +67,7 @@
                 <label for="floorname">Job Title </label>
                 <select style="background-color: #D4F4FF !important;" class="form-control col-sm-9 col-md-9 col-lg-9"
                     [(ngModel)]="JobTitle" (change)="selectEmpOfJobTitle($event.target.value)">
-                    <option value="0">--Select--</option>
+                    <option value="">--Select--</option>
                     <option *ngFor="let f of jobTitle" [value]="f.JobTitleKey">
                         {{f.JobTitleText}}
                     </option>
@@ -79,7 +79,7 @@
                 <label for="floorname">Supervisor </label>
                 <select style="background-color: #D4F4FF !important;" class="form-control col-sm-9 col-md-9 col-lg-9"
                     [(ngModel)]="Supervisor" (change)="selectEmpOfSupervisor($event.target.value)">
-                    <option value="0">--Select--</option>
+                    <option value="">--Select--</option>
                     <option *ngFor="let f of supervisor" [value]="f.SupervisorKey">
                         {{f.SupervisorText}}
                     </option>
@@ -103,20 +103,20 @@
         <div class="row col-md-12">
             <h5 style="text-align:right" class="col-md-4"><label for="eventHost">Event Type* </label></h5>
             <div class="md-form col-md-3" style="text-align:left">
-                <input type="text" style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="Event_Type">
+                <input type="text" placeholder="Event Type" style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="Event_Type">
             </div>
             <div class="col col-md-5"></div>
         </div>
         <div class="row col-md-12">
             <h5 style="text-align:right" class="col-md-4"><label for="Venue">Event Name* </label></h5>
             <div class="md-form col-md-3" style="text-align:left">
-                <input type="text" style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="Event_Name">
+                <input type="text" placeholder="Event Name" style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="Event_Name">
             </div>
             <div class="col col-md-5"></div>
         </div>
         <div class="row col-md-12">
             <h5 style="text-align:right" class="col-md-4"><label for="Venue">Description </label></h5>
-            <div class="md-form col-md-3" style="text-align:left">
+            <div class="col-md-3" style="text-align:left">
                 <textarea class="form-control rounded-0" [(ngModel)]="Description" rows="5" style="resize: none;"></textarea>
             </div>
             <div class="col col-md-5"></div>

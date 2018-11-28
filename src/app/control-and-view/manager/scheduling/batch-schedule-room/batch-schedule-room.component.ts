@@ -240,7 +240,7 @@ export class BatchScheduleRoomComponent implements OnInit {
         this.scheduleServ
           .addRoomToSchedule(this.BatchScheduleNameKey, addRoomString, this.employeekey, this.OrganizationID)
           .subscribe(res => {
-            alert("Selected Rooms Successfully added to Schedule");
+            alert("Rooms successfully added to assignment");
             // this.router.navigateByUrl('/editScheduleForReport/');
             this.router.navigate(['/editScheduleForReport', this.BatchScheduleNameKey]);
           });

@@ -31,6 +31,7 @@ export class EditAssignmentScheduleForReportComponent implements OnInit {
   BatchScheduleNameKey;
   startDT: any;
   endDT: any;
+  WorkorderTypeKey; 
 
   //for table view..... starts......
   totalMonTime: any = 0;
@@ -767,7 +768,7 @@ export class EditAssignmentScheduleForReportComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     //token ends
-
+    this.WorkorderTypeKey="";
     this.allViews = { day: false, month: true, year: true };
     this.scheduleService
       .getAllSchedulingNames(this.employeekey, this.OrganizationID)

@@ -17,15 +17,15 @@ export class MeetingTrainingCreateComponent implements OnInit {
   supervisor: People[];
   dropdownSettings1 = {};
 
-  EventType: Number;
+  EventType;
   eventHost: String;
   Venue: String;
   mtngDate;
   time1: any;
   time2: any;
   Notes: String;
-  JobTitle: Number;
-  Supervisor: Number;
+  JobTitle;
+  Supervisor;
   Employee = [];
   date1: String;
   t1 = [];
@@ -131,6 +131,7 @@ export class MeetingTrainingCreateComponent implements OnInit {
       var timediff = +time2 - +time1;
       if (timediff < 0) {
         alert("Start Time can't be after End Time");
+        return;
       }
     }
 
@@ -238,6 +239,10 @@ export class MeetingTrainingCreateComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
     this.newMeet=true;
     this.mtngDate= new Date();
+
+    this.EventType="";
+    this.JobTitle="";
+    this.Supervisor="";
     this.peopleServ
       .getJobTitleList(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {

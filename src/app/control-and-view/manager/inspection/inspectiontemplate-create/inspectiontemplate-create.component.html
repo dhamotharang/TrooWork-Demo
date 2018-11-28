@@ -9,7 +9,7 @@
   <div class="col-md-12">
     <div class="row col-md-12">
       <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scoringtype">Scoring Type* </label></h5>
-      <div class="md-form col-md-8" style="text-align:left">
+      <div class="col-md-8" style="text-align:left">
         <select style="background-color: #D4F4FF !important; width: 30rem" class="form-control" [(ngModel)]="ScoreTypeKey">
           <option value="">--Select--</option>
 
@@ -23,7 +23,7 @@
       <h5 style="text-align:right" class="col-md-4"><label for="inspectiontemplatename">Inspection Template Name*
         </label></h5>
       <div class="md-form col-md-8" style="text-align:left">
-        <input type="text" maxlength="40" style="background-color: #D4F4FF !important;" class="form-control"
+        <input type="text" placeholder="Template Name" maxlength="40" style="background-color: #D4F4FF !important;" class="form-control"
           [(ngModel)]="InspTempName">
       </div>
     </div>
@@ -32,7 +32,7 @@
         <!-- already present array -->
         <tr *ngFor="let field of fieldArray">
           <td>
-            <input [(ngModel)]="field.question" class="form-control" type="text" value="{{field.question}}" />
+            <input [(ngModel)]="field.question" placeholder="Enter the Question,Don't copy paste" class="form-control" type="text" value="{{field.question}}" />
           </td>
           <td>
             <button class="btn btn-danger" type="button" (click)="deleteFieldValue(i)"><b>DELETE QUESTION</b></button>
