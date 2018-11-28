@@ -101,7 +101,7 @@
       <div class="form-group">
         <label>Equipment Type</label><br>
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EquipmentTypeKey"
-          [disabled]="(showEqTypes==false)" (change)="showEquipment_typechange($event.target.value,FacilityKey,FloorKey)"
+        [disabled]="!(showEqTypes&&FloorKey)" (change)="showEquipment_typechange($event.target.value,FacilityKey,FloorKey)"
           required>
           <option value="">--Select--</option>
           <option *ngFor="let e of EquipmentTypeList" [value]="e.EquipmentTypeKey">

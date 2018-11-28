@@ -166,7 +166,7 @@ export class WorkOrderTypeComponent implements OnInit {
     };
     this.WorkOrderServiceService
       .DeleteWOT(this.delete_WOType).subscribe(() => {
-        alert("work-order type deleted successfully");
+        alert("Work-order type deleted successfully");
         this.WorkOrderServiceService
           .getall_workordertype(this.pageno, this.items_perpage, this.employeekey, this.OrganizationID)
           .subscribe((data: any[]) => {

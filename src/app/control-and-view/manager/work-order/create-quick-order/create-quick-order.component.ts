@@ -80,14 +80,14 @@ export class CreateQuickOrderComponent implements OnInit {
   saveQuickWorkOrder() {
     if(!(this.EmployeeKey))
     {
-      alert("please select employee!");
+      alert("Please select employee!");
     }else if(!(this.FacilityKey))
     {
-      alert("please select building!")
+      alert("Please select building!")
     }
     else if(!(this.WorkorderNotes))
     {
-      alert("please enter work-order notes!");
+      alert("Please enter work-order notes!");
     }else{
 
     this.wot = - 1;
@@ -158,7 +158,7 @@ export class CreateQuickOrderComponent implements OnInit {
     this.WorkOrderServiceService
       .addQuickWorkOrder(this.createworkorder)
       .subscribe(res => {
-        alert("work-order created successfully");
+        alert("Work-order created successfully");
         this.router.navigateByUrl('/ViewWorkOrder');
     });
   }

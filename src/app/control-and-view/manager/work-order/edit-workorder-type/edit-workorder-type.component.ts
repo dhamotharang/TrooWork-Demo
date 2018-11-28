@@ -60,9 +60,9 @@ export class EditWorkorderTypeComponent implements OnInit {
   updateWOT(WOTName, WOTKey) {
     if(!WOTName)
     {
-      alert("please enter work-order type!");
+      alert("Please enter work-order type!");
     }else if (!WOTName.trim()) {
-      alert("please enter work-order type!");
+      alert("Please enter work-order type!");
     }else
     {
     this.update_WO = {
@@ -79,7 +79,7 @@ export class EditWorkorderTypeComponent implements OnInit {
       .subscribe((data: any[]) => {
        if(data[0].count!=0)
        {
-        alert("work-order type already exists!");
+        alert("Work-order type already exists!");
        }
         else if (data[0].count == 0) {
           this.WorkOrderServiceService
@@ -88,7 +88,7 @@ export class EditWorkorderTypeComponent implements OnInit {
               this.WorkOrderServiceService
             .view_wotype(WOTKey,this.OrganizationID)
             .subscribe((data: any[]) => {
-              alert("work-order type updated successfully");
+              alert("Work-order type updated successfully");
               this.router.navigateByUrl('/WorkOrderType');
             });
           });

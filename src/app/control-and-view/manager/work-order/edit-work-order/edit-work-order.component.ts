@@ -267,32 +267,39 @@ export class EditWorkOrderComponent implements OnInit {
     }
   }
   getZoneRoomTypeRoom(floor, facility) {
-    if(floor&&facility)
-    {
-    this.WorkOrderServiceService
-      .getzone_facilityfloor(floor, facility, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.zonelist = data;
-        this.ZoneKey="";
-      });
-    this.WorkOrderServiceService
-      .getroomType_facilityfloor(floor, facility, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.RoomTypeList = data;
-        this.RoomTypeKey="";
-      });
-    this.WorkOrderServiceService
-      .getRoom_facilityfloor(floor, facility, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.RoomList = data;
-        this.RoomKey="";
-      });
+    if (floor && facility) {
+      if ((this.FloorKey) && (this.showEqTypes == true)) {
+        this.ZoneKey = -1;
+        this.RoomTypeKey = -1;
+        this.RoomKey = -1;
+      }
+      else {
+        this.WorkOrderServiceService
+          .getzone_facilityfloor(floor, facility, this.OrganizationID)
+          .subscribe((data: any[]) => {
+            this.zonelist = data;
+            this.ZoneKey = "";
+          });
+        this.WorkOrderServiceService
+          .getroomType_facilityfloor(floor, facility, this.OrganizationID)
+          .subscribe((data: any[]) => {
+            this.RoomTypeList = data;
+            this.RoomTypeKey = "";
+          });
+        this.WorkOrderServiceService
+          .getRoom_facilityfloor(floor, facility, this.OrganizationID)
+          .subscribe((data: any[]) => {
+            this.RoomList = data;
+            this.RoomKey = "";
+          });
+      }
     }
-    else
-    {
-      this.ZoneKey="";
-      this.RoomTypeKey="";
-      this.RoomKey="";
+    else {
+      this.ZoneKey = "";
+      this.RoomTypeKey = "";
+      this.RoomKey = "";
+      this.EquipmentTypeKey="";
+      this.EquipmentKey="";
     }
   }
   getRoomTypeRoom(zone, facility, floor) {
@@ -373,7 +380,7 @@ export class EditWorkOrderComponent implements OnInit {
     this.WorkOrderServiceService
       .deleteCurrent_WO(this.deleteWO)
       .subscribe((data: any[]) => {
-        alert("work-order deleted successfully");
+        alert("Work-order deleted successfully");
         this.router.navigateByUrl('/ViewWorkOrder');
       });
   }
@@ -388,16 +395,16 @@ export class EditWorkOrderComponent implements OnInit {
   }
   createWorkorder1() {
     if (!this.workordertypekey) {
-      alert("select work-order type!");
+      alert("Please select work-order type!");
     }
     else if (!this.FacilityKey) {
-      alert("select building!");
+      alert("Please select building!");
     }
     else if (!this.FloorKey) {
-      alert("select floor!");
+      alert("Please select floor!");
     }
     else if (!(this.timeValue)) {
-      alert("please provide time!");
+      alert("Please provide time!");
     }
     else {
       var roomlistObj = [];
@@ -594,7 +601,7 @@ export class EditWorkOrderComponent implements OnInit {
       this.WorkOrderServiceService
       .deleteCurrent_WO(this.deleteWO)
       .subscribe((data: any[]) => {
-      alert("work-order updated successfully");
+      alert("Work-order updated successfully");
       this.router.navigateByUrl('/ViewWorkOrder');
     });
   });
@@ -602,18 +609,18 @@ export class EditWorkOrderComponent implements OnInit {
 
   createWorkorder2() {
     if (!this.workordertypekey) {
-      alert("select work-order type!");
+      alert("Please select work-order type!");
     }
     else if (!this.FacilityKey) {
-      alert("select building!");
+      alert("Please select building!");
     }
     else if (!this.FloorKey) {
-      alert("select floor!");
+      alert("Please select floor!");
     }
     else if (!(this.timeValue)) {
-      alert("please provide time!");
+      alert("Please provide time!");
     } else if (this.showEqTypes == true && !(this.EquipmentTypeKey)) {
-      alert("select equipment type!");
+      alert("Please select equipment type!");
     }
     else {
       var roomlistObj = [];
@@ -830,17 +837,22 @@ export class EditWorkOrderComponent implements OnInit {
         this.WorkOrderServiceService
       .deleteCurrent_WO(this.deleteWO)
       .subscribe((data: any[]) => {
-        alert("work-order updated successfully");
+        alert("Work-order updated successfully");
         this.router.navigateByUrl('/ViewWorkOrder');
       });
     });
     }
   }
   change_values() {
-    if (this.showEqTypes == true) {
+    if ((this.FloorKey) && (this.showEqTypes == true)) {
       this.ZoneKey = -1;
       this.RoomTypeKey = -1;
       this.RoomKey = -1;
+    }
+    else {
+      this.ZoneKey = "";
+      this.RoomTypeKey = "";
+      this.RoomKey = "";
     }
   }
 

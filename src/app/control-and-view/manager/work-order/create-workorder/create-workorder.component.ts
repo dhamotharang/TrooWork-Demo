@@ -1,4 +1,4 @@
-import { Component, OnInit,Pipe,PipeTransform } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { workorder } from '../../../../model-class/work-order';
 import { WorkOrderServiceService } from '../../../../service/work-order-service.service';
@@ -138,7 +138,7 @@ export class CreateWorkorderComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -147,30 +147,30 @@ export class CreateWorkorderComponent implements OnInit {
     this.name = profile.username;
     this.employeeKey = profile.employeekey;
     this.org_id = profile.OrganizationID;
-    this.dateValue=new Date(Date.now());
+    this.dateValue = new Date(Date.now());
     this.weeklyrecurring = false;
     this.monthlyrecurring = false;
     this.dailyrecurring = false;
     this.monthlyreccradio1 = false;
     this.monthlyreccradio2 = false;
-    this.WorkorderTypeKey="";
-    this.FacilityKey="";
-    this.FloorKey="";
-    this.ZoneKey="";
-    this.RoomTypeKey="";
-    this.RoomKey="";
-    this.PriorityKey="";
-    this.EmployeeKey="";
-    this.EquipmentTypeKey="";
-    this.EquipmentKey="";
-    this.DailyrecurringGap="";
-    this.dailyFrequency="";
-    this.day1="";
-    this.day2="";
-    this.month1="";
-    this.month2="";
-    this.pos2="";
-    this.WorkorderStartDate=new Date(Date.now());
+    this.WorkorderTypeKey = "";
+    this.FacilityKey = "";
+    this.FloorKey = "";
+    this.ZoneKey = "";
+    this.RoomTypeKey = "";
+    this.RoomKey = "";
+    this.PriorityKey = "";
+    this.EmployeeKey = "";
+    this.EquipmentTypeKey = "";
+    this.EquipmentKey = "";
+    this.DailyrecurringGap = "";
+    this.dailyFrequency = "";
+    this.day1 = "";
+    this.day2 = "";
+    this.month1 = "";
+    this.month2 = "";
+    this.pos2 = "";
+    this.WorkorderStartDate = new Date(Date.now());
     this.WorkOrderServiceService
       .getallFacility(this.employeeKey, this.org_id)
       .subscribe((data: any[]) => {
@@ -255,120 +255,117 @@ export class CreateWorkorderComponent implements OnInit {
     this.monthlyreccradio2 = true;
   }
   getEquiment(floor_key, facility_key) {
-    if(floor_key&&facility_key)
-    {
-    this.WorkOrderServiceService
-      .getallEquipment(facility_key, floor_key, this.org_id)
-      .subscribe((data: any[]) => {
-        this.EquipmentTypeList = data;
-        this.EquipmentList = data;
-        this.EquipmentKey="";
-        this.EquipmentTypeKey="";
-      });
+    if (floor_key && facility_key) {
+      this.WorkOrderServiceService
+        .getallEquipment(facility_key, floor_key, this.org_id)
+        .subscribe((data: any[]) => {
+          this.EquipmentTypeList = data;
+          this.EquipmentList = data;
+          this.EquipmentKey = "";
+          this.EquipmentTypeKey = "";
+        });
     }
-    else
-    {
-      this.EquipmentKey="";
-      this.EquipmentTypeKey="";
+    else {
+      this.EquipmentKey = "";
+      this.EquipmentTypeKey = "";
     }
   }
   getFloorDisp(facilityName) {
-    if(facilityName)
-   {
-    this.WorkOrderServiceService
-      .getallFloor(facilityName, this.org_id)
-      .subscribe((data: any[]) => {
-        this.FloorList = data;
-        this.FloorKey="";
-      });
+    if (facilityName) {
+      this.WorkOrderServiceService
+        .getallFloor(facilityName, this.org_id)
+        .subscribe((data: any[]) => {
+          this.FloorList = data;
+          this.FloorKey = "";
+        });
     }
-    else
-    {
-      this.FloorKey="";
-      this.ZoneKey="";
-      this.RoomTypeKey="";
-      this.RoomKey="";
+    else {
+      this.FloorKey = "";
+      this.ZoneKey = "";
+      this.RoomTypeKey = "";
+      this.RoomKey = "";
     }
   }
   getZoneRoomTypeRoom(floor, facility) {
-    if(floor&&facility)
-    {
-    this.WorkOrderServiceService
-      .getzone_facilityfloor(floor, facility, this.org_id)
-      .subscribe((data: any[]) => {
-        this.zonelist = data;
-        this.ZoneKey="";
-      });
-    this.WorkOrderServiceService
-      .getroomType_facilityfloor(floor, facility, this.org_id)
-      .subscribe((data: any[]) => {
-        this.RoomTypeList = data;
-        this.RoomTypeKey="";
-      });
-    this.WorkOrderServiceService
-      .getRoom_facilityfloor(floor, facility, this.org_id)
-      .subscribe((data: any[]) => {
-        this.RoomList = data;
-        this.RoomKey="";
-      });
+    if (floor && facility) {
+      if ((this.FloorKey) && (this.showEqTypes == true)) {
+        this.ZoneKey = -1;
+        this.RoomTypeKey = -1;
+        this.RoomKey = -1;
+      }
+      else {
+        this.WorkOrderServiceService
+          .getzone_facilityfloor(floor, facility, this.org_id)
+          .subscribe((data: any[]) => {
+            this.zonelist = data;
+            this.ZoneKey = "";
+          });
+        this.WorkOrderServiceService
+          .getroomType_facilityfloor(floor, facility, this.org_id)
+          .subscribe((data: any[]) => {
+            this.RoomTypeList = data;
+            this.RoomTypeKey = "";
+          });
+        this.WorkOrderServiceService
+          .getRoom_facilityfloor(floor, facility, this.org_id)
+          .subscribe((data: any[]) => {
+            this.RoomList = data;
+            this.RoomKey = "";
+          });
+      }
     }
-    else
-    {
-      this.ZoneKey="";
-      this.RoomTypeKey="";
-      this.RoomKey="";
-    }
-  }
-  getRoomTypeRoom(zone, facility, floor) {
-    if(zone&&facility&&floor)
-    {
-    this.WorkOrderServiceService
-      .getRoomtype_zone_facilityfloor(zone, floor, facility, this.org_id)
-      .subscribe((data: any[]) => {
-        this.RoomTypeList = data;
-      });
-    this.WorkOrderServiceService
-      .getRoom_zone_facilityfloor(zone, floor, facility, this.org_id)
-      .subscribe((data: any[]) => {
-        this.RoomList = data;
-      });
-    }
-    else
-    {
-      this.RoomTypeKey="";
-      this.RoomKey="";
-    }
-  }
-  getRoom(roomtype, zone, facility, floor) {
-    if(roomtype && zone && facility && floor)
-    {
-    this.WorkOrderServiceService
-      .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.org_id)
-      .subscribe((data: any[]) => {
-        this.RoomList = data;
-      });
-    }
-    else
-    {
-      this.RoomKey="";
-    }
-  }
-  showEquipment_typechange(equip_type, facility, floor) {
-    if(equip_type&&facility&&floor)
-    {
-    this.WorkOrderServiceService
-      .getEquipment_typechange(equip_type, facility, floor, this.org_id)
-      .subscribe((data: any[]) => {
-        this.EquipmentList = data;
-      });
-    }
-    else
-    {
+    else {
+      this.ZoneKey = "";
+      this.RoomTypeKey = "";
+      this.RoomKey = "";
+      this.EquipmentTypeKey="";
       this.EquipmentKey="";
     }
   }
+  getRoomTypeRoom(zone, facility, floor) {
+    if (zone && facility && floor) {
+      this.WorkOrderServiceService
+        .getRoomtype_zone_facilityfloor(zone, floor, facility, this.org_id)
+        .subscribe((data: any[]) => {
+          this.RoomTypeList = data;
+        });
+      this.WorkOrderServiceService
+        .getRoom_zone_facilityfloor(zone, floor, facility, this.org_id)
+        .subscribe((data: any[]) => {
+          this.RoomList = data;
+        });
+    }
+    else {
+      this.RoomTypeKey = "";
+      this.RoomKey = "";
+    }
+  }
+  getRoom(roomtype, zone, facility, floor) {
+    if (roomtype && zone && facility && floor) {
+      this.WorkOrderServiceService
+        .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.org_id)
+        .subscribe((data: any[]) => {
+          this.RoomList = data;
+        });
+    }
+    else {
+      this.RoomKey = "";
+    }
+  }
+  showEquipment_typechange(equip_type, facility, floor) {
+    if (equip_type && facility && floor) {
+      this.WorkOrderServiceService
+        .getEquipment_typechange(equip_type, facility, floor, this.org_id)
+        .subscribe((data: any[]) => {
+          this.EquipmentList = data;
+        });
+    }
+    else {
+      this.EquipmentKey = "";
+    }
+  }
   createWorkOrder() {
-   
+
     if (this.showEqTypes === false) {
       this.createWorkorder1();
       console.log('Equipment***Not');
@@ -379,105 +376,93 @@ export class CreateWorkorderComponent implements OnInit {
     }
   }
   createWorkorder1() {
-  
+
     if (!this.WorkorderTypeKey) {
-      alert("select work-order type!");
-    }else if(this.newType == true && !(this.newworkordertypetext))
-    {
-      alert("enter work-order type!");
-    }else if(this.newType == true && !(this.newworkordertypetext.trim()))
-    {
-      alert("enter work-order type!");
+      alert("Please select work-order type!");
+    } else if (this.newType == true && !(this.newworkordertypetext)) {
+      alert("Please enter work-order type!");
+    } else if (this.newType == true && !(this.newworkordertypetext.trim())) {
+      alert("Please enter work-order type!");
     }
     else if (!this.FacilityKey) {
-      alert("select building!");
+      alert("Please select building!");
     }
     else if (!this.FloorKey) {
-      alert("select floor!");
+      alert("Please select floor!");
     }
-    else if ( (!(this.timeValue)) && (this.isRecurring==false) ) {
-      alert("please provide time!");
-    }else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
-      alert("check your startdate!");
+    else if ((!(this.timeValue)) && (this.isRecurring == false)) {
+      alert("Please provide time!");
+    } else if ((this.WorkorderEndDate) && (this.WorkorderStartDate > this.WorkorderEndDate)) {
+      alert("Please check your start date!");
 
     }
-    else if (this.isRecurring == true) 
-    {
-      if(this.dailyrecurring==false && this.weeklyrecurring==false && this.monthlyrecurring==false)
-      {
+    else if (this.isRecurring == true) {
+      if (this.dailyrecurring == false && this.weeklyrecurring == false && this.monthlyrecurring == false) {
         alert("Recurring Period is not provided !");
       }
       if (this.dailyrecurring == true) {
         if (!this.WorkorderEndDate) {
-          alert("please provide end date!");
+          alert("Please provide end date!");
         }
         else if (!(this.dailyFrequency)) {
-          alert("select frequency !");
-        }else if(this.dailyFrequency)
-        {
-        for(var i=0;i<this.dailyFrequency;i++)
-        {
-          if(!(this.timetable.times[i]))
-          {
-            alert("Enter time values !");
+          alert("Please select frequency !");
+        } else if (this.dailyFrequency) {
+          for (var i = 0; i < this.dailyFrequency; i++) {
+            if (!(this.timetable.times[i])) {
+              alert("Please enter time values !");
+            }
           }
+          this.withoutequip_wo();
         }
-        this.withoutequip_wo();
-      }
-      
+
 
       }
-      else if (this.weeklyrecurring == true) 
-      {
+      else if (this.weeklyrecurring == true) {
         if (!(this.weektable_one) && !(this.weektable_two) && !(this.weektable_three) && !(this.weektable_four) && !(this.weektable_five) && !(this.weektable_six) && !(this.weektable_seven)) {
-          alert("please select atleast one day!");
+          alert("Please select atleast one day!");
         }
         else if (!this.Time_weekly) {
-          alert("please provide time!");
+          alert("Please provide time!");
         }
-       else if (!this.WorkorderEndDate) {
-          alert("please provide end date!");
+        else if (!this.WorkorderEndDate) {
+          alert("Please provide end date!");
         }
-        else
-        {
-        this.withoutequip_wo();
+        else {
+          this.withoutequip_wo();
         }
       }
-      else if (this.monthlyrecurring == true) 
-      {
+      else if (this.monthlyrecurring == true) {
         if (this.monthlyreccradio1 == false && this.monthlyreccradio2 == false) {
           alert("Select a radio option from monthly reccuring !");
+          return;
         }
-        else if(this.monthlyreccradio1 == true)
-        {
-          if(!(this.day1) || !(this.month1))
-          {
-            alert("provide entries for monthly recurring !");
+        if (this.monthlyreccradio1 == true) {
+          if (!(this.day1) || !(this.month1)) {
+            alert("Provide entries for monthly recurring !");
+            return;
           }
-         
+
         }
-        else if(this.monthlyreccradio2 == true)
-        {
-          if(!(this.day2) || !(this.pos2) || !(this.month2))
-          {
-            alert("provide entries for monthly recurring !");
+        if (this.monthlyreccradio2 == true) {
+          if (!(this.day2) || !(this.pos2) || !(this.month2)) {
+            alert("Provide entries for monthly recurring !");
+            return;
           }
-          
+
         }
-        else if (!this.Time_monthly) {
-          alert("please provide time!");
+        if (!this.Time_monthly) {
+          alert("Please provide time!");
         }
-       else if (!this.WorkorderEndDate) {
-          alert("please provide end date!");
+        else if (!this.WorkorderEndDate) {
+          alert("Please provide end date!");
         }
-        else{
-        this.withoutequip_wo();
+        else {
+          this.withoutequip_wo();
         }
       }
-      
+
     }
-    else
-    {
+    else {
       var roomlistObj = [];
       var roomtypelistObj = [];
       var zonelistObj = [];
@@ -650,7 +635,7 @@ export class CreateWorkorderComponent implements OnInit {
           this.endDT = this.convert_DT(new Date());
         }
       }
-      
+
       if (this.isRecurring == false) {
         console.log(this.timeValue);
         if (this.timeValue) {
@@ -667,14 +652,12 @@ export class CreateWorkorderComponent implements OnInit {
         }
 
         this.workTime = timeset_corr.join(',');
-        if(!(this.DailyrecurringGap))
-        {
-          this.DailyrecurringGap=0;
+        if (!(this.DailyrecurringGap)) {
+          this.DailyrecurringGap = 1;
           this.rep_interval = this.DailyrecurringGap;
         }
-        else
-        {
-        this.rep_interval = this.DailyrecurringGap;
+        else {
+          this.rep_interval = this.DailyrecurringGap;
         }
       }
       else if (this.isRecurring == true && this.weeklyrecurring == true) {
@@ -765,7 +748,7 @@ export class CreateWorkorderComponent implements OnInit {
                       occurstype: this.occurs_type
                     };
                     this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => {
-                      alert("work-order created successfully");
+                      alert("Work-order created successfully");
                       this.router.navigateByUrl('/ViewWorkOrder');
                     });
                   });
@@ -775,144 +758,130 @@ export class CreateWorkorderComponent implements OnInit {
         }
 
       }
-      else
-      {
-      this.workorderCreation = {
-        occursontime: this.workTime,
-        workorderkey: - 99,
-        workordertypekey: this.wot,
-        workordernote: this.notes,
-        equipmentkey: this.eqp_key,
-        roomkeys: roomsString,
-        facilitykeys: facilityString,
-        floorkeys: floorString,
-        zonekeys: zoneString,
-        roomtypekeys: roomtypeString,
-        employeekey: this.emp_key,
-        priority: this.priority,
-        fromdate: this.startDT,
-        todate: this.endDT,
-        isbar: this.is_BarcodeRequired,
-        isphoto: this.is_PhotoRequired,
-        metaupdatedby: this.employeeKey,
-        OrganizationID: this.org_id,
-        intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
-        repeatinterval: this.rep_interval,
-        occursonday: this.occurs_on,
-        occurstype: this.occurs_type
-      };
-      this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => {
-        alert("work-order created successfully");
-        this.router.navigateByUrl('/ViewWorkOrder');
-      });
+      else {
+        this.workorderCreation = {
+          occursontime: this.workTime,
+          workorderkey: - 99,
+          workordertypekey: this.wot,
+          workordernote: this.notes,
+          equipmentkey: this.eqp_key,
+          roomkeys: roomsString,
+          facilitykeys: facilityString,
+          floorkeys: floorString,
+          zonekeys: zoneString,
+          roomtypekeys: roomtypeString,
+          employeekey: this.emp_key,
+          priority: this.priority,
+          fromdate: this.startDT,
+          todate: this.endDT,
+          isbar: this.is_BarcodeRequired,
+          isphoto: this.is_PhotoRequired,
+          metaupdatedby: this.employeeKey,
+          OrganizationID: this.org_id,
+          intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
+          repeatinterval: this.rep_interval,
+          occursonday: this.occurs_on,
+          occurstype: this.occurs_type
+        };
+        this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => {
+          alert("Work-order created successfully");
+          this.router.navigateByUrl('/ViewWorkOrder');
+        });
+      }
     }
-  }
   }
   createWorkorder2() {
     if (!this.WorkorderTypeKey) {
-      alert("select work-order type!");
-    }else if(this.newType == true && !(this.newworkordertypetext))
-    {
-      alert("enter work-order type!");
-    }else if(this.newType == true && !(this.newworkordertypetext.trim()))
-    {
-      alert("enter work-order type!");
+      alert("Please select work-order type!");
+    } else if (this.newType == true && !(this.newworkordertypetext)) {
+      alert("Please enter work-order type!");
+    } else if (this.newType == true && !(this.newworkordertypetext.trim())) {
+      alert("Please enter work-order type!");
     }
     else if (!this.FacilityKey) {
-      alert("select building!");
+      alert("Please select building!");
     }
     else if (!this.FloorKey) {
-      alert("select floor!");
+      alert("Please select floor!");
     }
-    else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
-      alert("check your startdate!");
+    else if ((this.WorkorderEndDate) && (this.WorkorderStartDate > this.WorkorderEndDate)) {
+      alert("Please check your start date!");
 
     }
-    else if ( (!(this.timeValue)) && (this.isRecurring==false) ) {
-      alert("please provide time!");
-    }else if(this.showEqTypes==true && !(this.EquipmentTypeKey))
-    {
-      alert("select equipment type!");
+    else if ((!(this.timeValue)) && (this.isRecurring == false)) {
+      alert("Please provide time!");
+    } else if (this.showEqTypes == true && !(this.EquipmentTypeKey)) {
+      alert("Please select equipment type!");
     }
-    else if (this.isRecurring == true) 
-    {
-      if(this.dailyrecurring==false && this.weeklyrecurring==false && this.monthlyrecurring==false)
-      {
+    else if (this.isRecurring == true) {
+      if (this.dailyrecurring == false && this.weeklyrecurring == false && this.monthlyrecurring == false) {
         alert("Recurring Period is not provided !");
       }
       if (this.dailyrecurring == true) {
         if (!this.WorkorderEndDate) {
-          alert("please provide end date!");
+          alert("Please provide end date!");
         }
         else if (!(this.dailyFrequency)) {
-          alert("select frequency !");
-        }else if(this.dailyFrequency)
-        {
-        for(var i=0;i<this.dailyFrequency;i++)
-        {
-          if(!(this.timetable.times[i]))
-          {
-            alert("Enter time values !");
+          alert("Please select frequency !");
+        } else if (this.dailyFrequency) {
+          for (var i = 0; i < this.dailyFrequency; i++) {
+            if (!(this.timetable.times[i])) {
+              alert("Please enter time values !");
+            }
           }
+          this.withequip_wo();
         }
-        this.withequip_wo();
-      }
-      
+
 
       }
-      else if (this.weeklyrecurring == true) 
-      {
+      else if (this.weeklyrecurring == true) {
         if (!(this.weektable_one) && !(this.weektable_two) && !(this.weektable_three) && !(this.weektable_four) && !(this.weektable_five) && !(this.weektable_six) && !(this.weektable_seven)) {
-          alert("please select atleast one day!");
+          alert("Please select atleast one day!");
         }
         else if (!this.Time_weekly) {
-          alert("please provide time!");
+          alert("Please provide time!");
         }
-       else if (!this.WorkorderEndDate) {
-          alert("please provide end date!");
+        else if (!this.WorkorderEndDate) {
+          alert("Please provide end date!");
         }
-        else
-        {
-        this.withequip_wo();
+        else {
+          this.withequip_wo();
         }
       }
-      else if (this.monthlyrecurring == true) 
-      {
+      else if (this.monthlyrecurring == true) {
         if (this.monthlyreccradio1 == false && this.monthlyreccradio2 == false) {
           alert("Select a radio option from monthly reccuring !");
+          return;
         }
-        else if(this.monthlyreccradio1 == true)
-        {
-          if(!(this.day1) || !(this.month1))
-          {
-            alert("provide entries for monthly recurring !");
+        if (this.monthlyreccradio1 == true) {
+          if (!(this.day1) || !(this.month1)) {
+            alert("Provide entries for monthly recurring !");
+            return;
           }
-         
+
         }
-        else if(this.monthlyreccradio2 == true)
-        {
-          if(!(this.day2) || !(this.pos2) || !(this.month2))
-          {
-            alert("provide entries for monthly recurring !");
+        if (this.monthlyreccradio2 == true) {
+          if (!(this.day2) || !(this.pos2) || !(this.month2)) {
+            alert("Provide entries for monthly recurring !");
+            return;
           }
-          
+
         }
-        else if (!this.Time_monthly) {
-          alert("please provide time!");
+        if (!this.Time_monthly) {
+          alert("Please provide time!");
         }
-       else if (!this.WorkorderEndDate) {
-          alert("please provide end date!");
+        else if (!this.WorkorderEndDate) {
+          alert("Please provide end date!");
         }
-        else{
-        this.withequip_wo();
+        else {
+          this.withequip_wo();
         }
       }
-      
-    }
-    else
-    {
 
-     
+    }
+    else {
+
+
       var roomlistObj = [];
       var roomtypelistObj = [];
       var zonelistObj = [];
@@ -1103,14 +1072,12 @@ export class CreateWorkorderComponent implements OnInit {
         }
 
         this.workTime = timeset_corr.join(',');
-        if(!(this.DailyrecurringGap))
-        {
-          this.DailyrecurringGap=0;
+        if (!(this.DailyrecurringGap)) {
+          this.DailyrecurringGap = 1;
           this.rep_interval = this.DailyrecurringGap;
         }
-        else
-        {
-        this.rep_interval = this.DailyrecurringGap;
+        else {
+          this.rep_interval = this.DailyrecurringGap;
         }
       } else if (this.isRecurring == true && this.weeklyrecurring == true) {
         this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();
@@ -1189,7 +1156,7 @@ export class CreateWorkorderComponent implements OnInit {
                       occurstype: this.occurs_type
                     };
                     this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => {
-                      alert("work-order created successfully");
+                      alert("Work-order created successfully");
                       this.router.navigateByUrl('/ViewWorkOrder');
                     });
                   });
@@ -1198,42 +1165,40 @@ export class CreateWorkorderComponent implements OnInit {
         }
 
       }
-      else
-      {
-      this.workorderCreation = {
-        occursontime: this.workTime,
-        workorderkey: - 99,
-        workordertypekey: this.wot,
-        workordernote: this.notes,
-        equipmentkey: this.eqp_key,
-        roomkeys: roomsString,
-        facilitykeys: facilityString,
-        floorkeys: floorString,
-        zonekeys: zoneString,
-        roomtypekeys: roomtypeString,
-        employeekey: this.emp_key,
-        priority: this.priority,
-        fromdate: this.startDT,
-        todate: this.endDT,
-        isbar: this.is_BarcodeRequired,
-        isphoto: this.is_PhotoRequired,
-        metaupdatedby: this.employeeKey,
-        OrganizationID: this.org_id,
-        intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
-        repeatinterval: this.rep_interval,
-        occursonday: this.occurs_on,
-        occurstype: this.occurs_type
-      };
-      this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => {
-        alert("work-order created successfully");
-        this.router.navigateByUrl('/ViewWorkOrder');
-      });
-    }
+      else {
+        this.workorderCreation = {
+          occursontime: this.workTime,
+          workorderkey: - 99,
+          workordertypekey: this.wot,
+          workordernote: this.notes,
+          equipmentkey: this.eqp_key,
+          roomkeys: roomsString,
+          facilitykeys: facilityString,
+          floorkeys: floorString,
+          zonekeys: zoneString,
+          roomtypekeys: roomtypeString,
+          employeekey: this.emp_key,
+          priority: this.priority,
+          fromdate: this.startDT,
+          todate: this.endDT,
+          isbar: this.is_BarcodeRequired,
+          isphoto: this.is_PhotoRequired,
+          metaupdatedby: this.employeeKey,
+          OrganizationID: this.org_id,
+          intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
+          repeatinterval: this.rep_interval,
+          occursonday: this.occurs_on,
+          occurstype: this.occurs_type
+        };
+        this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => {
+          alert("Work-order created successfully");
+          this.router.navigateByUrl('/ViewWorkOrder');
+        });
+      }
     }
   }
-  withequip_wo()
-  {
-    
+  withequip_wo() {
+
     var roomlistObj = [];
     var roomtypelistObj = [];
     var zonelistObj = [];
@@ -1424,7 +1389,13 @@ export class CreateWorkorderComponent implements OnInit {
       }
 
       this.workTime = timeset_corr.join(',');
-      this.rep_interval = this.DailyrecurringGap;
+      if (!(this.DailyrecurringGap)) {
+        this.DailyrecurringGap = 1;
+        this.rep_interval = this.DailyrecurringGap;
+      }
+      else {
+        this.rep_interval = this.DailyrecurringGap;
+      }
     } else if (this.isRecurring == true && this.weeklyrecurring == true) {
       this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();
     } else if (this.isRecurring == true && this.monthlyrecurring == true) {
@@ -1502,61 +1473,65 @@ export class CreateWorkorderComponent implements OnInit {
                     occurstype: this.occurs_type
                   };
                   this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => {
-                    alert("work-order created successfully");
+                    alert("Work-order created successfully");
                     this.router.navigateByUrl('/ViewWorkOrder');
                   });
-                
+
                 });
             }
           });
       }
 
     }
-    else
-    {
-    this.workorderCreation = {
-      occursontime: this.workTime,
-      workorderkey: - 99,
-      workordertypekey: this.wot,
-      workordernote: this.notes,
-      equipmentkey: this.eqp_key,
-      roomkeys: roomsString,
-      facilitykeys: facilityString,
-      floorkeys: floorString,
-      zonekeys: zoneString,
-      roomtypekeys: roomtypeString,
-      employeekey: this.emp_key,
-      priority: this.priority,
-      fromdate: this.startDT,
-      todate: this.endDT,
-      isbar: this.is_BarcodeRequired,
-      isphoto: this.is_PhotoRequired,
-      metaupdatedby: this.employeeKey,
-      OrganizationID: this.org_id,
-      intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
-      repeatinterval: this.rep_interval,
-      occursonday: this.occurs_on,
-      occurstype: this.occurs_type
-    };
-    this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => {
-      alert("work-order created successfully");
-      this.router.navigateByUrl('/ViewWorkOrder');
-    });
-  }
-  
+    else {
+      this.workorderCreation = {
+        occursontime: this.workTime,
+        workorderkey: - 99,
+        workordertypekey: this.wot,
+        workordernote: this.notes,
+        equipmentkey: this.eqp_key,
+        roomkeys: roomsString,
+        facilitykeys: facilityString,
+        floorkeys: floorString,
+        zonekeys: zoneString,
+        roomtypekeys: roomtypeString,
+        employeekey: this.emp_key,
+        priority: this.priority,
+        fromdate: this.startDT,
+        todate: this.endDT,
+        isbar: this.is_BarcodeRequired,
+        isphoto: this.is_PhotoRequired,
+        metaupdatedby: this.employeeKey,
+        OrganizationID: this.org_id,
+        intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
+        repeatinterval: this.rep_interval,
+        occursonday: this.occurs_on,
+        occurstype: this.occurs_type
+      };
+      this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => {
+        alert("Work-order created successfully");
+        this.router.navigateByUrl('/ViewWorkOrder');
+      });
+    }
+
   }
   addFormField() {
-   
+
     this.timetable.times = [];
     for (var i = 0; i < this.dailyFrequency; i++) {
       this.timetable.times.push('');
     }
   }
   change_values() {
-    if (this.showEqTypes == true) {
+    if ((this.FloorKey) && (this.showEqTypes == true)) {
       this.ZoneKey = -1;
       this.RoomTypeKey = -1;
       this.RoomKey = -1;
+    }
+    else {
+      this.ZoneKey = "";
+      this.RoomTypeKey = "";
+      this.RoomKey = "";
     }
   }
   checkfornewWOT(wot_key) {
@@ -1568,11 +1543,11 @@ export class CreateWorkorderComponent implements OnInit {
   }
   GobacktoMenu() {
     this.newType = false;
-    this.WorkorderTypeKey="";
-    this.newworkordertypetext=null;
+    this.WorkorderTypeKey = "";
+    this.newworkordertypetext = null;
   }
-  withoutequip_wo()
-  {    var roomlistObj = [];
+  withoutequip_wo() {
+    var roomlistObj = [];
     var roomtypelistObj = [];
     var zonelistObj = [];
     var floorlistObj = [];
@@ -1744,7 +1719,7 @@ export class CreateWorkorderComponent implements OnInit {
         this.endDT = this.convert_DT(new Date());
       }
     }
-    
+
     if (this.isRecurring == false) {
       console.log(this.timeValue);
       if (this.timeValue) {
@@ -1761,7 +1736,13 @@ export class CreateWorkorderComponent implements OnInit {
       }
 
       this.workTime = timeset_corr.join(',');
-      this.rep_interval = this.DailyrecurringGap;
+      if (!(this.DailyrecurringGap)) {
+        this.DailyrecurringGap = 1;
+        this.rep_interval = this.DailyrecurringGap;
+      }
+      else {
+        this.rep_interval = this.DailyrecurringGap;
+      }
     }
     else if (this.isRecurring == true && this.weeklyrecurring == true) {
       if (this.Time_weekly) {
@@ -1851,7 +1832,7 @@ export class CreateWorkorderComponent implements OnInit {
                     occurstype: this.occurs_type
                   };
                   this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => {
-                    alert("work-order created successfully");
+                    alert("Work-order created successfully");
                     this.router.navigateByUrl('/ViewWorkOrder');
                   });
                 });
@@ -1860,36 +1841,35 @@ export class CreateWorkorderComponent implements OnInit {
       }
 
     }
-    else
-    {
-    this.workorderCreation = {
-      occursontime: this.workTime,
-      workorderkey: - 99,
-      workordertypekey: this.wot,
-      workordernote: this.notes,
-      equipmentkey: this.eqp_key,
-      roomkeys: roomsString,
-      facilitykeys: facilityString,
-      floorkeys: floorString,
-      zonekeys: zoneString,
-      roomtypekeys: roomtypeString,
-      employeekey: this.emp_key,
-      priority: this.priority,
-      fromdate: this.startDT,
-      todate: this.endDT,
-      isbar: this.is_BarcodeRequired,
-      isphoto: this.is_PhotoRequired,
-      metaupdatedby: this.employeeKey,
-      OrganizationID: this.org_id,
-      intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
-      repeatinterval: this.rep_interval,
-      occursonday: this.occurs_on,
-      occurstype: this.occurs_type
-    };
-    this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => {
-      alert("work-order created successfully");
-      this.router.navigateByUrl('/ViewWorkOrder');
-    });
-  }
+    else {
+      this.workorderCreation = {
+        occursontime: this.workTime,
+        workorderkey: - 99,
+        workordertypekey: this.wot,
+        workordernote: this.notes,
+        equipmentkey: this.eqp_key,
+        roomkeys: roomsString,
+        facilitykeys: facilityString,
+        floorkeys: floorString,
+        zonekeys: zoneString,
+        roomtypekeys: roomtypeString,
+        employeekey: this.emp_key,
+        priority: this.priority,
+        fromdate: this.startDT,
+        todate: this.endDT,
+        isbar: this.is_BarcodeRequired,
+        isphoto: this.is_PhotoRequired,
+        metaupdatedby: this.employeeKey,
+        OrganizationID: this.org_id,
+        intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
+        repeatinterval: this.rep_interval,
+        occursonday: this.occurs_on,
+        occurstype: this.occurs_type
+      };
+      this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => {
+        alert("Work-order created successfully");
+        this.router.navigateByUrl('/ViewWorkOrder');
+      });
+    }
   }
 }
