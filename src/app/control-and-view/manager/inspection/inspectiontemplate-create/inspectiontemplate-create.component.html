@@ -11,7 +11,7 @@
       <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scoringtype">Scoring Type* </label></h5>
       <div class="col-md-8" style="text-align:left">
         <select style="background-color: #D4F4FF !important; width: 30rem" class="form-control" [(ngModel)]="ScoreTypeKey">
-          <option>--Select--</option>
+          <option value="">--Select--</option>
 
           <option *ngFor="let s of scores" [value]="s.ScoreTypeKey">
             {{s.ScoreTypeText}}

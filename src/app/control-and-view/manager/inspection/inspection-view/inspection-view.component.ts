@@ -164,6 +164,7 @@ export class InspectionViewComponent implements OnInit {
 
   }
   searchTL(SearchValue) {
+    var value=SearchValue.trim();
     if (!this.fromdate) {
       var date1 = this.convert_DT(new Date());
     }
@@ -176,15 +177,18 @@ export class InspectionViewComponent implements OnInit {
     else {
       date2 = this.convert_DT(this.todate);
     }
-    if (SearchValue.length > 2) {
+    if (value.length > 2) {
       this.inspectionService
-        .SearchTemplateandLocation(SearchValue, date1, date2, this.OrganizationID).subscribe((data: Inspection[]) => {
+        .SearchTemplateandLocation(value, date1, date2, this.OrganizationID).subscribe((data: Inspection[]) => {
           this.inspectionordertable = data;
 
         });
     }
-    else if (SearchValue.length == 0) {
-      this.loading = true;// loading
+    else if (value.length == 0) {
+      if((value.length == 0) &&(SearchValue.length == 0) )
+      {
+     this.loading = true;
+      }
       var curr_date = this.convert_DT(new Date());
       this.inspectionService
         .getInspectionOrderTablewithFromCurrentDateFilter(curr_date, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)

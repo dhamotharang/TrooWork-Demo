@@ -152,29 +152,28 @@ export class DashboardReportComponent implements OnInit {
       .getdashboardreport(dateTemp_1, dateTemp_2, this.em_Key, this.Workorder_TypeKey, this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.reporttable = data;
+        this.loading = false;
       });
 
     this.ReportServiceService
       .getpievalues(dateTemp_1, this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.pievalues = data;
-        this.loading = false;
         this.sampledata1 = [['WorkorderStatus', 'count']];
 
         for (var i = 0; i < this.pievalues.length; i++) {
 
-          var status = this.pievalues[i].WorkorderStatus;
+          var status = this.pievalues[i].reportpietext;
           var num = this.pievalues[i].totalItems;
           this.data4 = ([status, num]);
           this.sampledata1.push(this.data4);
-
         }
         this.data1 = this.sampledata1;
         this.config1 = new PieChartConfig(' ', 0.4);
         this.elementId1 = 'piechart';
-        setTimeout(() => {
+        setTimeout(() => {  
           if (this.reporttable.length > 0) {
-            this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
+            this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);  
           }
         }, 1000)
 
@@ -247,18 +246,19 @@ export class DashboardReportComponent implements OnInit {
         this.pievalues = data;
         this.sampledata2 = [['WorkorderStatus', 'count']];
         for (var i = 0; i < this.pievalues.length; i++) {
-
-          var status = this.pievalues[i].WorkorderStatus;
+          var status = this.pievalues[i].reportpietext;
           var num = this.pievalues[i].totalItems;
           this.data3 = ([status, num]);
           this.sampledata2.push(this.data3);
         }
+        setTimeout(() => {
         if ((this.reporttable.length > 0) && (this.pievalues.length > 0)) {
           this.data1 = this.sampledata2;
           this.config1 = new PieChartConfig(' ', 0.4);
           this.elementId1 = 'piechart';
-          this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);
+          this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);   
         }
+      }, 1000)
      
       });
   }

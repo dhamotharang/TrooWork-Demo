@@ -122,15 +122,21 @@ export class RoomViewComponent implements OnInit {
   }
 
   searchRoom(SearchValue) {
-    if (SearchValue.length >= 3) {
+
+    var value=SearchValue.trim();
+
+    if (value.length >= 3) {
       this.inventoryService
-        .SearchRoom(SearchValue, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
+        .SearchRoom(value, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.rooms = data;
           this.showHide2 = false;
           this.showHide1 = false;
         });
-    } else if (SearchValue.length == 0) {
-      this.loading = true;
+    } else if (value.length == 0) {
+      if((value.length == 0) &&(SearchValue.length == 0) )
+      {
+     this.loading = true;
+      }
       this.inventoryService
         .getRoomList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {

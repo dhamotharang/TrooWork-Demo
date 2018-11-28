@@ -35,11 +35,12 @@ export class InspectiontemplateandquestionsViewComponent implements OnInit {
 
   searchform: FormGroup;
   template: Inspection[];
-  viewinspectionTemplate: Inspection[];
+  viewinspectionTemplate: any;
   delete_tempId: number;
   templateQuestionID: number;
   key: number;
   searchFlag: any;
+  tempkey1;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
   constructor(private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef) { }
@@ -60,18 +61,27 @@ export class InspectiontemplateandquestionsViewComponent implements OnInit {
     }, 100)
   }
   showInspectionTemplateTable(tempKey) {
+    this.tempkey1=tempKey;
+    if(!(this.TemplateID))
+    {
+        this.searchFlag = false;
+        this.viewinspectionTemplate= false;
+    }
+    else{
     this.inspectionService
       .getInspectionTemplateTable(tempKey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
         this.searchFlag = true;
         this.viewinspectionTemplate = data;
       });
+    }
   }
   deleteInspTemplate() {
+
     this.inspectionService
       .DeleteInspectionTemplate(this.delete_tempId, this.templateQuestionID, this.employeekey, this.OrganizationID).subscribe(() => {
         this.inspectionService
-          .getInspectionTemplateTable(this.key, this.OrganizationID)
+          .getInspectionTemplateTable(this.tempkey1, this.OrganizationID)
           .subscribe((data: Inspection[]) => {
             this.viewinspectionTemplate = data;
           });
@@ -83,17 +93,19 @@ export class InspectiontemplateandquestionsViewComponent implements OnInit {
     this.templateQuestionID = templateQuestionID;
   }
   searchTNandTQ(SearchValue, TemplateID) {
-    if (SearchValue.length >= 3){
+
+    var value=SearchValue.trim();
+
+    if (value.length >= 3){
     this.inspectionService
-      .SearchTempNameandQuestion(SearchValue, TemplateID, this.OrganizationID).subscribe((data: Inspection[]) => {
+      .SearchTempNameandQuestion(value, TemplateID, this.OrganizationID).subscribe((data: Inspection[]) => {
         this.viewinspectionTemplate = data;
 
       });
     }
-    else if (SearchValue.length == 0) {
-      var tempKey;
+    else if (value.length == 0) {
       this.inspectionService
-      .getInspectionTemplateTable(tempKey, this.OrganizationID)
+      .getInspectionTemplateTable(this.tempkey1, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
         this.searchFlag = true;
         this.viewinspectionTemplate = data;
