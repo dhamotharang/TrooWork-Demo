@@ -1,26 +1,20 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
-<div  *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
-  <!-- <div class="container"> -->
+<div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">REPORTS ON WORKORDERS</h3>
   </div>
-  <br><br>
+  <br>
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
     <div class="col-md-6">
       <h3 style="text-align: right"></h3>
-      <!-- <form class="" method="post" action="https://formspree.io/"> -->
-      <div class="form-group" style="width: 25rem;">
+      <div class="form-group" >
         <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">From Date</label>
-
         <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date" [(ngModel)]="fromdate"></igx-datePicker>
       </div>
-
-
       <div class="form-group">
         <label>Building</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FacilityKey"
           (change)="getFloorDisp($event.target.value)">
           <option value="">--Select--</option>
           <option *ngFor="let b of facilitylist" [value]="b.FacilityKey">
@@ -28,29 +22,9 @@
           </option>
         </select>
       </div>
-
-
-      <div class="form-group">
-        <label>Floor</label><br>
-
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey"
-          (change)="getZoneRoom($event.target.value,FacilityKey)" [disabled]="!FacilityKey">
-          <option value="">--Select--</option>
-          <option *ngFor="let f of floor" [value]="f.FloorKey">
-            {{f.FloorName}}
-          </option>
-        </select>
-      </div>
-
-
       <div class="form-group">
         <label>Zone</label><br>
-        <!-- <select name="zone" style="width: 80%; background-color: #d4f4ff;" disabled>
-          <option value="">--Select--</option>
-          <option value="">Z1</option>
-          <option value="">z2</option>
-        </select> -->
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="ZoneKey"
           (change)="getRoomsName($event.target.value,FacilityKey,FloorKey)" [disabled]="!FloorKey">
           <option value="">--Select--</option>
           <option *ngFor="let z of zoneroom" [value]="z.ZoneKey">
@@ -58,16 +32,25 @@
           </option>
         </select>
       </div>
-
+    </div>
+    <div class="col-md-6">
+      <div class="form-group" style="margin-top: 0.8rem">
+        <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">To Date</label>
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date" [(ngModel)]="todate"></igx-datePicker>
+      </div>
+      <div class="form-group">
+        <label>Floor</label><br>
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FloorKey"
+          (change)="getZoneRoom($event.target.value,FacilityKey)" [disabled]="!FacilityKey">
+          <option value="">--Select--</option>
+          <option *ngFor="let f of floor" [value]="f.FloorKey">
+            {{f.FloorName}}
+          </option>
+        </select>
+      </div>
       <div class="form-group">
         <label>Room Type</label><br>
-        <!-- <select name="rtype" style="width: 80%; background-color: #d4f4ff;" disabled>
-          <option value="">--Select--</option>
-          <option value="">r1</option>
-          <option value="">r2</option>
-        </select> -->
-
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="RoomTypeKey"
           [disabled]="!FloorKey">
           <option value="">--Select--</option>
           <option *ngFor="let r of room" [value]="r.RoomTypeKey">
@@ -75,16 +58,11 @@
           </option>
         </select>
       </div>
-
+    </div>
+    <div class="col-md-6">
       <div class="form-group">
         <label>Room</label><br>
-        <!-- <select name="rtype" style="width: 80%; background-color: #d4f4ff;" disabled>
-          <option value="">--Select--</option>
-          <option value="">r1</option>
-          <option value="">r2</option>
-        </select> -->
-
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="RoomKey"
           [disabled]="!FloorKey">
           <option value="">--Select--</option>
           <option *ngFor="let r of rooms" [value]="r.RoomKey">
@@ -92,23 +70,9 @@
           </option>
         </select>
       </div>
-
-
-
-
-    </div>
-    <div class="col-md-6">
-      <!-- <form class="" method="post" action="https://formspree.io/"> -->
-      <div class="form-group" style="width: 25rem;">
-        <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">To Date</label>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date" [(ngModel)]="todate"></igx-datePicker>
-      </div>
-
-
-
       <div class="form-group">
         <label>Employee</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EmployeeKey">
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="EmployeeKey">
           <option value="">--Select--</option>
           <option *ngFor="let e of emp" [value]="e.EmployeeKey">
             {{e.EmployeeText}}
@@ -116,9 +80,16 @@
         </select>
       </div>
 
-      <div class="form-group">
+
+    </div>
+
+
+
+    <div class="col-md-6">
+      <div class="form-group"></div>
+      <div class="form-group" style="margin-top: 5.4rem">
         <label>WorkStatus</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="WorkorderStatusKey">
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="WorkorderStatusKey">
           <option value="">--Select--</option>
           <option *ngFor="let w of workstatus" [value]="w.WorkorderStatusKey">
             {{w.WorkorderStatus}}
@@ -126,21 +97,18 @@
         </select>
       </div>
     </div>
-
     <div class="row col-md-12">
-      <div class="col-md-6"></div>
-      <div style="text-align:center">
+      <div style="margin-left: 45%">
         <button type="button" class="btn btn-success" (click)=generateWorkOrderReport(fromdate,todate,FacilityKey,FloorKey,RoomTypeKey,ZoneKey,RoomKey,EmployeeKey,WorkorderStatusKey)><b>GENERATE</b></button>
         <br><br>
       </div>
     </div>
     <br>
   </div>
-  <div style="margin-left:1.5rem; margin-right: 1.5rem; margin-top: 40px;"></div>
+ <br>>
   <div style="margin-left: 1.5rem;width: 100%">
     <table *ngIf='viewWorkorderReport' id="reportexport" class="table table-hover table-responsive table-bordered table">
       <thead class="tableHead">
-        <!-- <tr> -->
         <th> Work-Order Type Name </th>
         <th> Date and Time </th>
         <th> Status</th>
@@ -152,28 +120,20 @@
         <th>Duration</th>
         <th>Delay Time</th>
         <th>Notes</th>
-        <!-- </tr> -->
       </thead>
       <tbody>
         <tr *ngFor="let x of viewWorkorderReport">
-
-
           <td>{{x.WorkorderTypeName}} </td>
           <td>{{x.WorkorderDate}} {{x.WorkorderTime}}</td>
           <td>{{x.WorkorderStatus}}</td>
           <td>{{x.LastName}},{{x.FirstName}}</td>
           <td>{{x.RoomId}}</td>
-          <td>{{x.EquipmentName}}
-          </td>
+          <td>{{x.EquipmentName}}</td>
           <td>{{x.checkin}}</td>
           <td>{{x.checkout}}</td>
           <td>{{x.duration}}</td>
           <td>{{x.DelayTime}}</td>
           <td>{{x.WorkorderNotes}}</td>
-
-
-
-
         </tr>
         <tr *ngIf="viewWorkorderReport?.length == 0">
           <td colspan="12" class="no-data-available">No records found</td>
@@ -181,7 +141,6 @@
       </tbody>
     </table>
   </div>
-  <br>
   <br>
   <div style="text-align:center" *ngIf="viewWorkorderReport?.length> 0">
     <button type="button" class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>

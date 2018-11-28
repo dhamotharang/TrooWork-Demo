@@ -8,14 +8,14 @@
   <div class="col-md-12">
     <div class="row col-md-12">
       <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="RoomTypeName">RoomType name*</label></h5>
-      <div class="md-form col-md-8" style="text-align:left">
+      <div class="col-md-8" style="text-align:left">
         <input type="text" *ngIf="roomTypeList" style="background-color: #D4F4FF !important;" class="form-control"
           class="form-control" [(ngModel)]="roomTypeList.RoomTypeName">
       </div>
     </div>
     <div class="row col-md-12">
       <h5 style="text-align:right;margin-top: 1.5rem;" class="col-md-4"><label for="MetricType">MetricType Name*</label></h5>
-      <div class="md-form col-md-8" style="text-align:left">
+      <div class="col-md-8" style="text-align:left">
         <select *ngIf="roomTypeList" style="background-color: #D4F4FF !important; width: 30rem" class="form-control" [(ngModel)]="metricType">
           <option>--Select--</option>
           <option *ngFor="let f of metricTypeList" [value]="f.MetricType">
@@ -27,7 +27,7 @@
     <div class="row col-md-12">
       <h5 style="text-align:right;margin-top: 1.5rem;" class="col-md-4"><label for="floorname">Metric Value*</label></h5>
 
-      <div class="md-form col-md-8" style="text-align:left">
+      <div class="col-md-8" style="text-align:left">
 
         <input type="text" *ngIf="roomTypeList" style="background-color: #D4F4FF !important;" class="form-control"
           [(ngModel)]="roomTypeList.MetricTypeValue">
