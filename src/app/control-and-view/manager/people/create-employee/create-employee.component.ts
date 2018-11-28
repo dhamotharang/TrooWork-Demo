@@ -139,7 +139,8 @@ export class CreateEmployeeComponent implements OnInit {
     var currentDate=this.convert_DT(new Date());
    
     if (!(this.BirthDate) ) {
-      BD = this.convert_DT(new Date());
+      // BD = this.convert_DT(new Date());
+      BD = null;
     }
     else {
       BD = this.convert_DT(this.BirthDate);

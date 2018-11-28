@@ -10179,10 +10179,12 @@ app.post(securedpath + '/submitDefaultEventDetails', supportCrossOriginScript, f
 app.options('/deleteDefaultEventDetails', supportCrossOriginScript);
 app.post(securedpath + '/deleteDefaultEventDetails', supportCrossOriginScript, function (req, res) {
 
-
-    var ActionKey = req.body.ActionKey;
-    var ActionTypeKey = req.body.ActionTypeKey;
-    var OrganizationID = req.body.OrganizationID;
+    var ActionKey = url.parse(req.url, true).query['ActionKey'];
+    var ActionTypeKey = url.parse(req.url, true).query['ActionTypeKey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    // var ActionKey = req.body.ActionKey;
+    // var ActionTypeKey = req.body.ActionTypeKey;
+    // var OrganizationID = req.body.OrganizationID;
 
     // console.log("deleteDefaultEventDetails  "+ActionKey,ActionTypeKey);
     pool.getConnection(function (err, connection) {

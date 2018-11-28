@@ -220,7 +220,7 @@ export class PeopleServiceService {
   }
 
   DeleteEventType(actionKey, actionTypeKey, OrgID) {
-    const uri = "http://localhost:3000/api/deleteDefaultEventDetails?ActionKey" + actionKey + "&ActionTypeKey=" + actionTypeKey + "&OrganizationID=" + OrgID;
+    const uri = "http://localhost:3000/api/deleteDefaultEventDetails?ActionKey=" + actionKey + "&ActionTypeKey=" + actionTypeKey + "&OrganizationID=" + OrgID;
     const obj = {};
     return this.http.post(uri, obj);
 
