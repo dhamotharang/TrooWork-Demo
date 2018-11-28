@@ -10,7 +10,7 @@
       <div class="form-group" style="margin-top: 2rem">
         <div class="row col-md-12">
           <h5 style="text-align:right;margin-top: 1.5rem;" class="col-md-4"><label for="building">Schedule Name </label></h5>
-          <div class="md-form col-md-3" style="text-align:left">
+          <div class="col-md-3" style="text-align:left">
             <select [(ngModel)]="BatchScheduleNameKey" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
               (change)="getBatchSchedule($event.target.value)">
               <option value="" selected>--Select--</option>
@@ -24,9 +24,9 @@
     </div>
   </div>
   <br>
-  <div style="margin-left:1.5rem; margin-right: 1.5rem; margin-top: 40px;"></div>
+ <br>
   <div style="margin-left: 1.5rem;width: 100%">
-    <table *ngIf='reportarray' class="table table-hover table-responsive table-bordered table">
+    <table *ngIf='reportarray' class="table table-hover table-responsive table-bordered table" style="display: inline-table">
       <thead class="tableHead">
         <th>Building</th>
         <th>Floor</th>

@@ -17,8 +17,11 @@ export class GooglePieChartService extends GoogleChartsBaseService {
             pieHole: config1.pieHole,
             'backgroundColor': 'transparent',
             'chartArea': {'width': '100%', 'height': '80%'},
-            'colors': ['#ef0404', '#3552e0', '#9823a3', '#f9f502', '#0ab223','#efab34']
-            //legend: { position: 'bottom', alignment: 'end',textStyle: {fontSize: 11} }
+            'colors': ['#ef0404', '#3552e0', '#9823a3', '#f9f502', '#0ab223','#efab34'],
+            tooltip: { trigger: 'selection',text:'percentage'  },
+            pieSliceTextStyle: {
+              color: 'black',
+            }
       };
 
     this.buildChart(data1, chartFunc, options);
