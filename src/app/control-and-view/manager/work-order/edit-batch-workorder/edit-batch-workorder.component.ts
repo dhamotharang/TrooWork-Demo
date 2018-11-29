@@ -361,7 +361,7 @@ export class EditBatchWorkorderComponent implements OnInit {
           this.Time_weekly = today;
         }
         if (this.WOEditList.IntervalType == 'm') {
-         
+
           this.monthlyrecurring = true;
           this.weeklyrecurring = false;
           this.dailyrecurring = false;
@@ -403,7 +403,7 @@ export class EditBatchWorkorderComponent implements OnInit {
             if (tempInstanceWeekDay == -1) {
               this.pos2 = 'Last';
             }
-            this.month2 = this.WOEditList.OccurrenceInterval;
+            this.month2 =this.WOEditList.OccurrenceInterval;
             var cur_time = new Date(Date.now());
             var timeValue1 = this.WOEditList.WorkorderTime;
             var test = timeValue1.split(":");
@@ -427,10 +427,7 @@ export class EditBatchWorkorderComponent implements OnInit {
             this.WorkorderEndDate = new Date(this.WOEditList.WorkorderEndDate);
 
           }
-
         }
-
-
       });
     this.WorkOrderServiceService
       .getallFacility(this.employeekey, this.OrganizationID)
@@ -487,6 +484,11 @@ export class EditBatchWorkorderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.FloorList = data;
         this.FloorKey="";
+        this.ZoneKey="";
+        this.RoomTypeKey="";
+        this.RoomKey="";
+        this.EquipmentTypeKey="";
+        this.EquipmentKey="";
       });
     }
     else
@@ -495,6 +497,8 @@ export class EditBatchWorkorderComponent implements OnInit {
       this.ZoneKey="";
       this.RoomTypeKey="";
       this.RoomKey="";
+      this.EquipmentTypeKey="";
+      this.EquipmentKey="";
     }
   }
   getZoneRoomTypeRoom(floor, facility) {
@@ -545,7 +549,7 @@ export class EditBatchWorkorderComponent implements OnInit {
     this.WorkOrderServiceService
       .getRoom_zone_facilityfloor(zone, floor, facility, this.OrganizationID)
       .subscribe((data: any[]) => {
-        this.RoomList = data;
+        this.RoomList = data;  
         this.RoomKey="";
       });
     }
@@ -893,7 +897,7 @@ withoutequip_wo()
         this.rep_interval = this.DailyrecurringGap;
       }
       else {
-        this.rep_interval = (parseInt(this.DailyrecurringGap)+1);
+        this.rep_interval = this.DailyrecurringGap;
       }
     }
     else if (this.weeklyrecurring == true) {
@@ -1255,7 +1259,7 @@ withoutequip_wo()
         this.rep_interval = this.DailyrecurringGap;
       }
       else {
-        this.rep_interval = (parseInt(this.DailyrecurringGap)+1);
+        this.rep_interval = this.DailyrecurringGap;
       }
     } else if (this.weeklyrecurring == true) {
       this.workTime = this.Time_weekly.getHours() + ':' + this.Time_weekly.getMinutes();
@@ -1349,6 +1353,15 @@ withoutequip_wo()
       this.ZoneKey = "";
       this.RoomTypeKey = "";
       this.RoomKey = "";
+      this.EquipmentTypeKey = "";
+      this.EquipmentKey = "";
+    }
+  }
+  toggleVisibility_Equipment(e) {
+    if (e.target.checked) {
+      this.marked = true;
+    } else {
+      this.marked = false;
     }
   }
 

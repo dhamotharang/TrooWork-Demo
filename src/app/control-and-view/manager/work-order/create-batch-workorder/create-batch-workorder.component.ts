@@ -283,6 +283,11 @@ export class CreateBatchWorkorderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.FloorList = data;
         this.FloorKey="";
+        this.ZoneKey="";
+        this.RoomTypeKey="";
+        this.RoomKey="";
+        this.EquipmentTypeKey="";
+        this.EquipmentKey="";
       });
     }
     else
@@ -291,6 +296,8 @@ export class CreateBatchWorkorderComponent implements OnInit {
       this.ZoneKey="";
       this.RoomTypeKey="";
       this.RoomKey="";
+      this.EquipmentTypeKey="";
+      this.EquipmentKey="";
     }
   }
   getZoneRoomTypeRoom(floor, facility) {
@@ -1051,8 +1058,10 @@ export class CreateBatchWorkorderComponent implements OnInit {
         selectedWeekdays.push('sa');
       this.occurs_on = selectedWeekdays.join(',');
     }
-
-
+    else if (this.monthlyrecurring == true) {
+      this.intervaltype = 'm';
+      this.isrecurring = 1;
+    }
     if (this.WorkorderStartDate) {
       this.startDT = this.convert_DT(this.WorkorderStartDate);
     } else {
@@ -1218,6 +1227,8 @@ export class CreateBatchWorkorderComponent implements OnInit {
       this.ZoneKey = "";
       this.RoomTypeKey = "";
       this.RoomKey = "";
+      this.EquipmentTypeKey = "";
+      this.EquipmentKey = "";
     }
   }
   checkfornewWOT(wot_key) {

@@ -277,6 +277,11 @@ export class CreateWorkorderComponent implements OnInit {
         .subscribe((data: any[]) => {
           this.FloorList = data;
           this.FloorKey = "";
+          this.ZoneKey = "";
+          this.RoomTypeKey = "";
+          this.RoomKey = "";
+          this.EquipmentTypeKey = "";
+          this.EquipmentKey = "";
         });
     }
     else {
@@ -284,6 +289,8 @@ export class CreateWorkorderComponent implements OnInit {
       this.ZoneKey = "";
       this.RoomTypeKey = "";
       this.RoomKey = "";
+      this.EquipmentTypeKey = "";
+      this.EquipmentKey = "";
     }
   }
   getZoneRoomTypeRoom(floor, facility) {
@@ -318,8 +325,8 @@ export class CreateWorkorderComponent implements OnInit {
       this.ZoneKey = "";
       this.RoomTypeKey = "";
       this.RoomKey = "";
-      this.EquipmentTypeKey="";
-      this.EquipmentKey="";
+      this.EquipmentTypeKey = "";
+      this.EquipmentKey = "";
     }
   }
   getRoomTypeRoom(zone, facility, floor) {
@@ -328,11 +335,13 @@ export class CreateWorkorderComponent implements OnInit {
         .getRoomtype_zone_facilityfloor(zone, floor, facility, this.org_id)
         .subscribe((data: any[]) => {
           this.RoomTypeList = data;
+          this.RoomTypeKey = "";
         });
       this.WorkOrderServiceService
         .getRoom_zone_facilityfloor(zone, floor, facility, this.org_id)
         .subscribe((data: any[]) => {
           this.RoomList = data;
+          this.RoomKey = "";
         });
     }
     else {
@@ -346,6 +355,7 @@ export class CreateWorkorderComponent implements OnInit {
         .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.org_id)
         .subscribe((data: any[]) => {
           this.RoomList = data;
+          this.RoomKey = "";
         });
     }
     else {
@@ -358,6 +368,7 @@ export class CreateWorkorderComponent implements OnInit {
         .getEquipment_typechange(equip_type, facility, floor, this.org_id)
         .subscribe((data: any[]) => {
           this.EquipmentList = data;
+          this.EquipmentKey = "";
         });
     }
     else {
@@ -676,12 +687,12 @@ export class CreateWorkorderComponent implements OnInit {
         }
         if (this.monthlyreccradio1 == true) {
           this.occurs_on = this.day1;
-          this.rep_interval = (this.month1) ? this.month1 : 1;
+          this.rep_interval = (this.month1) ? parseInt(this.month1)+1 : 1;
         }
         else if (this.monthlyreccradio2 == true) {
 
           this.occurs_on = this.day2;
-          this.rep_interval = (this.month2) ? this.month2 : 1;
+          this.rep_interval = (this.month2) ? parseInt(this.month2)+1 : 1;
           this.occurs_type = this.pos2;
           switch (this.occurs_on) {
             case '0':
@@ -1085,11 +1096,11 @@ export class CreateWorkorderComponent implements OnInit {
         this.workTime = this.Time_monthly.getHours() + ':' + this.Time_monthly.getMinutes();
         if (this.monthlyreccradio1 == true) {
           this.occurs_on = this.day1;
-          this.rep_interval = (this.month1) ? this.month1 : 1;
+          this.rep_interval = (this.month1) ? parseInt(this.month1)+1 : 1;
         }
         else if (this.monthlyreccradio2 == true) {
           this.occurs_on = this.day2;
-          this.rep_interval = (this.month2) ? this.month2 : 1;
+          this.rep_interval = (this.month2) ? parseInt(this.month2)+1 : 1;
           this.occurs_type = this.pos2;
           switch (this.occurs_on) {
             case '0':
@@ -1402,11 +1413,11 @@ export class CreateWorkorderComponent implements OnInit {
       this.workTime = this.Time_monthly.getHours() + ':' + this.Time_monthly.getMinutes();
       if (this.monthlyreccradio1 == true) {
         this.occurs_on = this.day1;
-        this.rep_interval = (this.month1) ? this.month1 : 1;
+        this.rep_interval = (this.month1) ? parseInt(this.month1)+1 : 1;
       }
       else if (this.monthlyreccradio2 == true) {
         this.occurs_on = this.day2;
-        this.rep_interval = (this.month2) ? this.month2 : 1;
+        this.rep_interval = (this.month2) ? parseInt(this.month2)+1 : 1;
         this.occurs_type = this.pos2;
         switch (this.occurs_on) {
           case '0':
@@ -1532,6 +1543,8 @@ export class CreateWorkorderComponent implements OnInit {
       this.ZoneKey = "";
       this.RoomTypeKey = "";
       this.RoomKey = "";
+      this.EquipmentTypeKey = "";
+      this.EquipmentKey = "";
     }
   }
   checkfornewWOT(wot_key) {
@@ -1760,12 +1773,12 @@ export class CreateWorkorderComponent implements OnInit {
       }
       if (this.monthlyreccradio1 == true) {
         this.occurs_on = this.day1;
-        this.rep_interval = (this.month1) ? this.month1 : 1;
+        this.rep_interval = (this.month1) ? parseInt(this.month1)+1 : 1;
       }
       else if (this.monthlyreccradio2 == true) {
 
         this.occurs_on = this.day2;
-        this.rep_interval = (this.month2) ? this.month2 : 1;
+        this.rep_interval = (this.month2) ? parseInt(this.month2)+1 : 1;
         this.occurs_type = this.pos2;
         switch (this.occurs_on) {
           case '0':
