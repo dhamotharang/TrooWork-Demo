@@ -37,19 +37,19 @@ export class JobTitleAddAdminComponent implements OnInit {
 
   addNewJobtitle(JobtitleName, JobTitleDescription) {
     if (JobtitleName && !JobtitleName.trim()) {
-      alert('JobtitleName not provided !');
+      alert('Job title Name is not provided !');
       return;
     }
     if (JobTitleDescription && !JobTitleDescription.trim()) {
-      alert('JobTitleDescription not provided !');
+      alert('Job Title Description is not provided !');
       return;
     }
     if (!JobtitleName) {
-      alert('JobtitleName not provided !');
+      alert('Job title Name is not provided !');
       return;
     }
     if (!JobTitleDescription) {
-      alert('JobTitleDescription not provided !');
+      alert('Job Title Description is not provided !');
       return;
     }
     this.peopleServiceService.checkfor_jobtitle(JobtitleName, this.employeekey, this.OrganizationID)

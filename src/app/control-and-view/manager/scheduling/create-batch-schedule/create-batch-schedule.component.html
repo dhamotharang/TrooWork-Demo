@@ -208,10 +208,40 @@
         <td>{{totalSunTime| number:'1.2-2'}}</td>
         <td colspan="4"></td>
       </tr>
-      <!-- <tr *ngIf="roomList?.length == 0">
-        <td colspan="15" class="no-data-available">No records found</td>
-      </tr> -->
     </table>
     <button (click)="createBatchReport()" class="btn btn-success" style="margin-left: 40rem;">Save</button>
   </div>
+  <div *ngIf="roomList?.length == 0 && roomTempList?.length == 0" style="padding-right: 0.5rem">
+    <table class="table table-hover table-responsive table-bordered table" style="margin-top: 2rem;">
+      <thead class="tableHead">
+        <th> Building </th>
+        <th>Room</th>
+        <th>Minutes</th>
+        <th> Frequency</th>
+        <td (click)="selectAllMon()">Mon</td>
+        <td (click)="selectAllTue()">Tue</td>
+        <td (click)="selectAllWed()">Wed</td>
+        <td (click)="selectAllThu()">Thu</td>
+        <td (click)="selectAllFri()">Fri</td>
+        <td (click)="selectAllSat()">Sat</td>
+        <td (click)="selectAllSun()">Sun</td>
+        <td (click)="selectAllPhoto()">Photo Required</td>
+        <td (click)="selectAllBarcode()">Barcode Required</td>
+        <td>Room Type</td>
+        <td>Work Order Type *</td>
+      </thead>
+      <tr><td colspan="15">No Records Found</td></tr>
+      <tr>
+        <td colspan="4">Total Assigned daily minutes</td>
+        <td>{{totalMonTime| number:'1.2-2'}}</td>
+        <td>{{totalTuesTime| number:'1.2-2'}}</td>
+        <td>{{totalWedTime| number:'1.2-2'}}</td>
+        <td>{{totalThuTime| number:'1.2-2'}}</td>
+        <td>{{totalFriTime| number:'1.2-2'}}</td>
+        <td>{{totalSatTime| number:'1.2-2'}}</td>
+        <td>{{totalSunTime| number:'1.2-2'}}</td>
+        <td colspan="4"></td>
+      </tr>
+      </table>
+</div>
 </div>

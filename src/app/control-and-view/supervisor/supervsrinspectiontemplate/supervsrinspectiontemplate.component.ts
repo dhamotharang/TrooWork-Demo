@@ -52,28 +52,28 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
 
 
   // for star rating 
-  starList: boolean[] = [true,true,true,true,true]; 
+  starList=[]; 
   rating:number; 
   
-  setStar3(data:any){
+  setStar3(k,data:any){
        this.rating=data+1;                               
        for(var i=0;i<=2;i++){  
          if(i<=data){  
-           this.starList[i]=false;  
+           this.starList[k][i]=false;  
          }  
          else{  
-         this.starList[i]=true;  
+         this.starList[k][i]=true;  
          }  
       }  
    } 
-   setStar(data:any){
+   setStar(k,data:any){
         this.rating=data+1;                               
         for(var i=0;i<=4;i++){  
           if(i<=data){  
-            this.starList[i]=false;  
+            this.starList[k][i]=false;  
           }  
           else{  
-          this.starList[i]=true;  
+          this.starList[k][i]=true;  
           }  
        }  
     }  
@@ -144,17 +144,24 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
         this.names = ['Fail', 'N/A'];
         this.ScoreName = this.viewEmpInspectionDetails[0].ScoreName;
       }
-      else if(this.viewEmpInspectionDetails[0].ScoreName === '5 Star'){
-        this.starList = [true,true,true,true,true]; 
-      }
-      else if(this.viewEmpInspectionDetails[0].ScoreName === '3 Star'){
-        this.starList = [true,true,true]; 
-      }
+      // else if(this.viewEmpInspectionDetails[0].ScoreName === '5 Star'){
+      //   this.starList = [true,true,true,true,true]; 
+      // }
+      // else if(this.viewEmpInspectionDetails[0].ScoreName === '3 Star'){
+      //   this.starList = [true,true,true]; 
+      // }
        this.Temp_templateId=this.viewEmpInspectionDetails[0].TemplateID;
       this.inspectionService
         .templateQuestionService(this.viewEmpInspectionDetails[0].TemplateID, this.OrganizationID).subscribe((data: any[]) => {
           this.TemplateDetails = data;
-
+          for(var i=0;i< this.TemplateDetails.length;i++){
+            if (this.viewEmpInspectionDetails[0].ScoreName === '5 Star') {
+             this.starList[i] = [true, true, true, true, true];
+           }
+           else if (this.viewEmpInspectionDetails[0].ScoreName === '3 Star') {
+             this.starList[i] = [true, true, true];
+           }
+         }
         });
     });
   }

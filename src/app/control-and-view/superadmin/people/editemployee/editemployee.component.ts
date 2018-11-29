@@ -88,44 +88,44 @@ export class EditemployeeComponent implements OnInit {
   }
   editEmployee(OrganizationID, UserRoleTypeKey, EmployeeNumber, ManagerKey, FirstName, LastName, MiddleName, BD, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, IsSupervisor, JobTitleKey, DepartmentKey, Gender) {
     if (!(EmployeeNumber) ) {
-      alert("Employee Number Not provided !");
+      alert("Employee Number is not provided !");
       return;
     }
     if (!(UserRoleTypeKey ) ) {
-      alert("User Role Type Not provided !");
+      alert("User Role Type is not provided !");
       return;
     }
 
     if (!(FirstName ) ) {
-      alert("First Name Not provided !");
+      alert("First Name is not provided !");
       return;
     }
     if (!(LastName ) ) {
-      alert("LastName Not provided !");
+      alert("Last Name is not provided !");
       return;
     }
     if (!(Gender) ) {
-      alert("Gender Not provided !");
+      alert("Gender is not provided !");
       return;
     }
     if (!(EmployeeStatusKey) ) {
-      alert("Employee Status Not provided !");
+      alert("Employee Status is not provided !");
       return;
     }
     if (!(PrimaryPhone) ) {
-      alert("Primary Phone Not provided !");
+      alert("Primary Phone is not provided !");
       return;
     }
     if (!(HD) ) {
-      alert("HireDate Not provided !");
+      alert("Hire Date is not provided !");
       return;
     }
     if (!(JobTitleKey ) ) {
-      alert("JobTitle Not provided !");
+      alert("Job Title is not provided !");
       return;
     }
     if (!(DepartmentKey) ) {
-      alert("Department Not provided !");
+      alert("Department is not provided !");
       return;
     }
     var birthdt;
@@ -139,22 +139,22 @@ export class EditemployeeComponent implements OnInit {
     }
     var hiredt= this.convert_DT(HD)
     if(birthdt > currentDate){
-      alert("Wrong BirthDate !");
+      alert("Wrong Birth Date !");
       return;
     }
     if(hiredt >currentDate){
-      alert("Wrong HireDate !");
+      alert("Wrong Hire Date !");
       return;
     }
     if( HD <BD){
-      alert("HireDate must be greater than birth date !");
+      alert("Hire Date must be greater than birth date !");
       return;
     }
    
 
     this.PeopleServiceService.UpdateEmployeeDetailsbySa(this.managerKey, this.empk$, this.OrganizationID, UserRoleTypeKey, EmployeeNumber, FirstName, LastName, MiddleName, birthdt, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, JobTitleKey, DepartmentKey, Gender)
     .subscribe((data: any[]) => {
-      alert("Sucessfully Updated !");
+      alert("Successfully Updated !");
          this.router.navigateByUrl('/Viewemployee')
         });
 

@@ -73,44 +73,44 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
 
   editEmployee(EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey) {
     if (!(this.editempdtails.EmployeeNumber)) {
-      alert("Employee Number Not provided !");
+      alert("Employee Number is not provided !");
       return;
     }
     if (!(this.editempdtails.UserRoleTypeKey)) {
-      alert("User Role Type Not provided !");
+      alert("User Role Type is not provided !");
       return;
     }
 
     if (!(this.editempdtails.FirstName)) {
-      alert("First Name Not provided !");
+      alert("First Name is not provided !");
       return;
     }
     if (!(this.editempdtails.LastName)) {
-      alert("LastName Not provided !");
+      alert("Last Name is not provided !");
       return;
     }
     if (!(this.editempdtails.Gender)) {
-      alert("Gender Not provided !");
+      alert("Gender is not provided !");
       return;
     }
     if (!(this.editempdtails.EmployeeStatusKey)) {
-      alert("Employee Status Not provided !");
+      alert("Employee Status is not provided !");
       return;
     }
     if (!(this.editempdtails.PrimaryPhone)) {
-      alert("Primary Phone Not provided !");
+      alert("Primary Phone is not provided !");
       return;
     }
     if (!(this.HireDate)) {
-      alert("HireDate Not provided !");
+      alert("Hire Date is not provided !");
       return;
     }
     if (!(this.editempdtails.JobTitleKey)) {
-      alert("JobTitle Not provided !");
+      alert("Job Title is not provided !");
       return;
     }
     if (!(this.editempdtails.DepartmentKey)) {
-      alert("Department Not provided !");
+      alert("Department is not provided !");
       return;
     }
     var birthdt;
@@ -124,15 +124,15 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
     }
     var hiredt = this.convert_DT(HD)
     if (birthdt > currentDate) {
-      alert("Wrong BirthDate !");
+      alert("Wrong Birth Date !");
       return;
     }
     if (hiredt > currentDate) {
-      alert("Wrong HireDate !");
+      alert("Wrong Hire Date !");
       return;
     }
     if (HD < BD) {
-      alert("HireDate must be greater than birth date !");
+      alert("Hire Date must be greater than birth date !");
       return;
     }
 
