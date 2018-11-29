@@ -208,6 +208,9 @@
         <td>{{totalSunTime| number:'1.2-2'}}</td>
         <td colspan="4"></td>
       </tr>
+      <!-- <tr *ngIf="roomList?.length == 0">
+        <td colspan="15" class="no-data-available">No records found</td>
+      </tr> -->
     </table>
     <button (click)="createBatchReport()" class="btn btn-success" style="margin-left: 40rem;">Save</button>
   </div>

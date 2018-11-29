@@ -74,7 +74,7 @@ export class EventViewComponent implements OnInit {
   deleteEventType() {
     this.peopleServ
       .DeleteEventType(this.ActionKey, this.ActionTypeKey, this.OrganizationID).subscribe(res => {
-        alert('Sucessfully Deleted !');
+        alert('Successfully Deleted !');
         this.peopleServ
           .getEventTypeList(this.page, this.count, this.employeekey, this.OrganizationID)
           .subscribe((data: People[]) => {
@@ -117,7 +117,7 @@ export class EventViewComponent implements OnInit {
   UpdateEventDetais(ActionType,Action,Description,ActionKey,ActionTypeKey){
     this.peopleServ.UpdateEventType(ActionType, Action, Description, ActionKey, ActionTypeKey, this.employeekey, this.OrganizationID).
     subscribe(() => {
-      alert('Sucessfully Updated !');
+      alert('Successfully Updated !');
       this.peopleServ
       .getEventTypeList(this.page, this.count, this.employeekey, this.OrganizationID)
           .subscribe((data: People[]) => {

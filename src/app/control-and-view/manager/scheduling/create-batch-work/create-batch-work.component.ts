@@ -45,18 +45,18 @@ export class CreateBatchWorkComponent implements OnInit {
   createScheduleName() {
     if(this.scheduleName && !this.scheduleName.trim())
     {
-      alert("Please provide a BatchScheduleName");
+      alert("Please provide a Batch Schedule Name");
       return;
     }
     else  if(this.scheduleDescription && !this.scheduleDescription.trim())
     {
-      alert("ScheduleDescription is not provided!");
+      alert("Schedule Description is not provided!");
       return;
     }
     else if (!this.scheduleName) {
-      alert("BatchScheduleName is not provided !");
+      alert("Batch Schedule Name is not provided !");
     } else if (!this.scheduleDescription) {
-      alert("ScheduleDescription is not provided!");
+      alert("Schedule Description is not provided!");
     }
     else if (!this.empKey) {
       alert("Employee Name is not provided !");

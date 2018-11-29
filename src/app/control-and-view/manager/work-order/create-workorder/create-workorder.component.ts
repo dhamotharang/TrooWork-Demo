@@ -381,24 +381,24 @@ export class CreateWorkorderComponent implements OnInit {
   createWorkorder1() {
   
     if (!this.WorkorderTypeKey) {
-      alert("select work-order type!");
+      alert("Select work-order type!");
     }else if(this.newType == true && !(this.newworkordertypetext))
     {
-      alert("enter work-order type!");
+      alert("Enter work-order type!");
     }else if(this.newType == true && !(this.newworkordertypetext.trim()))
     {
-      alert("enter work-order type!");
+      alert("Enter work-order type!");
     }
     else if (!this.FacilityKey) {
-      alert("select building!");
+      alert("Select building!");
     }
     else if (!this.FloorKey) {
-      alert("select floor!");
+      alert("Select floor!");
     }
     else if ( (!(this.timeValue)) && (this.isRecurring==false) ) {
-      alert("please provide time!");
+      alert("Please provide time!");
     }else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
-      alert("check your startdate!");
+      alert("Check your startdate!");
 
     }
     else if (this.isRecurring == true) 
@@ -409,10 +409,10 @@ export class CreateWorkorderComponent implements OnInit {
       }
       if (this.dailyrecurring == true) {
         if (!this.WorkorderEndDate) {
-          alert("please provide end date!");
+          alert("Please provide end date!");
         }
         else if (!(this.dailyFrequency)) {
-          alert("select frequency !");
+          alert("Select frequency !");
         }else if(this.dailyFrequency)
         {
         for(var i=0;i<this.dailyFrequency;i++)
@@ -430,13 +430,13 @@ export class CreateWorkorderComponent implements OnInit {
       else if (this.weeklyrecurring == true) 
       {
         if (!(this.weektable_one) && !(this.weektable_two) && !(this.weektable_three) && !(this.weektable_four) && !(this.weektable_five) && !(this.weektable_six) && !(this.weektable_seven)) {
-          alert("please select atleast one day!");
+          alert("Please select atleast one day!");
         }
         else if (!this.Time_weekly) {
-          alert("please provide time!");
+          alert("Please provide time!");
         }
        else if (!this.WorkorderEndDate) {
-          alert("please provide end date!");
+          alert("Please provide end date!");
         }
         else
         {
@@ -452,7 +452,7 @@ export class CreateWorkorderComponent implements OnInit {
         {
           if(!(this.day1) || !(this.month1))
           {
-            alert("provide entries for monthly recurring !");
+            alert("Provide entries for monthly recurring !");
           }
          
         }
@@ -460,15 +460,15 @@ export class CreateWorkorderComponent implements OnInit {
         {
           if(!(this.day2) || !(this.pos2) || !(this.month2))
           {
-            alert("provide entries for monthly recurring !");
+            alert("Provide entries for monthly recurring !");
           }
           
         }
         else if (!this.Time_monthly) {
-          alert("please provide time!");
+          alert("Please provide time!");
         }
        else if (!this.WorkorderEndDate) {
-          alert("please provide end date!");
+          alert("Please provide end date!");
         }
         else{
         this.withoutequip_wo();
@@ -765,7 +765,7 @@ export class CreateWorkorderComponent implements OnInit {
                       occurstype: this.occurs_type
                     };
                     this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => {
-                      alert("work-order created successfully");
+                      alert("Work-order created successfully");
                       this.router.navigateByUrl('/ViewWorkOrder');
                     });
                   });
@@ -802,7 +802,7 @@ export class CreateWorkorderComponent implements OnInit {
         occurstype: this.occurs_type
       };
       this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => {
-        alert("work-order created successfully");
+        alert("Work-order created successfully");
         this.router.navigateByUrl('/ViewWorkOrder');
       });
     }
@@ -810,29 +810,29 @@ export class CreateWorkorderComponent implements OnInit {
   }
   createWorkorder2() {
     if (!this.WorkorderTypeKey) {
-      alert("select work-order type!");
+      alert("Select work-order type!");
     }else if(this.newType == true && !(this.newworkordertypetext))
     {
-      alert("enter work-order type!");
+      alert("Enter work-order type!");
     }else if(this.newType == true && !(this.newworkordertypetext.trim()))
     {
-      alert("enter work-order type!");
+      alert("Enter work-order type!");
     }
     else if (!this.FacilityKey) {
-      alert("select building!");
+      alert("Select building!");
     }
     else if (!this.FloorKey) {
-      alert("select floor!");
+      alert("Select floor!");
     }
     else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
-      alert("check your startdate!");
+      alert("Check your startdate!");
 
     }
     else if ( (!(this.timeValue)) && (this.isRecurring==false) ) {
-      alert("please provide time!");
+      alert("Please provide time!");
     }else if(this.showEqTypes==true && !(this.EquipmentTypeKey))
     {
-      alert("select equipment type!");
+      alert("Select equipment type!");
     }
     else if (this.isRecurring == true) 
     {
@@ -842,10 +842,10 @@ export class CreateWorkorderComponent implements OnInit {
       }
       if (this.dailyrecurring == true) {
         if (!this.WorkorderEndDate) {
-          alert("please provide end date!");
+          alert("Please provide end date!");
         }
         else if (!(this.dailyFrequency)) {
-          alert("select frequency !");
+          alert("Select frequency !");
         }else if(this.dailyFrequency)
         {
         for(var i=0;i<this.dailyFrequency;i++)
@@ -863,13 +863,13 @@ export class CreateWorkorderComponent implements OnInit {
       else if (this.weeklyrecurring == true) 
       {
         if (!(this.weektable_one) && !(this.weektable_two) && !(this.weektable_three) && !(this.weektable_four) && !(this.weektable_five) && !(this.weektable_six) && !(this.weektable_seven)) {
-          alert("please select atleast one day!");
+          alert("Please select atleast one day!");
         }
         else if (!this.Time_weekly) {
-          alert("please provide time!");
+          alert("Please provide time!");
         }
        else if (!this.WorkorderEndDate) {
-          alert("please provide end date!");
+          alert("Please provide end date!");
         }
         else
         {
@@ -885,7 +885,7 @@ export class CreateWorkorderComponent implements OnInit {
         {
           if(!(this.day1) || !(this.month1))
           {
-            alert("provide entries for monthly recurring !");
+            alert("Provide entries for monthly recurring !");
           }
          
         }
@@ -893,15 +893,15 @@ export class CreateWorkorderComponent implements OnInit {
         {
           if(!(this.day2) || !(this.pos2) || !(this.month2))
           {
-            alert("provide entries for monthly recurring !");
+            alert("Provide entries for monthly recurring !");
           }
           
         }
         else if (!this.Time_monthly) {
-          alert("please provide time!");
+          alert("Please provide time!");
         }
        else if (!this.WorkorderEndDate) {
-          alert("please provide end date!");
+          alert("Please provide end date!");
         }
         else{
         this.withequip_wo();
@@ -1189,7 +1189,7 @@ export class CreateWorkorderComponent implements OnInit {
                       occurstype: this.occurs_type
                     };
                     this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => {
-                      alert("work-order created successfully");
+                      alert("Work-order created successfully");
                       this.router.navigateByUrl('/ViewWorkOrder');
                     });
                   });
@@ -1225,7 +1225,7 @@ export class CreateWorkorderComponent implements OnInit {
         occurstype: this.occurs_type
       };
       this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => {
-        alert("work-order created successfully");
+        alert("Work-order created successfully");
         this.router.navigateByUrl('/ViewWorkOrder');
       });
     }

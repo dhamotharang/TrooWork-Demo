@@ -47,7 +47,7 @@ export class JobTitleAddComponent implements OnInit {
     return;
    }
     if(JobtitleName && !JobtitleName.trim()){
-      alert('Jobtitle is not provided !');
+      alert('Job title is not provided !');
       return;
     }
     if(JobTitleDescription && !JobTitleDescription.trim()){

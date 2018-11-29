@@ -185,7 +185,7 @@ export class MeetingTrainingCreateComponent implements OnInit {
       this.peopleServ
         .addMeetingTraining(this.EventType, this.eventHost, this.Venue, newTime, newTime1, this.Notes, EmployeeKeyString, newDate, this.employeekey, this.OrganizationID)
         .subscribe((data: People[]) => {
-          alert('Meeting/Training successfully created !');
+          alert('Meeting/Training is successfully created !');
           this.EventType = null;
           this.eventHost = null;
           this.Venue = null;
