@@ -579,7 +579,7 @@ export class ViewWorkOrdersComponent implements OnInit {
         this.workorderList.workorderCheckValue = false;
         this.checkValue = [];
         this.workorderKey = [];
-        alert("work order deleted successfully");
+        alert("Work order deleted successfully");
         this.viewWO_Filter();
 
       });

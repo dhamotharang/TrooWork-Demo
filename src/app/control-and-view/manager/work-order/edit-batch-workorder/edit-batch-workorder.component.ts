@@ -498,32 +498,39 @@ export class EditBatchWorkorderComponent implements OnInit {
     }
   }
   getZoneRoomTypeRoom(floor, facility) {
-    if(floor&&facility)
-    {
-    this.WorkOrderServiceService
-      .getzone_facilityfloor(floor, facility, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.zonelist = data;
-        this.ZoneKey="";
-      });
-    this.WorkOrderServiceService
-      .getroomType_facilityfloor(floor, facility, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.RoomTypeList = data;
-        this.RoomTypeKey="";
-      });
-    this.WorkOrderServiceService
-      .getRoom_facilityfloor(floor, facility, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.RoomList = data;
-        this.RoomKey="";
-      });
+    if (floor && facility) {
+      if ((this.FloorKey) && (this.showEqTypes == true)) {
+        this.ZoneKey = -1;
+        this.RoomTypeKey = -1;
+        this.RoomKey = -1;
+      }
+      else {
+        this.WorkOrderServiceService
+          .getzone_facilityfloor(floor, facility, this.OrganizationID)
+          .subscribe((data: any[]) => {
+            this.zonelist = data;
+            this.ZoneKey = "";
+          });
+        this.WorkOrderServiceService
+          .getroomType_facilityfloor(floor, facility, this.OrganizationID)
+          .subscribe((data: any[]) => {
+            this.RoomTypeList = data;
+            this.RoomTypeKey = "";
+          });
+        this.WorkOrderServiceService
+          .getRoom_facilityfloor(floor, facility, this.OrganizationID)
+          .subscribe((data: any[]) => {
+            this.RoomList = data;
+            this.RoomKey = "";
+          });
+      }
     }
-    else
-    {
-      this.ZoneKey="";
-      this.RoomTypeKey="";
-      this.RoomKey="";
+    else {
+      this.ZoneKey = "";
+      this.RoomTypeKey = "";
+      this.RoomKey = "";
+      this.EquipmentTypeKey="";
+      this.EquipmentKey="";
     }
   }
   getRoomTypeRoom(zone, facility, floor) {
@@ -609,7 +616,7 @@ export class EditBatchWorkorderComponent implements OnInit {
     this.WorkOrderServiceService
       .deleteCurrent_BatchWO(this.deleteWO)
       .subscribe((data: any[]) => {
-        alert("work-order deleted successfully"); 
+        alert("Work-order deleted successfully"); 
         this.router.navigateByUrl('/ViewBatchWorkorder')
       });
   }
@@ -625,25 +632,25 @@ export class EditBatchWorkorderComponent implements OnInit {
   }
   createWorkorder1() {
     if (!(this.BatchScheduleNameKey)) {
-      alert("select schedule name!");
+      alert("Please select schedule name!");
     }
     else if (!this.workordertypekey) {
-      alert("select work-order type!");
+      alert("Please select work-order type!");
     }
     else if (!this.FacilityKey) {
-      alert("select building!");
+      alert("Please select building!");
     }
     else if (!this.FloorKey) {
-      alert("select floor!");
+      alert("Please select floor!");
     }
     else if (!(this.WorkorderStartDate)) {
-      alert("provide work-order start date!");
+      alert("Please provide work-order start date!");
     }
     else if (!(this.WorkorderEndDate)) {
-      alert("provide work-order end date!")
+      alert("Please provide work-order end date!")
     }
     else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
-      alert("check your startdate!");
+      alert("Please check your start date!");
 
     }
     else if (this.dailyrecurring == false && this.weeklyrecurring == false && this.monthlyrecurring == false) {
@@ -651,11 +658,11 @@ export class EditBatchWorkorderComponent implements OnInit {
     }
     else if (this.dailyrecurring == true) {
       if (!(this.dailyFrequency)) {
-        alert("select frequency !");
+        alert("Please select frequency !");
       } else if (this.dailyFrequency) {
         for (var i = 0; i < this.dailyFrequency; i++) {
           if (!(this.timetable.times[i])) {
-            alert("Enter time values !");
+            alert("Please enter time values !");
           }
         }
         this.withoutequip_wo();
@@ -664,10 +671,10 @@ export class EditBatchWorkorderComponent implements OnInit {
     else if (this.weeklyrecurring == true) 
     {
       if (!(this.weektable_one) && !(this.weektable_two) && !(this.weektable_three) && !(this.weektable_four) && !(this.weektable_five) && !(this.weektable_six) && !(this.weektable_seven)) {
-        alert("please select atleast one day!");
+        alert("Please select atleast one day!");
       }
       else if (!this.Time_weekly) {
-        alert("please provide time!");
+        alert("Please provide time!");
       }
       else
       {
@@ -678,25 +685,28 @@ export class EditBatchWorkorderComponent implements OnInit {
     {
       if (this.monthlyreccradio1 == false && this.monthlyreccradio2 == false) {
         alert("Select a radio option from monthly reccuring !");
+        return;
       }
-      else if(this.monthlyreccradio1 == true)
+      if(this.monthlyreccradio1 == true)
       {
         if(!(this.day1) || !(this.month1))
         {
-          alert("provide entries for monthly recurring !");
+          alert("Provide entries for monthly recurring !");
+          return;
         }
        
       }
-      else if(this.monthlyreccradio2 == true)
+      if(this.monthlyreccradio2 == true)
       {
         if(!(this.day2) || !(this.pos2) || !(this.month2))
         {
-          alert("provide entries for monthly recurring !");
+          alert("Provide entries for monthly recurring !");
+          return;
         }
         
       }
-      else if (!this.Time_monthly) {
-        alert("please provide time!");
+      if (!this.Time_monthly) {
+        alert("Please provide time!");
       }
       else{
       this.withoutequip_wo();
@@ -879,7 +889,7 @@ withoutequip_wo()
 
       this.workTime = timeset_corr.join(',');
       if (!(this.DailyrecurringGap)) {
-        this.DailyrecurringGap = 0;
+        this.DailyrecurringGap = 1;
         this.rep_interval = this.DailyrecurringGap;
       }
       else {
@@ -968,7 +978,7 @@ withoutequip_wo()
       this.WorkOrderServiceService
       .deleteCurrent_BatchWO(this.deleteWO)
       .subscribe((data: any[]) => {
-      alert("work-order updated successfully"); 
+      alert("Work-order updated successfully"); 
       this.router.navigateByUrl('/ViewBatchWorkorder');
     });
   });
@@ -976,41 +986,41 @@ withoutequip_wo()
   createWorkorder2() {
 
     if (!(this.BatchScheduleNameKey)) {
-      alert("select schedule name!");
+      alert("Please select schedule name!");
     }
     else if (!this.workordertypekey) {
-      alert("select work-order type!");
+      alert("Please select work-order type!");
     }
     else if (!this.FacilityKey) {
-      alert("select building!");
+      alert("Please select building!");
     }
     else if (!this.FloorKey) {
-      alert("select floor!");
+      alert("Please select floor!");
     }
     else if (!(this.WorkorderStartDate)) {
-      alert("provide work-order start date!");
+      alert("Please provide work-order start date!");
     }
     else if (!(this.WorkorderEndDate)) {
-      alert("provide work-order end date!")
+      alert("Please provide work-order end date!")
     }
     else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
-      alert("check your startdate!");
+      alert("Please check your start date!");
 
     }
     else if(this.showEqTypes==true && !(this.EquipmentTypeKey))
     {
-      alert("select equipment type!");
+      alert("Please select equipment type!");
     }
     else if (this.dailyrecurring == false && this.weeklyrecurring == false && this.monthlyrecurring == false) {
       alert("Recurring Period is not provided !");
     }
     else if (this.dailyrecurring == true) {
       if (!(this.dailyFrequency)) {
-        alert("select frequency !");
+        alert("Please select frequency !");
       } else if (this.dailyFrequency) {
         for (var i = 0; i < this.dailyFrequency; i++) {
           if (!(this.timetable.times[i])) {
-            alert("Enter time values !");
+            alert("Please enter time values !");
           }
         }
         this.withequip_wo();
@@ -1019,10 +1029,10 @@ withoutequip_wo()
     else if (this.weeklyrecurring == true) 
     {
       if (!(this.weektable_one) && !(this.weektable_two) && !(this.weektable_three) && !(this.weektable_four) && !(this.weektable_five) && !(this.weektable_six) && !(this.weektable_seven)) {
-        alert("please select atleast one day!");
+        alert("Please select atleast one day!");
       }
       else if (!this.Time_weekly) {
-        alert("please provide time!");
+        alert("Please provide time!");
       }
       else
       {
@@ -1033,25 +1043,28 @@ withoutequip_wo()
     {
       if (this.monthlyreccradio1 == false && this.monthlyreccradio2 == false) {
         alert("Select a radio option from monthly reccuring !");
+        return;
       }
-      else if(this.monthlyreccradio1 == true)
+      if(this.monthlyreccradio1 == true)
       {
         if(!(this.day1) || !(this.month1))
         {
-          alert("provide entries for monthly recurring !");
+          alert("Provide entries for monthly recurring !");
+          return;
         }
        
       }
-      else if(this.monthlyreccradio2 == true)
+      if(this.monthlyreccradio2 == true)
       {
         if(!(this.day2) || !(this.pos2) || !(this.month2))
         {
-          alert("provide entries for monthly recurring !");
+          alert("Provide entries for monthly recurring !");
+          return;
         }
         
       }
-      else if (!this.Time_monthly) {
-        alert("please provide time!");
+      if (!this.Time_monthly) {
+        alert("Please provide time!");
       }
       else{
       this.withequip_wo();
@@ -1238,7 +1251,7 @@ withoutequip_wo()
 
       this.workTime = timeset_corr.join(',');
       if (!(this.DailyrecurringGap)) {
-        this.DailyrecurringGap = 0;
+        this.DailyrecurringGap = 1;
         this.rep_interval = this.DailyrecurringGap;
       }
       else {
@@ -1314,7 +1327,7 @@ withoutequip_wo()
       this.WorkOrderServiceService
       .deleteCurrent_BatchWO(this.deleteWO)
       .subscribe((data: any[]) => {
-      alert("work-order updated successfully"); 
+      alert("Work-order updated successfully"); 
       this.router.navigateByUrl('/ViewBatchWorkorder');
     });
   });
@@ -1327,10 +1340,15 @@ withoutequip_wo()
     }
   }
   change_values() {
-    if (this.showEqTypes == true) {
+    if ((this.FloorKey) && (this.showEqTypes == true)) {
       this.ZoneKey = -1;
       this.RoomTypeKey = -1;
       this.RoomKey = -1;
+    }
+    else {
+      this.ZoneKey = "";
+      this.RoomTypeKey = "";
+      this.RoomKey = "";
     }
   }
 

@@ -78,7 +78,7 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
   getBatchSchedule(Workorder_ScheduleKey) {
     if(!Workorder_ScheduleKey)
     {
-      alert("Select schedule name");
+      alert("Please select schedule name");
     }
  else
  {

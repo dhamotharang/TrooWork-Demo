@@ -50,9 +50,9 @@ export class CreateWorkorderTypeComponent implements OnInit {
   addWOT(WorkOrderTypeName) {
     if(!WorkOrderTypeName)
     {
-      alert("please enter work-order type!");
+      alert("Please enter work-order type!");
     }else if (!WorkOrderTypeName.trim()) {
-      alert("please enter work-order type!");
+      alert("Please enter work-order type!");
     }else
     {
     this.add_WOT = {
@@ -69,12 +69,12 @@ export class CreateWorkorderTypeComponent implements OnInit {
       .subscribe((data: any[]) => {
         if(data[0].count!=0)
        {
-        alert("work-order type already exists!");
+        alert("Work-order type already exists!");
        }
         else if (data[0].count == 0) {
           this.WorkOrderServiceService.createWOT(this.add_WOT)
             .subscribe((data: any[]) => {
-              alert("work-order type created successfully");
+              alert("Work-order type created successfully");
               this.router.navigateByUrl('/WorkOrderType');
             });
         }
