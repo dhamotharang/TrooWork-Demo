@@ -664,8 +664,7 @@ export class CreateWorkorderComponent implements OnInit {
 
         this.workTime = timeset_corr.join(',');
         if (!(this.DailyrecurringGap)) {
-          this.DailyrecurringGap = 1;
-          this.rep_interval = this.DailyrecurringGap;
+          this.rep_interval = 1;
         }
         else {
           this.rep_interval = this.DailyrecurringGap;
@@ -1084,8 +1083,7 @@ export class CreateWorkorderComponent implements OnInit {
 
         this.workTime = timeset_corr.join(',');
         if (!(this.DailyrecurringGap)) {
-          this.DailyrecurringGap = 1;
-          this.rep_interval = this.DailyrecurringGap;
+          this.rep_interval = 1;
         }
         else {
           this.rep_interval = this.DailyrecurringGap;
@@ -1401,8 +1399,7 @@ export class CreateWorkorderComponent implements OnInit {
 
       this.workTime = timeset_corr.join(',');
       if (!(this.DailyrecurringGap)) {
-        this.DailyrecurringGap = 1;
-        this.rep_interval = this.DailyrecurringGap;
+        this.rep_interval = 1;
       }
       else {
         this.rep_interval = this.DailyrecurringGap;
@@ -1750,8 +1747,7 @@ export class CreateWorkorderComponent implements OnInit {
 
       this.workTime = timeset_corr.join(',');
       if (!(this.DailyrecurringGap)) {
-        this.DailyrecurringGap = 1;
-        this.rep_interval = this.DailyrecurringGap;
+        this.rep_interval = 1;
       }
       else {
         this.rep_interval = this.DailyrecurringGap;

@@ -673,8 +673,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
 
       this.workTime = timeset_corr.join(',');
       if (!(this.DailyrecurringGap)) {
-        this.DailyrecurringGap = 1;
-        this.rep_interval = this.DailyrecurringGap;
+        this.rep_interval = 1;
       }
       else {
         this.rep_interval = this.DailyrecurringGap;
@@ -769,7 +768,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
                     occurstype: this.occurs_type
                   };
                   this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => {
-                    alert("Work-order created successfully");
+                    alert("Batch work-order created successfully");
                     this.router.navigateByUrl('/ViewBatchWorkorder')});
                 });
               }
@@ -805,7 +804,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
       occurstype: this.occurs_type
     };
     this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => {
-      alert("Work-order created successfully");
+      alert("Batch work-order created successfully");
       this.router.navigateByUrl('/ViewBatchWorkorder')});
     }
   }
@@ -1083,8 +1082,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
 
       this.workTime = timeset_corr.join(',');
       if (!(this.DailyrecurringGap)) {
-        this.DailyrecurringGap = 1;
-        this.rep_interval = this.DailyrecurringGap;
+        this.rep_interval = 1;
       }
       else {
         this.rep_interval = this.DailyrecurringGap;
@@ -1167,7 +1165,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
                     occurstype: this.occurs_type
                   };
                   this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res =>{
-                    alert("Work-order created successfully"); 
+                    alert("Batch work-order created successfully"); 
                     this.router.navigateByUrl('/ViewBatchWorkorder')
                     });
                 });
@@ -1204,7 +1202,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
       occurstype: this.occurs_type
     };
     this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res =>{
-      alert("Work-order created successfully"); 
+      alert("Batch work-order created successfully"); 
       this.router.navigateByUrl('/ViewBatchWorkorder')
       });
     }

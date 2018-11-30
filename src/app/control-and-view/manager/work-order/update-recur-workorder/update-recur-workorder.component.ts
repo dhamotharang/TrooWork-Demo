@@ -877,8 +877,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
 
       this.workTime = timeset_corr.join(',');
       if (!(this.DailyrecurringGap)) {
-        this.DailyrecurringGap = 1;
-        this.rep_interval = this.DailyrecurringGap;
+        this.rep_interval =1;
       }
       else {
         this.rep_interval = (parseInt(this.DailyrecurringGap) + 1);
@@ -1246,8 +1245,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
 
       this.workTime = timeset_corr.join(',');
       if (!(this.DailyrecurringGap)) {
-        this.DailyrecurringGap = 1;
-        this.rep_interval = this.DailyrecurringGap;
+        this.rep_interval = 1;
       }
       else {
         this.rep_interval = (parseInt(this.DailyrecurringGap) + 1);

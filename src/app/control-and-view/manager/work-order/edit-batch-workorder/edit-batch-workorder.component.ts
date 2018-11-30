@@ -620,7 +620,7 @@ export class EditBatchWorkorderComponent implements OnInit {
     this.WorkOrderServiceService
       .deleteCurrent_BatchWO(this.deleteWO)
       .subscribe((data: any[]) => {
-        alert("Work-order deleted successfully"); 
+        alert("Batch work-order deleted successfully"); 
         this.router.navigateByUrl('/ViewBatchWorkorder')
       });
   }
@@ -893,8 +893,7 @@ withoutequip_wo()
 
       this.workTime = timeset_corr.join(',');
       if (!(this.DailyrecurringGap)) {
-        this.DailyrecurringGap = 1;
-        this.rep_interval = this.DailyrecurringGap;
+        this.rep_interval = 1;
       }
       else {
         this.rep_interval = this.DailyrecurringGap;
@@ -982,7 +981,7 @@ withoutequip_wo()
       this.WorkOrderServiceService
       .deleteCurrent_BatchWO(this.deleteWO)
       .subscribe((data: any[]) => {
-      alert("Work-order updated successfully"); 
+      alert("Batch work-order updated successfully"); 
       this.router.navigateByUrl('/ViewBatchWorkorder');
     });
   });
@@ -1255,8 +1254,7 @@ withoutequip_wo()
 
       this.workTime = timeset_corr.join(',');
       if (!(this.DailyrecurringGap)) {
-        this.DailyrecurringGap = 1;
-        this.rep_interval = this.DailyrecurringGap;
+        this.rep_interval = 1;
       }
       else {
         this.rep_interval = this.DailyrecurringGap;
@@ -1331,7 +1329,7 @@ withoutequip_wo()
       this.WorkOrderServiceService
       .deleteCurrent_BatchWO(this.deleteWO)
       .subscribe((data: any[]) => {
-      alert("Work-order updated successfully"); 
+      alert("Batch work-order updated successfully"); 
       this.router.navigateByUrl('/ViewBatchWorkorder');
     });
   });

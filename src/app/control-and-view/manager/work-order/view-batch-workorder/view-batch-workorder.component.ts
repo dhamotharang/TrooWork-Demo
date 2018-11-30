@@ -54,7 +54,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
   marked = false;
   workorderKey = [];
   searchWorkorder;
-  
+
   role: String;
   name: String;
   employeekey: Number;
@@ -294,115 +294,121 @@ export class ViewBatchWorkorderComponent implements OnInit {
     }
   }
   viewWO_Filter() {
-    var fac_key;
-    var floor_key;
-    var zone_key;
-    var roomtype_key;
-    var room_key;
-    var WOS_key;
-    var batch_key;
-    var em_key;
-    var wot_key;
-    var from_date;
-    var to_date;
-    if (!this.FacilityKey) {
-      fac_key = null;
+    if ((this.todate) && (this.ondate > this.todate)) {
+      alert("Please check your start date!");
 
     }
     else {
-      fac_key = this.FacilityKey
-    }
-    if (!this.FloorKey) {
-      floor_key = null;
+      var fac_key;
+      var floor_key;
+      var zone_key;
+      var roomtype_key;
+      var room_key;
+      var WOS_key;
+      var batch_key;
+      var em_key;
+      var wot_key;
+      var from_date;
+      var to_date;
+      if (!this.FacilityKey) {
+        fac_key = null;
 
-    }
-    else {
-      floor_key = this.FloorKey
-    }
-    if (!this.ZoneKey) {
-      zone_key = null;
+      }
+      else {
+        fac_key = this.FacilityKey
+      }
+      if (!this.FloorKey) {
+        floor_key = null;
 
-    }
-    else {
-      zone_key = this.ZoneKey
-    }
-    if (!this.RoomTypeKey) {
-      roomtype_key = null;
+      }
+      else {
+        floor_key = this.FloorKey
+      }
+      if (!this.ZoneKey) {
+        zone_key = null;
 
-    }
-    else {
-      roomtype_key = this.RoomTypeKey
-    }
-    if (!this.RoomKey) {
-      room_key = null;
+      }
+      else {
+        zone_key = this.ZoneKey
+      }
+      if (!this.RoomTypeKey) {
+        roomtype_key = null;
 
-    }
-    else {
-      room_key = this.RoomKey
-    }
-    if (!this.BatchScheduleNameKey) {
-      batch_key = null;
+      }
+      else {
+        roomtype_key = this.RoomTypeKey
+      }
+      if (!this.RoomKey) {
+        room_key = null;
 
-    }
-    else {
-      batch_key = this.BatchScheduleNameKey
-    }
-    if (!this.WorkorderStatusKey) {
-      WOS_key = null;
+      }
+      else {
+        room_key = this.RoomKey
+      }
+      if (!this.BatchScheduleNameKey) {
+        batch_key = null;
 
-    }
-    else {
-      WOS_key = this.WorkorderStatusKey
-    }
-    if (!this.EmployeeKey) {
-      em_key = null;
+      }
+      else {
+        batch_key = this.BatchScheduleNameKey
+      }
+      if (!this.WorkorderStatusKey) {
+        WOS_key = null;
 
-    }
-    else {
-      em_key = parseInt(this.EmployeeKey);
-    }
-    if (!this.WorkorderTypeKey) {
-      wot_key = null;
+      }
+      else {
+        WOS_key = this.WorkorderStatusKey
+      }
+      if (!this.EmployeeKey) {
+        em_key = null;
 
-    }
-    else {
-      wot_key = this.WorkorderTypeKey;
-    }
-    if (!this.ondate) {
-      from_date = this.convert_DT(new Date());
+      }
+      else {
+        em_key = parseInt(this.EmployeeKey);
+      }
+      if (!this.WorkorderTypeKey) {
+        wot_key = null;
 
-    }
-    else {
-      from_date = this.convert_DT(this.ondate);
-    }
-    if (!this.todate) {
-      to_date = from_date;
+      }
+      else {
+        wot_key = this.WorkorderTypeKey;
+      }
+      if (!this.ondate) {
+        from_date = this.convert_DT(new Date());
 
-    }
-    else {
-      to_date = this.convert_DT(this.todate);
-    }
-    this.viewWorkOrder = {
-      manager: this.employeekey,
-      workorderStatusKey: WOS_key,
-      workorderDate: from_date,
-      workorderDate2: to_date,
-      facilitykey: fac_key,
-      roomTypeKey: roomtype_key,
-      roomKey: room_key,
-      zoneKey: zone_key,
-      employeeKey: em_key,
-      workorderTypeKey: wot_key,
-      batchScheduleNameKey: batch_key,
-      OrganizationID: this.OrganizationID,
-      floorKey: floor_key
-    };
-    this.WorkOrderServiceService
-      .getBatchWoFilter(this.viewWorkOrder)
-      .subscribe((data: any[]) => {
-        this.workorderList = data;
+      }
+      else {
+        from_date = this.convert_DT(this.ondate);
+      }
+      if (!this.todate) {
+        to_date = from_date;
 
-      });
+      }
+      else {
+        to_date = this.convert_DT(this.todate);
+      }
+      this.viewWorkOrder = {
+        manager: this.employeekey,
+        workorderStatusKey: WOS_key,
+        workorderDate: from_date,
+        workorderDate2: to_date,
+        facilitykey: fac_key,
+        roomTypeKey: roomtype_key,
+        roomKey: room_key,
+        zoneKey: zone_key,
+        employeeKey: em_key,
+        workorderTypeKey: wot_key,
+        batchScheduleNameKey: batch_key,
+        OrganizationID: this.OrganizationID,
+        floorKey: floor_key
+      };
+      this.WorkOrderServiceService
+        .getBatchWoFilter(this.viewWorkOrder)
+        .subscribe((data: any[]) => {
+          this.workorderList = data;
+
+        });
+    }
   }
   searchBatchWo(search_value) {
     var value = search_value.trim();
