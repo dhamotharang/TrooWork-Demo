@@ -122,6 +122,7 @@ export class EventViewComponent implements OnInit {
       .getEventTypeList(this.page, this.count, this.employeekey, this.OrganizationID)
           .subscribe((data: People[]) => {
             this.eventType = data;
+            this.editQuestions = -1;
           });
     });
   }
