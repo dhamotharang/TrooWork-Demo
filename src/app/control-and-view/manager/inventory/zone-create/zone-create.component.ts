@@ -52,21 +52,27 @@ export class ZoneCreateComponent implements OnInit {
     if (!FacilityKey) {
       alert("Please select a building!");
     } else if (!FloorName) {
-      alert("select floor name!");
+      alert("Please select floor name!");
     }
     else if (!ZoneName) {
-      alert("Enter zone name!");
+      alert("Please enter zone name!");
     }
     else {
-
+      this.inventoryService.checkForZone(FacilityKey, FloorName, ZoneName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
+        if (data.length > 0) {
+          alert("Zone already present !");
+        }
+        else if (data.length == 0) {
       this.inventoryService.createZones(FacilityKey, FloorName, ZoneName, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           alert("Zone created successfully");
           this.router.navigateByUrl('/Zoneview');
         });
-    }
+      }
+    });
 
   }
+}
 
   selectFloorfromBuildings(facKey) {
     this.inventoryService

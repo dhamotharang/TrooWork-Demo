@@ -65,6 +65,8 @@ export class ViewWorkOrdersComponent implements OnInit {
   showHide2: boolean;
   pagination: Number;
   searchform: FormGroup;
+  workorderCheckValue;
+  checkflag:boolean;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
   constructor(private formBuilder: FormBuilder, private WorkOrderServiceService: WorkOrderServiceService, private el: ElementRef) { }
@@ -146,6 +148,7 @@ export class ViewWorkOrdersComponent implements OnInit {
   }
   ngOnInit() {
     this.loading = true;
+    this.checkflag=false;
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -419,9 +422,26 @@ export class ViewWorkOrdersComponent implements OnInit {
     }
   }
   checkBoxValueForDelete(index, CheckValue, WorkorderKey) {
-
     this.checkValue[index] = CheckValue;
     this.workorderKey[index] = WorkorderKey;
+    for(var i=0;i<this.checkValue.length;)
+    {
+        if(this.checkValue[i]==true)
+        {
+          this.checkflag=true;
+          return;
+        }
+        else
+        {
+          if(i==(this.checkValue.length-1))
+          {
+            this.checkValue=[];
+            this.checkflag=false;
+            return;
+          }
+          i++;
+        }
+      }
   }
   searchworkType_emp_room(search_value) {
     var value = search_value.trim();
@@ -584,6 +604,7 @@ export class ViewWorkOrdersComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.workorderList.workorderCheckValue = false;
         this.checkValue = [];
+        this.checkflag=false;
         this.workorderKey = [];
         alert("Work order deleted successfully");
         this.viewWO_Filter();
