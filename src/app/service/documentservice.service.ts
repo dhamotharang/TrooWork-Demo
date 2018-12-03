@@ -77,4 +77,10 @@ export class DocumentserviceService {
       .http
       .get('http://localhost:3000/api/uploadsByFormType?formType=' + formtype + '&empkey=' + empKey + '&OrganizationID=' + orgID);
   }
+  checkforForms(DocFolderName,employeekey,OrganizationID)
+  {
+    return this
+      .http
+      .get('http://localhost:3000/api/checkforForms?newform='+DocFolderName+'&serverEmpKey='+employeekey+'&OrganizationID='+OrganizationID);
+  }
 }

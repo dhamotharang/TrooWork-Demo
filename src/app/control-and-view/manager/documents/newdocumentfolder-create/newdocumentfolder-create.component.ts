@@ -45,12 +45,21 @@ export class NewdocumentfolderCreateComponent implements OnInit {
       alert("Document Folder Name not provided");
       return;
     }
-     else{
-    this.documentService.CreateNewDocumentFolder(this.DocFolderName, this.employeekey, this.OrganizationID).subscribe((data: Documents[]) => {
+    //  else
+    this.documentService.checkforForms(this.DocFolderName,this.employeekey,this.OrganizationID).subscribe((data: any[]) =>{
+      if(data[0].count==0)
+     {
+    this.documentService.CreateNewDocumentFolder(this.DocFolderName, this.employeekey,this.OrganizationID).subscribe((data: Documents[]) => {
       alert("Successfully Added");
       this.router.navigateByUrl('/DocumentfolderView');
     });
    }
+   else
+   {
+     alert("Document Folder Name already exists");
+     return;
+   }
+  });
 }
   ngOnInit() {
     var token = localStorage.getItem('token');

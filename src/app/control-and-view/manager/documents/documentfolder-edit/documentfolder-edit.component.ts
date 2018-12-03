@@ -47,12 +47,21 @@ export class DocumentfolderEditComponent implements OnInit {
       alert("Document Folder Name not provided");
       return;
     }
-    else{
+    // else
+    this.documentService.checkforForms(this.folder.FormType,this.employeekey,this.OrganizationID).subscribe((data: any[]) =>{
+      if(data[0].count==0)
+    {
     this.documentService.UpdateDocumentFolderName(this.folder$, this.folder.FormType, this.employeekey, this.OrganizationID).subscribe((data: Documents[])=> {
       alert("Successfully Updated");
       this.router.navigateByUrl('/DocumentfolderView');
     });
   }
+  else
+  {
+    alert("Document Folder Name already exists");
+    return;
+  }
+});
   }
 
   ngOnInit() {
