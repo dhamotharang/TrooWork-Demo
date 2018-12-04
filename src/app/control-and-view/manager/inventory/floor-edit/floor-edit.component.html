@@ -7,21 +7,20 @@
   <br>
   <div class="col-md-12">
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building">Building*</label></h5>
+      <h5 style="text-align:right" class="col-md-4"><label for="building">Building*</label></h5>
 
       <div class="col-md-8 col-lg-8 col-sm-8" style="text-align:left">
 
         <select style="background-color: #D4F4FF !important; width: 30rem" class="form-control" [(ngModel)]="flooroptions[0].FacilityKey">
-          <!-- <option>--Select--</option> -->
-
           <option *ngFor="let f of buildingList" [value]="f.FacilityKey">
             {{f.FacilityText}}
           </option>
         </select>
       </div>
     </div>
+    <br>
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="floorname">Floor Name*</label></h5>
+      <h5 style="text-align:right" class="col-md-4"><label for="floorname">Floor Name*</label></h5>
 
       <div class="col-md-8 col-lg-8 col-sm-8" style="text-align:left">
 
@@ -29,8 +28,9 @@
           [(ngModel)]="flooroptions[0].FloorName">
       </div>
     </div>
+    <br>
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="floorname">Floor Description*</label></h5>
+      <h5 style="text-align:right" class="col-md-4"><label for="floorname">Floor Description*</label></h5>
 
       <div class="col-md-8 col-lg-8 col-sm-8" style="text-align:left">
 
@@ -38,6 +38,7 @@
           [(ngModel)]="flooroptions[0].FloorDescription">
       </div>
     </div>
+    <br>
     <div class="row col-md-12">
       <div class="col col-md-3"></div>
       <div style="text-align:right" class="col-md-3">

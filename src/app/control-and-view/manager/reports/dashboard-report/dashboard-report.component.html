@@ -1,18 +1,16 @@
 <app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
-<div  *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
-  <!-- <div class="container"> -->
+<div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">DASHBOARD REPORT</h3>
   </div>
   <br><br>
-  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-bottom: 1rem;padding-top: 1rem" class="row bg-info col-md-12">
     <div class="col-md-6">
       <h3 style="text-align: right"></h3>
-      <!-- <form class="" method="post" action="https://formspree.io/"> -->
       <div class="form-group">
-        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Employee</label>
-        <select [(ngModel)]="EmployeeKey" style="width: 80%; background-color: #d4f4ff;" class="form-control" (change)="dashboardreportbyfilter()">
+        <label>Employee</label>
+        <select [(ngModel)]="EmployeeKey" style="width: 85%; background-color: #d4f4ff;" class="form-control" (change)="dashboardreportbyfilter()">
           <option value="">--Select--</option>
           <option *ngFor="let e of employeeoption" [value]="e.EmployeeKey">
             {{e.EmployeeText}}
@@ -20,50 +18,41 @@
         </select>
       </div>
       <div class="form-group" style="width: 25rem;">
-        <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">From Date</label>
+        <label>From Date</label>
         <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [(ngModel)]="fromdate" (onSelection)="dashboardreportbyfilter()"></igx-datePicker>
       </div>
     </div>
     <div class="col-md-6">
-      <div class="form-group">
-        <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Workorder Type</label>
+      <div class="form-group" style="width: 85%;">
+        <label>Workorder Type</label>
         <ng-multiselect-dropdown (change)="dashboardreportbyfilter()" [placeholder]="'Select'" [data]="workordertypeoption"
           [(ngModel)]="WorkorderTypeKey" [textField]="'WorkorderTypeText'" [valueField]="'WorkorderTypeKey'" [settings]="dropdownSettings"
           (onSelect)="dashboardreportbyfilter()" (onSelectAll)="dashboardreportbyfilter()">
         </ng-multiselect-dropdown>
-        <!-- <select [(ngModel)]="WorkorderTypeKey" style="width: 80%; background-color: #d4f4ff;" class="form-control">
-          <option value="" selected>--Select--</option>
-          <option *ngFor="let w of workordertypeoption" [value]="w.WorkorderTypeKey">
-            {{w.WorkorderTypeText}}
-          </option>
-        </select> -->
       </div>
       <div class="form-group" style="width: 25rem;">
-        <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">To Date</label>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date" [(ngModel)]="todate" (onSelection)="dashboardreportbyfilter()"></igx-datePicker>
-        <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date1" [(ngModel)]="todate" (onSelection)="filteringInspectionManagerByDate()"></igx-datePicker> -->
+        <label>To Date</label>
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date" [(ngModel)]="todate"
+          (onSelection)="dashboardreportbyfilter()"></igx-datePicker>
       </div>
     </div>
   </div>
 </div>
-<div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12" *ngIf="((reporttable?.length> 0)&&(!loading))" id="contentToConvert">
+<div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12" *ngIf="((reporttable?.length> 0)&&(!loading))"
+  id="contentToConvert">
   <div class="col-md-6" *ngIf="reporttable?.length> 0" style="border: 0px !important">
-   
-              <div id="{{elementId1}}" style="width: 800px; height: 400px;"></div>
-            <!-- <app-dashboard-report [data]="data1" [config]="config1" [elementId]="elementId1"></app-dashboard-report> -->
-          
+
+    <div id="{{elementId1}}" style="width: 800px; height: 400px;"></div>
   </div>
   <div class="col-md-6">
     <div style="margin-left:1.5rem; margin-right: 1.5rem;    margin-top: 40px;"></div>
     <table *ngIf='reporttable' class="table table-hover table-responsive table-bordered table">
       <thead class="tableHead">
-        <!-- <tr> -->
         <th> Employee Name </th>
         <th> Percentage Completed </th>
         <th> WorkOrder Type</th>
         <th>Total WorkOrder</th>
         <th> Quantity Left</th>
-        <!-- </tr> -->
       </thead>
       <tbody>
         <tr *ngFor="let x of reporttable">
@@ -85,12 +74,9 @@
 </div>
 <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12">
   <div style="text-align:center" id="content" #content>
-    <!-- <div class="alert alert-info">  
-          <strong>Convert to Pdf</strong>  
-      </div>   -->
     <div style="text-align:center;margin-left: 35rem;" *ngIf="((reporttable?.length> 0)&&(!loading))">
-      <input style="margin-left: 35rem;" type="button" style="float:right" class="btn btn-success" value="CONVERT TO PDF" (click)="captureScreen()" />
+      <input style="margin-left: 35rem;" type="button" style="float:right" class="btn btn-success" value="CONVERT TO PDF"
+        (click)="captureScreen()" />
     </div>
   </div>
 </div>
-<!-- </div> -->

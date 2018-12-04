@@ -8,14 +8,15 @@
   <br>
   <div class="col-md-12">
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="Department">RoomType Name*: </label></h5>
+      <h5 style="text-align:right" class="col-md-4"><label for="Department">RoomType Name*: </label></h5>
       <div class="col-md-3" style="text-align:left">
         <input type="text" placeholder="RoomType Name" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
           [(ngModel)]="RoomTypeName">
       </div>
     </div>
+    <br>
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="Department">MetricType Name* : </label></h5>
+      <h5 style="text-align:right" class="col-md-4"><label for="Department">MetricType Name* : </label></h5>
       <div class="col-md-8" style="text-align:left">
         <select style="background-color: #D4F4FF !important; width: 30rem" class="form-control" [(ngModel)]="MetricKey"
           (change)=showFields($event.target.value)>
@@ -26,10 +27,11 @@
         </select>
       </div>
     </div>
+    <br>
 
     <div class="row col-md-12" *ngIf="MetricKey">
       <!-- <span *ngIf="showField1">
-        <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="Department">MetricType Name*:
+        <h5 style="text-align:right" class="col-md-4"><label for="Department">MetricType Name*:
           </label></h5>
         <div class="col-md-3" style="text-align:left">
           <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="MetricTypeValue"
@@ -37,7 +39,7 @@
         </div>
       </span> -->
       <!-- <span *ngIf="showField2"> -->
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="Department">MetricType Value*:
+      <h5 style="text-align:right" class="col-md-4"><label for="Department">MetricType Value*:
         </label></h5>
       <div class="col-md-3" style="text-align:left">
         <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="MetricTypeValue"
@@ -46,6 +48,7 @@
       <!-- </span> -->
       <div class="col col-md-5"></div>
     </div>
+    <br>
 
     <div class="row col-md-12">
       <div class="col col-md-3"></div>
