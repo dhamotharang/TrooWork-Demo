@@ -98,7 +98,6 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
     this.newAttribute.splice(index, 1);
   }
   savetemplate() {
-    debugger;
     var temp_updateArry = this.fieldArray;
     var temp_insertArry = this.newAttribute;
     var temp_TemplateQuestionID;

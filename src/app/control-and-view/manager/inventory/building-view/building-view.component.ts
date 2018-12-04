@@ -126,16 +126,22 @@ export class BuildingViewComponent implements OnInit {
   }
 
   searchFacility(SearchValue) {
-    if (SearchValue.length >= 3) {
+   
+    var value=SearchValue.trim();
+
+    if (value.length >= 3) {
       this.inventoryService
-        .SearchBuilding(SearchValue, this.OrganizationID).subscribe((data: Inventory[]) => {
+        .SearchBuilding(value, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.build = data;
           this.showHide2 = false;
           this.showHide1 = false;
         });
     }
-    else if (SearchValue.length == 0) {
-      this.loading = true;
+    else if (value.length == 0) {
+      if((value.length == 0) &&(SearchValue.length == 0) )
+      {
+     this.loading = true;
+      }
       this.inventoryService
         .getBuildings(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {

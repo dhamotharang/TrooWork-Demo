@@ -38,19 +38,19 @@ export class EditOrganizationComponent implements OnInit {
   updateOrg(OName, ODesc, state, tid, loc, country, tename, email) {
       
       if(OName &&!(OName.trim())){
-        alert('Organization Name not provided !');
+        alert('Organization Name is not provided !');
         return;
       }
       if(tid && !(tid.trim() ) ){
-        alert('Tenant ID not provided !');
+        alert('Tenant ID is not provided !');
         return;
       }
       if(!(OName)){
-        alert('Organization Name not provided !');
+        alert('Organization Name is not provided !');
         return;
       }
       if( ! (tid) ){
-        alert('Tenant ID not provided !');
+        alert('Tenant ID is not provided !');
         return;
       }
     
@@ -73,7 +73,7 @@ export class EditOrganizationComponent implements OnInit {
             });
         }
         else {
-          alert("Tenant ID already present !");
+          alert("Tenant ID is already present !");
           return;
         }
 

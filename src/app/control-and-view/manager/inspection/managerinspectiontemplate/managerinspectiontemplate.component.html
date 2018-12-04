@@ -45,7 +45,7 @@
                 <label style="margin-top: 2rem; margin-left: -1rem;" class="col-sm-3 col-md-3 col-lg-3 ">Score</label>
                 <select class="form-control col-sm-9 col-md-9 col-lg-9 " style="background-color: #d4f4ff !important;" [(ngModel)]='Scoringtype.rating_yn[item.TemplateQuestionID]'
                   (change)="saveRatings(item.TemplateQuestionID,item.ScoreName)">
-                  <option>Pass</option>
+                  <option [value]="Pass">Pass</option>
                   <option *ngFor="let w of names" [value]="w">
                     {{w}}
                   </option>
@@ -67,11 +67,11 @@
           <div class="col-md-6">
             <div>
               <br>
-              <a *ngFor="let x of  starList; let j=index " (click)="setStar(j);saveRatings(item.TemplateQuestionID,item.ScoreName)">
+              <a *ngFor="let x of  starList[i]; let j=index " (click)="setStar(i,j);saveRatings(item.TemplateQuestionID,item.ScoreName)">
                 <i *ngIf="x" class="fa fa-star-o"></i>
                 <i *ngIf="!x" class="fa fa-star"></i>
               </a>
-              Rating :- {{rating}} stars
+              Rating :- {{rating[i]}} stars
               <br>
               <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Notes</label>
               <textarea class="form-control rounded-0" rows="3" [(ngModel)]="Scoringtype.inspectionNotes[item.TemplateQuestionID]"></textarea>
@@ -85,11 +85,11 @@
           <div class="col-md-6">
             <div>
               <br>
-              <a *ngFor="let x of starList; let j=index " (click)="setStar3(j);saveRatings(item.TemplateQuestionID,item.ScoreName)">
+              <a *ngFor="let x of starList[i]; let j=index " (click)="setStar3(i,j);saveRatings(item.TemplateQuestionID,item.ScoreName)">
                 <i *ngIf="x" class="fa fa-star-o"></i>
                 <i *ngIf="!x" class="fa fa-star"></i>
               </a>
-              Rating :- {{rating}} stars
+              Rating :- {{rating[i]}} stars
               <br>
               <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Notes</label>
               <textarea class="form-control rounded-0" rows="3" [(ngModel)]="Scoringtype.inspectionNotes[item.TemplateQuestionID]"></textarea>
@@ -99,7 +99,7 @@
       </li>
     </ul>
   </div>
-  <div class="row col-md-12">
+  <div class="row col-md-12" style="margin-left: 25rem;">
     <div style="text-align:center">
       <button type="button" style="text-align:center" class="btn btn-success" (click)="inspectionCompleted()"><b>SAVE</b></button></div>
     <a routerLink="/InspectionView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>

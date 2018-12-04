@@ -107,7 +107,7 @@
       <div class="form-group">
         <label>Equipment Type</label><br>
         <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EquipmentTypeKey"
-          [disabled]="!showEqTypes" (change)="showEquipment_typechange($event.target.value,FacilityKey,FloorKey)"
+        [disabled]="!(showEqTypes&&FloorKey)"  (change)="showEquipment_typechange($event.target.value,FacilityKey,FloorKey)"
           required>
           <option value="">--Select--</option>
           <option *ngFor="let e of EquipmentTypeList" [value]="e.EquipmentTypeKey">
@@ -161,7 +161,7 @@
             <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">On Gap Of</label>
             <select [(ngModel)]="DailyrecurringGap" class="form-control">
               <option value="">--Select--</option>
-              <option *ngFor=" let b of monthlyDays; let i = index" [value]="i + 2">
+              <option *ngFor=" let b of monthlyDays; let i = index" [value]="i + 1">
                 {{i + 1}}
               </option>
             </select>

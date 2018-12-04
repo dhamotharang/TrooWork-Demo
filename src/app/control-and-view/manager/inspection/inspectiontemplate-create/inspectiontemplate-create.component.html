@@ -8,48 +8,53 @@
   <br>
   <div class="col-md-12">
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scoringtype" >Scoring Type* </label></h5>
-      <div class="md-form col-md-3" style="text-align:left">
-          <select style="background-color: #D4F4FF !important;width: 31.5rem" class="form-control"  [(ngModel)]="ScoreTypeKey">
-              <option >--Select--</option>
-              
-              <option *ngFor="let s of scores" [value]="s.ScoreTypeKey">
-                  {{s.ScoreTypeText}}
-              </option>
-          </select>
+      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scoringtype">Scoring Type* </label></h5>
+      <div class="col-md-8" style="text-align:left">
+        <select style="background-color: #D4F4FF !important; width: 30rem" class="form-control" [(ngModel)]="ScoreTypeKey">
+          <option value="">--Select--</option>
+
+          <option *ngFor="let s of scores" [value]="s.ScoreTypeKey">
+            {{s.ScoreTypeText}}
+          </option>
+        </select>
       </div>
-      <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
-        <h5 style="text-align:right" class="col-md-4"><label for="inspectiontemplatename" >Inspection Template Name* </label></h5>
-        <div class="md-form col-md-3" style="text-align:left">
-            <input type="text"  maxlength="40" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"  [(ngModel)]="InspTempName"> 
-          </div>
-        <div class="col col-md-5"></div>
+      <h5 style="text-align:right" class="col-md-4"><label for="inspectiontemplatename">Inspection Template Name*
+        </label></h5>
+      <div class="md-form col-md-8" style="text-align:left">
+        <input type="text" placeholder="Template Name" maxlength="40" style="background-color: #D4F4FF !important;" class="form-control"
+          [(ngModel)]="InspTempName">
       </div>
-      <table class="table table-striped table-bordered">
-          <tbody>
-              <!-- already present array -->
-              <tr *ngFor="let field of fieldArray">
-                <td>
-                  <input [(ngModel)]="field.question" class="form-control" type="text" value="{{field.question}}" />
-                </td>
-                <td>
-                  <button class="btn btn-danger" type="button" (click)="deleteFieldValue(i)"><b>DELETE QUESTION</b></button>
-                </td>
-              </tr>
-          <!-- new space to enter values -->
-              <tr>
-                <td>
-                  <input class="form-control" placeholder="Enter the Question,Don't copy paste" maxlength="80" type="text" id="newAttributeCode" [(ngModel)]="newAttribute.question" name="newAttributeCode" />
-                </td>
-                <td>
-                  <button class="btn btn-success" type="button" (click)="addFieldValue()"><b>ADD QUESTION</b></button>
-                </td>
-              </tr>
-              <button class="btn btn-success" type="button" (click)="valuesSave(ScoreTypeKey,InspTempName)"><b>SAVE</b></button>
-            </tbody>
-          </table>
+    </div>
+    <table class="table table-hover table-bordered">
+      <tbody>
+        <!-- already present array -->
+        <tr *ngFor="let field of fieldArray">
+          <td>
+            <input [(ngModel)]="field.question" placeholder="Enter the Question,Don't copy paste" class="form-control" type="text" value="{{field.question}}" />
+          </td>
+          <td>
+            <button class="btn btn-danger" type="button" (click)="deleteFieldValue(i)"><b>DELETE QUESTION</b></button>
+          </td>
+        </tr>
+        <!-- new space to enter values -->
+        <tr>
+          <td>
+            <input class="form-control" placeholder="Enter the Question,Don't copy paste" maxlength="80" type="text" id="newAttributeCode"
+              [(ngModel)]="newAttribute.question" name="newAttributeCode" />
+          </td>
+          <td>
+            <button class="btn btn-success" style="width: 9.9rem" type="button" (click)="addFieldValue()"><b>ADD QUESTION</b></button>
+          </td>
+        </tr>
+        <tr style="text-align: center">
+          <td colspan="2">
+            <button class="btn btn-success" type="button" (click)="valuesSave(ScoreTypeKey,InspTempName)"><b>SAVE</b></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <br><br>
+  <br>
 </div>

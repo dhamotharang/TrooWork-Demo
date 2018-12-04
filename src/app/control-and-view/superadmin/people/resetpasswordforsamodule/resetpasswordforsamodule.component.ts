@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { People } from '../../../../model-class/People';
 import { PeopleServiceService } from '../../../../service/people-service.service';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router  } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -16,6 +16,7 @@ export class ResetpasswordforsamoduleComponent implements OnInit {
   managerMail: Object;
   userMail: Object;
   build: People[];
+  UserId;
 
   role: String;
   name: String;
@@ -40,16 +41,23 @@ export class ResetpasswordforsamoduleComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private route: ActivatedRoute, private peopleService: PeopleServiceService, private http: HttpClient) {
+  constructor(private route: ActivatedRoute, private peopleService: PeopleServiceService, private http: HttpClient, private router: Router) {
     this.route.params.subscribe(params => this.empKey$ = params.EmpKey);
   }
 
   resetUserPassword(username, password, userLoginId) {
+    if(!(username)){
+      alert("Please Enter User Name!");
+        return;
+    }
+    else{
     this.peopleService.resetUserPassword(username, password, this.empKey$, userLoginId, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.response = data[0];
       this.build = data;
+      this.router.navigateByUrl('/Managelogincredentials');
     });
-
+  
+  
     if (this.build.length > 0) { // resetUserPassword returns username. just to make sure that the reset action was done properly, we are returnig the username
       this.peopleService.getUserEmail(username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
         this.managerMail = data[0].EmailID;
@@ -74,6 +82,7 @@ export class ResetpasswordforsamoduleComponent implements OnInit {
       });
 
     }
+  }
   }
 
   ngOnInit() {

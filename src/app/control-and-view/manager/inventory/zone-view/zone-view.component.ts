@@ -103,15 +103,21 @@ export class ZoneViewComponent implements OnInit {
 
 
   searchZone(SearchValue) {
-    if (SearchValue.length >= 3) {
+
+    var value=SearchValue.trim();
+
+    if (value.length >= 3) {
       this.inventoryService
-        .searchZone(SearchValue, this.OrganizationID).subscribe((data: Inventory[]) => {
+        .searchZone(value, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.zone = data;
           this.showHide2 = false;
           this.showHide1 = false;
         });
-    } else if (SearchValue.length == 0) {
-      this.loading = true;
+    } else if (value.length == 0) {
+      if((value.length == 0) &&(SearchValue.length == 0) )
+      {
+     this.loading = true;
+      }
       this.inventoryService
         .getZones(this.pageNo, this.itemsperPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {

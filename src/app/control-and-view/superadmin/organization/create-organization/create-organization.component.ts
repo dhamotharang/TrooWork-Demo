@@ -45,19 +45,19 @@ export class CreateOrganizationComponent implements OnInit {
   createOrg() {
     
     if(this.OrgName &&!(this.OrgName.trim())){
-      alert('Organization Name not provided !');
+      alert('Organization Name is not provided !');
       return;
     }
     if(this.tenID && !(this.tenID.trim() ) ){
-      alert('Tenant ID not provided !');
+      alert('Tenant ID is not provided !');
       return;
     }
     if(!(this.OrgName)){
-      alert('Organization Name not provided !');
+      alert('Organization Name is not provided !');
       return;
     }
     if( ! (this.tenID) ){
-      alert('Tenant ID not provided !');
+      alert('Tenant ID is not provided !');
       return;
     }
     this.OrgName=this.OrgName.trim();
@@ -66,12 +66,12 @@ export class CreateOrganizationComponent implements OnInit {
     this.organizationService.checkForTenantId(this.tenID).subscribe((data: any[]) => {
       if (data[0].count == 0) {
         this.organizationService.createOrganization(this.OrgName, this.OrgDesc, this.Location, this.State, this.Country, this.updatedby, this.TenName, this.OrgEmail, this.tenID).subscribe((data: any[]) => {
-          alert('Organization Sucessfully Created !');
+          alert('Organization Successfully Created !');
           this.router.navigateByUrl('/ViewOrganization');
         });
         }
       else {
-        alert("Tenant ID already present !")
+        alert("Tenant ID is already present !")
         return;
       }
     });

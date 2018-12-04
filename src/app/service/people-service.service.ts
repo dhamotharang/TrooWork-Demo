@@ -220,7 +220,7 @@ export class PeopleServiceService {
   }
 
   DeleteEventType(actionKey, actionTypeKey, OrgID) {
-    const uri = "http://localhost:3000/api/deleteDefaultEventDetails?ActionKey" + actionKey + "&ActionTypeKey=" + actionTypeKey + "&OrganizationID=" + OrgID;
+    const uri = "http://localhost:3000/api/deleteDefaultEventDetails?ActionKey=" + actionKey + "&ActionTypeKey=" + actionTypeKey + "&OrganizationID=" + OrgID;
     const obj = {};
     return this.http.post(uri, obj);
 
@@ -396,9 +396,16 @@ export class PeopleServiceService {
       empkey: empKey,
       OrganizationID: OrgID
     };
+    
     return this.http.post(uri, obj);
 
   }
+  checkfor_jobtitle(JobtitleName,employeekey,OrganizationID)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/checkForNewJobTittle?JobTitle='+JobtitleName+'&employeekey='+employeekey+'&OrganizationID='+OrganizationID);
+}
   getEditJobtitleDetails(JobTitleKey, OrgID) {
     return this
       .http
@@ -536,6 +543,12 @@ export class PeopleServiceService {
     };
     return this
       .http.post(url, obj);
+  }
+  getMeetingTrainingViewforemployees(curr_date,toServeremployeekey,OrganizationID)
+  {
+    return this
+    .http
+    .get('http://localhost:3000/api/viewEmployeeMeetingTraining?meetingDate='+curr_date+'&employeekey='+toServeremployeekey+'&OrganizationID='+OrganizationID);
   }
   getMeetingTrainingViewforemployee(page, count, curr_date, empKey, orgID) {
     return this

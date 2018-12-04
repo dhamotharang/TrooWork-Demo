@@ -102,15 +102,21 @@ export class RoomTypeViewComponent implements OnInit {
 
 
   searchRoomType(SearchValue) {
-    if (SearchValue.length >= 3) {
+    
+    var value=SearchValue.trim();
+
+    if (value.length >= 3) {
       this.inventoryService
-        .SearchRoomType(SearchValue, this.OrganizationID).subscribe((data: Inventory[]) => {
+        .SearchRoomType(value, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.roomTypes = data;
           this.showHide2 = false;
           this.showHide1 = false;
         });
-    } else if (SearchValue.length == 0) {
-      this.loading = true;
+    } else if (value.length == 0) {
+      if((value.length == 0) &&(SearchValue.length == 0) )
+      {
+     this.loading = true;
+      }
       this.inventoryService
         .getRoomTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {

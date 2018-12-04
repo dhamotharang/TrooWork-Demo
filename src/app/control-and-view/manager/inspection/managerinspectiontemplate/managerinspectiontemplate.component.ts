@@ -47,29 +47,35 @@ export class ManagerinspectiontemplateComponent implements OnInit {
   ind = 0;
   TemplateDetails;
   lastIndexValue;
-  
-  starList: boolean[];
-  rating: number;
+  rating_yn;
 
-  setStar3(data: any) {
-    this.rating = data + 1;
+  // starList: boolean[];
+  starList=[];
+  // rating: number;
+  rating= [];
+  value;
+
+  setStar3(k,data: any) {
+    this.rating[k]= data + 1;
+    this.value = this.rating[k];
     for (var i = 0; i <= 2; i++) {
       if (i <= data) {
-        this.starList[i] = false;
+        this.starList[k][i] = false;
       }
       else {
-        this.starList[i] = true;
+        this.starList[k][i] = true;
       }
     }
   }
-  setStar(data: any) {
-    this.rating = data + 1;
+  setStar(k,data: any) {
+    this.rating[k] = data + 1;
+    this.value = this.rating[k];
     for (var i = 0; i <= 4; i++) {
       if (i <= data) {
-        this.starList[i] = false;
+        this.starList[k][i] = false;
       }
       else {
-        this.starList[i] = true;
+        this.starList[k][i] = true;
       }
     }
   }
@@ -127,6 +133,8 @@ export class ManagerinspectiontemplateComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
+    // this.rating_yn ="Pass";
+
     this.inspectionService.InspectionDetails(this.inspKey$, this.OrganizationID).subscribe((data: any[]) => {
       this.viewEmpInspectionDetails = data;
       this.questionsCount = this.viewEmpInspectionDetails.length;
@@ -139,17 +147,24 @@ export class ManagerinspectiontemplateComponent implements OnInit {
         this.names = ['Fail', 'N/A'];
         this.ScoreName = this.viewEmpInspectionDetails[0].ScoreName;
       }
-      else if (this.viewEmpInspectionDetails[0].ScoreName === '5 Star') {
-        this.starList = [true, true, true, true, true];
-      }
-      else if (this.viewEmpInspectionDetails[0].ScoreName === '3 Star') {
-        this.starList = [true, true, true];
-      }
+      // else if (this.viewEmpInspectionDetails[0].ScoreName === '5 Star') {
+      //   this.starList = [true, true, true, true, true];
+      // }
+      // else if (this.viewEmpInspectionDetails[0].ScoreName === '3 Star') {
+      //   this.starList = [true, true, true];
+      // }
       this.Temp_templateId = this.viewEmpInspectionDetails[0].TemplateID;
       this.inspectionService
         .templateQuestionService(this.viewEmpInspectionDetails[0].TemplateID, this.OrganizationID).subscribe((data: any[]) => {
           this.TemplateDetails = data;
-
+          for(var i=0;i< this.TemplateDetails.length;i++){
+             if (this.viewEmpInspectionDetails[0].ScoreName === '5 Star') {
+              this.starList[i] = [true, true, true, true, true];
+            }
+            else if (this.viewEmpInspectionDetails[0].ScoreName === '3 Star') {
+              this.starList[i] = [true, true, true];
+            }
+          }
         });
     });
   }
@@ -162,10 +177,10 @@ export class ManagerinspectiontemplateComponent implements OnInit {
       this.Scoringtype.ratingValue.push({ rating: value, questionID: TemplateQuestionID });
     }
     else if (ScoreName === '5 Star') {
-      this.Scoringtype.ratingValue.push({ rating: this.rating, questionID: TemplateQuestionID });
+      this.Scoringtype.ratingValue.push({ rating: this.value, questionID: TemplateQuestionID });
     }
     else if (ScoreName === '3 Star') {
-      this.Scoringtype.ratingValue.push({ rating: this.rating, questionID: TemplateQuestionID });
+      this.Scoringtype.ratingValue.push({ rating: this.value, questionID: TemplateQuestionID });
     }
     console.log(this.Scoringtype);
   }

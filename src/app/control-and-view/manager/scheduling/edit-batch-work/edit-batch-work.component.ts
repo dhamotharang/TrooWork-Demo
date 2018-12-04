@@ -49,9 +49,9 @@ export class EditBatchWorkComponent implements OnInit {
 
   updateScheduleName() {
     if (!this.scheduleDetails.BatchSchduleName) {
-      alert("BatchSchduleName is not provided !");
+      alert("Batch Schedule Name is not provided !");
     } else if (!this.scheduleDetails.ScheduleDescription) {
-      alert("ScheduleDescription is not provided !");
+      alert("Schedule Description is not provided !");
     } else if (!this.empKey) {
       alert("Employee Name is not provided !");
     } else {

@@ -86,53 +86,54 @@ export class AddEmployeeComponent implements OnInit {
   createEmployee() {
     
     if (!(this.EmployeeNumber) ) {
-      alert("Employee Number Not provided !");
+      alert("Employee Number is not provided !");
       return;
     }
     if (!(this.UserRoleTypeKey) ) {
-      alert("User Role Type Not provided !");
+      alert("User Role Type is not provided !");
       return;
     }
     if (this.showManager === true && !(this.ManagerKey) ) {
-      alert("Manager Not provided !");
+      alert("Manager is not provided !");
       return;
     }
     else {
       this.ManagerKey = -1;
     }
     if (!(this.FirstName )) {
-      alert("First Name Not provided !");
+      alert("First Name is not provided !");
       return;
     }
     if (!(this.LastName) ) {
-      alert("LastName Not provided !");
+      alert("Last Name is not provided !");
       return;
     }
     if (!(this.Gender) ) {
-      alert("Gender Not provided !");
+      alert("Gender is not provided !");
       return;
     }
     if (!(this.PrimaryPhone) ) {
-      alert("Primary Phone Not provided !");
+      alert("Primary Phone is not provided !");
       return;
     }
     if (!(this.HireDate) ) {
-      alert("HireDate Not provided !");
+      alert("Hire Date is not provided !");
       return;
     }
     if (!(this.JobTitleKey) ) {
-      alert("JobTitle Not provided !");
+      alert("Job Title is not provided !");
       return;
     }
     if (!(this.DepartmentKey) ) {
-      alert("Department Not provided !");
+      alert("Department is not provided !");
       return;
     }
     var BD;
     var currentDate=this.convert_DT(new Date());
    
     if (!(this.BirthDate) ) {
-      BD = this.convert_DT(new Date());
+      // BD = this.convert_DT(new Date());
+      BD='1990-01-1';
     }
     else {
       BD = this.convert_DT(this.BirthDate);
@@ -143,11 +144,11 @@ export class AddEmployeeComponent implements OnInit {
       return;
     }
     if(HD >currentDate){
-      alert("Wrong HireDate !");
+      alert("Wrong Hire Date !");
       return;
     }
     if( HD <BD){
-      alert("HireDate must be greater than birth date !");
+      alert("Hire Date must be greater than birth date !");
       return;
     }
 

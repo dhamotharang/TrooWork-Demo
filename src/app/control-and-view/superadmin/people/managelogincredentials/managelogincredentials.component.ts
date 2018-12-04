@@ -8,7 +8,9 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
   styleUrls: ['./managelogincredentials.component.scss']
 })
 export class ManagelogincredentialsComponent implements OnInit {
+  
   loginCreds;
+  loading: boolean;
   pageNo: Number = 1;
   itemsPerPage: Number = 25;
   showHide1: boolean;
@@ -94,11 +96,32 @@ export class ManagelogincredentialsComponent implements OnInit {
   }
 
   searchUserList(searchKey) {
-    this.peopleServiceService.searchLoginCredsList(searchKey, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+    var value=searchKey.trim();
+    if (value.length >= 3){
+    this.peopleServiceService.searchLoginCredsList(value, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.loginCreds = data;
       this.showHide2 = false;
       this.showHide1 = false;
     });
+  }
+  else if (value.length == 0) {
+    if((value.length == 0) &&(searchKey.length == 0) )
+    {
+   this.loading = true;
+    }
+    this.peopleServiceService.searchLoginCredsList(value, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+      this.loginCreds = data;
+      this.loading = false;
+      if (this.loginCreds[0].totalItems > this.itemsPerPage) {
+        this.showHide2 = true;
+        this.showHide1 = false;
+      }
+      else if (this.loginCreds[0].totalItems <= this.itemsPerPage) {
+        this.showHide2 = false;
+        this.showHide1 = false;
+      }
+    });
+  }
   }
   ngOnInit() {
 

@@ -41,11 +41,11 @@ export class JobTitleEditComponent implements OnInit {
   }
   updateJobTitle(JobTitle, JobTitleDescription) {
     if(!JobTitle.trim()){
-      alert('JobtitleName not provided !');
+      alert('Job title Name is not provided !');
       return;
     }
     if(!JobTitleDescription.trim()){
-      alert('JobTitleDescription not provided !');
+      alert('Job Title Description is not provided !');
       return;
     }
     this.peopleServiceService.updateEditJobtitle(this.JobTitle_Key$, JobTitle, JobTitleDescription, this.employeekey, this.OrganizationID)

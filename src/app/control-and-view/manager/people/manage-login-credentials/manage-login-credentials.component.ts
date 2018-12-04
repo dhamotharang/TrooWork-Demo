@@ -16,7 +16,7 @@ export class ManageLoginCredentialsComponent implements OnInit {
   showHide2: boolean;
   pagination: Number;
   searchform: FormGroup;
-
+  loading: boolean;// loading
   role: String;
   name: String;
   employeekey: Number;
@@ -95,25 +95,31 @@ export class ManageLoginCredentialsComponent implements OnInit {
   }
 
   searchUserList(searchKey) {
-    if (searchKey.length >= 3) {
-      this.peopleServiceService.searchLoginCredsList(searchKey, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
-        this.loginCreds = data;
-        this.showHide2 = false;
-        this.showHide1 = false;
-      });
-    } else if (searchKey.length == 0) {
-      this.peopleServiceService.getLoginCredentialList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
-        this.loginCreds = data;
-        if (this.loginCreds[0].totalItems > this.itemsPerPage) {
-          this.showHide2 = true;
-          this.showHide1 = false;
-        }
-        else if (this.loginCreds[0].totalItems <= this.itemsPerPage) {
+    var value=searchKey.trim();
+      if (value.length >= 3) {
+        this.peopleServiceService.searchLoginCredsList(value, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+          this.loginCreds = data;
           this.showHide2 = false;
           this.showHide1 = false;
+        });
+      } else if (value.length == 0) {
+        if((value.length==0)&&(searchKey.length==0))
+        {
+        this.loading=true;
         }
-      });
-    }
+        this.peopleServiceService.getLoginCredentialList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+          this.loginCreds = data;
+          this.loading=false;
+          if (this.loginCreds[0].totalItems > this.itemsPerPage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.loginCreds[0].totalItems <= this.itemsPerPage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
+        });
+      }
   }
   ngOnInit() {
 
@@ -125,9 +131,10 @@ export class ManageLoginCredentialsComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-
+    this.loading=true;
     this.peopleServiceService.getLoginCredentialList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.loginCreds = data;
+      this.loading=false;
       if (this.loginCreds[0].totalItems > this.itemsPerPage) {
         this.showHide2 = true;
         this.showHide1 = false;

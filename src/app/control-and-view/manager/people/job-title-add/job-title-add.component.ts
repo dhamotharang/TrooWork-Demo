@@ -47,18 +47,27 @@ export class JobTitleAddComponent implements OnInit {
     return;
    }
     if(JobtitleName && !JobtitleName.trim()){
-      alert('Jobtitle is not provided !');
+      alert('Job title is not provided !');
       return;
     }
     if(JobTitleDescription && !JobTitleDescription.trim()){
       alert('Job Title Description is not provided !');
       return;
     }
-    this.peopleServiceService.addJobtitle(JobtitleName, JobTitleDescription, this.employeekey, this.OrganizationID)
+    this.peopleServiceService.checkfor_jobtitle(JobtitleName, this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
-        alert('New job title  successfully created !');
-         this.router.navigateByUrl('/JobTitleView');
-        });
+        if (data[0].count != 0) {
+          alert('Job title already exists !');
+        }
+        else {
+          this.peopleServiceService.addJobtitle(JobtitleName, JobTitleDescription, this.employeekey, this.OrganizationID)
+            .subscribe((data: any[]) => {
+              alert('Job title successfully created !');
+              this.router.navigateByUrl('/JobTitleView');
+
+            });
+        }
+      });
   }
 
   ngOnInit() {

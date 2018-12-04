@@ -19,13 +19,12 @@ export class JobTitleViewComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  loading: boolean;// loading
   pageNo: Number = 1;
   itemsPerPage: Number = 25;
   showHide1: boolean;
   showHide2: boolean;
   pagination: Number;
-
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -45,18 +44,65 @@ export class JobTitleViewComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder, private peopleServiceService: PeopleServiceService, private router: Router) { }
-
   searchJobTitle(SearchJobTitle) {
-      if(SearchJobTitle.length>2){
-    this.peopleServiceService.searchJobtitle(SearchJobTitle, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+    var value=SearchJobTitle.trim();
+    if (value.length >= 3) {
+    this.peopleServiceService.searchJobtitle(value, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.jobView = data;
-
+      this.showHide2 = false;
+      this.showHide1 = false;
     });
   }
+  else if (value.length == 0) {
+    if ((value.length == 0) && (SearchJobTitle.length == 0)) {
+      this.loading = true;
+    }
+    this.peopleServiceService.getJobtitleView(this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+      this.jobView = data;
+      this.loading = false;
+          if (this.jobView[0].totalItems > this.itemsPerPage) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          }
+          else if (this.jobView[0].totalItems <= this.itemsPerPage) {
+            this.showHide2 = false;
+            this.showHide1 = false;
+          }
+    });
   }
+}
   deleteJobPass(key) {
     this.deleteJobtitleKey = key;
 
+  }
+  previousPage() {
+    this.pageNo = +this.pageNo - 1;
+    this.peopleServiceService.getJobtitleView(this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+      this.jobView = data;
+      if (this.pageNo == 1) {
+        this.showHide2 = true;
+        this.showHide1 = false;
+      } else {
+        this.showHide2 = true;
+        this.showHide1 = true;
+      }
+    });
+  }
+
+  nextPage() {
+    this.pageNo = +this.pageNo + 1;
+    this.peopleServiceService.getJobtitleView(this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+      this.jobView = data;
+      this.pagination = +this.jobView[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+      if (this.pagination > 1) {
+        this.showHide2 = true;
+        this.showHide1 = true;
+      }
+      else {
+        this.showHide2 = false;
+        this.showHide1 = true;
+      }
+    });
   }
   deleteJobTitle() {
     this.peopleServiceService.deleteJobTitle(this.deleteJobtitleKey, this.OrganizationID)
@@ -81,7 +127,15 @@ export class JobTitleViewComponent implements OnInit {
 
     this.peopleServiceService.getJobtitleView(this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.jobView = data;
-
+      this.loading = false;
+      if (this.jobView[0].totalItems > this.itemsPerPage) {
+        this.showHide2 = true;
+        this.showHide1 = false;
+      }
+      else if (this.jobView[0].totalItems <= this.itemsPerPage) {
+        this.showHide2 = false;
+        this.showHide1 = false;
+      }
     });
 
     this.searchform = this.formBuilder.group({

@@ -136,7 +136,7 @@ export class MeetingTrainingEditComponent implements OnInit {
       alert("Select  meeting/training/event to continue");
     }
     else if (!Eventhost) {
-      alert("Eventhost is not provided");
+      alert("Event host is not provided");
     }
     else if (!Venue) {
       alert("Venue is not provided");

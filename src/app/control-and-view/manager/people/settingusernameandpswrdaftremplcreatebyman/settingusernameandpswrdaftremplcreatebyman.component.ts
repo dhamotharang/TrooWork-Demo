@@ -51,13 +51,13 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
 
    setUsernamePassword(){    
     if (!this.username) {
-      alert("UserName can't be empty");
+      alert("User Name can't be empty");
     } else {
       this.peopleService.checkUserName(this.username, this.empKey$, this.OrganizationID)
         .subscribe((data: any[]) => {
         
           if (data[0].result == 'Exists') {
-            alert("UserName already exists");
+            alert("User Name already exists");
             return;
           } else {
             this.peopleService.setLoginCreds(this.username, this.password, this.empKey$, this.employeekey, this.userRoleTypeKey$, this.OrganizationID)

@@ -20,6 +20,7 @@ export class SchedulingViewComponent implements OnInit {
   showHide1: boolean;
   showHide2: boolean;
   pagination: Number;
+  loading: boolean;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -60,20 +61,25 @@ export class SchedulingViewComponent implements OnInit {
 
 
   searchSchedule(SearchValue) {
-    if (SearchValue.length >= 3) {
+    var value=SearchValue.trim();
+    if (value.length >= 3) {
       this.scheduleService
-        .searchBatchScheduleName(SearchValue, this.OrganizationID)
+        .searchBatchScheduleName(value, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.scheduleList = data;
           this.showHide2 = false;
           this.showHide1 = false;
         });
-    } else if (SearchValue.length == 0) {
+    } else if (value.length == 0) {
+      if ((value.length == 0) && (SearchValue.length == 0)) {
+        this.loading = true;
+      }
       this.page = 1;
       this.scheduleService
         .getAllBatchScheduleNames(this.page, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.scheduleList = data;
+          this.loading=false;
           if (this.scheduleList[0].totalItems > this.itemsPerPage) {
             this.showHide2 = true;
             this.showHide1 = false;

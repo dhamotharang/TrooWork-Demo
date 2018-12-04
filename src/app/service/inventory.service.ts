@@ -450,15 +450,13 @@ export class InventoryService {
   checkForNewEquipment(EquipmentTypeKey, EquipmentName, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/checkForNewEquipment?EquipmentTypeKey=' + EquipmentTypeKey + '&EquipmentName=' + EquipmentName + ' & employeekey=' + empKey + ' & OrganizationID=' + OrgID);
+      .get('http://localhost:3000/api/checkForNewEquipment?EquipmentTypeKey='+EquipmentTypeKey+'&EquipmentName='+EquipmentName+'&employeekey='+empKey+'&OrganizationID='+OrgID);
   }
   checkForNewEquipmentbarcode(barcode, OrgID) {
     return this
       .http
       .get('http://localhost:3000/api/checkForBarcodeInventory?Barcode=' + barcode + '&type=equipment' + '&OrganizationID=' + OrgID);
   }
-
-
   addEquipment(EquipmentName, EquipmentDescription, Barcode, EquipmentTypeKey, FacKey, FloorKey, empKey, OrgID) {
     const uri = "http://localhost:3000/api/addnewEquipment";
     const obj = {

@@ -81,7 +81,7 @@ export class WorkOrderServiceService {
   getallworkorderType(emp_key, org_id) {
     return this
       .http
-      .get('http://localhost:3000/api/allWorkordertype?empkey=' + emp_key + '&OrganizationID=' + org_id);
+      .get('http://localhost:3000/api/allWorkOrderTypeWithOutQuick?empkey=' + emp_key + '&OrganizationID=' + org_id);
   }
   getall_workordertype(pageno, items_perpage, emp_key, org_id) {
     return this

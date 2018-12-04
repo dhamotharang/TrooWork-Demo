@@ -17,15 +17,15 @@ export class MeetingTrainingCreateComponent implements OnInit {
   supervisor: People[];
   dropdownSettings1 = {};
 
-  EventType: Number;
+  EventType;
   eventHost: String;
   Venue: String;
   mtngDate;
   time1: any;
   time2: any;
   Notes: String;
-  JobTitle: Number;
-  Supervisor: Number;
+  JobTitle;
+  Supervisor;
   Employee = [];
   date1: String;
   t1 = [];
@@ -131,6 +131,7 @@ export class MeetingTrainingCreateComponent implements OnInit {
       var timediff = +time2 - +time1;
       if (timediff < 0) {
         alert("Start Time can't be after End Time");
+        return;
       }
     }
 
@@ -184,7 +185,7 @@ export class MeetingTrainingCreateComponent implements OnInit {
       this.peopleServ
         .addMeetingTraining(this.EventType, this.eventHost, this.Venue, newTime, newTime1, this.Notes, EmployeeKeyString, newDate, this.employeekey, this.OrganizationID)
         .subscribe((data: People[]) => {
-          alert('Meeting/Training successfully created !');
+          alert('Meeting/Training is successfully created !');
           this.EventType = null;
           this.eventHost = null;
           this.Venue = null;
@@ -238,6 +239,10 @@ export class MeetingTrainingCreateComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
     this.newMeet=true;
     this.mtngDate= new Date();
+
+    this.EventType="";
+    this.JobTitle="";
+    this.Supervisor="";
     this.peopleServ
       .getJobTitleList(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
@@ -275,6 +280,31 @@ export class MeetingTrainingCreateComponent implements OnInit {
 
   }
   addNewMeeting(){
+    var eventType;
+    if (this.Event_Type){
+     eventType = this.Event_Type;
+      }
+      else{
+      eventType = null;
+              alert("Event Type is not provided !");
+              return;
+      }
+      var eventName;
+      if (this.Event_Name){
+        eventName = this.Event_Name;
+        }
+        else{
+          eventName = null;
+                alert("Event Name is not provided !");
+                return;
+        }
+        var eventDescription;
+        if (this.Description){
+          eventDescription = this.Description;
+          }
+          else{
+            eventDescription = null;
+          }
 
 this.addnewEvent={
     ActionKey: null,
@@ -291,6 +321,10 @@ this.addnewEvent={
       .addMeetinTraingByNewEvent(this.addnewEvent)
       .subscribe((data: People[]) => {
         this.event = data;
+        alert("New Event is Successfully created")
+        this.Event_Name=null;
+        this.Event_Type=null;
+        this.Description=null;
       });
   }
 

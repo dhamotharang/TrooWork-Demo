@@ -9,7 +9,7 @@
   <div class="col-md-12" style="background-color: white; width: 90%">
 
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;" class="col-md-2"><label for="scheduling">Schedule Name: </label></h5>
+      <h5 style="margin-top: 2rem;" class="col-md-2"><label for="scheduling">Assignment Name: </label></h5>
       <div class="md-form col-md-4" style="text-align:left">
         <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="BatchScheduleNameKey"
           (change)="getScheduleDetails($event.target.value)">
@@ -20,7 +20,7 @@
         </select>
       </div>
       <h5 style="margin-top: 2rem;" class="col-md-2"><label for="scheduling">Employee: </label></h5>
-      <div class="md-form col-md-3">
+      <div class="col-md-3">
         <input type="text" readonly [(ngModel)]="empName" style="background-color: #D4F4FF !important;width: 20rem"
           class="form-control">
       </div>
@@ -39,14 +39,14 @@
 
     <div class="row col-md-12">
       <h5 style="margin-top: 2rem;" class="col-md-2"><label for="scheduling">Start Date: </label></h5>
-      <div class="md-form col-md-3" style="text-align:left">
+      <div class="col-md-3" style="text-align:left">
         <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [(ngModel)]="workScheduleStartDate" label="" cancelButtonLabel="cancel" todayButtonLabel="today">
 
         </igx-datePicker>
       </div>
       <div class="col-md-1"></div>
       <h5 style="margin-top: 2rem;" class="col-md-2"><label for="scheduling">End Date: </label></h5>
-      <div class="md-form col-md-3">
+      <div class="col-md-3">
         <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" item-width="25%" label="" cancelButtonLabel="cancel" todayButtonLabel="today" [(ngModel)]="workScheduleEndDate"
           [formatter]="formatter"></igx-datePicker>
       </div>
@@ -125,7 +125,7 @@
         </td>
         <td style="width: 20%">
           <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="x.WorkorderTypeKey">
-            <option value="select">--Select--</option>
+            <option value="">--Select--</option>
             <option *ngFor="let b of woList" [value]="b.WorkorderTypeKey">
               {{b.WorkorderTypeText}}
             </option>
@@ -189,7 +189,7 @@
         </td>
         <td>
           <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="z.WorkorderTypeKey">
-            <option value="select">--Select--</option>
+            <option value="">--Select--</option>
             <option *ngFor="let w of woList" [value]="w.WorkorderTypeKey">
               {{w.WorkorderTypeText}}
             </option>

@@ -23,7 +23,7 @@ export class ViewDocumentsComponent implements OnInit {
   IsSupervisor: Number;
   OrganizationID: Number;
   FormtypeId;
-
+  loading: boolean;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -70,14 +70,15 @@ export class ViewDocumentsComponent implements OnInit {
       });
   }
   searchFNDN(SearchValue) {
-    if (SearchValue.length >= 3) {
+    var value=SearchValue.trim();
+    if (value.length >= 3) {
       this.documentService
-        .SearchFileNameandDescName(this.OrganizationID, SearchValue).subscribe((data: Documents[]) => {
+        .SearchFileNameandDescName(this.OrganizationID, value).subscribe((data: Documents[]) => {
           this.viewFolderDescriptionTable = data;
 
         });
     }
-    else if (SearchValue.length == 0) {
+    else if (value.length == 0) {
       var formtype;
       this.documentService
         .getFileDetailsTablewithDropdown(formtype, this.employeekey, this.OrganizationID).subscribe((data: Documents[]) => {
