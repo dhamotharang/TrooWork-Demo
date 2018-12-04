@@ -252,10 +252,15 @@ export class CreateBatchWorkorderComponent implements OnInit {
   monthlyreccradio1_change() {
     this.monthlyreccradio1 = true;
     this.monthlyreccradio2 = false;
+    this.pos2="";
+    this.day2="";
+    this.month2="";
   }
   monthlyreccradio2_change() {
     this.monthlyreccradio1 = false;
     this.monthlyreccradio2 = true;
+    this.day1="";
+    this.month1="";
   }
   getEquiment(floor_key, facility_key) {
     if(floor_key&&facility_key)

@@ -149,7 +149,7 @@ selectroomfromRoomtype(RoomType,ZoneKey)
   // this.inspectionServiceService
   // .getallRooms(this.FacilityKey,this.FloorKey,zonekey,RoomTypeKey)
   // .subscribe((data: any[]) => {
-  // // debugger;
+  // //  ;
   //   this.rooms = data;
   // });
 
@@ -157,7 +157,7 @@ selectroomfromRoomtype(RoomType,ZoneKey)
 }
 selectroomtypefromZone(Zone,Floor)
 {
-  // debugger;
+  //  ;
   if(Zone)
   {
     if(Floor)
@@ -188,7 +188,7 @@ selectroomtypefromZone(Zone,Floor)
   // this.inspectionServiceService
   // .getallRoomTypes(this.FacilityKey,flrkey,zoneKey)
   // .subscribe((data:any []) => {
-  // // debugger;
+  // //  ;
   //   this.room = data;
   // });
 }
@@ -248,7 +248,7 @@ selectroomtypefromZone(Zone,Floor)
     
     var roomlistObj = [];
     var roomlist = [];
-            // debugger;
+            //  ;
  roomlistObj = this.room;
  var roomString;
   if(this.RoomKey)

@@ -249,10 +249,15 @@ export class CreateWorkorderComponent implements OnInit {
   monthlyreccradio1_change() {
     this.monthlyreccradio1 = true;
     this.monthlyreccradio2 = false;
+    this.pos2="";
+    this.day2="";
+    this.month2="";
   }
   monthlyreccradio2_change() {
     this.monthlyreccradio1 = false;
     this.monthlyreccradio2 = true;
+    this.day1="";
+    this.month1="";
   }
   getEquiment(floor_key, facility_key) {
     if (floor_key && facility_key) {
@@ -1047,6 +1052,10 @@ export class CreateWorkorderComponent implements OnInit {
           selectedWeekdays.push('sa');
         this.occurs_on = selectedWeekdays.join(',');
       }
+      else if (this.isRecurring == true && this.monthlyrecurring == true) {
+        this.intervaltype = 'm';
+        this.isrecurring = 1;
+      }
       if (this.isRecurring == false) {
         if (this.dateValue) {
           this.startDT = this.convert_DT(this.dateValue);
@@ -1362,6 +1371,10 @@ export class CreateWorkorderComponent implements OnInit {
       if (this.weektable_seven === true)
         selectedWeekdays.push('sa');
       this.occurs_on = selectedWeekdays.join(',');
+    }
+    else if (this.isRecurring == true && this.monthlyrecurring == true) {
+      this.intervaltype = 'm';
+      this.isrecurring = 1;
     }
     if (this.isRecurring == false) {
       if (this.dateValue) {

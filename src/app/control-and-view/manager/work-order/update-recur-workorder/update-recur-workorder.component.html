@@ -240,7 +240,7 @@
         <div class="form-group">
           <select [(ngModel)]="pos2" class="form-control" [disabled]="monthlyreccradio2==false">
             <option value="">--Select--</option>
-            <option *ngFor=" let b of weekPosition" [value]="b.id">
+            <option *ngFor=" let b of weekPosition" [value]="b.value">
               {{b.id}}
             </option>
           </select>

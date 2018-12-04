@@ -361,7 +361,6 @@ export class EditBatchWorkorderComponent implements OnInit {
           this.Time_weekly = today;
         }
         if (this.WOEditList.IntervalType == 'm') {
-
           this.monthlyrecurring = true;
           this.weeklyrecurring = false;
           this.dailyrecurring = false;
@@ -384,25 +383,25 @@ export class EditBatchWorkorderComponent implements OnInit {
             } else if (tempInstance == 'su') {
               this.day2 = 'Sun';
             }
-            var tempInstanceWeekDay = data[0].OccurrenceDayOfWeek;
-            if (tempInstanceWeekDay == 1) {
-              this.pos2 = 'First';
-            }
-            if (tempInstanceWeekDay == 2) {
-              this.pos2 = 'Second';
-            }
-            if (tempInstanceWeekDay == 3) {
-              this.pos2 = 'Third';
-            }
-            if (tempInstanceWeekDay == 4) {
-              this.pos2 = 'Fourth';
-            }
-            if (tempInstanceWeekDay == 5) {
-              this.pos2 = 'Fifth';
-            }
-            if (tempInstanceWeekDay == -1) {
-              this.pos2 = 'Last';
-            }
+            this.pos2 =data[0].OccurrenceDayOfWeek;
+            // if (tempInstanceWeekDay == 1) {
+            //   this.pos2 = 'First';
+            // }
+            // if (tempInstanceWeekDay == 2) {
+            //   this.pos2 = 'Second';
+            // }
+            // if (tempInstanceWeekDay == 3) {
+            //   this.pos2 = 'Third';
+            // }
+            // if (tempInstanceWeekDay == 4) {
+            //   this.pos2 = 'Fourth';
+            // }
+            // if (tempInstanceWeekDay == 5) {
+            //   this.pos2 = 'Fifth';
+            // }
+            // if (tempInstanceWeekDay == -1) {
+            //   this.pos2 = 'Last';
+            // }
             this.month2 =this.WOEditList.OccurrenceInterval;
             var cur_time = new Date(Date.now());
             var timeValue1 = this.WOEditList.WorkorderTime;
@@ -415,7 +414,6 @@ export class EditBatchWorkorderComponent implements OnInit {
           else {
             this.monthlyreccradio2 = false;
             this.monthlyreccradio1 = true;
-
             this.day1 = this.WOEditList.OccurrenceDayInstance;
             this.month1 = this.WOEditList.OccurrenceInterval;
             var cur_time = new Date(Date.now());
@@ -607,10 +605,15 @@ export class EditBatchWorkorderComponent implements OnInit {
   monthlyreccradio1_change() {
     this.monthlyreccradio1 = true;
     this.monthlyreccradio2 = false;
+    this.pos2="";
+    this.day2="";
+    this.month2="";
   }
   monthlyreccradio2_change() {
     this.monthlyreccradio1 = false;
     this.monthlyreccradio2 = true;
+    this.day1="";
+    this.month1="";
   }
   DeleteWO() {
     this.deleteWO = {
@@ -923,25 +926,25 @@ withoutequip_wo()
         this.rep_interval = (this.month2) ? this.month2 : 1;
         this.occurs_type = this.pos2;
         switch (this.occurs_on) {
-          case '0':
+          case 'Sun':
             this.occurs_on = 'su';
             break;
-          case '1':
+          case 'Mon':
             this.occurs_on = "mo";
             break;
-          case '2':
+          case 'Tue':
             this.occurs_on = "tu";
             break;
-          case '3':
+          case 'Wed':
             this.occurs_on = "we";
             break;
-          case '4':
+          case 'Thu':
             this.occurs_on = "th";
             break;
-          case '5':
+          case 'Fri':
             this.occurs_on = "fr";
             break;
-          case '6':
+          case 'Sat':
             this.occurs_on = "sa";
             break;
         }
@@ -1231,8 +1234,10 @@ withoutequip_wo()
         selectedWeekdays.push('sa');
       this.occurs_on = selectedWeekdays.join(',');
     }
-
-
+    else if (this.monthlyrecurring == true) {
+      this.intervaltype = 'm';
+      this.isrecurring = 1;
+    }
     if (this.WorkorderStartDate) {
       this.startDT = this.convert_DT(this.WorkorderStartDate);
     } else {
@@ -1272,25 +1277,25 @@ withoutequip_wo()
         this.rep_interval = (this.month2) ? this.month2 : 1;
         this.occurs_type = this.pos2;
         switch (this.occurs_on) {
-          case '0':
+          case 'Sun':
             this.occurs_on = 'su';
             break;
-          case '1':
+          case 'Mon':
             this.occurs_on = "mo";
             break;
-          case '2':
+          case 'Tue':
             this.occurs_on = "tu";
             break;
-          case '3':
+          case 'Wed':
             this.occurs_on = "we";
             break;
-          case '4':
+          case 'Thu':
             this.occurs_on = "th";
             break;
-          case '5':
+          case 'Fri':
             this.occurs_on = "fr";
             break;
-          case '6':
+          case 'Sat':
             this.occurs_on = "sa";
             break;
         }
