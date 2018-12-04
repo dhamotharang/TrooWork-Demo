@@ -78,7 +78,7 @@
                     <i *ngIf="x" class="fa fa-star-o"></i>    
                     <i *ngIf="!x" class="fa fa-star"></i>     
                    </a>  
-                  Rating :- {{rating}} stars  
+                  Rating :- {{rating[i]}} stars  
                   <br>  
               <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Notes</label>
               <textarea class="form-control rounded-0" rows="3" [(ngModel)]="Scoringtype.inspectionNotes[item.TemplateQuestionID]"></textarea>
@@ -99,7 +99,7 @@
                   <i *ngIf="x" class="fa fa-star-o"></i>    
                   <i *ngIf="!x" class="fa fa-star"></i>       
                    </a>  
-                  Rating :- {{rating}} stars  
+                  Rating :- {{rating[i]}} stars  
                   <br>
               <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Notes</label>
               <textarea class="form-control rounded-0" rows="3" [(ngModel)]="Scoringtype.inspectionNotes[item.TemplateQuestionID]"></textarea>

@@ -52,11 +52,13 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
 
 
   // for star rating 
-  starList=[]; 
-  rating:number; 
-  
+  starList = []; 
+  rating = []; 
+  value;
+
   setStar3(k,data:any){
-       this.rating=data+1;                               
+       this.rating[k]=data+1;            
+       this.value = this.rating[k];                   
        for(var i=0;i<=2;i++){  
          if(i<=data){  
            this.starList[k][i]=false;  
@@ -67,7 +69,8 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
       }  
    } 
    setStar(k,data:any){
-        this.rating=data+1;                               
+        this.rating[k]=data+1;    
+        this.value = this.rating[k];                               
         for(var i=0;i<=4;i++){  
           if(i<=data){  
             this.starList[k][i]=false;  
@@ -173,10 +176,10 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
       this.Scoringtype.ratingValue.push({rating:value,questionID:TemplateQuestionID});
   }
   else if (ScoreName === '5 Star') {
-    this.Scoringtype.ratingValue.push({rating: this.rating, questionID: TemplateQuestionID});
+    this.Scoringtype.ratingValue.push({rating: this.value, questionID: TemplateQuestionID});
   }
   else if (ScoreName === '3 Star') {
-    this.Scoringtype.ratingValue.push({rating: this.rating, questionID: TemplateQuestionID});
+    this.Scoringtype.ratingValue.push({rating: this.value, questionID: TemplateQuestionID});
   }
   console.log(this.Scoringtype);
   }

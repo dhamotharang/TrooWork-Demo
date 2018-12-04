@@ -56,7 +56,7 @@
 
   <!-- Table for generating barcode for BatchSchedule -->
   <div *ngIf="roomList?.length > 0||roomTempList?.length > 0" style="padding-right: 0.5rem">
-    <table class="table table-hover table-responsive table-bordered table" style="margin-top: 2rem;">
+    <table class="table table-hover table-responsive table-bordered table" style="margin-top: 2rem;display: inline-table;">
       <thead class="tableHead">
         <th> Building </th>
         <th>Room</th>
@@ -88,7 +88,8 @@
           <span *ngIf="x.MetricType != 'Minutes Per'">{{x.MetricValue * x.Area| number:'1.2-2'}}</span>
         </td>
         <td>
-          <select style="background-color: #D4F4FF !important" class="form-control" [(ngModel)]="x.dailyFrequency" (change)="metricCal()">
+          <select style="background-color: #D4F4FF !important" class="form-control" [(ngModel)]="x.dailyFrequency"
+            (change)="metricCal()">
             <option *ngFor="let f of recurringFrequency">
               {{f}}
             </option>
@@ -212,7 +213,7 @@
     <button (click)="createBatchReport()" class="btn btn-success" style="margin-left: 40rem;">Save</button>
   </div>
   <div *ngIf="roomList?.length == 0 && roomTempList?.length == 0" style="padding-right: 0.5rem">
-    <table class="table table-hover table-responsive table-bordered table" style="margin-top: 2rem;">
+    <table class="table table-hover table-responsive table-bordered table" style="margin-top: 2rem;display: inline-table;">
       <thead class="tableHead">
         <th> Building </th>
         <th>Room</th>
@@ -230,7 +231,9 @@
         <td>Room Type</td>
         <td>Work Order Type *</td>
       </thead>
-      <tr><td colspan="15">No Records Found</td></tr>
+      <tr>
+        <td colspan="15">No Records Found</td>
+      </tr>
       <tr>
         <td colspan="4">Total Assigned daily minutes</td>
         <td>{{totalMonTime| number:'1.2-2'}}</td>
@@ -242,6 +245,6 @@
         <td>{{totalSunTime| number:'1.2-2'}}</td>
         <td colspan="4"></td>
       </tr>
-      </table>
-</div>
+    </table>
+  </div>
 </div>

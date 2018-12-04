@@ -8,24 +8,25 @@
   <br>
   <div class="col-md-12">
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;" class="col-md-5"><label for="EquipmentType">Equipment Type Name:
+      <h5  class="col-md-5"><label for="EquipmentType">Equipment Type Name:
         </label></h5>
       <div class="col-md-7">
         <input *ngIf="equipType" type="text" style="background-color: #D4F4FF !important; margin-left: -3rem;" class="form-control"
           id="EquipmentType" [(ngModel)]="equipType.EquipmentType">
       </div>
     </div>
+    <br>
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;" class="col-md-5"><label for="EquipmentTypeDescription">Equipment
+      <h5  class="col-md-5"><label for="EquipmentTypeDescription">Equipment
           Type Description: </label></h5>
       <div class="col-md-7">
         <input *ngIf="equipType" type="text" style="background-color: #D4F4FF !important;margin-left: -3rem;" class="form-control"
           id="EquipmentTypeDescription" [(ngModel)]="equipType.EquipmentTypeDescription">
       </div>
     </div>
+    <br>
     <div class="row col-md-12">
-      <div class="col col-md-3"></div>
-      <div class="col-md-9">
+      <div style="margin-left: 40%">
         <a style="color:white !important" class="btn btn-success" (click)="updateEquipmentType(equipType.EquipmentTypeKey,equipType.EquipmentType,equipType.EquipmentTypeDescription)"><b>Update</b>
         </a>
         <a routerLink="/EquipmentTypeView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
