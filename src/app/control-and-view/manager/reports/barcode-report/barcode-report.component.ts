@@ -225,7 +225,7 @@ export class BarcodeReportComponent implements OnInit {
 
       }
       if (this.Roomflag) {
-        this.excelService.exportAsExcelFile(this.reportarray, 'samplereport');
+        this.excelService.exportAsExcelFile(this.reportarray, 'Barcode_Report');
       }
     }
 

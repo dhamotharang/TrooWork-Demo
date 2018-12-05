@@ -241,7 +241,7 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
     var newarr = [{}];
     newarr.push(temp_Report);
     newarr.push(this.excelarray);
-    this.excelService.exportAsExcelFile(this.excelarray, 'sample');
+    this.excelService.exportAsExcelFile(this.excelarray, 'BatchscheduleAssignment_Report');
   }
 
 }

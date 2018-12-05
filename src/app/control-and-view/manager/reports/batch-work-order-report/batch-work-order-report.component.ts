@@ -227,7 +227,7 @@ export class BatchWorkOrderReportComponent implements OnInit {
     this.excelarray.push('');
     this.excelarray.push({ Building: 'Total Assigned daily minutes', Monday: this.totalMonTime, Tuesday: this.totalTuesTime, Wednesday: this.totalWedTime, Thursday: this.totalThuTime, Friday: this.totalFriTime, Saturday: this.totalSatTime, Sunday: this.totalSunTime })
 
-    this.excelService.exportAsExcelFile(this.excelarray, 'sample');
+    this.excelService.exportAsExcelFile(this.excelarray, 'BatchWorkorder_Report');
   }
 
 }

@@ -83,7 +83,7 @@ export class InspectionReportComponent implements OnInit {
       }
     }
 
-    this.excelService.exportAsExcelFile(this.reportarray, 'sample');
+    this.excelService.exportAsExcelFile(this.reportarray, 'Inspection_Report');
   }
 
   ngOnInit() {

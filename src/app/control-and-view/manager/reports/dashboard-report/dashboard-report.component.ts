@@ -74,7 +74,7 @@ export class DashboardReportComponent implements OnInit {
       let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF  
       var position = 0;
       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
-      pdf.save('MYPdf.pdf'); // Generated PDF   
+      pdf.save('DashboardReport.pdf'); // Generated PDF   
     });
   }
   employeeoption: Reports[];

@@ -244,6 +244,6 @@ export class WorkorderReportComponent implements OnInit {
         })
       }
     }
-    this.excelService.exportAsExcelFile(this.workexcel, 'samplereport');
+    this.excelService.exportAsExcelFile(this.workexcel, 'Workorder_Report');
   }
 }
