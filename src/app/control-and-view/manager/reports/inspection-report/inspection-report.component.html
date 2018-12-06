@@ -52,7 +52,7 @@
         <tr *ngFor="let x of viewinspectionReport" [value]="x.InspectionOrderKey">
           <td>{{x.TemplateName}}</td>
           <td>{{x.InspectionDate}}</td>
-          <td id="tooltip">{{x.FacilityName}} - {{x.RoomId}}<span id="tooltip-span" style="color:white;">{{x.RoomType}}</span></td>
+          <td>{{x.FacilityName}} - {{x.RoomId}}</td>
           <td>{{x.LastName}},{{x.FirstName}}</td>
           <td>{{x.EmployeeName}}</td>
           <td *ngIf="x.InspectionCompletedBy !== null">Inspection Completed</td>

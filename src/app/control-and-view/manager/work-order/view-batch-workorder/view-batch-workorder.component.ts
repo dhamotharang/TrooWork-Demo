@@ -294,7 +294,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
     }
   }
   viewWO_Filter() {
-    if ((this.todate) && (this.ondate > this.todate)) {
+    if ((this.todate) && (this.convert_DT(this.ondate)> this.convert_DT(this.todate))) {
       alert("Please check your start date!");
 
     }

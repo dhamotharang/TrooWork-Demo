@@ -612,7 +612,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
     else if (!this.FloorKey) {
       alert("Please select floor!");
     }
-    else if ((this.WorkorderEndDate) && (this.WorkorderStartDate > this.WorkorderEndDate)) {
+    else if ((this.WorkorderEndDate) && (this.convert_DT(this.WorkorderStartDate) >this.convert_DT(this.WorkorderEndDate))) {
       alert("Please check your start date!");
 
     }
@@ -984,7 +984,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
     else if (this.showEqTypes == true && !(this.EquipmentTypeKey)) {
       alert("Please select equipment type!");
     }
-    else if ((this.WorkorderEndDate) && (this.WorkorderStartDate > this.WorkorderEndDate)) {
+    else if ((this.WorkorderEndDate) && (this.convert_DT(this.WorkorderStartDate) >this.convert_DT(this.WorkorderEndDate))) {
       alert("Please check your start date!");
 
     }

@@ -443,7 +443,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
     }
     else if (!(this.WorkorderEndDate)) {
       alert("Please provide work-order end date!");
-    }else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
+    }else if((this.WorkorderEndDate)&&(this.convert_DT(this.WorkorderStartDate)>this.convert_DT(this.WorkorderEndDate))){
       alert("Please check your startdate!");
 
     }
@@ -839,7 +839,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
     else if (!(this.WorkorderEndDate)) {
       alert("Please provide work-order end date!")
     }
-    else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
+    else if((this.WorkorderEndDate)&&(this.convert_DT(this.WorkorderStartDate)>this.convert_DT(this.WorkorderEndDate))){
       alert("Please check your startdate!");
 
     }

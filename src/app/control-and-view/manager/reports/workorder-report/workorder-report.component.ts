@@ -148,7 +148,7 @@ export class WorkorderReportComponent implements OnInit {
   }
 
   generateWorkOrderReport(from_date, to_date, FacilityKey, FloorKey, RoomTypeKey, ZoneKey, RoomKey, EmployeeKey, WorkorderStatusKey) {
-    if (to_date && from_date > to_date) {
+    if ((to_date) && (this.convert_DT(from_date) >this.convert_DT( to_date))) {
       todate = null;
       alert("Please check your Start Date!");
       return;
@@ -229,8 +229,12 @@ export class WorkorderReportComponent implements OnInit {
       var date_time = this.viewWorkorderReport[i].WorkorderDate.concat(this.viewWorkorderReport[i].WorkorderTime);
 
       var Work_status = (this.viewWorkorderReport[i].WorkorderStatus);
-      var employee = this.viewWorkorderReport[i].LastName.concat(this.viewWorkorderReport[i].FirstName);
+      var employee = this.viewWorkorderReport[i].LastName.concat(',',this.viewWorkorderReport[i].FirstName);
       var room_id = (this.viewWorkorderReport[i].RoomId);
+      if(room_id=='Dummy')
+      {
+        room_id='Refer notes';
+      }
       var eq_name = (this.viewWorkorderReport[i].EquipmentName);
       var check_in = (this.viewWorkorderReport[i].checkin);
       var check_out = (this.viewWorkorderReport[i].checkout);

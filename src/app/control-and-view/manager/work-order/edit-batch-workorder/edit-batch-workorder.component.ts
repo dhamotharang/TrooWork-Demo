@@ -656,7 +656,7 @@ export class EditBatchWorkorderComponent implements OnInit {
     else if (!(this.WorkorderEndDate)) {
       alert("Please provide work-order end date!")
     }
-    else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
+    else if((this.WorkorderEndDate)&&(this.convert_DT(this.WorkorderStartDate)>this.convert_DT(this.WorkorderEndDate))){
       alert("Please check your start date!");
 
     }
@@ -1009,7 +1009,7 @@ withoutequip_wo()
     else if (!(this.WorkorderEndDate)) {
       alert("Please provide work-order end date!")
     }
-    else if((this.WorkorderEndDate)&&(this.WorkorderStartDate>this.WorkorderEndDate)){
+    else if((this.WorkorderEndDate)&&(this.convert_DT(this.WorkorderStartDate)>this.convert_DT(this.WorkorderEndDate))){
       alert("Please check your start date!");
 
     }

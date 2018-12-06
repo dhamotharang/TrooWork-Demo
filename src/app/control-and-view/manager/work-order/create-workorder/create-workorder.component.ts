@@ -408,7 +408,7 @@ export class CreateWorkorderComponent implements OnInit {
     }
     else if ((!(this.timeValue)) && (this.isRecurring == false)) {
       alert("Please provide time!");
-    } else if ((this.WorkorderEndDate) && (this.WorkorderStartDate > this.WorkorderEndDate)) {
+    } else if ((this.WorkorderEndDate) && (this.convert_DT(this.WorkorderStartDate) >this.convert_DT(this.WorkorderEndDate))) {
       alert("Please check your start date!");
 
     }
@@ -819,7 +819,7 @@ export class CreateWorkorderComponent implements OnInit {
     else if (!this.FloorKey) {
       alert("Please select floor!");
     }
-    else if ((this.WorkorderEndDate) && (this.WorkorderStartDate > this.WorkorderEndDate)) {
+    else if ((this.WorkorderEndDate) && (this.convert_DT(this.WorkorderStartDate) > this.convert_DT(this.WorkorderEndDate))) {
       alert("Please check your start date!");
 
     }
