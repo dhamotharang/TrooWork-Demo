@@ -1,48 +1,50 @@
 <app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
-<div *ngIf="!loading"  style="width: 100%;height: 100%;">
+<div *ngIf="!loading" style="width: 100%;height: 100%;">
   <div class="bg-dark" style="width: 100%;height: 100%;">
-    <br><br>
+   
     <div style="text-align:center">
       <h4 class="refer"><b> SEARCH MEETING/TRAINING/EVENT BY </b> </h4>
     </div>
     <br>
     <div style="text-align:center">
       <a routerLink="/EventView" class="btn btn-primary" routerLinkActive="active"><b>View / Edit
-        Meeting/Training/Event</b></a>
+          Meeting/Training/Event</b></a>
     </div>
     <br>
-    <div class="form-row col-md-12">
+    <div class="form-row col-md-12 bg-info" style="margin-left: 1.5rem;margin-bottom: 1rem;width: 96%;padding-top: 1rem;padding-bottom: 1rem;padding-left: 5rem;padding-right: 0rem">
       <div class="col-md-6 ">
-        <div class="form-group" style="margin-left: 0.7rem;">
+        <div class="form-group" style="margin-left: 0.7rem;width: 75%;">
           <label for="people">Job Title</label>
-          <ng-multiselect-dropdown [placeholder]="'Selectjobtitle'" [data]="jobTitle" [(ngModel)]="JobTitleKey" class="col-sm-9 col-md-9 col-lg-9"
+          <ng-multiselect-dropdown [placeholder]="'Selectjobtitle'" [data]="jobTitle" [(ngModel)]="JobTitleKey"
             [textField]="'JobTitleText'" [valueField]="'JobTitleKey'" [settings]="dropdownSettings" (onSelect)="filterMtngTrainingList()"
             (onSelectAll)="filterMtngTrainingList()">
           </ng-multiselect-dropdown>
         </div>
       </div>
       <div class="col-md-6">
-        <div class="form-group " style="margin-left: 0.7rem;">
+        <div class="form-group " style="margin-left: 0.7rem;width: 75%;">
           <label for="people">Employee</label>
-          <ng-multiselect-dropdown [placeholder]="'Selectemployee'" [data]="empList" [(ngModel)]="EmployeeKey" class="col-sm-9 col-md-9 col-lg-9"
+          <ng-multiselect-dropdown [placeholder]="'Selectemployee'" [data]="empList" [(ngModel)]="EmployeeKey"
             [textField]="'EmployeeText'" [valueField]="'EmployeeKey'" [settings]="dropdownSettings1" (onSelect)="filterMtngTrainingList()"
             (onSelectAll)="filterMtngTrainingList()">
           </ng-multiselect-dropdown>
         </div>
       </div>
-    </div>
-    <div class="form-row col-md-12">
+      <!-- </div>
+    <div class="form-row col-md-12"> -->
       <div class="col-md-6 ">
         <div class="form-group" style="margin-left: 0.7rem;">
           <label for="people">From Date </label>
-          <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date1" [(ngModel)]="fromdate" (onSelection)="filterMtngTrainingList()"></igx-datePicker>
+          <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1"
+            style="width: 75%;" [(ngModel)]="fromdate" (onSelection)="filterMtngTrainingList()"></igx-datePicker>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group " style="margin-left: 0.7rem;">
           <label for="people">To Date </label>
-          <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date1" [(ngModel)]="todate" (onSelection)="filterMtngTrainingList()"></igx-datePicker>
+          <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1"
+            style="width: 75%;" [(ngModel)]="todate" (onSelection)="filterMtngTrainingList()"></igx-datePicker>
         </div>
       </div>
     </div>
@@ -57,7 +59,7 @@
     </form>
 
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
-      <table class="table table-responsive table-hover table-bordered">
+      <table class="table table-responsive table-hover table-bordered" style="display: inline-table">
         <thead class="tableHead">
           <th> Action Name </th>
           <th> Event Venue </th>

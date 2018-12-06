@@ -37,17 +37,17 @@
     <div class="col-md-12">
       <div class="form-group">
         <label for="building">Date* </label>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [(ngModel)]="mtngDate"></igx-datePicker>
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [(ngModel)]="mtngDate"></igx-datePicker>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Start Time*</label>
-        <p-calendar [(ngModel)]="timeValue1" [timeOnly]="true" hourFormat="12"></p-calendar>
+        <p-calendar [inputStyle]="{'width':'205%','margin-top':'1rem'}" [(ngModel)]="timeValue1" [timeOnly]="true" hourFormat="12"></p-calendar>
       </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">End Time*</label>
-        <p-calendar [(ngModel)]="timeValue2" [timeOnly]="true" hourFormat="12"></p-calendar>
+        <p-calendar [inputStyle]="{'width':'205%','margin-top':'1rem'}" [(ngModel)]="timeValue2" [timeOnly]="true" hourFormat="12"></p-calendar>
       </div>
     </div>
     <div class="col-md-6">

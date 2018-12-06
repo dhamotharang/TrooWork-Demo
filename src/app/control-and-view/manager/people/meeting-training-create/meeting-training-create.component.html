@@ -1,11 +1,9 @@
 <app-manager-dash-board></app-manager-dash-board>
-<div  style="padding-left: 9rem;padding-right: 9rem; padding-top:0rem !important; padding-bottom:0rem !important;">
+<div style="padding-left: 9rem;padding-right: 9rem; padding-top:0rem !important; padding-bottom:0rem !important;">
     <div class="row col-md-12 ">
         <h3 style="margin-left: 25rem;">ASSIGN MEETING/TRAINING/EVENT</h3>
     </div><br>
-    <div class="row bg-info col-md-12" *ngIf='newMeet'>
-        <br>
-        <!-- <div class="col-md-12"> -->
+    <div class="row bg-info col-md-12" *ngIf='newMeet' style="padding-top: 2.5rem">
         <div class="col-sm-3 col-md-3 col-lg-3 form-group">
             <label for="mtngTrainingEvent">Meeting/Training/Event*</label>
         </div>
@@ -18,7 +16,7 @@
             </select>
         </div>
         <div class="col-sm-3 col-md-3 col-lg-3 form-group">
-            <button class="btn btn-success" (click)='newMeet=false;'><b>CREATE NEW</b></button>
+            <button class="btn btn-success" (click)='newMeet=false;' style="margin-top: 0rem"><b>CREATE NEW</b></button>
         </div>
         <!-- </div> -->
 
@@ -42,21 +40,24 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="building">Date* </label>
-                <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date1" [(ngModel)]="mtngDate"></igx-datePicker>
+                <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1"
+                    [(ngModel)]="mtngDate"></igx-datePicker>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Start Time*</label>
-                <p-calendar [(ngModel)]="time1" [timeOnly]="true" hourFormat="12"></p-calendar>
+                <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Start Time*</label><br>
+                <p-calendar [inputStyle]="{'width':'205%'}" [(ngModel)]="time1" [timeOnly]="true"
+                    hourFormat="12"></p-calendar>
             </div>
-            <div class="form-group">
-                <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">End Time*</label>
-                <p-calendar [(ngModel)]="time2" [timeOnly]="true" hourFormat="12"></p-calendar>
+            <div class="form-group" style="margin-top: -1rem">
+                <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">End Time*</label><br>
+                <p-calendar [inputStyle]="{'width':'205%'}" [(ngModel)]="time2" [timeOnly]="true"
+                    hourFormat="12"></p-calendar>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 1.8rem">
                 <label>Notes</label>
                 <textarea class="form-control rounded-0 col-sm-9 col-md-9 col-lg-9" [(ngModel)]="Notes" rows="5" style="resize: none;"></textarea>
             </div>
@@ -87,10 +88,10 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group" style="width: 75%">
                 <label for="Employee">Employee* </label>
                 <ng-multiselect-dropdown [placeholder]="'Selectemployee'" [data]="empList" [(ngModel)]="Employee"
-                    [textField]="'EmployeeText'" [valueField]="'EmployeeKey'" [settings]="dropdownSettings1">
+                    [textField]="'EmployeeText'" [valueField]="'EmployeeKey'" [settings]="dropdownSettings1" >
                 </ng-multiselect-dropdown>
             </div>
         </div>
@@ -99,18 +100,20 @@
             </a>
         </div>
     </div>
-    <div *ngIf='!newMeet'>
+    <div *ngIf='!newMeet' style="padding-top: 2.5rem">
         <div class="row col-md-12">
             <h5 style="text-align:right" class="col-md-4"><label for="eventHost">Event Type* </label></h5>
             <div class="md-form col-md-3" style="text-align:left">
-                <input type="text" placeholder="Event Type" style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="Event_Type">
+                <input type="text" placeholder="Event Type" style="background-color: #D4F4FF !important;" class="form-control"
+                    [(ngModel)]="Event_Type">
             </div>
             <div class="col col-md-5"></div>
         </div>
         <div class="row col-md-12">
             <h5 style="text-align:right" class="col-md-4"><label for="Venue">Event Name* </label></h5>
             <div class="md-form col-md-3" style="text-align:left">
-                <input type="text" placeholder="Event Name" style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="Event_Name">
+                <input type="text" placeholder="Event Name" style="background-color: #D4F4FF !important;" class="form-control"
+                    [(ngModel)]="Event_Name">
             </div>
             <div class="col col-md-5"></div>
         </div>

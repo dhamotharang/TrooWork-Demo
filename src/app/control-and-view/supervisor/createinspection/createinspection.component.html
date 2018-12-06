@@ -3,7 +3,7 @@
   <div class="row col-md-12 ">
       
     <h3 style="margin-left: 30rem;">CREATE NEW INSPECTION</h3>
-  </div><br><br>
+  </div>
    <div class="row bg-info col-md-12"> 
     <div class="col-md-6 bg-info">
       <div class="form-group">
@@ -17,7 +17,7 @@
          </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 "> Date</label>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" item-width="25%" [value]="date" [(ngModel)]="fromdate"[formatter]="formatter"></igx-datePicker>
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" item-width="25%" [value]="date" [(ngModel)]="fromdate"[formatter]="formatter"></igx-datePicker>
         </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Auditor*</label>
@@ -72,11 +72,11 @@
        </div>
        <div class="form-group" *ngIf="marked">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">To Date</label>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" item-width="25%" [value]="date"[(ngModel)]="todate"[formatter]="formatter"></igx-datePicker>
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" item-width="25%" [value]="date"[(ngModel)]="todate"[formatter]="formatter"></igx-datePicker>
         </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Time*</label>
-        <p-calendar [(ngModel)]="time1" [timeOnly]="true" hourFormat="12"></p-calendar>
+        <p-calendar [inputStyle]="{'width':'205%','margin-top':'1rem'}" [(ngModel)]="time1" [timeOnly]="true" hourFormat="12"></p-calendar>
       </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Employee</label>

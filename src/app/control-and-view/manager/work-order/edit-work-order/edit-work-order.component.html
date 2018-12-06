@@ -1,12 +1,12 @@
 <app-manager-dash-board></app-manager-dash-board>
-<br><br>
+
 
 <div  style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">EDIT THIS WORK ORDER INSTANCE</h3>
   </div>
-  <br><br>
+ 
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
     <div class="col-md-6">
       <h3 style="text-align: right"></h3>
@@ -85,7 +85,7 @@
       </div>
       <div class="form-group">
         <label>WorkDate</label><br>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date" [(ngModel)]="dateValue"></igx-datePicker>
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date" [(ngModel)]="dateValue"></igx-datePicker>
       </div>
     </div>
     <div class="col-md-6">
@@ -131,11 +131,11 @@
       </div>
       <!-- <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Time*</label>
-        <p-calendar [(ngModel)]="timetable.times[i]" *ngFor=" let field of timetable.times;let i = index" [timeOnly]="true" hourFormat="12" required></p-calendar>
+        <p-calendar [inputStyle]="{'width':'205%','margin-top':'1rem'}" [(ngModel)]="timetable.times[i]" *ngFor=" let field of timetable.times;let i = index" [timeOnly]="true" hourFormat="12" required></p-calendar>
       </div> -->
         <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Time*</label>
-        <p-calendar [(ngModel)]="timeValue"  [timeOnly]="true" hourFormat="12" required></p-calendar>
+        <p-calendar [inputStyle]="{'width':'205%','margin-top':'1rem'}" [(ngModel)]="timeValue"  [timeOnly]="true" hourFormat="12" required></p-calendar>
       </div>
     </div>
     <div class="row col-md-12">

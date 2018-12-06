@@ -5,7 +5,7 @@
   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">EDIT THIS WORK CYCLE</h3>
   </div>
-  <br><br>
+ 
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
     <div class="col-md-6">
       <h3 style="text-align: right"></h3>
@@ -92,7 +92,7 @@
       </div>
       <div class="form-group" *ngIf="isRecurring==false">
         <label>WorkDate</label><br>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date" [(ngModel)]="dateValue"></igx-datePicker>
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date" [(ngModel)]="dateValue"></igx-datePicker>
       </div>
 
     </div>
@@ -143,14 +143,14 @@
         </div>
       <div class="form-group" *ngIf="isRecurring==false">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Time*</label>
-        <p-calendar [(ngModel)]="timeValue" [timeOnly]="true" hourFormat="12" required></p-calendar>
+        <p-calendar [inputStyle]="{'width':'205%','margin-top':'1rem'}" [(ngModel)]="timeValue" [timeOnly]="true" hourFormat="12" required></p-calendar>
       </div>
     </div>
     <div class="row col-md-12" *ngIf="isRecurring==true">
       <div class="col-md-6">
         <div class="form-group" *ngIf="isRecurring==true">
           <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">From When</label>
-          <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date" [(ngModel)]="WorkorderStartDate"></igx-datePicker>
+          <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date" [(ngModel)]="WorkorderStartDate"></igx-datePicker>
         </div>
         <div class="form-group" *ngIf="isRecurring==true">
           <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Daily</label>
@@ -187,7 +187,7 @@
           </select>
         </div>
         <div class="form-group" *ngIf="((dailyrecurring==true)&&(dailyFrequency))">
-          <p-calendar [(ngModel)]="timetable.times[i]" *ngFor=" let field of timetable.times;let i = index" [timeOnly]="true"
+          <p-calendar [inputStyle]="{'width':'205%','margin-top':'1rem'}" [(ngModel)]="timetable.times[i]" *ngFor=" let field of timetable.times;let i = index" [timeOnly]="true"
             hourFormat="12" required>{{index+' '+field}}</p-calendar>
         </div>
         <div class="form-group" *ngIf="weeklyrecurring==true">
@@ -203,11 +203,11 @@
       <div class="col-md-6">
         <div class="form-group" *ngIf="isRecurring==true && weeklyrecurring==true">
           <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Time*</label>
-          <p-calendar [(ngModel)]="Time_weekly" [timeOnly]="true" hourFormat="12" required></p-calendar>
+          <p-calendar [inputStyle]="{'width':'205%','margin-top':'1rem'}" [(ngModel)]="Time_weekly" [timeOnly]="true" hourFormat="12" required></p-calendar>
         </div>
         <div class="form-group" *ngIf="isRecurring==true && monthlyrecurring==true">
           <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Time*</label>
-          <p-calendar [(ngModel)]="Time_monthly" [timeOnly]="true" hourFormat="12" required></p-calendar>
+          <p-calendar [inputStyle]="{'width':'205%','margin-top':'1rem'}" [(ngModel)]="Time_monthly" [timeOnly]="true" hourFormat="12" required></p-calendar>
         </div>
       </div>
 
@@ -264,7 +264,7 @@
     <div class="row col-md-12">
       <div class="form-group" *ngIf="isRecurring==true && (dailyrecurring==true||weeklyrecurring==true||monthlyrecurring==true)">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">End Date*</label>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date" [(ngModel)]="WorkorderEndDate" ></igx-datePicker>
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date" [(ngModel)]="WorkorderEndDate" ></igx-datePicker>
       </div>
     </div>
     <div class="row col-md-12">
