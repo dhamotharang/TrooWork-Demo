@@ -65,6 +65,9 @@ export class InspectiontemplateCreateComponent implements OnInit {
               alert("Scoring Type is not provided !");
               return;
       }
+      // var qnSet = [];
+      // qnSet = this.fieldArray;
+      // var noofqns = qnSet.length;
       if (InspTempName) {
         templatename = this.InspTempName;
         }
@@ -75,10 +78,16 @@ export class InspectiontemplateCreateComponent implements OnInit {
         }
     var arr = [];
     var t1;
-    for (var i in this.fieldArray) {
+    debugger;
+    for (var i=0 ; i<this.fieldArray.length;i++) {
+      if (!(this.fieldArray[i].question)) {
+        var index = i + 1;
+                alert("Question " + index + " is not provided !");
+                return;
+        }
       arr.push(this.fieldArray[i]);
     }
-    if(this.newAttribute.question && !this.newAttribute.question.trim()){
+    if(!(this.newAttribute.question)){
       alert("Please Enter Question!");
       return;
     }
@@ -92,6 +101,7 @@ export class InspectiontemplateCreateComponent implements OnInit {
       TempQustArry.push(arr[j].question);
     }
     QustArry = TempQustArry.join(',');
+    debugger;
     if (QustArry === ''){
       QustArry = null;
               alert(" Questions are not provided !");
@@ -106,7 +116,7 @@ export class InspectiontemplateCreateComponent implements OnInit {
     this.inspectionService.createInspectionTemplate(ScoreTypeKey, InspTempName, QustArry, this.employeekey, this.OrganizationID).subscribe(res => {
       this.ScoreTypeKey = "";
     this.InspTempName = null;
-    this.fieldArray=null;
+    this.fieldArray=[];
     this.newAttribute.question=[];
     alert("Inspection Template Added !");
   });
@@ -115,7 +125,7 @@ export class InspectiontemplateCreateComponent implements OnInit {
    
     this.ScoreTypeKey = "";
     this.InspTempName = null; 
-    this.fieldArray=null;
+    this.fieldArray=[];
     this.newAttribute.question=[];
      alert("Template Name already exists !");
 }
