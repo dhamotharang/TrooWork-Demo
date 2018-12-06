@@ -1,10 +1,10 @@
 <app-admin-dashboard></app-admin-dashboard>
-<br><br>
+
 
 <div  style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
     <h3 style="margin-left: 30rem;">EDIT EMPLOYEE INFORMATION</h3>
-  </div><br><br>
+  </div>
   <div class="row bg-info col-md-12">
     <div class="form-row col-md-12">
       <div class="col-md-6 bg-dark">
@@ -54,7 +54,7 @@
           [(ngModel)]="editempdtails.MiddleName"> </div>
       <div class="form-group">
         <label>Birth Date</label>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" item-width="25%" [(ngModel)]="BirthDate"></igx-datePicker>
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" item-width="25%" [(ngModel)]="BirthDate"></igx-datePicker>
       </div>
 
     </div>
@@ -137,7 +137,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <label>Hire Date*</label>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" *ngIf="editempdtails" item-width="25%" [(ngModel)]="HireDate" ></igx-datePicker>
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" *ngIf="editempdtails" item-width="25%" [(ngModel)]="HireDate" ></igx-datePicker>
       </div>
       <div class="form-check form-check-inline">
         <label class="form-check-label" for="materialInline1">Is SuperVisor</label>
@@ -169,9 +169,9 @@
     </div>
   </div>
 
-  <br><br>
+ 
 
-  <br><br>
+ 
   <div class="row col-md-12">
     <div class="col-md-6"></div>
     <button type="button" style="text-align:center" class="btn btn-success" (click)="editEmployee(editempdtails.EmployeeNumber,editempdtails.UserRoleTypeKey,editempdtails.FirstName,editempdtails.LastName,editempdtails.MiddleName,BirthDate,editempdtails.Gender,editempdtails.AddressLine1,editempdtails.City,editempdtails.AddressLine2,editempdtails.State,editempdtails.Country,editempdtails.PrimaryPhone,editempdtails.ZipCode,editempdtails.AlternatePhone,editempdtails.EmailID,editempdtails.EmployeeStatusKey,HireDate,editempdtails.IsSupervisor,editempdtails.SupervisorKey,editempdtails.JobTitleKey,editempdtails.DepartmentKey)"><b>UPDATE</b></button>

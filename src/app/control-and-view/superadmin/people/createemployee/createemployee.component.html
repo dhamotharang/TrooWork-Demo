@@ -77,7 +77,7 @@
       </div>
       <div class="form-group">
         <label>Birth Date</label>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" item-width="20%" [value]="date" [(ngModel)]="BirthDate"></igx-datePicker>
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" item-width="20%" [value]="date" [(ngModel)]="BirthDate"></igx-datePicker>
       </div>
 
     </div>
@@ -165,14 +165,14 @@
         </div>
       </div>
     </div>
-    <br><br>
+   
     <div class="row bg-info col-md-12">
       <h3 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Other
         Information</h3>
       <div class="col-md-6">
         <div class="form-group">
           <label>Hire Date*</label>
-          <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" item-width="20%" [value]="hiredate" [(ngModel)]="HireDate"></igx-datePicker>
+          <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" item-width="20%" [value]="hiredate" [(ngModel)]="HireDate"></igx-datePicker>
         </div>
         <div class="form-check form-check-inline">
           <label class="form-check-label" for="materialInline1">Is SuperVisor</label> &nbsp;&nbsp;&nbsp;

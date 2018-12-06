@@ -4,19 +4,19 @@
   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">VIEW INSPECTION ORDER</h3>
   </div>
-  <br><br>
+ 
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;width: 97%;" class="row bg-info col-md-12">
     <h3 style="text-align: right"></h3>
     <div class="form-group" style="width: 25rem; margin-left: 2.5rem;">
       <label style="margin-top: 2rem;margin-left: -1rem;" class="col-sm-4 col-md-4 col-lg-4 ">From Date</label>
 
-      <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date1" [(ngModel)]="fromdate"
+      <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1" [(ngModel)]="fromdate"
         (onSelection)="filteringInspectionManagerByDate()"></igx-datePicker>
     </div>
     <div class="col-md-6">
       <div class="form-group" style="width: 25rem;margin-left: 6.5rem;">
         <label style="margin-top: 2rem; margin-left: -1rem;" class="col-sm-4 col-md-4 col-lg-4 ">To Date</label>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [value]="date1" [(ngModel)]="todate"
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1" [(ngModel)]="todate"
           (onSelection)="filteringInspectionManagerByDate()"></igx-datePicker>
       </div>
     </div>
