@@ -30,9 +30,9 @@
     <table class="table table-hover table-bordered">
       <tbody>
         <!-- already present array -->
-        <tr *ngFor="let field of fieldArray">
+        <tr *ngFor="let field of fieldArray; let i=index ">
           <td>
-            <input [(ngModel)]="field.question" placeholder="Enter the Question,Don't copy paste" class="form-control" type="text" value="{{field.question}}" />
+            <textarea rows="4" cols="50" [(ngModel)]="field.question" placeholder="Enter the Question" class="form-control" value="{{field.question}}" ></textarea>
           </td>
           <td>
             <button class="btn btn-danger" type="button" (click)="deleteFieldValue(i)"><b>DELETE QUESTION</b></button>
@@ -41,9 +41,14 @@
         <!-- new space to enter values -->
         <tr>
           <td>
-            <input class="form-control" placeholder="Enter the Question,Don't copy paste" maxlength="80" type="text" id="newAttributeCode"
-              [(ngModel)]="newAttribute.question" name="newAttributeCode" />
+            <textarea rows="4" cols="50" placeholder="Enter the Question" maxlength="80" id="newAttributeCode"
+              [(ngModel)]="newAttribute.question" name="newAttributeCode"></textarea>
           </td>
+          <td>
+            <button class="btn btn-danger" [disabled]='fieldArray.length==0' style="width: 9.9rem" type="button" (click)="deleteFieldValue()"><b>DELETE QUESTION</b></button>
+          </td>
+        </tr>
+        <tr>
           <td>
             <button class="btn btn-success" style="width: 9.9rem" type="button" (click)="addFieldValue()"><b>ADD QUESTION</b></button>
           </td>

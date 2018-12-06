@@ -26,7 +26,7 @@ export class ExcelserviceService {
     const data: Blob = new Blob([buffer], {
       type: EXCEL_TYPE
     });
-    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+    FileSaver.saveAs(data, fileName+ EXCEL_EXTENSION);
   }
 
 }

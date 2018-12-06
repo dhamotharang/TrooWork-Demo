@@ -1328,7 +1328,7 @@ withoutequip_wo()
     };
     this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res => {
       this.deleteWO = {
-        workorderSchedulekey: this.BatchWO_Key,
+        workorderSchedulekey: this.BatchWO_Key, 
         OrganizationID: this.OrganizationID
       };
       this.WorkOrderServiceService
