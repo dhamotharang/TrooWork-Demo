@@ -7,7 +7,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <label>Building*</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FacilityKey"
           (change)="getFloorDisp($event.target.value)" (change)='EquipmentKey=null;EquipmentTypeKey=null;'>
           <option value="">--Select--</option>
           <option *ngFor="let b of facilitylist" [value]="b.FacilityKey">
@@ -17,7 +17,7 @@
       </div>
       <div class="form-group">
         <label>Zone</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="ZoneKey"
           [disabled]="!FloorKey">
           <option value="">--Select--</option>
           <option *ngFor="let z of zoneroom" [value]="z.ZoneKey">
@@ -27,7 +27,7 @@
       </div>
       <div class="form-group">
         <label>Equipment Type</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" (change)='FacilityKey=null;FloorKey=null;ZoneKey=null;RoomTypeKey=null;getequipments($event.target.value);'
+        <select style="background-color: #D4F4FF !important;" class="form-control" (change)='FacilityKey=null;FloorKey=null;ZoneKey=null;RoomTypeKey=null;getequipments($event.target.value);'
           [(ngModel)]="EquipmentTypeKey">
           <option value="">--Select--</option>
           <option *ngFor="let f of equipmenttypelist" [value]="f.EquipmentTypeKey">
@@ -39,7 +39,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <label>Floor*</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FloorKey"
           (change)="getZoneRoom($event.target.value,FacilityKey)" [disabled]="!FacilityKey">
           <option value="">--Select--</option>
           <option *ngFor="let f of floor" [value]="f.FloorKey">
@@ -49,7 +49,7 @@
       </div>
       <div class="form-group">
         <label>Room Type</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="RoomTypeKey"
           [disabled]="!FloorKey">
           <option value="">--Select--</option>
           <option *ngFor="let r of room" [value]="r.RoomTypeKey">
@@ -59,7 +59,7 @@
       </div>
       <div class="form-group">
         <label>Equipment</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EquipmentKey">
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="EquipmentKey">
           <option value="">--Select--</option>
           <option *ngFor="let f of equipment" [value]="f.EquipmentKey">
             {{f.EquipmentName}}

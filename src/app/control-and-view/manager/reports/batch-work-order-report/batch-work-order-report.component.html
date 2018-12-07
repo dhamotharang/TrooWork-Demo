@@ -11,7 +11,7 @@
         <div class="row col-md-12">
           <h5 style="text-align:right;" class="col-md-4"><label for="building">Schedule Name </label></h5>
           <div class="col-md-3" style="text-align:left">
-            <select [(ngModel)]="BatchScheduleNameKey" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
+            <select [(ngModel)]="BatchScheduleNameKey" style="background-color: #D4F4FF !important;" class="form-control"
               (change)="getBatchSchedule($event.target.value)">
               <option value="" selected>--Select--</option>
               <option *ngFor="let s of bacthschedules" [value]="s.BatchScheduleNameKey">

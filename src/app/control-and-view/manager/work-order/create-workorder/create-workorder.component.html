@@ -12,7 +12,7 @@
       <h3 style="text-align: right"></h3>
       <div class="form-group">
         <label>Workorder Type*</label><br>
-        <select *ngIf="!newType" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" (change)='checkfornewWOT(WorkorderTypeKey)' [(ngModel)]="WorkorderTypeKey"
+        <select *ngIf="!newType" style="background-color: #D4F4FF !important;" class="form-control" (change)='checkfornewWOT(WorkorderTypeKey)' [(ngModel)]="WorkorderTypeKey"
           required>
           <option value="">--Select--</option>
           <option *ngFor="let e of workorderTypeList" [value]="e.WorkorderTypeKey">
@@ -24,7 +24,7 @@
       </div>
       <div class="form-group">
         <label>Building*</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FacilityKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FacilityKey"
           (change)="getFloorDisp($event.target.value);" required>
           <option value="">--Select--</option>
           <option *ngFor="let b of facilitylist" [value]="b.FacilityKey">
@@ -34,7 +34,7 @@
       </div>
       <div class="form-group">
         <label>Floor*</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FloorKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FloorKey"
           [disabled]="!FacilityKey" (change)="getZoneRoomTypeRoom($event.target.value,FacilityKey);getEquiment($event.target.value,FacilityKey);"
           required>
           <option value="">--Select--</option>
@@ -45,7 +45,7 @@
       </div>
       <div class="form-group">
         <label>Zone</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="ZoneKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="ZoneKey"
           [disabled]="!FloorKey||showEqTypes" (change)="getRoomTypeRoom($event.target.value,FacilityKey,FloorKey);"
           required>
           <option value="">--Select--</option>
@@ -56,7 +56,7 @@
       </div>
       <div class="form-group">
         <label>Room Type</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomTypeKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="RoomTypeKey"
           [disabled]="!FloorKey||showEqTypes" (change)="getRoom($event.target.value,ZoneKey,FacilityKey,FloorKey);"
           required>
           <option value="">--Select--</option>
@@ -67,7 +67,7 @@
       </div>
       <div class="form-group">
         <label>Room</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="RoomKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="RoomKey"
           [disabled]="!FloorKey||showEqTypes" required>
           <option value="">--Select--</option>
           <option *ngFor="let b of RoomList" [value]="b.RoomKey">
@@ -77,7 +77,7 @@
       </div>
       <div class="form-group">
         <label>Priority Level</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="PriorityKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="PriorityKey"
           required>
           <option value="">--Select--</option>
           <option *ngFor="let b of priorityList" [value]="b.PriorityKey">
@@ -108,7 +108,7 @@
       </div>
       <div class="form-group">
         <label>Equipment Type</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EquipmentTypeKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="EquipmentTypeKey"
           [disabled]="!(showEqTypes&&FloorKey)" (change)="showEquipment_typechange($event.target.value,FacilityKey,FloorKey)"
           required>
           <option value="">--Select--</option>
@@ -119,7 +119,7 @@
       </div>
       <div class="form-group">
         <label>Equipment Name</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control"  [(ngModel)]="EquipmentKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control"  [(ngModel)]="EquipmentKey"
           [disabled]="(!(showEqTypes&&EquipmentTypeKey))" required>
           <option value="">--Select--</option>
           <option *ngFor="let e of EquipmentList" [value]="e.EquipmentKey">
@@ -129,7 +129,7 @@
       </div>
       <div class="form-group">
         <label>Employee</label><br>
-        <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="EmployeeKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="EmployeeKey"
           required>
           <option value="">--Select--</option>
           <option *ngFor="let e of EmployeeOption" [value]="e.EmployeeKey">

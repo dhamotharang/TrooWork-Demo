@@ -1,6 +1,6 @@
 <app-manager-dash-board></app-manager-dash-board>
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
- 
+
   <div style="text-align:center">
     <h3 style="color: #174a5e;"><strong>INSPECTION TEMPLATE</strong></h3>
   </div>
@@ -10,7 +10,7 @@
     <div class="row col-md-12">
       <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scoringtype">Scoring Type* </label></h5>
       <div class="col-md-8" style="text-align:left">
-        <select style="background-color: #D4F4FF !important; width: 30rem" class="form-control" [(ngModel)]="ScoreTypeKey">
+        <select style="background-color: #D4F4FF !important; " class="form-control" [(ngModel)]="ScoreTypeKey">
           <option value="">--Select--</option>
 
           <option *ngFor="let s of scores" [value]="s.ScoreTypeKey">
@@ -23,18 +23,19 @@
       <h5 style="text-align:right" class="col-md-4"><label for="inspectiontemplatename">Inspection Template Name*
         </label></h5>
       <div class="md-form col-md-8" style="text-align:left">
-        <input type="text" placeholder="Template Name" maxlength="40" style="background-color: #D4F4FF !important;" class="form-control"
-          [(ngModel)]="InspTempName">
+        <input type="text" placeholder="Template Name" maxlength="40" style="background-color: #D4F4FF !important;"
+          class="form-control" [(ngModel)]="InspTempName">
       </div>
     </div>
-    <table class="table table-hover table-bordered">
+    <table class="table table-hover">
       <tbody>
         <!-- already present array -->
         <tr *ngFor="let field of fieldArray; let i=index ">
           <td>
-            <textarea rows="4" cols="50" [(ngModel)]="field.question" placeholder="Enter the Question" class="form-control" value="{{field.question}}" ></textarea>
+            <textarea rows="4" cols="50" [(ngModel)]="field.question" placeholder="Enter the Question" class="form-control"
+              value="{{field.question}}"></textarea>
           </td>
-          <td>
+          <td style="padding-top: 2.5rem">
             <button class="btn btn-danger" type="button" (click)="deleteFieldValue(i)"><b>DELETE QUESTION</b></button>
           </td>
         </tr>
@@ -44,22 +45,20 @@
             <textarea rows="4" cols="50" placeholder="Enter the Question" maxlength="80" id="newAttributeCode"
               [(ngModel)]="newAttribute.question" name="newAttributeCode"></textarea>
           </td>
-          <td>
-            <button class="btn btn-danger" [disabled]='fieldArray.length==0' style="width: 9.9rem" type="button" (click)="deleteFieldValue()"><b>DELETE QUESTION</b></button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <button class="btn btn-success" style="width: 9.9rem" type="button" (click)="addFieldValue()"><b>ADD QUESTION</b></button>
+          <td style="padding-top: 2.5rem">
+            <button class="btn btn-danger" [disabled]='fieldArray.length==0' style="width: 9.9rem" type="button"
+              (click)="deleteFieldValue()"><b>DELETE QUESTION</b></button>
           </td>
         </tr>
         <tr style="text-align: center">
           <td colspan="2">
+            <button class="btn btn-success" style="width: 9.9rem" type="button" (click)="addFieldValue()"><b>ADD
+                QUESTION</b></button>
+            &nbsp;
             <button class="btn btn-success" type="button" (click)="valuesSave(ScoreTypeKey,InspTempName)"><b>SAVE</b></button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <br>
 </div>
