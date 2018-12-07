@@ -11,7 +11,7 @@
 
       <div class="col-md-8 col-lg-8 col-sm-8" style="text-align:left">
 
-        <select style="background-color: #D4F4FF !important; width: 30rem" class="form-control" [(ngModel)]="flooroptions[0].FacilityKey">
+        <select style="background-color: #D4F4FF !important; " class="form-control" [(ngModel)]="flooroptions[0].FacilityKey">
           <option *ngFor="let f of buildingList" [value]="f.FacilityKey">
             {{f.FacilityText}}
           </option>

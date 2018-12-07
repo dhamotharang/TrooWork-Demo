@@ -9,7 +9,7 @@
       <div class="form-group">
         <div>
           <label style="margin-top: 2rem;">Document Folder*</label><br>
-          <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="FormtypeId"
+          <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FormtypeId"
             required>
             <option value="">--Select--</option>
             <option *ngFor="let d of documentsList" [value]="d.FormtypeId">

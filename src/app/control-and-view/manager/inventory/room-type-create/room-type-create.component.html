@@ -18,7 +18,7 @@
     <div class="row col-md-12">
       <h5 style="text-align:right" class="col-md-4"><label for="Department">MetricType Name* : </label></h5>
       <div class="col-md-8" style="text-align:left">
-        <select style="background-color: #D4F4FF !important; width: 30rem" class="form-control" [(ngModel)]="MetricKey"
+        <select style="background-color: #D4F4FF !important; " class="form-control" [(ngModel)]="MetricKey"
           (change)=showFields($event.target.value)>
           <option value="">--Select--</option>
           <option *ngFor="let f of metricValues" [value]="f.MetricType">
@@ -34,7 +34,7 @@
         <h5 style="text-align:right" class="col-md-4"><label for="Department">MetricType Name*:
           </label></h5>
         <div class="col-md-3" style="text-align:left">
-          <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="MetricTypeValue"
+          <input type="text" style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="MetricTypeValue"
             placeholder="Metric Value" value="1" disabled>
         </div>
       </span> -->
@@ -42,7 +42,7 @@
       <h5 style="text-align:right" class="col-md-4"><label for="Department">MetricType Value*:
         </label></h5>
       <div class="col-md-3" style="text-align:left">
-        <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="MetricTypeValue"
+        <input type="text" style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="MetricTypeValue"
           [disabled]="MetricKey=='Default'" placeholder="Metric Value">
       </div>
       <!-- </span> -->
