@@ -231,17 +231,19 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
         barcodevalue = ''
       }
 
-      this.excelarray.push({ Building: buildingname, Floor: floorname, Zone: zon_name, Room: roomnum, FloorType: floor_type, RoomType: room_type, Minutes: minute, Frequency: freq, Monday: mondayvalue, Tuesday: tuesdayvalue, Wednesday: wednesdayvalue, Thursday: thursdayvalue, Friday: fridayvalue, Saturday: saturdayvalue, Sunday: sundayvalue, IsPhotoRequired: photovalue, IsBarcodeRequired: barcodevalue })
+      this.excelarray.push({ '𝐁𝐮𝐢𝐥𝐝𝐢𝐧𝐠': buildingname, '𝐅𝐥𝐨𝐨𝐫': floorname, '𝐙𝐨𝐧𝐞': zon_name, '𝐑𝐨𝐨𝐦': roomnum, '𝐅𝐥𝐨𝐨𝐫𝐓𝐲𝐩𝐞': floor_type, '𝐑𝐨𝐨𝐦𝐓𝐲𝐩𝐞': room_type, '𝐌𝐢𝐧𝐮𝐭𝐞𝐬': minute, '𝐅𝐫𝐞𝐪𝐮𝐞𝐧𝐜𝐲': freq, '𝐌𝐨𝐧𝐝𝐚𝐲': mondayvalue, '𝐓𝐮𝐞𝐬𝐝𝐚𝐲': tuesdayvalue, '𝐖𝐞𝐝𝐧𝐞𝐬𝐝𝐚𝐲': wednesdayvalue, '𝐓𝐡𝐮𝐫𝐬𝐝𝐚𝐲': thursdayvalue, '𝐅𝐫𝐢𝐝𝐚𝐲': fridayvalue, '𝐒𝐚𝐭𝐮𝐫𝐝𝐚𝐲': saturdayvalue, '𝐒𝐮𝐧𝐝𝐚𝐲': sundayvalue, '𝐈𝐬𝐏𝐡𝐨𝐭𝐨𝐑𝐞𝐪𝐮𝐢𝐫𝐞𝐝': photovalue, '𝐈𝐬𝐁𝐚𝐫𝐜𝐨𝐝𝐞𝐑𝐞𝐪𝐮𝐢𝐫𝐞𝐝': barcodevalue })
 
     }
     this.excelarray.push('');
-    this.excelarray.push({ Building: 'Total Assigned daily minutes', Monday: this.totalMonTime, Tuesday: this.totalTuesTime, Wednesday: this.totalWedTime, Thursday: this.totalThuTime, Friday: this.totalFriTime, Saturday: this.totalSatTime, Sunday: this.totalSunTime })
-    var temp_Report = [{}];
-    temp_Report.push({ AssignmentArea: 'assignment1' });
-    var newarr = [{}];
-    newarr.push(temp_Report);
-    newarr.push(this.excelarray);
-    this.excelService.exportAsExcelFile(this.excelarray, 'BatchscheduleAssignment_Report');
+    this.excelarray.push({ '𝐁𝐮𝐢𝐥𝐝𝐢𝐧𝐠': 'Total Assigned daily minutes', '𝐌𝐨𝐧𝐝𝐚𝐲': this.totalMonTime, '𝐓𝐮𝐞𝐬𝐝𝐚𝐲': this.totalTuesTime, '𝐖𝐞𝐝𝐧𝐞𝐬𝐝𝐚𝐲': this.totalWedTime, '𝐓𝐡𝐮𝐫𝐬𝐝𝐚𝐲': this.totalThuTime, '𝐅𝐫𝐢𝐝𝐚𝐲': this.totalFriTime, '𝐒𝐚𝐭𝐮𝐫𝐝𝐚𝐲': this.totalSatTime, '𝐒𝐮𝐧𝐝𝐚𝐲': this.totalSunTime })
+    // this.excelarray[0]={AssignmentArea:this.BatchScheduleNameKey};
+    // var temp_Report = [{}];
+    // temp_Report.push({ AssignmentArea: this.BatchScheduleNameKey });
+    // var newarr = [{}];
+    // newarr.push(temp_Report);
+    // newarr.push(this.excelarray);
+
+    this.excelService.exportAsExcelFile(this.excelarray,'BatchscheduleAssignment_Report');
   }
 
 }

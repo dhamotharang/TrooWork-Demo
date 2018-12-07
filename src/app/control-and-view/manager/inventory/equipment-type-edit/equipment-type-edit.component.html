@@ -11,7 +11,7 @@
       <h5  class="col-md-5"><label for="EquipmentType">Equipment Type Name:
         </label></h5>
       <div class="col-md-7">
-        <input *ngIf="equipType" type="text" style="background-color: #D4F4FF !important; margin-left: -3rem;" class="form-control"
+        <input *ngIf="equipType" type="text" maxlength="40" style="background-color: #D4F4FF !important; margin-left: -3rem;" class="form-control"
           id="EquipmentType" [(ngModel)]="equipType.EquipmentType">
       </div>
     </div>
@@ -20,7 +20,7 @@
       <h5  class="col-md-5"><label for="EquipmentTypeDescription">Equipment
           Type Description: </label></h5>
       <div class="col-md-7">
-        <input *ngIf="equipType" type="text" style="background-color: #D4F4FF !important;margin-left: -3rem;" class="form-control"
+        <input *ngIf="equipType" type="text" maxlength="45" style="background-color: #D4F4FF !important;margin-left: -3rem;" class="form-control"
           id="EquipmentTypeDescription" [(ngModel)]="equipType.EquipmentTypeDescription">
       </div>
     </div>

@@ -226,7 +226,7 @@ export class WorkorderReportComponent implements OnInit {
       this.workexcel.splice(i, 1);
       var Work_Type_Name = (this.viewWorkorderReport[i].WorkorderTypeName);
 
-      var date_time = this.viewWorkorderReport[i].WorkorderDate.concat(this.viewWorkorderReport[i].WorkorderTime);
+      var date_time = this.viewWorkorderReport[i].WorkorderDate.concat(' ',this.viewWorkorderReport[i].WorkorderTime);
 
       var Work_status = (this.viewWorkorderReport[i].WorkorderStatus);
       var employee = this.viewWorkorderReport[i].LastName.concat(',',this.viewWorkorderReport[i].FirstName);
@@ -240,11 +240,11 @@ export class WorkorderReportComponent implements OnInit {
       var check_out = (this.viewWorkorderReport[i].checkout);
       var duration = (this.viewWorkorderReport[i].duration);
       var delay_time = (this.viewWorkorderReport[i].DelayTime);
-      var work_notes = (this.viewWorkorderReport[i].WorkorderNotes);
+      var work_notes = (this.viewWorkorderReport[i].WorkorderNotes); 
 
       if (this.viewWorkorderReport[i]) {
         this.workexcel.push({
-          WorkorderTypeName: Work_Type_Name, DateandTime: date_time, Status: Work_status, Employee: employee, Room: room_id, Equipment: eq_name, CheckinTime: check_in, CheckoutTime: check_out, Duration: duration, DelayTime: delay_time, Notes: work_notes
+          WorkorderTypeName: Work_Type_Name, 'Date and Time': date_time, Status: Work_status, Employee: employee, Room: room_id, Equipment: eq_name, CheckinTime: check_in, CheckoutTime: check_out, Duration: duration, DelayTime: delay_time, Notes: work_notes
         })
       }
     }

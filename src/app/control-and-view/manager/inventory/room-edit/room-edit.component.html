@@ -65,13 +65,13 @@
       </div>
       <div class="form-group">
         <label>Room Name*</label>
-        <input type="text" style="background-color: #D4F4FF !important;" class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="room.RoomName">
+        <input type="text" maxlength="40" style="background-color: #D4F4FF !important;" class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="room.RoomName">
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <label>Square Foot* </label>
-        <input type="text" style="background-color: #D4F4FF !important;" class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="room.Area">
+        <input type="text" maxlength="19" style="background-color: #D4F4FF !important;" class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="room.Area">
       </div>
       <div class="form-group">
         <label>Barcode* </label>
