@@ -166,6 +166,7 @@ import { CreateWorkorderTypeComponent } from './control-and-view/manager/work-or
 import { SetUserLoginSuperComponent } from '../app/control-and-view/superadmin/people/set-user-login-super/set-user-login-super.component';
 import { EditAssignmentScheduleForReportComponent } from './control-and-view/manager/scheduling/edit-assignment-schedule-for-report/edit-assignment-schedule-for-report.component';
 import { FilterPipePipe } from './control-and-view/manager/work-order/filter-pipe.pipe';
+import { ReviewsComponent } from './control-and-view/reviews/reviews.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -303,7 +304,8 @@ import { FilterPipePipe } from './control-and-view/manager/work-order/filter-pip
     CreateWorkorderTypeComponent,
     SetUserLoginSuperComponent,
     EditAssignmentScheduleForReportComponent,
-    FilterPipePipe
+    FilterPipePipe,
+    ReviewsComponent
   ],
   imports: [
     BrowserModule,
