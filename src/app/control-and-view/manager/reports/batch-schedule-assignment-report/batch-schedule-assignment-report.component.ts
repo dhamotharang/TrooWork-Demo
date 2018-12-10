@@ -3,8 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Reports } from '../../../../model-class/reports';
 import { ReportServiceService } from '../../../../service/report-service.service';
 import { ExcelserviceService } from '../../../../service/excelservice.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-
+import * as FileSaver from 'file-saver';
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 @Component({
   selector: 'app-batch-schedule-assignment-report',
   templateUrl: './batch-schedule-assignment-report.component.html',
@@ -236,14 +236,11 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
     }
     this.excelarray.push('');
     this.excelarray.push({ '𝐁𝐮𝐢𝐥𝐝𝐢𝐧𝐠': 'Total Assigned daily minutes', '𝐌𝐨𝐧𝐝𝐚𝐲': this.totalMonTime, '𝐓𝐮𝐞𝐬𝐝𝐚𝐲': this.totalTuesTime, '𝐖𝐞𝐝𝐧𝐞𝐬𝐝𝐚𝐲': this.totalWedTime, '𝐓𝐡𝐮𝐫𝐬𝐝𝐚𝐲': this.totalThuTime, '𝐅𝐫𝐢𝐝𝐚𝐲': this.totalFriTime, '𝐒𝐚𝐭𝐮𝐫𝐝𝐚𝐲': this.totalSatTime, '𝐒𝐮𝐧𝐝𝐚𝐲': this.totalSunTime })
-    // this.excelarray[0]={AssignmentArea:this.BatchScheduleNameKey};
-    // var temp_Report = [{}];
-    // temp_Report.push({ AssignmentArea: this.BatchScheduleNameKey });
-    // var newarr = [{}];
-    // newarr.push(temp_Report);
-    // newarr.push(this.excelarray);
-
-    this.excelService.exportAsExcelFile(this.excelarray,'BatchscheduleAssignment_Report');
+    // this.excelService.exportAsExcelFile(this.excelarray,'BatchscheduleAssignment_Report');
+    var blob = new Blob([document.getElementById('exportable').innerHTML], {
+      type: EXCEL_TYPE
+  });
+  FileSaver.saveAs(blob, "BatchscheduleAssignment_Report.xls");
   }
 
 }
