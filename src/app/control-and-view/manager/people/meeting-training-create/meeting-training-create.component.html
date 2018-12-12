@@ -40,8 +40,9 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="building">Date* </label>
-                <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1"
-                    [(ngModel)]="mtngDate"></igx-datePicker>
+                <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1"
+                    [(ngModel)]="mtngDate"></igx-datePicker> -->
+                    <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="mtngDate"></ng-datepicker >
             </div>
         </div>
         <div class="col-md-6">

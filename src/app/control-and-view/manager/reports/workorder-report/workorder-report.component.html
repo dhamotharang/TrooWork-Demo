@@ -10,7 +10,8 @@
       <h3 style="text-align: right"></h3>
       <div class="form-group" >
         <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">From Date</label>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date" [(ngModel)]="fromdate"></igx-datePicker>
+        <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="fromdate"></ng-datepicker >
+        <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date" [(ngModel)]="fromdate"></igx-datePicker> -->
       </div>
       <div class="form-group">
         <label>Building</label><br>
@@ -36,7 +37,8 @@
     <div class="col-md-6">
       <div class="form-group" style="margin-top: 0.8rem">
         <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">To Date</label>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date" [(ngModel)]="todate"></igx-datePicker>
+        <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date" [(ngModel)]="todate"></igx-datePicker> -->
+        <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="todate"></ng-datepicker >
       </div>
       <div class="form-group">
         <label>Floor</label><br>

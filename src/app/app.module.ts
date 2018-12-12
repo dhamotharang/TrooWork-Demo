@@ -167,6 +167,7 @@ import { SetUserLoginSuperComponent } from '../app/control-and-view/superadmin/p
 import { EditAssignmentScheduleForReportComponent } from './control-and-view/manager/scheduling/edit-assignment-schedule-for-report/edit-assignment-schedule-for-report.component';
 import { FilterPipePipe } from './control-and-view/manager/work-order/filter-pipe.pipe';
 import { ReviewsComponent } from './control-and-view/reviews/reviews.component';
+import { NgDatepickerModule} from 'ng2-datepicker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -316,7 +317,7 @@ import { ReviewsComponent } from './control-and-view/reviews/reviews.component';
     HttpClientModule,
     AppRoutingModule,
     CalendarModule,
-    IgxDatePickerModule,
+    IgxDatePickerModule,NgDatepickerModule,
     NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [CreatebuildingComponent, CreatebuildingService, GooglePieChartService],

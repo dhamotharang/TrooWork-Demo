@@ -7,6 +7,8 @@ import { GooglePieChartService } from '../../../../extra-files/piechart-file/Ser
 declare var google: any;
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
+import { DatepickerOptions } from 'ng2-datepicker';
+
 @Component({
   selector: 'app-dashboard-report',
   templateUrl: './dashboard-report.component.html',
@@ -38,7 +40,24 @@ export class DashboardReportComponent implements OnInit {
     }
     return window.atob(output);
   }
-
+//new date picker
+options: DatepickerOptions = {
+  minYear: 1970,
+  maxYear: 2030,
+  displayFormat: 'MM/DD/YYYY',
+  barTitleFormat: 'MMMM YYYY',
+  dayNamesFormat: 'dd',
+  firstCalendarDay: 0, // 0 - Sunday, 1 - Monday
+  //locale: frLocale,
+  //minDate: new Date(Date.now()), // Minimal selectable date
+  //maxDate: new Date(Date.now()),  // Maximal selectable date
+  barTitleIfEmpty: 'Click to select a date',
+  placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
+  addClass: '', // Optional, value to pass on to [ngClass] on the input field
+  addStyle: {'font-size':'18px','width':'88%', 'border': '1px solid #ced4da','border-radius': '0.25rem'}, // Optional, value to pass to [ngStyle] on the input field
+  fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
+  useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
+};
 
   title = 'Reusable charts sample';
   public arr: Array<any> = [{}];
@@ -53,12 +72,12 @@ export class DashboardReportComponent implements OnInit {
 
   public date: Date = new Date(Date.now());
 
-  private dayFormatter = new Intl.DateTimeFormat('en', { weekday: 'long' });
-  private monthFormatter = new Intl.DateTimeFormat('en', { month: 'long' });
+  // private dayFormatter = new Intl.DateTimeFormat('en', { weekday: 'long' });
+  // private monthFormatter = new Intl.DateTimeFormat('en', { month: 'long' });
 
-  public formatter = (_: Date) => {
-    return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
-  }
+  // public formatter = (_: Date) => {
+  //   return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
+  // }
   //export to pdf
   public captureScreen() {
     var data = document.getElementById('contentToConvert');

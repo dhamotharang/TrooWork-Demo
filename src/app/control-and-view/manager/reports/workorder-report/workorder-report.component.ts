@@ -4,6 +4,7 @@ import { Reports } from '../../../../model-class/reports';
 
 import { ReportServiceService } from '../../../../service/report-service.service';
 import { ExcelserviceService } from '../../../../service/excelservice.service';
+import { DatepickerOptions } from 'ng2-datepicker';
 
 @Component({
   selector: 'app-workorder-report',
@@ -45,13 +46,30 @@ export class WorkorderReportComponent implements OnInit {
 
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
-  private dayFormatter = new Intl.DateTimeFormat('en', { weekday: 'long' });
-  private monthFormatter = new Intl.DateTimeFormat('en', { month: 'long' });
-  public formatter = (_: Date) => {
-    return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
+  // private dayFormatter = new Intl.DateTimeFormat('en', { weekday: 'long' });
+  // private monthFormatter = new Intl.DateTimeFormat('en', { month: 'long' });
+  // public formatter = (_: Date) => {
+  //   return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
 
-  }
-
+  // }
+  options: DatepickerOptions = {
+    minYear: 1970,
+    maxYear: 2030,
+    displayFormat: 'MM/DD/YYYY',
+    barTitleFormat: 'MMMM YYYY',
+    dayNamesFormat: 'dd',
+    firstCalendarDay: 0, // 0 - Sunday, 1 - Monday
+    //locale: frLocale,
+    //minDate: new Date(Date.now()), // Minimal selectable date
+    //maxDate: new Date(Date.now()),  // Maximal selectable date
+    barTitleIfEmpty: 'Click to select a date',
+    placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
+    addClass: '', // Optional, value to pass on to [ngClass] on the input field
+    addStyle: {'font-size':'18px','width':'100%', 'border': '1px solid #ced4da','border-radius': '0.25rem'}, // Optional, value to pass to [ngStyle] on the input field
+    fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
+    useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
+  };
+  
 
   fromdate: Date;
   facilitylist: Reports[];

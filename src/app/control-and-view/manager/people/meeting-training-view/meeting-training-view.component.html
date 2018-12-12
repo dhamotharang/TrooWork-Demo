@@ -36,15 +36,17 @@
       <div class="col-md-6 ">
         <div class="form-group" style="margin-left: 0.7rem;">
           <label for="people">From Date </label>
-          <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1"
-            style="width: 75%;" [(ngModel)]="fromdate" (onSelection)="filterMtngTrainingList()"></igx-datePicker>
+          <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1"
+            style="width: 75%;" [(ngModel)]="fromdate" (onSelection)="filterMtngTrainingList()"></igx-datePicker> -->
+            <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="fromdate" (ngModelChange)="filterMtngTrainingList()" ></ng-datepicker >
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group " style="margin-left: 0.7rem;">
           <label for="people">To Date </label>
-          <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1"
-            style="width: 75%;" [(ngModel)]="todate" (onSelection)="filterMtngTrainingList()"></igx-datePicker>
+          <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1"
+            style="width: 75%;" [(ngModel)]="todate" (onSelection)="filterMtngTrainingList()"></igx-datePicker> -->
+            <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="todate" (ngModelChange)="filterMtngTrainingList()" ></ng-datepicker >
         </div>
       </div>
     </div>

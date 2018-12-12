@@ -10,9 +10,9 @@
       <h3 style="text-align: right"></h3>
       <div class="form-group">
         <label style="margin-top: 1rem;" class="col-sm-4 col-md-4 col-lg-4 ">From Date</label>
-
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date" [(ngModel)]="fromdate"></igx-datePicker>
-      </div>
+        <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="fromdate"></ng-datepicker >
+        </div>
+        <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date" [(ngModel)]="fromdate"></igx-datePicker> -->
       <div class="form-group">
         <label style="margin-top: 1rem;" class="col-sm-3 col-md-3 col-lg-3 ">Supervisor</label>
         <select [(ngModel)]="SupervisorKey" style="background-color: #d4f4ff;" class="form-control">
@@ -26,7 +26,8 @@
     <div class="col-md-6">
       <div class="form-group">
         <label style="margin-top: 1.7rem;" class="col-sm-4 col-md-4 col-lg-4 ">To Date</label>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date" [(ngModel)]="todate"></igx-datePicker>
+        <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date" [(ngModel)]="todate"></igx-datePicker> -->
+        <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="todate"></ng-datepicker >
       </div>
     </div>
     <div class="row col-md-12">

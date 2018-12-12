@@ -113,7 +113,7 @@
     <button type="button" class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>
   </div>
   <div id='exportable' style="visibility: hidden !important;">
-      <table cellspacing="0" 
+      <table *ngIf='reportarray' cellspacing="0" 
       rules="rows" 
       border="1" 
       style="color:Black;background-color:White;border-color:#CCCCCC;border-width:1px;border-style:None;width:100%;border-collapse:collapse;font-size:11pt;text-align:center;">
