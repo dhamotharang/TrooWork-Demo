@@ -130,7 +130,7 @@ export class InspectionViewComponent implements OnInit {
 
   filteringInspectionManagerByDate() {
     this.loading = true;// loading
-    if (this.todate && this.fromdate > this.todate) {
+    if (this.todate && this.convert_DT(this.fromdate) > this.convert_DT(this.todate)) {
       this.todate = null;
       alert("Please check your Start Date!");
       return;
@@ -147,14 +147,14 @@ export class InspectionViewComponent implements OnInit {
     else {
       date2 = this.convert_DT(this.todate);
     }
-    this.inspectionService
-      .getInspectionOrderTablewithFromDateOnly(date1, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
-      .subscribe((data: Inspection[]) => {
-        this.inspectionordertable = data;
-        if (!this.todate) {
-          this.loading = false;// loading
-        }
-      });
+    // this.inspectionService
+    //   .getInspectionOrderTablewithFromDateOnly(date1, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
+    //   .subscribe((data: Inspection[]) => {
+    //     this.inspectionordertable = data;
+    //     if (!this.todate) {
+    //       this.loading = false;// loading
+    //     }
+    //   });
     this.inspectionService
       .getInspectionOrderTablewithFromDateandToDateFilter(date1, date2, this.toServeremployeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {

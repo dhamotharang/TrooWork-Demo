@@ -143,7 +143,7 @@ import { EditWorkorderTypeComponent } from './control-and-view/manager/work-orde
 import { CreateWorkorderTypeComponent } from './control-and-view/manager/work-order/create-workorder-type/create-workorder-type.component';
 import { SetUserLoginSuperComponent } from '../app/control-and-view/superadmin/people/set-user-login-super/set-user-login-super.component';
 import { EditAssignmentScheduleForReportComponent } from './control-and-view/manager/scheduling/edit-assignment-schedule-for-report/edit-assignment-schedule-for-report.component';
-
+import { ReviewsComponent } from './control-and-view/reviews/reviews.component';
 const routes: Routes = [
   {
     path: '',
@@ -663,6 +663,10 @@ const routes: Routes = [
   {
     path: 'editScheduleForReport/:scheduleKey',
     component: EditAssignmentScheduleForReportComponent
+  },
+  {
+    path: 'reviews/:rev_orgid/:room_key',
+    component: ReviewsComponent
   }
 ];
 

@@ -14065,6 +14065,34 @@ app.post(securedpath + '/getEmployeeForPie', function (req, res) {
 });
 //Pooja's code starts here
 
+app.options('/addReview', supportCrossOriginScript);
+app.post(securedpath + '/addReview', supportCrossOriginScript, function (request, res) {
+  
+    var Orgid = request.body.Orgid;
+    var roomKey = request.body.roomKey;
+    var starValue = request.body.starValue;
+    var Comments = request.body.Comments;
+    var feedback_time = request.body.feedback_time; 
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @Orgid=?; set @roomKey=?; set @starValue=?; set @Comments=?; set @feedback_time=?;call usp_addReviews(@Orgid,@roomKey,@starValue,@Comments,@feedback_time)', [Orgid,roomKey,starValue,Comments,feedback_time], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                } else {
+                    console.log("ROWS" + JSON.stringify(rows[4]));
+                    res.end(JSON.stringify(rows[4]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
 app.get(securedpath + '/welcomeUpdateMessage', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     var empKey = url.parse(req.url, true).query['empKey'];

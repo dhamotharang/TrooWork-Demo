@@ -10,6 +10,7 @@ import { LoginService } from '../../../service/login.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  
   tokenobj;
   role: String;
   name: String;
@@ -17,6 +18,8 @@ export class LoginComponent implements OnInit {
   IsSupervisor: Number;
   OrganizationID: Number;
   isAuthenticated: boolean;
+  rev_orgid:Number=103;
+  room_key:Number=100;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
