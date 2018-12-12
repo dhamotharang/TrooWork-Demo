@@ -1,6 +1,6 @@
 <app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
-<div  *ngIf="!loading" style="padding-left: 3rem;padding-right: 9rem;">
+<div *ngIf="!loading" style="padding-left: 3rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
   <div class="row col-md-12 ">
     <h3 style="margin-left: 30rem;">BATCH SCHEDULE ASSIGNMENT REPORT</h3>
@@ -12,25 +12,26 @@
     <div class="form-group">
       <div class="row col-md-12" style="padding-top: 1.5rem">
         <br>
-        <h5 style="text-align:right;" class="col-md-4"><label for="building">Schedule Name* </label></h5>
-        <div class="col-md-3" style="text-align:left;margin-top: -1.5rem">
-          <br>
-          <select [(ngModel)]="BatchScheduleNameKey" style="background-color: #D4F4FF !important;" class="form-control"
-            (change)="getBatchSchedule($event.target.value)">
-            <option value="">--Select--</option>
-            <option *ngFor="let s of bacthschedules" [value]="s.BatchScheduleNameKey">
-              {{s.ScheduleName}}
-            </option>
-          </select>
+        <div class="row col-md-12" style="margin-left: -0.3rem">
+          <h5 style="text-align:right;" class="col-md-4"><label for="building">Schedule Name* </label></h5>
+          <div class="col-md-8" style="text-align:left;margin-top: -1.5rem">
+            <br>
+            <select [(ngModel)]="BatchScheduleNameKey" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
+              (change)="getBatchSchedule($event.target.value)">
+              <option value="">--Select--</option>
+              <option *ngFor="let s of bacthschedules" [value]="s.BatchScheduleNameKey">
+                {{s.ScheduleName}}
+              </option>
+            </select>
+          </div>
         </div>
         <div class="row col-md-12" *ngIf="workorderNotes">
-          <h5 style="text-align:right;margin-left: 1.2rem" class="col-md-4"><label for="building">WorkOrder Notes </label></h5>
+          <h5 style="text-align:right;margin-left: 1.2rem" class="col-md-4"><label for="building">WorkOrder Notes
+            </label></h5>
           <div class="form-group" style="text-align:left;margin-left: 0.4rem">
             <textarea class="form-control rounded-0" [disabled]="true" [(ngModel)]="workorderNotes" rows="6" style="resize: none;"></textarea>
           </div>
-          <div class="col col-md-5"></div>
         </div>
-        <div class="col col-md-5"></div>
       </div>
     </div>
   </div>

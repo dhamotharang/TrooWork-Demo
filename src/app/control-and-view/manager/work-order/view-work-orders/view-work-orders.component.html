@@ -1,17 +1,17 @@
 <app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div *ngIf="!loading" class="py-5" style="padding-left: 9rem;padding-right: 9rem;">
-  <div class="row col-md-12 " >
+  <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">SEARCH WORK ORDER BY</h3>
   </div>
- 
-  <div  style="width: 100%;height: 100%;" class="row bg-info col-md-12">
+
+  <div style="width: 100%;height: 100%;" class="row bg-info col-md-12">
     <div class="col-md-6">
       <h3 style="text-align: right"></h3>
       <div class="form-group">
         <label>Building*</label><br>
-        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FacilityKey"
-          (change)="getFloorDisp($event.target.value);viewWO_Filter();" required>
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FacilityKey" (change)="getFloorDisp($event.target.value);viewWO_Filter();"
+          required>
           <option value="">--Select--</option>
           <option *ngFor="let b of facilitylist" [value]="b.FacilityKey">
             {{b.FacilityText}}
@@ -20,9 +20,8 @@
       </div>
       <div class="form-group">
         <label>Floor*</label><br>
-        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FloorKey"
-          [disabled]="!FacilityKey" (change)="getZoneRoomTypeRoom($event.target.value,FacilityKey);viewWO_Filter();"
-          required>
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FloorKey" [disabled]="!FacilityKey"
+          (change)="getZoneRoomTypeRoom($event.target.value,FacilityKey);viewWO_Filter();" required>
           <option value="">--Select--</option>
           <option *ngFor="let b of FloorList" [value]="b.FloorKey">
             {{b.FloorName}}
@@ -31,9 +30,8 @@
       </div>
       <div class="form-group">
         <label>Zone</label><br>
-        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="ZoneKey"
-          [disabled]="!FloorKey" (change)="getRoomTypeRoom($event.target.value,FacilityKey,FloorKey);viewWO_Filter();"
-          required>
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="ZoneKey" [disabled]="!FloorKey"
+          (change)="getRoomTypeRoom($event.target.value,FacilityKey,FloorKey);viewWO_Filter();" required>
           <option value="">--Select--</option>
           <option *ngFor="let b of zonelist" [value]="b.ZoneKey">
             {{b.ZoneName}}
@@ -42,9 +40,8 @@
       </div>
       <div class="form-group">
         <label>Room Type</label><br>
-        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="RoomTypeKey"
-          [disabled]="!FloorKey" (change)="getRoom($event.target.value,ZoneKey,FacilityKey,FloorKey);viewWO_Filter();"
-          required>
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="RoomTypeKey" [disabled]="!FloorKey"
+          (change)="getRoom($event.target.value,ZoneKey,FacilityKey,FloorKey);viewWO_Filter();" required>
           <option value="">--Select--</option>
           <option *ngFor="let b of RoomTypeList" [value]="b.RoomTypeKey">
             {{b.RoomTypeName}}
@@ -53,8 +50,8 @@
       </div>
       <div class="form-group">
         <label>Room</label><br>
-        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="RoomKey"
-          [disabled]="!FloorKey" (change)="viewWO_Filter();" required>
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="RoomKey" [disabled]="!FloorKey"
+          (change)="viewWO_Filter();" required>
           <option value="">--Select--</option>
           <option *ngFor="let b of RoomList" [value]="b.RoomKey">
             {{b.RoomName}}
@@ -75,11 +72,13 @@
     <div class="col-md-6">
       <div class="form-group">
         <label>On Date</label><br>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date" [(ngModel)]="ondate" (onSelection)="viewWO_Filter();"></igx-datePicker>
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date"
+          [(ngModel)]="ondate" (onSelection)="viewWO_Filter();"></igx-datePicker>
       </div>
       <div class="form-group">
         <label>To Date</label><br>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date" [(ngModel)]="todate" (onSelection)="viewWO_Filter();"></igx-datePicker>
+        <igx-datePicker style="margin-top: -0.7rem" cancelButtonLabel="CANCEL" todayButtonLabel="TODAY"
+          [labelVisibility]="none" [value]="date" [(ngModel)]="todate" (onSelection)="viewWO_Filter();"></igx-datePicker>
       </div>
       <div class="form-group">
         <label>Work Status</label><br>
@@ -93,8 +92,8 @@
       </div>
       <div class="form-group">
         <label>Employee*</label><br>
-        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="EmployeeKey"
-          (change)="viewWO_Filter();" required>
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="EmployeeKey" (change)="viewWO_Filter();"
+          required>
           <option value="">--Select--</option>
           <option *ngFor="let e of EmployeeOption" [value]="e.EmployeeKey">
             {{e.EmployeeText}}
@@ -117,17 +116,17 @@
         <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
           <input class="form-control" name="searchWO" maxlength="20" type="text" specialIsAlphaNumeric minlength="3"
             formControlName="SearchWo" placeholder="Search WorkOrder Type,Employee,Room" aria-label="Search"
-            [(ngmodel)]="SearchWo" (input)="searchworkType_emp_room($event.target.value);" style="width: 100%;">
+            [(ngmodel)]="SearchWo" (input)="searchworkType_emp_room($event.target.value);" style="width: 105%; margin-left: -1.5rem;">
           <div *ngIf="searchform.controls.SearchWo.errors?.minlength">Minimum 3 characters required.</div>
         </div>
       </form>
     </div>
   </div><br>
   <div style="width: 100%;height: 100%;">
-    <table *ngIf='workorderList' class="table table-hover table-responsive table-bordered table">
+    <table *ngIf='workorderList' class="table table-hover table-responsive table-bordered table" style="display: inline-table;margin-left: -8rem;max-width: 150%;width: 135%">
       <thead class="tableHead">
         <th>Workorder Type Name</th>
-        <th>Date</th>
+        <th style="width: 7%">Date</th>
         <th>Status</th>
         <th>Employee</th>
         <th>Room</th>
@@ -171,24 +170,24 @@
           <td *ngIf="x.WorkorderStatus !== 'Scheduled'"></td>
           <td *ngIf="x.WorkorderStatus === 'Scheduled'"> <input type="checkbox" [(ngModel)]="x.workorderCheckValue"
               (change)="toggleVisibility($event);checkBoxValueForDelete(i,x.workorderCheckValue, x.WorkorderKey);"></td>
-          <td *ngIf="((x.IsReccurring === 0) && ( x.WorkorderTypeKey !== -1))"><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}" class="btn btn-success"
-              style="color:white !important" routerLinkActive="active"><b>INSTANCE
+          <td *ngIf="((x.IsReccurring === 0) && ( x.WorkorderTypeKey !== -1))"><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}"
+              class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>INSTANCE
               </b>
             </a></td>
-          <td *ngIf="x.IsReccurring === 1 && x.IsSchedule === 0 "><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}" class="btn btn-success"
-              style="color:white !important" routerLinkActive="active"><b>INSTANCE
+          <td *ngIf="x.IsReccurring === 1 && x.IsSchedule === 0 "><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}"
+              class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>INSTANCE
               </b>
-            </a><a *ngIf="x.WorkorderStatus==='Scheduled'" routerLink="/UpdateRecurWorkorder/{{x.WorkorderKey}}" class="btn btn-primary" style="color:white !important"
-              routerLinkActive="active"><b>RECURRING
+            </a><a *ngIf="x.WorkorderStatus==='Scheduled'" routerLink="/UpdateRecurWorkorder/{{x.WorkorderKey}}" class="btn btn-primary"
+              style="color:white !important" routerLinkActive="active"><b>RECURRING
               </b>
             </a></td>
-            <td *ngIf="x.IsReccurring === 1 && x.IsSchedule === 1"><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}" class="btn btn-success"
-              style="color:white !important" routerLinkActive="active"><b>INSTANCE
+          <td *ngIf="x.IsReccurring === 1 && x.IsSchedule === 1"><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}"
+              class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>INSTANCE
               </b>
             </a></td>
         </tr>
         <tr *ngIf="workorderList?.length == 0">
-          <td colspan="15" class="no-data-available">No records found</td>  
+          <td colspan="15" class="no-data-available">No records found</td>
         </tr>
 
       </tbody>
@@ -209,7 +208,8 @@
         <div class="modal-footer">
           <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide(); deleteWorkOrdersPage()"
             mdbWavesEffect>Yes</button>
-          <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.hide()" mdbWavesEffect>No</button>
+          <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.hide()"
+            mdbWavesEffect>No</button>
         </div>
       </div>
     </div>
