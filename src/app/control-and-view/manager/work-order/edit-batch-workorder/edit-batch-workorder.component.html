@@ -66,8 +66,9 @@
       </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">From When</label>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date"
-          [(ngModel)]="WorkorderStartDate"></igx-datePicker>
+        <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date"
+          [(ngModel)]="WorkorderStartDate"></igx-datePicker> -->
+          <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="WorkorderStartDate"></ng-datepicker >
       </div>
       <div class="form-group">
         <label>Workorder Notes</label>
@@ -172,8 +173,9 @@
       </div>
       <div class="form-group" style="margin-top: 4rem" *ngIf="(dailyrecurring==true||weeklyrecurring==true||monthlyrecurring==true)">
         <label style="margin-top: 2rem;">End Date*</label>
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date"
-          [(ngModel)]="WorkorderEndDate"></igx-datePicker>
+        <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date"
+          [(ngModel)]="WorkorderEndDate"></igx-datePicker> -->
+          <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="WorkorderEndDate"></ng-datepicker >
       </div>
     </div>
     <!--Daily-Dropdowns-->
