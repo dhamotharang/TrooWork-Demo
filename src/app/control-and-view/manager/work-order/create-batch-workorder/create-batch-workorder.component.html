@@ -72,9 +72,9 @@
     </div>
 
     <div class="col-md-6">
-      <div class="form-group">
-        <label>Workorder Type*</label><br>
-        <select *ngIf="!newType" style="background-color: #D4F4FF !important;" class="form-control" (change)='checkfornewWOT(WorkorderTypeKey)'
+      <div class="form-group row">
+        <label class="col col-lg-12 col-md-12 col-sm-12">Workorder Type*</label><br>
+        <select *ngIf="!newType" style="background-color: #D4F4FF !important;margin-left: 1rem;width: 93.9% !important;margin-bottom: 0.4rem" class="form-control" (change)='checkfornewWOT(WorkorderTypeKey)'
           [(ngModel)]="WorkorderTypeKey" required>
           <option value="">--Select--</option>
           <option *ngFor="let e of workorderTypeList" [value]="e.WorkorderTypeKey">
@@ -82,11 +82,12 @@
           </option>
         </select>
         <input type="text" *ngIf="newType" maxlength="30" [(ngModel)]="newworkordertypetext" class="form-control"
-          placeholder="Enter new workordertype">
-        <br><input type="button" style="margin-bottom:19px" *ngIf="newType" (click)="GobacktoMenu()" class="btn btn-primary  button_style "
+          placeholder="Enter new workordertype" style="margin-left: 1rem;width: 70.3%">
+        <br>
+        <input type="button" *ngIf="newType" (click)="GobacktoMenu()" class="btn btn-primary button_style" style="margin-top: 0rem"
           value="Go Default" />
       </div>
-      <div class="form-group">
+      <div class="form-group" style="margin-bottom: 2rem">
         <label>Employee*</label><br>
         <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="EmployeeKey" [disabled]="true">
           <option value="">--Select--</option>
