@@ -40,16 +40,18 @@
     <div class="row col-md-12">
       <span style="margin-top: 2rem;" class="col-md-2"><label for="scheduling">Start Date: </label></span>
       <div class="col-md-3" style="text-align:left">
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [(ngModel)]="workScheduleStartDate" label=""
+        <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [(ngModel)]="workScheduleStartDate" label=""
           cancelButtonLabel="cancel" todayButtonLabel="today">
 
-        </igx-datePicker>
+        </igx-datePicker> -->
+        <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="workScheduleStartDate"></ng-datepicker >
       </div>
       <div class="col-md-1"></div>
       <span style="margin-top: 2rem;" class="col-md-2"><label for="scheduling">End Date: </label></span>
       <div class="col-md-3">
-        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" item-width="25%" label="" cancelButtonLabel="cancel"
-          todayButtonLabel="today" [(ngModel)]="workScheduleEndDate" [formatter]="formatter"></igx-datePicker>
+        <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" item-width="25%" label="" cancelButtonLabel="cancel"
+          todayButtonLabel="today" [(ngModel)]="workScheduleEndDate" [formatter]="formatter"></igx-datePicker> -->
+          <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="workScheduleEndDate"></ng-datepicker >
       </div>
     </div>
   </div>

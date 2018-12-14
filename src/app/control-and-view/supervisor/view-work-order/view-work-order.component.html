@@ -12,11 +12,13 @@
                 <!-- <div class = "col-sm-4 col-md-4 col-lg-4"> -->
                 <label class="col-sm-2 col-md-2 col-lg-2 control-label"> On Date</label>
                 <div class="col-sm-2 col-md-2 col-lg-2">
-                    <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1" [(ngModel)]="WorkorderDate" (onSelection)="viewEmployeeWorkorderByFilter()"></igx-datePicker>
+                    <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1" [(ngModel)]="WorkorderDate" (onSelection)="viewEmployeeWorkorderByFilter()"></igx-datePicker> -->
+                    <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="WorkorderDate" (ngModelChange)="viewEmployeeWorkorderByFilter()" ></ng-datepicker >
                 </div>
                 <label class="col-sm-2 col-md-2 col-lg-2 control-label"> To Date</label>
                 <div class="col-sm-2 col-md-2 col-lg-2">
-                    <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1" [(ngModel)]="WorkorderDate2" (onSelection)="viewEmployeeWorkorderByFilter()"></igx-datePicker>
+                    <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1" [(ngModel)]="WorkorderDate2" (onSelection)="viewEmployeeWorkorderByFilter()"></igx-datePicker> -->
+                    <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="WorkorderDate2" (ngModelChange)="viewEmployeeWorkorderByFilter()" ></ng-datepicker >
                 </div>
                 <!-- </div>   -->
                 <!-- <div class = "col-sm-4 col-md-4 col-lg-4"> -->
