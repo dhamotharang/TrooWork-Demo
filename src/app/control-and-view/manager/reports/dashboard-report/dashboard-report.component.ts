@@ -40,24 +40,24 @@ export class DashboardReportComponent implements OnInit {
     }
     return window.atob(output);
   }
-//new date picker
-options: DatepickerOptions = {
-  minYear: 1970,
-  maxYear: 2030,
-  displayFormat: 'MM/DD/YYYY',
-  barTitleFormat: 'MMMM YYYY',
-  dayNamesFormat: 'dd',
-  firstCalendarDay: 0, // 0 - Sunday, 1 - Monday
-  //locale: frLocale,
-  //minDate: new Date(Date.now()), // Minimal selectable date
-  //maxDate: new Date(Date.now()),  // Maximal selectable date
-  barTitleIfEmpty: 'Click to select a date',
-  placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
-  addClass: '', // Optional, value to pass on to [ngClass] on the input field
-  addStyle: {'font-size':'18px','width':'88%', 'border': '1px solid #ced4da','border-radius': '0.25rem'}, // Optional, value to pass to [ngStyle] on the input field
-  fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
-  useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
-};
+  //new date picker
+  options: DatepickerOptions = {
+    minYear: 1970,
+    maxYear: 2030,
+    displayFormat: 'MM/DD/YYYY',
+    barTitleFormat: 'MMMM YYYY',
+    dayNamesFormat: 'dd',
+    firstCalendarDay: 0, // 0 - Sunday, 1 - Monday
+    //locale: frLocale,
+    //minDate: new Date(Date.now()), // Minimal selectable date
+    //maxDate: new Date(Date.now()),  // Maximal selectable date
+    barTitleIfEmpty: 'Click to select a date',
+    placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
+    addClass: '', // Optional, value to pass on to [ngClass] on the input field
+    addStyle: { 'font-size': '18px', 'width': '101%',  'border': '1px solid #ced4da', 'border-radius': '0.25rem' }, // Optional, value to pass to [ngStyle] on the input field
+    fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
+    useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
+  };
 
   title = 'Reusable charts sample';
   public arr: Array<any> = [{}];
@@ -266,14 +266,14 @@ options: DatepickerOptions = {
       .subscribe((data: Reports[]) => {
         this.pievalues = data;
         this.sampledata2 = [['WorkorderStatus', 'count']];
-       
+
         for (var i = 0; i < this.pievalues.length; i++) {
           var status = this.pievalues[i].reportpietext;
           var num = this.pievalues[i].totalItems;
           this.data3 = ([status, num]);
           this.sampledata2.push(this.data3);
 
-          if((i==this.pievalues.length-1)&&(this.sampledata2.length==this.pievalues.length+1)){
+          if ((i == this.pievalues.length - 1) && (this.sampledata2.length == this.pievalues.length + 1)) {
 
             setTimeout(() => {
               if ((this.pievalues.length > 0)) {

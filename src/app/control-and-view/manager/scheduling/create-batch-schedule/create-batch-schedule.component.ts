@@ -85,7 +85,7 @@ export class CreateBatchScheduleComponent implements OnInit {
     barTitleIfEmpty: 'Click to select a date',
     placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
     addClass: '', // Optional, value to pass on to [ngClass] on the input field
-    addStyle: {'font-size':'18px','width':'137%', 'border': '1px solid #ced4da','border-radius': '0.25rem'}, // Optional, value to pass to [ngStyle] on the input field
+    addStyle: {'font-size':'18px','width':'137%','margin-top': '1rem', 'border': '1px solid #ced4da','border-radius': '0.25rem'}, // Optional, value to pass to [ngStyle] on the input field
     fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
