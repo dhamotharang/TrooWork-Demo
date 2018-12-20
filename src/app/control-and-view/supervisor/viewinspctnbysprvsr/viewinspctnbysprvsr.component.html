@@ -13,7 +13,7 @@
           <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
              <input class="form-control" name="searchtl" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
                placeholder="Search Template,Location" aria-label="Search" [(ngmodel)]="SearchTL" formControlName="SearchTL"
-               (input)="searchTL($event.target.value);" style="width: 100%;">
+               (input)="searchTL($event.target.value);" style="width: 102%;margin-left: 1rem">
              <div *ngIf="searchform.controls.SearchTL.errors?.minlength">Minimum 3 characters required.</div>
            </div> 
           </form> 

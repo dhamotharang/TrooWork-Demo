@@ -2,11 +2,11 @@
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div *ngIf="!loading">
   <div style="background-color: #FFFFFF;margin-left: 10.5rem;margin-right: 10rem;">
-    <div style="text-align:center">
+    <div style="text-align:center;padding-top: 2rem">
       <h3 style="color: #174a5e;"><strong>INSPECTION TEMPLATES AND QUESTIONS</strong></h3>
     </div>
     <br>
-    <div class="row col-md-12">
+    <div class="row col-md-12" style="padding-bottom: 2rem">
       <div class="col-md-6">
         <select style="background-color: #D4F4FF !important;margin-left: 5rem;" class="form-control " [(ngModel)]="TemplateID"
           (change)="showInspectionTemplateTable($event.target.value)">
@@ -17,7 +17,7 @@
         </select>
       </div>
       <div class="col-md-6">
-        <a routerLink="/InspectiontemplateEdit" style="margin-top: 1.5rem;margin-left: 7rem;" class="btn btn-primary"><b>Edit Inspection
+        <a routerLink="/InspectiontemplateEdit" style="margin-top: -0.1rem;margin-left: 7rem;" class="btn btn-primary"><b>Edit Inspection
             Template</b></a>
       </div>
     </div>

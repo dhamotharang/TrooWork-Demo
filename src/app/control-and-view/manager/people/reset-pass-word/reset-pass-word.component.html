@@ -7,19 +7,17 @@
   <div class="col-md-12">
     <div class="row col-md-12">
       <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="username">User Name: </label></h5>
-      <div class="col-md-3" style="margin-top: 2rem;text-align:left">
+      <div class="col-md-8" style="margin-top: 2rem;text-align:left">
         <input *ngIf="build" type="text" style="background-color: #D4F4FF !important;" class="form-control"
           id="username" [(ngModel)]="build[0].UserId">
       </div>
-      <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
       <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="Password">Password: </label></h5>
-      <div class="col-md-3" style="margin-top: 2rem;text-align:left">
+      <div class="col-md-8" style="margin-top: 2rem;text-align:left">
         <input *ngIf="build" type="password" disabled="disabled" style="background-color: #D4F4FF !important;"
           class="form-control" id="Password" [(ngModel)]="build[0].Password">
       </div>
-      <div class="col col-md-5"></div>
     </div>
     <div class="row col-md-12">
       <div class="col col-md-4"></div>

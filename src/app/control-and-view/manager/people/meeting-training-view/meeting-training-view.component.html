@@ -2,14 +2,13 @@
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div *ngIf="!loading" style="width: 100%;height: 100%;">
   <div class="bg-dark" style="width: 100%;height: 100%;">
-   
+
     <div style="text-align:center">
       <h4 class="refer"><b> SEARCH MEETING/TRAINING/EVENT BY </b> </h4>
     </div>
     <br>
     <div style="text-align:center">
-      <a routerLink="/EventView" class="btn btn-primary" routerLinkActive="active"><b>View / Edit
-          Meeting/Training/Event</b></a>
+      <a routerLink="/EventView" class="btn btn-primary" routerLinkActive="active"><b>View Meeting/Training/Event</b></a>
     </div>
     <br>
     <div class="form-row col-md-12 bg-info" style="margin-left: 1.5rem;margin-bottom: 1rem;width: 96%;padding-top: 1rem;padding-bottom: 1rem;padding-left: 5rem;padding-right: 0rem">
@@ -38,7 +37,7 @@
           <label for="people">From Date </label>
           <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1"
             style="width: 75%;" [(ngModel)]="fromdate" (onSelection)="filterMtngTrainingList()"></igx-datePicker> -->
-            <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="fromdate" (ngModelChange)="filterMtngTrainingList()" ></ng-datepicker >
+          <ng-datepicker [options]="options" position="top-right" [(ngModel)]="fromdate" (ngModelChange)="filterMtngTrainingList()"></ng-datepicker>
         </div>
       </div>
       <div class="col-md-6">
@@ -46,7 +45,7 @@
           <label for="people">To Date </label>
           <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1"
             style="width: 75%;" [(ngModel)]="todate" (onSelection)="filterMtngTrainingList()"></igx-datePicker> -->
-            <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="todate" (ngModelChange)="filterMtngTrainingList()" ></ng-datepicker >
+          <ng-datepicker [options]="options" position="top-right" [(ngModel)]="todate" (ngModelChange)="filterMtngTrainingList()"></ng-datepicker>
         </div>
       </div>
     </div>

@@ -8,7 +8,8 @@
             <label for="mtngTrainingEvent">Meeting/Training/Event*</label>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 form-group">
-            <select name="eventtype" style="background-color: #d4f4ff;" class="form-control" [(ngModel)]="EventType">
+            <select name="eventtype" style="background-color: #d4f4ff;margin-left: -0.9rem" class="form-control"
+                [(ngModel)]="EventType">
                 <option value="">--Select--</option>
                 <option *ngFor="let b of event" [value]="b.ActionKey">
                     {{b.ActionType}} - {{b.Action}}
@@ -16,7 +17,8 @@
             </select>
         </div>
         <div class="col-sm-3 col-md-3 col-lg-3 form-group">
-            <button class="btn btn-success" (click)='newMeet=false;' style="margin-top: 0rem"><b>CREATE NEW</b></button>
+            <button class="btn btn-success" (click)='newMeet=false;' style="margin-top: 0rem;margin-left: -1.5rem"><b>CREATE
+                    NEW</b></button>
         </div>
         <!-- </div> -->
 
@@ -31,7 +33,7 @@
             <div class="col-md-6">
                 <div class="form-group " style="margin-left: 1rem;">
                     <label>Venue*</label>
-                    <input type="text" style="background-color: #D4F4FF !important;" class="form-control col-sm-9 col-md-9 col-lg-9"
+                    <input type="text" style="background-color: #D4F4FF !important;max-width: 100%;width: 77%;" class="form-control col-sm-9 col-md-9 col-lg-9"
                         [(ngModel)]="Venue">
                 </div>
             </div>
@@ -42,19 +44,17 @@
                 <label for="building">Date* </label>
                 <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1"
                     [(ngModel)]="mtngDate"></igx-datePicker> -->
-                    <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="mtngDate"></ng-datepicker >
+                <ng-datepicker [options]="options" position="top-right" [(ngModel)]="mtngDate"></ng-datepicker>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Start Time*</label><br>
-                <p-calendar [inputStyle]="{'width':'205%'}" [(ngModel)]="time1" [timeOnly]="true"
-                    hourFormat="12"></p-calendar>
+                <p-calendar [inputStyle]="{'width':'205%'}" [(ngModel)]="time1" [timeOnly]="true" hourFormat="12"></p-calendar>
             </div>
             <div class="form-group" style="margin-top: -1rem">
                 <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">End Time*</label><br>
-                <p-calendar [inputStyle]="{'width':'205%'}" [(ngModel)]="time2" [timeOnly]="true"
-                    hourFormat="12"></p-calendar>
+                <p-calendar [inputStyle]="{'width':'205%'}" [(ngModel)]="time2" [timeOnly]="true" hourFormat="12"></p-calendar>
             </div>
         </div>
         <div class="col-md-6">
@@ -92,7 +92,7 @@
             <div class="form-group" style="width: 75%">
                 <label for="Employee">Employee* </label>
                 <ng-multiselect-dropdown [placeholder]="'Selectemployee'" [data]="empList" [(ngModel)]="Employee"
-                    [textField]="'EmployeeText'" [valueField]="'EmployeeKey'" [settings]="dropdownSettings1" >
+                    [textField]="'EmployeeText'" [valueField]="'EmployeeKey'" [settings]="dropdownSettings1">
                 </ng-multiselect-dropdown>
             </div>
         </div>
@@ -104,40 +104,29 @@
     <div *ngIf='!newMeet' style="padding-top: 2.5rem">
         <div class="row col-md-12">
             <h5 style="text-align:right" class="col-md-4"><label for="eventHost">Event Type* </label></h5>
-            <div class="md-form col-md-3" style="text-align:left">
-                <input type="text" placeholder="Event Type" style="background-color: #D4F4FF !important;" class="form-control"
+            <div class="md-form col-md-8" style="text-align:left">
+                <input type="text" placeholder="Event Type" style="background-color: #D4F4FF !important;margin-top: -2rem;" class="form-control"
                     [(ngModel)]="Event_Type">
             </div>
-            <div class="col col-md-5"></div>
-        </div>
+        </div>j
         <div class="row col-md-12">
             <h5 style="text-align:right" class="col-md-4"><label for="Venue">Event Name* </label></h5>
-            <div class="md-form col-md-3" style="text-align:left">
-                <input type="text" placeholder="Event Name" style="background-color: #D4F4FF !important;" class="form-control"
+            <div class="md-form col-md-8" style="text-align:left">
+                <input type="text" placeholder="Event Name" style="background-color: #D4F4FF !important;margin-top: -2rem;" class="form-control"
                     [(ngModel)]="Event_Name">
             </div>
-            <div class="col col-md-5"></div>
         </div>
         <div class="row col-md-12">
-            <h5 style="text-align:right" class="col-md-4"><label for="Venue">Description </label></h5>
-            <div class="col-md-3" style="text-align:left">
+            <h5 style="text-align:right;margin-top: 2rem;" class="col-md-4"><label for="Venue">Description </label></h5>
+            <div class="col-md-8" style="text-align:left">
                 <textarea class="form-control rounded-0" [(ngModel)]="Description" rows="5" style="resize: none;"></textarea>
             </div>
-            <div class="col col-md-5"></div>
         </div>
-        <div class="row col-md-12">
-            <div class="col col-md-3"></div>
-            <div style="text-align:right" class="col-md-3">
-                <a style="color:white !important" class="btn btn-success" (click)="addNewMeeting()"><b>Save</b>
-                </a></div>
-            <div class="col col-md-3"></div>
-        </div>
-        <div class="row col-md-12">
-            <div class="col col-md-3"></div>
-            <div style="text-align:right" class="col-md-3">
-                <a style="color:white !important" class="btn btn-warning" (click)="newMeet=true;"><b>Go back</b>
-                </a></div>
-            <div class="col col-md-3"></div>
+        <div class="row col-md-12" style="margin-left: 45%;margin-top: 1.5rem">
+            <a style="color:white !important" class="btn btn-success" (click)="addNewMeeting()"><b>Save</b>
+            </a>
+            <a style="color:white !important" class="btn btn-warning" (click)="newMeet=true;"><b>Go back</b>
+            </a>
         </div>
     </div>
 </div>
