@@ -6,22 +6,23 @@
   </div>
 
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-top: 1rem;padding-bottom: 1rem" class="row bg-info col-md-12">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <div class="form-group">
-        <label>Workorder Type*</label><br>
-        <select *ngIf="!newType" style="background-color: #D4F4FF !important;" class="form-control" (change)='checkfornewWOT(WorkorderTypeKey)'
+        <label class="col-sm-12 col-md-12 col-lg-12">Workorder Type*</label>
+        <select *ngIf="!newType" style="background-color: #D4F4FF !important;width: 50%" class="form-control" (change)='checkfornewWOT(WorkorderTypeKey)'
           [(ngModel)]="WorkorderTypeKey" required>
           <option value="">--Select--</option>
           <option *ngFor="let e of workorderTypeList" [value]="e.WorkorderTypeKey">
             {{e.WorkorderTypeText}}
           </option>
         </select>
-        <input type="text" maxlength="30" *ngIf="newType" [(ngModel)]="newworkordertypetext" class="form-control"
-          placeholder="Enter new workordertype">
-        <br>
-        <input type="button" style="margin-bottom:19px" *ngIf="newType" (click)="GobacktoMenu()" class="btn btn-primary  button_style "
-          value="Go Default" />
+        <input type="text" maxlength="30" *ngIf="newType" [(ngModel)]="newworkordertypetext" class="form-control "
+          style="width: 50%" placeholder="Enter new workordertype">
+        <input type="button" *ngIf="newType" (click)="GobacktoMenu()" class="btn btn-primary" value="Go Default" />
       </div>
+    </div>
+    <div class="col-md-6" style="margin-top: 0.5rem">
+
       <div class="form-group">
         <label style="margin-top: 2rem;">Is Equipment</label>&nbsp;
         <input type="checkbox" [(ngModel)]="showEqTypes" data-md-icheck (change)="toggleVisibility_Equipment($event);change_values();" />
@@ -86,7 +87,7 @@
     </div>
 
     <div class="col-md-6">
-      <div class="form-group" style="margin-top: 6.5rem">
+      <div class="form-group">
         <label>Employee</label><br>
         <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="EmployeeKey" required>
           <option value="">--Select--</option>
