@@ -41,13 +41,17 @@ export class InspectiontemplateCreateComponent implements OnInit {
   private newAttribute: any = {};
   constructor(private inspectionService: InspectionService) { }
   addFieldValue() {
-    this.fieldArray.push(this.newAttribute)
-    this.newAttribute = {};
+    this.fieldArray.push('')
+    
   }
 
   deleteFieldValue(index) {
+    debugger;
     this.fieldArray.splice(index, 1);
   }
+  // dltLastValue(){
+  //   this.newAttribute.question=[];
+  // }
   valuesSave(ScoreTypeKey, InspTempName) {
  
     var ScoringTypeKey;
@@ -78,30 +82,28 @@ export class InspectiontemplateCreateComponent implements OnInit {
         }
     var arr = [];
     var t1;
-    debugger;
     for (var i=0 ; i<this.fieldArray.length;i++) {
-      if (!(this.fieldArray[i].question)) {
+      if (!(this.fieldArray[i])) {
         var index = i + 1;
                 alert("Question " + index + " is not provided !");
                 return;
         }
       arr.push(this.fieldArray[i]);
     }
-    if(!(this.newAttribute.question)){
-      alert("Please Enter Question!");
-      return;
-    }
-    t1 = this.newAttribute;
-    arr[arr.length] = t1;
-    arr;
+    // if(!(this.newAttribute.question)){
+    //   alert("Please Enter Question!");
+    //   return;
+    // }
+    // t1 = this.newAttribute;
+    // arr[arr.length] = t1;
+    // arr;
     this.fieldArray;
     var TempQustArry = [];
     var QustArry;
     for (var j = 0; j < arr.length; j++) {
-      TempQustArry.push(arr[j].question);
+      TempQustArry.push(arr[j]);
     }
     QustArry = TempQustArry.join(',');
-    debugger;
     if (QustArry === ''){
       QustArry = null;
               alert(" Questions are not provided !");
@@ -117,8 +119,9 @@ export class InspectiontemplateCreateComponent implements OnInit {
       this.ScoreTypeKey = "";
     this.InspTempName = null;
     this.fieldArray=[];
-    this.newAttribute.question=[];
+    // this.newAttribute.question=[];
     alert("Inspection Template Added !");
+    this.addFieldValue();
   });
   }
   else{
@@ -126,11 +129,14 @@ export class InspectiontemplateCreateComponent implements OnInit {
     this.ScoreTypeKey = "";
     this.InspTempName = null; 
     this.fieldArray=[];
-    this.newAttribute.question=[];
+    // this.newAttribute.question=[];
      alert("Template Name already exists !");
 }
   });
   }
+  customTrackBy(index: number, obj: any): any {
+    return index;
+}
   ngOnInit() {
 
     var token = localStorage.getItem('token');
@@ -141,7 +147,7 @@ export class InspectiontemplateCreateComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-
+    this.addFieldValue();
     this.ScoreTypeKey="";
     this.inspectionService
       .getScoreTypeList(this.OrganizationID)

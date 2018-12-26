@@ -3,7 +3,7 @@
     <div class="col-md-6">
     <div>
 <h5 style="text-align:right" class="col-md-4"><label> Rating </label></h5>
-<a *ngFor="let item of starList; let i=index " (click)="setStar(i)">  
+<a style="text-align:right" class="col-md-4" *ngFor="let item of starList; let i=index " (click)="setStar(i)">  
   <i *ngIf="item" class="fa fa-star-o"></i>    
   <i *ngIf="!item" class="fa fa-star"></i>     
  </a> 

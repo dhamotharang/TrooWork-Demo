@@ -14073,6 +14073,8 @@ app.post(securedpath + '/addReview', supportCrossOriginScript, function (request
     var starValue = request.body.starValue;
     var Comments = request.body.Comments;
     var feedback_time = request.body.feedback_time; 
+    // var Metacreated_dt = request.body.Metacreated_dt;
+
     pool.getConnection(function (err, connection) {
         if (err) {
 
@@ -14080,12 +14082,12 @@ app.post(securedpath + '/addReview', supportCrossOriginScript, function (request
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @Orgid=?; set @roomKey=?; set @starValue=?; set @Comments=?; set @feedback_time=?;call usp_addReviews(@Orgid,@roomKey,@starValue,@Comments,@feedback_time)', [Orgid,roomKey,starValue,Comments,feedback_time], function (err, rows) {
+            connection.query('set @Orgid=?; set @roomKey=?; set @starValue=?; set @Comments=?; set @feedback_time=?; call usp_addReviews(@Orgid,@roomKey,@starValue,@Comments,@feedback_time)', [Orgid,roomKey,starValue,Comments,feedback_time], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 } else {
-                    console.log("ROWS" + JSON.stringify(rows[4]));
-                    res.end(JSON.stringify(rows[4]));
+                    console.log("ROWS" + JSON.stringify(rows[5]));
+                    res.end(JSON.stringify(rows[5]));
                 }
             });
         }
