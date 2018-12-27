@@ -39,19 +39,17 @@ export class InspectiontemplateCreateComponent implements OnInit {
   title = 'dynamicrow';
   private fieldArray: Array<any> = [];
   private newAttribute: any = {};
+  
   constructor(private inspectionService: InspectionService) { }
+  
   addFieldValue() {
     this.fieldArray.push('')
     
   }
-
   deleteFieldValue(index) {
-    debugger;
     this.fieldArray.splice(index, 1);
   }
-  // dltLastValue(){
-  //   this.newAttribute.question=[];
-  // }
+ 
   valuesSave(ScoreTypeKey, InspTempName) {
  
     var ScoringTypeKey;
@@ -69,9 +67,6 @@ export class InspectiontemplateCreateComponent implements OnInit {
               alert("Scoring Type is not provided !");
               return;
       }
-      // var qnSet = [];
-      // qnSet = this.fieldArray;
-      // var noofqns = qnSet.length;
       if (InspTempName) {
         templatename = this.InspTempName;
         }
@@ -90,13 +85,6 @@ export class InspectiontemplateCreateComponent implements OnInit {
         }
       arr.push(this.fieldArray[i]);
     }
-    // if(!(this.newAttribute.question)){
-    //   alert("Please Enter Question!");
-    //   return;
-    // }
-    // t1 = this.newAttribute;
-    // arr[arr.length] = t1;
-    // arr;
     this.fieldArray;
     var TempQustArry = [];
     var QustArry;
@@ -119,7 +107,6 @@ export class InspectiontemplateCreateComponent implements OnInit {
       this.ScoreTypeKey = "";
     this.InspTempName = null;
     this.fieldArray=[];
-    // this.newAttribute.question=[];
     alert("Inspection Template Added !");
     this.addFieldValue();
   });
@@ -129,8 +116,8 @@ export class InspectiontemplateCreateComponent implements OnInit {
     this.ScoreTypeKey = "";
     this.InspTempName = null; 
     this.fieldArray=[];
-    // this.newAttribute.question=[];
      alert("Template Name already exists !");
+     this.addFieldValue();
 }
   });
   }
