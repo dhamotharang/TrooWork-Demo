@@ -286,14 +286,14 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     if(!(this.RoomTypeKey)){
       this.RoomTypeKey=null;
     }
-    this.WorkOrderServiceService
-      .getworkOrderTablewithOnDateOnly(this.pageNo,this.itemsPerPage,date1, this.toServeremployeekey, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.WorkorderDetTable = data;
-        if(!this.WorkorderDate2){
-        this.loading = false;
-        }
-      });
+    // this.WorkOrderServiceService
+    //   .getworkOrderTablewithOnDateOnly(this.pageNo,this.itemsPerPage,date1, this.toServeremployeekey, this.OrganizationID)
+    //   .subscribe((data: any[]) => {
+    //     this.WorkorderDetTable = data;
+    //     if(!this.WorkorderDate2){
+    //     this.loading = false;
+    //     }
+    //   });
       
     this.WorkOrderServiceService
       .getworkOrderTablewithOnDateandToDateFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
@@ -304,12 +304,12 @@ export class ViewworkordersforemployeeComponent implements OnInit {
           this.FinishButton[i] = true;
         }
       });
-    this.WorkOrderServiceService
-      .getworkOrderTablewithbuildingFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
-      .subscribe((data: any[]) => {
-        this.WorkorderDetTable = data;
-        this.loading = false;
-      });
+    // this.WorkOrderServiceService
+    //   .getworkOrderTablewithbuildingFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
+    //   .subscribe((data: any[]) => {
+    //     this.WorkorderDetTable = data;
+    //     this.loading = false;
+    //   });
 
   }
 
