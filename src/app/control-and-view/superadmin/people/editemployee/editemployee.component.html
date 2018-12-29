@@ -5,6 +5,8 @@
     <h3 style="margin-left: 25rem;">EDIT EMPLOYEE INFORMATION</h3>
   </div><br>
   <div class="row bg-info col-md-12">
+    <h3 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Employment
+      Information</h3>
     <div class="form-row col-md-12">
       <div class="col-md-6 ">
         <div class="form-group">
@@ -44,11 +46,59 @@
       <div class="col-md-6" *ngIf="showManager">
         <div class="form-group " style="margin-left: 1rem;">
           <label>Manager*</label>
-          <select name="userroletype" style=" background-color: #d4f4ff;width: 76%;max-width: 100%;" class="form-control col-sm-9 col-md-9 col-lg-9"
+          <select name="userroletype" style=" background-color: #d4f4ff;width: 77%;max-width: 100%;" class="form-control col-sm-9 col-md-9 col-lg-9"
             [(ngModel)]="editempdtailsbysa.ManagerKey">
             <option value="" placeholder>--Select--</option>
             <option *ngFor="let u of manager" [value]="u.ManagerKey">
               {{u.ManagerName}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="form-row col-md-12">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Hire Date*</label>
+          <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" item-width="20%" [(ngModel)]="HireDate"></igx-datePicker> -->
+          <ng-datepicker [options]="options" position="top-right" [(ngModel)]="HireDate"></ng-datepicker>
+        </div>
+        <div class="form-check form-check-inline" style="margin-top: 2.2rem">
+          <label class="form-check-label" for="materialInline1">Is SuperVisor</label> &nbsp;&nbsp;&nbsp;
+          <input type="checkbox" [(ngModel)]="editempdtailsbysa.IsSupervisor" data-md-icheck (change)="toggleVisibility($event)" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label style="margin-left: 1rem;">Job Title</label><br>
+          <select name="jobtitle" style="margin-left:0.9rem;background-color: #d4f4ff;width: 75%;max-width: 100%;"
+            [(ngModel)]="editempdtailsbysa.JobTitleKey" class="form-control col-sm-9 col-md-9 col-lg-9">
+            <option value="" placeholder>--Select--</option>
+            <option *ngFor="let j of jobtitle" [value]="j.JobTitleKey">
+              {{j.JobTitleText}}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label style="margin-left: 1rem;">Department</label><br>
+          <select name="department" style="margin-left:0.9rem;background-color: #d4f4ff;width: 75%;max-width: 100%;"
+            class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="editempdtailsbysa.DepartmentKey">
+            <option value="">--Select--</option>
+            <option *ngFor="let d of department" [value]="d.DepartmentKey">
+              {{d.DepartmentName}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group" style="margin-left: -1rem">
+          <label style="margin-left: 1rem;">Employee Status*</label><br>
+          <select name="jobtitle" style="margin-left:0.9rem;background-color: #d4f4ff;width: 73%;max-width: 100%;"
+            [(ngModel)]="editempdtailsbysa.EmployeeStatusKey" class="form-control col-sm-9 col-md-9 col-lg-9">
+            <option value="" placeholder>--Select--</option>
+            <option *ngFor="let s of employeestatus" [value]="s.EmployeeStatusKey">
+              {{s.EmployeeStatus}}
             </option>
           </select>
         </div>
@@ -166,56 +216,7 @@
         </div>
       </div>
 
-      <div class="row bg-info col-md-12">
-        <h3 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Other
-          Information</h3>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Hire Date*</label>
-            <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" item-width="20%" [(ngModel)]="HireDate"></igx-datePicker> -->
-            <ng-datepicker [options]="options" position="top-right" [(ngModel)]="HireDate"></ng-datepicker>
-          </div>
-          <div class="form-check form-check-inline" style="margin-top: 2.2rem">
-            <label class="form-check-label" for="materialInline1">Is SuperVisor</label> &nbsp;&nbsp;&nbsp;
-            <input type="checkbox" [(ngModel)]="editempdtailsbysa.IsSupervisor" data-md-icheck (change)="toggleVisibility($event)" />
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label style="margin-left: 1rem;">Job Title</label><br>
-            <select name="jobtitle" style="margin-left:0.9rem;background-color: #d4f4ff;width: 85%;max-width: 100%;"
-              [(ngModel)]="editempdtailsbysa.JobTitleKey" class="form-control col-sm-9 col-md-9 col-lg-9">
-              <option value="" placeholder>--Select--</option>
-              <option *ngFor="let j of jobtitle" [value]="j.JobTitleKey">
-                {{j.JobTitleText}}
-              </option>
-            </select>
-          </div>
 
-          <div class="form-group">
-            <label style="margin-left: 1rem;">Department</label><br>
-            <select name="department" style="margin-left:0.9rem;background-color: #d4f4ff;width: 85%;max-width: 100%;"
-              class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="editempdtailsbysa.DepartmentKey">
-              <option value="">--Select--</option>
-              <option *ngFor="let d of department" [value]="d.DepartmentKey">
-                {{d.DepartmentName}}
-              </option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group" style="margin-left: -1rem">
-            <label style="margin-left: 1rem;">Employee Status*</label><br>
-            <select name="jobtitle" style="margin-left:0.9rem;background-color: #d4f4ff;width: 79%;max-width: 100%;"
-              [(ngModel)]="editempdtailsbysa.EmployeeStatusKey" class="form-control col-sm-9 col-md-9 col-lg-9">
-              <option value="" placeholder>--Select--</option>
-              <option *ngFor="let s of employeestatus" [value]="s.EmployeeStatusKey">
-                {{s.EmployeeStatus}}
-              </option>
-            </select>
-          </div>
-        </div>
-      </div>
       <div class="row col-md-12" style="margin-left: 20rem;">
         <a style="text-align:center" class="btn btn-success" (click)="editEmployee(editempdtailsbysa.OrganizationID,editempdtailsbysa.UserRoleTypeKey,editempdtailsbysa.EmployeeNumber,editempdtailsbysa.ManagerKey,editempdtailsbysa.FirstName,editempdtailsbysa.LastName,editempdtailsbysa.MiddleName,BirthDate,editempdtailsbysa.AddressLine1,editempdtailsbysa.City,editempdtailsbysa.AddressLine2,editempdtailsbysa.State,editempdtailsbysa.Country,editempdtailsbysa.PrimaryPhone,editempdtailsbysa.ZipCode,editempdtailsbysa.AlternatePhone,editempdtailsbysa.EmailID,editempdtailsbysa.EmployeeStatusKey,HireDate,editempdtailsbysa.IsSupervisor,editempdtailsbysa.JobTitleKey,editempdtailsbysa.DepartmentKey,editempdtailsbysa.Gender)">
           <b> Update</b></a>
