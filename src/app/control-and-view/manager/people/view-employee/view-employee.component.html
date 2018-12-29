@@ -22,7 +22,7 @@
         <input class="form-control" name="searchempdetails" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
           placeholder="Search Employee Number,First Name,Last Name,Job Title,Contact No" aria-label="Search"
           [(ngmodel)]="SearchEmpDetails" formControlName="SearchEmpDetails" (input)="searchEmployeeDetails($event.target.value);"
-          style="width: 103%;margin-left: -0.9rem;">
+          style="width: 102.4%;margin-left: -0.9rem;">
         <div *ngIf="searchform.controls.SearchEmpDetails.errors?.minlength">Minimum 3 characters required.</div>
       </div>
     </form>

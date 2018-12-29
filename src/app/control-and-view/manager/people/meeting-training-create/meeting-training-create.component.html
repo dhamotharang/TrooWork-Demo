@@ -4,15 +4,14 @@
         <h3 style="margin-left: 25rem;">ASSIGN MEETING/TRAINING/EVENT</h3>
     </div> -->
     <div style="text-align:center">
-        <h4 class="refer"><b>ASSIGN MEETING/TRAINING/EVENT</b> </h4>
-      </div>
+        <h4 class="refer"><b>CREATE MEETING/TRAINING/EVENT</b> </h4>
+    </div>
     <br>
     <div class="row bg-info col-md-12" *ngIf='newMeet' style="padding-top: 2.5rem">
-        <div class="col-sm-3 col-md-3 col-lg-3 form-group">
+        <div class="col-md-6 ">
             <label for="mtngTrainingEvent">Meeting/Training/Event*</label>
-        </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 form-group">
-            <select name="eventtype" style="background-color: #d4f4ff;margin-left: -0.9rem" class="form-control"
+
+            <select name="eventtype" style="background-color: #d4f4ff;margin-left: 0.1rem;width: 75%" class="form-control"
                 [(ngModel)]="EventType">
                 <option value="">--Select--</option>
                 <option *ngFor="let b of event" [value]="b.ActionKey">
@@ -20,8 +19,9 @@
                 </option>
             </select>
         </div>
-        <div class="col-sm-3 col-md-3 col-lg-3 form-group">
-            <button class="btn btn-success" (click)='newMeet=false;' style="margin-top: 0rem;margin-left: -1.5rem"><b>CREATE
+        <div class="col-md-6 ">
+            <h3></h3>
+            <button class="btn btn-success" (click)='newMeet=false;' style="margin-top: 1.2rem;margin-left: 0.1rem"><b>CREATE
                     NEW</b></button>
         </div>
         <!-- </div> -->
@@ -54,11 +54,11 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Start Time*</label><br>
-                <p-calendar [inputStyle]="{'width':'205%'}" [(ngModel)]="time1" [timeOnly]="true" hourFormat="12"></p-calendar>
+                <p-calendar [inputStyle]="{'width':'257%'}" [(ngModel)]="time1" [timeOnly]="true" hourFormat="12"></p-calendar>
             </div>
             <div class="form-group" style="margin-top: -1rem">
                 <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">End Time*</label><br>
-                <p-calendar [inputStyle]="{'width':'205%'}" [(ngModel)]="time2" [timeOnly]="true" hourFormat="12"></p-calendar>
+                <p-calendar [inputStyle]="{'width':'257%'}" [(ngModel)]="time2" [timeOnly]="true" hourFormat="12"></p-calendar>
             </div>
         </div>
         <div class="col-md-6">
@@ -109,15 +109,15 @@
         <div class="row col-md-12">
             <h5 style="text-align:right" class="col-md-4"><label for="eventHost">Event Type* </label></h5>
             <div class="md-form col-md-8" style="text-align:left">
-                <input type="text" placeholder="Event Type" style="background-color: #D4F4FF !important;margin-top: -2rem;" class="form-control"
-                    [(ngModel)]="Event_Type">
+                <input type="text" placeholder="Event Type" style="background-color: #D4F4FF !important;margin-top: -2rem;width: 61%"
+                    class="form-control" [(ngModel)]="Event_Type">
             </div>
         </div>j
         <div class="row col-md-12">
             <h5 style="text-align:right" class="col-md-4"><label for="Venue">Event Name* </label></h5>
             <div class="md-form col-md-8" style="text-align:left">
-                <input type="text" placeholder="Event Name" style="background-color: #D4F4FF !important;margin-top: -2rem;" class="form-control"
-                    [(ngModel)]="Event_Name">
+                <input type="text" placeholder="Event Name" style="background-color: #D4F4FF !important;margin-top: -2rem;width: 61%"
+                    class="form-control" [(ngModel)]="Event_Name">
             </div>
         </div>
         <div class="row col-md-12">

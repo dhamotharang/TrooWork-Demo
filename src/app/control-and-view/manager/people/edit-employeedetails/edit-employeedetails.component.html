@@ -5,6 +5,8 @@
   </div><br>
   <div class="row bg-info col-md-12">
     <br>
+    <h3 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Employment
+      Information</h3>
     <div class="col-md-6">
       <div class="form-group ">
         <label>Employee Number*</label>
@@ -18,6 +20,49 @@
       <div class="form-group">
         <label>User Role Type*</label>
         <input type="text" name="UserRoleName" style="width: 75%" readonly class="form-control" [(ngModel)]="editempdtails.UserRoleName">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Hire Date*</label>
+        <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" item-width="20%" [(ngModel)]=""></igx-datePicker> -->
+        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="HireDate"></ng-datepicker>
+      </div>
+      <div class="form-check form-check-inline" style="margin-bottom: 2rem;margin-top: 2rem">
+        <label class="form-check-label" for="materialInline1">Is SuperVisor</label> &nbsp;&nbsp;&nbsp;
+        <input type="checkbox" [(ngModel)]="editempdtails.IsSupervisor" data-md-icheck (change)="toggleVisibility($event)" />
+      </div>
+      <div class="form-group" *ngIf="marked && !(editempdtails.IsSupervisor==true)">
+        <label>SuperVisor</label><br>
+        <select name="supervisor" style="background-color: #d4f4ff;" [(ngModel)]="editempdtails.SupervisorKey" class="form-control col-sm-9 col-md-9 col-lg-9">
+          <option value="">--Select--</option>
+          <option *ngFor="let s of supervisor" [value]="s.SupervisorKey">
+            {{s.SupervisorText}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Job Title</label><br>
+        <select name="jobtitle" style="background-color: #d4f4ff;width: 75%" [(ngModel)]="editempdtails.JobTitleKey"
+          class="form-control col-sm-9 col-md-9 col-lg-9">
+          <option value="" placeholder>--Select--</option>
+          <option *ngFor="let j of jobtitle" [value]="j.JobTitleKey">
+            {{j.JobTitleText}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Department</label><br>
+        <select name="department" style="background-color: #d4f4ff;width: 75%" class="form-control col-sm-9 col-md-9 col-lg-9"
+          [(ngModel)]="editempdtails.DepartmentKey">
+          <option value="">--Select--</option>
+          <option *ngFor="let d of department" [value]="d.DepartmentKey">
+            {{d.DepartmentName}}
+          </option>
+        </select>
       </div>
     </div>
   </div>
@@ -136,7 +181,7 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label style="margin-left: 1rem;">Employee Status*</label><br>
+        <label>Employee Status*</label><br>
         <select name="jobtitle" style="background-color: #d4f4ff;" [(ngModel)]="editempdtails.EmployeeStatusKey" class="form-control col-sm-9 col-md-9 col-lg-9">
           <option value="" placeholder>--Select--</option>
           <option *ngFor="let s of employeestatus" [value]="s.EmployeeStatusKey">
@@ -148,52 +193,6 @@
   </div>
   <br>
   <div class="row bg-info col-md-12">
-    <h3 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Other
-      Information</h3>
-    <div class="col-md-6">
-      <div class="form-group">
-        <label>Hire Date*</label>
-        <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" item-width="20%" [(ngModel)]=""></igx-datePicker> -->
-        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="HireDate"></ng-datepicker>
-      </div>
-      <div class="form-check form-check-inline" style="margin-bottom: 2rem;margin-top: 2rem">
-        <label class="form-check-label" for="materialInline1">Is SuperVisor</label> &nbsp;&nbsp;&nbsp;
-        <input type="checkbox" [(ngModel)]="editempdtails.IsSupervisor" data-md-icheck (change)="toggleVisibility($event)" />
-      </div>
-      <div class="form-group" *ngIf="marked && !(editempdtails.IsSupervisor==true)">
-        <label>SuperVisor</label><br>
-        <select name="supervisor" style="background-color: #d4f4ff;" [(ngModel)]="editempdtails.SupervisorKey" class="form-control col-sm-9 col-md-9 col-lg-9">
-          <option value="">--Select--</option>
-          <option *ngFor="let s of supervisor" [value]="s.SupervisorKey">
-            {{s.SupervisorText}}
-          </option>
-        </select>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group">
-        <label style="margin-left: 1rem;">Job Title</label><br>
-        <select name="jobtitle" style="margin-left:0.9rem;background-color: #d4f4ff;width: 72%" [(ngModel)]="editempdtails.JobTitleKey"
-          class="form-control col-sm-9 col-md-9 col-lg-9">
-          <option value="" placeholder>--Select--</option>
-          <option *ngFor="let j of jobtitle" [value]="j.JobTitleKey">
-            {{j.JobTitleText}}
-          </option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label style="margin-left: 1rem;">Department</label><br>
-        <select name="department" style="margin-left:0.9rem;background-color: #d4f4ff;width: 72%" class="form-control col-sm-9 col-md-9 col-lg-9"
-          [(ngModel)]="editempdtails.DepartmentKey">
-          <option value="">--Select--</option>
-          <option *ngFor="let d of department" [value]="d.DepartmentKey">
-            {{d.DepartmentName}}
-          </option>
-        </select>
-      </div>
-    </div>
-
     <div class="row col-md-12" style="margin-left: 20rem;">
       <a style="text-align:center" class="btn btn-success" (click)="editEmployee(editempdtails.EmployeeNumber,editempdtails.UserRoleTypeKey,editempdtails.FirstName,editempdtails.LastName,editempdtails.MiddleName,BirthDate,editempdtails.Gender,editempdtails.AddressLine1,editempdtails.City,editempdtails.AddressLine2,editempdtails.State,editempdtails.Country,editempdtails.PrimaryPhone,editempdtails.ZipCode,editempdtails.AlternatePhone,editempdtails.EmailID,editempdtails.EmployeeStatusKey,HireDate,editempdtails.IsSupervisor,editempdtails.SupervisorKey,editempdtails.JobTitleKey,editempdtails.DepartmentKey)">
         Update</a>

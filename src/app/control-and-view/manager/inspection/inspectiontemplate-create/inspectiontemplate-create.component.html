@@ -8,7 +8,7 @@
   <br>
   <div class="col-md-12">
     <div class="row col-md-12">
-      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="scoringtype">Scoring Type* </label></h5>
+      <h5 style="text-align:right" class="col-md-4"><label for="scoringtype">Scoring Type* </label></h5>
       <div class="col-md-8" style="text-align:left">
         <select style="background-color: #D4F4FF !important; " class="form-control" [(ngModel)]="ScoreTypeKey">
           <option value="">--Select--</option>
@@ -20,7 +20,8 @@
       </div>
     </div>
     <div class="row col-md-12">
-      <h5 style="text-align:right" class="col-md-4"><label for="inspectiontemplatename">Inspection Template Name*
+      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="inspectiontemplatename">Inspection
+          Template Name*
         </label></h5>
       <div class="md-form col-md-8" style="text-align:left">
         <input type="text" placeholder="Template Name" maxlength="40" style="background-color: #D4F4FF !important;"
@@ -35,7 +36,8 @@
             <textarea rows="4" cols="50" [(ngModel)]="fieldArray[i]" placeholder="Enter the Question" class="form-control"></textarea>
           </td>
           <td style="padding-top: 2.5rem">
-            <button class="btn btn-danger" type="button" [disabled]='fieldArray.length==1' (click)="deleteFieldValue(i)"><b>DELETE QUESTION</b></button>
+            <button class="btn btn-danger" type="button" [disabled]='fieldArray.length==1' (click)="deleteFieldValue(i)"><b>DELETE
+                QUESTION</b></button>
           </td>
         </tr>
         <!-- new space to enter values -->

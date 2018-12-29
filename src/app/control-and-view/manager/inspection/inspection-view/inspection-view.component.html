@@ -4,35 +4,37 @@
   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">VIEW INSPECTION ORDER</h3>
   </div>
- 
-  <div style="margin-left: 1.5rem;margin-right: 1.5rem;width: 97%;" class="row bg-info col-md-12">
+
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;width: 97.6%;" class="row bg-info col-md-12">
     <h3 style="text-align: right"></h3>
-    <div class="form-group" style="width: 25rem; margin-left: 2.5rem;">
+    <div class="form-group" style="width: 30rem; margin-left: 2.5rem;">
       <label style="margin-top: 2rem;margin-left: -1rem;" class="col-sm-4 col-md-4 col-lg-4 ">From Date</label>
 
       <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1" [(ngModel)]="fromdate"
         (onSelection)="filteringInspectionManagerByDate()"></igx-datePicker> -->
-        <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="fromdate" (ngModelChange)="filteringInspectionManagerByDate()" ></ng-datepicker >
+      <ng-datepicker [options]="options" position="top-right" [(ngModel)]="fromdate" (ngModelChange)="filteringInspectionManagerByDate()"></ng-datepicker>
     </div>
     <div class="col-md-6">
-      <div class="form-group" style="width: 25rem;margin-left: 6.5rem;">
+      <div class="form-group" style="width: 30rem;margin-left: 6.5rem;">
         <label style="margin-top: 2rem; margin-left: -1rem;" class="col-sm-4 col-md-4 col-lg-4 ">To Date</label>
         <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date1" [(ngModel)]="todate"
           (onSelection)="filteringInspectionManagerByDate()"></igx-datePicker> -->
-          <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="todate" (ngModelChange)="filteringInspectionManagerByDate()" ></ng-datepicker >
+        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="todate" (ngModelChange)="filteringInspectionManagerByDate()"></ng-datepicker>
       </div>
     </div>
     <br>
-    <div class="col-md-12">
-      <form [formGroup]="searchform">
-        <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
-          <input class="form-control" name="searchtl" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
-            placeholder="Search Template,Location" aria-label="Search" [(ngmodel)]="SearchTL" formControlName="SearchTL"
-            (input)="searchTL($event.target.value);" style="width: 100%;">
-          <div *ngIf="searchform.controls.SearchTL.errors?.minlength">Minimum 3 characters required.</div>
-        </div>
-      </form>
-    </div>
+
+  </div>
+  <br>
+  <div class="col-md-12">
+    <form [formGroup]="searchform">
+      <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 0.5rem;margin-right: 1.5rem;">
+        <input class="form-control" name="searchtl" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
+          placeholder="Search Template,Location" aria-label="Search" [(ngmodel)]="SearchTL" formControlName="SearchTL"
+          (input)="searchTL($event.target.value);" style="width: 102.6%;">
+        <div *ngIf="searchform.controls.SearchTL.errors?.minlength">Minimum 3 characters required.</div>
+      </div>
+    </form>
   </div>
   <br>
   <div class="row col-md-12" style="margin-left: 0.5rem">
