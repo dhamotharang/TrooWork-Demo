@@ -187,6 +187,9 @@ export class ViewWorkOrderComponent implements OnInit {
       .getallFloorNames(facKey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.floorList = data;
+        this.ZoneKey='';
+        this.FloorKey='';
+        this.RoomTypeKey='';
       });
   }
 
@@ -195,12 +198,19 @@ export class ViewWorkOrderComponent implements OnInit {
       .getallZones(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.zoneList = data;
+        this.ZoneKey='';
+        this.RoomTypeKey='';
       });
     this.WorkOrderServiceService
       .getallRoomType(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.roomtypeList = data;
+        this.ZoneKey='';
+        this.RoomTypeKey='';
       });
+  }
+  selectedZone(){
+    this.RoomTypeKey='';
   }
   searchWO(SearchValue) {
     var value=SearchValue.trim();
@@ -305,6 +315,18 @@ export class ViewWorkOrderComponent implements OnInit {
         this.loading = false;
         for (var i = 0; i < this.WorkorderDetTable.length; i++) {
           this.FinishButton[i] = true;
+          if(!(this.FacilityKey)){
+            this.FacilityKey='';
+          }
+          if(!(this.FloorKey)){
+            this.FloorKey='';
+          }
+          if(!(this.ZoneKey)){
+            this.ZoneKey='';
+          }
+          if(!(this.RoomTypeKey)){
+            this.RoomTypeKey='';
+          }
         }
       });
     // }

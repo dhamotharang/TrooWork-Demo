@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label>Zone</label><br>
                 <select style="background-color: #D4F4FF !important;width: 75%" class="form-control" [(ngModel)]="ZoneKey"
-                    [disabled]="!FloorKey" (change)="viewEmployeeWorkorderByFilter();"
+                    [disabled]="!FloorKey" (change)="viewEmployeeWorkorderByFilter();selectedZone()"
                     required>
                     <option value="">--Select--</option>
                     <option *ngFor="let b of zoneList" [value]="b.ZoneKey">
