@@ -1,4 +1,4 @@
-<app-manager-dash-board></app-manager-dash-board>
+
 <div style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
     <h3 style="margin-left: 40%">EDIT THIS WORK ORDER INSTANCE</h3>
@@ -295,7 +295,7 @@
     <div style="margin-left:35%">
       <button type="button" class="btn btn-success" (click)=UpdateWO()><b>UPDATE</b></button>
 
-      <a routerLink="/ViewWorkOrder" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
+      <a (click)='goBack()' class="btn btn-warning" style="color:white !important" ><b>Go
           Back
         </b>
       </a>

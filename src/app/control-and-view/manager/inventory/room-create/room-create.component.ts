@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
 import { Router } from "@angular/router";
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-room-create',
@@ -48,7 +49,7 @@ export class RoomCreateComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private inventoryService: InventoryService, private router: Router) { }
+  constructor(private inventoryService: InventoryService, private router: Router,private _location: Location) { }
 
   selectFloorfromBuildings(facKey) {
     this.FaciKey = facKey;
@@ -184,5 +185,7 @@ export class RoomCreateComponent implements OnInit {
     this.Barcode = this.temp_barcode;
 
   }
-
+  goBack(){
+    this._location.back();
+  }
 }

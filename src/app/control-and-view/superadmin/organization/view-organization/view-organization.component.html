@@ -1,4 +1,4 @@
-<app-superadmin-dashboard></app-superadmin-dashboard>
+   
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div  style="padding-left: 9rem;padding-right: 9rem;" *ngIf="!loading">
   <!-- <div class="bg-dark" style="width: 100%;height: 100%;"> -->
@@ -21,7 +21,7 @@
             <td>{{ o.State }}</td>
             <td>{{ o.Country }}</td>
             <td>
-              <a routerLink="/Orgedit/{{ o.OrganizationID }}" class="btn btn-primary"><b>Edit</b></a> &nbsp;
+              <a [routerLink]="['Orgedit',o.OrganizationID ]" class="btn btn-primary"><b>Edit</b></a> &nbsp;
               <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteOrgPass(o.OrganizationID); "
                 mdbWavesEffect><b>Delete</b></a>
             </td>

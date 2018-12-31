@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Inventory } from '../../../../model-class/Inventory';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { InventoryService } from '../../../../service/inventory.service';
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-floor-create',
   templateUrl: './floor-create.component.html',
@@ -35,7 +36,7 @@ export class FloorCreateComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private router: Router, private fb: FormBuilder, private inventoryService: InventoryService) {
+  constructor(private router: Router, private fb: FormBuilder, private inventoryService: InventoryService,private _location: Location) {
 
     this.floorcreate = fb.group({
       FacilityKey: ['', Validators.required],
@@ -74,7 +75,7 @@ export class FloorCreateComponent implements OnInit {
       this.inventoryService.createFloors(FacilityKey, FloorName, FloorDescription, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           alert("Floor created successfully");
-          this.router.navigateByUrl('/Floorview');
+          this._location.back();
         });
     }
   });
@@ -97,6 +98,10 @@ export class FloorCreateComponent implements OnInit {
         this.flooroptions = data;
         this.FacilityKey=""
       });
+  }
+
+  goBack(){
+    this._location.back();
   }
 
 }

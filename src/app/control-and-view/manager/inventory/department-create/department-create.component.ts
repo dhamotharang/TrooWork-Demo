@@ -3,7 +3,7 @@ import { Inventory } from '../../../../model-class/Inventory';
 import { InventoryService } from '../../../../service/inventory.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from "@angular/router";
-
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-department-create',
   templateUrl: './department-create.component.html',
@@ -36,7 +36,7 @@ export class DepartmentCreateComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private fb: FormBuilder, private inventoryServ: InventoryService, private router: Router) { }
+  constructor(private fb: FormBuilder, private inventoryServ: InventoryService, private router: Router,private _location: Location) { }
 
   addDepartment(DepartmentName) {
     if(DepartmentName && !DepartmentName.trim())
@@ -55,7 +55,7 @@ export class DepartmentCreateComponent implements OnInit {
         else if (data.length == 0) {
           this.inventoryServ.addDepartment(DepartmentName, this.employeekey, this.OrganizationID).subscribe(res =>{ 
             alert("Department created successfully");
-            this.router.navigateByUrl('/DepartmentView');
+            this._location.back();
         });
         }
       });
@@ -72,6 +72,9 @@ export class DepartmentCreateComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
+  }
+  goBack(){
+    this._location.back();
   }
 }
 

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CreatebuildingService } from '../../../../service/createbuilding.service';
 import { Inventory } from '../../../../model-class/Inventory';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -39,7 +40,7 @@ export class CreatebuildingComponent implements OnInit {
     }
     return window.atob(output);
   }
-  constructor(private router: Router, private fb: FormBuilder, private CreatebuildingService: CreatebuildingService) {
+  constructor(private router: Router, private fb: FormBuilder, private CreatebuildingService: CreatebuildingService,private _location: Location) {
 
     this.createbuilding = fb.group({
       newbuildingName: ['', Validators.required]
@@ -65,7 +66,7 @@ export class CreatebuildingComponent implements OnInit {
       this.CreatebuildingService.createBuildings(newbuildingName, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           alert("Building created successfully");
-          this.router.navigateByUrl('/Buildview');
+          this._location.back();
         });
     }
   });
@@ -84,5 +85,7 @@ export class CreatebuildingComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
   }
-
+  goBack(){
+    this._location.back();
+  }
 }

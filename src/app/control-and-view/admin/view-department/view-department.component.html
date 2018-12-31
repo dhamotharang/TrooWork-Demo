@@ -1,4 +1,4 @@
-<app-admin-dashboard></app-admin-dashboard>
+  
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div *ngIf="!loading"  style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="bg-dark" style="width: 100%;height: 100%;"> -->
@@ -6,13 +6,13 @@
     <h4 class="refer"><b> DEPARTMENT</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/DepartmentCreate" class="btn btn-success" routerLinkActive="active"><b>Create New Department</b>
+      <a [routerLink]="['DepartmentCreate']" class="btn btn-success" routerLinkActive="active"><b>Create New Department</b>
       </a>
     </div>
     <form [formGroup]="searchform">
       <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
         <input class="form-control" name="searchdeptview" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
-          placeholder="Search Department Name" aria-label="Search" [(ngmodel)]="SearchDepartment" formControlName="SearchDepartment"
+          placeholder="Search Department Name" aria-label="Search" [(ngModel)]="SearchDepartment" formControlName="SearchDepartment"
           (input)="searchDepartment($event.target.value);" style="width: 100%;">
         <div *ngIf="searchform.controls.SearchDepartment.errors?.minlength">Minimum 3 characters required.</div>
       </div>
@@ -27,7 +27,7 @@
           <tr *ngFor="let x of departments">
             <td>{{ x.DepartmentName }}</td>
             <td>
-              <a routerLink="/EditDepartment/{{ x.DepartmentKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
+              <a [routerLink]="['EditDepartment', x.DepartmentKey]" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
               <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteDeptPass(x.DepartmentKey); "
                 mdbWavesEffect><b>Delete</b></a>
             </td>

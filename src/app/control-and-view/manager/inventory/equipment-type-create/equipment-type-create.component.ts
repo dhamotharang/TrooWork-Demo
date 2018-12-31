@@ -3,7 +3,7 @@ import { Inventory } from '../../../../model-class/Inventory';
 import { InventoryService } from '../../../../service/inventory.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
-
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-equipment-type-create',
   templateUrl: './equipment-type-create.component.html',
@@ -37,7 +37,7 @@ export class EquipmentTypeCreateComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private fb: FormBuilder, private inventoryServ: InventoryService, private router: Router) { }
+  constructor(private fb: FormBuilder, private inventoryServ: InventoryService, private router: Router,private _location: Location) { }
 
   addEquipmentType() {
     if (!this.EquipmentTypeName) {
@@ -53,7 +53,7 @@ export class EquipmentTypeCreateComponent implements OnInit {
         else if (this.dept[0].count == 0) {
           this.inventoryServ.addEquipmentType(this.EquipmentTypeName, this.EquipmentTypeDescription, this.employeekey, this.OrganizationID).subscribe(res => {
             alert("Equipment Type Created Successfully")
-            this.router.navigateByUrl('/EquipmentTypeView')
+            this._location.back();
           });
         }
       });
@@ -71,5 +71,7 @@ export class EquipmentTypeCreateComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
   }
-
+  goBack(){
+    this._location.back();
+  }
 }

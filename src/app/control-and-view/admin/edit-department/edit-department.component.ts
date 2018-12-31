@@ -53,13 +53,15 @@ export class EditDepartmentComponent implements OnInit {
         else {
           this.inventoryService.UpdateDepartment(DepartmentName, this.deptKey$, this.employeekey, this.OrganizationID).subscribe(res =>{
             alert("Department updated successfully");
-            this.router.navigateByUrl('/ViewDepartment');
+            this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['ViewDepartment'] } }]);
             });
         }
       });
     }
   }
-
+  goBack(){
+    this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['ViewDepartment'] } }]);
+  }
   ngOnInit() {
 
     var token = localStorage.getItem('token');

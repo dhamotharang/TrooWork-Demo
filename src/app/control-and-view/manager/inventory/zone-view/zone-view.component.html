@@ -1,15 +1,15 @@
-<app-manager-dash-board></app-manager-dash-board>
+ 
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 
 <div *ngIf="!loading"  style="padding-left: 9rem;padding-right: 9rem;">
   <h4 class="refer"><b> ZONE</b> </h4>
   <br>
   <div style="text-align:center">
-    <a routerLink="/Createzone" class="btn btn-success" routerLinkActive="active"><b>Create New Zone</b></a></div>
+    <a  [routerLink]="['ZoneCreate']" class="btn btn-success"><b>Create New Zone</b></a></div>
   <form [formGroup]="searchform">
     <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
       <input class="form-control" name="searchzoneview" type="text" maxlength="20" specialIsAlphaNumeric minlength="3"
-        placeholder="Search Building,Floor,zone" aria-label="Search" [(ngmodel)]="SearchZone" formControlName="SearchZone"
+        placeholder="Search Building,Floor,zone" aria-label="Search" [(ngModel)]="SearchZone" formControlName="SearchZone"
         (input)="searchZone($event.target.value);" style="width: 100%;">
       <div *ngIf="searchform.controls.SearchZone.errors?.minlength">Minimum 3 characters required.</div>
     </div>
@@ -29,7 +29,7 @@
           <td>{{ x.FacilityName }}</td>
           <td>{{ x.FloorName }}</td>
           <td>{{ x.ZoneName }}</td>
-          <td><a routerLink="/Zonedit/{{ x.FloorKey}}/{{x.FacilityKey}}/{{x.ZoneKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
+          <td><a  [routerLink]="['Zonedit', x.FloorKey,x.FacilityKey,x.ZoneKey]" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
             <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteZoneValuePass(x.FacilityKey,x.FloorKey,x.ZoneKey); "
               mdbWavesEffect><b>Delete</b></a></td>
         </tr>

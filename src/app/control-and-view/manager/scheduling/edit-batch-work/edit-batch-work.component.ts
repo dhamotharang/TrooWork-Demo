@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SchedulingService } from '../../../../service/scheduling.service';
 import { ActivatedRoute, Router } from "@angular/router";
 
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-edit-batch-work',
   templateUrl: './edit-batch-work.component.html',
@@ -39,7 +40,7 @@ export class EditBatchWorkComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private scheduleService: SchedulingService, private router: Router, private route: ActivatedRoute) {
+  constructor(private scheduleService: SchedulingService, private router: Router, private route: ActivatedRoute,private _location: Location) {
     this.route.params.subscribe(params => this.scheduleNameKey$ = params.scheduleNameKey);
   }
 
@@ -67,14 +68,14 @@ export class EditBatchWorkComponent implements OnInit {
           .subscribe((data: any[]) => {
             if (data[0].count == 0) {
               this.scheduleService.updateScheduleNameDetails(this.employeekey, this.OrganizationID, this.scheduleDetails.BatchSchduleName, this.empKey, this.scheduleNameKey$, this.scheduleDetails.ScheduleDescription)
-                .subscribe(res => this.router.navigateByUrl('/SchedulingView'));
+                .subscribe(res =>  this._location.back());
             } else {
               alert("Schedule Name already present !");
             }
           });
       } else {
         this.scheduleService.updateScheduleNameDetails(this.employeekey, this.OrganizationID, this.scheduleDetails.BatchSchduleName, this.empKey, this.scheduleNameKey$, this.scheduleDetails.ScheduleDescription)
-          .subscribe(res => this.router.navigateByUrl('/SchedulingView'));
+          .subscribe(res =>  this._location.back());
       }
     }
   }
@@ -108,5 +109,7 @@ export class EditBatchWorkComponent implements OnInit {
       });
 
   }
-
+  goBack(){
+    this._location.back();
+  }
 }

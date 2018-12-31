@@ -60,7 +60,7 @@ export class EditOrganizationComponent implements OnInit {
     if (tid == this.temp_TenantID) {
       this.organizationService.UpdateOrganizationDetails(OName, ODesc, state, tid, loc, country, tename, email, this.updatedby, this.OrgId$).subscribe((data: any[]) => {
         alert("Organization Updated !"); 
-        this.router.navigateByUrl('/ViewOrganization');
+        this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['ViewOrganization'] } }]);
         });
     }
     else {
@@ -68,7 +68,7 @@ export class EditOrganizationComponent implements OnInit {
         if (data[0].count == 0) {
           this.organizationService.UpdateOrganizationDetails(OName, ODesc, state, tid, loc, country, tename, email, this.updatedby, this.OrgId$).subscribe((data: any[]) => {
             alert("Organization Updated !"); 
-            this.router.navigateByUrl('/ViewOrganization');
+            this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['ViewOrganization'] } }]);
 
             });
         }
@@ -93,5 +93,7 @@ export class EditOrganizationComponent implements OnInit {
 
     });
   }
-
+  goBack(){
+    this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['ViewOrganization'] } }]);
+  }
 }

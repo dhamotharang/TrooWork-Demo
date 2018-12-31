@@ -93,7 +93,7 @@ export class SupeadminChangePasswordComponent implements OnInit {
           }
 
         });
-        this.router.navigateByUrl('/welcomeSuperAdmin');
+        this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['welcomePage'] } }]);
       }
     }
   }

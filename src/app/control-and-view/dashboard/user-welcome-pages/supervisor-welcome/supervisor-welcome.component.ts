@@ -35,10 +35,12 @@ export class SupervisorWelcomeComponent implements OnInit {
   constructor(private loginService: LoginService, private router: Router) { }
 
   callCreateWO() {
-    this.router.navigateByUrl('/CreateWorkOrderSuperVisor')
+    
+    this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['CreateWorkOrderSuperVisor'] } }]);
   }
   callCreateInspection() {
-    this.router.navigateByUrl('/Createinspectionbysuprvsr')
+  
+    this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['Createinspectionbysuprvsr'] } }]);
   }
   ngOnInit() {
 

@@ -67,7 +67,7 @@ export class CreateOrganizationComponent implements OnInit {
       if (data[0].count == 0) {
         this.organizationService.createOrganization(this.OrgName, this.OrgDesc, this.Location, this.State, this.Country, this.updatedby, this.TenName, this.OrgEmail, this.tenID).subscribe((data: any[]) => {
           alert('Organization Successfully Created !');
-          this.router.navigateByUrl('/ViewOrganization');
+          this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['ViewOrganization'] } }]);
         });
         }
       else {

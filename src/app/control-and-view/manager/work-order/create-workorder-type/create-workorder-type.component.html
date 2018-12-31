@@ -1,4 +1,4 @@
-<app-manager-dash-board></app-manager-dash-board>
+
 
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
  
@@ -20,7 +20,7 @@
            (click)="addWOT(WorkOrderTypeName)"><b>CREATE WORK-ORDER TYPE</b>
       </button></div>
       <div style="text-align:left" class="col-md-2">
-        <a routerLink="/WorkOrderType" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>GO
+        <a (click)='goBack()' class="btn btn-warning" style="color:white !important" ><b>GO
             BACK
           </b>
         </a></div>

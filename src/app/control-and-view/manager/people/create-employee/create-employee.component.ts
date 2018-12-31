@@ -185,7 +185,8 @@ export class CreateEmployeeComponent implements OnInit {
           this.temp_res = data22;
           alert("Employee Created !");
           var empKey = this.temp_res.EmployeeKey;
-          this.router.navigate(['/Settingusernameandpswrdaftremplcreatebyman', empKey, str, this.UserRoleTypeKey]);
+          // this.router.navigate(['/Settingusernameandpswrdaftremplcreatebyman', empKey, str, this.UserRoleTypeKey]);
+          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Settingusernameandpswrdaftremplcreatebyman', empKey, str, this.UserRoleTypeKey] } }]);
         });
       } else {
         alert('Employee number already present!');

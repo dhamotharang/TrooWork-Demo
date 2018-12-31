@@ -160,7 +160,7 @@ export class CreateQuickWorkOrderComponent implements OnInit {
       .addQuickWorkOrder(this.createworkorder)
       .subscribe(res => {
         alert("work-order created successfully");
-        this.router.navigateByUrl('/viewWorkOrderSupervisor');
+        this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['viewWorkOrderSupervisor'] } }]);
     });
   }
     

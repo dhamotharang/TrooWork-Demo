@@ -13,27 +13,27 @@
     <div class="collapse navbar-collapse" id="navbarText" style="margin-left: 15%;">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <img class="imagesize nav-link" src="assets/icons/homepage.png" routerLink="/welcomeSuperAdmin" >
+          <img class="imagesize nav-link" src="assets/icons/homepage.png" [routerLink]="[{outlets:{SuperAdminOut:['welcomePage']}}]"  >
         </li>
         <li class="nav-item dropdown">
           <img class="imagesize nav-link" data-toggle="dropdown" src="assets/icons/PEOPLE--3.png" >
           <div class="dropdown-content" style="margin-left:1rem;">
-            <a class="dropdown-item" routerLink="/Createemployee"><b>Create Employee</b></a>
-            <a class="dropdown-item" routerLink="/Viewemployee"><b>View Employee</b></a>
-            <a class="dropdown-item" routerLink="/Managelogincredentials"><b>Manage Login Credentials</b></a>
+            <a class="dropdown-item" [routerLink]="[{outlets:{SuperAdminOut:['Createemployee']}}]"><b>Create Employee</b></a>
+            <a class="dropdown-item" [routerLink]="[{outlets:{SuperAdminOut:['Viewemployee']}}]"><b>View Employee</b></a>
+            <a class="dropdown-item" [routerLink]="[{outlets:{SuperAdminOut:['Managelogincredentials']}}]"><b>Manage Login Credentials</b></a>
           </div>
         </li>
         <li class="nav-item dropdown">
           <img class="imagesize nav-link" src="assets/icons/Organisation-2.png" >
           <div class="dropdown-content" style="margin-left:1rem;">
-            <a class="dropdown-item" routerLink="/CreateOrganization"><b>Create Organisation</b></a>
-            <a class="dropdown-item" routerLink="/ViewOrganization"><b>View Organisation</b></a>
+            <a class="dropdown-item" [routerLink]="[{outlets:{SuperAdminOut:['CreateOrganization']}}]"><b>Create Organisation</b></a>
+            <a class="dropdown-item" [routerLink]="[{outlets:{SuperAdminOut:['ViewOrganization']}}]"><b>View Organisation</b></a>
           </div>
         </li>
         <li class="nav-item dropdown">
           <img class="imagesize nav-link" src="assets/icons/profile-2.png" >
           <div class="dropdown-content" style="margin-left:1rem;">
-            <a class="dropdown-item" routerLink="/superAdminMyProfile"><b>My Profile</b></a>
+            <a class="dropdown-item" [routerLink]="[{outlets:{SuperAdminOut:['superAdminMyProfile']}}]"><b>My Profile</b></a>
             <a class="dropdown-item" routerLink="/"><b>Log Out</b></a>
           </div>
         </li>
@@ -43,4 +43,6 @@
   <!-- <div style="height:100%;background-color: #EBFAFF;">
 
   </div> -->
+  <router-outlet name="SuperAdminOut"></router-outlet>
+  <!-- varun - child paths are loaded in  SuperAdminOut outlet for lazy loading-->
 </div>

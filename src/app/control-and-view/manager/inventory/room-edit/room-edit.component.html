@@ -1,11 +1,11 @@
-<app-manager-dash-board></app-manager-dash-board>
+ 
 <div class="py-5 bg-info" style="padding-left: 9rem; padding-top:0rem !important; padding-bottom:0rem !important;margin-left: 2rem">
   <br>
   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">UPDATE ROOM</h3>
   </div><br>
 
-  <div class="row bg-info col-md-12">
+  <div class="row bg-info col-md-12" *ngIf='room'>
     <br>
     <div class="col-md-6">
       <div class="form-group">
@@ -87,7 +87,7 @@
           Room
         </b>
       </a>
-      <a routerLink="/roomView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go Back
+      <a (click)='goback();' class="btn btn-warning" style="color:white !important" ><b>Go Back
         </b>
       </a>
     </div>

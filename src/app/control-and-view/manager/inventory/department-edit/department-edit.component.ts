@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { InventoryService } from '../../../../service/inventory.service';
-
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-department-edit',
   templateUrl: './department-edit.component.html',
@@ -35,7 +35,7 @@ export class DepartmentEditComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router,private _location: Location) {
     this.route.params.subscribe(params => this.deptKey$ = params.DeptKey);
   }
 
@@ -51,7 +51,7 @@ export class DepartmentEditComponent implements OnInit {
         else {
           this.inventoryService.UpdateDepartment(DepartmentName, this.deptKey$, this.employeekey, this.OrganizationID).subscribe(res =>{
             alert("Department updated successfully");
-             this.router.navigateByUrl('/DepartmentView')
+            this._location.back();
         });
         }
       });
@@ -73,5 +73,8 @@ export class DepartmentEditComponent implements OnInit {
 
       this.dept = data[0];
     });
+  }
+  goBack(){
+    this._location.back();
   }
 }

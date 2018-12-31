@@ -58,7 +58,7 @@ export class JobTitleEditAdminComponent implements OnInit {
       return;
     }
     this.peopleServiceService.updateEditJobtitle(this.JobTitle_Key$, JobTitle, JobTitleDescription, this.employeekey, this.OrganizationID)
-      .subscribe(res => this.router.navigateByUrl('/JobTitleViewAdmin'));
+    this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['JobTitleViewAdmin'] } }]);
   }
 
   ngOnInit() {
@@ -76,5 +76,7 @@ export class JobTitleEditAdminComponent implements OnInit {
 
     });
   }
-
+  goBack(){
+    this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['JobTitleViewAdmin'] } }]);
+  }
 }

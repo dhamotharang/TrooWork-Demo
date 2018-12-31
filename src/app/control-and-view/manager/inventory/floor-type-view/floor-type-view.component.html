@@ -1,4 +1,4 @@
-<app-manager-dash-board></app-manager-dash-board>
+ 
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 
 <div *ngIf="!loading"  style="padding-left: 9rem;padding-right: 9rem;">
@@ -7,13 +7,13 @@
     <h4 class="refer"><b> FLOOR TYPE</b> </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/FloorTypeCreate" class="btn btn-success" routerLinkActive="active"><b>Create New Floor Type</b>
+      <a [routerLink]="['FloorTypeCreate']" class="btn btn-success" routerLinkActive="active"><b>Create New Floor Type</b>
       </a>
     </div>
     <form [formGroup]="searchform">
       <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
         <input class="form-control" name="searchfloortypeview" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
-          placeholder="Search Floor Type" aria-label="Search" [(ngmodel)]="SearchFloorType" formControlName="SearchFloorType"
+          placeholder="Search Floor Type" aria-label="Search" [(ngModel)]="SearchFloorType" formControlName="SearchFloorType"
           (input)="searchFloorType($event.target.value);" style="width: 100%;">
         <div *ngIf="searchform.controls.SearchFloorType.errors?.minlength">Minimum 3 characters required.</div>
       </div>
@@ -28,7 +28,7 @@
           <tr *ngFor="let x of floorType">
             <td>{{ x.FloorTypeName }}</td>
             <td>
-              <a routerLink="/FloorTypeEdit/{{ x.FloorTypeKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
+              <a  [routerLink]="['FloorTypeEdit',x.FloorTypeKey]" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
               <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteFloorTypePass(x.FloorTypeKey); "
                 mdbWavesEffect><b>Delete</b></a>
             </td>
@@ -62,7 +62,7 @@
       </table>
       <button class="btn btn-success" style="float: left;" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
       <button class="btn btn-success" style="float: right;" (click)="nextPage()" *ngIf="showHide2">Next >></button>
-      <a routerLink="/roomView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
+      <a (click)='goBack()' class="btn btn-warning" style="color:white !important" ><b>Go
         Back</b>
     </a>
     </div>

@@ -1,4 +1,4 @@
-<app-manager-dash-board></app-manager-dash-board>
+ 
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
@@ -28,8 +28,8 @@
       <div class="form-group" style="width: 85%;">
         <label>Workorder Type</label>
         <ng-multiselect-dropdown (change)="dashboardreportbyfilter()" [placeholder]="'Select'" [data]="workordertypeoption"
-          [(ngModel)]="WorkorderTypeKey" [textField]="'WorkorderTypeText'" [valueField]="'WorkorderTypeKey'" [settings]="dropdownSettings"
-          (onSelect)="dashboardreportbyfilter()" (onSelectAll)="dashboardreportbyfilter()">
+          [(ngModel)]="WorkorderTypeKey" [settings]="dropdownSettings"
+          (onSelect)="dashboardreportbyfilter()" (onDeSelect)='dashboardreportbyfilter()' (onSelectAll)='dashboardreportbyfilter()' (onSelectAll)="dashboardreportbyfilter()">
         </ng-multiselect-dropdown>
       </div>
       <div class="form-group" style="width: 20rem;">

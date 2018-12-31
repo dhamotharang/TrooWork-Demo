@@ -172,7 +172,7 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
     this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.managerKey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey)
       .subscribe((data: Array<any>) => {
         alert("Employee Updated !");
-        this.router.navigateByUrl('/viewEmployeeAdmin');
+        this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['viewEmployeeAdmin'] } }]);
       });
 
   }
@@ -183,8 +183,11 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
       .DeleteEmployeeDetailsbyManager(this.delete_EmpKey, this.OrganizationID, this.employeekey)
       .subscribe((data: Array<any>) => {
         alert("Employee Deleted !");
-        this.router.navigateByUrl('/ViewEmployee')
+        this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['viewEmployeeAdmin'] } }]);
       });
+  }
+  goBack(){
+    this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['viewEmployeeAdmin'] } }]);
   }
   deleteEmpPass(empk$) {
     this.delete_EmpKey = empk$;
