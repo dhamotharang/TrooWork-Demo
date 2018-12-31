@@ -16,13 +16,14 @@ export class GooglePieChartService extends GoogleChartsBaseService {
             sliceVisibilityThreshold:0.000000000000001,
             pieHole: config1.pieHole,
             'backgroundColor': 'transparent',
-            'chartArea': {'width': '350', 'height': '350'}, 
+            'width':500, 'height':500,                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+            'chartArea': {'width': '100%', 'height': '80%'}, 
             'colors': ['#ef0404', '#3552e0', '#9823a3', '#f9f502', '#0ab223','#efab34'],
             tooltip: { trigger: 'selection',text:'percentage'  },
             pieSliceTextStyle: {
               color: 'black',
             },
-            legend: { position: 'bottom'}
+            legend: { position: 'bottom',textStyle: {fontSize: 11} }
       };
 
     this.buildChart(data1, chartFunc, options);
