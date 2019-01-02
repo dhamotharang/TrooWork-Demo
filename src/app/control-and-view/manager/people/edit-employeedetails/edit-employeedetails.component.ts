@@ -174,7 +174,7 @@ export class EditEmployeedetailsComponent implements OnInit {
     this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.employeekey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey)
     .subscribe((data: People[]) => {
     alert("Updated Successfully!");
-    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
+    this.router.navigateByUrl('/ViewEmployee');
   });
    }
    else{
@@ -184,7 +184,7 @@ export class EditEmployeedetailsComponent implements OnInit {
     this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.employeekey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey)
       .subscribe((data: People[]) => {
       alert("Updated Successfully!");
-      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
+      this.router.navigateByUrl('/ViewEmployee');
     });
     }
     else
@@ -252,7 +252,5 @@ export class EditEmployeedetailsComponent implements OnInit {
       this.marked = true;
     }
   }
-  GoBack(){
-    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
-  }
+  
 }

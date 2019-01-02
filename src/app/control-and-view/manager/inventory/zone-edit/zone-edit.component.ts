@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-zone-edit',
@@ -44,7 +43,7 @@ export class ZoneEditComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router,private _location: Location) {
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
     this.route.params.subscribe(params => this.facKey$ = params.Facility_Key);
     this.route.params.subscribe(params => this.floorKey$ = params.Floor_Key);
     this.route.params.subscribe(params => this.zoneKey$ = params.Zone_Key);
@@ -88,7 +87,7 @@ export class ZoneEditComponent implements OnInit {
           this.inventoryService.updateZone(FacilityKey, FacilityName, FloorName, FloorKey, ZoneKey, ZoneName, this.employeekey, this.OrganizationID)
             .subscribe(res => {
               alert("Zone updated successfully");
-              this._location.back();
+              this.router.navigateByUrl('/Zoneview');
             });
 
 
@@ -127,8 +126,5 @@ export class ZoneEditComponent implements OnInit {
       .subscribe((data: Inventory[]) => {
         this.zoneEditValues = data;
       });
-  }
-  goBack(){
-    this._location.back();
   }
 }

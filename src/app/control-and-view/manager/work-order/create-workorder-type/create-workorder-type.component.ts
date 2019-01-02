@@ -75,13 +75,10 @@ export class CreateWorkorderTypeComponent implements OnInit {
           this.WorkOrderServiceService.createWOT(this.add_WOT)
             .subscribe((data: any[]) => {
               alert("Work-order type created successfully");
-              this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);
+              this.router.navigateByUrl('/WorkOrderType');
             });
         }
       });
     }
-  }
-  goBack(){
-    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);
   }
 }

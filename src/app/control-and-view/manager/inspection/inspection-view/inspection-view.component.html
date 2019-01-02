@@ -1,4 +1,4 @@
- 
+<app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
@@ -30,7 +30,7 @@
     <form [formGroup]="searchform">
       <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 0.5rem;margin-right: 1.5rem;">
         <input class="form-control" name="searchtl" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
-          placeholder="Search Template,Location" aria-label="Search" [(ngModel)]="SearchTL" formControlName="SearchTL"
+          placeholder="Search Template,Location" aria-label="Search" [(ngmodel)]="SearchTL" formControlName="SearchTL"
           (input)="searchTL($event.target.value);" style="width: 102.6%;">
         <div *ngIf="searchform.controls.SearchTL.errors?.minlength">Minimum 3 characters required.</div>
       </div>
@@ -55,9 +55,9 @@
           <td>{{i.Inspectiondate}} {{i.InspectionTime}}</td>
           <td>{{i.LastName}},{{i.FirstName}} </td>
           <td>{{i.EmployeeName}}</td>
-          <td *ngIf="i.InspectionCompletedBy !== null"> <a (click)='GoView(i.InspectionOrderKey)'
+          <td *ngIf="i.InspectionCompletedBy !== null"> <a routerLink="/ViewInspectionManager/{{i.InspectionOrderKey}}"
               class="btn btn-primary"><b>Inspection Completed </b></a></td>
-          <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey === toServeremployeekey)"> <a [routerLink]="['Managerinspectiontemplate',i.InspectionOrderKey]" 
+          <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey === toServeremployeekey)"> <a routerLink="/Managerinspectiontemplate/{{i.InspectionOrderKey}}"
               class="btn btn-primary"><b>Inspect</b></a></td>
           <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey !== toServeremployeekey)">Scheduled</td>
         </tr>

@@ -1,4 +1,4 @@
- 
+<app-manager-dash-board></app-manager-dash-board>
 
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
  
@@ -27,7 +27,7 @@
       <div style="margin-left: 45%">
         <a style="color:white !important" class="btn btn-success" routerLinkActive="active" (click)="updateJobTitle(JobtitleDetails[0].JobTitle,JobtitleDetails[0].JobTitleDescription)"><b>Update</b>
         </a>&nbsp;
-        <a (click)='goBack()' class="btn btn-warning" style="color:white !important" ><b>Go
+        <a routerLink="/JobTitleView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
             Back
           </b>
         </a>

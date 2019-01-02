@@ -254,7 +254,4 @@ export class InspectionViewComponent implements OnInit {
     });
   }
 
-  GoView(para){
-    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewInspectionManager',para] } }]);
-  }
 }

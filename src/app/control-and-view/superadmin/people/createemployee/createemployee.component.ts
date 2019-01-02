@@ -190,8 +190,7 @@ export class CreateemployeeComponent implements OnInit {
               this.temp_res = data;
               alert("Employee Created !");
               var empKey = this.temp_res.EmployeeKey;
-              // this.router.navigate(['/setUserLoginSuper', empKey, str, this.UserRoleTypeKey, this.OrganizationID]);
-              this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['setUserLoginSuper', empKey, str, this.UserRoleTypeKey, this.OrganizationID] } }]);
+              this.router.navigate(['/setUserLoginSuper', empKey, str, this.UserRoleTypeKey, this.OrganizationID]);
             });
         }
       });

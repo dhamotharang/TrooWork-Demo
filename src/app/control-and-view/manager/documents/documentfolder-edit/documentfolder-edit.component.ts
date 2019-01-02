@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { DocumentserviceService } from '../../../../service/documentservice.service';
 import { Documents } from '../../../../model-class/Documents';
 import { ActivatedRoute, Router } from "@angular/router";
-
-import {Location} from '@angular/common';
 @Component({
   selector: 'app-documentfolder-edit',
   templateUrl: './documentfolder-edit.component.html',
@@ -36,7 +34,7 @@ export class DocumentfolderEditComponent implements OnInit {
   }
 
 
-  constructor(private route: ActivatedRoute, private documentService: DocumentserviceService, private router: Router,private _location: Location) {
+  constructor(private route: ActivatedRoute, private documentService: DocumentserviceService, private router: Router) {
     this.route.params.subscribe(params => this.folder$ = params.FormtypeId);
   }
 
@@ -55,7 +53,7 @@ export class DocumentfolderEditComponent implements OnInit {
     {
     this.documentService.UpdateDocumentFolderName(this.folder$, this.folder.FormType, this.employeekey, this.OrganizationID).subscribe((data: Documents[])=> {
       alert("Successfully Updated");
-      this._location.back();
+      this.router.navigateByUrl('/DocumentfolderView');
     });
   }
   else
@@ -79,9 +77,6 @@ export class DocumentfolderEditComponent implements OnInit {
     this.documentService.EditDocFolderName(this.folder$, this.OrganizationID).subscribe((data: any[]) => {
       this.folder = data[0]
     });
-  }
-  goBack(){
-    this._location.back();
   }
 
 }

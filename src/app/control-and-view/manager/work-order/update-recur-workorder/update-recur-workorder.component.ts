@@ -578,7 +578,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       .deleteCurrent_WO(this.deleteWO)
       .subscribe((data: any[]) => {
         alert("Work-order deleted successfully");
-        this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewWorkOrder'] } }]);
+        this.router.navigateByUrl('/ViewWorkOrder');
       });
   }
   dailyrecurringChange() {
@@ -984,7 +984,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
         .deleteCurrent_WO(this.deleteWO)
         .subscribe((data: any[]) => {
           alert("Work-order updated successfully");
-          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewWorkOrder'] } }]);
+          this.router.navigateByUrl('/ViewWorkOrder');
         });
     });
   }
@@ -1344,7 +1344,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
         .deleteCurrent_WO(this.deleteWO)
         .subscribe((data: any[]) => {
           alert("Work-order updated successfully");
-          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewWorkOrder'] } }]);
+          this.router.navigateByUrl('/ViewWorkOrder');
         });
     });
   }
@@ -1368,9 +1368,6 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       this.EquipmentTypeKey = "";
       this.EquipmentKey = "";
     }
-  }
-  goBack(){
-    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewWorkOrder'] } }]);
   }
 }
 

@@ -1,4 +1,4 @@
- 
+<app-manager-dash-board></app-manager-dash-board>
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
   <br>
   <div style="text-align:center">
@@ -9,17 +9,16 @@
   <div class="col-md-12">
     <div class="row col-md-12">
       <h5 style="text-align:right" class="col-md-4"><label for="Department">RoomType Name*: </label></h5>
-      <div class="col-md-3" style="text-align:left">
-        <input type="text" maxlength="40" placeholder="RoomType Name" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
-          [(ngModel)]="RoomTypeName">
+      <div class="col-md-8" style="text-align:left">
+        <input type="text" maxlength="40" placeholder="RoomType Name" style="background-color: #D4F4FF !important;"
+          class="form-control" [(ngModel)]="RoomTypeName">
       </div>
     </div>
     <br>
     <div class="row col-md-12">
       <h5 style="text-align:right" class="col-md-4"><label for="Department">MetricType Name* : </label></h5>
       <div class="col-md-8" style="text-align:left">
-        <select style="background-color: #D4F4FF !important; " class="form-control" [(ngModel)]="MetricKey"
-          (change)=showFields($event.target.value)>
+        <select style="background-color: #D4F4FF !important; " class="form-control" [(ngModel)]="MetricKey" (change)=showFields($event.target.value)>
           <option value="">--Select--</option>
           <option *ngFor="let f of metricValues" [value]="f.MetricType">
             {{f.MetricType}}
@@ -30,26 +29,14 @@
     <br>
 
     <div class="row col-md-12" *ngIf="MetricKey">
-      <!-- <span *ngIf="showField1">
-        <h5 style="text-align:right" class="col-md-4"><label for="Department">MetricType Name*:
-          </label></h5>
-        <div class="col-md-3" style="text-align:left">
-          <input type="text" style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="MetricTypeValue"
-            placeholder="Metric Value" value="1" disabled>
-        </div>
-      </span> -->
-      <!-- <span *ngIf="showField2"> -->
       <h5 style="text-align:right" class="col-md-4"><label for="Department">MetricType Value*:
         </label></h5>
-      <div class="col-md-3" style="text-align:left">
+      <div class="col-md-8" style="text-align:left">
         <input type="text" style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="MetricTypeValue"
           [disabled]="MetricKey=='Default'" placeholder="Metric Value">
       </div>
-      <!-- </span> -->
-      <div class="col col-md-5"></div>
     </div>
     <br>
-
     <div class="row col-md-12">
       <div class="col col-md-3"></div>
       <div style="text-align:right" class="col-md-3">
@@ -57,12 +44,11 @@
           </b>
         </a></div>
       <div style="text-align:left" class="col-md-3">
-        <a (click)='goBack()' class="btn btn-warning" style="color:white !important" ><b>Go
+        <a routerLink="/roomTypeView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
             Back
           </b>
         </a></div>
       <div class="col col-md-3"></div>
     </div>
   </div>
- 
 </div>

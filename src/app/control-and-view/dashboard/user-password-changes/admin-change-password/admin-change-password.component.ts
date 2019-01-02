@@ -93,7 +93,7 @@ export class AdminChangePasswordComponent implements OnInit {
           }
 
         });
-        this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['welcomePage'] } }]);
+        this.router.navigateByUrl('/welcomeAdmin');
       }
     }
   }

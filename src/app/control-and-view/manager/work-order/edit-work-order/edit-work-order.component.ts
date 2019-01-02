@@ -394,7 +394,7 @@ export class EditWorkOrderComponent implements OnInit {
       .deleteCurrent_WO(this.deleteWO)
       .subscribe((data: any[]) => {
         alert("Work-order deleted successfully");
-        this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewWorkOrder'] } }]);
+        this.router.navigateByUrl('/ViewWorkOrder');
       });
   }
   UpdateWO() {
@@ -615,7 +615,7 @@ export class EditWorkOrderComponent implements OnInit {
         .deleteCurrent_WO(this.deleteWO)
         .subscribe((data: any[]) => {
           alert("Work-order updated successfully");
-          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewWorkOrder'] } }]);
+          this.router.navigateByUrl('/ViewWorkOrder');
         });
     });
   }
@@ -851,7 +851,7 @@ export class EditWorkOrderComponent implements OnInit {
           .deleteCurrent_WO(this.deleteWO)
           .subscribe((data: any[]) => {
             alert("Work-order updated successfully");
-            this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewWorkOrder'] } }]);
+            this.router.navigateByUrl('/ViewWorkOrder');
           });
       });
     }
@@ -870,8 +870,6 @@ export class EditWorkOrderComponent implements OnInit {
       this.EquipmentKey = "";
     }
   }
-  goBack(){
-    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewWorkOrder'] } }]);
-  }
+
 
 }

@@ -271,8 +271,7 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
         };
       this.inspectionService
         .inspectionCompletedService(this.inspectionDetail1).subscribe(res =>{
-          this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['Viewinspctnbysprvsr'] } }]);
-         
+          this.router.navigateByUrl('/Viewinspctnbysprvsr')
      });
 
     }
@@ -333,7 +332,7 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
         };
       this.inspectionService
         .inspectionCompletedService(this.inspectionDetail1).subscribe(res =>{
-          this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['Viewinspctnbysprvsr'] } }]);
+          this.router.navigateByUrl('/Viewinspctnbysprvsr')
      });
 
     }

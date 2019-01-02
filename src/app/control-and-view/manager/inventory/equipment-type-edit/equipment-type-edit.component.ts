@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
-import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-equipment-type-edit',
@@ -36,7 +35,7 @@ export class EquipmentTypeEditComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router,private _location: Location) {
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
     this.route.params.subscribe(params => this.equipTypeKey$ = params.EquipTypeKey);
   }
 
@@ -55,7 +54,7 @@ export class EquipmentTypeEditComponent implements OnInit {
         else {
           this.inventoryService.UpdateEquipmentType(equipType, equipTypeDesc, equipTypeKey, this.employeekey, this.OrganizationID).subscribe(res => {
             alert("Equipment Type  updated successfully");
-            this._location.back();
+            this.router.navigateByUrl('/EquipmentTypeView');
           });
         }
       });
@@ -79,8 +78,5 @@ export class EquipmentTypeEditComponent implements OnInit {
       this.equipType = data[0];
       console.log(data.length);
     });
-  }
-  goBack(){
-    this._location.back();
   }
 }

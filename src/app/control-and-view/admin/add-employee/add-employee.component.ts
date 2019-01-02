@@ -202,8 +202,7 @@ export class AddEmployeeComponent implements OnInit {
                 this.temp_res = data22;
                 alert("Employee Created !");
                 var empKey = this.temp_res.EmployeeKey;
-                
-                this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['setUserLoginAdmin', empKey, str, this.UserRoleTypeKey] } }]);
+                this.router.navigate(['/setUserLoginAdmin', empKey, str, this.UserRoleTypeKey]);
               });
           }
         });

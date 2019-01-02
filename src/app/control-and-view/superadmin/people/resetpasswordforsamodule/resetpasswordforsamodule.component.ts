@@ -54,8 +54,7 @@ export class ResetpasswordforsamoduleComponent implements OnInit {
     this.peopleService.resetUserPassword(username, password, this.empKey$, userLoginId, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.response = data[0];
       this.build = data;
-      // this.router.navigateByUrl('/Managelogincredentials');
-      this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['Managelogincredentials'] } }]);
+      this.router.navigateByUrl('/Managelogincredentials');
     });
   
   
@@ -102,7 +101,5 @@ export class ResetpasswordforsamoduleComponent implements OnInit {
     });
 
   }
-  goBack(){
-    this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['Managelogincredentials'] } }]);
-  }
+
 }

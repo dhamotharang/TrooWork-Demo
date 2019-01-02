@@ -1,4 +1,4 @@
- 
+<app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div *ngIf="!loading" style="background-color: #FFFFFF;margin-left: 10.5rem;margin-right: 15rem; padding-bottom: 2rem;width: 74.5%">
  
@@ -26,7 +26,7 @@
       <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
         <br>
         <input class="form-control" name="searchFileandDescName" maxlength="20" specialIsAlphaNumeric minlength="3"
-          type="text" placeholder="Search File Name,Description Name" aria-label="Search" [(ngModel)]="searchFileDescName"
+          type="text" placeholder="Search File Name,Description Name" aria-label="Search" [(ngmodel)]="searchFileDescName"
           formControlName="searchFileDescName" (input)="searchFNDN($event.target.value);" style="width: 100%;">
         <div *ngIf="searchform.controls.searchFileDescName.errors?.minlength">Minimum 3 characters required.</div>
       </div>

@@ -1,4 +1,4 @@
-   
+<app-superadmin-dashboard></app-superadmin-dashboard>
 <div  style="width: 100% !important; padding-left: 9rem;padding-right: 9rem; padding-top:1rem !important; padding-bottom:0rem !important;">
   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">EDIT ORGANIZATION</h3>
@@ -50,7 +50,7 @@
     <div class="row col-md-12" style="margin-left: 20rem">
       <a class="btn btn-success" (click)="updateOrg(OrgDetail.OrganizationName,OrgDetail.OrganizationDescription,OrgDetail.State,OrgDetail.TenantID,OrgDetail.Location,OrgDetail.Country,OrgDetail.TenantName,OrgDetail.OrganizationEmail)"><b>Update</b>
         </a>
-      <a (click)='goBack()' class="btn btn-warning" style="color:white !important" ><b>Go
+      <a routerLink="/ViewOrganization" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
           Back</b> </a>
     </div>
   </div>

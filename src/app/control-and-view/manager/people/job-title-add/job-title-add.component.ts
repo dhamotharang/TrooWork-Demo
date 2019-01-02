@@ -63,7 +63,7 @@ export class JobTitleAddComponent implements OnInit {
           this.peopleServiceService.addJobtitle(JobtitleName, JobTitleDescription, this.employeekey, this.OrganizationID)
             .subscribe((data: any[]) => {
               alert('Job title successfully created !');
-              this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['JobTitileView'] } }]);
+              this.router.navigateByUrl('/JobTitleView');
 
             });
         }
@@ -81,7 +81,5 @@ export class JobTitleAddComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
   }
-  goBack(){
-    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['JobTitileView'] } }]);
-  }
+
 }

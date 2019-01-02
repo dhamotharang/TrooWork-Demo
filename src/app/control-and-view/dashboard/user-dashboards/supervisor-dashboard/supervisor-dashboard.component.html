@@ -13,34 +13,34 @@
     <div class="collapse navbar-collapse" id="navbarText" style="margin-left: 15%;">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <img class="imagesize nav-link" src="assets/icons/homepage.png"  [routerLink]="[{outlets:{Superout:['Supervisor_welcomePage']}}]">
+          <img class="imagesize nav-link" src="assets/icons/homepage.png"  routerLink="/welcomeSupervisor">
         </li>
         <li class="nav-item dropdown">
           <img class="imagesize nav-link" src="assets/icons/work order.png" >
           <div class="dropdown-content" style="margin-left:1rem;">
-            <a class="dropdown-item" [routerLink]="[{outlets:{Superout:['CreateWorkOrderSuperVisor']}}]"><b>Create Work-Order</b></a>
-            <a class="dropdown-item" [routerLink]="[{outlets:{Superout:['createQuickOrderSuperVisor']}}]"><b>Create Quick Work-Order</b></a>
-            <a class="dropdown-item" [routerLink]="[{outlets:{Superout:['viewWorkOrderSupervisor']}}]"><b>View Work-Order</b></a>
+            <a class="dropdown-item" routerLink="/CreateWorkOrderSuperVisor"><b>Create Work-Order</b></a>
+            <a class="dropdown-item" routerLink="/createQuickOrderSuperVisor"><b>Create Quick Work-Order</b></a>
+            <a class="dropdown-item" routerLink="/viewWorkOrderSupervisor"><b>View Work-Order</b></a>
           </div>
         </li>
         <li class="nav-item dropdown">
           <img class="imagesize nav-link" data-toggle="dropdown" src="assets/icons/PEOPLE--3.png" >
           <div class="dropdown-content" style="margin-left:1rem;">
-            <a class="dropdown-item" [routerLink]="[{outlets:{Superout:['Training']}}]"><b>Training</b></a>
+            <a class="dropdown-item" routerLink="/Training"><b>Training</b></a>
           </div>
         </li>
 
         <li class="nav-item dropdown">
           <img class="imagesize nav-link" src="assets/icons/INSPECTION--2.png" >
           <div class="dropdown-content" style="margin-left:1rem;">
-            <a class="dropdown-item" [routerLink]="[{outlets:{Superout:['Createinspectionbysuprvsr']}}]"><b>Create Inspection</b></a>
-            <a class="dropdown-item" [routerLink]="[{outlets:{Superout:['Viewinspctnbysprvsr']}}]"><b>View Inspection</b></a>
+            <a class="dropdown-item" routerLink="/Createinspectionbysuprvsr"><b>Create Inspection</b></a>
+            <a class="dropdown-item" routerLink="/Viewinspctnbysprvsr"><b>View Inspection</b></a>
           </div>
         </li>
         <li class="nav-item dropdown">
           <img class="imagesize nav-link" src="assets/icons/profile-2.png" >
           <div class="dropdown-content" style="margin-left:1rem;">
-            <a class="dropdown-item"[routerLink]="[{outlets:{Superout:['supervisorMyProfile']}}]"><b>My Profile</b></a>
+            <a class="dropdown-item" routerLink="/supervisorMyProfile"><b>My Profile</b></a>
             <a class="dropdown-item" routerLink=""><b>Log Out</b></a>
           </div>
         </li>
@@ -48,7 +48,6 @@
     </div>
   </nav>
   <div style="height:100%;background-color: #EBFAFF;">
-    <router-outlet name="Superout"></router-outlet>
-    <!-- varun - child paths are loaded in  Superout outlet for lazy loading-->
+
   </div>
 </div>

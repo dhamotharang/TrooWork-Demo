@@ -89,14 +89,11 @@ export class EditWorkorderTypeComponent implements OnInit {
             .view_wotype(WOTKey,this.OrganizationID)
             .subscribe((data: any[]) => {
               alert("Work-order type updated successfully");
-              this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);
+              this.router.navigateByUrl('/WorkOrderType');
             });
           });
         }
       });
     }
-  }
-  goBack(){
-    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);
   }
 }

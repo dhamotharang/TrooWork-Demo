@@ -36,12 +36,10 @@ export class WelcomepageComponent implements OnInit {
   constructor(private loginService: LoginService, private router: Router) { }
 
   callCreateWO() {
-    
-    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['CreateWorkOrder'] } }]);
+    this.router.navigateByUrl('/CreateWorkOrder')
   }
   callCreateInspection() {
-    
-    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['InspectionCreate'] } }]);
+    this.router.navigateByUrl('/InspectionCreate')
   }
   ngOnInit() {
    

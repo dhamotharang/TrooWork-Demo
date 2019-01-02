@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SchedulingService } from '../../../../service/scheduling.service';
 import { Router } from "@angular/router";
-
-import {Location} from '@angular/common';
 @Component({
   selector: 'app-create-batch-work',
   templateUrl: './create-batch-work.component.html',
@@ -38,7 +36,7 @@ export class CreateBatchWorkComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private scheduleService: SchedulingService, private router: Router,private _location: Location) { }
+  constructor(private scheduleService: SchedulingService, private router: Router) { }
 
   setEmployeeForbatchSchedule(key) {
     this.empKey = key;
@@ -72,7 +70,7 @@ export class CreateBatchWorkComponent implements OnInit {
           }
           else if (data[0].count == 0) {
             this.scheduleService.addScheduleName(this.scheduleName, this.empKey, this.scheduleDescription, this.employeekey, this.OrganizationID)
-              .subscribe(res => this._location.back());
+              .subscribe(res => this.router.navigateByUrl('/SchedulingView'));
           }
         });
     }
@@ -97,7 +95,5 @@ export class CreateBatchWorkComponent implements OnInit {
         this.empList = data;
       });
   }
-  goBack(){
-    this._location.back();
-  }
+
 }

@@ -5,8 +5,6 @@ import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-import {Location} from '@angular/common';
-
 @Component({
   selector: 'app-building-edit',
   templateUrl: './building-edit.component.html',
@@ -41,7 +39,7 @@ export class BuildingEditComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router,private _location: Location) {
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
     this.route.params.subscribe(params => this.facKey$ = params.Facility_Key);
   }
 
@@ -75,9 +73,6 @@ export class BuildingEditComponent implements OnInit {
     this.inventoryService.EditFacility(this.facKey$, this.OrganizationID).subscribe((data: Inventory[]) => {
       this.build = data;
     });
-  }
-  goBack(){
-    this._location.back();
   }
 }
 

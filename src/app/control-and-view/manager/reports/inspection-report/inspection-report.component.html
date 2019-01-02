@@ -1,4 +1,4 @@
- 
+<app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
@@ -50,7 +50,7 @@
         <th>Status</th>
       </thead>
       <tbody>
-        <tr *ngFor="let x of viewinspectionReport" >
+        <tr *ngFor="let x of viewinspectionReport" [value]="x.InspectionOrderKey">
           <td>{{x.TemplateName}}</td>
           <td>{{x.InspectionDate}}</td>
           <td>{{x.FacilityName}} - {{x.RoomId}}</td>

@@ -1,4 +1,4 @@
- 
+<app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div *ngIf="!loading"  style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
@@ -21,7 +21,7 @@
       <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
         <input class="form-control" name="searchempdetails" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
           placeholder="Search Employee Number,First Name,Last Name,Job Title,Contact No" aria-label="Search"
-          [(ngModel)]="SearchEmpDetails" formControlName="SearchEmpDetails" (input)="searchEmployeeDetails($event.target.value);"
+          [(ngmodel)]="SearchEmpDetails" formControlName="SearchEmpDetails" (input)="searchEmployeeDetails($event.target.value);"
           style="width: 102.4%;margin-left: -0.9rem;">
         <div *ngIf="searchform.controls.SearchEmpDetails.errors?.minlength">Minimum 3 characters required.</div>
       </div>
@@ -39,7 +39,7 @@
         <th> Contact No</th>
       </thead>
       <tbody>
-        <tr *ngFor="let e of employeedetailstable"  [routerLink]="['EditEmployeedetails',e.EmployeeKey]">
+        <tr *ngFor="let e of employeedetailstable" routerLink="/EditEmployeedetails/{{e.EmployeeKey}}">
           <td>{{ e.EmployeeNumber }}</td>
           <td>{{ e.DepartmentName }}</td>
           <td>{{ e.LastName }}</td>

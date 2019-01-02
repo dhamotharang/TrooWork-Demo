@@ -1,4 +1,4 @@
-
+<app-manager-dash-board></app-manager-dash-board>
 
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
  
@@ -21,7 +21,7 @@
           (click)="updateWOT(workorderTypeList[0].WorkorderTypeName,workorderTypeList[0].WorkorderTypeKey)"><b>UPDATE</b>
       </button></div>
       <div style="text-align:left" class="col-md-3">
-        <a (click)='goBack()' class="btn btn-warning" style="color:white !important" ><b>Go
+        <a routerLink="/WorkOrderType" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
             Back
           </b>
         </a></div>

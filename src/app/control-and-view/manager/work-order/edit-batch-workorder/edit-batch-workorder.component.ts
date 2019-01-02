@@ -641,7 +641,7 @@ export class EditBatchWorkorderComponent implements OnInit {
       .deleteCurrent_BatchWO(this.deleteWO)
       .subscribe((data: any[]) => {
         alert("Batch work-order deleted successfully"); 
-        this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewBatchWorkorder'] } }]);
+        this.router.navigateByUrl('/ViewBatchWorkorder')
       });
   }
   UpdateWO() {
@@ -1002,7 +1002,7 @@ withoutequip_wo()
       .deleteCurrent_BatchWO(this.deleteWO)
       .subscribe((data: any[]) => {
       alert("Batch work-order updated successfully"); 
-      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewBatchWorkorder'] } }]);
+      this.router.navigateByUrl('/ViewBatchWorkorder');
     });
   });
   }
@@ -1352,7 +1352,7 @@ withoutequip_wo()
       .deleteCurrent_BatchWO(this.deleteWO)
       .subscribe((data: any[]) => {
       alert("Batch work-order updated successfully"); 
-      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewBatchWorkorder'] } }]);
+      this.router.navigateByUrl('/ViewBatchWorkorder');
     });
   });
   }
@@ -1383,9 +1383,6 @@ withoutequip_wo()
     } else {
       this.marked = false;
     }
-  }
-  goBack(){
-    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewBatchWorkorder'] } }]);
   }
 
 }

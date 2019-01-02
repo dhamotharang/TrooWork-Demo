@@ -777,7 +777,7 @@ export class CreateWorkOrderComponent implements OnInit {
                     };
                     this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => {
                       alert("Work-order created successfully");
-                      this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['viewWorkOrderSupervisor'] } }]);
+                      this.router.navigateByUrl('/viewWorkOrderSupervisor');
                     });
                   });
               }
@@ -813,7 +813,7 @@ export class CreateWorkOrderComponent implements OnInit {
         };
         this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => {
           alert("Work-order created successfully");
-          this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['viewWorkOrderSupervisor'] } }]);
+          this.router.navigateByUrl('/viewWorkOrderSupervisor');
         });
       }
     }
@@ -1184,7 +1184,7 @@ export class CreateWorkOrderComponent implements OnInit {
                     };
                     this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => {
                       alert("Work-order created successfully");
-                      this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['viewWorkOrderSupervisor'] } }]);
+                      this.router.navigateByUrl('/viewWorkOrderSupervisor');
                     });
                   });
               }
@@ -1219,7 +1219,7 @@ export class CreateWorkOrderComponent implements OnInit {
         };
         this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => {
           alert("Work-order created successfully");
-          this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['viewWorkOrderSupervisor'] } }]);
+          this.router.navigateByUrl('/viewWorkOrderSupervisor');
         });
       }
     }
@@ -1500,8 +1500,7 @@ export class CreateWorkOrderComponent implements OnInit {
                   };
                   this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => {
                     alert("Work-order created successfully");
-                    // this.router.navigateByUrl('/viewWorkOrderSupervisor');
-                    this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['viewWorkOrderSupervisor'] } }]);
+                    this.router.navigateByUrl('/viewWorkOrderSupervisor');
                   });
 
                 });
@@ -1537,7 +1536,7 @@ export class CreateWorkOrderComponent implements OnInit {
       };
       this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => {
         alert("Work-order created successfully");
-        this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['viewWorkOrderSupervisor'] } }]);
+        this.router.navigateByUrl('/viewWorkOrderSupervisor');
       });
     }
 
@@ -1861,7 +1860,7 @@ export class CreateWorkOrderComponent implements OnInit {
                   };
                   this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => {
                     alert("Work-order created successfully");
-                    this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['viewWorkOrderSupervisor'] } }]);
+                    this.router.navigateByUrl('/viewWorkOrderSupervisor');
                   });
                 });
             }
@@ -1896,7 +1895,7 @@ export class CreateWorkOrderComponent implements OnInit {
       };
       this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => {
         alert("Work-order created successfully");
-        this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['viewWorkOrderSupervisor'] } }]);
+        this.router.navigateByUrl('/viewWorkOrderSupervisor');
       });
     }
   }

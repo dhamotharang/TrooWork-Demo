@@ -93,7 +93,7 @@ export class EmployeeChangePasswordComponent implements OnInit {
           }
 
         });
-        this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['Emp_welcomePage'] } }]);
+        this.router.navigateByUrl('/welcomeEmployee');
       }
     }
   }

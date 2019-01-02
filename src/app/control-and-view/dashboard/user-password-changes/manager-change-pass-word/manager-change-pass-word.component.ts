@@ -93,8 +93,7 @@ export class ManagerChangePassWordComponent implements OnInit {
           }
 
         });
-        this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['welcomePage'] } }]);
-       
+        this.router.navigateByUrl('/welcomePage');
       }
     }
   }

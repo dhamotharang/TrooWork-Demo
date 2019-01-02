@@ -93,7 +93,7 @@ export class SupervisorChangePasswordComponent implements OnInit {
           }
 
         });
-        this.router.navigate(['/SupervisorDashboard',{ outlets: { Superout: ['Supervisor_welcomePage'] } }]);
+        this.router.navigateByUrl('/welcomeSupervisor');
       }
     }
   }

@@ -1,4 +1,4 @@
- 
+<app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 
 <div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
@@ -7,11 +7,11 @@
   <h4 class="refer"><b> ROOM</b> </h4>
   <br>
   <div style="text-align:center">
-    <a [routerLink]="['RoomCreate']" style="width: 13rem" class="btn btn-success" routerLinkActive="active">Create Room
+    <a routerLink="/roomCreate" style="width: 13rem" class="btn btn-success" routerLinkActive="active">Create Room
     </a>
-    <a [routerLink]="['RoomTypeView']"  class="btn btn-success" routerLinkActive="active">Create/View Room Type
+    <a routerLink="/roomTypeView" class="btn btn-success" routerLinkActive="active">Create/View Room Type
     </a>
-    <a [routerLink]="['FloorTypeView']" class="btn btn-success" routerLinkActive="active">Create/View FloorType
+    <a routerLink="/FloorTypeView" class="btn btn-success" routerLinkActive="active">Create/View FloorType
     </a>
   </div>
   <br>
@@ -82,7 +82,7 @@
   <form [formGroup]="searchform">
     <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
       <input class="form-control" name="searchroomview" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
-        placeholder="Search Building,Floor,Floor Type,Zone,Room Type,Room" aria-label="Search" [(ngModel)]="SearchRoom"
+        placeholder="Search Building,Floor,Floor Type,Zone,Room Type,Room" aria-label="Search" [(ngmodel)]="SearchRoom"
         formControlName="SearchRoom" (input)="searchRoom($event.target.value);" style="width: 100%;">
       <div *ngIf="searchform.controls.SearchRoom.errors?.minlength">Minimum 3 characters required.</div>
     </div>
@@ -107,7 +107,7 @@
           <td>{{ x.RoomTypeText }}</td>
           <td>{{ x.RoomName }}</td>
           <td>
-            <a  [routerLink]="['RoomEdit', x.RoomKey]" class="btn btn-primary"><b>Edit</b></a>&nbsp;
+            <a routerLink="/RoomEdit/{{ x.RoomKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;
             <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteRoomPass(x.RoomKey); "
               mdbWavesEffect><b>Delete</b></a>
           </td>

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
 import { Router, ActivatedRoute } from "@angular/router";
-import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-room-edit',
@@ -50,7 +49,7 @@ export class RoomEditComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router,private _location: Location) {
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
     this.route.params.subscribe(params => this.roomKey$ = params.RoomKey);
   }
 
@@ -139,7 +138,7 @@ export class RoomEditComponent implements OnInit {
                 this.inventoryService.updateRoom(this.update_Room)
               .subscribe(res => {
                 alert("Room updated successfully");
-                this._location.back();
+                this.router.navigateByUrl('/roomView');
               });
               }
             });
@@ -148,7 +147,7 @@ export class RoomEditComponent implements OnInit {
             this.inventoryService.updateRoom(this.update_Room)
               .subscribe(res => {
                 alert("Room updated successfully");
-                this._location.back();
+                this.router.navigateByUrl('/roomView');
               });
           }
         });
@@ -202,8 +201,5 @@ export class RoomEditComponent implements OnInit {
         this.roomType = data;
       });
 
-  }
-  goback(){
-    this._location.back();
   }
 }

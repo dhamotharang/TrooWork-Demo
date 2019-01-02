@@ -1,4 +1,4 @@
-
+<app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div *ngIf="!loading" class="py-5" style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
@@ -119,7 +119,7 @@
     <form [formGroup]="searchform">
       <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: -2rem;margin-right: 1.5rem;">
         <input class="form-control" name="searchWO" maxlength="20" type="text" specialIsAlphaNumeric minlength="3"
-          formControlName="SearchWo" placeholder="Search WorkOrder Type,Employee,Room" aria-label="Search" [(ngModel)]="SearchWo"
+          formControlName="SearchWo" placeholder="Search WorkOrder Type,Employee,Room" aria-label="Search" [(ngmodel)]="SearchWo"
           (input)="searchworkType_emp_room($event.target.value);" style="width: 101.8%;">
         <div *ngIf="searchform.controls.SearchWo.errors?.minlength">Minimum 3 characters required.</div>
       </div>
@@ -174,19 +174,19 @@
           <td *ngIf="x.WorkorderStatus !== 'Scheduled'"></td>
           <td *ngIf="x.WorkorderStatus === 'Scheduled'"> <input type="checkbox" [(ngModel)]="x.workorderCheckValue"
               (change)="toggleVisibility($event);checkBoxValueForDelete(i,x.workorderCheckValue, x.WorkorderKey);"></td>
-          <td *ngIf="((x.IsReccurring === 0) && ( x.WorkorderTypeKey !== -1))"><a [routerLink]="['EditWorkOrder',x.WorkorderKey]" class="btn btn-success"
-              style="color:white !important" routerLinkActive="active"><b>INSTANCE
+          <td *ngIf="((x.IsReccurring === 0) && ( x.WorkorderTypeKey !== -1))"><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}"
+              class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>INSTANCE
               </b>
             </a></td>
-          <td *ngIf="x.IsReccurring === 1 && x.IsSchedule === 0 "><a [routerLink]="['EditWorkOrder',x.WorkorderKey]" class="btn btn-success"
-              style="color:white !important" routerLinkActive="active"><b>INSTANCE
+          <td *ngIf="x.IsReccurring === 1 && x.IsSchedule === 0 "><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}"
+              class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>INSTANCE
               </b>
-            </a><a *ngIf="x.WorkorderStatus==='Scheduled'" [routerLink]="['UpdateRecurWorkorder',x.WorkorderKey]"  class="btn btn-primary" style="color:white !important"
-              routerLinkActive="active"><b>RECURRING
+            </a><a *ngIf="x.WorkorderStatus==='Scheduled'" routerLink="/UpdateRecurWorkorder/{{x.WorkorderKey}}" class="btn btn-primary"
+              style="color:white !important" routerLinkActive="active"><b>RECURRING
               </b>
             </a></td>
-            <td *ngIf="x.IsReccurring === 1 && x.IsSchedule === 1"><a [routerLink]="['EditWorkOrder',x.WorkorderKey]" class="btn btn-success"
-              style="color:white !important" routerLinkActive="active"><b>INSTANCE
+          <td *ngIf="x.IsReccurring === 1 && x.IsSchedule === 1"><a routerLink="/EditWorkOrder/{{x.WorkorderKey}}"
+              class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>INSTANCE
               </b>
             </a></td>
         </tr>

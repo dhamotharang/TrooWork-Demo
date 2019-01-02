@@ -1,4 +1,4 @@
- 
+<app-manager-dash-board></app-manager-dash-board>
 <div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
  
   <div style="text-align:center">
@@ -17,7 +17,7 @@
       <div style="text-align:right" class="col-md-6"><button style="color:white !important" class="btn btn-success" (click)="addDocFold()"><b>CREATE NEW DOCUMENT FOLDER</b>
       </button></div>
       <div style="text-align:left" class="col-md-3">
-        <a (click)='goBack()' class="btn btn-warning" style="color:white !important" ><b>Go
+        <a routerLink="/DocumentfolderView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
             Back
           </b>
         </a></div>

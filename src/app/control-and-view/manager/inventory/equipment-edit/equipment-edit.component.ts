@@ -4,8 +4,6 @@ import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-import {Location} from '@angular/common';
-
 @Component({
   selector: 'app-equipment-edit',
   templateUrl: './equipment-edit.component.html',
@@ -45,7 +43,7 @@ export class EquipmentEditComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router,private _location: Location) {
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
     this.route.params.subscribe(params => this.equipKey$ = params.EquipKey);
   }
 
@@ -127,9 +125,6 @@ export class EquipmentEditComponent implements OnInit {
         this.buildings = data;
       });
 
-  }
-  goBack(){
-    this._location.back();
   }
 
 }

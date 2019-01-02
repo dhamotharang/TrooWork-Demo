@@ -71,8 +71,7 @@ export class SetUserLoginSuperComponent implements OnInit {
           } else {
             this.peopleService.setLoginCreds(this.username, this.password, this.empKey$, this.employeekey, this.userRoleTypeKey$, this.Organization$)
               .subscribe((data: any[]) => {
-                // this.router.navigateByUrl('/Viewemployee');
-                this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['Viewemployee'] } }]);
+                this.router.navigateByUrl('/Viewemployee');
 
 
                 this.peopleService.getUserEmail(this.username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {

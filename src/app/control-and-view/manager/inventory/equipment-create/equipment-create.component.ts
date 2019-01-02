@@ -3,7 +3,6 @@ import { Inventory } from '../../../../model-class/Inventory';
 import { InventoryService } from '../../../../service/inventory.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
-import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-equipment-create',
@@ -44,7 +43,7 @@ export class EquipmentCreateComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private fb: FormBuilder, private inventoryService: InventoryService, private router: Router,private _location: Location) {
+  constructor(private fb: FormBuilder, private inventoryService: InventoryService, private router: Router) {
 
   }
 
@@ -131,8 +130,5 @@ export class EquipmentCreateComponent implements OnInit {
       .subscribe((data: Inventory[]) => {
         this.buildings = data;
       });
-  }
-  goBack(){
-    this._location.back();
   }
 }

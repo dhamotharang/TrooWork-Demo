@@ -1,16 +1,16 @@
-
+<app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 
 <div *ngIf="!loading"  style="padding-left: 9rem;padding-right: 9rem;">
   <h4 class="refer"><b> FLOORS</b> </h4>
   <br>
   <div style="text-align:center">
-    <a [routerLink]="['FloorCreate']" class="btn btn-success" ><b>Create New Floor</b></a></div>
+    <a routerLink="/Createfloor" class="btn btn-success" routerLinkActive="active"><b>Create New Floor</b></a></div>
   <form [formGroup]="searchform">
 
     <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
       <input class="form-control" name="searchfloorview" type="text" maxlength="20" specialIsAlphaNumeric minlength="3"
-        placeholder="Search Building,Floor" aria-label="Search" [(ngModel)]="SearchFloor" formControlName="SearchFloor"
+        placeholder="Search Building,Floor" aria-label="Search" [(ngmodel)]="SearchFloor" formControlName="SearchFloor"
         (input)="searchFloor($event.target.value);" style="width: 100%;">
       <div *ngIf="searchform.controls.SearchFloor.errors?.minlength">Minimum 3 characters required.</div>
     </div>
@@ -28,7 +28,7 @@
           <td>{{ x.FacilityName }}</td>
           <td>{{ x.FloorName }}</td>
           <td>{{ x.FloorDescription }}</td>
-          <td><a  [routerLink]="['Flooredit',x.FloorKey,x.FacilityKey]" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
+          <td><a routerLink="/Flooredit/{{ x.FloorKey}}/{{x.FacilityKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
             <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteFloorPass(x.FacilityKey,x.FloorKey); "
               mdbWavesEffect><b>Delete</b></a></td>
         </tr>

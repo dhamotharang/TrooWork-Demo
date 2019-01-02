@@ -3,9 +3,6 @@ import { InspectionService } from '../../../../service/inspection.service';
 import { Inspection } from '../../../../model-class/Inspection';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { Router } from '@angular/router';
-
-import {Location} from '@angular/common';
-
 @Component({
   selector: 'app-inspectiontemplate-edit',
   templateUrl: './inspectiontemplate-edit.component.html',
@@ -53,7 +50,7 @@ export class InspectiontemplateEditComponent implements OnInit {
   @Input() isAlphaNumeric: boolean;
   editQuestions;
 
-  constructor(private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef, private router: Router,private _location: Location) { }
+  constructor(private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef, private router: Router) { }
 
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     return new RegExp(this.regexStr).test(event.key);
@@ -182,8 +179,7 @@ export class InspectiontemplateEditComponent implements OnInit {
     this.inspectionService.checkforInspectionOnTemplate(TemplateID, this.OrganizationID).subscribe((data: any[]) => {
 
       if (data[0].count == 0) {
-        // this.router.navigate(['/InspectiontemplatedetailEdit', TemplateID]);
-        this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['InspectiontemplatedetailEdit',TemplateID] } }]);
+        this.router.navigate(['/InspectiontemplatedetailEdit', TemplateID]);
       } else {
         this.editQuestions = index;
       }
@@ -207,9 +203,5 @@ export class InspectiontemplateEditComponent implements OnInit {
           });
         this.editQuestions = -1;
       });
-  }
-
-  goBack(){
-    this._location.back();
   }
 }

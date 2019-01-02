@@ -1,4 +1,4 @@
- 
+<app-manager-dash-board></app-manager-dash-board>
 <div  style="padding-left: 9rem;padding-right: 9rem;">
   <div style="text-align:center">
     <h5 style="text-align:center"><b>{{viewEmpInspectionDetails[0].TemplateName}}</b></h5>
@@ -102,7 +102,7 @@
   <div class="row col-md-12" style="margin-left: 25rem;">
     <div style="text-align:center">
       <button type="button" style="text-align:center" class="btn btn-success" (click)="inspectionCompleted()"><b>SAVE</b></button></div>
-    <a (click)='goBack()' class="btn btn-warning" style="color:white !important" ><b>
+    <a routerLink="/InspectionView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>
         GO BACK</b></a>
   </div>
 </div>

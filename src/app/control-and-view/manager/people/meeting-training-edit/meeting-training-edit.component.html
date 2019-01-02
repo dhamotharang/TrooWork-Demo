@@ -1,4 +1,4 @@
- 
+<app-manager-dash-board></app-manager-dash-board>
 <div  style="padding-left: 9rem;padding-right: 9rem; padding-top:0rem !important; padding-bottom:0rem !important;">
   <div class="row col-md-12 ">
     <br>
@@ -37,8 +37,7 @@
     <div class="col-md-12">
       <div class="form-group">
         <label for="building">Date* </label>
-        <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [(ngModel)]="mtngDate"></igx-datePicker> -->
-        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="mtngDate"></ng-datepicker>
+        <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [(ngModel)]="mtngDate"></igx-datePicker>
       </div>
     </div>
     <div class="col-md-6">
@@ -85,8 +84,8 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="Employee">Employee* </label>
-        <ng-multiselect-dropdown [placeholder]="'Selectemployee'" [data]="empList" [(ngModel)]="Employee" 
-           [settings]="dropdownSettings1">
+        <ng-multiselect-dropdown [placeholder]="'Selectemployee'" [data]="empList" [(ngModel)]="Employee" [textField]="'EmployeeText'"
+          [valueField]="'EmployeeKey'" [settings]="dropdownSettings1">
         </ng-multiselect-dropdown>
       </div>
     </div>
@@ -94,7 +93,7 @@
       <a style="color:white !important" class="btn btn-success" (click)="updateMeetingTrainingEvent(
           mtngDetails.ActionKey,mtngDetails.Eventhost,mtngDetails.Venue,mtngDetails.MeetingNotes)"><b>Save</b>
       </a>
-      <a (click)='goBack()' class="btn btn-warning" style="color:white !important" ><b>Go
+      <a routerLink="/MeetingTrainingView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
           Back</b>
       </a>
     </div>

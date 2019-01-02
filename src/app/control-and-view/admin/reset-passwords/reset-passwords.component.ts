@@ -52,8 +52,7 @@ export class ResetPasswordsComponent implements OnInit {
     this.peopleService.resetUserPassword(username, password, this.empKey$, userLoginId, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.response = data[0];
       this.build = data;
-     
-      this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['manageLoginCreds'] } }]);
+      this.router.navigateByUrl('/manageLoginCreds');
     });
 
     if (this.build.length > 0) { // resetUserPassword returns username. just to make sure that the reset action was done properly, we are returnig the username
@@ -98,7 +97,5 @@ export class ResetPasswordsComponent implements OnInit {
       this.build = data;
     });
   }
-  goBack(){
-    this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['manageLoginCreds'] } }]);
-  }
+
 }

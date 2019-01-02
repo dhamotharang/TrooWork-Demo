@@ -3,8 +3,6 @@ import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
 import { Router } from "@angular/router";
 
-import {Location} from '@angular/common';
-
 @Component({
   selector: 'app-room-type-create',
   templateUrl: './room-type-create.component.html',
@@ -40,7 +38,7 @@ export class RoomTypeCreateComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private inventoryService: InventoryService, private router: Router,private _location: Location) { }
+  constructor(private inventoryService: InventoryService, private router: Router) { }
 
   showFields(metricType) {
     {
@@ -79,7 +77,7 @@ export class RoomTypeCreateComponent implements OnInit {
           } else {
             this.inventoryService.addRoomType(RoomTypeName, MetricTypeValue, MetricType, this.employeekey, this.OrganizationID).subscribe(res => {
               alert("RoomType created successfully");
-              this._location.back();
+              this.router.navigateByUrl('/roomTypeView');
             });
           }
         }
@@ -100,9 +98,6 @@ export class RoomTypeCreateComponent implements OnInit {
       .subscribe((data: Inventory[]) => {
         this.metricValues = data;
       });
-  }
-  goBack(){
-    this._location.back();
   }
 
 }

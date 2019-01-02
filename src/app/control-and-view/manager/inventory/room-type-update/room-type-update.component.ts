@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-room-type-update',
@@ -41,7 +40,7 @@ export class RoomTypeUpdateComponent implements OnInit {
   }
 
 
-  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router,private _location: Location) {
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
     this.route.params.subscribe(params => this.rTypeKey$ = params.RoomTypeKey);
   }
 
@@ -75,7 +74,7 @@ export class RoomTypeUpdateComponent implements OnInit {
       this.inventoryService.updateRoomType(this.rTypeKey$, this.metricTypeKey, this.metricType, RoomTypeName, MetricTypeValue, this.employeekey, this.OrganizationID)
         .subscribe(res => {
           alert("RoomType updated successfully");
-          this._location.back();
+          this.router.navigateByUrl('/roomTypeView');
         });
     }
   }
@@ -103,7 +102,5 @@ export class RoomTypeUpdateComponent implements OnInit {
           });
       });
   }
-  goBack(){
-    this._location.back();
-  }
+
 }

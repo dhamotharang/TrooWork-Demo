@@ -1,4 +1,4 @@
- 
+<app-manager-dash-board></app-manager-dash-board>
 <div class="py-5 bg-info" style="padding-left: 9rem; padding-top:0rem !important; padding-bottom:0rem !important;margin-left: 2rem">
   <br>
   <div class="row col-md-12 ">
@@ -63,7 +63,7 @@
       <a style="color:white !important" class="btn btn-success" (click)="updateEquipment(equipEditList[0].EquipmentName,equipEditList[0].EquipmentDescription,equipEditList[0].EquipmentBarcode)">
         <b>Save Equipment</b>
       </a>
-      <a (click)='goBack()' class="btn btn-warning" style="color:white !important" ><b>Go
+      <a routerLink="/EquipmentView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
           Back</b>
       </a>
     </div>
