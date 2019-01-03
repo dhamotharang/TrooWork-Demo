@@ -17,7 +17,8 @@
         </select>
       </div>
       <div class="col-md-6">
-        <a routerLink="/InspectiontemplateEdit" style="margin-top: -0.1rem;margin-left: 7rem;" class="btn btn-primary"><b>Edit Inspection
+        <a routerLink="/InspectiontemplateEdit" style="margin-top: -0.1rem;margin-left: 7rem;" class="btn btn-primary"><b>Edit
+            Inspection
             Template</b></a>
       </div>
     </div>
@@ -37,7 +38,8 @@
       </form>
     </div>
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
-      <table *ngIf='viewinspectionTemplate' id="inspectemplate" class="table table-hover table-responsive table-bordered" style="display: inline-table">
+      <table *ngIf='viewinspectionTemplate' id="inspectemplate" class="table table-hover table-responsive table-bordered"
+        style="display: inline-table">
         <thead class="tableHead">
           <th> Template Name </th>
           <th> Template Question </th>
@@ -49,8 +51,7 @@
             <td>{{v.TemplateName}}</td>
             <td>{{v.Question}}</td>
             <td>{{v.ScoreName}}</td>
-            <td> <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteInspTemplatePass(v.TemplateID,v.TemplateQuestionID);"
-                mdbWavesEffect><b>Delete</b></a></td>
+            <td> <a class="btn btn-danger" (click)="basicModal.show();deleteInspTemplatePass(v.TemplateID,v.TemplateQuestionID);"><b>Delete</b></a></td>
           </tr>
           <tr *ngIf="viewinspectionTemplate?.length == 0">
             <td colspan="2" class="no-data-available">No records found</td>

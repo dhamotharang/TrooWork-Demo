@@ -7,30 +7,28 @@
   </div>
 
 
-  <div style="margin-left: 0.2rem;margin-right: 1.5rem;width: 99.7%" class="row bg-info col-md-12">
-    <div class="form-group">
-      <div class="row col-md-12">
-        <br>
-        <div class="row col-md-6">
-          <h5 style="text-align:right"><label for="building">Job Title</label></h5>
-          <select [(ngModel)]="JobTitleKey" style="background-color: #d4f4ff;width: 32rem" class="form-control"
-            (change)="getempdettablewithselectedJobtitle()">
-            <option value="" selected>--Select--</option>
-            <option *ngFor="let j of jobtitle" [value]="j.JobTitleKey">
-              {{j.JobTitleText}}
-            </option>
-          </select>
-        </div>
-        <div class="row col-md-6">
-          <h5 style="text-align:right"><label for="building">Managers</label></h5>
-          <select [(ngModel)]="ManagerKey" style="background-color: #d4f4ff;width: 32rem" class="form-control" (change)="getempdettablewithselectedJobtitle()">
-            <option value="" selected>--Select--</option>
-            <option *ngFor="let k of managerList" [value]="k.ManagerKey">
-              {{k.ManagerName}}
-            </option>
-          </select>
-        </div>
+  <div style="margin-left: 0.2rem;margin-right: 1.5rem;width: 99.7%;padding-top: 1.5rem;padding-bottom: 1.5rem" class="row bg-info col-md-12">
+    <div class="row col-md-12">
+      <br>
+      <div class="row col-md-6">
+        <h5 style="text-align:right"><label for="building">Job Title</label></h5>
+        <select [(ngModel)]="JobTitleKey" style="background-color: #d4f4ff;width: 25rem" class="form-control" (change)="getempdettablewithselectedJobtitle()">
+          <option value="" selected>--Select--</option>
+          <option *ngFor="let j of jobtitle" [value]="j.JobTitleKey">
+            {{j.JobTitleText}}
+          </option>
+        </select>
       </div>
+      <div class="row col-md-6" style="margin-left: 2.8rem;">
+        <h5 style="text-align:right"><label for="building">Managers</label></h5>
+        <select [(ngModel)]="ManagerKey" style="background-color: #d4f4ff;width: 25rem" class="form-control" (change)="getempdettablewithselectedJobtitle()">
+          <option value="" selected>--Select--</option>
+          <option *ngFor="let k of managerList" [value]="k.ManagerKey">
+            {{k.ManagerName}}
+          </option>
+        </select>
+      </div>
+      <br>
     </div>
   </div>
   <br>

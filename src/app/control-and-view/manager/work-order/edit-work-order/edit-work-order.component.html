@@ -64,7 +64,7 @@
       <div class="form-group">
         <label>WorkDate</label><br>
         <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date" [(ngModel)]="dateValue"></igx-datePicker> -->
-        <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="dateValue"></ng-datepicker >
+        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="dateValue"></ng-datepicker>
       </div>
       <div class="form-group">
         <label>Workorder Notes</label>
@@ -128,18 +128,18 @@
 
       <div class="form-group">
         <label style="margin-left: -1rem" class="col-sm-3 col-md-3 col-lg-3 ">Time*</label><br>
-        <p-calendar [inputStyle]="{'width':'215%','margin-top':'1rem'}" [(ngModel)]="timeValue" [timeOnly]="true"
+        <p-calendar [inputStyle]="{'width':'275%','margin-top':'1rem'}" [(ngModel)]="timeValue" [timeOnly]="true"
           hourFormat="12" required></p-calendar>
       </div>
 
       <div class="form-group">
+        <input type="checkbox" [(ngModel)]="isPhotoRequired" data-md-icheck (change)="toggleVisibility($event)" />>&nbsp;
         <label style="margin-top: 2rem;">Photo Required</label>&nbsp;
-        <input type="checkbox" [(ngModel)]="isPhotoRequired" data-md-icheck (change)="toggleVisibility($event)" />
       </div>
 
       <div class="form-group">
+        <input type="checkbox" [(ngModel)]="isBarcodeRequired" data-md-icheck (change)="toggleVisibility_Barcode($event)" />>&nbsp;
         <label>Barcode Required</label>&nbsp;
-        <input type="checkbox" [(ngModel)]="isBarcodeRequired" data-md-icheck (change)="toggleVisibility_Barcode($event)" />
       </div>
     </div>
 

@@ -214,9 +214,8 @@
       <div class="row col-md-12" style="margin-left: 20rem;">
         <a style="text-align:center" class="btn btn-success" (click)="editEmployee(editempdtails.EmployeeNumber,editempdtails.UserRoleTypeKey,editempdtails.FirstName,editempdtails.LastName,editempdtails.MiddleName,BirthDate,editempdtails.Gender,editempdtails.AddressLine1,editempdtails.City,editempdtails.AddressLine2,editempdtails.State,editempdtails.Country,editempdtails.PrimaryPhone,editempdtails.ZipCode,editempdtails.AlternatePhone,editempdtails.EmailID,editempdtails.EmployeeStatusKey,HireDate,editempdtails.IsSupervisor,editempdtails.SupervisorKey,editempdtails.JobTitleKey,editempdtails.DepartmentKey)">
           <b> Update</b></a>
-        <a button type="button" mdbBtn color="primary" class="btn btn-danger" (click)="basicModal.show();deleteEmpPass(empk$); "
-          mdbWavesEffect><b>Delete</b></a>
-        <a routerLink="/Viewemployee" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
+        <a class="btn btn-danger" (click)="basicModal.show();deleteEmpPass(empk$); "><b>Delete</b></a>
+        <a routerLink="/viewEmployeeAdmin" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
             Back
           </b>
         </a>

@@ -9,7 +9,7 @@
     <div class="col-md-12">
       <div class="form-group">
         <label class="col-sm-12 col-md-12 col-lg-12">Workorder Type*</label>
-        <select *ngIf="!newType" style="background-color: #D4F4FF !important;width: 50%" class="form-control" (change)='checkfornewWOT(WorkorderTypeKey)'
+        <select *ngIf="!newType" style="background-color: #D4F4FF !important;width: 48.8%" class="form-control" (change)='checkfornewWOT(WorkorderTypeKey)'
           [(ngModel)]="WorkorderTypeKey" required>
           <option value="">--Select--</option>
           <option *ngFor="let e of workorderTypeList" [value]="e.WorkorderTypeKey">
