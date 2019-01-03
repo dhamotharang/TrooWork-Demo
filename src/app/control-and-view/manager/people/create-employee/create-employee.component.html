@@ -3,7 +3,7 @@
   <div class="row col-md-12 ">
     <h3 style="margin-left: 25rem;">Employee Form</h3>
   </div><br>
-  <div class="row bg-info col-md-12" style="padding-top: 1rem">
+  <div class="row bg-info col-md-12" style="padding-top: 1rem;padding-bottom: 2rem">
     <br>
     <h3 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67">Employment
       Information</h3>
@@ -34,9 +34,15 @@
           [(ngModel)]="HireDate"></igx-datePicker> -->
         <ng-datepicker [options]="options" position="top-right" [(ngModel)]="HireDate"></ng-datepicker>
       </div>
-      <div class="form-check form-check-inline" style="margin-top: 2.5rem">
-        <label class="form-check-label" for="materialInline1">Is SuperVisor</label> &nbsp;&nbsp;&nbsp;
-        <input type="checkbox" [(ngModel)]="theCheckbox" data-md-icheck (change)="toggleVisibility($event)" />
+      <div class="form-group">
+        <label>Department</label><br>
+        <select name="department" style="background-color: #d4f4ff;width: 75%;max-width: 100%;" class="form-control col-sm-9 col-md-9 col-lg-9"
+          [(ngModel)]="DepartmentKey">
+          <option value="">--Select--</option>
+          <option *ngFor="let d of department" [value]="d.DepartmentKey">
+            {{d.DepartmentName}}
+          </option>
+        </select>
       </div>
     </div>
     <div class="col-md-6">
@@ -62,15 +68,9 @@
       </div>
     </div>
     <div class="col-md-6">
-      <div class="form-group">
-        <label>Department</label><br>
-        <select name="department" style="background-color: #d4f4ff;width: 75%;max-width: 100%;" class="form-control col-sm-9 col-md-9 col-lg-9"
-          [(ngModel)]="DepartmentKey">
-          <option value="">--Select--</option>
-          <option *ngFor="let d of department" [value]="d.DepartmentKey">
-            {{d.DepartmentName}}
-          </option>
-        </select>
+      <div class="form-check form-check-inline">
+        <label class="form-check-label" for="materialInline1">SuperVisor</label> &nbsp;&nbsp;&nbsp;
+        <input type="checkbox" [(ngModel)]="theCheckbox" data-md-icheck (change)="toggleVisibility($event)" />
       </div>
     </div>
 
