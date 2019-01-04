@@ -5,6 +5,8 @@ import { Reports } from '../../../../model-class/reports';
 import { ReportServiceService } from '../../../../service/report-service.service';
 import { ExcelserviceService } from '../../../../service/excelservice.service';
 import { DatepickerOptions } from 'ng2-datepicker';
+import * as FileSaver from 'file-saver';
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
 @Component({
   selector: 'app-workorder-report',
@@ -266,6 +268,10 @@ export class WorkorderReportComponent implements OnInit {
         })
       }
     }
-    this.excelService.exportAsExcelFile(this.workexcel, 'Workorder_Report');
+    // this.excelService.exportAsExcelFile(this.workexcel, 'Workorder_Report');
+    var blob = new Blob([document.getElementById('exportable').innerHTML], {
+      type: EXCEL_TYPE
+  });
+  FileSaver.saveAs(blob, "Workorder_Report.xls");
   }
 }

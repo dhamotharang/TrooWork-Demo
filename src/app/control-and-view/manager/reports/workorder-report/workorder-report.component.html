@@ -148,4 +148,44 @@
   <div style="text-align:center" *ngIf="viewWorkorderReport?.length> 0">
     <button type="button" class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>
   </div>
+  <div id='exportable' style="visibility: hidden !important;">
+    <table *ngIf='viewWorkorderReport'  
+    cellspacing="0" 
+      rules="rows" 
+      border="1" 
+      style="color:Black;background-color:White;border-color:#CCCCCC;border-width:1px;border-style:None;width:100%;border-collapse:collapse;font-size:11pt;text-align:center;">
+      <thead class="tableHead">
+        <th> Work-Order Type Name </th>
+        <th> Date and Time </th>
+        <th> Status</th>
+        <th>Employee</th>
+        <th> Room</th>
+        <th>Equipment</th>
+        <th>Check-In Time</th>
+        <th>Check-Out Time</th>
+        <th>Duration</th>
+        <th>Delay Time</th>
+        <th>Notes</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let x of viewWorkorderReport">
+          <td>{{x.WorkorderTypeName}} </td>
+          <td>{{x.WorkorderDate}} {{x.WorkorderTime}}</td>
+          <td>{{x.WorkorderStatus}}</td>
+          <td>{{x.LastName}},{{x.FirstName}}</td>
+          <td *ngIf="x.RoomId==='Dummy'">Refer notes</td>
+          <td *ngIf="x.RoomId!=='Dummy'">{{x.RoomId}}</td>
+          <td>{{x.EquipmentName}}</td>
+          <td>{{x.checkin}}</td>
+          <td>{{x.checkout}}</td>
+          <td>{{x.duration}}</td>
+          <td>{{x.DelayTime}}</td>
+          <td>{{x.WorkorderNotes}}</td>
+        </tr>
+        <tr *ngIf="viewWorkorderReport?.length == 0">
+          <td colspan="12" class="no-data-available">No records found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
