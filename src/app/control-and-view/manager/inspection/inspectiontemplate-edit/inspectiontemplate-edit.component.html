@@ -27,8 +27,7 @@
           <td>
             <a *ngIf='!(k===editQuestions)' class="btn btn-primary" (click)='editTemplateDetails(k, i.TemplateID)'><b>Edit</b></a>&nbsp;&nbsp;
             <a *ngIf='(k===editQuestions)' class="btn btn-success" (click)='submiteditInspectionTemplate(i.TemplateName,i.TemplateID,i.ScoreTypeKey)'><b>Update</b></a>&nbsp;&nbsp;
-            <a *ngIf='!(k===editQuestions)' button type="button" mdbBtn color="danger" class="relative waves-light"
-              (click)="basicModal.show();deleteTemplatePass(i.TemplateID); " mdbWavesEffect><b>Delete</b></a>
+            <a *ngIf='!(k===editQuestions)' class="btn btn-danger" (click)="basicModal.show();deleteTemplatePass(i.TemplateID); "><b>Delete</b></a>
             <a *ngIf='(k===editQuestions)' class="btn btn-warning" (click)='cancelTemplateDetails()'><b>Cancel</b></a>
           </td>
         </tr>

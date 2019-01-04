@@ -40,8 +40,7 @@
               <a style="width: 45%;margin-left: 0.5rem" routerLink="/MeetingTrainingEdit/{{ x.EventKey}}/{{x.ActionKey}}"
                 *ngIf="x.HasAttended == 0" class="btn btn-primary">Edit</a>
 
-              <a button type="button" mdbBtn color="danger" *ngIf="x.HasAttended == 0" class="relative waves-light"
-                style="margin-left: 0.4rem;" (click)="basicModal.show();deleteMeetingPass(x.EventKey); " mdbWavesEffect>Delete</a>
+              <a class="btn btn-danger" *ngIf="x.HasAttended == 0" style="margin-left: 0.4rem;" (click)="basicModal.show();deleteMeetingPass(x.EventKey); ">Delete</a>
 
               <button (click)="markAttended(x.EmployeeKey, x.HasAttended, x.EventKey)" *ngIf="x.HasAttended == 0" class="btn btn-success">Mark
                 as Attended</button>

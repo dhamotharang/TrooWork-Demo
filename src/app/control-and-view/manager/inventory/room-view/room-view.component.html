@@ -3,7 +3,7 @@
 
 <div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="bg-dark" style="width: 100%;height: 100%;"> -->
- 
+
   <h4 class="refer"><b> ROOM</b> </h4>
   <br>
   <div style="text-align:center">
@@ -108,8 +108,7 @@
           <td>{{ x.RoomName }}</td>
           <td>
             <a routerLink="/RoomEdit/{{ x.RoomKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;
-            <a button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show();deleteRoomPass(x.RoomKey); "
-              mdbWavesEffect><b>Delete</b></a>
+            <a class="btn btn-danger" (click)="basicModal.show();deleteRoomPass(x.RoomKey); "><b>Delete</b></a>
           </td>
         </tr>
         <tr *ngIf="rooms?.length == 0">

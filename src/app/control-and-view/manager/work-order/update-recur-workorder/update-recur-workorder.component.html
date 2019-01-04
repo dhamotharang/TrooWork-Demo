@@ -145,17 +145,17 @@
       </div>
 
       <div class="form-group">
+        <input type="checkbox" [(ngModel)]="isPhotoRequired" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;
         <label style="margin-top: 2rem">Photo Required</label>&nbsp;
-        <input type="checkbox" [(ngModel)]="isPhotoRequired" data-md-icheck (change)="toggleVisibility($event)" />
       </div>
 
       <div class="form-group">
+        <input type="checkbox" [(ngModel)]="isBarcodeRequired" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;
         <label>Barcode Required</label>&nbsp;
-        <input type="checkbox" [(ngModel)]="isBarcodeRequired" data-md-icheck (change)="toggleVisibility($event)" />
       </div>
       <div class="form-group">
+        <input type="checkbox" [(ngModel)]="isRecurring" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;
         <label>Recurring Yes</label>&nbsp;
-        <input type="checkbox" [(ngModel)]="isRecurring" data-md-icheck (change)="toggleVisibility($event)" />
       </div>
       <div class="form-group">
         <label style="margin-top: 2rem">Timings</label>
