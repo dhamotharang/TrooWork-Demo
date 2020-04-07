@@ -14,6 +14,7 @@ export class SupervisorWelcomeComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+  Message;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -35,10 +36,12 @@ export class SupervisorWelcomeComponent implements OnInit {
   constructor(private loginService: LoginService, private router: Router) { }
 
   callCreateWO() {
-    this.router.navigateByUrl('/CreateWorkOrderSuperVisor')
+    
+    this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['CreateWorkOrderSuperVisor'] } }]);
   }
   callCreateInspection() {
-    this.router.navigateByUrl('/Createinspectionbysuprvsr')
+  
+    this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['Createinspectionbysuprvsr'] } }]);
   }
   ngOnInit() {
 
@@ -61,6 +64,10 @@ export class SupervisorWelcomeComponent implements OnInit {
       .getEmpNameForWelcomeMessage(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.empName = data[0].EmpName;
+      });
+      this.loginService.getMaintenanceUpdateMsg(this.employeekey, this.OrganizationID).subscribe((data: any[])=> {
+       
+          this.Message = data[0].Message;
       });
   }
 

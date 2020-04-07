@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ConectionSettings } from './ConnectionSetting';
 @Injectable({
   providedIn: 'root'
 })
@@ -8,7 +9,7 @@ export class OrganizationService {
   constructor(private http: HttpClient) { }
 
   createOrganization(OrgName, OrgDesc, Location, State, Country, updatedby, TenName, OrgEmail, tenID) {
-    const url = 'http://localhost:3000/api/organizationAdd';
+    const url = ConectionSettings.Url + '/organizationAdd';
     const obj = {
       OrganizationName: OrgName,
       OrganizationDescription: OrgDesc,
@@ -27,10 +28,10 @@ export class OrganizationService {
   getOrganization(page, itemCount) {
     return this
       .http
-      .get('http://localhost:3000/api/getOrganizationDetails?itemsPerPage=' + itemCount + '&pageNumber=' + page);
+      .get(ConectionSettings.Url + '/getOrganizationDetails?itemsPerPage=' + itemCount + '&pageNumber=' + page);
   }
   DeleteOrganization(orgkey, updatedby) {
-    const url = 'http://localhost:3000/api/deleteOrganizationDetailsByID';
+    const url = ConectionSettings.Url + '/deleteOrganizationDetailsByID';
     const obj = {
       OrganizationID: orgkey,
       metaUpdatedBy: updatedby
@@ -42,10 +43,10 @@ export class OrganizationService {
   ViewOrgDetailsforedit(OrgId) {
     return this
       .http
-      .get('http://localhost:3000/api/getOrganizationDetailsByID?OrganizationID=' + OrgId);
+      .get(ConectionSettings.Url + '/getOrganizationDetailsByID?OrganizationID=' + OrgId);
   }
   UpdateOrganizationDetails(OName, ODesc, state, tid, loc, country, tename, email, updatedby, orgid) {
-    const url = 'http://localhost:3000/api/updateOrganizationDetailsByID';
+    const url = ConectionSettings.Url + '/updateOrganizationDetailsByID';
     const obj = {
       OrganizationName: OName,
       OrganizationDescription: ODesc,
@@ -66,6 +67,30 @@ export class OrganizationService {
   checkForTenantId(TenantID) {
     return this
       .http
-      .get('http://localhost:3000/api/checkForTenantId?TenantID=' + TenantID);
+      .get(ConectionSettings.Url + '/checkForTenantId?TenantID=' + TenantID);
+  }
+
+  cronJob_MST() {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/cronjobMST');
+  }
+
+  cronJob_CST() {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/cronjobCST');
+  }
+
+  cronJob_workordersCount(currentDate) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/cronjobworkorderCount?date1=' + currentDate);
+  }
+
+  cronJob_unrunBatchCount(currentDate, orgid) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/cronjobunrunbatchdetailsCount?date1=' + currentDate + '&OrgID=' + orgid);
   }
 }

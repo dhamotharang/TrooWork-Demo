@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DocumentserviceService } from '../../../../service/documentservice.service';
 import { Documents } from '../../../../model-class/Documents';
 import { ActivatedRoute, Router } from "@angular/router";
+
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-documentfolder-edit',
   templateUrl: './documentfolder-edit.component.html',
@@ -15,6 +17,7 @@ export class DocumentfolderEditComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+  initialFolder;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -34,34 +37,47 @@ export class DocumentfolderEditComponent implements OnInit {
   }
 
 
-  constructor(private route: ActivatedRoute, private documentService: DocumentserviceService, private router: Router) {
+  constructor(private route: ActivatedRoute, private documentService: DocumentserviceService, private router: Router, private _location: Location) {
     this.route.params.subscribe(params => this.folder$ = params.FormtypeId);
   }
 
   updateFolderName() {
-    if(this.folder.FormType && !this.folder.FormType.trim()){
+    if (this.folder.FormType && !this.folder.FormType.trim()) {
       alert("Please Enter Document Folder Name!");
       return;
     }
-    if(!this.folder.FormType){
+    if (!this.folder.FormType) {
       alert("Document Folder Name not provided");
       return;
     }
     // else
-    this.documentService.checkforForms(this.folder.FormType,this.employeekey,this.OrganizationID).subscribe((data: any[]) =>{
-      if(data[0].count==0)
-    {
-    this.documentService.UpdateDocumentFolderName(this.folder$, this.folder.FormType, this.employeekey, this.OrganizationID).subscribe((data: Documents[])=> {
-      alert("Successfully Updated");
-      this.router.navigateByUrl('/DocumentfolderView');
-    });
-  }
-  else
-  {
-    alert("Document Folder Name already exists");
-    return;
-  }
-});
+    if (this.folder.FormType) {
+      this.folder.FormType = this.folder.FormType.trim();
+    }
+
+    if(this.initialFolder===this.folder.FormType){
+      this.documentService.UpdateDocumentFolderName(this.folder$, this.folder.FormType, this.employeekey, this.OrganizationID)
+      .subscribe((data: Documents[]) => {
+        alert("Successfully Updated");
+        this._location.back();
+      });
+    }
+    else{ 
+    this.documentService.checkforForms(this.folder.FormType, this.employeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        if (data[0].count == 0) {
+          this.documentService.UpdateDocumentFolderName(this.folder$, this.folder.FormType, this.employeekey, this.OrganizationID)
+            .subscribe((data: Documents[]) => {
+              alert("Successfully Updated");
+              this._location.back();
+            });
+        }
+        else {
+          alert("Document Folder Name already exists");
+          return;
+        }
+      });
+    }
   }
 
   ngOnInit() {
@@ -76,7 +92,11 @@ export class DocumentfolderEditComponent implements OnInit {
 
     this.documentService.EditDocFolderName(this.folder$, this.OrganizationID).subscribe((data: any[]) => {
       this.folder = data[0]
+      this.initialFolder=data[0].FormType
     });
+  }
+  goBack() {
+    this._location.back();
   }
 
 }

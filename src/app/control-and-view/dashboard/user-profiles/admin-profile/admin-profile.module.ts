@@ -9,7 +9,7 @@ import { NgDatepickerModule} from 'ng2-datepicker';
 
 
 import { AdminProfileComponent } from './admin-profile.component';
-
+import { FileSelectDirective } from 'ng2-file-upload';
 
 const routes: Routes = [
   {
@@ -29,6 +29,6 @@ const routes: Routes = [
     NgDatepickerModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [AdminProfileComponent]
+  declarations: [AdminProfileComponent,FileSelectDirective]
 })
 export class AdminProfileModule { }

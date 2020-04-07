@@ -54,5 +54,14 @@ export class ViewinspectionmanagerComponent implements OnInit {
       });
 
   }
-
+  GoView() {
+    // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['InspectionView'] } }]);
+    if (this.role == 'Manager') {
+      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['InspectionView'] } }]);
+    }
+    // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+    else if (this.role == 'Supervisor') {
+      this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['Viewinspctnbysprvsr'] } }]);
+    }
+  }
 }

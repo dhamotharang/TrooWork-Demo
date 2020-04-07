@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges, Directive, HostListener, ElementRef, Inpu
 import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-room-type-view',
@@ -44,7 +45,7 @@ export class RoomTypeViewComponent implements OnInit {
   //validation starts ..... @rodney
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
-  constructor(private formBuilder: FormBuilder, private inventoryService: InventoryService, private el: ElementRef) { }
+  constructor(private formBuilder: FormBuilder, private inventoryService: InventoryService, private el: ElementRef,private _location: Location) { }
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     return new RegExp(this.regexStr).test(event.key);
   }
@@ -65,6 +66,7 @@ export class RoomTypeViewComponent implements OnInit {
   //validation ends ..... @rodney
   previousPage() {
     this.loading = true;
+    this.pageNo = +this.pageNo - 1;
     this.inventoryService
       .getRoomTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
@@ -189,6 +191,8 @@ export class RoomTypeViewComponent implements OnInit {
       SearchRoomType: ['', Validators.required]
     });
   }
-
+  goBack(){
+    this._location.back();
+  }
 
 }

@@ -21,6 +21,7 @@ export class WorkOrderTypeComponent implements OnInit {
   showHide2: boolean;
   pagination: Number;
   loading: boolean;// loading
+  //decode token
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -37,10 +38,10 @@ export class WorkOrderTypeComponent implements OnInit {
     }
     return window.atob(output);
   }
-
   workorderTypeList;
   delete_WOType;
   wot_key;
+  //special character restriction
   searchform: FormGroup;
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
@@ -60,6 +61,7 @@ export class WorkOrderTypeComponent implements OnInit {
 
     }, 100)
   }
+  //code for pagination
   previousPage() {
     this.pageno = +this.pageno - 1;
     this.WorkOrderServiceService
@@ -93,6 +95,7 @@ export class WorkOrderTypeComponent implements OnInit {
         }
       });
   }
+  //
   ngOnInit() {
     this.loading = true;
     var token = localStorage.getItem('token');
@@ -104,7 +107,7 @@ export class WorkOrderTypeComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
     this.WorkOrderServiceService
-      .getall_workordertype(this.pageno, this.items_perpage, this.employeekey, this.OrganizationID)
+      .getall_workordertype(this.pageno, this.items_perpage, this.employeekey, this.OrganizationID)//service for gettig all workorder type on pageload
       .subscribe((data: any[]) => {
         this.workorderTypeList = data;
         this.loading = false;
@@ -121,9 +124,10 @@ export class WorkOrderTypeComponent implements OnInit {
       searchworkordertype: ['', Validators.required]
     });
   }
+  //function called on search
   searchWOType(key) {
     var value = key.trim();
-    if(value.length>=3)
+    if(value.length>=3)//if search key length>3 search service is called
     {
     this.WorkOrderServiceService
       .search_workordertype(this.OrganizationID, value)
@@ -133,12 +137,12 @@ export class WorkOrderTypeComponent implements OnInit {
           this.showHide1 = false;
       });
     }
-    else if(value.length==0)
+    else if(value.length==0)//if search key length=0 original table is returned
     {
       if ((value.length == 0) && (key.length == 0)) {
         this.loading = true;
       }
-      this.WorkOrderServiceService
+      this.WorkOrderServiceService//service for loading current table
       .getall_workordertype(this.pageno, this.items_perpage, this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.workorderTypeList = data;
@@ -155,9 +159,11 @@ export class WorkOrderTypeComponent implements OnInit {
     }
 
   }
+  //function to assign value of current wot(for delete)
   passWOT(key) {
     this.wot_key = key;
   }
+  //function to delete current workordertype key
   deleteWOType() {
     this.loading = true;
     this.delete_WOType = {

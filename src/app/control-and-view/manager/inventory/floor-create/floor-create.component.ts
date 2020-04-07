@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Inventory } from '../../../../model-class/Inventory';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { InventoryService } from '../../../../service/inventory.service';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-floor-create',
   templateUrl: './floor-create.component.html',
@@ -35,7 +36,7 @@ export class FloorCreateComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private router: Router, private fb: FormBuilder, private inventoryService: InventoryService) {
+  constructor(private router: Router, private fb: FormBuilder, private inventoryService: InventoryService, private _location: Location) {
 
     this.floorcreate = fb.group({
       FacilityKey: ['', Validators.required],
@@ -45,39 +46,38 @@ export class FloorCreateComponent implements OnInit {
   }
 
   addFloor(FacilityKey, FloorName, FloorDescription) {
-    if(FacilityKey=="--Select--"){
+    if (!FacilityKey) {
       alert("Please Choose Building!");
       return;
-    } 
-    if(FloorName && !FloorName.trim()){
+    }
+    if (!FloorName || !FloorName.trim()) {
       alert("Please Enter Floor Name!");
       return;
     }
-    if(FloorDescription && !FloorDescription.trim()){
+    if (!FloorDescription || !FloorDescription.trim()) {
       alert("Please Enter Floor Description!");
       return;
     }
-    if (!FacilityKey) {
-      alert("Please select a building name!");
-    } else if (!FloorName) {
-      alert("Enter floor name!");
-    }
-    else if (!FloorDescription) {
-      alert("Enter floor description!");
-    }
-    this.inventoryService.CheckNewFloor(FacilityKey,FloorName,this.employeekey, this.OrganizationID) .subscribe((data: Inventory[]) =>{
-      if(data[0].count > 0){
+
+    FloorName = FloorName.trim();
+    FloorDescription = FloorDescription.trim();
+
+    console.log("*"+FloorName+"*");
+    console.log("*"+FloorDescription+"*");
+
+    this.inventoryService.CheckNewFloor(FacilityKey, FloorName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
+      if (data[0].count > 0) {
         alert("Floor already present !");
-      return;
+        return;
       }
-    else {
-      this.inventoryService.createFloors(FacilityKey, FloorName, FloorDescription, this.employeekey, this.OrganizationID)
-        .subscribe((data: Inventory[]) => {
-          alert("Floor created successfully");
-          this.router.navigateByUrl('/Floorview');
-        });
-    }
-  });
+      else {
+        this.inventoryService.createFloors(FacilityKey, FloorName, FloorDescription, this.employeekey, this.OrganizationID)
+          .subscribe((data: Inventory[]) => {
+            alert("Floor created successfully");
+            this._location.back();
+          });
+      }
+    });
   }
 
   ngOnInit() {
@@ -95,8 +95,12 @@ export class FloorCreateComponent implements OnInit {
       .getallBuildingList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.flooroptions = data;
-        this.FacilityKey=""
+        this.FacilityKey = ""
       });
+  }
+
+  goBack() {
+    this._location.back();
   }
 
 }

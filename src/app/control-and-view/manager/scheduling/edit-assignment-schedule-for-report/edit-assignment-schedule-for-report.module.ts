@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { CalendarModule } from 'primeng/calendar';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -27,7 +27,8 @@ const routes: Routes = [
     ManagerDashBoardModule,
     FormsModule, ReactiveFormsModule,
     NgDatepickerModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    CalendarModule
   ],
   declarations: [EditAssignmentScheduleForReportComponent]
 })

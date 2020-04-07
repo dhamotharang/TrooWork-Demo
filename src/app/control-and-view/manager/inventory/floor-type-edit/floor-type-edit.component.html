@@ -1,32 +1,27 @@
-<app-manager-dash-board></app-manager-dash-board>
-<div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
+<div style="margin-left: 15rem;margin-right: 15rem;overflow-x: hidden;">
   <br>
   <div style="text-align:center">
-    <h3 style="color: #174a5e;"><strong>UPDATE FLOOR TYPE</strong></h3>
+    <h4 style="color: #174a5e;">UPDATE FLOOR TYPE</h4>
   </div>
 
   <br>
-  <div class="col-md-12">
+  <div class="col-md-12 bg-info" style="padding-top: 2rem">
     <div class="row col-md-12">
       <h5 style="text-align:right" class="col-md-4"><label for="FloorType">Floor Type Name: </label></h5>
       <div class="col-md-3" style="text-align:left">
-        <input *ngIf="flrType" type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" maxlength="20"
-          id="FloorType" [(ngModel)]="flrType.FloorTypeName">
+        <input *ngIf="flrType" type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
+          maxlength="20" id="FloorType" [(ngModel)]="flrType.FloorTypeName">
       </div>
     </div>
     <br>
-    <div class="row col-md-12">
-      <div class="col col-md-3"></div>
-      <div style="text-align:right" class="col-md-3">
-        <a style="color:white !important" class="btn btn-success" (click)="updateFloorType(flrType.FloorTypeName)"><b>Update</b>
-        </a></div>
-      <div style="text-align:left" class="col-md-3">
-        <a routerLink="/FloorTypeView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
-            Back
-          </b>
-        </a></div>
-      <div class="col col-md-3"></div>
+    <div class="row col-md-12" style="margin-left: 35%">
+      <a style="color:white !important" class="btn btn-success" (click)="updateFloorType(flrType.FloorTypeName)"><b>Update</b>
+      </a>
+      <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go
+          Back
+        </b>
+      </a>
     </div>
   </div>
- 
+
 </div>

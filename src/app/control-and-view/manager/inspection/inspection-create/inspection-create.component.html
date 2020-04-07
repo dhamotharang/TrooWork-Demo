@@ -1,7 +1,6 @@
-<app-manager-dash-board></app-manager-dash-board>
 <div style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
-    <h3 style="margin-left: 20rem;">CREATE NEW INSPECTION</h3>
+    <h4 style="margin-left: 40%;">CREATE NEW INSPECTION</h4>
   </div>
   <br>
   <div class="row bg-info col-md-12" style="padding-top: 2rem;padding-bottom: 1rem;">
@@ -21,10 +20,10 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label class="col-sm-3 col-md-3 col-lg-3 " style="margin-left: -1rem;"> Date</label>
+        <label class="col-sm-3 col-md-3 col-lg-3 " style="margin-left: -1rem;"> Date*</label>
         <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" style="width: 75%;"
           [value]="date" [(ngModel)]="fromdate"></igx-datePicker> -->
-          <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="fromdate"></ng-datepicker >
+        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="fromdate"></ng-datepicker>
       </div>
       <div class="form-group">
         <label class="col-sm-3 col-md-3 col-lg-3 " style="margin-left: -1rem;">Auditor*</label>
@@ -39,10 +38,9 @@
     </div>
 
     <div class="col-md-6">
-      <div class="form-group">
+      <div class="form-group" style="width: 28.5%">
         <label class="col-sm-3 col-md-3 col-lg-3 " style="margin-left: -1rem;">Time*</label><br>
-        <p-calendar [inputStyle]="{'width':'206%'}" [(ngModel)]="time1" [timeOnly]="true"
-          hourFormat="12"></p-calendar>
+        <p-calendar [inputStyle]="{'width':'260%'}" [(ngModel)]="time1" [timeOnly]="true" hourFormat="12"></p-calendar>
       </div>
       <div class="form-group" style="margin-top: 1.3rem">
         <label class="col-sm-3 col-md-3 col-lg-3 " style="margin-left: -1rem;">Employee</label>
@@ -117,23 +115,21 @@
     <div class="col-md-6"></div>
     <div class="col-md-12"></div>
     <div class="col-md-6">
-      <div class="form-group" style="margin-top: 2.5rem">
-        <label class="form-check-label" for="materialInline1">Recurring Yes:</label> &nbsp;
-        <input type="checkbox" [(ngModel)]="theCheckbox" data-md-icheck (change)="toggleVisibility($event)" />
-      </div>
+      <!-- <div class="form-group" style="margin-top: 2.5rem">
+        <input type="checkbox" [(ngModel)]="theCheckbox" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;
+        <label class="form-check-label" for="materialInline1">Recurring Yes:</label>
+      </div> -->
     </div>
     <div class="col-md-6">
       <div class="form-group" *ngIf="marked">
         <label class="col-sm-3 col-md-3 col-lg-3 " style="margin-left: -1rem;">To Date</label>
         <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" style="width: 75%;"
           [value]="date" [(ngModel)]="todate"></igx-datePicker> -->
-          <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="todate"></ng-datepicker >
+        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="todate"></ng-datepicker>
       </div>
     </div>
-    <div class="row col-md-12">
-      <div class="col-md-6"></div>
-      <div style="text-align:center">
-        <button type="button" style="text-align:center" class="btn btn-success" (click)="createInspection()"><b>SAVE</b></button></div>
-    </div>
+    <div class="row col-md-12" style="margin-left: 45%">
+      <button type="button" style="text-align:center" class="btn btn-success"
+        (click)="createInspection()"><b>SAVE</b></button></div>
   </div>
 </div>

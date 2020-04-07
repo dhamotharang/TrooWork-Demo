@@ -1,8 +1,8 @@
-<app-manager-dash-board></app-manager-dash-board>
+ 
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
-    <h3 style="margin-left: 30rem;">BATCH WORK-ORDER REPORT</h3>
+    <h4 style="margin-left: 42%;">BATCH WORK-ORDER REPORT</h4>
   </div>
   <br>
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
@@ -26,8 +26,11 @@
   </div>
   <br>
   <br>
+  <div style="text-align:center" *ngIf="reportarray?.length> 0">
+    <button type="button" class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>
+  </div>
   <div style="margin-left: 1.5rem;width: 100%">
-    <table *ngIf='reportarray' class="table table-hover table-responsive table-bordered table" style="display: inline-table">
+    <table *ngIf='reportarray' class="table table-hover table-responsive table-bordered table" style="display: inline-table;">
       <thead class="tableHead">
         <th>Building</th>
         <th>Floor</th>
@@ -89,9 +92,7 @@
     </table>
   </div>
   <br>
-  <div style="text-align:center" *ngIf="reportarray?.length> 0">
-    <button type="button" class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>
-  </div>
+  
   <div id='exportable1' style="visibility: hidden !important;">
       <table *ngIf='reportarray' cellspacing="0" 
       rules="rows" 

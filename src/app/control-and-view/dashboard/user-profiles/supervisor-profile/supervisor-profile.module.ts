@@ -6,6 +6,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SupervisorDashboardModule } from '../../user-dashboards/supervisor-dashboard/supervisor-dashboard.module';
 import{ SupervisorProfileComponent }   from './supervisor-profile.component';
+import { FileSelectDirective } from 'ng2-file-upload';
 const routes: Routes = [
   {
     path: '',
@@ -23,6 +24,6 @@ const routes: Routes = [
     FormsModule, ReactiveFormsModule,
     RouterModule.forChild(routes),
   ],
-  declarations: [SupervisorProfileComponent]
+  declarations: [SupervisorProfileComponent,FileSelectDirective]
 })
 export class SupervisorProfileModule { }

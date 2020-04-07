@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { workorder } from '../../../../model-class/work-order';
 import { WorkOrderServiceService } from '../../../../service/work-order-service.service';
 import { Router } from "@angular/router";
-import { DatepickerOptions } from 'ng2-datepicker';
+import { DatepickerOptions } from 'ng2-datepicker';//for datepicker
 @Component({
   selector: 'app-create-batch-workorder',
   templateUrl: './create-batch-workorder.component.html',
@@ -41,6 +41,9 @@ export class CreateBatchWorkorderComponent implements OnInit {
   WorkorderTypeKey;
   workorderNotes;
   showEqTypes = false;
+  GpsSnapShot;
+  Gps_SnapShot;
+
 
   // temp-variables
   wot;
@@ -54,7 +57,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
   startDT;
   endDT;
   workTime;
-  dailyRecc_gap; // dailyreccuringGap
+  dailyRecc_gap; // dailyrecurringGap
   is_PhotoRequired;
   is_BarcodeRequired;
   occurenceinstance;
@@ -72,11 +75,11 @@ export class CreateBatchWorkorderComponent implements OnInit {
   monthlyreccradio2;
   newType = false;
   //recurr variables
-  monthlyDays = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
-  recurringFrequency = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
-  weekDay = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  weekPosition = [{ id: 'First', value: '1' }, { id: 'Second', value: '2' }, { id: 'Third', value: '3' }, { id: 'Fourth', value: '4' }, { id: 'Fifth', value: '5' }, { id: 'Last', value: '-1' }];
-  timetable = { times: [] };
+  monthlyDays = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];//for selecting day of a month in recurring option(on gap of dropdown)
+  recurringFrequency = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];//for selecting a month in recurring option
+  weekDay = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];//monthly recurring- for selecting day of week
+  weekPosition = [{ id: 'First', value: '1' }, { id: 'Second', value: '2' }, { id: 'Third', value: '3' }, { id: 'Fourth', value: '4' }, { id: 'Fifth', value: '5' }, { id: 'Last', value: '-1' }];//for seleting week position in monthly recurring 
+  timetable = { times: [] };//for daily recurring timepicker
   dailyFrequency;
   WorkorderStartDate;
   WorkorderEndDate;
@@ -104,6 +107,8 @@ export class CreateBatchWorkorderComponent implements OnInit {
   name: String;
   IsSupervisor: Number;
   employeekey;
+
+  //converting date from GMT to yyyy/mm/dd
   public convert_DT(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
@@ -120,6 +125,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
   //   return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
 
   // }
+  //adding datepicker option
   options: DatepickerOptions = {
     minYear: 1970,
     maxYear: 2030,
@@ -133,13 +139,13 @@ export class CreateBatchWorkorderComponent implements OnInit {
     barTitleIfEmpty: 'Click to select a date',
     placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
     addClass: '', // Optional, value to pass on to [ngClass] on the input field
-    addStyle: {'font-size':'18px','width':'100%', 'border': '1px solid #ced4da','border-radius': '0.25rem'}, // Optional, value to pass to [ngStyle] on the input field
+    addStyle: { 'font-size': '18px', 'width': '100%', 'border': '1px solid #ced4da', 'border-radius': '0.25rem' }, // Optional, value to pass to [ngStyle] on the input field
     fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
 
   constructor(private router: Router, private WorkOrderServiceService: WorkOrderServiceService) { }
-  url_base64_decode(str) {
+  url_base64_decode(str) {//token decoding function
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
       case 0:
@@ -186,35 +192,36 @@ export class CreateBatchWorkorderComponent implements OnInit {
     this.month1 = "";
     this.month2 = "";
     this.pos2 = "";
-    this.WorkOrderServiceService
+    this.WorkOrderServiceService//for getting all building names
       .getallFacility(this.emp_key, this.org_id)
       .subscribe((data: any[]) => {
         this.facilitylist = data;
       });
-    this.WorkOrderServiceService
+    this.WorkOrderServiceService//for getting all workordertypes
       .getallworkorderType(this.emp_key, this.org_id)
       .subscribe((data: any[]) => {
         var newArray = data.slice(0); //clone the array, or you'll end up with a new "None" option added to your "values" array on every digest cycle.
         newArray.unshift({ WorkorderTypeText: "Create New", WorkorderTypeKey: "-99" });
         this.workorderTypeList = newArray;
       });
-    this.WorkOrderServiceService
+    this.WorkOrderServiceService//for getting all priority names
       .getallPriority(this.org_id)
       .subscribe((data: any[]) => {
         this.priorityList = data;
       });
-    this.WorkOrderServiceService
+    this.WorkOrderServiceService//for getting schedulenames
       .getallScheduleName(this.emp_key, this.org_id)
       .subscribe((data: any[]) => {
         this.scheduleList = data;
       });
-    this.WorkOrderServiceService
+    this.WorkOrderServiceService//for getting employeenames
       .getallEmployee(this.emp_key, this.org_id)
       .subscribe((data: any[]) => {
         this.EmployeeOption = data;
       });
 
   }
+  //function called on checkbox value change
   toggleVisibility_Equipment(e) {
     if (e.target.checked) {
       this.marked = true;
@@ -250,7 +257,8 @@ export class CreateBatchWorkorderComponent implements OnInit {
       this.marked = false;
     }
   }
-
+  //
+  //function called on radiobutton change
   dailyrecurringChange() {
     this.weeklyrecurring = false;
     this.monthlyrecurring = false;
@@ -269,60 +277,56 @@ export class CreateBatchWorkorderComponent implements OnInit {
   monthlyreccradio1_change() {
     this.monthlyreccradio1 = true;
     this.monthlyreccradio2 = false;
-    this.pos2="";
-    this.day2="";
-    this.month2="";
+    this.pos2 = "";
+    this.day2 = "";
+    this.month2 = "";
   }
   monthlyreccradio2_change() {
     this.monthlyreccradio1 = false;
     this.monthlyreccradio2 = true;
-    this.day1="";
-    this.month1="";
+    this.day1 = "";
+    this.month1 = "";
   }
-  getEquiment(floor_key, facility_key) {
-    if(floor_key&&facility_key)
-    {
-    this.WorkOrderServiceService
-      .getallEquipment(facility_key, floor_key, this.org_id)
-      .subscribe((data: any[]) => {
-        this.EquipmentTypeList = data;
-        this.EquipmentList = data;
-        this.EquipmentKey="";
-         this.EquipmentTypeKey="";
-      });
+  getEquiment(floor_key, facility_key) {//getting equipment based on facility key,floor key
+    if (floor_key && facility_key) {
+      this.WorkOrderServiceService
+        .getallEquipment(facility_key, floor_key, this.org_id)
+        .subscribe((data: any[]) => {
+          this.EquipmentTypeList = data;
+          this.EquipmentList = data;
+          this.EquipmentKey = "";
+          this.EquipmentTypeKey = "";
+        });
     }
-    else
-    {
-      this.EquipmentKey="";
-      this.EquipmentTypeKey="";
+    else {
+      this.EquipmentKey = "";
+      this.EquipmentTypeKey = "";
     }
   }
-  getFloorDisp(facilityName) {
-    if(facilityName)
-   {
-    this.WorkOrderServiceService
-      .getallFloor(facilityName, this.org_id)
-      .subscribe((data: any[]) => {
-        this.FloorList = data;
-        this.FloorKey="";
-        this.ZoneKey="";
-        this.RoomTypeKey="";
-        this.RoomKey="";
-        this.EquipmentTypeKey="";
-        this.EquipmentKey="";
-      });
+  getFloorDisp(facilityName) {//getting floors for selected facility
+    if (facilityName) {
+      this.WorkOrderServiceService
+        .getallFloor(facilityName, this.org_id)
+        .subscribe((data: any[]) => {
+          this.FloorList = data;
+          this.FloorKey = "";
+          this.ZoneKey = "";
+          this.RoomTypeKey = "";
+          this.RoomKey = "";
+          this.EquipmentTypeKey = "";
+          this.EquipmentKey = "";
+        });
     }
-    else
-    {
-      this.FloorKey="";
-      this.ZoneKey="";
-      this.RoomTypeKey="";
-      this.RoomKey="";
-      this.EquipmentTypeKey="";
-      this.EquipmentKey="";
+    else {
+      this.FloorKey = "";
+      this.ZoneKey = "";
+      this.RoomTypeKey = "";
+      this.RoomKey = "";
+      this.EquipmentTypeKey = "";
+      this.EquipmentKey = "";
     }
   }
-  getZoneRoomTypeRoom(floor, facility) {
+  getZoneRoomTypeRoom(floor, facility) {//getting zone,roomtype,room based on facility key,floor key
     if (floor && facility) {
       if ((this.FloorKey) && (this.showEqTypes == true)) {
         this.ZoneKey = -1;
@@ -330,19 +334,19 @@ export class CreateBatchWorkorderComponent implements OnInit {
         this.RoomKey = -1;
       }
       else {
-        this.WorkOrderServiceService
+        this.WorkOrderServiceService//service for getting zones
           .getzone_facilityfloor(floor, facility, this.org_id)
           .subscribe((data: any[]) => {
             this.zonelist = data;
             this.ZoneKey = "";
           });
-        this.WorkOrderServiceService
+        this.WorkOrderServiceService//service for getting roomtype lists
           .getroomType_facilityfloor(floor, facility, this.org_id)
           .subscribe((data: any[]) => {
             this.RoomTypeList = data;
             this.RoomTypeKey = "";
           });
-        this.WorkOrderServiceService
+        this.WorkOrderServiceService//service for getting roomlist
           .getRoom_facilityfloor(floor, facility, this.org_id)
           .subscribe((data: any[]) => {
             this.RoomList = data;
@@ -354,99 +358,91 @@ export class CreateBatchWorkorderComponent implements OnInit {
       this.ZoneKey = "";
       this.RoomTypeKey = "";
       this.RoomKey = "";
-      this.EquipmentTypeKey="";
-      this.EquipmentKey="";
+      this.EquipmentTypeKey = "";
+      this.EquipmentKey = "";
     }
   }
-  getRoomTypeRoom(zone, facility, floor) {
-    if(zone&&facility&&floor)
-    {
-    this.WorkOrderServiceService
-      .getRoomtype_zone_facilityfloor(zone, floor, facility, this.org_id)
-      .subscribe((data: any[]) => {
-        this.RoomTypeList = data;
-        this.RoomTypeKey="";
-      });
-    this.WorkOrderServiceService
-      .getRoom_zone_facilityfloor(zone, floor, facility, this.org_id)
-      .subscribe((data: any[]) => {
-        this.RoomList = data;
-        this.RoomKey="";
-      });
+  getRoomTypeRoom(zone, facility, floor) {//get roomtype,room based on zone,facility,floor
+    if (zone && facility && floor) {
+      this.WorkOrderServiceService//service for getting roomtype lists
+        .getRoomtype_zone_facilityfloor(zone, floor, facility, this.org_id)
+        .subscribe((data: any[]) => {
+          this.RoomTypeList = data;
+          this.RoomTypeKey = "";
+        });
+      this.WorkOrderServiceService//service for getting roomlist
+        .getRoom_zone_facilityfloor(zone, floor, facility, this.org_id)
+        .subscribe((data: any[]) => {
+          this.RoomList = data;
+          this.RoomKey = "";
+        });
     }
-    else
-    {
-      this.RoomTypeKey="";
-      this.RoomKey="";
-    }
-  }
-  getRoom(roomtype, zone, facility, floor) {
-    if(roomtype && zone && facility && floor)
-    {
-    this.WorkOrderServiceService
-      .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.org_id)
-      .subscribe((data: any[]) => {
-        this.RoomList = data;
-        this.RoomKey="";
-      });
-    }
-    else
-    {
-      this.RoomKey="";
+    else {
+      this.RoomTypeKey = "";
+      this.RoomKey = "";
+      this.getZoneRoomTypeRoom(this.FloorKey, this.FacilityKey);
     }
   }
-  showEquipment_typechange(equip_type, facility, floor) {
-    if(equip_type&&facility&&floor)
-    {
-    this.WorkOrderServiceService
-      .getEquipment_typechange(equip_type, facility, floor, this.org_id)
-      .subscribe((data: any[]) => {
-        this.EquipmentList = data;
-        this.EquipmentKey="";
-      });
+  getRoom(roomtype, zone, facility, floor) {//get room based on zone,facility,floor,roomtype
+    if (roomtype && zone && facility && floor) {
+      this.WorkOrderServiceService//service for getting roomlist
+        .getRoom_Roomtype_zone_facilityfloor(roomtype, zone, floor, facility, this.org_id)
+        .subscribe((data: any[]) => {
+          this.RoomList = data;
+          this.RoomKey = "";
+        });
     }
-    else
-    {
-      this.EquipmentKey="";
+    else {
+      this.RoomKey = "";
     }
   }
-  getEmployee(schedulename) {
-    if(schedulename)
-    {
-    this.WorkOrderServiceService
-      .getEmployee_scheduleNamae(schedulename, this.org_id)
-      .subscribe((data: any[]) => {
-        this.EmployeeKey = data[0].EmployeeKey;
-      });
+  showEquipment_typechange(equip_type, facility, floor) {//for getting equipment names
+    if (equip_type && facility && floor) {
+      this.WorkOrderServiceService
+        .getEquipment_typechange(equip_type, facility, floor, this.org_id)
+        .subscribe((data: any[]) => {
+          this.EquipmentList = data;
+          this.EquipmentKey = "";
+        });
     }
-    else 
-    {
-      this.EmployeeKey="  ";
+    else {
+      this.EquipmentKey = "";
     }
   }
+  getEmployee(schedulename) {//for getting employee for selected schedulename
+    if (schedulename) {
+      this.WorkOrderServiceService
+        .getEmployee_scheduleNamae(schedulename, this.org_id)
+        .subscribe((data: any[]) => {
+          this.EmployeeKey = data[0].EmployeeKey;
+        });
+    }
+    else {
+      this.EmployeeKey = "  ";
+    }
+  }
+  //function for creating workorder
   createWorkOrder() {
     if (this.showEqTypes === false) {
-      this.createWorkorder1();
+      this.createWorkorder1();//function for creating workorder without equipment
       console.log('Equipment***Not');
 
     } else {
-      this.createWorkorder2();
+      this.createWorkorder2();//function for creating workorder with equipment
 
     }
   }
   createWorkorder1() {
-   
+
     if (!(this.BatchScheduleNameKey)) {
       alert("Please select schedule name!");
     }
     else if (!this.WorkorderTypeKey) {
       alert("Please select work-order type!");
     }
-    else if(this.newType == true && !(this.newworkordertypetext))
-    {
+    else if (this.newType == true && !(this.newworkordertypetext)) {
       alert("Please enter work-order type!");
-    }else if(this.newType == true && !(this.newworkordertypetext.trim()))
-    {
+    } else if (this.newType == true && !(this.newworkordertypetext.trim())) {
       alert("Please enter work-order type!");
     }
     else if (!this.FacilityKey) {
@@ -460,15 +456,18 @@ export class CreateBatchWorkorderComponent implements OnInit {
     }
     else if (!(this.WorkorderEndDate)) {
       alert("Please provide work-order end date!");
-    }else if((this.WorkorderEndDate)&&(this.convert_DT(this.WorkorderStartDate)>this.convert_DT(this.WorkorderEndDate))){
-      alert("Please check your startdate!");
+    } else if ((this.WorkorderEndDate) && (this.convert_DT(this.WorkorderStartDate) > this.convert_DT(this.WorkorderEndDate))) {
+      alert("Please check your end date!");
 
     }
     else if (this.dailyrecurring == false && this.weeklyrecurring == false && this.monthlyrecurring == false) {
       alert("Please provide recurring Period!");
     }
     else if (this.dailyrecurring == true) {
-      if (!(this.dailyFrequency)) {
+      if (this.convert_DT(this.WorkorderStartDate) < this.convert_DT(new Date())) {
+        alert("Start date is less than current date");
+      }
+      else if (!(this.dailyFrequency)) {
         alert("Please select frequency !");
       } else if (this.dailyFrequency) {
         for (var i = 0; i < this.dailyFrequency; i++) {
@@ -479,53 +478,52 @@ export class CreateBatchWorkorderComponent implements OnInit {
         this.withoutequip_wo();
       }
     }
-    else if (this.weeklyrecurring == true) 
-    {
+    else if (this.weeklyrecurring == true) {
       if (!(this.weektable_one) && !(this.weektable_two) && !(this.weektable_three) && !(this.weektable_four) && !(this.weektable_five) && !(this.weektable_six) && !(this.weektable_seven)) {
         alert("Please select atleast one day!");
       }
       else if (!this.Time_weekly) {
         alert("Please provide time!");
       }
-      else
-      {
-      this.withoutequip_wo();
+      if (this.convert_DT(this.WorkorderStartDate) < this.convert_DT(new Date())) {
+        alert("Start date is less than current date");
+      }
+      else {
+        this.withoutequip_wo();
       }
     }
-    else if (this.monthlyrecurring == true) 
-    {
-      if (this.monthlyreccradio1 == false && this.monthlyreccradio2 == false) {
+    else if (this.monthlyrecurring == true) {
+      if (this.convert_DT(this.WorkorderStartDate) < this.convert_DT(new Date())) {
+        alert("Start date is less than current date");
+      }
+      else if (this.monthlyreccradio1 == false && this.monthlyreccradio2 == false) {
         alert("Select a radio option from monthly reccuring !");
         return;
       }
-      if(this.monthlyreccradio1 == true)
-      {
-        if(!(this.day1) || !(this.month1))
-        {
+      if (this.monthlyreccradio1 == true) {
+        if (!(this.day1) || !(this.month1)) {
           alert("Provide entries for monthly recurring !");
           return;
         }
-       
+
       }
-      if(this.monthlyreccradio2 == true)
-      {
-        if(!(this.day2) || !(this.pos2) || !(this.month2))
-        {
+      if (this.monthlyreccradio2 == true) {
+        if (!(this.day2) || !(this.pos2) || !(this.month2)) {
           alert("Provide entries for monthly recurring !");
           return;
         }
-        
+
       }
       if (!this.Time_monthly) {
         alert("Please provide time!");
       }
-      else{
-      this.withoutequip_wo();
+      else {
+        this.withoutequip_wo();
       }
     }
   }
-  withoutequip_wo()
-  {
+  //function for creating workorder without equipment
+  withoutequip_wo() {
     var roomlistObj = [];
     var roomtypelistObj = [];
     var zonelistObj = [];
@@ -551,7 +549,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
       this.wot = null;
     }
     if (this.workorderNotes) {
-      this.notes = this.workorderNotes;
+      this.notes = this.workorderNotes.trim();
     } else {
       this.notes = null;
     }
@@ -685,6 +683,18 @@ export class CreateBatchWorkorderComponent implements OnInit {
     } else {
       this.endDT = this.convert_DT(new Date());
     }
+
+    var timeDiff = Math.abs(this.WorkorderEndDate.getTime() - this.WorkorderStartDate.getTime());
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+    if (this.intervaltype == 'w' && diffDays < 7) {
+      alert("Please Select One week Date Range!");
+      return;
+    }
+    if (this.intervaltype == 'm' && diffDays < 31) {
+      alert("Please Select One month Date Range!");
+      return;
+    }
     if (this.dailyrecurring == true) {
       var timeset = [];
       var timeset_corr = [];
@@ -749,18 +759,24 @@ export class CreateBatchWorkorderComponent implements OnInit {
         }
       }
     }
-    if (this.newType == true) {
+    if (this.GpsSnapShot == true) {
+      this.Gps_SnapShot = 1;
+    }
+    else {
+      this.Gps_SnapShot = 0;
+    }
+    if (this.newType == true) {//checking for new workorder type
       if (this.newworkordertypetext) {
         this.WorkOrderServiceService
-          .checkforcheckForWorkOrderType(this.newworkordertypetext, this.emp_key, this.org_id)
+          .checkforcheckForWorkOrderType(this.newworkordertypetext, this.emp_key, this.org_id)//check if the workordertype is already existing
           .subscribe((data: any[]) => {
-            if (data[0].count == 0) {
+            if (data[0].count == 0) {//if the service returns count=0 means no such workordertype existing
               this.addWOT = {
                 WorkorderType: this.newworkordertypetext,
                 employeekey: this.emp_key,
                 OrganizationID: this.org_id
               };
-              this.WorkOrderServiceService
+              this.WorkOrderServiceService//service for adding new workordertype
                 .AddnewWOT(this.addWOT)
                 .subscribe((data: any[]) => {
                   this.wot = data[0].WorkOrderTypeKey;
@@ -787,47 +803,62 @@ export class CreateBatchWorkorderComponent implements OnInit {
                     intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
                     repeatinterval: this.rep_interval,
                     occursonday: this.occurs_on,
-                    occurstype: this.occurs_type
+                    occurstype: this.occurs_type,
+                    IsSnapshot: this.Gps_SnapShot
                   };
                   this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => {
                     alert("Batch work-order created successfully");
-                    this.router.navigateByUrl('/ViewBatchWorkorder')});
+                    if (this.role == 'Manager') {
+                      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewBatchWorkorder'] } }]);
+                    }
+                    // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+                    else if (this.role == 'Supervisor') {
+                      this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewBatchWorkorder'] } }]);
+                    }
+                  });
                 });
-              }
+            }
           });
       }
 
     }
-    else
-    {
-    this.workorderCreation = {
-      scheduleKey: this.BatchScheduleNameKey,
-      occursontime: this.workTime,
-      workorderkey: - 99,
-      workordertypekey: this.wot,
-      workordernote: this.notes,
-      equipmentkey: this.eqp_key,
-      roomkeys: roomsString,
-      facilitykeys: facilityString,
-      floorkeys: floorString,
-      zonekeys: zoneString,
-      roomtypekeys: roomtypeString,
-      employeekey: this.employeekey,
-      priority: this.priority,
-      fromdate: this.startDT,
-      todate: this.endDT,
-      isbar: this.is_BarcodeRequired,
-      isphoto: this.is_PhotoRequired,
-      metaupdatedby: this.emp_key,
-      OrganizationID: this.org_id,
-      intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
-      repeatinterval: this.rep_interval,
-      occursonday: this.occurs_on,
-      occurstype: this.occurs_type
-    };
-    this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => {
-      alert("Batch work-order created successfully");
-      this.router.navigateByUrl('/ViewBatchWorkorder')});
+    else {//creating workorder for already existing workordertype
+      this.workorderCreation = {
+        scheduleKey: this.BatchScheduleNameKey,
+        occursontime: this.workTime,
+        workorderkey: - 99,
+        workordertypekey: this.wot,
+        workordernote: this.notes,
+        equipmentkey: this.eqp_key,
+        roomkeys: roomsString,
+        facilitykeys: facilityString,
+        floorkeys: floorString,
+        zonekeys: zoneString,
+        roomtypekeys: roomtypeString,
+        employeekey: this.employeekey,
+        priority: this.priority,
+        fromdate: this.startDT,
+        todate: this.endDT,
+        isbar: this.is_BarcodeRequired,
+        isphoto: this.is_PhotoRequired,
+        metaupdatedby: this.emp_key,
+        OrganizationID: this.org_id,
+        intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
+        repeatinterval: this.rep_interval,
+        occursonday: this.occurs_on,
+        occurstype: this.occurs_type,
+        IsSnapshot: this.Gps_SnapShot
+      };
+      this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => {
+        alert("Batch work-order created successfully");
+        if (this.role == 'Manager') {
+          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewBatchWorkorder'] } }]);
+        }
+        // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+        else if (this.role == 'Supervisor') {
+          this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewBatchWorkorder'] } }]);
+        }
+      });
     }
   }
   createWorkorder2() {
@@ -837,11 +868,9 @@ export class CreateBatchWorkorderComponent implements OnInit {
     else if (!this.WorkorderTypeKey) {
       alert("Please select work-order type!");
     }
-    else if(this.newType == true && !(this.newworkordertypetext))
-    {
+    else if (this.newType == true && !(this.newworkordertypetext)) {
       alert("Please enter work-order type!");
-    }else if(this.newType == true && !(this.newworkordertypetext.trim()))
-    {
+    } else if (this.newType == true && !(this.newworkordertypetext.trim())) {
       alert("Please enter work-order type!");
     }
     else if (!this.FacilityKey) {
@@ -856,19 +885,24 @@ export class CreateBatchWorkorderComponent implements OnInit {
     else if (!(this.WorkorderEndDate)) {
       alert("Please provide work-order end date!")
     }
-    else if((this.WorkorderEndDate)&&(this.convert_DT(this.WorkorderStartDate)>this.convert_DT(this.WorkorderEndDate))){
-      alert("Please check your startdate!");
+    else if ((this.WorkorderStartDate) && this.convert_DT(this.WorkorderStartDate) < this.convert_DT(new Date())) {
+      alert("Start date is less than current date");
+    }
+    else if ((this.WorkorderEndDate) && (this.convert_DT(this.WorkorderStartDate) > this.convert_DT(this.WorkorderEndDate))) {
+      alert("Please check your end date!");
 
     }
-    else if(this.showEqTypes==true && !(this.EquipmentTypeKey))
-    {
+    else if (this.showEqTypes == true && !(this.EquipmentTypeKey)) {
       alert("Please select equipment type!");
     }
     else if (this.dailyrecurring == false && this.weeklyrecurring == false && this.monthlyrecurring == false) {
       alert("Recurring Period is not provided !");
     }
     else if (this.dailyrecurring == true) {
-      if (!(this.dailyFrequency)) {
+      if (this.convert_DT(this.WorkorderStartDate) < this.convert_DT(new Date())) {
+        alert("Start date is less than current date");
+      }
+      else if (!(this.dailyFrequency)) {
         alert("Please select frequency !");
       } else if (this.dailyFrequency) {
         for (var i = 0; i < this.dailyFrequency; i++) {
@@ -879,53 +913,54 @@ export class CreateBatchWorkorderComponent implements OnInit {
         this.withequip_wo();
       }
     }
-    else if (this.weeklyrecurring == true) 
-    {
+    else if (this.weeklyrecurring == true) {
       if (!(this.weektable_one) && !(this.weektable_two) && !(this.weektable_three) && !(this.weektable_four) && !(this.weektable_five) && !(this.weektable_six) && !(this.weektable_seven)) {
         alert("Please select atleast one day!");
       }
       else if (!this.Time_weekly) {
         alert("Please provide time!");
       }
-      else
-      {
-      this.withequip_wo();
+      else if (this.convert_DT(this.WorkorderStartDate) < this.convert_DT(new Date())) {
+        alert("Start date is less than current date");
+      }
+      else {
+        this.withequip_wo();
       }
     }
-    else if (this.monthlyrecurring == true) 
-    {
+    else if (this.monthlyrecurring == true) {
+      if (this.convert_DT(this.WorkorderStartDate) < this.convert_DT(new Date())) {
+        alert("Start date is less than current date");
+        return;
+      }
+
       if (this.monthlyreccradio1 == false && this.monthlyreccradio2 == false) {
         alert("Select a radio option from monthly reccuring !");
         return;
       }
-      if(this.monthlyreccradio1 == true)
-      {
-        if(!(this.day1) || !(this.month1))
-        {
+      if (this.monthlyreccradio1 == true) {
+        if (!(this.day1) || !(this.month1)) {
           alert("Provide entries for monthly recurring !");
           return;
         }
-       
+
       }
-      if(this.monthlyreccradio2 == true)
-      {
-        if(!(this.day2) || !(this.pos2) || !(this.month2))
-        {
+      if (this.monthlyreccradio2 == true) {
+        if (!(this.day2) || !(this.pos2) || !(this.month2)) {
           alert("Provide entries for monthly recurring !");
           return;
         }
-        
+
       }
       if (!this.Time_monthly) {
         alert("Please provide time!");
       }
-      else{
-      this.withequip_wo();
+      else {
+        this.withequip_wo();
       }
     }
   }
-  withequip_wo()
-  {
+  //function for creating workorder withequip
+  withequip_wo() {
     var roomlistObj = [];
     var roomtypelistObj = [];
     var zonelistObj = [];
@@ -957,7 +992,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
 
     }
     if (this.workorderNotes) {
-      this.notes = this.workorderNotes;
+      this.notes = this.workorderNotes.trim();
     } else {
       this.notes = null;
     }
@@ -1093,7 +1128,17 @@ export class CreateBatchWorkorderComponent implements OnInit {
     } else {
       this.endDT = this.convert_DT(new Date());
     }
+    var timeDiff = Math.abs(this.WorkorderEndDate.getTime() - this.WorkorderStartDate.getTime());
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
+    if (this.intervaltype == 'w' && diffDays < 7) {
+      alert("Please Select One week Date Range!");
+      return;
+    }
+    if (this.intervaltype == 'm' && diffDays < 31) {
+      alert("Please Select One month Date Range!");
+      return;
+    }
     if (this.dailyrecurring == true) {
       var timeset = [];
       var timeset_corr = [];
@@ -1146,6 +1191,12 @@ export class CreateBatchWorkorderComponent implements OnInit {
         }
       }
     }
+    if (this.GpsSnapShot == true) {
+      this.Gps_SnapShot = 1;
+    }
+    else {
+      this.Gps_SnapShot = 0;
+    }
     if (this.newType == true) {
       if (this.newworkordertypetext) {
         this.WorkOrderServiceService
@@ -1184,48 +1235,61 @@ export class CreateBatchWorkorderComponent implements OnInit {
                     intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
                     repeatinterval: this.rep_interval,
                     occursonday: this.occurs_on,
-                    occurstype: this.occurs_type
+                    occurstype: this.occurs_type,
+                    IsSnapshot: this.Gps_SnapShot
                   };
-                  this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res =>{
-                    alert("Batch work-order created successfully"); 
-                    this.router.navigateByUrl('/ViewBatchWorkorder')
-                    });
+                  this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res => {
+                    alert("Batch work-order created successfully");
+                    if (this.role == 'Manager') {
+                      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewBatchWorkorder'] } }]);
+                    }
+                    // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+                    else if (this.role == 'Supervisor') {
+                      this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewBatchWorkorder'] } }]);
+                    }
+                  });
                 });
             }
           });
       }
 
     }
-    else
-    {
-    this.workorderCreation = {
-      scheduleKey: this.BatchScheduleNameKey,
-      occursontime: this.workTime,
-      workorderkey: - 99,
-      workordertypekey: this.wot,
-      workordernote: this.notes,
-      equipmentkey: this.eqp_key,
-      roomkeys: roomsString,
-      facilitykeys: facilityString,
-      floorkeys: floorString,
-      zonekeys: zoneString,
-      roomtypekeys: roomtypeString,
-      employeekey: this.employeekey,
-      priority: this.priority,
-      fromdate: this.startDT,
-      todate: this.endDT,
-      isbar: this.is_BarcodeRequired,
-      isphoto: this.is_PhotoRequired,
-      metaupdatedby: this.emp_key,
-      OrganizationID: this.org_id,
-      intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
-      repeatinterval: this.rep_interval,
-      occursonday: this.occurs_on,
-      occurstype: this.occurs_type
-    };
-    this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res =>{
-      alert("Batch work-order created successfully"); 
-      this.router.navigateByUrl('/ViewBatchWorkorder')
+    else {
+      this.workorderCreation = {
+        scheduleKey: this.BatchScheduleNameKey,
+        occursontime: this.workTime,
+        workorderkey: - 99,
+        workordertypekey: this.wot,
+        workordernote: this.notes,
+        equipmentkey: this.eqp_key,
+        roomkeys: roomsString,
+        facilitykeys: facilityString,
+        floorkeys: floorString,
+        zonekeys: zoneString,
+        roomtypekeys: roomtypeString,
+        employeekey: this.employeekey,
+        priority: this.priority,
+        fromdate: this.startDT,
+        todate: this.endDT,
+        isbar: this.is_BarcodeRequired,
+        isphoto: this.is_PhotoRequired,
+        metaupdatedby: this.emp_key,
+        OrganizationID: this.org_id,
+        intervaltype: this.intervaltype, // char(1),/*d for day, w for week, m for month*/
+        repeatinterval: this.rep_interval,
+        occursonday: this.occurs_on,
+        occurstype: this.occurs_type,
+        IsSnapshot: this.Gps_SnapShot
+      };
+      this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res => {
+        alert("Batch work-order created successfully");
+        if (this.role == 'Manager') {
+          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewBatchWorkorder'] } }]);
+        }
+        // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+        else if (this.role == 'Supervisor') {
+          this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewBatchWorkorder'] } }]);
+        }
       });
     }
 
@@ -1260,7 +1324,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
   }
   GobacktoMenu() {
     this.newType = false;
-    this.WorkorderTypeKey="";
-    this.newworkordertypetext=null;
+    this.WorkorderTypeKey = "";
+    this.newworkordertypetext = null;
   }
 }

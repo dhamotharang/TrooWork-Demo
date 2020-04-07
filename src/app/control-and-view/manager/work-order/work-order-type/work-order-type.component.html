@@ -1,18 +1,17 @@
-<app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div class="py-5" *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <div class="bg-dark" style="width: 100%;height: 100%;">
 
-    <h4 style="text-align: center"><b> WORK-ORDER TYPE</b> </h4>
+    <h4 style="text-align: center"> WORK-ORDER TYPE </h4>
     <br>
     <div style="text-align:center">
-      <a routerLink="/CreateWorkorderType" class="btn btn-success" routerLinkActive="active"><b>CREATE WORK-ORDER TYPE</b>
+      <a [routerLink]="['CreateWorkorderType']" class="btn btn-success"><b>CREATE WORK-ORDER TYPE</b>
       </a>
     </div>
     <form [formGroup]="searchform">
       <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
         <input class="form-control" name="searchworkordertype" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
-          placeholder="Search Work-Order Type" aria-label="Search" [(ngmodel)]="searchworkordertype" formControlName="searchworkordertype"
+          placeholder="Search Work-Order Type" aria-label="Search" [(ngModel)]="searchworkordertype" formControlName="searchworkordertype"
           (input)="searchWOType($event.target.value);" style="width: 100%;">
         <div *ngIf="searchform.controls.searchworkordertype.errors?.minlength">Minimum 3 characters required.</div>
       </div>
@@ -28,7 +27,7 @@
             <td>{{ x.WorkorderTypeName }}</td>
 
             <td>
-              <a routerLink="/EditWorkorderType/{{ x.WorkorderTypeKey}}" class="btn btn-primary"><b>EDIT</b></a>&nbsp;&nbsp;
+              <a [routerLink]="['EditWorkorderType', x.WorkorderTypeKey]" class="btn btn-primary"><b>EDIT</b></a>&nbsp;&nbsp;
               <a class="btn btn-danger" (click)="basicModal.show(); passWOT(x.WorkorderTypeKey)"><b>DELETE</b></a>
             </td>
           </tr>

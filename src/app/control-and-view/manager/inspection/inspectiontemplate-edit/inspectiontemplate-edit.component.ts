@@ -3,6 +3,9 @@ import { InspectionService } from '../../../../service/inspection.service';
 import { Inspection } from '../../../../model-class/Inspection';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { Router } from '@angular/router';
+
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-inspectiontemplate-edit',
   templateUrl: './inspectiontemplate-edit.component.html',
@@ -18,7 +21,7 @@ export class InspectiontemplateEditComponent implements OnInit {
   IsSupervisor: Number;
   OrganizationID: Number;
 
- //Variables for pagination
+  //Variables for pagination
 
   pageNo: Number = 1;
   itemsPerPage: Number = 25;
@@ -50,7 +53,7 @@ export class InspectiontemplateEditComponent implements OnInit {
   @Input() isAlphaNumeric: boolean;
   editQuestions;
 
-  constructor(private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private inspectionService: InspectionService, private el: ElementRef, private router: Router, private _location: Location) { }
 
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     return new RegExp(this.regexStr).test(event.key);
@@ -86,64 +89,63 @@ export class InspectiontemplateEditComponent implements OnInit {
   }
   searchTemplate(SearchValue) {
 
-    var value=SearchValue.trim();
+    var value = SearchValue.trim();
 
-    if (value.length >= 3){
-    this.inspectionService
-      .SearchTemplate(value, this.OrganizationID).subscribe((data: Inspection[]) => {
-        this.inspectiontemplate = data;
-      });
-    }
-    else if (value.length == 0)
-    {
+    if (value.length >= 3) {
       this.inspectionService
-      .getInspectionTemplateDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
-      .subscribe((data: Inspection[]) => {
-        this.inspectiontemplate = data;
-      });
+        .SearchTemplate(value, this.OrganizationID).subscribe((data: Inspection[]) => {
+          this.inspectiontemplate = data;
+        });
+    }
+    else if (value.length == 0) {
+      this.inspectionService
+        .getInspectionTemplateDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+        .subscribe((data: Inspection[]) => {
+          this.inspectiontemplate = data;
+        });
     }
   };
 
-    //functions for pagination
+  //functions for pagination
 
-    nextPage() {
-      this.loading = true;// loading
-      this.pageNo = +this.pageNo + 1;
-      this.inspectionService
-      .getInspectionTemplateDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
-      .subscribe((data: Inspection[]) => {
-        this.inspectiontemplate = data;
-           this.loading = false;// loading
-          this.pagination = +this.inspectiontemplate[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
-          if (this.pagination > 1) {
-            this.showHide2 = true;
-            this.showHide1 = true;
-          }
-          else {
-            this.showHide2 = false;
-            this.showHide1 = true;
-          }
-        });
-    }
-    previousPage() {
+  nextPage() {
     this.loading = true;// loading
-      this.pageNo = +this.pageNo - 1;
-      this.inspectionService
+    this.pageNo = +this.pageNo + 1;
+    this.inspectionService
       .getInspectionTemplateDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
         this.inspectiontemplate = data;
-           this.loading = false;// loading
-          if (this.pageNo == 1) {
-            this.showHide2 = true;
-            this.showHide1 = false;
-          } else {
-            this.showHide2 = true;
-            this.showHide1 = true;
-          }
-        });
-    }
-  
-    //functions for pagination 
+        this.loading = false;// loading
+        this.pagination = +this.inspectiontemplate[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+        if (this.pagination > 1) {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+        else {
+          this.showHide2 = false;
+          this.showHide1 = true;
+        }
+      });
+  }
+  previousPage() {
+    this.loading = true;// loading
+    this.pageNo = +this.pageNo - 1;
+    this.inspectionService
+      .getInspectionTemplateDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+      .subscribe((data: Inspection[]) => {
+        this.inspectiontemplate = data;
+        this.loading = false;// loading
+        if (this.pageNo == 1) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        } else {
+          this.showHide2 = true;
+          this.showHide1 = true;
+        }
+      });
+  }
+
+  //functions for pagination 
   ngOnInit() {
 
     var token = localStorage.getItem('token');
@@ -179,7 +181,15 @@ export class InspectiontemplateEditComponent implements OnInit {
     this.inspectionService.checkforInspectionOnTemplate(TemplateID, this.OrganizationID).subscribe((data: any[]) => {
 
       if (data[0].count == 0) {
-        this.router.navigate(['/InspectiontemplatedetailEdit', TemplateID]);
+        // this.router.navigate(['/InspectiontemplatedetailEdit', TemplateID]);
+        // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['InspectiontemplatedetailEdit',TemplateID] } }]);
+        if (this.role == 'Manager') {
+          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['InspectiontemplatedetailEdit', TemplateID] } }]);
+        }
+        // else  if(this.role=='Employee' && this.IsSupervisor==1){
+        else if (this.role == 'Supervisor') {
+          this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['InspectiontemplatedetailEdit', TemplateID] } }]);
+        }
       } else {
         this.editQuestions = index;
       }
@@ -195,6 +205,13 @@ export class InspectiontemplateEditComponent implements OnInit {
   }
   submiteditInspectionTemplate(TemplateName, TemplateID, ScoreTypeKey) {
 
+    if(!TemplateName && !TemplateName.trim()){
+      alert("Template Name Not provided !");
+      return;
+    }
+    if(TemplateName){
+      TemplateName=TemplateName.trim();
+    }
     this.inspectionService
       .updateEditInspection(TemplateName, TemplateID, ScoreTypeKey, this.OrganizationID).subscribe(() => {
         this.inspectionService
@@ -203,5 +220,9 @@ export class InspectiontemplateEditComponent implements OnInit {
           });
         this.editQuestions = -1;
       });
+  }
+
+  goBack() {
+    this._location.back();
   }
 }

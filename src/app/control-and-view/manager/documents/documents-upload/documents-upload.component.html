@@ -1,23 +1,20 @@
-<app-manager-dash-board></app-manager-dash-board>
-<div style="padding-left: 9rem;padding-right: 9rem;">
+<div style="padding-left: 9rem;padding-right: 9rem;overflow-x: hidden">
   <div class="row col-md-12 ">
-
-    <h3 style="margin-left: 25rem;">DOCUMENTS UPLOAD</h3>
+    <h4 style="margin-left: 42%;">DOCUMENTS UPLOAD</h4>
   </div>
   <div class="row bg-info col-md-12">
     <div class="col-md-6 bg-info">
       <div class="form-group">
         <div>
           <label style="margin-top: 2rem;">Document Folder*</label><br>
-          <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FormtypeId"
-            required>
+          <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FormtypeId" required>
             <option value="">--Select--</option>
             <option *ngFor="let d of documentsList" [value]="d.FormtypeId">
               {{d.FormType}}
             </option>
           </select>
         </div>
-       
+
         <div style="margin-bottom: 1rem;margin-top: 2rem">
           <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
         </div>
@@ -29,10 +26,9 @@
         <input type="text" [(ngModel)]="DescName" maxlength="50" class="form-control">
       </div>
     </div>
-    <div class="row col-md-12">
-      <div class="col-md-6"></div>
-      <div style="text-align:center;padding-bottom: 1rem;">
-        <button type="button" style="text-align:center" class="btn btn-success" (click)="FileSelected();"><b>SAVE</b></button></div>
-    </div>
+    <div class="row col-md-12" style="margin-left: 45%">
+      <!-- <div style="text-align:center;padding-bottom: 1rem;"> -->
+      <button type="button" style="text-align:center" class="btn btn-success" [disabled]="fileCheck" (click)="FileSelected();"><b>SAVE</b></button></div>
+    <!-- </div> -->
   </div>
 </div>

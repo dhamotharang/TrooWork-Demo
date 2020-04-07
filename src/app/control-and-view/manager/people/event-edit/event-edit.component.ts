@@ -44,7 +44,9 @@ export class EventEditComponent implements OnInit {
 
   updateEventType(type, name, desc) {
  
-    this.peopleServ.UpdateEventType(type, name, desc, this.actionKey$, this.actionTypeKey$, this.employeekey, this.OrganizationID).subscribe(res => this.router.navigateByUrl('/EventView'));
+    this.peopleServ.UpdateEventType(type, name, desc, this.actionKey$, this.actionTypeKey$, this.employeekey, this.OrganizationID).subscribe(res =>
+       this.router.navigateByUrl('/EventView')
+       );
 
   }
 

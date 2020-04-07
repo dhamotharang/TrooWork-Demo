@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
 import { Router, ActivatedRoute } from "@angular/router";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-room-edit',
@@ -17,11 +18,11 @@ export class RoomEditComponent implements OnInit {
   floor: Inventory[];
   zone: Inventory[];
   room;
-  facKey: Number;
-  floorKey: Number;
-  zoneKey: Number;
-  roomTypeKey: Number;
-  floorTypeKey: Number;
+  facKey;
+  floorKey;
+  zoneKey;
+  roomTypeKey;
+  floorTypeKey;
   ZoneName: String;
   roomkey;
   role: String;
@@ -49,25 +50,45 @@ export class RoomEditComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router, private _location: Location) {
     this.route.params.subscribe(params => this.roomKey$ = params.RoomKey);
   }
 
+  numberValid(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
   selectFloorfromBuildings(facKey) {
-    this.facKey = facKey;
-    this.inventoryService
-      .getallFloorList(facKey, this.OrganizationID)
-      .subscribe((data: Inventory[]) => {
-        this.floor = data;
-      });
+    if (facKey) {
+      this.facKey = facKey;
+      this.floorTypeKey = "";
+      this.floorKey = "";
+      this.zoneKey = "";
+      this.roomTypeKey = "";
+      this.inventoryService
+        .getallFloorList(facKey, this.OrganizationID)
+        .subscribe((data: Inventory[]) => {
+          this.floor = data;
+          this.room.FloorKey = '';
+        });
+    }
   }
 
   selectZonefromFloor(flrKey) {
     this.floorKey = flrKey;
+    this.floorTypeKey = "";
+    this.zoneKey = "";
+    this.roomTypeKey = "";
     this.inventoryService
       .getallZoneList(this.facKey, flrKey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.zone = data;
+        this.room.ZoneKey = '';
       });
   }
 
@@ -84,40 +105,42 @@ export class RoomEditComponent implements OnInit {
     this.ZoneName = zoneName;
   }
 
-  updateRoom(FacilityKey, FloorKey, FloorTypeKey, ZoneKey, RoomTypeKey, RoomName, SquareFoot, Barcode) {
-    this.update_Room = {
-      FacilityKey: FacilityKey,
-      FloorKey: FloorKey,
-      FloorTypeKey: FloorTypeKey,
-      ZoneKey: ZoneKey,
-      RoomTypeKey: RoomTypeKey,
-      RoomKey: this.roomKey$,
-      area: SquareFoot,
-      RoomName: RoomName,
-      Barcode: Barcode,
-      employeekey: this.employeekey,
-      OrganizationID: this.OrganizationID
-
-    };
-
-    if (!FacilityKey) {
+  updateRoom(RoomName, SquareFoot, Barcode) {
+    if (!this.facKey) {
       alert("Building name is not provided !");
-    } else if (!FloorKey) {
+    } else if (!this.floorKey) {
       alert("Floor name is not provided!");
-    } else if (!FloorTypeKey) {
+    } else if (!this.floorTypeKey) {
       alert("FloorType is not provided !");
-    } else if (!ZoneKey) {
+    } else if (!this.zoneKey) {
       alert("Zone name is not provided !");
-    } else if (!RoomTypeKey) {
+    } else if (!this.roomTypeKey) {
       alert("RoomType is not provided !");
-    } else if (!RoomName) {
+    } else if (!RoomName || !RoomName.trim()) {
       alert("Room name is not provided !");
-    } else if (!SquareFoot) {
+    } else if (!SquareFoot || !String(SquareFoot).trim()) {
       alert("Square foot is not provided !");
-    } else if (!Barcode) {
+    } else if (!Barcode || !Barcode.trim()) {
       alert("Barcode is not provided !");
     }
     else {
+      if (RoomName) {
+        RoomName = RoomName.trim();
+      }
+    
+      this.update_Room = {
+        FacilityKey: this.facKey,
+        FloorKey: this.floorKey,
+        FloorTypeKey: this.floorTypeKey,
+        ZoneKey: this.zoneKey,
+        RoomTypeKey: this.roomTypeKey,
+        RoomKey: this.roomKey$,
+        area: SquareFoot,
+        RoomName: RoomName,
+        Barcode: Barcode,
+        employeekey: this.employeekey,
+        OrganizationID: this.OrganizationID
+      };
       this.inventoryService
         .checkUniqueBarcode_Updation(Barcode, this.roomKey$, this.employeekey, this.OrganizationID)
         .subscribe((data: any[]) => {
@@ -125,29 +148,27 @@ export class RoomEditComponent implements OnInit {
           if (this.unqBar.Barcode != 0) {
             alert("Barcode already exists !");
           }
-          else if(this.temp_room!=RoomName)
-          {
+          else if (this.temp_room != RoomName) {
             this.inventoryService
-            .checkRoomName(RoomName, this.OrganizationID)
-            .subscribe((data: Inventory[]) => {
-              if (data[0].count > 0) {
-                alert("Room Name already exists !");
-              }
-              else
-              {
-                this.inventoryService.updateRoom(this.update_Room)
-              .subscribe(res => {
-                alert("Room updated successfully");
-                this.router.navigateByUrl('/roomView');
+              .checkRoomName(this.facKey, this.floorKey, RoomName, this.OrganizationID)
+              .subscribe((data: Inventory[]) => {
+                if (data[0].count > 0) {
+                  alert("Room Name already exists !");
+                }
+                else {
+                  this.inventoryService.updateRoom(this.update_Room)
+                    .subscribe(res => {
+                      alert("Room updated successfully");
+                      this._location.back();
+                    });
+                }
               });
-              }
-            });
           }
-          else  {
+          else {
             this.inventoryService.updateRoom(this.update_Room)
               .subscribe(res => {
                 alert("Room updated successfully");
-                this.router.navigateByUrl('/roomView');
+                this._location.back();
               });
           }
         });
@@ -170,7 +191,14 @@ export class RoomEditComponent implements OnInit {
       .getRoomDetailsList(this.roomKey$, this.OrganizationID)
       .subscribe((data: Array<any>) => {
         this.room = data[0];
-        this.temp_room=this.room.RoomName;
+
+        this.facKey = this.room.FacilityKey;
+        this.floorTypeKey = this.room.FloorTypeKey;
+        this.floorKey = this.room.FloorKey;
+        this.zoneKey = this.room.ZoneKey;
+        this.roomTypeKey = this.room.RoomTypeKey;
+
+        this.temp_room = this.room.RoomName;
         this.inventoryService
           .getallFloorList(this.room.FacilityKey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
@@ -201,5 +229,11 @@ export class RoomEditComponent implements OnInit {
         this.roomType = data;
       });
 
+  }
+  goback() {
+    this._location.back();
+  }
+  zoneChange() {
+    this.roomTypeKey = '';
   }
 }

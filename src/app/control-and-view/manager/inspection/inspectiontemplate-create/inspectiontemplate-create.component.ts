@@ -68,10 +68,10 @@ export class InspectiontemplateCreateComponent implements OnInit {
               return;
       }
       if (InspTempName) {
-        templatename = this.InspTempName;
+        InspTempName = this.InspTempName.trim();
         }
         else {
-        templatename = null;
+          InspTempName = null;
             alert("Inspection Template Name is not provided !");
                 return;
         }
@@ -82,6 +82,9 @@ export class InspectiontemplateCreateComponent implements OnInit {
         var index = i + 1;
                 alert("Question " + index + " is not provided !");
                 return;
+        }
+        if(this.fieldArray[i]){
+          this.fieldArray[i]=this.fieldArray[i].trim();
         }
       arr.push(this.fieldArray[i]);
     }

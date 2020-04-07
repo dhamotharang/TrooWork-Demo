@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Reports } from '../../../../model-class/reports';
 import { ReportServiceService } from '../../../../service/report-service.service';
 import { ExcelserviceService } from '../../../../service/excelservice.service';
-import * as FileSaver from 'file-saver';
+import * as FileSaver from 'file-saver';//for excel
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 @Component({
   selector: 'app-batch-schedule-assignment-report',
@@ -69,7 +69,7 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-    this.ReportServiceService
+    this.ReportServiceService//service for getting schedulename
       .getallbatchschedules(this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.bacthschedules = data;
@@ -161,7 +161,7 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
       });
     }
   }
-  exportToExcel(): void {
+  exportToExcel(): void {//service for exporting to excel
     for (var i = 0; i < this.reportarray.length; i++) {
       var buildingname = this.reportarray[i].FacilityName;
       var floorname = this.reportarray[i].FloorName;
@@ -237,7 +237,7 @@ export class BatchScheduleAssignmentReportComponent implements OnInit {
     this.excelarray.push('');
     this.excelarray.push({ '𝐁𝐮𝐢𝐥𝐝𝐢𝐧𝐠': 'Total Assigned daily minutes', '𝐌𝐨𝐧𝐝𝐚𝐲': this.totalMonTime, '𝐓𝐮𝐞𝐬𝐝𝐚𝐲': this.totalTuesTime, '𝐖𝐞𝐝𝐧𝐞𝐬𝐝𝐚𝐲': this.totalWedTime, '𝐓𝐡𝐮𝐫𝐬𝐝𝐚𝐲': this.totalThuTime, '𝐅𝐫𝐢𝐝𝐚𝐲': this.totalFriTime, '𝐒𝐚𝐭𝐮𝐫𝐝𝐚𝐲': this.totalSatTime, '𝐒𝐮𝐧𝐝𝐚𝐲': this.totalSunTime })
     // this.excelService.exportAsExcelFile(this.excelarray,'BatchscheduleAssignment_Report');
-    var blob = new Blob([document.getElementById('exportable').innerHTML], {
+    var blob = new Blob([document.getElementById('exportable').innerHTML], {//converting html div content to excel
       type: EXCEL_TYPE
   });
   FileSaver.saveAs(blob, "BatchscheduleAssignment_Report.xls");

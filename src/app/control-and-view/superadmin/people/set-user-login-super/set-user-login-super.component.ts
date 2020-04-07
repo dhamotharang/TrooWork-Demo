@@ -3,6 +3,7 @@ import { People } from '../../../../model-class/People';
 import { PeopleServiceService } from '../../../../service/people-service.service';
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
+import { ConectionSettings } from '../../../../service/ConnectionSetting';
 
 @Component({
   selector: 'app-set-user-login-super',
@@ -71,7 +72,8 @@ export class SetUserLoginSuperComponent implements OnInit {
           } else {
             this.peopleService.setLoginCreds(this.username, this.password, this.empKey$, this.employeekey, this.userRoleTypeKey$, this.Organization$)
               .subscribe((data: any[]) => {
-                this.router.navigateByUrl('/Viewemployee');
+                // this.router.navigateByUrl('/Viewemployee');
+                this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['Viewemployee'] } }]);
 
 
                 this.peopleService.getUserEmail(this.username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
@@ -89,8 +91,8 @@ export class SetUserLoginSuperComponent implements OnInit {
                       subject: 'Login Credentials',
                       text: message
                     };
-                    const uri = "http://localhost:3000/api/sendmail";
-                    return this.http.post(uri, obj)
+                    const url = ConectionSettings.Url+"/sendmail";
+                    return this.http.post(url, obj)
                       .subscribe(res => console.log('Mail Sent Successfully...'));
                   }
                 });

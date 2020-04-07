@@ -14,7 +14,7 @@ export class EventViewComponent implements OnInit {
   eventType: People[];
   ActionKey: Number;
   ActionTypeKey: Number;
-
+  eventTypeList;
   role: String;
   name: String;
   employeekey: Number;
@@ -103,28 +103,65 @@ export class EventViewComponent implements OnInit {
       .getEventTypeList(this.page, this.count, this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.eventType = data;
+        this.eventTypeList = data;
       });
 
   }
-  cancelTemplateDetails(){
+  cancelTemplateDetails() {
     this.editQuestions = -1;
     this.peopleServ
-    .getEventTypeList(this.page, this.count, this.employeekey, this.OrganizationID)
-    .subscribe((data: People[]) => {
-      this.eventType = data;
-    });
-  }
-  UpdateEventDetais(ActionType,Action,Description,ActionKey,ActionTypeKey){
-    this.peopleServ.UpdateEventType(ActionType, Action, Description, ActionKey, ActionTypeKey, this.employeekey, this.OrganizationID).
-    subscribe(() => {
-      alert('Successfully Updated !');
-      this.peopleServ
       .getEventTypeList(this.page, this.count, this.employeekey, this.OrganizationID)
-          .subscribe((data: People[]) => {
-            this.eventType = data;
-            this.editQuestions = -1;
+      .subscribe((data: People[]) => {
+        this.eventType = data;
+      });
+  }
+  UpdateEventDetais(index1, ActionType, Action, Description, ActionKey, ActionTypeKey) {
+
+    if (!ActionType || !ActionType.trim()) {
+      alert("Please enter an event type");
+      return;
+    }
+    if (!Action || !Action.trim()) {
+      alert("Please enter an event name");
+      return;
+    }
+    if (ActionType) {
+      ActionType = ActionType.trim();
+    }
+    if (Action) {
+      Action = Action.trim();
+    }
+    if (Description) {
+      Description = Description.trim();
+    }
+    this.peopleServ.checkEventDuplicateForEdit(ActionType, Action, ActionKey, ActionTypeKey, this.OrganizationID).subscribe((data: any[]) => {
+      if (data[0].count == 0) {
+        this.peopleServ.UpdateEventType(ActionType, Action, Description, ActionKey, ActionTypeKey, this.employeekey, this.OrganizationID).
+          subscribe(() => {
+            alert('Successfully Updated !');
+            this.peopleServ
+              .getEventTypeList(this.page, this.count, this.employeekey, this.OrganizationID)
+              .subscribe((data: People[]) => {
+                this.eventType = data;
+                this.editQuestions = -1;
+              });
           });
+      }
+      else {
+        alert("Entered event already exists...!!!");
+        return false;
+      }
     });
+    // }
+    // else {
+    //   this.peopleServ
+    //     .getEventTypeList(this.page, this.count, this.employeekey, this.OrganizationID)
+    //     .subscribe((data: People[]) => {
+    //       this.eventType = data;
+    //       this.editQuestions = -1;
+    //     });
+    // }
+
   }
 
 }

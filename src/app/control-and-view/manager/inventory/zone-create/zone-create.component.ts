@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
 import { ActivatedRoute, Router } from "@angular/router";
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-zone-create',
   templateUrl: './zone-create.component.html',
@@ -12,6 +13,7 @@ export class ZoneCreateComponent implements OnInit {
   floorName: Inventory[];
   FacilityKey;
   FloorName;
+  ZoneName;
   role: String;
   name: String;
   employeekey: Number;
@@ -34,45 +36,40 @@ export class ZoneCreateComponent implements OnInit {
     }
     return window.atob(output);
   }
-  constructor(private inventoryService: InventoryService, private router: Router) { }
+  constructor(private inventoryService: InventoryService, private router: Router, private _location: Location) { }
 
-  addZone(FacilityKey, FloorName, ZoneName,FloorKey) {
-    if(FacilityKey=="--Select--"){
+  addZone(FacilityKey, FloorName, ZoneName, FloorKey) {
+
+    if (!(this.FacilityKey) || !(this.FacilityKey.trim())) {
       alert("Please Choose Building!");
       return;
     }
-    if(FloorKey=="--Select--"){
+    if (!(this.FloorName) || !(this.FloorName.trim())) {
       alert("Please Choose Floor!");
       return;
-    } 
-    else if(ZoneName && !ZoneName.trim()){
+    }
+    if (!(this.ZoneName) || !(this.ZoneName.trim())) {
       alert("Please Enter Zone Name!");
       return;
     }
-    if (!FacilityKey) {
-      alert("Please select a building!");
-    } else if (!FloorName) {
-      alert("Please select floor name!");
-    }
-    else if (!ZoneName) {
-      alert("Please enter zone name!");
-    }
-    else {
-      this.inventoryService.checkForZone(FacilityKey, FloorName, ZoneName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
-        if (data.length > 0) {
-          alert("Zone already present !");
-        }
-        else if (data.length == 0) {
-      this.inventoryService.createZones(FacilityKey, FloorName, ZoneName, this.employeekey, this.OrganizationID)
-        .subscribe((data: Inventory[]) => {
-          alert("Zone created successfully");
-          this.router.navigateByUrl('/Zoneview');
-        });
+
+    this.ZoneName = this.ZoneName.trim();
+    
+    this.inventoryService.checkForZone(this.FacilityKey, this.FloorName, this.ZoneName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
+      if (data.length > 0) {
+        alert("Zone already present !");
+      }
+      else if (data.length == 0) {
+        this.inventoryService.createZones(this.FacilityKey, this.FloorName, this.ZoneName, this.employeekey, this.OrganizationID)
+          .subscribe((data: Inventory[]) => {
+            alert("Zone created successfully");
+            this._location.back();
+          });
       }
     });
 
+
   }
-}
 
   selectFloorfromBuildings(facKey) {
     this.inventoryService
@@ -96,11 +93,13 @@ export class ZoneCreateComponent implements OnInit {
       .getallBuildingList(this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.building = data;
-        this.FloorName="";
-        this.FacilityKey="";
+        this.FloorName = "";
+        this.FacilityKey = "";
       });
 
 
   }
-
+  goBack() {
+    this._location.back();
+  }
 }

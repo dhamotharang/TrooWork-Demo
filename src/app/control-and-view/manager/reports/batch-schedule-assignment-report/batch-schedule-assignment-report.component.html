@@ -1,9 +1,9 @@
-<app-manager-dash-board></app-manager-dash-board>
+ 
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div *ngIf="!loading" style="padding-left: 3rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
   <div class="row col-md-12 ">
-    <h3 style="margin-left: 30rem;">BATCH SCHEDULE ASSIGNMENT REPORT</h3>
+    <h4 style="margin-left: 42%;">BATCH SCHEDULE ASSIGNMENT REPORT</h4>
   </div>
   <br>
 
@@ -29,15 +29,18 @@
           <h5 style="text-align:right;margin-left: 1.2rem" class="col-md-4"><label for="building">WorkOrder Notes
             </label></h5>
           <div class="form-group" style="text-align:left;margin-left: 0.4rem">
-            <textarea class="form-control rounded-0" [disabled]="true" [(ngModel)]="workorderNotes" rows="6" style="resize: none;"></textarea>
+            <textarea class="form-control rounded-1" [disabled]="true" [(ngModel)]="workorderNotes" rows="6" style="resize: none;"></textarea>
           </div>
         </div>
       </div>
     </div>
   </div>
   <br>
+  <div style="text-align:center" *ngIf="reportarray?.length> 0">
+    <button type="button" class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>
+  </div>
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
-    <table *ngIf='reportarray' class="table table-hover table-responsive table-bordered table" style="display: inline-table"> 
+    <table *ngIf='reportarray' class="table table-hover table-responsive table-bordered table" style="display: inline-table;width: 103.8%;max-width: 150%;"> 
       <thead class="tableHead"> 
         <th>Building</th>
         <th>Floor</th>
@@ -110,9 +113,7 @@
     </table>
   </div>
   <br>
-  <div style="text-align:center" *ngIf="reportarray?.length> 0">
-    <button type="button" class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>
-  </div>
+
   <div id='exportable' style="visibility: hidden !important;">
       <table *ngIf='reportarray' cellspacing="0" 
       rules="rows" 

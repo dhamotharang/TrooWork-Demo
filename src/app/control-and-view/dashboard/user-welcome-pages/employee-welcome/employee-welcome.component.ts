@@ -15,7 +15,8 @@ export class EmployeeWelcomeComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  Message;
+  
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -56,6 +57,10 @@ export class EmployeeWelcomeComponent implements OnInit {
       .getUpdateList(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.updateList = data;
+      });
+      this.loginService.getMaintenanceUpdateMsg(this.employeekey, this.OrganizationID).subscribe((data: any[])=> {
+        
+          this.Message = data[0].Message;
       });
 
   }

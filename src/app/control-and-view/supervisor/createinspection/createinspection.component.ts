@@ -77,7 +77,7 @@ export class CreateinspectionComponent implements OnInit {
     barTitleIfEmpty: 'Click to select a date',
     placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
     addClass: '', // Optional, value to pass on to [ngClass] on the input field
-    addStyle: {'font-size':'18px','width':'75%', 'border': '1px solid #ced4da','border-radius': '0.25rem'}, // Optional, value to pass to [ngStyle] on the input field
+    addStyle: { 'font-size': '18px', 'width': '75%', 'border': '1px solid #ced4da', 'border-radius': '0.25rem' }, // Optional, value to pass to [ngStyle] on the input field
     fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
@@ -93,51 +93,121 @@ export class CreateinspectionComponent implements OnInit {
 
   selectFloorfromBuildings(facKey) {
     this.facikey = facKey;
+    if(facKey){
     this.inspectionService
       .getallFloorNames(facKey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-       
+
         this.floors = data;
       });
+    }
+    else{
+      this.Floor='';
+    }
   }
   selectZoneRoomRoomtypefromFloor(flkey) {
     this.inspectionService
       .getallZones(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-      
+
         this.zone = data;
       });
     this.inspectionService
       .getallRooms(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-       
+
         this.room = data;
       });
     this.inspectionService
       .getallRoomType(this.facikey, flkey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-     
+
         this.roomtype = data;
       });
   }
 
+  selectroomtypefromZone(Zone, Floor) {
+    if (Zone) {
+      if (Floor) {
+        this.inspectionService
+          .roomtypeByFacility_Floor_zone(this.Building, Floor, Zone, this.OrganizationID).subscribe((data: any[]) => {
+            this.roomtype = data;
+          });
+        this.inspectionService
+          .roomByFacility_Floor_zone(this.Building, Floor, Zone, this.OrganizationID).subscribe((data: any[]) => {
+            this.room = data;
+          });
+
+      }
+      else {
+        this.inspectionService.roomtypeByFacility_Zone(this.Building, Zone, this.OrganizationID).subscribe((data: any[]) => {
+          this.roomtype = data;
+
+        });
+        this.inspectionService.roomByFacility_Zone(this.Building, Zone, this.OrganizationID).subscribe((data: any[]) => {
+          this.room = data;
+
+        });
+      }
+
+    }
+    else{
+      this.selectZoneRoomRoomtypefromFloor(this.Floor);
+      this.RoomType='';
+      this.RoomKey='';
+    }
+  }
+
+  // To get Rooms by applying different combination of filters. 
+  selectroomfromRoomtype(RoomType, ZoneKey) {
+
+    if (RoomType) {
+
+      if (this.Floor) {
+        if (ZoneKey) {
+          this.inspectionService.roomByFacility_Floor_Zone_RoomType(this.Building, this.Floor, ZoneKey, RoomType, this.OrganizationID).subscribe((data: any[]) => {
+            this.room = data;
+          });
+
+        }
+        else {
+          this.inspectionService.roomByFacility_Floor_RoomType(this.Building, this.Floor, RoomType, this.OrganizationID).subscribe((data: any[]) => {
+            this.room = data;
+          });
+
+        }
+      }
+      else if (ZoneKey) {
+        this.inspectionService.roomByFacility_Zone_RoomType(this.Building, ZoneKey, RoomType, this.OrganizationID).subscribe((data: any[]) => {
+          this.room = data;
+        });
+      }
+      else {
+        this.inspectionService.roomByFacility_RoomType(this.Building, RoomType, this.OrganizationID).subscribe((data: any[]) => {
+          this.room = data;
+        });
+
+      }
+
+    }
+  }
   createInspection() {
 
-    
-  var t=new Date();
-  var t=new Date();
-  var y=t.getFullYear();
-  var m=t.getMonth();
-  var d=t.getDate();
-  var h=t.getHours();
-  var mi=t.getMinutes();
-  var s=t.getSeconds();
- 
-       var today_DT = this.convert_DT(new Date());
+
+    var t = new Date();
+    var t = new Date();
+    var y = t.getFullYear();
+    var m = t.getMonth();
+    var d = t.getDate();
+    var h = t.getHours();
+    var mi = t.getMinutes();
+    var s = t.getSeconds();
+
+    var today_DT = this.convert_DT(new Date());
     //  this.Timetemp= new Date().getHours() + ':' + new Date().getMinutes();
-  var p="";
-  p=today_DT+" "+h+":"+mi+":"+s;
-  
+    var p = "";
+    p = today_DT + " " + h + ":" + mi + ":" + s;
+
     if (!this.TemplateID) {
       alert("Template Name is not provided");
     }
@@ -153,45 +223,49 @@ export class CreateinspectionComponent implements OnInit {
     else if (!this.time1) {
       alert("Time should be provided");
     }
-    if (!this.Employee) {
-      this.Employee = - 1;
-    }
-    console.log(this.fromdate);
-    console.log(this.todate);
-    if (!this.fromdate) {
-      var dateFrom = this.convert_DT(new Date());
+    else if (!(this.SupervisorKey)) {
+      alert("Auditor should be provided");
     }
     else {
-      dateFrom = this.convert_DT(this.fromdate);
-    }
-    if (!this.todate) {
-      var date2 = dateFrom;
-    }
-    else {
-      date2 = this.convert_DT(this.todate);
-    }
+      if (!this.Employee) {
+        this.Employee = - 1;
+      }
+      console.log(this.fromdate);
+      console.log(this.todate);
+      if (!this.fromdate) {
+        var dateFrom = this.convert_DT(new Date());
+      }
+      else {
+        dateFrom = this.convert_DT(this.fromdate);
+      }
+      if (!this.todate) {
+        var date2 = dateFrom;
+      }
+      else {
+        date2 = this.convert_DT(this.todate);
+      }
 
-    var q = this.time1.getHours();
-    var q1 = this.time1.getMinutes();
-    var newTime = q + ":" + q1;
+      var q = this.time1.getHours();
+      var q1 = this.time1.getMinutes();
+      var newTime = q + ":" + q1;
 
-    this.inspectionService.createInspections(this.TemplateID, this.SupervisorKey, dateFrom, date2, this.theCheckbox, newTime, this.RoomKey, this.Employee, this.employeekey, this.OrganizationID,p).subscribe(res => {
-      alert("Successfully Added");
-      this.TemplateID = "";
-      this.fromdate = null;
-      this.todate = null;
-      this.SupervisorKey = "";
-      this.Building = "";
-      this.Floor = "";
-      this.Zone = "";
-      this.RoomKey = "";
-      this.theCheckbox = false;
-      this.marked = false;
-      this.time1 = null;
-      this.Employee = "";
-      this.RoomType = "";
-    });
-
+      this.inspectionService.createInspections(this.TemplateID, this.SupervisorKey, dateFrom, date2, this.theCheckbox, newTime, this.RoomKey, this.Employee, this.employeekey, this.OrganizationID, p).subscribe(res => {
+        alert("Successfully Added");
+        this.TemplateID = "";
+        this.fromdate = null;
+        this.todate = null;
+        this.SupervisorKey = this.employeekey;
+        this.Building = "";
+        this.Floor = "";
+        this.Zone = "";
+        this.RoomKey = "";
+        this.theCheckbox = false;
+        this.marked = false;
+        this.time1 = null;
+        this.Employee = "";
+        this.RoomType = "";
+      });
+    }
   }
 
   ngOnInit() {
@@ -217,20 +291,20 @@ export class CreateinspectionComponent implements OnInit {
     this.inspectionService
       .getTemplateName(this.employeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-      
+
         this.templateName = data;
       });
     this.inspectionService
       .getAuditorName(this.employeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-      
+
         this.auditor = data;
         this.SupervisorKey = this.employeekey;
       });
     this.inspectionService
       .getEmployeeName(this.employeekey, this.OrganizationID)
       .subscribe((data: Inspection[]) => {
-     
+
         this.employee = data;
       });
     this.inspectionService

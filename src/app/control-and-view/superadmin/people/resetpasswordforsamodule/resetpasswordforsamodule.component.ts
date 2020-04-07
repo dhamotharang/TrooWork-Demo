@@ -3,6 +3,7 @@ import { People } from '../../../../model-class/People';
 import { PeopleServiceService } from '../../../../service/people-service.service';
 import { ActivatedRoute, Router  } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
+import { ConectionSettings } from '../../../../service/ConnectionSetting';
 
 @Component({
   selector: 'app-resetpasswordforsamodule',
@@ -54,7 +55,8 @@ export class ResetpasswordforsamoduleComponent implements OnInit {
     this.peopleService.resetUserPassword(username, password, this.empKey$, userLoginId, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.response = data[0];
       this.build = data;
-      this.router.navigateByUrl('/Managelogincredentials');
+      // this.router.navigateByUrl('/Managelogincredentials');
+      this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['Managelogincredentials'] } }]);
     });
   
   
@@ -74,8 +76,8 @@ export class ResetpasswordforsamoduleComponent implements OnInit {
             subject: 'Login Credentials',
             text: message
           };
-          const uri = "http://localhost:3000/api/sendmail";
-          return this.http.post(uri, obj)
+          const url = ConectionSettings.Url+"/sendmail";
+          return this.http.post(url, obj)
             .subscribe(res => console.log('Mail Sent Successfully...'));
         }
 
@@ -101,5 +103,7 @@ export class ResetpasswordforsamoduleComponent implements OnInit {
     });
 
   }
-
+  goBack(){
+    this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['Managelogincredentials'] } }]);
+  }
 }

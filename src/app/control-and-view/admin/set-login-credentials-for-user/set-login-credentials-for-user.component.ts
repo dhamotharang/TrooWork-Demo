@@ -3,6 +3,7 @@ import { People } from '../../../model-class/People';
 import { PeopleServiceService } from '../../../service/people-service.service';
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
+import { ConectionSettings } from '../../../service/ConnectionSetting';
 
 @Component({
   selector: 'app-set-login-credentials-for-user',
@@ -49,7 +50,7 @@ export class SetLoginCredentialsForUserComponent implements OnInit {
   }
 
   setUsernamePassword() {
-    if (!this.username) {
+    if (!(this.username) || !(this.username.trim())) {
       alert("User Name can't be empty");
     } else {
       this.peopleService.checkUserName(this.username, this.empKey$, this.OrganizationID)
@@ -59,7 +60,8 @@ export class SetLoginCredentialsForUserComponent implements OnInit {
           } else {
             this.peopleService.setLoginCreds(this.username, this.password, this.empKey$, this.employeekey, this.userRoleTypeKey$, this.OrganizationID)
               .subscribe((data: any[]) => {
-                this.router.navigateByUrl('/viewEmployeeAdmin');
+                
+                this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['viewEmployeeAdmin'] } }]);
                
 
                   this.peopleService.getUserEmail(this.username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
@@ -77,8 +79,8 @@ export class SetLoginCredentialsForUserComponent implements OnInit {
                         subject: 'Login Credentials',
                         text: message
                       };
-                      const uri = "http://localhost:3000/api/sendmail";
-                      return this.http.post(uri, obj)
+                      const url = ConectionSettings.Url+"/sendmail";
+                      return this.http.post(url, obj)
                         .subscribe(res => console.log('Mail Sent Successfully...'));
                     }
                   });

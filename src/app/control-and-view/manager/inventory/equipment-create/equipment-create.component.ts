@@ -3,6 +3,7 @@ import { Inventory } from '../../../../model-class/Inventory';
 import { InventoryService } from '../../../../service/inventory.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-equipment-create',
@@ -43,56 +44,65 @@ export class EquipmentCreateComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private fb: FormBuilder, private inventoryService: InventoryService, private router: Router) {
+  constructor(private fb: FormBuilder, private inventoryService: InventoryService, private router: Router, private _location: Location) {
 
   }
 
   selectFloorfromBuildings(facKey) {
     this.FacKey = facKey;
-    this.inventoryService
-      .getallFloorList(facKey, this.OrganizationID)
-      .subscribe((data: Inventory[]) => {
-        this.floors = data;
-      });
+    if (facKey) {
+      this.inventoryService
+        .getallFloorList(facKey, this.OrganizationID)
+        .subscribe((data: Inventory[]) => {
+          this.floors = data;
+        });
+    }
+    else {
+      this.FloorKey = '';
+    }
   }
   floorValueSet(floorKey) {
     this.FloorKey = floorKey;
   }
-  addEquipment(EquipmentName, EquipmentDescription, barcode, EquipmentTypeKey) {
-    if(EquipmentName && !EquipmentName.trim()){
+  addEquipment(EquipmentName, EquipmentDescription, Barcode, EquipmentTypeKey) {
+
+    if (!(EquipmentName) || !(EquipmentName.trim())) {
       alert("Please Enter Equipment Name!");
       return;
     }
-    if (EquipmentTypeKey=='--Select--') {
+    if (EquipmentTypeKey == '--Select--') {
       alert("Equipment Type Name is not provided");
       return;
-    } 
+    }
     if (!EquipmentTypeKey) {
       alert("Equipment Type Name is not provided");
     } else if (!EquipmentName) {
       alert("Equipment Name is not provided");
-    } else if (!barcode) {
+    } else if (!Barcode) {
       alert("Equipment Barcode is not provided");
+
     } else if (!this.FacKey) {
       alert("Building is not provided");
     } else if (!this.FloorKey) {
       alert("Floor is not provided");
     } else {
+      EquipmentName = EquipmentName.trim();
+      EquipmentDescription = EquipmentDescription.trim();
       this.inventoryService.checkForNewEquipment(EquipmentTypeKey, EquipmentName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
         this.dept = data;
         if (this.dept[0].count > 0) {
           alert("Equipment already present");
         }
         else if (this.dept[0].count == 0) {
-          this.inventoryService.checkForNewEquipmentbarcode(barcode, this.OrganizationID).subscribe((data: Inventory[]) => {
+          this.inventoryService.checkForNewEquipmentbarcode(Barcode, this.OrganizationID).subscribe((data: Inventory[]) => {
             this.dept = data;
             if (this.dept[0].count > 0) {
               alert("Equipment Barcode already present");
             } else if (this.dept[0].count == 0) {
-              this.inventoryService.addEquipment(EquipmentName, EquipmentDescription, barcode, EquipmentTypeKey, this.FacKey, this.FloorKey, this.employeekey, this.OrganizationID)
+              this.inventoryService.addEquipment(EquipmentName, EquipmentDescription, Barcode, EquipmentTypeKey, this.FacKey, this.FloorKey, this.employeekey, this.OrganizationID)
                 .subscribe(res => {
                   alert("Equipment created successfully");
-                  this.router.navigateByUrl('/EquipmentView');
+                  this._location.back();
                 });
             }
           });
@@ -102,9 +112,9 @@ export class EquipmentCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.EquipmentTypeKey="";
-    this.FacilityKey="";
-    this.FloorKey="";
+    this.EquipmentTypeKey = "";
+    this.FacilityKey = "";
+    this.FloorKey = "";
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -130,5 +140,8 @@ export class EquipmentCreateComponent implements OnInit {
       .subscribe((data: Inventory[]) => {
         this.buildings = data;
       });
+  }
+  goBack() {
+    this._location.back();
   }
 }

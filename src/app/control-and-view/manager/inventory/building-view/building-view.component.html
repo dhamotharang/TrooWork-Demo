@@ -1,11 +1,10 @@
-<app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 
 <div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
-  <h4 class="refer"><b> BUILDINGS</b> </h4>
+  <h4 class="refer"> BUILDINGS </h4>
   <br>
   <div style="text-align:center">
-    <a routerLink="/Createbuilding" class="btn btn-success" routerLinkActive="active"><b>Create New Building</b>
+    <a [routerLink]="['Createbuilding']" class="btn btn-success"><b>Create New Building</b>
     </a>
   </div>
   <form [formGroup]="searchform">
@@ -27,7 +26,7 @@
           <td>{{ x.FacilityName }}</td>
 
           <td>
-            <a routerLink="/Buildedit/{{ x.FacilityKey}}" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
+            <a [routerLink]="['Buildedit',x.FacilityKey]" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
             <a class="btn btn-danger" (click)="basicModal.show();deleteFacPass(x.FacilityKey); "><b>Delete</b></a>
           </td>
         </tr>

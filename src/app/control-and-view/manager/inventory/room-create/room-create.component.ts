@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
 import { Router } from "@angular/router";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-room-create',
@@ -48,15 +49,29 @@ export class RoomCreateComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private inventoryService: InventoryService, private router: Router) { }
+  constructor(private inventoryService: InventoryService, private router: Router, private _location: Location) { }
+
+  numberValid(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
   selectFloorfromBuildings(facKey) {
     this.FaciKey = facKey;
-    this.inventoryService
-      .getallFloorList(facKey, this.OrganizationID)
-      .subscribe((data: Inventory[]) => {
-        this.floor = data;
-      });
+    if (facKey) {
+      this.inventoryService
+        .getallFloorList(facKey, this.OrganizationID)
+        .subscribe((data: Inventory[]) => {
+          this.floor = data;
+        });
+    }
+    else {
+      this.FloorKey = '';
+    }
   }
 
   selectZonefromFloor(flrKey) {
@@ -84,16 +99,20 @@ export class RoomCreateComponent implements OnInit {
     } else if (!RoomTypeKey) {
       RoomTypeKey = null;
       alert("RoomType is not provided !");
-    } else if (!RoomName) {
+    } else if (!RoomName || !(RoomName.trim())) {
       RoomName = null;
       alert("Room name is not provided !");
-    } else if (!SquareFoot) {
+    } else if (!SquareFoot ) {
       SquareFoot = null;
       alert("SquareFoot is not provided !");
-    } else if (!Barcode) {
+    } else if (!Barcode ) {
       Barcode = null;
       alert("Barcode is not provided !");
     } else {
+      if (RoomName) {
+        RoomName = RoomName.trim();
+      }
+     
       this.inventoryService
         .checkNewRoom(FacilityKey, FloorKey, FloorTypeKey, ZoneKey, RoomTypeKey, RoomName, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
@@ -104,11 +123,11 @@ export class RoomCreateComponent implements OnInit {
               .checkRoomBarcode(Barcode, this.employeekey, this.OrganizationID)
               .subscribe((data: Inventory[]) => {
                 this.unqBar = data;
-                if (this.unqBar.Barcode!=0) {
+                if (this.unqBar.Barcode != 0) {
                   alert("Barcode already exists! Please enter a unique barcode.");
                 } else {
                   this.inventoryService
-                    .checkRoomName(RoomName, this.OrganizationID)
+                    .checkRoomName(FacilityKey, FloorKey, RoomName, this.OrganizationID)
                     .subscribe((data: Inventory[]) => {
                       if (data[0].count > 0) {
                         alert("Room Name already exists !");
@@ -117,14 +136,14 @@ export class RoomCreateComponent implements OnInit {
                           .subscribe(res => {
                             alert("Room created successfully");
                             this.inventoryService
-                            .getBarcodeForRoom(this.employeekey, this.OrganizationID)
-                            .subscribe((data: Array<any>) => {
-                              this.Barcode = data[0];
-                              this.temp_barcode = data[0];
-                              this.RoomName=null;
-                            });
-                         
-                         
+                              .getBarcodeForRoom(this.employeekey, this.OrganizationID)
+                              .subscribe((data: Array<any>) => {
+                                this.Barcode = data[0];
+                                this.temp_barcode = data[0];
+                                this.RoomName = null;
+                              });
+
+
                           });
                       }
                     });
@@ -137,11 +156,11 @@ export class RoomCreateComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.FacilityKey="";
-    this.FloorTypeKey="";
-    this.FloorKey="";
-    this.RoomTypeKey="";
-    this.ZoneKey="";
+    this.FacilityKey = "";
+    this.FloorTypeKey = "";
+    this.FloorKey = "";
+    this.RoomTypeKey = "";
+    this.ZoneKey = "";
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -174,15 +193,20 @@ export class RoomCreateComponent implements OnInit {
       });
   }
   clearall() {
-    this.FacilityKey = null;
-    this.FloorKey = null;
-    this.FloorTypeKey = null;
-    this.RoomTypeKey = null;
-    this.ZoneKey = null;
-    this.RoomName = null;
-    this.SquareFoot = null;
+    this.FacilityKey = '';
+    this.FloorKey = '';
+    this.FloorTypeKey = '';
+    this.RoomTypeKey = '';
+    this.ZoneKey = '';
+    this.RoomName = '';
+    this.SquareFoot = '';
     this.Barcode = this.temp_barcode;
 
   }
-
+  goBack() {
+    this._location.back();
+  }
+  zoneChange() {
+    this.RoomTypeKey = '';
+  }
 }

@@ -4,7 +4,8 @@ import { Reports } from '../../../../model-class/reports';
 import { ReportServiceService } from '../../../../service/report-service.service';
 import { ExcelserviceService } from '../../../../service/excelservice.service';
 
-
+import * as FileSaver from 'file-saver';
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 @Component({
   selector: 'app-barcode-report',
   templateUrl: './barcode-report.component.html',
@@ -117,12 +118,16 @@ export class BarcodeReportComponent implements OnInit {
   }
 
   getFloorDisp(key) {
-
+    if(key){
     this.ReportServiceService.getFloor(key, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.floor = data;
         this.FloorKey = "";
       });
+    }
+    else{
+      this.FloorKey='';
+    }
   }
   getequipments(eqtypekey) {
     this.ReportServiceService.geteq_values('equipments', eqtypekey, this.OrganizationID)
@@ -203,7 +208,10 @@ export class BarcodeReportComponent implements OnInit {
 
 
   }
-
+  zoneChange(){
+    this.RoomTypeKey='';
+    
+  }
 
 
   //export to excel 
@@ -225,7 +233,11 @@ export class BarcodeReportComponent implements OnInit {
 
       }
       if (this.Roomflag) {
-        this.excelService.exportAsExcelFile(this.reportarray, 'Barcode_Report');
+        // this.excelService.exportAsExcelFile(this.reportarray, 'Barcode_Report');
+        var blob = new Blob([document.getElementById('exportable').innerHTML], {
+          type: EXCEL_TYPE
+      });
+      FileSaver.saveAs(blob, "Room_Report.xls");
       }
     }
 
@@ -242,7 +254,11 @@ export class BarcodeReportComponent implements OnInit {
         }
       }
       if (this.Equipmentflag) {
-        this.excelService.exportAsExcelFile(this.reportarray1, 'reportsample');
+        // this.excelService.exportAsExcelFile(this.reportarray1, 'reportsample');
+        var blob = new Blob([document.getElementById('exportable1').innerHTML], {
+          type: EXCEL_TYPE
+      });
+      FileSaver.saveAs(blob, "Equipment_Report.xls");
       }
     }
 

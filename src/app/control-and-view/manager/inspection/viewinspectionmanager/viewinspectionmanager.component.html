@@ -1,8 +1,8 @@
-<app-manager-dash-board></app-manager-dash-board>
-<div style="padding-left: 9rem;padding-right: 9rem;">
+ 
+<div *ngIf="inspectioneddetails" style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
   <div style="text-align:center">
-    <h3> {{inspectioneddetails[0].RoomType}} - {{inspectioneddetails[0].RoomId}} Inspection Report </h3>
+    <h4> {{inspectioneddetails[0].RoomType}} - {{inspectioneddetails[0].RoomId}} Inspection Report </h4>
     <h5><b>Inspected by {{inspectioneddetails[0].SupervisorName}} on {{inspectioneddetails[0].EmployeeName}}</b></h5>
     <h4>{{inspectioneddetails[0].TemplateName}}</h4>
   </div>
@@ -24,6 +24,6 @@
         </tr>
       </tbody>
     </table>
-    <a routerLink="/InspectionView" class="btn btn-success"><b>Done</b></a>
+    <a (click)='GoView()' class="btn btn-success" style="margin-left: 45%"><b>Done</b></a>
   </div>
 </div>

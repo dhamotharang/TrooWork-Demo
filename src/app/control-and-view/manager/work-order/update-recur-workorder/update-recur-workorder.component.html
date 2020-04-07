@@ -1,11 +1,15 @@
-<app-manager-dash-board></app-manager-dash-board>
 <div style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
-    <h3 style="margin-left: 40%">EDIT THIS WORK ORDER INSTANCE</h3>
+    <h4 style="margin-left: 40%">EDIT THIS WORK ORDER INSTANCE</h4>
   </div>
 
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-top: 1rem;padding-bottom: 1rem" class="row bg-info col-md-12">
     <div class="col-md-6">
+      <div class="form-group">
+        <input type="checkbox" [(ngModel)]="showEqTypes" data-md-icheck (change)="toggleVisibility($event);change_values();" />&nbsp;
+        <label style="margin-top: 2rem;">Equipment Order</label>&nbsp;
+      </div>
+
       <div class="form-group">
         <label>Workorder Type*</label><br>
         <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="workordertypekey"
@@ -16,10 +20,7 @@
           </option>
         </select>
       </div>
-      <div class="form-group">
-        <label style="margin-top: 2rem;">Is Equipment</label>&nbsp;
-        <input type="checkbox" [(ngModel)]="showEqTypes" data-md-icheck (change)="toggleVisibility($event);change_values();" />
-      </div>
+
       <div class="form-group">
         <label>Building*</label><br>
         <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FacilityKey" (change)="getFloorDisp($event.target.value);"
@@ -70,11 +71,11 @@
 
       <div class="form-group">
         <label>Workorder Notes</label>
-        <textarea class="form-control rounded-0" maxlength="200" [(ngModel)]="WorkorderNotes" rows="6" style="resize: none;width: 100% !important"></textarea>
+        <textarea class="form-control rounded-1" maxlength="200" [(ngModel)]="WorkorderNotes" rows="6" style="resize: none;width: 100% !important"></textarea>
       </div>
       <div class="form-group">
         <label>Room Name List</label>
-        <textarea class="form-control rounded-0" [(ngModel)]="RoomNameList" rows="6" style="resize: none;width: 100% !important"
+        <textarea class="form-control rounded-1" [(ngModel)]="RoomNameList" rows="6" style="resize: none;width: 100% !important"
           [disabled]="true"></textarea>
       </div>
       <div class="form-group" *ngIf="isRecurring==true">
@@ -154,8 +155,16 @@
         <label>Barcode Required</label>&nbsp;
       </div>
       <div class="form-group">
-        <input type="checkbox" [(ngModel)]="isRecurring" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;
+        <input type="checkbox" [disabled]="true" [(ngModel)]="isRecurring" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;
         <label>Recurring Yes</label>&nbsp;
+      </div>
+      <div class="form-group">
+        <input type="checkbox" [(ngModel)]="keepActive" data-md-icheck  />&nbsp;
+        <label>Keep Active</label>&nbsp;
+      </div>
+      <div class="form-group">
+        <input type="checkbox" [(ngModel)]="GpsSnapShot" data-md-icheck />&nbsp;
+        <label>Gps SnapShot</label>&nbsp;
       </div>
       <div class="form-group">
         <label style="margin-top: 2rem">Timings</label>
@@ -191,7 +200,7 @@
     </div>
     <!--Daily-Dropdowns-->
     <div class="col-md-12">
-      <div class="form-group row" *ngIf="dailyrecurring==true">
+      <div class="form-group row" *ngIf="dailyrecurring==true && isRecurring==true">
         <label style="margin-top: 1rem;" class="col-sm-2 col-md-2 col-lg-2 col">On Gap Of</label>
         <select [(ngModel)]="DailyrecurringGap" class="form-control col col-sm-3 col-md-3 col-lg-3" style="margin-top: 1rem;margin-left: -0.5rem">
           <option value="">--Select--</option>
@@ -209,7 +218,7 @@
           </option>
         </select>
       </div>
-      <div class="form-group" *ngIf="((dailyrecurring==true)&&(dailyFrequency))">
+      <div class="form-group" *ngIf="((dailyrecurring==true && isRecurring==true)&&(dailyFrequency))">
         <p-calendar [inputStyle]="{'width':'105%','margin-top':'1rem'}" placeholder="TIME" [(ngModel)]="timetable.times[i]"
           *ngFor=" let field of timetable.times;let i = index" [timeOnly]="true" hourFormat="12" required>
           {{index+' '+field}}
@@ -220,14 +229,21 @@
     <!--Weekly-Dropdowns-->
     <div class="col-md-12">
 
-      <div class="form-group" *ngIf="weeklyrecurring==true">
-        <label> Sun <input type="checkbox" [(ngModel)]="weektable_one" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Mon <input type="checkbox" [(ngModel)]="weektable_two" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Tue <input type="checkbox" [(ngModel)]="weektable_three" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Wed <input type="checkbox" [(ngModel)]="weektable_four" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Thu <input type="checkbox" [(ngModel)]="weektable_five" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Fri <input type="checkbox" [(ngModel)]="weektable_six" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Sat <input type="checkbox" [(ngModel)]="weektable_seven" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
+      <div class="form-group" *ngIf="weeklyrecurring==true && isRecurring==true">
+        <input type="checkbox" [(ngModel)]="weektable_one" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label>
+          Sun </label>&nbsp;
+        <input type="checkbox" [(ngModel)]="weektable_two" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label>
+          Mon </label>&nbsp;
+        <input type="checkbox" [(ngModel)]="weektable_three" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label>
+          Tue </label>&nbsp;
+        <input type="checkbox" [(ngModel)]="weektable_four" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label>
+          Wed </label>&nbsp;
+        <input type="checkbox" [(ngModel)]="weektable_five" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label>
+          Thu </label>&nbsp;
+        <input type="checkbox" [(ngModel)]="weektable_six" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label>
+          Fri </label>&nbsp;
+        <input type="checkbox" [(ngModel)]="weektable_seven" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label>
+          Sat </label>&nbsp;
         <label style="margin-top: 2rem;margin-left: 8.5rem;margin-right: 3rem;">Time*</label>
         <p-calendar [inputStyle]="{'width':'150%','margin-top':'1rem'}" [(ngModel)]="Time_weekly" [timeOnly]="true"
           hourFormat="12" required></p-calendar>
@@ -238,12 +254,12 @@
     <!--Monthly-Dropdowns-->
     <div class="col-md-12">
 
-      <div class="form-group row" *ngIf="monthlyrecurring==true">
+      <div class="form-group row" *ngIf="monthlyrecurring==true && isRecurring==true">
         <label style="margin-top: 2rem;margin-left: 6rem;margin-right: 6.2rem;">Time*</label>
         <p-calendar [inputStyle]="{'width':'147%','margin-top':'1rem'}" [(ngModel)]="Time_monthly" [timeOnly]="true"
           hourFormat="12" required></p-calendar>
       </div>
-      <div class="form-group row" *ngIf="monthlyrecurring==true">
+      <div class="form-group row" *ngIf="monthlyrecurring==true && isRecurring==true">
         <input type="radio" name="recurringevent1" class="col-sm-1 col-md-1 col-lg-1 col" [checked]="monthlyreccradio1==true"
           [value]="monthlyreccradio1" (click)='monthlyreccradio1_change()'>
         <label class="col-sm-1 col-md-1 col-lg-1 col">Day</label>
@@ -263,7 +279,7 @@
         </select>
         <label class="col-sm-2 col-md-2 col-lg-2 col">Month(s)</label>
       </div>
-      <div class="form-group row" *ngIf="monthlyrecurring==true">
+      <div class="form-group row" *ngIf="monthlyrecurring==true && isRecurring==true">
         <input type="radio" name="recurringevent1" class="col col-sm-1 col-md-1 col-lg-1" [checked]="monthlyreccradio2==true"
           [value]="monthlyreccradio2" (click)='monthlyreccradio2_change()'>
         &nbsp;
@@ -295,7 +311,7 @@
     <div style="margin-left:35%">
       <button type="button" class="btn btn-success" (click)=UpdateWO()><b>UPDATE</b></button>
 
-      <a routerLink="/ViewWorkOrder" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
+      <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go
           Back
         </b>
       </a>

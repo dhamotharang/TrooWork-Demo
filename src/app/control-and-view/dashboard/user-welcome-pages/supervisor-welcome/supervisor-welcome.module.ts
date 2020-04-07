@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SupervisorWelcomeComponent } from './supervisor-welcome.component';
 import { Routes, RouterModule } from '@angular/router';
-
+import { NgMarqueeModule } from 'ng-marquee';
 import { HttpClientModule } from '@angular/common/http';
 
 import{ SupervisorDashboardModule  } from '../../user-dashboards/supervisor-dashboard/supervisor-dashboard.module';
@@ -24,7 +24,8 @@ const routes: Routes = [
     HttpClientModule,
     MDBBootstrapModule,
     FormsModule, ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    NgMarqueeModule
   ],
   declarations: [SupervisorWelcomeComponent]
 })

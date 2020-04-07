@@ -1,31 +1,29 @@
-<app-supervisor-dashboard></app-supervisor-dashboard>
-
 <div style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
-    <h3 style="margin-left: 40%">CREATE NEW WORK ORDER</h3>
+    <h4 style="margin-left: 40%">CREATE NEW WORK ORDER</h4>
   </div>
 
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-top: 1rem;padding-bottom: 1rem" class="row bg-info col-md-12">
     <div class="col-md-12">
       <div class="form-group">
-        <label class="col-sm-12 col-md-12 col-lg-12">Workorder Type*</label>
-        <select *ngIf="!newType" style="background-color: #D4F4FF !important;width: 48.8%" class="form-control" (change)='checkfornewWOT(WorkorderTypeKey)'
-          [(ngModel)]="WorkorderTypeKey" required>
+        <input type="checkbox" [(ngModel)]="showEqTypes" data-md-icheck (change)="toggleVisibility_Equipment($event);change_values();" />&nbsp;
+        <label style="margin-top: 2rem;">Equipment Order</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group row">
+        <label class="col-md-12 col-lg-12 col-sm-12">Workorder Type*</label>
+        <select *ngIf="!newType" style="background-color: #D4F4FF !important;margin-left: 1rem;width: 94%;" class="form-control"
+          (change)='checkfornewWOT(WorkorderTypeKey)' [(ngModel)]="WorkorderTypeKey" required>
           <option value="">--Select--</option>
           <option *ngFor="let e of workorderTypeList" [value]="e.WorkorderTypeKey">
             {{e.WorkorderTypeText}}
           </option>
         </select>
         <input type="text" maxlength="30" *ngIf="newType" [(ngModel)]="newworkordertypetext" class="form-control "
-          style="width: 50%" placeholder="Enter new workordertype">
-        <input type="button" *ngIf="newType" (click)="GobacktoMenu()" class="btn btn-primary" value="Go Default" />
-      </div>
-    </div>
-    <div class="col-md-6" style="margin-top: 0.5rem">
-
-      <div class="form-group">
-        <label style="margin-top: 2rem;">Is Equipment</label>&nbsp;
-        <input type="checkbox" [(ngModel)]="showEqTypes" data-md-icheck (change)="toggleVisibility_Equipment($event);change_values();" />
+          style="width: 70%;margin-left: 1rem" placeholder="Enter new workordertype"> &nbsp;
+        <input type="button" *ngIf="newType" (click)="GobacktoMenu()" class="btn btn-primary button_style" style="margin-top: 0rem"
+          value="Go Default" />
       </div>
       <div class="form-group">
         <label>Building*</label><br>
@@ -76,7 +74,7 @@
 
       <div class="form-group">
         <label>Workorder Notes</label>
-        <textarea class="form-control rounded-0" maxlength="200" [(ngModel)]="workorderNotes" rows="6" style="resize: none;"></textarea>
+        <textarea class="form-control rounded-1" maxlength="200" [(ngModel)]="workorderNotes" rows="8" style="resize: none;width: 100% !important;max-width: 100% !important;"></textarea>
       </div>
 
       <div class="form-group" *ngIf="isRecurring==true">
@@ -158,6 +156,10 @@
         <input type="checkbox" [(ngModel)]="isRecurring" data-md-icheck (change)="toggleVisibility_Recur($event)" />&nbsp;
         <label>Recurring Yes</label>&nbsp;
       </div>
+      <div class="form-group">
+        <input type="checkbox" [(ngModel)]="keepActive" data-md-icheck  />&nbsp;
+        <label>Keep Active</label>&nbsp;
+      </div>
       <!-- <div class="form-group" *ngIf="isRecurring==false">
           <label>Time*</label>
           <p-calendar [inputStyle]="{'width':'205%','margin-top':'1rem'}" [(ngModel)]="timeValue" [timeOnly]="true"
@@ -188,7 +190,7 @@
     </div>
     <!--Daily-Dropdowns-->
     <div class="col-md-12">
-      <div class="form-group row" *ngIf="dailyrecurring==true">
+      <div class="form-group row" *ngIf="dailyrecurring==true && isRecurring==true">
         <label style="margin-top: 1rem;" class="col-sm-2 col-md-2 col-lg-2 col">On Gap Of</label>
         <select [(ngModel)]="DailyrecurringGap" class="form-control col col-sm-3 col-md-3 col-lg-3" style="margin-top: 1rem;margin-left: -0.5rem">
           <option value="">--Select--</option>
@@ -206,7 +208,7 @@
           </option>
         </select>
       </div>
-      <div class="form-group" *ngIf="((dailyrecurring==true)&&(dailyFrequency))">
+      <div class="form-group" *ngIf="((dailyrecurring==true && isRecurring==true)&&(dailyFrequency))">
         <p-calendar [inputStyle]="{'width':'105%','margin-top':'1rem'}" placeholder="TIME" [(ngModel)]="timetable.times[i]"
           *ngFor=" let field of timetable.times;let i = index" [timeOnly]="true" hourFormat="12" required>
           {{index+' '+field}}
@@ -217,14 +219,14 @@
     <!--Weekly-Dropdowns-->
     <div class="col-md-12">
 
-      <div class="form-group" *ngIf="weeklyrecurring==true">
-        <label> Sun <input type="checkbox" [(ngModel)]="weektable_one" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Mon <input type="checkbox" [(ngModel)]="weektable_two" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Tue <input type="checkbox" [(ngModel)]="weektable_three" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Wed <input type="checkbox" [(ngModel)]="weektable_four" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Thu <input type="checkbox" [(ngModel)]="weektable_five" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Fri <input type="checkbox" [(ngModel)]="weektable_six" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Sat <input type="checkbox" [(ngModel)]="weektable_seven" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
+      <div class="form-group" *ngIf="weeklyrecurring==true && isRecurring==true">
+          <input type="checkbox" [(ngModel)]="weektable_one" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Sun </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_two" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Mon </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_three" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Tue </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_four" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Wed </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_five" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Thu </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_six" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Fri </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_seven" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Sat </label>&nbsp;
         <label style="margin-top: 2rem;margin-left: 8.5rem;margin-right: 3rem;">Time*</label>
         <p-calendar [inputStyle]="{'width':'150%','margin-top':'1rem'}" [(ngModel)]="Time_weekly" [timeOnly]="true"
           hourFormat="12" required></p-calendar>
@@ -235,12 +237,12 @@
     <!--Monthly-Dropdowns-->
     <div class="col-md-12">
 
-      <div class="form-group row" *ngIf="monthlyrecurring==true">
+      <div class="form-group row" *ngIf="monthlyrecurring==true && isRecurring==true">
         <label style="margin-top: 2rem;margin-left: 6rem;margin-right: 6.2rem;">Time*</label>
         <p-calendar [inputStyle]="{'width':'147%','margin-top':'1rem'}" [(ngModel)]="Time_monthly" [timeOnly]="true"
           hourFormat="12" required></p-calendar>
       </div>
-      <div class="form-group row" *ngIf="monthlyrecurring==true">
+      <div class="form-group row" *ngIf="monthlyrecurring==true && isRecurring==true">
         <input type="radio" name="recurringevent1" class="col-sm-1 col-md-1 col-lg-1 col" [checked]="monthlyreccradio1==true"
           [value]="monthlyreccradio1" (click)='monthlyreccradio1_change()'>
         <label class="col-sm-1 col-md-1 col-lg-1 col">Day</label>
@@ -260,7 +262,7 @@
         </select>
         <label class="col-sm-2 col-md-2 col-lg-2 col">Month(s)</label>
       </div>
-      <div class="form-group row" *ngIf="monthlyrecurring==true">
+      <div class="form-group row" *ngIf="monthlyrecurring==true && isRecurring==true">
         <input type="radio" name="recurringevent1" class="col col-sm-1 col-md-1 col-lg-1" [checked]="monthlyreccradio2==true"
           [value]="monthlyreccradio2" (click)='monthlyreccradio2_change()'>
         &nbsp;
@@ -289,7 +291,7 @@
         <label class="col-sm-2 col-md-2 col-lg-2 col">Month(s)</label>
       </div>
     </div>
-    <div style="margin-left:50%">
+    <div style="margin-left:40%">
       <button type="button" class="btn btn-success" (click)=createWorkOrder()><b>SAVE</b></button>
     </div>
   </div>

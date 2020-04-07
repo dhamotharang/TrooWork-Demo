@@ -13,10 +13,25 @@ import { SetLoginCredentialsForUserComponent } from './set-login-credentials-for
 import { ViewEmployeeAdminComponent } from './view-employee-admin/view-employee-admin.component';
 import { EditEmployeeDetailsAdminComponent } from './edit-employee-details-admin/edit-employee-details-admin.component';
 
+
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [JobTitleViewAdminComponent, JobTitleAddAdminComponent, JobTitleEditAdminComponent, CreateDepartmentComponent, EditDepartmentComponent, ViewDepartmentComponent, ManageLoginsComponent, ResetPasswordsComponent, AddEmployeeComponent, SetLoginCredentialsForUserComponent, ViewEmployeeAdminComponent, EditEmployeeDetailsAdminComponent]
+  declarations: [
+    JobTitleViewAdminComponent,
+    JobTitleAddAdminComponent,
+    JobTitleEditAdminComponent,
+    CreateDepartmentComponent,
+    EditDepartmentComponent,
+    ViewDepartmentComponent,
+    ManageLoginsComponent,
+    ResetPasswordsComponent,
+    AddEmployeeComponent,
+    SetLoginCredentialsForUserComponent,
+    ViewEmployeeAdminComponent,
+    EditEmployeeDetailsAdminComponent,
+
+  ]
 })
 export class AdminModule { }

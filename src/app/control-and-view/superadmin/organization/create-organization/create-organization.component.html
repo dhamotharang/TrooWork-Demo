@@ -1,9 +1,8 @@
-<app-superadmin-dashboard></app-superadmin-dashboard>
 <div  style="width: 100% !important; padding-left: 9rem;padding-right: 9rem; padding-top:1rem !important; padding-bottom:0rem !important;">
   <div class="row col-md-12 ">
-    <h3 style="margin-left: 25rem;">CREATE NEW ORGANIZATION</h3>
+    <h4 style="margin-left: 40%;">CREATE NEW ORGANIZATION</h4>
   </div>
-  <div class="row bg-info col-md-12">
+  <div class="row bg-info col-md-12" style="padding-top: 1rem">
     <div class="col-md-6">
       <div class="form-group">
         <label>Name*</label>
@@ -12,7 +11,7 @@
       </div>
       <div class="form-group">
         <label>Description</label>
-        <textarea class="form-control rounded-0  col-sm-9 col-md-9 col-lg-9" maxlength="100" [(ngModel)]="OrgDesc"
+        <textarea class="form-control rounded-1  col-sm-9 col-md-9 col-lg-9" maxlength="100" [(ngModel)]="OrgDesc"
           placeholder=" Description" rows="5"></textarea>
       </div>
     </div>
@@ -56,10 +55,10 @@
       </div>
     </div>
     <div class="row col-md-12">
-      <div>
-        <a style="margin-left: 25rem;" class="btn btn-success" (click)="createOrg()"><b>Create</b>
+      <!-- <div> -->
+        <a style="margin-left: 42%;" class="btn btn-success" (click)="createOrg()"><b>Create</b>
           </a>
-      </div>
+      <!-- </div> -->
     </div>
   </div>
 </div>

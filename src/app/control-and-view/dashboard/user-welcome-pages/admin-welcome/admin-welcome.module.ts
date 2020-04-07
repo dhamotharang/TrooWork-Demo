@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import{ EmployeeDashbordModule  } from '../../user-dashboards/employee-dashboard/employee-dashbord.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { NgMarqueeModule } from 'ng-marquee';
 const routes: Routes = [
   {
     path: '',
@@ -23,7 +23,8 @@ const routes: Routes = [
     HttpClientModule,
     MDBBootstrapModule,
     FormsModule, ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    NgMarqueeModule
   ],
   declarations: [AdminWelcomeComponent]
 })

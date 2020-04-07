@@ -3,7 +3,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Reports } from '../../../../model-class/reports';
 import { ReportServiceService } from '../../../../service/report-service.service';
 import { ExcelserviceService } from '../../../../service/excelservice.service';
-import { DatepickerOptions } from 'ng2-datepicker';
+import { DatepickerOptions } from 'ng2-datepicker';//for datepicker
+import { InspectionService } from '../../../../service/inspection.service';
+import * as FileSaver from 'file-saver';//for excel
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 @Component({
   selector: 'app-inspection-report',
   templateUrl: './inspection-report.component.html',
@@ -18,6 +21,8 @@ export class InspectionReportComponent implements OnInit {
   OrganizationID: Number;
   SupervisorKey;
   loading: boolean;// loading
+  templateNameList;
+  TemplateName;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -36,13 +41,14 @@ export class InspectionReportComponent implements OnInit {
     return window.atob(output);
   }
 
-
+  //convert date to yyyy-mm-dd format
   public convert_DT(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
       day = ("0" + date.getDate()).slice(-2);
     return [date.getFullYear(), mnth, day].join("-");
   }
+  //
   fromdate: Date;
 
   // adding properties and methods that will be used by the igxDatePicker
@@ -53,6 +59,7 @@ export class InspectionReportComponent implements OnInit {
   //   return `You selected ${this.dayFormatter.format(_)}, ${_.getDate()} ${this.monthFormatter.format(_)}, ${_.getFullYear()}`;
 
   // }
+  //adding options to ng2 datepicker
   options: DatepickerOptions = {
     minYear: 1970,
     maxYear: 2030,
@@ -66,10 +73,11 @@ export class InspectionReportComponent implements OnInit {
     barTitleIfEmpty: 'Click to select a date',
     placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
     addClass: '', // Optional, value to pass on to [ngClass] on the input field
-    addStyle: {'font-size':'18px','width':'100%', 'border': '1px solid #ced4da','border-radius': '0.25rem'}, // Optional, value to pass to [ngStyle] on the input field
+    addStyle: { 'font-size': '18px', 'width': '100%', 'border': '1px solid #ced4da', 'border-radius': '0.25rem' }, // Optional, value to pass to [ngStyle] on the input field
     fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
+  //
   supervisoroptions: Reports[];
   inspectionreport: FormGroup;
   viewinspectionReport: Reports[];
@@ -77,13 +85,13 @@ export class InspectionReportComponent implements OnInit {
     // Template: '', Date: '', Location: '', Auditor: '', Employee: '', Status: ''
   }
   ];
-  constructor(private fb: FormBuilder, private ReportServiceService: ReportServiceService, private excelService: ExcelserviceService) {
+  constructor(private fb: FormBuilder, private ReportServiceService: ReportServiceService, private excelService: ExcelserviceService,private inspectionService: InspectionService) {
     this.inspectionreport = fb.group({
       SupervisorKey: ['', Validators.required],
       SupervisorText: ['', Validators.required]
     });
   }
-  //export to excel 
+  //function for exporting to excel 
   exportToExcel(): void {
     for (var i = 0; i < this.viewinspectionReport.length; i++) {
       var temp_name = (this.viewinspectionReport[i].TemplateName);
@@ -100,14 +108,17 @@ export class InspectionReportComponent implements OnInit {
         this.reportarray.push({ Template: temp_name, Date: ins_date, Location: locationname, Auditor: auditorname, Employee: employeename, Status: cur_status2 })
       }
     }
-
-    this.excelService.exportAsExcelFile(this.reportarray, 'Inspection_Report');
+    var blob = new Blob([document.getElementById('exportable1').innerHTML], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(blob, "inspection_Report.xls");
+    // this.excelService.exportAsExcelFile(this.reportarray, 'Inspection_Report');
   }
 
   ngOnInit() {
-    this.SupervisorKey=""
+    this.SupervisorKey = ""
     this.fromdate = new Date();
-
+    this.TemplateName='';
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -118,15 +129,21 @@ export class InspectionReportComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
 
-    this.ReportServiceService
-      .getallsupervisor(this.employeekey, this.OrganizationID)
+    this.ReportServiceService//service for getting supervisor names
+      .getallAuditors(this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.supervisoroptions = data;
       });
+      this.inspectionService
+      .getTemplateName(this.employeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.templateNameList = data;
+      });
   }
-
+  //function for genaerating report
   generateInspectionReport(from_date, to_date, SupervisorKey) {
-    this.loading = true;
+    var Template_Name,Supervisor_Key;
+
     if (!from_date) {
       var fromdate = this.convert_DT(new Date());
 
@@ -144,25 +161,54 @@ export class InspectionReportComponent implements OnInit {
 
     if (todate && fromdate > todate) {
       todate = null;
-      alert("Please check your Start Date!");
+      alert("Please check your Dates !");
       return;
     }
-    if (!SupervisorKey) {
-      this.ReportServiceService
-        .getinspectionreport_bydate(fromdate, todate, this.employeekey, this.OrganizationID)
+    if(this.TemplateName){
+      Template_Name=this.TemplateName;
+    }
+    else{
+      Template_Name=null;
+    }
+    if(SupervisorKey){
+      Supervisor_Key=SupervisorKey;
+    }
+    else{
+      Supervisor_Key=null;
+    }
+    let inspectData={
+      fromdate:fromdate,
+      todate:todate,
+      TemplateName:Template_Name,
+      SupervisorKey:Supervisor_Key,
+      employeekey:this.employeekey,
+      OrganizationID:this.OrganizationID
+    }
+    this.loading = true;
+    this.ReportServiceService
+        .getInspectionReportByAllFilter(inspectData)
         .subscribe((data: Reports[]) => {
           this.viewinspectionReport = data;
           this.loading = false;
-        });
-    }
-    else {
-      this.ReportServiceService
-        .getinspectionreport(fromdate, todate, SupervisorKey, this.OrganizationID)
-        .subscribe((data: Reports[]) => {
-          this.viewinspectionReport = data;
-          this.loading = false;
-        });
-    }
+      });
+    // if (!SupervisorKey) {//inspection report for supervisorkey=null
+    //   this.ReportServiceService
+    //     .getinspectionreport_bydate(fromdate, todate, this.employeekey, this.OrganizationID)
+    //     .subscribe((data: Reports[]) => {
+    //       this.viewinspectionReport = data;
+    //       this.loading = false;
+    //     });
+    // }
+    // else {//inspection report for selected supervisor
+    //   this.ReportServiceService
+    //     .getinspectionreport(fromdate, todate, SupervisorKey, this.OrganizationID)
+    //     .subscribe((data: Reports[]) => {
+    //       this.viewinspectionReport = data;
+    //       this.loading = false;
+    //     });
+    // }
+
+
   }
 
 }

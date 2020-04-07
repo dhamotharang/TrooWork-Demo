@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { EmployeeDashboardComponent } from './employee-dashboard.component';
-import {  EmployeeChangePasswordModule } from '../../user-password-changes/employee-change-password/employee-change-password.module';
-
+import { TradeRequestApproveModule  } from '../../../employee/trade-request-approve/trade-request-approve.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
  const routes: Routes = [
   {
     path: 'EmployeeDashboard',
-    component: EmployeeDashboardComponent,// varun - EmployeeDashboard as parent component
-    children: [ // varun- child components
+    component: EmployeeDashboardComponent,//by varun - EmployeeDashboard as parent component
+    children: [ //by varun- child components
       {
         path: 'Emp_welcomePage',
         outlet: 'EmployeeOut',
@@ -39,6 +39,57 @@ import {  EmployeeChangePasswordModule } from '../../user-password-changes/emplo
         loadChildren: '../../user-password-changes/employee-change-password/employee-change-password.module#EmployeeChangePasswordModule',
 
       },
+      {
+        path: 'changePasswordEmployee/:EmployeeKey/:UserRoleName/:IsSupervisor',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../user-password-changes/employee-change-password/employee-change-password.module#EmployeeChangePasswordModule',
+
+      },
+      {
+        path: 'ViewSchedulerForEmployee',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/view-employee-scheduler/view-employee-scheduler.module#ViewEmployeeSchedulerModule',
+      },
+      {
+        path: 'PtoRequest',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/pto-request/pto-request.module#PtoRequestModule',
+      },
+      {
+        path: 'ViewPtoRequest',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/pto-request-view/pto-request-view.module#PtoRequestViewModule',
+      },
+      {
+        path: 'ViewPtoRequest/PTORequestDetails/:requestID',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/pto-request-details/pto-request-details.module#PtoRequestDetailsModule',
+      },
+      {
+        path: 'ViewPtoRequest/PTORequestEdit/:requestID',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/pto-request-edit/pto-request-edit.module#PtoRequestEditModule',
+      },
+      {
+        path: 'TradeRequest',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/trade-request/trade-request.module#TradeRequestModule',
+      },
+      {
+        path: 'ViewTradeRequest',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/trade-request-view/trade-request-view.module#TradeRequestViewModule',
+      },
+      {
+        path: 'ViewTradeRequest/TradeRequestEdit/:requestID',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/trade-request-edit/trade-request-edit.module#TradeRequestEditModule',
+      },
+      {
+        path: 'ViewTradeRequest/TradeRequestApprove/:requestID',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/trade-request-approve/trade-request-approve.module#TradeRequestApproveModule',
+      },
      ]
   }
 ];
@@ -46,7 +97,8 @@ import {  EmployeeChangePasswordModule } from '../../user-password-changes/emplo
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MDBBootstrapModule.forRoot()
   ],
   declarations: [EmployeeDashboardComponent],
   exports: [EmployeeDashboardComponent]

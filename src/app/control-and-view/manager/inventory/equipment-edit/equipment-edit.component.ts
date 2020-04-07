@@ -4,6 +4,8 @@ import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-equipment-edit',
   templateUrl: './equipment-edit.component.html',
@@ -12,14 +14,14 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 export class EquipmentEditComponent implements OnInit {
   equipKey$: Object;
   equipEditList: Inventory[];
-  FloorKey: Number;
+  FloorKey;
   FacKey: Number;
   equipmentType: Inventory[];
   buildings: Inventory[];
   floors: Inventory[];
   equipTypeKey: Number;
   dept: Inventory[];
-
+  equipName;
   role: String;
   name: String;
   employeekey: Number;
@@ -43,12 +45,13 @@ export class EquipmentEditComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router, private _location: Location) {
     this.route.params.subscribe(params => this.equipKey$ = params.EquipKey);
   }
 
   selectFloorfromBuildings(facKey) {
     this.FacKey = facKey;
+    this.FloorKey = "";
     this.inventoryService
       .getallFloorList(facKey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
@@ -61,7 +64,15 @@ export class EquipmentEditComponent implements OnInit {
   floorValueSet(floorKey) {
     this.FloorKey = floorKey;
   }
-  updateEquipment(EquipmentName, EquipmentDescription, EquipmentBarcode, ) {
+  updateEquipment(EquipmentName, EquipmentDescription, EquipmentBarcode) {
+    if (!(EquipmentName) || !(EquipmentName.trim())) {
+      alert("Please Enter Equipment Name!");
+      return;
+    }
+    if (!EquipmentBarcode) {
+      alert("Please Enter Equipment Barcode!");
+      return;
+    }
     if (!this.equipTypeKey) {
       alert("Equipment Type is not provided");
     } else if (!EquipmentName) {
@@ -73,20 +84,33 @@ export class EquipmentEditComponent implements OnInit {
     } else if (!this.FloorKey) {
       alert("Floor is not provided");
     } else {
-      this.inventoryService.checkForNewEquipment(this.equipTypeKey, EquipmentName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
-        this.dept = data;
-        if (this.dept[0].count > 0) {
-          alert("Equipment already present");
-        }
-        else if (this.dept[0].count == 0) {
+      EquipmentName = EquipmentName.trim();
+      EquipmentDescription = EquipmentDescription.trim();
+      
+      if (this.equipName != EquipmentName) {
+        this.inventoryService.checkForNewEquipment(this.equipTypeKey, EquipmentName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
+          this.dept = data;
+          if (this.dept[0].count > 0) {
+            alert("Equipment already present");
+          }
+          else if (this.dept[0].count == 0) {
 
-          this.inventoryService.updateEquipment(EquipmentName, EquipmentDescription, EquipmentBarcode, this.equipTypeKey, this.FacKey, this.FloorKey, this.equipKey$, this.employeekey, this.OrganizationID)
-            .subscribe(res => {
-              alert("Equipment updated successfully");
-              this.router.navigateByUrl('/EquipmentView');
-            });
-        }
-      });
+            this.inventoryService.updateEquipment(EquipmentName, EquipmentDescription, EquipmentBarcode, this.equipTypeKey, this.FacKey, this.FloorKey, this.equipKey$, this.employeekey, this.OrganizationID)
+              .subscribe(res => {
+                alert("Equipment updated successfully");
+                this._location.back();
+              });
+          }
+
+        });
+      } else {
+
+        this.inventoryService.updateEquipment(EquipmentName, EquipmentDescription, EquipmentBarcode, this.equipTypeKey, this.FacKey, this.FloorKey, this.equipKey$, this.employeekey, this.OrganizationID)
+          .subscribe(res => {
+            alert("Equipment updated successfully");
+            this._location.back();
+          });
+      }
     }
   }
   ngOnInit() {
@@ -103,6 +127,7 @@ export class EquipmentEditComponent implements OnInit {
       .EditEquipmentAutoGenerate(this.equipKey$, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.equipEditList = data;
+        this.equipName = data[0].EquipmentName;
         this.FacKey = data[0].FacilityKey;
         this.equipTypeKey = data[0].EquipmentTypeKey;
         console.log("...  facKey:" + this.FacKey);
@@ -125,6 +150,9 @@ export class EquipmentEditComponent implements OnInit {
         this.buildings = data;
       });
 
+  }
+  goBack() {
+    this._location.back();
   }
 
 }

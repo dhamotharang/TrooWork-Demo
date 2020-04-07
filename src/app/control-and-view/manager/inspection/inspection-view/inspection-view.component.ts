@@ -25,7 +25,12 @@ export class InspectionViewComponent implements OnInit {
   toServeremployeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  checkflag: boolean;
+  marked = false;
+  checkValue = [];
+  inspectionorderKey = [];
+  deleteInspection;
+  deletechkbox;
 
   //Variables for pagination
 
@@ -90,7 +95,7 @@ export class InspectionViewComponent implements OnInit {
     barTitleIfEmpty: 'Click to select a date',
     placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
     addClass: '', // Optional, value to pass on to [ngClass] on the input field
-    addStyle: {'font-size':'18px','width':'80%', 'border': '1px solid #ced4da','border-radius': '0.25rem'}, // Optional, value to pass to [ngStyle] on the input field
+    addStyle: { 'font-size': '18px', 'width': '97%', 'border': '1px solid #ced4da', 'border-radius': '0.25rem' }, // Optional, value to pass to [ngStyle] on the input field
     fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
@@ -147,12 +152,14 @@ export class InspectionViewComponent implements OnInit {
   //functions for pagination 
 
   filteringInspectionManagerByDate() {
-    this.loading = true;// loading
+    this.showHide2 = false;
+    this.showHide1 = false;
     if (this.todate && this.convert_DT(this.fromdate) > this.convert_DT(this.todate)) {
       this.todate = null;
       alert("Please check your Start Date!");
       return;
     }
+    this.loading = true;// loading
     if (!this.fromdate) {
       var date1 = this.convert_DT(new Date());
     }
@@ -182,7 +189,7 @@ export class InspectionViewComponent implements OnInit {
 
   }
   searchTL(SearchValue) {
-    var value=SearchValue.trim();
+    var value = SearchValue.trim();
     if (!this.fromdate) {
       var date1 = this.convert_DT(new Date());
     }
@@ -203,9 +210,8 @@ export class InspectionViewComponent implements OnInit {
         });
     }
     else if (value.length == 0) {
-      if((value.length == 0) &&(SearchValue.length == 0) )
-      {
-     this.loading = true;
+      if ((value.length == 0) && (SearchValue.length == 0)) {
+        this.loading = true;
       }
       var curr_date = this.convert_DT(new Date());
       this.inspectionService
@@ -233,6 +239,7 @@ export class InspectionViewComponent implements OnInit {
     this.loading = true;// loading
     this.fromdate = new Date();
     var curr_date = this.convert_DT(new Date());
+    this.checkflag = false;
 
     this.inspectionService
       .getInspectionOrderTablewithFromCurrentDateFilter(curr_date, this.pageNo, this.itemsPerPage, this.toServeremployeekey, this.OrganizationID)
@@ -254,4 +261,63 @@ export class InspectionViewComponent implements OnInit {
     });
   }
 
+  GoView(para) {
+    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewInspectionManager', para] } }]);
+  }
+  toggleVisibility(e) {
+    if (e.target.checked) {
+      this.marked = true;
+    } else {
+      this.marked = false;
+    }
+  }
+  //for deleting inspection
+  checkBoxValueForDelete(index, CheckValue, inspectionorderkey) {
+
+    this.checkValue[index] = CheckValue;
+    this.inspectionorderKey[index] = inspectionorderkey;
+    for (var i = 0; i < this.checkValue.length;) {
+      if (this.checkValue[i] == true) {
+        this.checkflag = true;
+        return;
+      }
+      else {
+        if (i == (this.checkValue.length - 1)) {
+          this.checkValue = [];
+          this.checkflag = false;
+          return;
+        }
+        i++;
+      }
+    }
+  }
+  deleteInspectionOrder() {
+
+    var deleteInspectionOrderList = [];
+    var deleteInspectionOrderString;
+
+    if (this.checkValue.length > 0) {
+      for (var j = 0; j < this.checkValue.length; j++) {
+        if (this.checkValue[j] === true)
+          deleteInspectionOrderList.push(this.inspectionorderKey[j]);
+      }
+      deleteInspectionOrderString = deleteInspectionOrderList.join(',');
+    }
+    this.deleteInspection = {
+      deleteInspectionOrderList: deleteInspectionOrderString,
+      employeekey: this.toServeremployeekey,
+      OrganizationID: this.OrganizationID
+    };
+    this.inspectionService//service for deleting inspection
+      .delete_InspectionOrder(this.deleteInspection)
+      .subscribe((data: any[]) => {
+        this.inspectionordertable.deletechkbox = false;
+        this.checkValue = [];
+        this.checkflag = false;
+        this.inspectionorderKey = [];
+        alert("Inspection deleted successfully");
+        this.filteringInspectionManagerByDate();
+
+      });
+  }
 }

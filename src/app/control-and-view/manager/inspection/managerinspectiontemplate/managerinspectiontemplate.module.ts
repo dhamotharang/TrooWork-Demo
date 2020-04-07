@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { FileSelectDirective } from 'ng2-file-upload';
 import { CalendarModule } from 'primeng/calendar';
 
 import { ManagerinspectiontemplateComponent } from './managerinspectiontemplate.component';
@@ -29,6 +29,6 @@ const routes: Routes = [
     CalendarModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ManagerinspectiontemplateComponent]
+  declarations: [ManagerinspectiontemplateComponent,FileSelectDirective]
 })
 export class ManagerinspectiontemplateModule { }

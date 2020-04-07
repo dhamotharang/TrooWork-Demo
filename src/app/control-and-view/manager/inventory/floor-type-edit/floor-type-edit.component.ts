@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { InventoryService } from '../../../../service/inventory.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-floor-type-edit',
@@ -33,14 +34,15 @@ export class FloorTypeEDitComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router, private _location: Location) {
     this.route.params.subscribe(params => this.flrTypeKey$ = params.FloorTypeKey);
   }
 
   updateFloorType(FloorTypeName) {
-    if (!FloorTypeName) {
+    if (!FloorTypeName || !FloorTypeName.trim()) {
       alert("Please provide a FloorType Name");
     } else {
+      FloorTypeName = FloorTypeName.trim();
       this.inventoryService.checkForNewFloorType(FloorTypeName, this.employeekey, this.OrganizationID).subscribe((data: Array<any>) => {
         if (data.length > 0) {
           alert("FloorType already present");
@@ -48,7 +50,7 @@ export class FloorTypeEDitComponent implements OnInit {
         else {
           this.inventoryService.UpdateFloorType(FloorTypeName, this.flrTypeKey$, this.employeekey, this.OrganizationID).subscribe(res => {
             alert("FloorType updated successfully");
-            this.router.navigateByUrl('/FloorTypeView');
+            this._location.back();
           });
         }
       });
@@ -69,5 +71,8 @@ export class FloorTypeEDitComponent implements OnInit {
     this.inventoryService.EditFloorType(this.flrTypeKey$, this.OrganizationID).subscribe((data: Array<any>) => {
       this.flrType = data[0];
     });
+  }
+  goBack() {
+    this._location.back();
   }
 }

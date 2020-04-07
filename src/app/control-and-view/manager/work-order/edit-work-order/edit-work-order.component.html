@@ -1,11 +1,18 @@
-<app-manager-dash-board></app-manager-dash-board>
-<div style="padding-left: 9rem;padding-right: 9rem;">
+<img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
+<div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
-    <h3 style="margin-left: 40%">EDIT THIS WORK ORDER INSTANCE</h3>
+    <h4 style="margin-left: 40%">EDIT THIS WORK ORDER INSTANCE</h4>
   </div>
 
-  <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-top: 1rem;padding-bottom: 1rem" class="row bg-info col-md-12">
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-top: 1rem;padding-bottom: 1rem"
+    class="row bg-info col-md-12">
     <div class="col-md-6">
+      <div class="form-group">
+        <input type="checkbox" [(ngModel)]="showEqTypes" data-md-icheck
+          (change)="toggleVisibility($event);change_values();" />&nbsp;
+        <label style="margin-top: 2rem;">Equipment Order</label>&nbsp;
+      </div>
+
       <div class="form-group">
         <label>Workorder Type*</label><br>
         <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="workordertypekey"
@@ -16,14 +23,11 @@
           </option>
         </select>
       </div>
-      <div class="form-group">
-        <label style="margin-top: 2rem;">Is Equipment</label>&nbsp;
-        <input type="checkbox" [(ngModel)]="showEqTypes" data-md-icheck (change)="toggleVisibility($event);change_values();" />
-      </div>
+
       <div class="form-group">
         <label>Building*</label><br>
-        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FacilityKey" (change)="getFloorDisp($event.target.value);"
-          required>
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FacilityKey"
+          (change)="getFloorDisp($event.target.value);" required>
           <option value="">--Select--</option>
           <option *ngFor="let b of facilitylist" [value]="b.FacilityKey">
             {{b.FacilityText}}
@@ -32,7 +36,8 @@
       </div>
       <div class="form-group">
         <label>Zone</label><br>
-        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="ZoneKey" [disabled]="!FloorKey||(showEqTypes==true)"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="ZoneKey"
+          [disabled]="!FloorKey||(showEqTypes==true)"
           (change)="getRoomTypeRoom($event.target.value,FacilityKey,FloorKey);" required>
           <option value="">--Select--</option>
           <option *ngFor="let b of zonelist" [value]="b.ZoneKey">
@@ -42,7 +47,8 @@
       </div>
       <div class="form-group">
         <label>Room Type</label><br>
-        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="RoomTypeKey" [disabled]="!FloorKey||(showEqTypes==true)"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="RoomTypeKey"
+          [disabled]="!FloorKey||(showEqTypes==true)"
           (change)="getRoom($event.target.value,ZoneKey,FacilityKey,FloorKey);" required>
           <option value="">--Select--</option>
           <option *ngFor="let b of RoomTypeList" [value]="b.RoomTypeKey">
@@ -52,8 +58,8 @@
       </div>
       <div class="form-group">
         <label>Room</label><br>
-        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="RoomKey" [disabled]="!FloorKey||(showEqTypes==true)"
-          required>
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="RoomKey"
+          [disabled]="!FloorKey||(showEqTypes==true)" required>
           <option value="">--Select--</option>
           <option *ngFor="let b of RoomList" [value]="b.RoomKey">
             {{b.RoomName}}
@@ -68,9 +74,14 @@
       </div>
       <div class="form-group">
         <label>Workorder Notes</label>
-        <textarea class="form-control rounded-0" [(ngModel)]="WorkorderNotes" rows="6" style="resize: none;"></textarea>
+        <textarea class="form-control rounded-1" [(ngModel)]="WorkorderNotes" rows="6"
+          style="resize: none;width: 100% !important"></textarea>
       </div>
-
+      <div class="form-group" *ngIf="WOEditList.WorkorderStatus ==='Cancelled'">
+        <label>Reason for cancellation</label>
+        <textarea class="form-control rounded-1" [(ngModel)]="WOEditList.CancelReason" rows="3"
+          style="resize: none;width: 100% !important"></textarea>
+      </div>
     </div>
 
     <div class="col-md-6">
@@ -85,7 +96,8 @@
       </div>
       <div class="form-group">
         <label>Floor*</label><br>
-        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FloorKey" [disabled]="!FacilityKey"
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FloorKey"
+          [disabled]="!FacilityKey"
           (change)="getZoneRoomTypeRoom($event.target.value,FacilityKey);getEquiment($event.target.value,FacilityKey);"
           required>
           <option value="">--Select--</option>
@@ -97,8 +109,8 @@
       <div class="form-group">
         <label>Equipment Type</label><br>
         <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="EquipmentTypeKey"
-          [disabled]="!(showEqTypes&&FloorKey)" (change)="showEquipment_typechange($event.target.value,FacilityKey,FloorKey)"
-          required>
+          [disabled]="!(showEqTypes&&FloorKey)"
+          (change)="showEquipment_typechange($event.target.value,FacilityKey,FloorKey)" required>
           <option value="">--Select--</option>
           <option *ngFor="let e of EquipmentTypeList" [value]="e.EquipmentTypeKey">
             {{e.EquipmentTypeText}}
@@ -128,8 +140,8 @@
 
       <div class="form-group">
         <label style="margin-left: -1rem" class="col-sm-3 col-md-3 col-lg-3 ">Time*</label><br>
-        <p-calendar [inputStyle]="{'width':'275%','margin-top':'1rem'}" [(ngModel)]="timeValue" [timeOnly]="true"
-          hourFormat="12" required></p-calendar>
+        <p-calendar [inputStyle]="{'width':'275%'}" [(ngModel)]="timeValue" [timeOnly]="true" hourFormat="12" required>
+        </p-calendar>
       </div>
 
       <div class="form-group">
@@ -138,14 +150,27 @@
       </div>
 
       <div class="form-group">
-        <input type="checkbox" [(ngModel)]="isBarcodeRequired" data-md-icheck (change)="toggleVisibility_Barcode($event)" />&nbsp;
+        <input type="checkbox" [(ngModel)]="isBarcodeRequired" data-md-icheck
+          (change)="toggleVisibility_Barcode($event)" />&nbsp;
         <label>Barcode Required</label>&nbsp;
       </div>
+      <div class="form-group">
+        <input type="checkbox" [(ngModel)]="keepActive" data-md-icheck />&nbsp;
+        <label>Keep Active</label>&nbsp;
+      </div>
+
+
+      <div class="form-group">
+        <input type="checkbox" [(ngModel)]="GpsSnapShot" data-md-icheck />&nbsp;
+        <label>Gps SnapShot</label>&nbsp;
+      </div>
+
     </div>
 
     <div style="margin-left:35%">
-      <button type="button" [disabled]="WOEditList.WorkorderStatus!=='Scheduled'" class="btn btn-success" (click)=UpdateWO()><b>UPDATE</b></button>
-      <a routerLink="/ViewWorkOrder" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
+      <button type="button" [disabled]="WOEditList.WorkorderStatus!=='Scheduled'" class="btn btn-success"
+        (click)=UpdateWO()><b>UPDATE</b></button>
+      <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go
           Back </b>
       </a>
       <button type="button" [disabled]="WOEditList.WorkorderStatus!=='Scheduled'" class="btn btn-danger button_style"
@@ -165,8 +190,8 @@
               Are you sure you want to delete this?
             </div>
             <div class="modal-footer">
-              <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide(); DeleteWO()"
-                mdbWavesEffect>Yes</button>
+              <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close"
+                (click)="basicModal.hide(); DeleteWO()" mdbWavesEffect>Yes</button>
               <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.hide()"
                 mdbWavesEffect>No</button>
             </div>

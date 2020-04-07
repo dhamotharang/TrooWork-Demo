@@ -1,19 +1,13 @@
-<app-manager-dash-board></app-manager-dash-board>
 <div style="width: 100%;height: 100%;">
   <div class="bg-dark" style="width: 100%;height: 100%;">
 
     <div style="text-align:center">
-      <h4 class="refer"><b> SEARCH MEETING/TRAINING/EVENT BY </b> </h4>
-    </div>
-    <br>
-    <div style="text-align:center">
-      <a routerLink="/EventView" class="btn btn-primary" routerLinkActive="active">View / Edit
-        Meeting/Training/Event</a>
+      <h4 class="refer"> SEARCH MEETING/TRAINING/EVENT BY </h4>
     </div>
     <br>
 
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
-      <table class="table table-responsive table-hover table-bordered table">
+      <table class="table table-responsive table-hover table-bordered table" style="display: inline-table">
         <thead class="tableHead">
           <td>Action Name</td>
           <td>Event Venue</td>
@@ -31,16 +25,15 @@
             <td>{{x.EventVenue}}</td>
             <td>{{x.EventHost}}</td>
             <td>{{x.EmployeeName}}</td>
-            <td>{{x.EventDate}}</td>
+            <td>{{x.Eventdate}}</td>
             <td>{{x.EventStartTime}} - {{x.EventEndTime}}</td>
             <td *ngIf="x.HasAttended == 0">Not Attended</td>
             <td *ngIf="x.HasAttended == 1">Attended</td>
             <td>{{ x.MeetingNotes }}</td>
             <td>
-              <a style="width: 45%;margin-left: 0.5rem" routerLink="/MeetingTrainingEdit/{{ x.EventKey}}/{{x.ActionKey}}"
-                *ngIf="x.HasAttended == 0" class="btn btn-primary">Edit</a>
+              <a [routerLink]="['MeetingTrainingEdit', x.EventKey,x.ActionKey]" *ngIf="x.HasAttended == 0" class="btn btn-primary">Edit</a>
 
-              <a class="btn btn-danger" *ngIf="x.HasAttended == 0" style="margin-left: 0.4rem;" (click)="basicModal.show();deleteMeetingPass(x.EventKey); ">Delete</a>
+              <a *ngIf="x.HasAttended == 0" class="btn btn-danger" style="margin-left: 0.4rem;" (click)="basicModal.show();deleteMeetingPass(x.EventKey); ">Delete</a>
 
               <button (click)="markAttended(x.EmployeeKey, x.HasAttended, x.EventKey)" *ngIf="x.HasAttended == 0" class="btn btn-success">Mark
                 as Attended</button>

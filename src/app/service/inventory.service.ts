@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StaticSymbolResolver } from '@angular/compiler';
+import { ConectionSettings } from './ConnectionSetting';
 
 @Injectable({
   providedIn: 'root'
@@ -13,21 +14,21 @@ export class InventoryService {
   getBuildings(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/allfacilityByPageNo?pageno=' + page + '&itemsperpage=' + itemsCount + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/allfacilityByPageNo?pageno=' + page + '&itemsperpage=' + itemsCount + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   EditFacility(facKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getfacilityById?facKey=' + facKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getfacilityById?facKey=' + facKey + '&OrganizationID=' + OrgID);
 
   }
   EditFloorAutoGenerate(floorKey, facKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getFloorById?facKey=' + facKey + '&floorKey=' + floorKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getFloorById?facKey=' + facKey + '&floorKey=' + floorKey + '&OrganizationID=' + OrgID);
   }
   UpdateBuilding(FacilityName, FacilityKey, empKey, OrgID) {
-    const url = 'http://localhost:3000/api/updateFacility';
+    const url = ConectionSettings.Url + '/updateFacility';
     const obj = {
       facility_key: FacilityKey,
       facility_name: FacilityName,
@@ -40,7 +41,7 @@ export class InventoryService {
 
   }
   DeleteBuilding(facility_key, empKey, OrgID) {
-    const url = 'http://localhost:3000/api/deleteFacility';
+    const url = ConectionSettings.Url + '/deleteFacility';
     const obj = {
       facility_key: facility_key,
       employeekey: empKey,
@@ -52,7 +53,7 @@ export class InventoryService {
 
   }
   DeleteFloor(FacilityKey, FloorKey, empKey, OrgID) {
-    const url = 'http://localhost:3000/api/deleteFloor';
+    const url = ConectionSettings.Url + '/deleteFloor';
     const obj = {
       FacilityKey: FacilityKey,
       FloorKey: FloorKey,
@@ -67,29 +68,29 @@ export class InventoryService {
   SearchBuilding(SearchFacility, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/searchBuildingList?OrganizationID=' + OrgID + '&searchFacility=' + SearchFacility)
+      .get(ConectionSettings.Url + '/searchBuildingList?OrganizationID=' + OrgID + '&searchFacility=' + SearchFacility)
 
 
   }
   SearchFloor(SearchFloor, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getSearchFloor?OrganizationID=' + OrgID + '&searchFloor=' + SearchFloor)
+      .get(ConectionSettings.Url + '/getSearchFloor?OrganizationID=' + OrgID + '&searchFloor=' + SearchFloor)
 
 
   }
   getFloors(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getAllfacility_floor?pagenumber=' + page + '&itemsPerPage=' + itemsCount + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getAllfacility_floor?pagenumber=' + page + '&itemsPerPage=' + itemsCount + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   getZones(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getAllfacility_floor_zone?pageno=' + page + '&itemsperpage=' + itemsCount + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getAllfacility_floor_zone?pageno=' + page + '&itemsperpage=' + itemsCount + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   createFloors(FacilityKey, FloorName, FloorDescription, empKey, OrgID) {
-    const url = 'http://localhost:3000/api/addnewfloor';
+    const url = ConectionSettings.Url + '/addnewfloor';
     const obj = {
       FacilityKey: FacilityKey,
       FloorDescription: FloorDescription,
@@ -102,7 +103,7 @@ export class InventoryService {
       .post(url, obj);
   }
   createZones(FacilityKey, FloorName, ZoneName, empKey, OrgID) {
-    const url = 'http://localhost:3000/api/addnewZone';
+    const url = ConectionSettings.Url + '/addnewZone';
     const obj = {
       facility: FacilityKey,
       floor: FloorName,
@@ -114,25 +115,35 @@ export class InventoryService {
       .http
       .post(url, obj);
   }
-  CheckNewFloor(FacilityKey,FloorName,employeekey,OrganizationID)
-  {
+  CheckNewFloor(FacilityKey, FloorName, employeekey, OrganizationID) {
     return this
       .http
-      .get('http://localhost:3000/api/checkForNewFloor?FacilityKey='+FacilityKey+'&FloorName='+FloorName+'&employeekey='+employeekey+'&OrganizationID='+OrganizationID);
+      .get(ConectionSettings.Url + '/checkForNewFloor?FacilityKey=' + FacilityKey + '&FloorName=' + FloorName + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
   }
-  getallBuildingList(empKey, OrgID) {
+  getallBuildingList(empKey, orgID) {
     return this
       .http
-      .get('http://localhost:3000/api/allfacility?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      // .get(ConectionSettings.Url + '/allfacility?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/allfacility_SuType?empkey=' + empKey + '&OrganizationID=' + orgID);
+  }
+  CheckNewBuilding(FacilityName, type, employeekey, OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/checkForNewInventory?checkValue=' + FacilityName + '&type=' + type + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
+  }
+  CheckRoomType(RoomTypeName, type, employeekey, OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/checkForNewInventory?checkValue=' + RoomTypeName + '&type=' + type + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
   }
 
   getallFloorList(facKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/floorvaluesByfacKey?key=' + facKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/floorvaluesByfacKey?key=' + facKey + '&OrganizationID=' + OrgID);
   }
   UpdateFloor(FacilityKey, FloorKey, FloorName, FloorDescription, empKey, OrgID) {
-    const url = 'http://localhost:3000/api/updateFloor';
+    const url = ConectionSettings.Url + '/updateFloor';
     const obj = {
       FacilityKey: FacilityKey,
       FloorKey: FloorKey,
@@ -150,24 +161,24 @@ export class InventoryService {
   searchZone(SearchZone, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/searchZoneList?OrganizationID=' + OrgID + '&searchZone=' + SearchZone)
+      .get(ConectionSettings.Url + '/searchZoneList?OrganizationID=' + OrgID + '&searchZone=' + SearchZone)
   }
 
   EditZoneAutoGenerate(zoneKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getZoneById?zoneKey=' + zoneKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getZoneById?zoneKey=' + zoneKey + '&OrganizationID=' + OrgID);
   }
 
 
   checkForZone(FacilityKey, FloorKey, ZoneName, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/checkForNewZone?FacilityKey=' + FacilityKey + '&FloorKey=' + FloorKey + '&ZoneName=' + ZoneName + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkForNewZone?FacilityKey=' + FacilityKey + '&FloorKey=' + FloorKey + '&ZoneName=' + ZoneName + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   updateZone(facilityKey, facilityName, floorName, floorKey, zoneKey, zoneName, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/updateZone";
+    const url = ConectionSettings.Url + "/updateZone";
     const obj = {
       FacilityKey: facilityKey,
       FloorKey: floorKey,
@@ -178,12 +189,12 @@ export class InventoryService {
       employeekey: empKey,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
 
 
   DeleteZone(FacilityKey, FloorKey, ZoneKey, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/deleteZoneById";
+    const url = ConectionSettings.Url + "/deleteZoneById";
     const obj = {
       facility: FacilityKey,
       floorkey: FloorKey,
@@ -191,116 +202,116 @@ export class InventoryService {
       employeekey: empKey,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
 
   checkForNewDepartment(DeptName, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/checkForNewInventory?checkValue=' + DeptName + '&type=department' + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkForNewInventory?checkValue=' + DeptName + '&type=department' + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   addDepartment(DeptName, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/addNewDepartment";
+    const url = ConectionSettings.Url + "/addNewDepartment";
     const obj = {
       DepartmentName: DeptName,
       empkey: empKey,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
 
 
   getDepartmentList(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/viewDepartmentpage?pageno=' + page + '&itemsPerPage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/viewDepartmentpage?pageno=' + page + '&itemsPerPage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   SearchDepartment(DeptName, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/searchDepartmentType?OrganizationID=' + OrgID + '&searchDepartment=' + DeptName)
+      .get(ConectionSettings.Url + '/searchDepartmentType?OrganizationID=' + OrgID + '&searchDepartment=' + DeptName)
   }
 
   DeleteDepartment(deptKey, OrgID) {
-    const uri = "http://localhost:3000/api/deleteDepartment";
+    const url = ConectionSettings.Url + "/deleteDepartment";
     const obj = {
       DepartmentKey: deptKey,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
 
   EditDepartment(deptKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/editviewDepartment?DepartmentKey=' + deptKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/editviewDepartment?DepartmentKey=' + deptKey + '&OrganizationID=' + OrgID);
 
   }
   UpdateDepartment(departmentName, departmentKey, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/editSelectedDepartment";
+    const url = ConectionSettings.Url + "/editSelectedDepartment";
     const obj = {
       DepartmentKey: departmentKey,
       DepartmentName: departmentName,
       empkey: empKey,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
 
 
   SearchEquipment(EquipName, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/searchequipment?OrganizationID=' + OrgID + '&searchEquipment=' + EquipName);
+      .get(ConectionSettings.Url + '/searchequipment?OrganizationID=' + OrgID + '&searchEquipment=' + EquipName);
   }
 
   getEquipmentList(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getAllEquipmentTypeEquipment?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getAllEquipmentTypeEquipment?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
 
   DeleteEquipment(EquipKey, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/deleteEquipmentById";
+    const url = ConectionSettings.Url + "/deleteEquipmentById";
     const obj = {
       EquipmentKey: EquipKey,
       employeekey: empKey,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
 
   getEquipmentTypeList(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getAllEquipmentTypes?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getAllEquipmentTypes?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   SearchEquipmentType(EquipTypeName, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/searchEquipmentTypeList?OrganizationID=' + OrgID + '&searchEquipmentType=' + EquipTypeName);
+      .get(ConectionSettings.Url + '/searchEquipmentTypeList?OrganizationID=' + OrgID + '&searchEquipmentType=' + EquipTypeName);
   }
 
   DeleteEquipmentType(EquipTypeKey, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/deleteEquipmentTypeById";
+    const url = ConectionSettings.Url + "/deleteEquipmentTypeById";
     const obj = {
       equipmentTypeKey: EquipTypeKey,
       employeekey: empKey,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
 
   checkForNewEquipmentType(EquipmentTypeName, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/checkForNewInventory?checkValue=' + EquipmentTypeName + '&type=equipmenttype' + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkForNewInventory?checkValue=' + EquipmentTypeName + '&type=equipmenttype' + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   addEquipmentType(EquipmentTypeName, EquipmentTypeDescription, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/addnewEquipmentType";
+    const url = ConectionSettings.Url + "/addnewEquipmentType";
     const obj = {
       EquipmentType: EquipmentTypeName,
       EquipmentTypeDescription: EquipmentTypeDescription,
@@ -308,17 +319,17 @@ export class InventoryService {
       employeekey: empKey,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
 
   getEquipmentTypeListEdit(equipTypeKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getEquipmentTypeKeyById?equipmentTypeKey=' + equipTypeKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getEquipmentTypeKeyById?equipmentTypeKey=' + equipTypeKey + '&OrganizationID=' + OrgID);
   }
 
   UpdateEquipmentType(equipType, equipTypeDesc, equipTypeKey, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/updateEquipmentType";
+    const url = ConectionSettings.Url + "/updateEquipmentType";
     const obj = {
       EquipmentType: equipType,
       EquipmentTypeDescription: equipTypeDesc,
@@ -326,7 +337,7 @@ export class InventoryService {
       employeekey: empKey,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
 
 
@@ -334,97 +345,97 @@ export class InventoryService {
   getRoomTypeList(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getAllRoomType?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getAllRoomType?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   SearchRoomType(RoomType, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/searchroomType?OrganizationID=' + OrgID + '&searchRoomType=' + RoomType);
+      .get(ConectionSettings.Url + '/searchroomType?OrganizationID=' + OrgID + '&searchRoomType=' + RoomType);
   }
 
   DeleteRoomType(RoomTypeKey, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/deleteRoomTypeById";
+    const url = ConectionSettings.Url + "/deleteRoomTypeById";
     const obj = {
       roomTypeKey: RoomTypeKey,
       employeekey: empKey,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
 
   getMetricValues(OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/metricTypevalues?OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/metricTypevalues?OrganizationID=' + OrgID);
   }
 
   checkRoomType(RoomTypeName, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/checkForNewInventory?checkValue=' + RoomTypeName + '&type=roomtype' + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkForNewInventory?checkValue=' + RoomTypeName + '&type=roomtype' + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   addRoomType(roomTypeName, MetricTypeValue, metricType, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/addnewRoomtype";
+    const url = ConectionSettings.Url + "/addnewRoomtype";
     const obj = {
       RoomTypeName: roomTypeName,
       metric: 1,
-      MetricType: metricType,
-      TypeValue: MetricTypeValue,
+      MetricType: 'default',
+      TypeValue: 1,
       EquipmentTypeKey: -99,
       employeekey: empKey,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
 
   getFloorTypeList(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/allFloorType?pagenumber=' + page + '&itemsPerPage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/allFloorType?pagenumber=' + page + '&itemsPerPage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   SearchFloorType(FloorType, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/searchFloorTypeList?OrganizationID=' + OrgID + '&searchFloorType=' + FloorType);
+      .get(ConectionSettings.Url + '/searchFloorTypeList?OrganizationID=' + OrgID + '&searchFloorType=' + FloorType);
   }
 
   DeleteFloorType(FloorTypeKey, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/deleteFloorTypeById";
+    const url = ConectionSettings.Url + "/deleteFloorTypeById";
     const obj = {
       floortypekey: FloorTypeKey,
       employeekey: empKey,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
 
   getRoomList(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getAllRooms?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getAllRooms?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   SearchRoom(Room, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/searchRoomOnTable?OrganizationID=' + OrgID + '&searchRoom=' + Room + '&employeekey=' + empKey);
+      .get(ConectionSettings.Url + '/searchRoomOnTable?OrganizationID=' + OrgID + '&searchRoom=' + Room + '&employeekey=' + empKey);
   }
 
   DeleteRoom(RoomKey, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/deleteRoomById?roomkey=" + RoomKey + "&employeekey=" + empKey + "&OrganizationID=" + OrgID;
+    const url = ConectionSettings.Url + "/deleteRoomById?roomkey=" + RoomKey + "&employeekey=" + empKey + "&OrganizationID=" + OrgID;
     const obj = {};
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
 
   EditRoomtTypeAutoGenerate(roomTypeKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getRoomTypeById?roomTypeKey=' + roomTypeKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getRoomTypeById?roomTypeKey=' + roomTypeKey + '&OrganizationID=' + OrgID);
   }
 
 
   updateRoomType(roomTypeKey, metricTypeKey, metricType, roomTypeName, MetricTypeValue, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/updateRoomType";
+    const url = ConectionSettings.Url + "/updateRoomType";
     const obj = {
       RoomTypeKey: roomTypeKey,
       RoomTypeName: roomTypeName,
@@ -434,31 +445,32 @@ export class InventoryService {
       employeekey: empKey,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
   getBarcodeForEquipment(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getBarcodeForEquipment?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getBarcodeForEquipment?employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   getAllEquipmentType(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/allequiptype?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      // .get(ConectionSettings.Url + '/allequiptype?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/allequiptype_SuType?employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   checkForNewEquipment(EquipmentTypeKey, EquipmentName, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/checkForNewEquipment?EquipmentTypeKey='+EquipmentTypeKey+'&EquipmentName='+EquipmentName+'&employeekey='+empKey+'&OrganizationID='+OrgID);
+      .get(ConectionSettings.Url + '/checkForNewEquipment?EquipmentTypeKey=' + EquipmentTypeKey + '&EquipmentName=' + EquipmentName + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   checkForNewEquipmentbarcode(barcode, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/checkForBarcodeInventory?Barcode=' + barcode + '&type=equipment' + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkForBarcodeInventory?Barcode=' + barcode + '&type=equipment' + '&OrganizationID=' + OrgID);
   }
   addEquipment(EquipmentName, EquipmentDescription, Barcode, EquipmentTypeKey, FacKey, FloorKey, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/addnewEquipment";
+    const url = ConectionSettings.Url + "/addnewEquipment";
     const obj = {
 
       EquipmentTypeKey: EquipmentTypeKey,
@@ -471,40 +483,40 @@ export class InventoryService {
       employeekey: empKey,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
 
 
   EditEquipmentAutoGenerate(equipKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getEquipmentKeyById?equipmentKey=' + equipKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getEquipmentKeyById?equipmentKey=' + equipKey + '&OrganizationID=' + OrgID);
   }
 
   getallFloorTypeList(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getFloorTypeListForRoomEdit?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getFloorTypeListForRoomEdit?empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   getallRoomTypeList(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getRoomTypeListForRoomEdit?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getRoomTypeListForRoomEdit?empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   getBarcodeForRoom(empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getBarcodeForRoom?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getBarcodeForRoom?employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   getallZoneList(facKey, flrKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getZoneListForRoomEdit?FacilityKey=' + facKey + '&FloorKey=' + flrKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getZoneListForRoomEdit?FacilityKey=' + facKey + '&FloorKey=' + flrKey + '&OrganizationID=' + OrgID);
   }
 
 
   checkNewRoom(facilityKey, floorKey, floorTypeKey, zoneKey, roomTypeKey, roomName, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/checkForNewRoom";
+    const url = ConectionSettings.Url + "/checkForNewRoom";
     const obj = {
 
       FacilityKey: facilityKey,
@@ -516,25 +528,26 @@ export class InventoryService {
       employeekey: empKey,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
   checkRoomBarcode(Barcode, empKey, OrgID) {
 
     return this
       .http
-      .get('http://localhost:3000/api/checkUniqueBarcode_Updation?roomkey=' + -1 + '&barcode=' + Barcode + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkUniqueBarcode_Updation?roomkey=' + -1 + '&barcode=' + Barcode + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
-  checkRoomName(RoomName, OrgID) {
+  //Add check according to building and Floor name
+  checkRoomName(facilityKey, floorKey, RoomName, OrgID) {
 
     return this
       .http
-      .get('http://localhost:3000/api/checkNewRoomName?RoomName=' + RoomName + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkNewRoomName?RoomName=' + RoomName + '&FacilityKey=' + facilityKey + '&FloorKey=' + floorKey + '&OrganizationID=' + OrgID);
 
   }
 
 
   addRoom(facilityKey, floorKey, floorTypeKey, zoneKey, roomTypeKey, roomName, SquareFoot, barcode, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/addnewRoom";
+    const url = ConectionSettings.Url + "/addnewRoom";
     const obj = {
 
       FacilityKey: facilityKey,
@@ -549,7 +562,7 @@ export class InventoryService {
       Barcode: barcode,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
 
 
@@ -558,18 +571,18 @@ export class InventoryService {
 
     return this
       .http
-      .get('http://localhost:3000/api/getRoomById?roomKey=' + RoomKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getRoomById?roomKey=' + RoomKey + '&OrganizationID=' + OrgID);
 
   }
   checkUniqueBarcode_Updation(Barcode, roomkey, employeekey, OrganizationID) {
 
     return this
       .http
-      .get('http://localhost:3000/api/checkUniqueBarcode_Updation?barcode=' + Barcode + '&roomkey=' + roomkey + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
+      .get(ConectionSettings.Url + '/checkUniqueBarcode_Updation?barcode=' + Barcode + '&roomkey=' + roomkey + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
 
   }
   updateRoom(obj) {
-    const url = 'http://localhost:3000/api/updateRoom';
+    const url = ConectionSettings.Url + '/updateRoom';
     return this
       .http
       .post(url, obj);
@@ -578,38 +591,38 @@ export class InventoryService {
   checkForNewFloorType(FloorTypeName, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/checkForNewInventory?checkValue=' + FloorTypeName + '&type=floortype' + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkForNewInventory?checkValue=' + FloorTypeName + '&type=floortype' + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   addNewFloorType(floorTypeName, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/addnewfloortype";
+    const url = ConectionSettings.Url + "/addnewfloortype";
     const obj = {
       FloorTypeName: floorTypeName,
       employeekey: empKey,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
 
   EditFloorType(FloorTypeKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/getFloorTypeById?floortypeKey=' + FloorTypeKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getFloorTypeById?floortypeKey=' + FloorTypeKey + '&OrganizationID=' + OrgID);
 
   }
 
   UpdateFloorType(floorTypeName, FlrTypeKey, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/updateFloorType";
+    const url = ConectionSettings.Url + "/updateFloorType";
     const obj = {
       FloorTypeKey: FlrTypeKey,
       FloorTypeName: floorTypeName,
       employeekey: empKey,
       OrganizationID: OrgID
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
   }
   updateEquipment(equipmentName, equipmentDescription, equipmentBarcode, equipTypeKey, FacKey, floorKey, equipKey, empKey, OrgID) {
-    const uri = "http://localhost:3000/api/updateEquipment";
+    const url = ConectionSettings.Url + "/updateEquipment";
     const obj = {
       EquipmentKey: equipKey,
       EquipmentTypeKey: equipTypeKey,
@@ -623,20 +636,20 @@ export class InventoryService {
       FloorKey: floorKey,
       BarcodeINT: equipmentBarcode
     };
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
 
   }
 
   checkEditedRoomName(facKey, roomName, RoomKey, empKey, OrgID) {
     return this
       .http
-      .get('http://localhost:3000/api/checkForEditedRoomName?roomKey=' + RoomKey + '&RoomName=' + roomName + '&FacilityKey=' + facKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkForEditedRoomName?roomKey=' + RoomKey + '&RoomName=' + roomName + '&FacilityKey=' + facKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
   getAllRoomFilterList(OrgID, bldgKey, flrKey, zKey, rTypeKey, rKey, flrTypeKey, empKey) {
     console.log("service... org" + OrgID + " ..... bldg " + bldgKey + " .....flr " + flrKey + " .....zone " + zKey + " .....rtype " + rTypeKey + " .....room " + rKey + " .....flrtype " + flrTypeKey + " .....emp " + empKey);
-    const uri = "http://localhost:3000/api/viewRoomsByallFilters";
+    const url = ConectionSettings.Url + "/viewRoomsByallFilters";
     const obj = {
       manager: empKey,
       facilitykey: bldgKey,
@@ -647,7 +660,20 @@ export class InventoryService {
       floorTypeKey: flrTypeKey,
       OrganizationID: OrgID
     }
-    return this.http.post(uri, obj);
+    return this.http.post(url, obj);
+  }
+
+  getTemplateDetailsForFeedback(OrgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getTemplateDetailsForFeedbackByOrgId?OrganizationID=' + OrgID);
   }
   // @rodney ends....
+
+  getRoomDetailsNamesList(RoomKey, OrgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getRoomDetailsNamesList?roomKey=' + RoomKey + '&OrganizationID=' + OrgID);
+  }
+
 }

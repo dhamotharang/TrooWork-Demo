@@ -1,23 +1,24 @@
-<app-employee-dashboard></app-employee-dashboard>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
-<div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
+<div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;padding-top: 4.5rem">
     <!-- <div style="width: 100%;height: 100%;">
     <div class="bg-dark" style="width: 100%;height: 100%;"> -->
-    <h4 class="refer"><b>SEARCH WORK ORDER BY</b> </h4>
+    <h4 class="refer">SEARCH WORK ORDER BY </h4>
     <br>
     <div style="width: 92%;height: 100%;margin-left: 2.6rem" class="row bg-info col-md-12">
         <div class="col-md-6">
-            <h3 style="text-align: right"></h3>
+            <h4 style="text-align: right"></h4>
             <div class="form-group">
                 <label>On Date</label><br>
                 <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date"
                           [(ngModel)]="ondate" (onSelection)="viewWO_Filter();"></igx-datePicker> -->
-                <ng-datepicker [options]="options" position="top-right" [(ngModel)]="WorkorderDate" (ngModelChange)="viewEmployeeWorkorderByFilter()"></ng-datepicker>
+                <ng-datepicker [options]="options" position="top-right" [(ngModel)]="WorkorderDate"
+                    (ngModelChange)="filterApplied();"></ng-datepicker>
             </div>
             <div class="form-group">
-                <label>Building*</label><br>
-                <select style="background-color: #D4F4FF !important;width: 75%" class="form-control" [(ngModel)]="FacilityKey"
-                    (change)="selectFloorfromBuildings($event.target.value);viewEmployeeWorkorderByFilter();" required>
+                <label>Building</label><br>
+                <select style="background-color: #D4F4FF !important;width: 75%" class="form-control"
+                    [(ngModel)]="FacilityKey"
+                    (change)="selectFloorfromBuildings($event.target.value);filterApplied();" required>
                     <option value="">--Select--</option>
                     <option *ngFor="let b of facilityList" [value]="b.FacilityKey">
                         {{b.FacilityText}}
@@ -26,9 +27,9 @@
             </div>
             <div class="form-group">
                 <label>Zone</label><br>
-                <select style="background-color: #D4F4FF !important;width: 75%" class="form-control" [(ngModel)]="ZoneKey"
-                    [disabled]="!FloorKey" (change)="viewEmployeeWorkorderByFilter();selectedZone()"
-                    required>
+                <select style="background-color: #D4F4FF !important;width: 75%" class="form-control"
+                    [(ngModel)]="ZoneKey" [disabled]="!FloorKey"
+                    (change)="filterApplied();selectedZone()" required>
                     <option value="">--Select--</option>
                     <option *ngFor="let b of zoneList" [value]="b.ZoneKey">
                         {{b.ZoneName}}
@@ -37,17 +38,19 @@
             </div>
         </div>
         <div class="col-md-6">
-            <h3 style="text-align: right"></h3>
+            <h4 style="text-align: right"></h4>
             <div class="form-group">
                 <label>To Date</label><br>
                 <!-- <igx-datePicker style="margin-top: -0.7rem" cancelButtonLabel="CANCEL" todayButtonLabel="TODAY"
                           [labelVisibility]="none" [value]="date" [(ngModel)]="todate" (onSelection)="viewWO_Filter();"></igx-datePicker> -->
-                <ng-datepicker [options]="options" position="top-right" [(ngModel)]="WorkorderDate2" (ngModelChange)="viewEmployeeWorkorderByFilter()"></ng-datepicker>
+                <ng-datepicker [options]="options" position="top-right" [(ngModel)]="WorkorderDate2"
+                    (ngModelChange)="filterApplied();"></ng-datepicker>
             </div>
             <div class="form-group">
-                <label>Floor*</label><br>
-                <select style="background-color: #D4F4FF !important;width: 75%" class="form-control" [(ngModel)]="FloorKey"
-                    [disabled]="!FacilityKey" (change)="selectZoneRoomtypefromFloor($event.target.value,FacilityKey);viewEmployeeWorkorderByFilter();"
+                <label>Floor</label><br>
+                <select style="background-color: #D4F4FF !important;width: 75%" class="form-control"
+                    [(ngModel)]="FloorKey" [disabled]="!FacilityKey"
+                    (change)="selectZoneRoomtypefromFloor($event.target.value,FacilityKey);filterApplied();"
                     required>
                     <option value="">--Select--</option>
                     <option *ngFor="let b of floorList" [value]="b.FloorKey">
@@ -57,8 +60,8 @@
             </div>
             <div class="form-group">
                 <label>Room Type</label><br>
-                <select style="background-color: #D4F4FF !important;width: 75%" class="form-control" [(ngModel)]="RoomTypeKey"
-                    [disabled]="!FloorKey" (change)="viewEmployeeWorkorderByFilter();"
+                <select style="background-color: #D4F4FF !important;width: 75%" class="form-control"
+                    [(ngModel)]="RoomTypeKey" [disabled]="!FloorKey" (change)="filterApplied();"
                     required>
                     <option value="">--Select--</option>
                     <option *ngFor="let b of roomtypeList" [value]="b.RoomTypeKey">
@@ -67,18 +70,33 @@
                 </select>
             </div>
         </div>
+        <div class="col-md-12">
+            <form [formGroup]="searchform">
+                <div class="active-pink-3 active-pink-4 mb-4" style="margin-top: 1%;margin-right: 1.5rem;margin-bottom: 1%;">
+                    <input class="form-control" name="searchwo" maxlength="20" specialIsAlphaNumeric minlength="3" type="text" placeholder="Search Workorder Type Name,Employee,Room,Notes" aria-label="Search" [(ngModel)]="SearchWO" formControlName="SearchWO" (input)="filterApplied();" style="width: 90%;">
+                    <div *ngIf="searchform.controls.SearchWO.errors?.minlength">Minimum 3 characters required.</div>
+                </div>
+            </form>
+        </div>
+        <div class="row col-md-12">
+            <div style="margin-left: 40%;margin-bottom: 2%;">
+                <button type="button" class="btn btn-success" (click)=workorderViewsEmpByAll()><b>GENERATE</b></button>
+            </div>
+        </div>
+        <br>
     </div>
     <br>
 
     <div class="col-md-12">
-        <form [formGroup]="searchform">
+        <!-- <form [formGroup]="searchform">
             <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
-                <input class="form-control" name="searchwo" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
-                    placeholder="Search Workorder Type Name,Employee,Room,Notes" aria-label="Search" [(ngmodel)]="SearchWO"
-                    formControlName="SearchWO" (input)="searchWO($event.target.value);" style="width: 100%;">
+                <input class="form-control" name="searchwo" maxlength="20" specialIsAlphaNumeric minlength="3"
+                    type="text" placeholder="Search Workorder Type Name,Employee,Room,Notes" aria-label="Search"
+                    [(ngModel)]="SearchWO" formControlName="SearchWO" (input)="searchWO($event.target.value);"
+                    style="width: 100%;">
                 <div *ngIf="searchform.controls.SearchWO.errors?.minlength">Minimum 3 characters required.</div>
             </div>
-        </form>
+        </form> -->
         <!-- </div> -->
         <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
             <table class="table table-responsive table-hover table-bordered table" style="display: inline-table">
@@ -100,37 +118,53 @@
                         <td>{{w.LastName}},{{w.FirstName}}</td>
                         <td *ngIf="w.RoomId==='Dummy'">Refer notes</td>
                         <td *ngIf="w.RoomId!=='Dummy'">{{w.RoomId}}</td>
-                        <td>{{w.EquipmentType}}</td>
+                        <td>{{w.EquipmentName}}</td>
                         <td>{{w.WorkorderTime}}</td>
-                        <td (click)="viewWorkForEdit(w.WorkorderKey)" *ngIf="w.IsReccurring === 1 ">YES</td>
-                        <td (click)="viewWorkForEdit(w.WorkorderKey)" *ngIf="w.IsReccurring === 0 ">NO</td>
-                        <td>{{w.WorkorderNotes}}</td>
                         <td>
-                            <div *ngIf="FinishButton[i] == true ">
-                                <button type="button" class="btn btn-xs button-brown-{{w.WorkorderStatus !== 'Completed'}}"
-                                    (click)="workorderFinish(i)"><b>Finish</b></button>
+                            <span *ngIf="w.IsReccurring === 1 ">YES</span>
+                            <span *ngIf="w.IsReccurring === 0 ">NO</span>
+                        </td>
+                        <!-- <td (click)="viewWorkForEdit(w.WorkorderKey)" *ngIf="w.IsReccurring === 0 ">NO</td> -->
+                        <td style="word-wrap: break-word">{{w.WorkorderNotes}}</td>
+                        <td [style.background]="w.Color">
+                            <div *ngIf="FinishButton[i] == true && w.WorkorderStatus != 'Cancelled' ">
+                                <button *ngIf="w.WorkorderStatus !== 'Completed'" type="button"
+                                    class="btn btn-xs button-brown-{{w.WorkorderStatus !== 'Completed'}}"
+                                    (click)="workorderFinish(i)"><b>FINISH</b></button>&nbsp;
+
+                                <button type="button" *ngIf="w.WorkorderStatus === 'Scheduled'"
+                                    class="btn btn-xs button-brown-{{w.WorkorderStatus !== 'Completed'}}"
+                                    (click)="canceltheWorkorder(w.WorkorderKey)"><b>CANCEL</b></button>&nbsp;
+                                <button type="button" *ngIf="w.WorkorderStatus === 'InProgress'"
+                                    class="btn btn-xs button-brown-{{w.WorkorderStatus !== 'Completed'}}"
+                                    (click)="canceltheWorkorder(w.WorkorderKey)"><b>CANCEL</b></button>&nbsp;
+                                <button type="button" *ngIf="w.WorkorderStatus === 'Delayed'"
+                                    class="btn btn-xs button-brown-{{w.WorkorderStatus !== 'Completed'}}"
+                                    (click)="canceltheWorkorder(w.WorkorderKey)"><b>CANCEL</b></button>&nbsp;
+
                             </div>
                             <div *ngIf="showbutton[i] == true && showbutton[i] !== false">
-                                <button type="button" *ngIf="countCancel1" class="btn btn-warning" (click)="cancelWorkorderSubmission(i)">Cancel</button>
+                                <button type="button" *ngIf="countCancel1" class="btn btn-warning"
+                                    (click)="cancelWorkorderSubmission(i)">Cancel</button>&nbsp;
 
                                 <div *ngIf="w.IsBarcodeRequired == 1">
                                     <label for="barcode" class="col-sm-3 control-label">Barcode</label>
                                     <div class="col-sm-4">
-                                        <input type="text" name="input" [(ngModel)]="BarcodeValue" placeholder="Enter Barcode"
-                                            style="text-align:center;">
+                                        <input type="text" name="input" [(ngModel)]="BarcodeValue"
+                                            placeholder="Enter Barcode" style="text-align:center;">
                                     </div>
                                 </div>
                                 <div *ngIf="w.IsPhotoRequired == 1">
-                                    <input type="file" name="photo" ng2FileSelect [uploader]="uploader" [(ngModel)]='fileName'
-                                        (input)="FileSelected(w.WorkorderKey);" />
+                                    <input type="file" name="photo" ng2FileSelect [uploader]="uploader"
+                                        [(ngModel)]='fileName' (input)="FileSelected(w.WorkorderKey);" />
                                     <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll();"
                                         [disabled]="!uploader.getNotUploadedItems().length">
                                         Upload
                                     </button>
                                 </div>
                                 <!-- <div> -->
-                                <button type="submit" *ngIf="submitFlag" class="btn btn-success" (click)="workorderCompleted(i,w.IsBarcodeRequired,w.IsPhotoRequired,w.WorkorderKey,file)"
-                                    style="width:86px;margin-top: 7px;margin-left: -2px">SUBMIT</button>
+                                <button type="submit" *ngIf="submitFlag" class="btn btn-success"
+                                    (click)="workorderCompleted(i,w.IsBarcodeRequired,w.IsPhotoRequired,w.WorkorderKey,file)">SUBMIT</button>
                             </div>
                         </td>
                     </tr>
@@ -139,8 +173,8 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="btn btn-success" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
-            <button class="btn btn-success" (click)="nextPage()" *ngIf="showHide2">Next >></button>
+            <button class="btn btn-success" style="float: left;" (click)="previousPage()" *ngIf="showHide1">&#60;&#60; Previous</button>
+            <button class="btn btn-success" style="float: right;" (click)="nextPage()" *ngIf="showHide2">Next >></button>
         </div>
     </div>
 </div>

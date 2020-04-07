@@ -10,6 +10,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { NgDatepickerModule} from 'ng2-datepicker';
 import { ViewWorkOrdersComponent } from './view-work-orders.component';
 import { ManagerDashBoardModule } from '../../../dashboard/user-dashboards/manager-dash-board/manager-dash-board.module';
+import { AgmCoreModule } from '@agm/core';
 
 const routes: Routes = [
   {
@@ -29,7 +30,15 @@ const routes: Routes = [
     CalendarModule,
     ReactiveFormsModule,
     NgDatepickerModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    AgmCoreModule.forRoot({
+      // apiKey: 'AIzaSyDaciakO8dZrELxT9XoQvab6MYmhBSC4i0'       old gm api key
+      apiKey: 'AIzaSyBL6NLlMU2vrJk4CRlI0FQa4BEQE_SiQrg'
+      /* apiKey is required, unless you are a 
+      premium customer, in which case you can 
+      use clientId 
+      */
+    })
   ],
   declarations: [ViewWorkOrdersComponent]
 })

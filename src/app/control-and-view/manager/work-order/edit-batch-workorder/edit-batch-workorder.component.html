@@ -1,7 +1,7 @@
-<app-manager-dash-board></app-manager-dash-board>
+
 <div style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
-    <h3 style="margin-left: 40%">EDIT BATCH WORK ORDER</h3>
+    <h4 style="margin-left: 40%">EDIT BATCH WORK ORDER</h4>
   </div>
 
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-top: 1rem;padding-bottom: 1rem" class="row bg-info col-md-12">
@@ -62,7 +62,7 @@
       </div>
       <div class="form-group">
         <label>Room Name List</label>
-        <textarea class="form-control rounded-0" [(ngModel)]="RoomNameList" rows="6" style="resize: none;" [disabled]="true"></textarea>
+        <textarea class="form-control rounded-1" [(ngModel)]="RoomNameList" rows="6" style="resize: none;" [disabled]="true"></textarea>
       </div>
       <div class="form-group">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">From When</label>
@@ -72,7 +72,7 @@
       </div>
       <div class="form-group">
         <label>Workorder Notes</label>
-        <textarea class="form-control rounded-0" maxlength="200" [(ngModel)]="WorkorderNotes" rows="8" style="resize: none;"></textarea>
+        <textarea class="form-control rounded-1" maxlength="200" [(ngModel)]="WorkorderNotes" rows="8" style="resize: none;"></textarea>
       </div>
     </div>
 
@@ -143,7 +143,7 @@
       </div>
       <div class="form-group">
         <label>Equipment Name List</label>
-        <textarea class="form-control rounded-0" [(ngModel)]="EquipmentNameList" rows="6" style="resize: none;"
+        <textarea class="form-control rounded-1" [(ngModel)]="EquipmentNameList" rows="6" style="resize: none;"
           [disabled]="true"></textarea>
       </div>
       <div class="form-group">
@@ -153,6 +153,10 @@
       <div class="form-group">
         <input type="checkbox" [(ngModel)]="isBarcodeRequired" data-md-icheck (change)="toggleVisibility_Barcode($event)" />&nbsp;
         <label>Barcode Required</label>&nbsp;
+      </div>
+      <div class="form-group">
+        <input type="checkbox" [(ngModel)]="GpsSnapShot" data-md-icheck />&nbsp;
+        <label>Gps SnapShot</label>&nbsp;
       </div>
       <div style="visibility: hidden">
         <label style="margin-top: 2rem;" class="col-sm-3 col-md-3 col-lg-3 ">Timings</label>
@@ -212,13 +216,13 @@
     <div class="col-md-12">
 
       <div class="form-group" *ngIf="weeklyrecurring==true">
-        <label> Sun <input type="checkbox" [(ngModel)]="weektable_one" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Mon <input type="checkbox" [(ngModel)]="weektable_two" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Tue <input type="checkbox" [(ngModel)]="weektable_three" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Wed <input type="checkbox" [(ngModel)]="weektable_four" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Thu <input type="checkbox" [(ngModel)]="weektable_five" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Fri <input type="checkbox" [(ngModel)]="weektable_six" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Sat <input type="checkbox" [(ngModel)]="weektable_seven" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_one" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Sun </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_two" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Mon </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_three" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Tue </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_four" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Wed </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_five" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Thu </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_six" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Fri </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_seven" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Sat </label>&nbsp;
         <!-- </div>
       <div class="form-group" *ngIf="weeklyrecurring==true"> -->
         <label style="margin-top: 2rem;margin-left: 7.5rem;margin-right: -1rem;" class="col-sm-3 col-md-3 col-lg-3 ">Time*</label>
@@ -290,7 +294,7 @@
     <div style="margin-left:35%">
       <button type="button" class="btn btn-success" (click)=UpdateWO()><b>UPDATE</b></button>
 
-      <a routerLink="/ViewBatchWorkorder" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
+      <a (click)='goBack()' class="btn btn-warning" style="color:white !important" ><b>Go
           Back
         </b>
       </a>

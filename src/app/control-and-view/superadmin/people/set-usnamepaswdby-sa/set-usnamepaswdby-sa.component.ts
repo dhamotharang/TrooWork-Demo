@@ -3,6 +3,7 @@ import { People } from '../../../../model-class/People';
 import { PeopleServiceService } from '../../../../service/people-service.service';
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
+import { ConectionSettings } from '../../../../service/ConnectionSetting';
 
 @Component({
   selector: 'app-set-usnamepaswdby-sa',
@@ -60,7 +61,8 @@ export class SetUsnamepaswdbySAComponent implements OnInit {
           } else {
             this.peopleService.setLoginCreds(this.username, this.password, this.empKey$, this.employeekey, this.userRoleTypeKey$, this.OrganizationID)
               .subscribe((data: any[]) => {
-                this.router.navigateByUrl('/viewEmployeeAdmin');
+              
+                this.router.navigate(['/AdminDashboard', { outlets: { AdminOut: ['viewEmployeeAdmin'] } }])
                 if (data[0].length > 0) {
                   this.peopleService.getUserEmail(this.username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
                     this.managerMail = data[0].EmailID;
@@ -77,8 +79,8 @@ export class SetUsnamepaswdbySAComponent implements OnInit {
                         subject: 'Login Credentials',
                         text: message
                       };
-                      const uri = "http://localhost:3000/api/sendmail";
-                      return this.http.post(uri, obj)
+                      const url = ConectionSettings.Url+"/sendmail";
+                      return this.http.post(url, obj)
                         .subscribe(res => console.log('Mail Sent Successfully...'));
                     }
                   });

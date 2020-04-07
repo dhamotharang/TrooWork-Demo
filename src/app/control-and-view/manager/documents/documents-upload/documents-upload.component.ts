@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DocumentserviceService } from '../../../../service/documentservice.service';
 import { Documents } from '../../../../model-class/Documents';
 import { FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
-
-const URL = 'http://localhost:3000/api/upload_test';
+import { ConectionSettings } from '../../../../service/ConnectionSetting';
+const url = ConectionSettings.Url + '/upload_test';
 
 @Component({
   selector: 'app-documents-upload',
@@ -57,7 +57,7 @@ export class DocumentsUploadComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
-    this.FormtypeId="";
+    this.FormtypeId = "";
 
     this.documentService
       .getDocumentFolderNamesfordropdown(this.employeekey, this.OrganizationID)
@@ -68,24 +68,21 @@ export class DocumentsUploadComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       console.log('ImageUpload:uploaded:', item, status, response);
-      // if(!(this.FormtypeId) )
-      // {
-      //   return;
-      // }
       alert('File uploaded successfully');
     };
   }
   FileSelected() {
-    if(!(this.FormtypeId) )
-    {
+    if (!(this.FormtypeId)) {
       alert("Please choose Document Folder");
       return;
-  }   
-
+    }
+    if(this.DescName){
+      this.DescName=this.DescName.trim();
+    }
     this.addUrl = '?formtypeId=' + this.FormtypeId + '&formDesc=' + this.DescName + '&empkey=' + this.employeekey + '&OrganizationID=' + this.OrganizationID;
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
-      item.url = URL + this.addUrl;
+      item.url = url + this.addUrl;
     }
     this.uploader.uploadAll();
   }

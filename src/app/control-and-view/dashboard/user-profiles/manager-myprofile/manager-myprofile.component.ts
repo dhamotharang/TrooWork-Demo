@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../../../service/login.service';
 import { Login } from '../../../../model-class/login';
-
+import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { ConectionSettings } from '../../../../service/ConnectionSetting';
+const url = ConectionSettings.Url + '/imgupload';
 @Component({
   selector: 'app-manager-myprofile',
   templateUrl: './manager-myprofile.component.html',
@@ -15,6 +17,11 @@ export class ManagerMyprofileComponent implements OnInit {
   IsSupervisor: Number;
   OrganizationID: Number;
   isAuthenticated: boolean;
+  DescName: any;
+  addUrl;
+  idimageupload;
+  image;
+  
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -32,6 +39,7 @@ export class ManagerMyprofileComponent implements OnInit {
     }
     return window.atob(output); 
   }
+  public uploader: FileUploader = new FileUploader({ url: '', itemAlias: 'photo' });
   constructor(private loginService: LoginService) { }
 
 
@@ -51,5 +59,49 @@ export class ManagerMyprofileComponent implements OnInit {
       .subscribe((data: Login[]) => {
         this.profile = data;
       });
+      this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+      console.log('ImageUpload:uploaded:', item, status, response);
+      alert('File uploaded successfully');
+      this.loginService.getimage(this.employeekey, this.OrganizationID,this.idimageupload)
+    .subscribe((data: any[]) => {
+      if(data.length>0){
+        this.image = data[0].FileName;
+      }
+      else{
+        this.image =null;
+      }
+      
+    });
+      
+    };
+    this.loginService.getimage(this.employeekey, this.OrganizationID,this.idimageupload)
+    .subscribe((data: any[]) => {
+      if(data.length>0){
+        this.image = data[0].FileName;
+      }
+      else{
+        this.image =null;
+      }
+      
+    });
+  }
+  ImgUpload() {
+    // if (!(this.profile)) {
+    //   alert("Please choose Document Folder");
+    //   return;
+    // }
+    this.addUrl = '?empkey=' + this.employeekey + '&OrganizationID=' + this.OrganizationID;
+    this.uploader.onBeforeUploadItem = (item) => {
+
+      item.withCredentials = false;
+      item.url =url + this.addUrl;
+      
+     
+    }
+    
+    this.uploader.uploadAll();
+    
+  
   }
 }

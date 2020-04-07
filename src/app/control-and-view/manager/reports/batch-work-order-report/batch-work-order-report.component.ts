@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Reports } from '../../../../model-class/reports';
 import { ReportServiceService } from '../../../../service/report-service.service';
 import { ExcelserviceService } from '../../../../service/excelservice.service';
-import * as FileSaver from 'file-saver';
+import * as FileSaver from 'file-saver';//for excel
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
 @Component({
@@ -73,12 +73,13 @@ export class BatchWorkOrderReportComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
-    this.ReportServiceService
+    this.ReportServiceService//service for getting schedule names
       .getallbatchschedules(this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.bacthschedules = data;
       });
   }
+  //generating report for selected schedulename
   getBatchSchedule(Workorder_ScheduleKey) {
     if(!Workorder_ScheduleKey)
     {
@@ -166,6 +167,7 @@ export class BatchWorkOrderReportComponent implements OnInit {
       });
     }
   }
+  //export to excel function
   exportToExcel(): void {
     for (var i = 0; i < this.reportarray.length; i++) {
       var buildingname = this.reportarray[i].FacilityName;

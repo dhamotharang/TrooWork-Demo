@@ -1,17 +1,14 @@
-<app-manager-dash-board></app-manager-dash-board>
-
-
 <div style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="container"> -->
   <div class="row col-md-12 ">
-    <h3 style="margin-left: 25rem;">CREATE QUICK WORK ORDER</h3>
+    <h4 style="margin-left: 42%;">CREATE QUICK WORK ORDER</h4>
   </div>
 
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
     <div class="col-md-6">
       <h3 style="text-align: right"></h3>
       <div class="form-group">
-        <label>Employee</label><br>
+        <label>Employee*</label><br>
         <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="EmployeeKey" required>
           <option value="">--Select--</option>
           <option *ngFor="let e of EmployeeOption" [value]="e.EmployeeKey">
@@ -29,15 +26,15 @@
         </select>
       </div>
       <div class="form-group" style="margin-top: 3rem">
-        <label>Photo Required</label>&nbsp;
-        <input type="checkbox" [(ngModel)]="isPhotoRequired" data-md-icheck (change)="toggleVisibility($event)" />
+        <input type="checkbox" [(ngModel)]="isPhotoRequired" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;
+        <label>Photo Required</label>
       </div>
     </div>
     <div class="col-md-6">
       <h3 style="text-align: right"></h3>
       <div class="form-group">
         <label>Workorder Notes*</label>
-        <textarea class="form-control rounded-0" maxlength="200" [(ngModel)]="WorkorderNotes" rows="5" style="resize: none;"></textarea>
+        <textarea class="form-control rounded-1" maxlength="200" [(ngModel)]="WorkorderNotes" rows="5" style="resize: none;"></textarea>
       </div>
       <div class="form-group">
         <label>Priority Level</label><br>
@@ -50,13 +47,9 @@
       </div>
     </div>
     <br>
-    <div class="row col-md-12">
-      <div class="col-md-6"></div>
-      <div style="text-align:center">
-        <a style="color:white !important" class="btn btn-success" (click)="saveQuickWorkOrder()"><b>SAVE</b>
-        </a>
-
-      </div>
+    <div class="row col-md-12" style="margin-left: 42%">
+      <a style="color:white !important" class="btn btn-success" (click)="saveQuickWorkOrder()"><b>SAVE</b>
+      </a>
     </div>
   </div>
 </div>

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-zone-edit',
@@ -17,7 +18,7 @@ export class ZoneEditComponent implements OnInit {
 
   floorList: Inventory[] = [];
   buildingList: Inventory[] = [];
-  zoneEditValues: Inventory[];
+  zoneEditValues;
   zone: Inventory[];
 
   role: String;
@@ -43,7 +44,7 @@ export class ZoneEditComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router, private _location: Location) {
     this.route.params.subscribe(params => this.facKey$ = params.Facility_Key);
     this.route.params.subscribe(params => this.floorKey$ = params.Floor_Key);
     this.route.params.subscribe(params => this.zoneKey$ = params.Zone_Key);
@@ -55,47 +56,40 @@ export class ZoneEditComponent implements OnInit {
       .getallFloorList(facKey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.floorList = data;
+        this.zoneEditValues.FloorKey = "";
       });
   }
 
   updateZone(FacilityKey, FacilityName, FloorName, FloorKey, ZoneKey, ZoneName) {
-   
-   if(ZoneName && !ZoneName.trim()){
+
+    if (!(this.zoneEditValues.FacilityKey)) {
+      alert("Please Choose Building!");
+      return;
+    }
+    if (!(this.zoneEditValues.FloorKey)) {
+      alert("Please Choose Floor!");
+      return;
+    }
+    if (!(this.zoneEditValues.ZoneName) || !(this.zoneEditValues.ZoneName.trim())) {
       alert("Please Enter Zone Name!");
       return;
     }
-    if (!FacilityKey) {
-      FacilityKey = null;
-      alert("Building name is not provided !");
-    }
-    else if (!FloorKey) {
-      FloorKey = null;
-      alert("Floor is not provided !");
-    }
-    else if (!ZoneName) {
-      ZoneName = null;
-      alert("Zone Name is not provided !");
-    }
-    else {
-
-      this.inventoryService.checkForZone(FacilityKey, FloorKey, ZoneName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
-        this.zone = data;
-        if (data.length > 0) {
-          alert("Zone already present !");
-        }
-        else if (data.length == 0) {
-          this.inventoryService.updateZone(FacilityKey, FacilityName, FloorName, FloorKey, ZoneKey, ZoneName, this.employeekey, this.OrganizationID)
-            .subscribe(res => {
-              alert("Zone updated successfully");
-              this.router.navigateByUrl('/Zoneview');
-            });
-
-
-        }
-      });
-
-
-    }
+    this.zoneEditValues.ZoneName = this.zoneEditValues.ZoneName.trim();
+    ZoneName = ZoneName.trim();
+    
+    this.inventoryService.checkForZone(FacilityKey, FloorKey, ZoneName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
+      this.zone = data;
+      if (data.length > 0) {
+        alert("Zone already present !");
+      }
+      else if (data.length == 0) {
+        this.inventoryService.updateZone(FacilityKey, FacilityName, FloorName, FloorKey, ZoneKey, ZoneName, this.employeekey, this.OrganizationID)
+          .subscribe(res => {
+            alert("Zone updated successfully");
+            this._location.back();
+          });
+      }
+    });
   }
   ngOnInit() {
     var token = localStorage.getItem('token');
@@ -126,5 +120,8 @@ export class ZoneEditComponent implements OnInit {
       .subscribe((data: Inventory[]) => {
         this.zoneEditValues = data;
       });
+  }
+  goBack() {
+    this._location.back();
   }
 }

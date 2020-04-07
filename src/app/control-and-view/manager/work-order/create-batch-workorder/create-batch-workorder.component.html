@@ -1,7 +1,6 @@
-<app-manager-dash-board></app-manager-dash-board>
 <div style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
-    <h3 style="margin-left: 40%">CREATE BATCH WORK-ORDER</h3>
+    <h4 style="margin-left: 40%">CREATE BATCH WORK-ORDER</h4>
   </div>
 
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-top: 1rem;padding-bottom: 1rem" class="row bg-info col-md-12">
@@ -17,8 +16,8 @@
         </select>
       </div>
       <div class="form-group" style="margin-top: 2.8rem">
-        <label style="margin-top: 2rem;">Is Equipment</label>&nbsp;
-        <input type="checkbox" [(ngModel)]="showEqTypes" data-md-icheck (change)="toggleVisibility_Equipment($event);change_values();" />
+        <input type="checkbox" [(ngModel)]="showEqTypes" data-md-icheck (change)="toggleVisibility_Equipment($event);change_values();" />&nbsp;
+        <label style="margin-top: 2rem;">Equipment Order</label>
       </div>
       <div class="form-group">
         <label>Building*</label><br>
@@ -68,7 +67,7 @@
       </div>
       <div class="form-group">
         <label>Workorder Notes</label>
-        <textarea class="form-control rounded-0" [(ngModel)]="workorderNotes" rows="6" style="resize: none;"></textarea>
+        <textarea class="form-control rounded-1" [(ngModel)]="workorderNotes" rows="6" style="resize: none;width: 100% !important;max-width: 100% !important;"></textarea>
       </div>
     </div>
 
@@ -148,6 +147,10 @@
         <label>Barcode Required</label>&nbsp;
       </div>
       <div class="form-group">
+        <input type="checkbox" [(ngModel)]="GpsSnapShot" data-md-icheck />&nbsp;
+        <label>Gps SnapShot</label>&nbsp;
+      </div>
+      <div class="form-group">
         <input type="radio" name="recurringevent" [(ngModel)]="rec1" [value]="dailyrecurring" (click)='dailyrecurringChange()'>
         &nbsp;
         <label style="margin-top: 2rem;">Daily </label>&nbsp;&nbsp;
@@ -201,13 +204,13 @@
     <div class="col-md-12">
 
       <div class="form-group" *ngIf="weeklyrecurring==true">
-        <label> Sun <input type="checkbox" [(ngModel)]="weektable_one" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Mon <input type="checkbox" [(ngModel)]="weektable_two" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Tue <input type="checkbox" [(ngModel)]="weektable_three" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Wed <input type="checkbox" [(ngModel)]="weektable_four" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Thu <input type="checkbox" [(ngModel)]="weektable_five" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Fri <input type="checkbox" [(ngModel)]="weektable_six" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
-        <label> Sat <input type="checkbox" [(ngModel)]="weektable_seven" data-md-icheck (change)="toggleVisibility($event)" /></label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_one" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Sun </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_two" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Mon </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_three" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Tue </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_four" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Wed </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_five" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Thu </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_six" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Fri </label>&nbsp;
+          <input type="checkbox" [(ngModel)]="weektable_seven" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;<label> Sat </label>&nbsp;
         <!-- </div>
       <div class="form-group" *ngIf="weeklyrecurring==true"> -->
         <label style="margin-top: 2rem;margin-left: 7.5rem;margin-right: -1rem;" class="col-sm-3 col-md-3 col-lg-3 ">Time*</label>

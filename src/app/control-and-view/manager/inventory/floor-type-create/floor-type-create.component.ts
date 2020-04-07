@@ -3,6 +3,7 @@ import { Inventory } from '../../../../model-class/Inventory';
 import { InventoryService } from '../../../../service/inventory.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-floor-type-create',
@@ -35,17 +36,18 @@ export class FloorTypeCreateComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private fb: FormBuilder, private inventoryServ: InventoryService, private router: Router) {
+  constructor(private fb: FormBuilder, private inventoryServ: InventoryService, private router: Router, private _location: Location) {
   }
 
   addFloorType(FloorTypeName) {
-    if(FloorTypeName && !FloorTypeName.trim()){
+    if (FloorTypeName && !FloorTypeName.trim()) {
       alert("Please Enter Floor Type Name!");
       return;
     }
     if (!FloorTypeName) {
       alert("Please provide a Floor Type Name");
     } else {
+      FloorTypeName = FloorTypeName.trim();
       this.inventoryServ.checkForNewFloorType(FloorTypeName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
         this.flrType = data;
         if (data.length > 0) {
@@ -54,7 +56,7 @@ export class FloorTypeCreateComponent implements OnInit {
         else if (data.length == 0) {
           this.inventoryServ.addNewFloorType(FloorTypeName, this.employeekey, this.OrganizationID).subscribe(res => {
             alert("FloorType created successfully");
-            this.router.navigateByUrl('/FloorTypeView');
+            this._location.back();
           });
         }
       });
@@ -72,6 +74,8 @@ export class FloorTypeCreateComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
   }
-
+  goBack() {
+    this._location.back();
+  }
 
 }

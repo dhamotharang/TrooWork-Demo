@@ -6,6 +6,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmployeeDashbordModule } from '../../user-dashboards/employee-dashboard/employee-dashbord.module';
 import{ EmployeeProfileComponent }   from './employee-profile.component';
+import { FileSelectDirective } from 'ng2-file-upload';
 const routes: Routes = [
   {
     path: '',
@@ -23,6 +24,6 @@ const routes: Routes = [
     EmployeeDashbordModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [EmployeeProfileComponent]
+  declarations: [EmployeeProfileComponent,FileSelectDirective]
 })
 export class EmployeeProfileModule { }

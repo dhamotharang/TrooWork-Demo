@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { People } from '../../../../model-class/People';
 import { PeopleServiceService } from '../../../../service/people-service.service';
-import { ActivatedRoute, Router  } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
+import { ConectionSettings } from '../../../../service/ConnectionSetting';
 
 @Component({
   selector: 'app-reset-pass-word',
@@ -44,44 +45,54 @@ export class ResetPassWordComponent implements OnInit {
   }
 
   resetUserPassword(username, password, userLoginId) {
-    if(!(username)){
+    if (!(username) || !username.trim()) {
       alert("Please Enter User Name!");
-        return;
+      return;
     }
-    else{
-    this.peopleService.resetUserPassword(username, password, this.empKey$, userLoginId, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
-      this.response = data[0];
-      this.build = data;
-      this.router.navigateByUrl('/manageLoginCredentials');
-    });
-
-    if (this.build.length > 0) { // resetUserPassword returns username. just to make sure that the reset action was done properly, we are returnig the username
-
-      this.peopleService.getUserEmail(username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
-
-        this.managerMail = data[0].EmailID;
-        this.userMail = data[0].newmail;
-
-        if (this.userMail == null) {
-          alert("Password Changed Successfully! Mail not send , Mail-Id not found !");
-        } else {
-          var message = 'Your Username is ' + username + ' and ' + 'Your Password is ' + password + "                https://troowork.azurewebsites.net";
-          console.log(message);
-          const obj = {
-            from: this.managerMail,
-            to: this.userMail,
-            subject: 'Login Credentials',
-            text: message
-          };
-          const uri = "http://localhost:3000/api/sendmail";
-          return this.http.post(uri, obj)
-            .subscribe(res => console.log('Mail Sent Successfully...'));
+    else {
+      if(username){
+        username=username.trim();
+      }
+      this.peopleService.resetUserPassword(username, password, this.empKey$, userLoginId, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+        this.response = data[0];
+        this.build = data;
+        // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['manageLoginCredentials'] } }]);
+        if (this.role == 'Manager') {
+          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['manageLoginCredentials'] } }]);
         }
-
+        // else  if(this.role=='Employee' && this.IsSupervisor==1){
+        else if (this.role == 'Supervisor') {
+          this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['manageLoginCredentials'] } }]);
+        }
       });
 
+      if (this.build.length > 0) { // resetUserPassword returns username. just to make sure that the reset action was done properly, we are returnig the username
+
+        this.peopleService.getUserEmail(username, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
+
+          this.managerMail = data[0].EmailID;
+          this.userMail = data[0].newmail;
+
+          if (this.userMail == null) {
+            alert("Password Changed Successfully! Mail not send , Mail-Id not found !");
+          } else {
+            var message = 'Your Username is ' + username + ' and ' + 'Your Password is ' + password + "                https://troowork.azurewebsites.net";
+            console.log(message);
+            const obj = {
+              from: this.managerMail,
+              to: this.userMail,
+              subject: 'Login Credentials',
+              text: message
+            };
+            const url = ConectionSettings.Url + "/sendmail";
+            return this.http.post(url, obj)
+              .subscribe(res => console.log('Mail Sent Successfully...'));
+          }
+
+        });
+
+      }
     }
-  }
   }
   ngOnInit() {
 
@@ -98,5 +109,15 @@ export class ResetPassWordComponent implements OnInit {
       this.build = data;
     });
 
+  }
+  goBack() {
+    // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['manageLoginCredentials'] } }]);
+    if (this.role == 'Manager') {
+      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['manageLoginCredentials'] } }]);
+    }
+    // else  if(this.role=='Employee' && this.IsSupervisor==1){
+    else if (this.role == 'Supervisor') {
+      this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['manageLoginCredentials'] } }]);
+    }
   }
 }

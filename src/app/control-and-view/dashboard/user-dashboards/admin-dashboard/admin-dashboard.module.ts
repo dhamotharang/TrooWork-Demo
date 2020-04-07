@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { AdminDashboardComponent} from './admin-dashboard.component';
-import { AdminChangePasswordModule } from '../../user-password-changes/admin-change-password/admin-change-password.module';
+import { AdminDashboardComponent } from './admin-dashboard.component';
+// import { CreateshiftModule } from '../../../admin/createshift/createshift.module';
+// import { EditshiftModule } from '../../../admin/editshift/editshift.module';
+// import { ViewshiftModule } from '../../../admin/viewshift/viewshift.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 const routes: Routes = [
   {
     path: 'AdminDashboard',
@@ -98,13 +101,22 @@ const routes: Routes = [
         loadChildren: '../../user-password-changes/admin-change-password/admin-change-password.module#AdminChangePasswordModule',
 
       },
+      {
+        path: 'changePasswordAdmin/:EmployeeKey/:UserRoleName/:IsSupervisor',
+        outlet: 'AdminOut',
+        loadChildren: '../../user-password-changes/admin-change-password/admin-change-password.module#AdminChangePasswordModule',
+
+      },
+
+
     ]
   }
 ];
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MDBBootstrapModule.forRoot()
   ],
   declarations: [AdminDashboardComponent]
 })

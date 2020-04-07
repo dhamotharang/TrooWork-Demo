@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { InventoryService } from '../../../../service/inventory.service';
 import { Inventory } from '../../../../model-class/Inventory';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-equipment-type-edit',
@@ -35,26 +36,35 @@ export class EquipmentTypeEditComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router) {
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private router: Router, private _location: Location) {
     this.route.params.subscribe(params => this.equipTypeKey$ = params.EquipTypeKey);
   }
 
   updateEquipmentType(equipTypeKey, equipType, equipTypeDesc) {
 
-    if (!equipType) {
+    if (!equipType || !equipType.trim()) {
       alert("Please provide a Equipment Type");
-    } else if (!equipTypeDesc) {
+    } else if (!equipTypeDesc || !equipTypeDesc.trim()) {
       alert("Please provide a Equipment Type Description");
     } else {
+      equipType = equipType.trim();
+      equipTypeDesc = equipTypeDesc.trim();
       this.inventoryService.checkForNewEquipmentType(equipType, this.employeekey, this.OrganizationID).subscribe((data: Array<any>) => {
         this.equipType = data;
         if (this.equipType[0].count == 1) {
           alert("Equipment Type already present");
+          this.inventoryService.getEquipmentTypeListEdit(this.equipTypeKey$, this.OrganizationID).subscribe((data: Array<any>) => {
+            console.log(this.equipTypeKey$);
+      
+            this.equipType = data[0];
+            return;
+          });
+          
         }
         else {
           this.inventoryService.UpdateEquipmentType(equipType, equipTypeDesc, equipTypeKey, this.employeekey, this.OrganizationID).subscribe(res => {
             alert("Equipment Type  updated successfully");
-            this.router.navigateByUrl('/EquipmentTypeView');
+            this._location.back();
           });
         }
       });
@@ -74,9 +84,12 @@ export class EquipmentTypeEditComponent implements OnInit {
 
     this.inventoryService.getEquipmentTypeListEdit(this.equipTypeKey$, this.OrganizationID).subscribe((data: Array<any>) => {
       console.log(this.equipTypeKey$);
-  
+
       this.equipType = data[0];
       console.log(data.length);
     });
+  }
+  goBack() {
+    this._location.back();
   }
 }

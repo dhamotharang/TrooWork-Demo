@@ -1,33 +1,57 @@
-<app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div *ngIf="!loading" style="width: 100%;height: 100%;">
   <div class="bg-dark" style="width: 100%;height: 100%;">
 
     <div style="text-align:center">
-      <h4 class="refer"><b> SEARCH MEETING/TRAINING/EVENT BY </b> </h4>
+      <h4 class="refer">SEARCH MEETING/TRAINING/EVENT BY </h4>
     </div>
     <br>
     <div style="text-align:center">
-      <a routerLink="/EventView" class="btn btn-primary" routerLinkActive="active"><b>View Meeting/Training/Event</b></a>
+      <a [routerLink]="['EventView']" class="btn btn-primary"><b>View / Edit
+          Meeting/Training/Event</b></a>
     </div>
     <br>
     <div class="form-row col-md-12 bg-info" style="margin-left: 1.5rem;margin-bottom: 1rem;width: 96.5%;padding-top: 1rem;padding-bottom: 1rem;padding-left: 5rem;padding-right: 0rem">
       <div class="col-md-6 ">
         <div class="form-group" style="margin-left: 0.7rem;width: 75%;">
           <label for="people">Job Title</label>
-          <ng-multiselect-dropdown [placeholder]="'Selectjobtitle'" [data]="jobTitle" [(ngModel)]="JobTitleKey"
-            [textField]="'JobTitleText'" [valueField]="'JobTitleKey'" [settings]="dropdownSettings" (onSelect)="filterMtngTrainingList()"
-            (onSelectAll)="filterMtngTrainingList()">
+          <ng-multiselect-dropdown [placeholder]="'Select Job Title'" [data]="jobTitle" [(ngModel)]="JobTitleKey"
+            [settings]="dropdownSettings" (onSelect)="filterMtngTrainingList()" (onDeSelect)="filterMtngTrainingList()"
+            (onSelectAll)="filterMtngTrainingList()" (onDeSelectAll)="filterMtngTrainingList()">
           </ng-multiselect-dropdown>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group " style="margin-left: 0.7rem;width: 75%;">
           <label for="people">Employee</label>
-          <ng-multiselect-dropdown [placeholder]="'Selectemployee'" [data]="empList" [(ngModel)]="EmployeeKey"
-            [textField]="'EmployeeText'" [valueField]="'EmployeeKey'" [settings]="dropdownSettings1" (onSelect)="filterMtngTrainingList()"
-            (onSelectAll)="filterMtngTrainingList()">
+          <ng-multiselect-dropdown [placeholder]="'Select Employee'" [data]="empList" [(ngModel)]="EmployeeKey"
+            [settings]="dropdownSettings1" (onSelect)="filterMtngTrainingList()" (onDeSelect)="filterMtngTrainingList()"
+            (onSelectAll)="filterMtngTrainingList()" (onDeSelectAll)="filterMtngTrainingList()">
           </ng-multiselect-dropdown>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group " style="margin-left: 0.7rem;width: 100%;">
+          <label for="people">Department</label>
+          <select style="background-color: #D4F4FF !important;" class="form-control col-sm-9 col-md-9 col-lg-9"
+            [(ngModel)]="DepartmentKey" (change)="filterMtngTrainingList()">
+            <option value="">--Select--</option>
+            <option *ngFor="let d of department" [value]="d.DepartmentKey">
+              {{d.DepartmentName}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group " style="margin-left: 0.7rem;width: 100%;">
+          <label for="people">Event Name</label>
+          <select name="eventtype" style="background-color: #d4f4ff;margin-left: 0.1rem;width: 75%" class="form-control"
+            [(ngModel)]="EventType" (change)="filterMtngTrainingList()">
+            <option value="">--Select--</option>
+            <option *ngFor="let b of event" [value]="b.ActionKey">
+              {{b.ActionType}} - {{b.Action}}
+            </option>
+          </select>
         </div>
       </div>
       <!-- </div>
@@ -53,7 +77,7 @@
     <form [formGroup]="searchform">
       <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
         <input class="form-control" name="searchMeetingview" maxlength="20" specialIsAlphaNumeric minlength="3" type="text"
-          placeholder="Search Action Name, Event Venue,Event Host" aria-label="Search" [(ngmodel)]="SearchMeetingTraining"
+          placeholder="Search Action Name, Event Venue,Event Host" aria-label="Search" [(ngModel)]="SearchMeetingTraining"
           formControlName="SearchMeetingTraining" (input)="searchMeetingTraining($event.target.value);" style="width: 100%;">
         <div *ngIf="searchform.controls.SearchMeetingTraining.errors?.minlength">Minimum 3 characters required.</div>
       </div>
@@ -71,7 +95,7 @@
           <th> Notes </th>
         </thead>
         <tbody>
-          <tr *ngFor="let x of meetingTraining" routerLink="/viewEventEmployees/{{ x.EventKey}}">
+          <tr *ngFor="let x of meetingTraining" [routerLink]="['viewEventEmployees', x.EventKey]">
             <td>{{x.ActionType}} - {{x.Action}}</td>
             <td>{{x.EventVenue}}</td>
             <td>{{x.EventHost}}</td>

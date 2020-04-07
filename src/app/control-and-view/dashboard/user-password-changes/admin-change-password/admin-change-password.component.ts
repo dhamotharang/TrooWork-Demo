@@ -5,6 +5,7 @@ import { People } from '../../../../model-class/People';
 import { PeopleServiceService } from '../../../../service/people-service.service';
 import { Login } from '../../../../model-class/login';
 import { HttpClient } from '@angular/common/http';
+import { ConectionSettings } from '../../../../service/ConnectionSetting';
 
 @Component({
   selector: 'app-admin-change-password',
@@ -87,13 +88,13 @@ export class AdminChangePasswordComponent implements OnInit {
               subject: 'Login Credentials',
               text: message
             };
-            const uri = "http://localhost:3000/api/sendmail";
-            return this.http.post(uri, obj)
+            const url = ConectionSettings.Url+"/sendmail";
+            return this.http.post(url, obj)
               .subscribe(res => console.log('Mail Sent Successfully...'));
           }
 
         });
-        this.router.navigateByUrl('/welcomeAdmin');
+        this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['welcomePage'] } }]);
       }
     }
   }

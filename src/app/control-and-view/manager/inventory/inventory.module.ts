@@ -30,12 +30,17 @@ import { FloorTypeCreateComponent } from './floor-type-create/floor-type-create.
 import { FloorTypeEDitComponent } from './floor-type-edit/floor-type-edit.component';
 import { RoomCreateComponent } from './room-create/room-create.component';
 import { RoomEditComponent } from './room-edit/room-edit.component';
+import { GenerateQrCodeComponent } from './generate-qr-code/generate-qr-code.component';
+import { QrCodeViewComponent } from './qr-code-view/qr-code-view.component';
+import { QrCodeViewFeedbackComponent } from './qr-code-view-feedback/qr-code-view-feedback.component';
+import { GenerateQrCodeListComponent } from './generate-qr-code-list/generate-qr-code-list.component';
+import { QrCodeViewListComponent } from './qr-code-view-list/qr-code-view-list.component';
 
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [DepartmentCreateComponent, DepartmentViewComponent, DepartmentEditComponent, EquipmentCreateComponent, EquipmentEditComponent, EquipmentViewComponent, EquipmentTypeCreateComponent, EquipmentTypeEditComponent, EquipmentTypeViewComponent, RoomViewComponent, RoomTypeViewComponent, RoomTypeCreateComponent, RoomTypeUpdateComponent, FloorTypeViewComponent, FloorTypeCreateComponent, FloorTypeEDitComponent, RoomCreateComponent, RoomEditComponent]
+  declarations: [DepartmentCreateComponent, DepartmentViewComponent, DepartmentEditComponent, EquipmentCreateComponent, EquipmentEditComponent, EquipmentViewComponent, EquipmentTypeCreateComponent, EquipmentTypeEditComponent, EquipmentTypeViewComponent, RoomViewComponent, RoomTypeViewComponent, RoomTypeCreateComponent, RoomTypeUpdateComponent, FloorTypeViewComponent, FloorTypeCreateComponent, FloorTypeEDitComponent, RoomCreateComponent, RoomEditComponent, GenerateQrCodeComponent, QrCodeViewComponent, QrCodeViewFeedbackComponent, GenerateQrCodeListComponent, QrCodeViewListComponent]
 })
 export class InventoryModule { }

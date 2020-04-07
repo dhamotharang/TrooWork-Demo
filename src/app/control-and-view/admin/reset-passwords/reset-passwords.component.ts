@@ -3,6 +3,7 @@ import { People } from '../../../model-class/People';
 import { PeopleServiceService } from '../../../service/people-service.service';
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
+import { ConectionSettings } from '../../../service/ConnectionSetting';
 
 @Component({
   selector: 'app-reset-passwords',
@@ -52,7 +53,8 @@ export class ResetPasswordsComponent implements OnInit {
     this.peopleService.resetUserPassword(username, password, this.empKey$, userLoginId, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.response = data[0];
       this.build = data;
-      this.router.navigateByUrl('/manageLoginCreds');
+     
+      this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['manageLoginCreds'] } }]);
     });
 
     if (this.build.length > 0) { // resetUserPassword returns username. just to make sure that the reset action was done properly, we are returnig the username
@@ -73,8 +75,8 @@ export class ResetPasswordsComponent implements OnInit {
             subject: 'Login Credentials',
             text: message
           };
-          const uri = "http://localhost:3000/api/sendmail";
-          return this.http.post(uri, obj)
+          const url = ConectionSettings.Url+"/sendmail";
+          return this.http.post(url, obj)
             .subscribe(res => console.log('Mail Sent Successfully...'));
         }
       });
@@ -97,5 +99,7 @@ export class ResetPasswordsComponent implements OnInit {
       this.build = data;
     });
   }
-
+  goBack(){
+    this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['manageLoginCreds'] } }]);
+  }
 }

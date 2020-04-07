@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { InspectionService } from '../../../../service/inspection.service';
 import { Inspection } from '../../../../model-class/Inspection';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-inspectiontemplatedetail-edit',
   templateUrl: './inspectiontemplatedetail-edit.component.html',
@@ -38,17 +39,17 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
   fieldArray;
   scores;
   TemplateEditDetails;
-  newAttribute= [];
+  newAttribute = [];
   temparray = [];
   insertObj;
 
-  constructor(private route: ActivatedRoute, private inspectionService: InspectionService, private router: Router) {
+  constructor(private route: ActivatedRoute, private inspectionService: InspectionService, private router: Router, private _location: Location) {
     this.route.params.subscribe(params => this.tempID = params.TemplateID);
   }
 
   customTrackBy(index: number, obj: any): any {
     return index;
-}
+  }
   ngOnInit() {
     //token starts....
     var token = localStorage.getItem('token');
@@ -85,14 +86,19 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
     this.temparray.push(tempKeys);
   }
   deleteFieldValue(TemplateQuestionID) {
-    this.inspectionService
-      .deleteSelectedTemplateQuestion(TemplateQuestionID, this.OrganizationID).subscribe(() => {
-        this.inspectionService
-          .getTemplateQuestionsEditDetails(this.tempID, this.OrganizationID).subscribe((data: any[]) => {
-            this.fieldArray = data;
-          });
+    if (this.fieldArray.length > 1) {
+      this.inspectionService
+        .deleteSelectedTemplateQuestion(TemplateQuestionID, this.OrganizationID).subscribe(() => {
+          this.inspectionService
+            .getTemplateQuestionsEditDetails(this.tempID, this.OrganizationID).subscribe((data: any[]) => {
+              this.fieldArray = data;
+            });
 
-      });
+        });
+    } else {
+      alert("Atleast one question is needed in the template.");
+      return false;
+    }
   }
   deleteNewFieldValue(index) {
     this.newAttribute.splice(index, 1);
@@ -109,6 +115,14 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
         if (this.temparray[j] === temp_updateArry[i].TemplateQuestionID) {
           temp_TemplateQuestionID = temp_updateArry[i].TemplateQuestionID;
           temp_Question = temp_updateArry[i].Question;
+          if(temp_Question){
+            temp_Question=temp_Question.trim();
+          }
+          else{
+ 
+                    alert("Question  is not provided !");
+                    return;
+          }
         }
       }
       this.insertObj = {
@@ -125,6 +139,15 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
     }
     for (var j = 0; j < temp_insertArry.length; j++) {
 
+      if(temp_insertArry[j]){
+        temp_insertArry[j]=temp_insertArry[j].trim();
+      }
+      else{
+      
+                alert("Question  is not provided !");
+                return;
+      }
+
       this.insertObj = {
         templateid: this.tempID,
         questionid: temp_insertArry[j],
@@ -137,12 +160,27 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
 
         });
     }
+    if(!this.TemplateEditDetails.TemplateName && !this.TemplateEditDetails.TemplateName.trim()){
+      alert("Template Name Not provided !");
+      return;
+    }
+    if(this.TemplateEditDetails.TemplateName){
+      this.TemplateEditDetails.TemplateName=this.TemplateEditDetails.TemplateName.trim();
+    }
+    // this.inspectionService.checkforTemplate(this.TemplateEditDetails.TemplateName,this.OrganizationID).subscribe(res => {
+    //   if (res[0].count == 0){
     this.inspectionService
       .updateTemplateDetails(this.TemplateEditDetails.TemplateName, this.tempID, this.OrganizationID, this.TemplateEditDetails.ScoreTypeKey).subscribe(() => {
         alert("Successfully Updated");
-        this.router.navigateByUrl('InspectiontemplateEdit');
+        this._location.back();
       });
-
+    // }
+    // else{
+    //   alert("Template Name already exists !");
+    // }
+    // });
   }
-
+  goBack() {
+    this._location.back();
+  }
 }

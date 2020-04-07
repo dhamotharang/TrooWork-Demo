@@ -32,6 +32,11 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+  statusFlag;
+  remark;
+  showManager;
+  supermark;
+  useroletype;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -104,8 +109,12 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
     }
   }
 
-  editEmployee(EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey) {
-    if (!(this.editempdtails.EmployeeNumber)) {
+  editEmployee(EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, JobTitleKey, DepartmentKey, ManagerKey, SupervisorKey) {
+    // , start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend,idemployeegrouping
+    var manKey;
+    var superKey;
+
+    if (!EmployeeNumber || !EmployeeNumber.trim()) {
       alert("Employee Number is not provided !");
       return;
     }
@@ -114,24 +123,27 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
       return;
     }
 
-    if (!(this.editempdtails.FirstName)) {
+    if (!(FirstName) || !(FirstName.trim())) {
       alert("First Name is not provided !");
       return;
     }
-    if (!(this.editempdtails.LastName)) {
+    if (!(LastName) || !(LastName.trim())) {
       alert("Last Name is not provided !");
       return;
     }
     if (!(this.editempdtails.Gender)) {
-      alert("Gender is not provided !");
-      return;
+      Gender = null;
     }
     if (!(this.editempdtails.EmployeeStatusKey)) {
       alert("Employee Status is not provided !");
       return;
     }
-    if (!(this.editempdtails.PrimaryPhone)) {
+    if (!(PrimaryPhone) || !(PrimaryPhone.trim())) {
       alert("Primary Phone is not provided !");
+      return;
+    }
+    if ((EmployeeStatusKey != 1) && !(this.remark)) {
+      alert("Remarks are not provided !");
       return;
     }
     if (!(this.HireDate)) {
@@ -146,6 +158,28 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
       alert("Department is not provided !");
       return;
     }
+
+
+    if (this.showManager === true && !(ManagerKey)) {
+      alert("Manager is not provided !");
+      return;
+    }
+    else {
+      manKey = -1;
+    }
+    if (UserRoleTypeKey == 3 && ManagerKey) {
+      manKey = ManagerKey;
+      superKey = ManagerKey;
+    }
+    else if (UserRoleTypeKey == 5 && ManagerKey) {
+      manKey = ManagerKey;
+    }
+    else {
+      manKey = -1;
+    }
+
+    
+
     var birthdt;
     var currentDate = this.convert_DT(new Date());
 
@@ -168,11 +202,47 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
       alert("Hire Date must be greater than birth date !");
       return;
     }
+    // if (this.editempdtails.UserRoleTypeKey == 3) {
+    //   manKey = this.employeekey;
+    // }
+    // else {
+    //   manKey = -1;
+    // }
 
-    this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.managerKey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey)
+    EmployeeNumber = EmployeeNumber.trim();
+    FirstName = FirstName.trim();
+    LastName = LastName.trim();
+    PrimaryPhone = PrimaryPhone.trim();
+    if (MiddleName) {
+      MiddleName = MiddleName.trim();
+    }
+    if (AddressLine1) {
+      AddressLine1 = AddressLine1.trim();
+    }
+    if (AddressLine2) {
+      AddressLine2 = AddressLine2.trim();
+    }
+    if (City) {
+      City = City.trim();
+    }
+    if (State) {
+      State = State.trim();
+    }
+    if (Country) {
+      Country = Country.trim();
+    }
+    if (ZipCode) {
+      ZipCode = ZipCode.trim();
+    }
+    if (AlternatePhone) {
+      AlternatePhone = AlternatePhone.trim();
+    }
+
+    this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.employeekey, manKey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, superKey, JobTitleKey, DepartmentKey, this.remark)
+      // , start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend,idemployeegrouping)
       .subscribe((data: Array<any>) => {
         alert("Employee Updated !");
-        this.router.navigateByUrl('/viewEmployeeAdmin');
+        this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['viewEmployeeAdmin'] } }]);
       });
 
   }
@@ -183,8 +253,11 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
       .DeleteEmployeeDetailsbyManager(this.delete_EmpKey, this.OrganizationID, this.employeekey)
       .subscribe((data: Array<any>) => {
         alert("Employee Deleted !");
-        this.router.navigateByUrl('/ViewEmployee')
+        this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['viewEmployeeAdmin'] } }]);
       });
+  }
+  goBack() {
+    this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['viewEmployeeAdmin'] } }]);
   }
   deleteEmpPass(empk$) {
     this.delete_EmpKey = empk$;
@@ -200,20 +273,40 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
-    var token = localStorage.getItem('token');
-    var encodedProfile = token.split('.')[1];
-    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-    this.role = profile.role;
-    this.IsSupervisor = profile.IsSupervisor;
-    this.name = profile.username;
-    this.employeekey = profile.employeekey;
-    this.OrganizationID = profile.OrganizationID;
-
     this.PeopleServiceService.EditEmployeeDetailsbyManager(this.empk$, this.OrganizationID).subscribe((data: Array<any>) => {
       this.editempdtails = data[0];
       this.BirthDate = new Date(this.editempdtails.BirthDate);
       this.HireDate = new Date(this.editempdtails.HireDate);
       this.managerKey = this.editempdtails.ManagerKey;
+      this.useroletype = this.editempdtails.UserRoleName;
+
+      if (this.editempdtails.EmployeeStatusKey != 1 && this.editempdtails.EmployeeStatusKey != "") {
+        this.statusFlag = true;
+        this.remark = this.editempdtails.Remark;;
+      }
+      if (this.useroletype == "Employee") {
+        this.showManager = true;
+        this.supermark = true;
+        this.PeopleServiceService
+          .getSupervisorListforDropdown(this.employeekey, this.OrganizationID)
+          .subscribe((data: People[]) => {
+            this.supervisor = data;
+          });
+
+        this.PeopleServiceService
+          .getmanagersForEmp(this.employeekey, this.OrganizationID)
+          .subscribe((data: any[]) => {
+            this.managerList = data;
+          });
+      } else if (this.useroletype == "Supervisor") {
+        this.showManager = true;
+        this.PeopleServiceService
+          .getmanagersForEmp(this.employeekey, this.OrganizationID)
+          .subscribe((data: any[]) => {
+            this.managerList = data;
+          });
+      }
+
     });
 
     this.PeopleServiceService
@@ -232,17 +325,8 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
         this.department = data;
       });
 
-    this.PeopleServiceService
-      .getSupervisorListforDropdown(this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        this.supervisor = data;
-      });
 
-    this.PeopleServiceService
-      .getmanagersForEmp(this.employeekey, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.managerList = data;
-      });
+
     this.PeopleServiceService
       .getUserRoleTypesa(this.OrganizationID)
       .subscribe((data: People[]) => {
@@ -254,6 +338,44 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
       this.marked = false;
     } else {
       this.marked = true;
+    }
+  }
+
+  statusChanged(statusKey) {
+    if (statusKey != 1 && statusKey != "") {
+      this.statusFlag = true;
+    }
+    else {
+      this.statusFlag = false;
+    }
+
+  }
+
+  selectUserType(userType) {
+    if (userType == 5) {
+      this.showManager = true;
+      this.supermark = false;
+      this.PeopleServiceService
+        .getmanagersForEmp(this.employeekey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.managerList = data;
+        });
+    } else if (userType == 3) {
+      this.showManager = true;
+      this.supermark = true;
+      this.PeopleServiceService
+        .getmanagersForEmp(this.employeekey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.managerList = data;
+        });
+      this.PeopleServiceService
+        .getSupervisorListforDropdown(this.employeekey, this.OrganizationID)
+        .subscribe((data: People[]) => {
+          this.supervisor = data;
+        });
+    } else {
+      this.showManager = false;
+      this.supermark = false;
     }
   }
 }

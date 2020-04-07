@@ -24,11 +24,11 @@
                 <b>• Multiple application interfaces for manager, supervisor, and staff members</b><br>
             </span>
         </b>
-        
+
         <span class="trooworkintro">
-                
-            <p>TrooWork has been designed for use with Apple devices such as iPhone, iPad, and iPods. The application
-                is compatible for all above listed devices running iOS 8.0 and above. The program has been created with
+
+            <p>TrooWork has been designed for use with Android devices and Apple devices such as iPhone, iPad, and iPods. The application
+                is compatible for all above listed devices running iOS 8.0 and above or Android Kitkat OS and above. The program has been created with
                 the end user in mind, attempting to be as simple, efficient, and straight forward as possible.</p>
         </span>
 
@@ -37,7 +37,7 @@
         <!-- <img src="assets/img/TrooWork-sticker-str.png" class="trooworklogo" /> -->
         <a class="navbar-brand" href="http://troodontechnology.com/">
             <img src="assets/img/TROOWORK.png" style="width: 10rem;margin-left: 9rem">
-          </a>
+        </a>
         <form [formGroup]="loginForm">
             <div class="md-form">
                 <i class="fa fa-user-circle prefix grey-text"></i>
@@ -61,6 +61,10 @@
             <div class="text-center">
                 <a><input type="submit" mdbBtn color="default" (click)="loginFn(userName.value,passWord.value,tenantID.value)"
                         sclass="waves-light" mdbWavesEffect value="Login"></a>
+            </div>
+            <div class=" mt-5 md-form">
+                <!-- <a [routerLink]="['Reviews',100,1,223]" class="btn btn-primary"><b>Review</b></a>
+                <a [routerLink]="['UserWorkRequest',924,1464,4433,2233,223,134593]" class="btn btn-primary"><b>User Work Request</b></a> -->
             </div>
         </form>
     </div>

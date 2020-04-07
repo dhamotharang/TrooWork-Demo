@@ -1,11 +1,11 @@
-<app-manager-dash-board></app-manager-dash-board>
-<div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
+<div style="margin-left: 15rem;margin-right: 15rem;overflow-x: hidden;">
   <br>
   <div style="text-align:center">
-    <h3 style="color: #174a5e;"><strong>UPDATE ROOM TYPE</strong></h3>
+    <h4 style="color: #174a5e;">UPDATE ROOM TYPE</h4>
   </div>
   <br>
-  <div class="col-md-12">
+  <div class="col-md-12 bg-info" style="padding-top: 2rem">
+
     <div class="row col-md-12">
       <h5 style="text-align:right" class="col-md-4"><label for="RoomTypeName">RoomType name*</label></h5>
       <div class="col-md-8" style="text-align:left">
@@ -13,41 +13,44 @@
           class="form-control" [(ngModel)]="roomTypeList.RoomTypeName">
       </div>
     </div>
+
     <br>
-    <div class="row col-md-12">
-      <h5 style="text-align:right;margin-top: ;" class="col-md-4"><label for="MetricType">MetricType Name*</label></h5>
+
+    <!-- <div class="row col-md-12">
+      <h5 style="text-align:right;" class="col-md-4"><label for="MetricType">MetricType Name*</label></h5>
       <div class="col-md-8" style="text-align:left">
-        <select *ngIf="roomTypeList" style="background-color: #D4F4FF !important; " class="form-control" [(ngModel)]="metricType">
-          <option>--Select--</option>
-          <option *ngFor="let f of metricTypeList" [value]="f.MetricType">
+        <select *ngIf="roomTypeList" style="background-color: #D4F4FF !important; " class="form-control" [(ngModel)]="metricType"
+          (change)=showFields($event.target.value)> -->
+          <!-- <option>--Select--</option> -->
+          <!-- <option *ngFor="let f of metricTypeList" [value]="f.MetricType">
             {{f.MetricType}}
           </option>
         </select>
       </div>
-    </div>
-    <br>
-    <div class="row col-md-12">
-      <h5 style="text-align:right;margin-top: ;" class="col-md-4"><label for="floorname">Metric Value*</label></h5>
+    </div> 
 
-      <div class="col-md-8" style="text-align:left">
-
-        <input type="text" *ngIf="roomTypeList" style="background-color: #D4F4FF !important;" class="form-control"
-          [(ngModel)]="roomTypeList.MetricTypeValue">
-      </div>
-    </div>
     <br>
+
     <div class="row col-md-12">
-      <div class="col col-md-3"></div>
-      <div style="text-align:right" class="col-md-3">
-        <a style="color:white !important" class="btn btn-success" (click)="updateRoomType(roomTypeList.RoomTypeName,roomTypeList.MetricTypeValue)">
-          <b>UPDATE</b>
-        </a>
+      <!-- <h5 style="text-align:right;" class="col-md-4"><label for="floorname">MetricType Value*</label></h5> -->
+
+      <!-- <div class="col-md-8" style="text-align:left">
+
+        <input type="hidden" *ngIf="roomTypeList" maxlength="40" style="background-color: #D4F4FF !important;" class="form-control"
+          [disabled]="metricType=='Default'" placeholder="Metric Value" (keypress)="numberValid($event)" [(ngModel)]="MetricTypeValue">
       </div>
-      <div style="text-align:left" class="col-md-3">
-        <a routerLink="/roomTypeView" class="btn btn-warning" style="color:white !important" routerLinkActive="active"><b>Go
-            Back</b></a></div>
-      <div class="col col-md-3"></div>
+    </div> -->
+
+    <br>
+    
+    <div class="row col-md-12" style="margin-left: 35%">
+      <a style="color:white !important" class="btn btn-success" (click)="updateRoomType(roomTypeList.RoomTypeName,MetricTypeValue)">
+        <b>UPDATE</b>
+      </a>
+
+      <a class="btn btn-warning" style="color:white !important" (click)='goBack()'><b>Go
+          Back</b></a>
     </div>
   </div>
- 
+
 </div>

@@ -69,7 +69,18 @@ export class ViewEmployeesofEventComponent implements OnInit {
   deleteMeeting() {
     this.peopleServ
       .DeleteMeetingTraining(this.eventKey, this.OrganizationID)
-      .subscribe(res => this.router.navigateByUrl('/MeetingTrainingView'));
+      .subscribe(res => {
+
+        if (this.role == 'Manager') {
+          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['MeetingTrainingView'] } }]);
+        }
+        // else  if(this.role=='Employee' && this.IsSupervisor==1){
+        else if (this.role == 'Supervisor') {
+          this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['MeetingTrainingView'] } }]);
+        }
+      }
+      );
+
   }
 
   ngOnInit() {

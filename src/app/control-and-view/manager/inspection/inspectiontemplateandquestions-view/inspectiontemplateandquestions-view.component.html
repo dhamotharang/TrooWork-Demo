@@ -1,14 +1,13 @@
-<app-manager-dash-board></app-manager-dash-board>
 <img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
 <div *ngIf="!loading">
-  <div style="background-color: #FFFFFF;margin-left: 10.5rem;margin-right: 10rem;">
+  <div style="margin-left: 10.5rem;margin-right: 10rem;">
     <div style="text-align:center;padding-top: 2rem">
-      <h3 style="color: #174a5e;"><strong>INSPECTION TEMPLATES AND QUESTIONS</strong></h3>
+      <h4 style="color: #174a5e;">INSPECTION TEMPLATES AND QUESTIONS</h4>
     </div>
     <br>
-    <div class="row col-md-12" style="padding-bottom: 2rem">
-      <div class="col-md-6">
-        <select style="background-color: #D4F4FF !important;margin-left: 5rem;" class="form-control " [(ngModel)]="TemplateID"
+    <div class="row col-md-12 bg-info" style="padding-bottom: 2rem;padding-top: 2rem;padding-left: 5rem;margin-left: 2rem;width: 95%">
+      <div class="col-md-6" >
+        <select style="background-color: #D4F4FF !important;" class="form-control " [(ngModel)]="TemplateID"
           (change)="showInspectionTemplateTable($event.target.value)">
           <option value="">--Choose a Template--</option>
           <option *ngFor="let t of template" [value]="t.TemplateID">
@@ -16,8 +15,8 @@
           </option>
         </select>
       </div>
-      <div class="col-md-6">
-        <a routerLink="/InspectiontemplateEdit" style="margin-top: -0.1rem;margin-left: 7rem;" class="btn btn-primary"><b>Edit
+      <div class="col-md-6" >
+        <a [routerLink]="['InspectiontemplateEdit']" style="margin-top: -0.1rem;margin-left: 7rem;" class="btn btn-primary"><b>Edit
             Inspection
             Template</b></a>
       </div>
@@ -29,7 +28,7 @@
       <form [formGroup]="searchform">
         <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: 1.5rem;margin-right: 1.5rem;">
           <input class="form-control" name="searchtemplatenameandquestion" maxlength="20" specialIsAlphaNumeric
-            minlength="3" type="text" placeholder="Search Template Name" aria-label="Search" [(ngmodel)]="searchTemplateNameAndQuestion"
+            minlength="3" type="text" placeholder="Search Template Name" aria-label="Search" [(ngModel)]="searchTemplateNameAndQuestion"
             formControlName="searchTemplateNameAndQuestion" (input)="searchTNandTQ($event.target.value,TemplateID);"
             style="width: 100%;">
           <div *ngIf="searchform.controls.searchTemplateNameAndQuestion.errors?.minlength">Minimum 3 characters
